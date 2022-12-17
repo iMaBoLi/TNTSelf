@@ -1,5 +1,7 @@
 from self import client
-from self.events import Cmd, Callback, Inline
+from self.events.Cmd import Cmd
+from self.events.Callback import Callback
+from self.events.Inline import Inline
 from self.functions import utils
 from self.functions.github import Git
 from self.functions.helper import media_type, mention
