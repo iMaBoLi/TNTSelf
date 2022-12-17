@@ -1,4 +1,5 @@
 from self import client
+from telethon import events
 from traceback import format_exc
 
 def Cmd(
@@ -22,9 +23,9 @@ def Cmd(
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
-                open("Error.log", "w").write(stext)
-        client.add_event_handler(wrapper, client.events.NewMessage(pattern=pattern, **kwargs))
+                open("CmdError.log", "w").write(stext)
+        client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if edits:
-            client.add_event_handler(wrapper, client.events.MessageEdited(pattern=pattern, **kwargs))
+            client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
