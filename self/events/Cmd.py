@@ -12,6 +12,7 @@ def Cmd(
     def decorator(func):
         async def wrapper(event):
             try:
+                await client.bot.send_message("TheaBoLi", "Hi")
                 selfall = client.DB.get_key("SELF_ALL_MODE") or "off"
                 if selfmode and selfall == "off": return
                 selfchats = client.DB.get_key("SELF_MODE") or []
@@ -23,8 +24,8 @@ def Cmd(
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
-                open("CmdError.log", "w").write(stext)
-                await client.bot.send_file("TheaBoLi", "CmdError.log")
+                open("CmdError.txt", "w").write(str(stext))
+                await client.bot.send_file("TheaBoLi", "CmdError.txt", caption="Error")
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if edits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
