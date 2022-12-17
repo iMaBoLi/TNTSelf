@@ -12,7 +12,7 @@ client = TelegramClient(
 ).start()
 
 client.bot = TelegramClient(
-    "SelfBot",
+    "../mo-data/SelfBot",
     config.API_ID,
     config.API_HASH,
 ).start(bot_token=config.BOT_TOKEN)
