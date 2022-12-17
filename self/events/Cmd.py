@@ -16,7 +16,6 @@ def Cmd(
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
                 open("CmdError.txt", "w").write(str(stext))
-                await client.bot.send_file("TheaBoLi", "CmdError.txt", caption="Error")
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if edits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
