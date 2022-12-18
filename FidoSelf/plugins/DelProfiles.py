@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from telethon import functions
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelProfile ?(\-\d*)?$")
