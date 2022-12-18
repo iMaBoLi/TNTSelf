@@ -69,28 +69,19 @@ class RedisDB:
             del self.cache[key]
         return bool(self.delete(str(key)))
         
-    def flushall(self):
+    def clean(self):
         for x in self.keys():
             self.del_key(x)
         return True
 
-
 class SqlDB:
-    def __init__(self):
-        self._url = "postgres://fidoself_user:kNsbkuu1VXeJgOnhwpf0tuCDnSFCIC3Y@dpg-ceffufhgp3jk7mhbm63g-a.frankfurt-postgres.render.com/fidoself"
-        self._connection = None
-        self._cursor = None
-        try:
-            self._connection = psycopg2.connect(dsn=self._url)
-            self._connection.autocommit = True
-            self._cursor = self._connection.cursor()
-            self._cursor.execute(
-                "CREATE TABLE IF NOT EXISTS Ultroid (ultroidCli varchar(70))"
-            )
-        except Exception as error:
-            print(error)
-            if self._connection:
-                self._connection.close()
+    def __init__(self, dbname="FidoSelf"):
+        self.url = config.SQL_URL
+        self.dbname = dbname
+        self.connection = psycopg2.connect(dsn=self.url)
+        self.connection.autocommit = True
+        self.cursor = self.connection.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS {dbname} ()")
         self.re_cache()
 
     @property
@@ -99,40 +90,33 @@ class SqlDB:
 
     @property
     def usage(self):
-        self._cursor.execute(
-            "SELECT pg_size_pretty(pg_relation_size('Ultroid')) AS size"
-        )
-        data = self._cursor.fetchall()
+        self.cursor.execute(f"SELECT pg_size_pretty(pg_relation_size('{self.dbname}')) AS size")
+        data = self.cursor.fetchall()
         return int(data[0][0].split()[0])
 
     def re_cache(self):
-        self._cache = {}
+        self.cache = {}
         for key in self.keys():
-            self._cache.update({key: self.get_key(key)})
+            self.cache.update({key: self.get_key(key)})
 
     def keys(self):
-        self._cursor.execute(
-            "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = 'ultroid'"
-        )
-        data = self._cursor.fetchall()
-        return [_[0] for _ in data]
-
-    def ping(self):
-        return True
+        self.cursor.execute(f"SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = '{self.dbname}'")
+        data = self.cursor.fetchall()
+        return [key[0] for key in data]
 
     def get_key(self, variable):
-        if variable in self._cache:
-            return self._cache[variable]
-        get_ = get_data(self, variable)
-        self._cache.update({variable: get_})
-        return get_
+        if variable in self.cache:
+            return self.cache[variable]
+        get = get_data(self, variable)
+        self.cache.update({variable: get})
+        return get
 
     def get(self, variable):
         try:
-            self._cursor.execute(f"SELECT {variable} FROM Ultroid")
+            self.cursor.execute(f"SELECT {variable} FROM {self.dbname}")
         except psycopg2.errors.UndefinedColumn:
             return None
-        data = self._cursor.fetchall()
+        data = self.cursor.fetchall()
         if not data:
             return None
         if len(data) >= 1:
@@ -142,42 +126,30 @@ class SqlDB:
 
     def set_key(self, key, value):
         try:
-            self._cursor.execute(f"ALTER TABLE Ultroid DROP COLUMN IF EXISTS {key}")
+            self.cursor.execute(f"ALTER TABLE {self.dbname} DROP COLUMN IF EXISTS {key}")
         except (psycopg2.errors.UndefinedColumn, psycopg2.errors.SyntaxError):
             pass
         except BaseException as er:
             print(er)
-        self._cache.update({key: value})
-        self._cursor.execute(f"ALTER TABLE Ultroid ADD {key} TEXT")
-        self._cursor.execute(f"INSERT INTO Ultroid ({key}) values (%s)", (str(value),))
+        self.cache.update({key: value})
+        self.cursor.execute(f"ALTER TABLE {self.dbname} ADD {key} TEXT")
+        self.cursor.execute(f"INSERT INTO {self.dbname} ({key}) values (%s)", (str(value)))
         return True
 
     def del_key(self, key):
-        if key in self._cache:
-            del self._cache[key]
+        if key in self.cache:
+            del self.cache[key]
         try:
-            self._cursor.execute(f"ALTER TABLE Ultroid DROP COLUMN {key}")
+            self.cursor.execute(f"ALTER TABLE {self.dbname} DROP COLUMN {key}")
         except psycopg2.errors.UndefinedColumn:
             return False
         return True
 
-    delete = del_key
-
-    def flushall(self):
-        self._cache.clear()
-        self._cursor.execute("DROP TABLE Ultroid")
-        self._cursor.execute(
-            "CREATE TABLE IF NOT EXISTS Ultroid (ultroidCli varchar(70))"
-        )
+    def clean(self):
+        self.cache.clear()
+        self.cursor.execute("DROP TABLE {self.dbname}")
+        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.dbname} ()")
         return True
-
-    def rename(self, key1, key2):
-        _ = self.get_key(key1)
-        if _:
-            self.del_key(key1)
-            self.set_key(key2, _)
-            return 0
-        return 1
 
 DB = RedisDB()
 DB.s = SqlDB()
