@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from PIL import Image
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Ssticker$")
