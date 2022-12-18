@@ -10,7 +10,7 @@ async def quicksmode(event):
     change = "Actived" if mode == "on" else "DeActived"
     await event.edit(f"**{client.str} The Quicks Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'(.+)\'(?:.+)")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'(.+)\' ?(.+)?")
 async def addquick(event):
     await event.edit(f"**{client.str} Processing . . .**")
     cmd = event.pattern_match.group(1)
@@ -20,7 +20,12 @@ async def addquick(event):
     if not answers:
         if not event.is_reply or not event.reply_message.media:
             return await event.edit(f"**{client.str} Please Enter Text Answers Or Reply To Media!**")
-        forward = await event.reply_message.forward_to(client.realm)
+        if not event.backch:
+            return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+        try:
+            forward = await event.reply_message.forward_to(client.backch)
+        except:
+            return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": "Media-" + str(forward.id)}})
     else:
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": answers}})
@@ -100,7 +105,7 @@ async def quicksupdate(event):
                 continue
             elif info["type"] == "Media":
                 msgid = int(info["answers"].replace("Media-", ""))
-                msg = await client.get_messages(client.realm, ids=msgid)
+                msg = await client.get_messages(client.backch, ids=msgid)
                 await event.reply(file=msg.media)
                 continue
             elif info["type"] == "Draft":
