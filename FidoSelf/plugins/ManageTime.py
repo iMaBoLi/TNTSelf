@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
