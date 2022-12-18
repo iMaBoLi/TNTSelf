@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}log (m|c|i)$")
