@@ -1,12 +1,12 @@
 from . import client
-from self.functions.utils import load_plugins, LOADED_PLUGS, NOT_LOADED_PLUGS
-from self.functions.misc import stimezone, addvars
+from FidoSelf.functions.utils import load_plugins, LOADED_PLUGS, NOT_LOADED_PLUGS
+from FidoSelf.functions.misc import stimezone, addvars
 import time
 
 async def setup():
     await addvars()
     stimezone()
-    load_plugins("self/plugins")
+    load_plugins("FidoSelf/plugins")
     try:
         send = await client.send_message("me", f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
         if LOADED_PLUGS:
