@@ -1,18 +1,16 @@
-from self import client
-from self.events.Cmd import Cmd
-from self.events.Callback import Callback
-from self.events.Inline import Inline
-from self.functions import utils
-from self.functions.github import Git
-from self.functions.helper import media_type, mention
-from self import config
-from self.database import DB
+from FidoSelf import client
+from FidoSelf.events import Cmd, Callback, Inline
+from FidoSelf.functions import utils
+from FidoSelf.functions.github import Git
+from FidoSelf.functions.helper import mention
+from FidoSelf import config
+from FidoSelf.database import DB
 import time
 import os
 
 async def addvars():
     setattr(client, "utils", utils)
-    setattr(client, "Git", Git)
+    setattr(client, "Git", Git())
     setattr(client, "Cmd", Cmd)
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
@@ -25,7 +23,6 @@ async def addvars():
     setattr(client, "cmd", client.DB.get_key("SELF_CMD") or ".")
     setattr(client, "realm", client.DB.get_key("REALM_CHAT") or "me")
     setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL") or "me")
-    setattr(client, "media_type", media_type)
     setattr(client, "mention", mention)
     setattr(client, "path", "../mo-data/SELFFILES/")
     create_folders()
