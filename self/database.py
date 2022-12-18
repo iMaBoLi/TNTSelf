@@ -1,7 +1,6 @@
 from redis import Redis
 from self import config
 import psycopg2
-import sys
 
 def get_data(self, key):
     data = self.get(str(key))
