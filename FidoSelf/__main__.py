@@ -8,7 +8,7 @@ async def setup():
     stimezone()
     load_plugins("FidoSelf/plugins")
     try:
-        send = await client.send_message("me", f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
+        send = await client.bot.send_message("TheaBoLi", f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
         if LOADED_PLUGS:
             text = f"**✅ Loaded Plugins :**\n\n"
             for plug in LOADED_PLUGS:
