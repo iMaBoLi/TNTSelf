@@ -10,7 +10,7 @@ googletrans==3.1.0a0
 speedtest-cli
 psutil
 instagrapi
-mega.py
+psycopg2
 cowpy
 selenium
 setuptools
