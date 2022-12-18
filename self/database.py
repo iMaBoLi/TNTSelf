@@ -81,7 +81,7 @@ class SqlDB:
         self._connection = None
         self._cursor = None
         try:
-            self._connection = psycopg2.connect(dsn=url)
+            self._connection = psycopg2.connect(dsn=self._url)
             self._connection.autocommit = True
             self._cursor = self._connection.cursor()
             self._cursor.execute(
@@ -89,7 +89,6 @@ class SqlDB:
             )
         except Exception as error:
             print(error)
-            print("Invaid SQL Database")
             if self._connection:
                 self._connection.close()
         self.re_cache()
