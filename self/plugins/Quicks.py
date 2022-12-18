@@ -10,7 +10,7 @@ async def quicksmode(event):
     change = "Actived" if mode == "on" else "DeActived"
     await event.edit(f"**{client.str} The Quicks Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'(.+)\' ?(.+)?")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'(.+)\'(?:.+)")
 async def addquick(event):
     await event.edit(f"**{client.str} Processing . . .**")
     cmd = event.pattern_match.group(1)
@@ -68,7 +68,7 @@ async def quicksupdate(event):
         if info["find"] == "Yes" and not info["cmd"] in event.text or info["find"] == "No" and not info["cmd"] == event.text: continue
         if info["whom"] == "Sudo" and not event.is_sudo and not event.is_ch: continue
         if info["whom"] == "Others" and event.is_sudo: continue
-        if not info["where"] == "all":
+        if not info["where"] == "All":
             if info["where"] == "Groups" and not event.is_group: continue
             if info["where"] == "Privates" and not event.is_private: continue
             if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
@@ -128,7 +128,7 @@ async def callbackquicks(event):
     if work == "where":
         whom = data[1]
         text = f"**{client.str} Please Choose Where You Want This Quick Answer To Be Saved:**"
-        if answers.startswith("media-"):
+        if answers.startswith("Media-"):
             buttons = [[Button.inline("• All •", data=f"findquick:{quick}:{whom}:All:Media"), Button.inline("• Groups •", data=f"findquick:{quick}:{whom}:Groups:Media"), Button.inline("• Privates •", data=f"findquick:{quick}:{whom}:Privates:Media"), Button.inline("• Here •", data=f"findquick:{quick}:{whom}:chat{event.chat_id}:Media")]]
             buttons.append([Button.inline("🚫 Close 🚫", data=f"closequick:{quick}")])
         else:
