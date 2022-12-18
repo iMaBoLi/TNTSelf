@@ -81,7 +81,7 @@ class SqlDB:
         self.connection = psycopg2.connect(dsn=self.url)
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS {dbname} ()")
+        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {dbname} ()")
         self.re_cache()
 
     @property
@@ -147,7 +147,7 @@ class SqlDB:
 
     def clean(self):
         self.cache.clear()
-        self.cursor.execute("DROP TABLE {self.dbname}")
+        self.cursor.execute(f"DROP TABLE {self.dbname}")
         self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.dbname} ()")
         return True
 
