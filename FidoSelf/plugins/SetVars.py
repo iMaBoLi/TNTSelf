@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
 async def messagesstarter(event):
