@@ -75,8 +75,8 @@ class RedisDB:
 
 
 class SqlDB:
-    def __init__(self, url):
-        self._url = url
+    def __init__(self):
+        self._url = "postgres://fidoself_user:kNsbkuu1VXeJgOnhwpf0tuCDnSFCIC3Y@dpg-ceffufhgp3jk7mhbm63g-a.frankfurt-postgres.render.com/fidoself"
         self._connection = None
         self._cursor = None
         try:
