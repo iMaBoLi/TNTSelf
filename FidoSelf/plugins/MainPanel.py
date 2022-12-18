@@ -1,7 +1,7 @@
-from self import client
+from FidoSelf import client
 from telethon import Button
 from datetime import datetime
-from self.plugins.ManageTime import FONTS, create_font
+from FidoSelf.plugins.ManageTime import FONTS, create_font
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Panel$")
 async def addecho(event):
