@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Name (On|Off)$")
 async def name(event):
