@@ -5,7 +5,7 @@ import os
 import glob
 
 class Git:
-    def __init__(self, token=config.GIT_TOKEN, repo="imAboli/SmartSelf"):
+    def __init__(self, token=config.GIT_TOKEN, repo="iMaBoLi/FidoSelf"):
         self.token = base64.b64decode(token).decode('utf-8')
         self.git = Github(self.token)
         self.repo = self.git.get_repo(repo)
