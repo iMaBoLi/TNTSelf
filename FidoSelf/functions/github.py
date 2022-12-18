@@ -1,5 +1,5 @@
 from github import Github
-from self import config
+from FidoSelf import config
 import base64
 import os
 import glob
