@@ -1,6 +1,7 @@
 from redis import Redis
 from self import config
 import psycopg2
+import sys
 
 def get_data(self, key):
     data = self.get(str(key))
@@ -91,7 +92,6 @@ class SqlDB:
             print("Invaid SQL Database")
             if self._connection:
                 self._connection.close()
-            sys.exit()
         self.re_cache()
 
     @property
@@ -114,7 +114,7 @@ class SqlDB:
     def keys(self):
         self._cursor.execute(
             "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = 'ultroid'"
-        )  # case sensitive
+        )
         data = self._cursor.fetchall()
         return [_[0] for _ in data]
 
