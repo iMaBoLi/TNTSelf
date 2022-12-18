@@ -8,8 +8,6 @@ def Cmd(
     sudo=True,
     edits=True,
     selfmode=True,
-    realm=False,
-    backch=False,
     **kwargs,
 ):
     cmds = client.DB.get_key("SELF_CMDS") or []
@@ -35,12 +33,10 @@ def Cmd(
                 for cmd in cmds:
                     if cmd in event.text: 
                         event.is_cmd = True
-                arealm = client.DB.get_key("REALM_CHAT") or False
-                if realm and not arealm:
-                    return await event.edit(f"**{client.str} The Realm Chat Not Saved!**")
-                abackch = client.DB.get_key("BACKUP_CHANNEL") or False
-                if backch and not abackch:
-                    return await event.edit(f"**{client.str} The BackUp Channel Not Saved!**")
+                realm = client.DB.get_key("REALM_CHAT") or False
+                event.realm = realm
+                backch = client.DB.get_key("BACKUP_CHANNEL") or False
+                event.backch = backch 
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
