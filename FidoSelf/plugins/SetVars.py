@@ -22,3 +22,21 @@ async def dcmdmessage(event):
     client.DB.del_key("SELF_CMD")
     client.cmd = "."
     await event.edit(f"**{client.str} The Self Commands Starter Has Been Deleted!**")
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetRealm$")
+async def realm(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    if not event.is_group:
+        return await event.edit(f"**{client.str} Please Send In Group For Added Realm Chat!**")
+    chat = int(str(event.chat_id).replace("-100", ""))
+    client.DB.set_key("REALM_CHAT", chat)
+    await event.edit(f"**{client.str} This Chat Is Saved For Realm Chat!**")
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetBackCh$")
+async def backch(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    if not event.is_ch:
+        return await event.edit(f"**{client.str} Please Send In Channel For Added BackUp Channel!**")
+    chat = int(str(event.chat_id).replace("-100", ""))
+    client.DB.set_key("BACKUP_CHANNEL", chat)
+    await event.edit(f"**{client.str} This Chat Is Saved For Realm Chat!**")
