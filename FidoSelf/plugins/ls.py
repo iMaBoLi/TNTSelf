@@ -1,5 +1,5 @@
-from self import client
-from self.functions.utils import convert_bytes
+from FidoSelf import client
+from FidoSelf.functions.utils import convert_bytes
 from pathlib import Path
 import os
 import time
