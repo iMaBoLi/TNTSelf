@@ -1,5 +1,5 @@
-from self import client
-from self.functions.utils import runcmd
+from FidoSelf import client
+from FidoSelf.functions.utils import runcmd
 from telethon import events, functions, types, Button
 import traceback
 import requests
