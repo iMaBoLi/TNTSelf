@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from self import config
+from FidoSelf import config
 import time
 
 START_TIME = time.time()
