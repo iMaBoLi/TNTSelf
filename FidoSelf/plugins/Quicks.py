@@ -20,12 +20,13 @@ async def addquick(event):
     if not answers:
         if not event.is_reply or not event.reply_message.media:
             return await event.edit(f"**{client.str} Please Enter Text Answers Or Reply To Media!**")
-        if not event.backch:
+        backch = client.DB.get_key("BACKUP_CHANNEL") or False
+        if not backch:
             return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
         try:
-            forward = await event.reply_message.forward_to(client.backch)
-        except:
-            return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+            forward = await event.reply_message.forward_to(int(client.backch))
+        except Exception as e:
+            return await event.edit(f"**{client.str} The BackUp Channel Is Not Available! {e}**")
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": "Media-" + str(forward.id)}})
     else:
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": answers}})
