@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 import requests, os
 
 LANGS = {"ara": "Arabic", "eng": "English", "fre": "French", "kor": "Korean", "ita": "Italian", "jpn": "Japanese", "chs": "Chinese", "ger": "German", "spa": "Spanish", "swe": "Swedish", "tur": "Turkish", "bul": "Bulgarian", "pol": "Polish", "por": "Portugal", "rus": "Russian", "hrv": "Croatian", "hin": "Hindi"}
