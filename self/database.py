@@ -133,7 +133,7 @@ class SqlDB:
             print(er)
         self.cache.update({key: value})
         self.cursor.execute(f"ALTER TABLE {self.dbname} ADD {key} TEXT")
-        self.cursor.execute(f"INSERT INTO {self.dbname} ({key}) values (%s)", (str(value)))
+        self.cursor.execute(f"INSERT INTO {self.dbname} ({key}) values ({str(value)})")
         return True
 
     def del_key(self, key):
