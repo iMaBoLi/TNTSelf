@@ -75,13 +75,12 @@ class RedisDB:
         return True
 
 class SqlDB:
-    def __init__(self, dbname="FidoSelf"):
+    def __init__(self):
         self.url = config.SQL_URL
-        self.dbname = dbname
         self.connection = psycopg2.connect(dsn=self.url)
         self.connection.autocommit = True
         self.cursor = self.connection.cursor()
-        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {dbname} ()")
+        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS FidoSelf (_ varchar(70))")
         self.re_cache()
 
     @property
@@ -90,7 +89,7 @@ class SqlDB:
 
     @property
     def usage(self):
-        self.cursor.execute(f"SELECT pg_size_pretty(pg_relation_size('{self.dbname}')) AS size")
+        self.cursor.execute("SELECT pg_size_pretty(pg_relation_size('FidoSelf')) AS size")
         data = self.cursor.fetchall()
         return int(data[0][0].split()[0])
 
@@ -100,7 +99,7 @@ class SqlDB:
             self.cache.update({key: self.get_key(key)})
 
     def keys(self):
-        self.cursor.execute(f"SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = '{self.dbname}'")
+        self.cursor.execute("SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name  = 'fidoself'") 
         data = self.cursor.fetchall()
         return [key[0] for key in data]
 
@@ -113,7 +112,7 @@ class SqlDB:
 
     def get(self, variable):
         try:
-            self.cursor.execute(f"SELECT {variable} FROM {self.dbname}")
+            self.cursor.execute(f"SELECT {variable} FROM FidoSelf")
         except psycopg2.errors.UndefinedColumn:
             return None
         data = self.cursor.fetchall()
@@ -126,30 +125,30 @@ class SqlDB:
 
     def set_key(self, key, value):
         try:
-            self.cursor.execute(f"ALTER TABLE {self.dbname} DROP COLUMN IF EXISTS {key}")
-        except (psycopg2.errors.UndefinedColumn, psycopg2.errors.SyntaxError):
+            self.cursor.execute(f"ALTER TABLE FidoSelf DROP COLUMN IF EXISTS {key}")
+        except:
             pass
-        except BaseException as er:
-            print(er)
         self.cache.update({key: value})
-        self.cursor.execute(f"ALTER TABLE {self.dbname} ADD {key} TEXT")
-        self.cursor.execute(f"INSERT INTO {self.dbname} ({key}) values (%s)", (str(value),))
+        self.cursor.execute(f"ALTER TABLE FidoSelf ADD {key} TEXT")
+        self.cursor.execute(f"INSERT INTO FidoSelf ({key}) values (%s)", (str(value),))
         return True
 
     def del_key(self, key):
-        if key in self.cache:
+        if key in self._cache:
             del self.cache[key]
         try:
-            self.cursor.execute(f"ALTER TABLE {self.dbname} DROP COLUMN {key}")
+            self.cursor.execute(f"ALTER TABLE FidoSelf DROP COLUMN {key}")
         except psycopg2.errors.UndefinedColumn:
             return False
         return True
 
     def clean(self):
         self.cache.clear()
-        self.cursor.execute(f"DROP TABLE {self.dbname}")
-        self.cursor.execute(f"CREATE TABLE IF NOT EXISTS {self.dbname} ()")
+        self.cursor.execute("DROP TABLE FidoSelf")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS FidoSelf (_ varchar(70))")
         return True
 
-DB = RedisDB()
-DB.s = SqlDB()
+if config.DATABASE_TYPE == "Redis":
+    DB = RedisDB()
+elif config.DATABASE_TYPE == "Sql":
+    DB = SqlDB()
