@@ -1,4 +1,8 @@
-FROM python:3.10
+FROM python:3.11
+
+RUN apt-get update
+RUN apt-get upgrade
+RUN apt-get install ffmpeg
 
 COPY . /app/
 WORKDIR /app/
