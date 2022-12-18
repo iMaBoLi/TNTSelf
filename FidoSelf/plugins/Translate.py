@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from googletrans import Translator
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Str (.*)$")
