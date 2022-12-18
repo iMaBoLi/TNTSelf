@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random 
 
