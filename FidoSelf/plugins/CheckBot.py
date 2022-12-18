@@ -1,4 +1,4 @@
-from self import client, START_TIME
+from FidoSelf import client, START_TIME
 import time
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}ping$")
