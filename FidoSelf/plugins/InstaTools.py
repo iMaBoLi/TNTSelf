@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 import instagrapi
 import os, re
 
