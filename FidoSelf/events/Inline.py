@@ -1,4 +1,4 @@
-from self import client
+from FidoSelf import client
 from telethon import events
 from traceback import format_exc
 
