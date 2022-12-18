@@ -1,6 +1,6 @@
-from self import client
+from FidoSelf import client
 from datetime import datetime
-from self.plugins.ManageTime import HEARTS
+from FidoSelf.plugins.ManageTime import HEARTS
 import asyncio
 import random
 
