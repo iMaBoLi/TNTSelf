@@ -16,14 +16,7 @@ class RedisDB:
     def __init__(self):
         URL = (config.REDIS_URL).split(":")[0]
         PORT = (config.REDIS_URL).split(":")[-1]
-        self.db = Redis(
-                host=URL,
-                password=config.REDIS_PASSWORD,
-                port=int(PORT),
-                decode_responses=True,
-                socket_timeout=5,
-                retry_on_timeout=True,
-            )
+        self.db = Redis("127.0.0.1", 6379, 7, charset='UTF-8', decode_responses=True)
         self.set = self.db.set
         self.get = self.db.get
         self.keys = self.db.keys
@@ -132,8 +125,8 @@ class SqlDB:
         except BaseException as er:
             print(er)
         self.cache.update({key: value})
-        self._cursor.execute(f"ALTER TABLE {self.dbname} ADD {key} TEXT")
-        self._cursor.execute(f"INSERT INTO {self.dbname} ({key}) values (%s)", (str(value),))
+        self.cursor.execute(f"ALTER TABLE {self.dbname} ADD {key} TEXT")
+        self.cursor.execute(f"INSERT INTO {self.dbname} ({key}) values (%s)", (str(value),))
         return True
 
     def del_key(self, key):
