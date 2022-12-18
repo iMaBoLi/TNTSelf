@@ -1,5 +1,5 @@
 from redis import Redis
-from self import config
+from FidoSelf import config
 import psycopg2
 
 def get_data(self, key):
