@@ -1,6 +1,6 @@
-from self import client
+from FidoSelf import client
 from telethon import Button
-from self.plugins.ManageTime import COLORS
+from FidoSelf.plugins.ManageTime import COLORS
 import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Photo (On|Off)$")
