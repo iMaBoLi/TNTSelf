@@ -13,8 +13,16 @@ def get_data(self, key):
 
 class RedisDB:
     def __init__(self):
-        self.pool = redis.ConnectionPool(host='localhost', port=6379, db=0)
-        self.db = redis.Redis(connection_pool=self.pool)
+        URL = (config.REDIS_URL).split(":")[0]
+        PORT = (config.REDIS_URL).split(":")[-1]
+        self.db = Redis(
+                host=URL,
+                password=config.REDIS_PASSWORD,
+                port=int(PORT),
+                decode_responses=True,
+                socket_timeout=5,
+                retry_on_timeout=True,
+           )
         self.set = self.db.set
         self.get = self.db.get
         self.keys = self.db.keys
