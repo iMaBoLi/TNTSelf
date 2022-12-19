@@ -27,7 +27,7 @@ async def addquick(event):
             forward = await event.reply_message.forward_to(int(client.backch))
         except Exception as e:
             return await event.edit(f"**{client.str} The BackUp Channel Is Not Available! {e}**")
-        quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": "Media-" + str(forward.id)}})
+        quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": "QuickMedia:" + str(client.backch) + ":" + str(forward.id)}})
     else:
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": answers}})
     client.DB.set_key("INQUICKS", quicks)
@@ -105,8 +105,9 @@ async def quicksupdate(event):
                     await asyncio.sleep(int(info["sleep"]))
                 continue
             elif info["type"] == "Media":
-                msgid = int(info["answers"].replace("Media-", ""))
-                msg = await client.get_messages(client.backch, ids=msgid)
+                chatid = int(info["answers"].split(":")[1])
+                msgid = int(info["answers"].split(":")[2])
+                msg = await client.get_messages(chatid, ids=msgid)
                 await event.reply(file=msg.media)
                 continue
             elif info["type"] == "Draft":
@@ -134,7 +135,7 @@ async def callbackquicks(event):
     if work == "where":
         whom = data[1]
         text = f"**{client.str} Please Choose Where You Want This Quick Answer To Be Saved:**"
-        if answers.startswith("Media-"):
+        if answers.startswith("QuickMedia"):
             buttons = [[Button.inline("• All •", data=f"findquick:{quick}:{whom}:All:Media"), Button.inline("• Groups •", data=f"findquick:{quick}:{whom}:Groups:Media"), Button.inline("• Privates •", data=f"findquick:{quick}:{whom}:Privates:Media"), Button.inline("• Here •", data=f"findquick:{quick}:{whom}:chat{event.chat_id}:Media")]]
             buttons.append([Button.inline("🚫 Close 🚫", data=f"closequick:{quick}")])
         else:
