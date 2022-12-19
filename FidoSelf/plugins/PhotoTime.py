@@ -102,7 +102,7 @@ async def photo(event):
         size = data[2]
         color = data[3]
         text = f"**{client.str} Please Choose Font For Your Time Text:**"
-        fonts = os.listdir(client.path + "fonts/")
+        fonts = client.DB.get_key("FONTS") or {}
         if len(fonts) == 0:
             return await event.answer(f"{client.str} Please Save A Font File First!", alert=True)
         buttons = [[Button.inline(f"Random ♻️", data=f"completephoto:{phname}:{where}:{size}:{color}:random")]]
@@ -180,8 +180,7 @@ async def cleanfonts(event):
     fonts = os.listdir(client.path + "fonts/")
     if not fonts:
         return await event.edit(f"**{client.str} The Font File List Is Already Empty!**")
-    for font in fonts:
-        os.remove(client.path + "fonts/" + font)
+    client.DB.del_key("FONTS")
     await event.edit(f"**{client.str} The Font File List Is Cleared!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddTextTime (.+)$")
