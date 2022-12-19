@@ -35,9 +35,9 @@ async def ocrapi(event):
         return await event.edit(f"**{client.str} Please Save Ocr ApiKey First!**")
     if not lang in LANGS:
         return await event.edit(f"**{client.str} The Language Not Found!**")
-    if not event.is_reply or not event.reply_media_type == "photo":
+    if not event.is_reply or not event.photo:
         return await event.edit(f"**{client.str} Please Reply To Photo!**")
-    photo = client.path + f"{event.reply_message.id}.png"
+    photo = f"{event.reply_message.id}.png"
     await event.reply_message.download_media(photo)
     stat, res = ocr_file(photo, lang)
     if not stat:
