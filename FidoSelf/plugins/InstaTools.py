@@ -10,6 +10,7 @@ def INSTA():
     INSTA = instagrapi.Client()
     if os.path.exists("iNstaSession.json"):
         INSTA.load_settings("iNstaSession.json")
+        INSTA.login(username, password)
         try:
             INSTA.get_timeline_feed()
         except instagrapi.exceptions.LoginRequired:
@@ -21,6 +22,7 @@ def INSTA():
     elif session:
         open("iNstaSession.json", "w").write(session)
         INSTA.load_settings("iNstaSession.json")
+        INSTA.login(username, password)
         try:
             INSTA.get_timeline_feed()
         except instagrapi.exceptions.LoginRequired:
