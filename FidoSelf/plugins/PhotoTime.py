@@ -14,7 +14,7 @@ async def photo(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
 async def addphoto(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    if not event.reply_message or not event.photo:
+    if not event.reply_message or not event.reply_message.photo:
         return await event.edit(f"**{client.str} Please Reply To Photo!**")
     phname = str(event.pattern_match.group(1))
     phname = phname + ".png"
