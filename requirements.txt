@@ -9,12 +9,10 @@ PyGithub
 aiocron
 Pillow
 googletrans==3.1.0a0
-speedtest-cli
 psutil
 instagrapi
 cowpy
 selenium
 setuptools
 ShazamAPI
-yt_dlp
 bs4
