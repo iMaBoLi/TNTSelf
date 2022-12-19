@@ -115,8 +115,8 @@ async def photo(event):
         size = data[2]
         color = data[3]
         font = data[4]
-        photos = client.DB.get_key("PHOTOS")[phname]
-        photos.update({"where": where,"size": size,"color": color,"font":font})
+        data = client.DB.get_key("PHOTOS")[phname]
+        photos.update({phname: {"chat_id": data["chat_id"], "msg_id": data["msg_id"], "where": where,"size": size,"color": color,"font":font}})
         client.DB.set_key("PHOTOS", photos)
         await event.edit(text=f"**{client.str} The New Photo Was Saved!**\n\n**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{where}` )\n**{client.str} Size:** ( `{size.title()}` )\n**{client.str} Color:** ( `{color.title()}` )\n**{client.str} Font:** ( `{font.title()}` )")
 
