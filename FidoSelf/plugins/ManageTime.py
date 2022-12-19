@@ -102,9 +102,9 @@ async def changer():
     FONTS = client.DB.get_key("FONTS") or {}
     TEXTS = client.DB.get_key("TEXT_TIMES") or []
     if client.DB.get_key("PHOTO_MODE") and client.DB.get_key("PHOTO_MODE") == "on" and PHOTOS and TEXTS and FONTS:
-        phname = random.choice(list(PHOTOS.keys()))
+        phname = random.choice(PHOTOS)
         info = PHOTOS[phname] 
-        chatid = int(nfo["chat_id"])
+        chatid = int(info["chat_id"])
         msgid = int(nfo["msg_id"])
         get = await client.get_messages(chatid, ids=msgid)
         photo = await client.download_media(get)
