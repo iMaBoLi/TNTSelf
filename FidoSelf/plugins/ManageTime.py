@@ -102,7 +102,7 @@ async def changer():
     FONTS = client.DB.get_key("FONTS") or {}
     TEXTS = client.DB.get_key("TEXT_TIMES") or []
     if client.DB.get_key("PHOTO_MODE") and client.DB.get_key("PHOTO_MODE") == "on" and PHOTOS and TEXTS and FONTS:
-        phname = random.choice(PHOTOS)
+        phname = random.choice(list(PHOTOS.keys()))
         info = PHOTOS[phname] 
         chatid = int(info["chat_id"])
         msgid = int(nfo["msg_id"])
@@ -121,7 +121,7 @@ async def changer():
         img.resize((640,640))
         ffont = info["font"]
         if ffont == "random":
-            ffont = random.choice(FONTS)
+            ffont = random.choice(list(FONTS.keys()))
         chatid = FONTS[ffont]["chat_id"]
         msgid = FONTS[ffont]["msg_id"]
         get = await client.get_messages(chatid, ids=msgid)
