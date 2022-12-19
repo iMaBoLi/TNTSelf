@@ -135,7 +135,7 @@ async def savefontfile(event):
     fonts = client.DB.get_key("FONTS") or {}
     if len(fonts) > 10:
         return await event.edit(f"**{client.str} Sorry, You Cannot Save More Than 10 Fonts!**")
-    if not event.reply_message or event.reply_media_type:
+    if not event.reply_message:
         return await event.edit(f"**{client.str} Please Reply To Font File!**")
     format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
     if format != "ttf":
