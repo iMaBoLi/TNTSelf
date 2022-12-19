@@ -1,4 +1,4 @@
-from redis import Redis
+import redis
 from FidoSelf import config
 import psycopg2
 
