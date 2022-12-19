@@ -105,7 +105,7 @@ async def changer():
         phname = random.choice(list(PHOTOS.keys()))
         info = PHOTOS[phname] 
         chatid = int(info["chat_id"])
-        msgid = int(nfo["msg_id"])
+        msgid = int(info["msg_id"])
         get = await client.get_messages(chatid, ids=msgid)
         photo = await client.download_media(get)
         TEXT = random.choice(TEXTS)
