@@ -13,12 +13,17 @@ async def offlinemonshimode(event):
     await event.edit(f"**{client.str} The Offline Monshi Mode Has Been {change}!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetOfflineMonshi$")
-async def offlinemonshi(event):
+async def setofflinemonshi(event):
     await event.edit(f"**{client.str} Processing . . .**")
     if not event.is_reply:
         return await event.edit(f"**{client.str} Please Reply To Message Or Media**")
-    forward = await event.reply_message.forward_to(client.realm)
-    client.DB.set_key("OFFLINE_MONSHI_MSG", str(forward.id))
+    if not client.backch:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+    try:
+        forward = await event.reply_message.forward_to(int(client.backch))
+    except:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+    client.DB.set_key("OFFLINE_MONSHI_MSG", str(client.backch) + ":" + str(forward.id))
     await event.edit(f"**{client.str} The Offline Monshi Message Has Been Saved!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetOfflineMonshiSleep (\d*)$")
@@ -34,8 +39,8 @@ async def offlinemonshi(event):
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
-    msgid = client.DB.get_key("OFFLINE_MONSHI_MSG") or ""
-    if not msgid: return
+    chat = client.DB.get_key("OFFLINE_MONSHI_MSG") or False
+    if not chat: return
     if "Online" in client.me.to_dict()["status"]["_"]: return
     user = await event.get_sender()
     me = await event.client.get_me()
@@ -44,7 +49,9 @@ async def offlinemonshi(event):
     chattitle = (await event.get_chat()).title
     newtime = datetime.now().strftime("%H:%M")
     datefa = client.DB.get_key("DATE_FA") or "---"
-    msg = await client.get_messages(client.realm, ids=int(msgid)) 
+    chatid = int(chat.split(":")[0])
+    msgid = int(chat.split(":")[1])
+    msg = await client.get_messages(chatid, ids=int(msgid)) 
     msg.text = msg.text.format(TITLE=chattitle, UNAME=uname, MNAME=mname, HEART=random.choice(HEARTS), TIME=newtime, DATE=datefa)
     sleep = client.DB.get_key("OFFLINE_MONSHI_SLEEP") or "0"
     await asyncio.sleep(int(sleep))
