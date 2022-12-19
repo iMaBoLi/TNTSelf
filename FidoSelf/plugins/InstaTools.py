@@ -3,17 +3,12 @@ import instagrapi
 import os, re
 
 def INSTA():
-    username = client.DB.get_key("INSTA_LOGIN_USER") or None
-    password = client.DB.get_key("INSTA_LOGIN_PASS") or None
+    username = client.DB.get_key("INSTA_LOGIN_USER") or False
+    password = client.DB.get_key("INSTA_LOGIN_PASS") or False
+    session = client.DB.get_key("INSTA_LOGIN_SESSION") or False
     if not username or not password: return "empty"
     INSTA = instagrapi.Client()
-    if not os.path.exists(client.path + "iNstaSession.json"):
-        try:
-            INSTA.login(username, password)
-        except Exception as error:
-            return f"Error: {error}"
-        INSTA.dump_settings("iNstaSession.json")
-    else:
+    if os.path.exists("iNstaSession.json"):
         INSTA.load_settings("iNstaSession.json")
         try:
             INSTA.get_timeline_feed()
@@ -23,6 +18,25 @@ def INSTA():
                 INSTA.login(username, password)
             except Exception as error:
                 return f"Error: {error}"
+    elif session:
+        open("iNstaSession.json", "w").write(session)
+        INSTA.load_settings("iNstaSession.json")
+        try:
+            INSTA.get_timeline_feed()
+        except instagrapi.exceptions.LoginRequired:
+            INSTA.relogin()
+            try:
+                INSTA.login(username, password)
+            except Exception as error:
+                return f"Error: {error}"
+    else:
+        try:
+            INSTA.login(username, password)
+        except Exception as error:
+            return f"Error: {error}"
+        INSTA.dump_settings("iNstaSession.json")
+        data = open("iNstaSession.json", "r").read()
+        client.DB.set_key("INSTA_LOGIN_SESSION", data)
     return INSTA
 
 @client.Cmd(pattern=f"(?i)^{client.cmd}instalogin (.*)\:(.*)$")
