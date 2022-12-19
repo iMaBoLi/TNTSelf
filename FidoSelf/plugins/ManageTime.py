@@ -99,11 +99,15 @@ async def changer():
         chbio = chbio.format(TIME=time, HEART=random.choice(HEARTS), TIMER=timer, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
         await client(functions.account.UpdateProfileRequest(about=str(chbio)))
     PHOTOS = client.DB.get_key("PHOTOS") or {}
+    FONTS = client.DB.get_key("FONTS") or {}
     TEXTS = client.DB.get_key("TEXT_TIMES") or []
-    if client.DB.get_key("PHOTO_MODE") and client.DB.get_key("PHOTO_MODE") == "on" and PHOTOS and TEXTS:
-        phname, _ = random.choice(list(PHOTOS.items()))
+    if client.DB.get_key("PHOTO_MODE") and client.DB.get_key("PHOTO_MODE") == "on" and PHOTOS and TEXTS and FONTS:
+        phname = random.choice(list(PHOTOS.keys()))
         info = PHOTOS[phname] 
-        photo = client.path + "pics/" + phname
+        chatid = int(nfo["chat_id"])
+        msgid = int(nfo["msg_id"])
+        get = await client.get_messages(chatid, ids=msgid)
+        photo = await client.download_media(get)
         TEXT = random.choice(TEXTS)
         TEXT = TEXT.format(TIME=newtime, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
@@ -117,8 +121,12 @@ async def changer():
         img.resize((640,640))
         ffont = info["font"]
         if ffont == "random":
-            ffont = random.choice(os.listdir(client.path + "fonts/"))
-        font = ImageFont.truetype(client.path + "fonts/" + ffont, size)
+            ffont = random.choice(FONTS)
+        chatid = FONTS[ffont]["chat_id"]
+        msgid = FONTS[ffont]["msg_id"]
+        get = await client.get_messages(chatid, ids=msgid)
+        ffont = await client.download_media(get)
+        font = ImageFont.truetype(ffont, size)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=font)
         newwidth, newheight = (width - twidth) / 2, (height - theight) /2
@@ -139,11 +147,13 @@ async def changer():
         elif info["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
         draw.text((newwidth, newheight), TEXT, color, font=font)
-        img.save(client.path + "NEWPROFILE.png")
-        file = await client.upload_file(client.path + "NEWPROFILE.png")
+        img.save("NEWPROFILE.png")
+        file = await client.upload_file("NEWPROFILE.png")
         pphoto = (await client.get_profile_photos("me"))[0]
         await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
         await client(functions.photos.UploadProfilePhotoRequest(file=file))
-        os.remove(client.path + "NEWPROFILE.png")
+        os.remove("NEWPROFILE.png")
+        os.remove(photo)
+        os.remove(ffont)
 
 changer.start()
