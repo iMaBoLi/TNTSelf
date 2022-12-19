@@ -14,14 +14,21 @@ async def photo(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
 async def addphoto(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    if not event.reply_message or not event.reply_media_type == "photo":
+    if not event.reply_message or not event.photo:
         return await event.edit(f"**{client.str} Please Reply To Photo!**")
     phname = str(event.pattern_match.group(1))
     phname = phname + ".png"
     photos = client.DB.get_key("PHOTOS") or {}
     if phname in photos:
         return await event.edit(f"**{client.str} The Photo Name** ( `{phname}` ) **Already In Photo List!**")
-    await event.reply_message.download_media(client.path + "pics/" + phname)
+    if not client.backch:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+    try:
+        forward = await event.reply_message.forward_to(int(client.backch))
+    except:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+    photos.update({phname: {"chat_id": client.backch, "msg_id": forward.id}})
+    client.DB.set_key("PHOTOS", photos)
     res = await client.inline_query(client.bot.me.username, f"addphoto:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
@@ -33,7 +40,6 @@ async def delphoto(event):
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
         return await event.edit(f"**{client.str} The Photo** ( `{phname}` ) **Not In Photo List!**")
-    os.remove(client.path + "pics/" + phname)
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
     await event.edit(f"**{client.str} The Photo** ( `{phname}` ) **Deleted From Photo List!**")  
@@ -57,8 +63,6 @@ async def cleanphotos(event):
     photos = client.DB.get_key("PHOTOS") or {}
     if not photos:
         return await event.edit(f"**{client.str} The Photo List Is Already Empty!**")
-    for photo in photos:
-        os.remove(client.path + "pics/" + photo)
     client.DB.del_key("PHOTOS")
     await event.edit(f"**{client.str} The Photo List Is Cleared!**")
 
@@ -111,21 +115,24 @@ async def photo(event):
         size = data[2]
         color = data[3]
         font = data[4]
-        photos.update({phname: {"where": where,"size": size,"color": color,"font":font}})
+        photos = client.DB.get_key("PHOTOS")[phname]
+        photos.update({"where": where,"size": size,"color": color,"font":font})
         client.DB.set_key("PHOTOS", photos)
         await event.edit(text=f"**{client.str} The New Photo Was Saved!**\n\n**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{where}` )\n**{client.str} Size:** ( `{size.title()}` )\n**{client.str} Color:** ( `{color.title()}` )\n**{client.str} Font:** ( `{font.title()}` )")
 
 @client.Callback(data="close\:(.*)")
 async def closephoto(event):
-    file = str(event.data_match.group(1).decode('utf-8'))
-    os.remove(client.path + "pics/" + file)
+    phname = str(event.data_match.group(1).decode('utf-8'))
+    photos = client.DB.get_key("PHOTOS") or {}
+    del photos[phname]
+    client.DB.set_key("PHOTOS", photos)
     await event.edit(text=f"**{client.str} The Photo Panel Successfuly Closed!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddFont (.*)$")
 async def savefontfile(event):
     await event.edit(f"**{client.str} Processing . . .**")
     fname = str(event.pattern_match.group(1))
-    fonts = os.listdir(client.path + "fonts/")
+    fonts = client.DB.get_key("FONTS") or {}
     if len(fonts) > 10:
         return await event.edit(f"**{client.str} Sorry, You Cannot Save More Than 10 Fonts!**")
     if not event.reply_message or event.reply_media_type:
@@ -133,23 +140,31 @@ async def savefontfile(event):
     format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
     if format != "ttf":
         return await event.edit(f"**{client.str} Please Reply To A Font File With .TTF Format!**")
-    await event.reply_message.download_media(client.path + "fonts/" + fname + ".ttf")
+    if not client.backch:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+    try:
+        forward = await event.reply_message.forward_to(int(client.backch))
+    except:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+    fonts.update({fname + ".ttf": {"chat_id": client.backch, "msg_id": forward.id}})
+    client.DB.set_key("FONTS", fonts)
     await event.edit(f"**{client.str} The Font File** ( `{fname}.ttf` ) **Has Been Saved!**")  
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelFont (.*)$")
 async def delfontfile(event):
     await event.edit(f"**{client.str} Processing . . .**")
     fname = str(event.pattern_match.group(1))
-    fonts = os.listdir(client.path + "fonts/")
+    fonts = client.DB.get_key("FONTS") or {}
     if fname not in fonts:
         return await event.edit(f"**{client.str} The Font** ( `{fname}` ) **Not In Fonts List!**")
-    os.remove(client.path + "fonts/" + fname)
+    del fonts[fname]
+    client.DB.set_key("FONTS", fonts)
     await event.edit(f"**{client.str} The Font File** ( `{fname}` ) **Has Been Deleted!**")  
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}FontList$")
 async def fontlist(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    fonts = os.listdir(client.path + "fonts/")
+    fonts = client.DB.get_key("FONTS") or {}
     if not fonts:
         return await event.edit(f"**{client.str} The Font File List Is Empty!**")
     text = f"**{client.str} The Font File List:**\n\n"
