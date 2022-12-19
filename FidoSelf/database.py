@@ -143,8 +143,9 @@ class SqlDB:
 
     def clean(self):
         self.cache.clear()
-        self.cursor.execute("DROP TABLE FidoSelf")
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS FidoSelf (_ varchar(70))")
+        for key in self.keys():
+            if not key == "_":
+                self.del_key(key)
         return True
 
 if config.DATABASE_TYPE == "Redis":
