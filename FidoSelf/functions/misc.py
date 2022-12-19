@@ -24,16 +24,8 @@ async def addvars():
     setattr(client, "realm", client.DB.get_key("REALM_CHAT"))
     setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL"))
     setattr(client, "mention", mention)
-    setattr(client, "path", "../mo-data/SELFFILES/")
-    create_folders()
 
 def stimezone():
     tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
     os.environ["TZ"] = str(tzone)
     time.tzset()
-
-def create_folders():
-    flist = ["../mo-data/SELFFILES", "../mo-data/SELFFILES/fonts", "../mo-data/SELFFILES/pics"]
-    for folder in flist:
-         if not os.path.exists(folder):
-             os.mkdir(folder)
