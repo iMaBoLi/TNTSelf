@@ -1,16 +1,16 @@
 from FidoSelf import client
 from telethon import functions
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}id$")
-async def id(event):
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Gid$")
+async def Getid(event):
     await event.edit(f"**{client.str} Processing . . .**")
     if event.is_private:
-        text = f"**{client.str} Your ID:** ( `{client.me.id}` )\n**{client.str} User ID:** ( `{event.chat_id}` )\n**{client.str} Message ID:** ( `{event.id}` )\n"    
+        text = f"**{client.str} YourID:** ( `{client.me.id}` )\n**{client.str} UserID:** ( `{event.chat_id}` )\n"    
         await event.edit(text) 
     else:
-        text = f"**{client.str} Your ID:** ( `{client.me.id}` )\n**{client.str} Chat ID:** ( `{event.chat_id}` )\n**{client.str} Message ID:** ( `{event.id}` )\n"
+        text = f"**{client.str} YourID:** ( `{client.me.id}` )\n**{client.str} ChatID:** ( `{event.chat_id}` )\n"
         if event.reply_message:
-            text += f"**{client.str} User ID:** ( `{event.reply_message.sender_id}` )"
+            text += f"**{client.str} Reply UserID:** ( `{event.reply_message.sender_id}` )"
         await event.edit(text)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
