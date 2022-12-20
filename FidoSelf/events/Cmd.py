@@ -14,7 +14,7 @@ def Cmd(
     if pattern:
         finds = re.findall("\w+", pattern)
         for find in finds:
-            if len(find) > 1 and not find in cmds:
+            if len(find) > 2 and not find in cmds:
                 cmds.append(find)
     client.DB.set_key("SELF_CMDS", cmds)
     def decorator(func):
