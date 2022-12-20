@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Bio (on|off)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Bio (On|off)$")
 async def bio(event):
     await event.edit(f"**{client.str} Processing . . .**")
     mode = event.pattern_match.group(1).lower()
