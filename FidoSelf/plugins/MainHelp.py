@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import Button
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}help$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Help$")
 async def helpselfpanel(event):
     await event.edit(f"**{client.str} Processing . . .**")
     res = await client.inline_query(client.bot.me.username, "helpselfpanel")
@@ -97,7 +97,7 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}Quicks On-Off`
 🔅 روشن-خاموش کردن حالت پاسخ سریع
 {emoji}
-⚡ `{client.cmd}AddQuick CMD|ANSWERS`
+⚡ `{client.cmd}AddQuick 'CMD' ANSWERS`
 🔅 اضافه کردن یک پاسخ سریع جدید
 **↪️ MEDIA**
 {emoji}
@@ -120,11 +120,14 @@ async def helpselfpages(event):
 {newemoji}
 ⚡ `{client.cmd}Cinfo CHAT`
 🔅 دریافت اطلاعات گروه یا چنل
-**🔥 CHAT: REPLY-CHATID-CHATUSERNAME-INCHAT**
+**🔥 CHAT: CHATID-CHATUSERNAME-INCHAT**
 {emoji}
 ⚡ `{client.cmd}Uinfo USER`
 🔅 دریافت اطلاعات کاربر
 **🔥 USER: REPLY-USERID-USERNAME-INPV**
+{emoji}
+⚡ `{client.cmd}Gid`
+🔅 دریافت آیدی چت و کاربر
 {newemoji}
 """
     elif page == "account":
