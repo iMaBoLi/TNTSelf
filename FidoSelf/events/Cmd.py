@@ -33,10 +33,19 @@ def Cmd(
                 for cmd in cmds:
                     if cmd in event.text: 
                         event.is_cmd = True
-                realm = client.DB.get_key("REALM_CHAT") or False
-                event.realm = realm
-                backch = client.DB.get_key("BACKUP_CHANNEL") or False
-                event.backch = backch 
+                event.userid = None
+                event.chatid = None
+                if event.reply_message:
+                    event.userid = event.reply_message.sender_id 
+                elif len(event.text.split()) > 1:
+                    try:
+                        userid =  await client.get_peer_id(event.text.split()[1])
+                        event.userid = userid
+                        event.chatid = userid
+                    except:
+                        pass
+                else:
+                    event.chatid = event.chat_id
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
