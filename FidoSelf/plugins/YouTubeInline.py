@@ -12,7 +12,10 @@ from youtubesearchpython import VideosSearch
 ytt = "https://telegra.ph/file/afd04510c13914a06dd03.jpg"
 
 
-@client.Inline(pattern="yt")
+async def dler(event, url, opts: dict = {}, download=False):
+    await event.edit("`Getting Data...`")
+
+@client.Inline(pattern="yt (.*)")
 async def _(event):
     try:
         string = event.text.split(" ", maxsplit=1)[1]
