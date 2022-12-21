@@ -1,6 +1,5 @@
 import asyncio
 import os
-os.system("pip install youtubesearchpython")
 import re
 import time
 from FidoSelf import client
