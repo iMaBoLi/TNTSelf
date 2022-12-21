@@ -16,3 +16,4 @@ selenium
 setuptools
 ShazamAPI
 bs4
+youtube-search-python
