@@ -34,18 +34,21 @@ def Cmd(
                     if cmd in event.text: 
                         event.is_cmd = True
                 event.userid = None
-                event.chatid = None
+                event.chatid = event.chat_id
                 if event.reply_message:
                     event.userid = event.reply_message.sender_id 
                 elif len(event.text.split()) > 1:
                     try:
-                        userid =  await client.get_peer_id(event.text.split()[1])
+                        userid =  await client.get_peer_id(int(event.text.split()[1]))
                         event.userid = userid
                         event.chatid = userid
                     except:
-                        pass
-                else:
-                    event.chatid = event.chat_id
+                        try:
+                            userid =  await client.get_peer_id(str(event.text.split()[1]))
+                            event.userid = userid
+                            event.chatid = userid
+                        except:
+                            pass
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
