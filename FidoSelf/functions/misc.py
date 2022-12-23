@@ -10,7 +10,7 @@ import os
 
 async def addvars():
     setattr(client, "utils", utils)
-    setattr(client, "Git", Git())
+    setattr(client, "Git", Git)
     setattr(client, "Cmd", Cmd)
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
