@@ -19,6 +19,8 @@ FONTS = {
      9: "₀₁₂₃₄₅₆₇₈₉",
      10: "⁰¹²³⁴⁵⁶⁷⁸⁹",
      11: "𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿",
+     12: "0⃣   1⃣   2⃣   3⃣   4⃣   5⃣   6⃣   7⃣   8⃣   9⃣",
+     13: "0⃞    1⃞    2⃞    3⃞    4⃞    5⃞    6⃞    7⃞    8⃞    9⃞",
 }
 TIMER = {
     1:{
@@ -61,7 +63,7 @@ def create_font(newtime, font):
     return newtime
 
 @aiocron.crontab("*/1 * * * *")
-async def changer():
+async def timechanger():
     NAMES = client.DB.get_key("NAMES") or []
     BIOS = client.DB.get_key("BIOS") or []
     timefont = client.DB.get_key("TIME_FONT") or 1
@@ -156,4 +158,4 @@ async def changer():
         os.remove(photo)
         os.remove(ffont)
 
-changer.start()
+timechanger.start()
