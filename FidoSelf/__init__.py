@@ -6,13 +6,15 @@ import time
 START_TIME = time.time()
 
 client = TelegramClient(
-    StringSession(str(config.SESSION)),
-    config.API_ID,
-    config.API_HASH,
+    session=StringSession(str(config.SESSION)),
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
+    device_model="FidoSelf",
+    system_version="0.4.1",
 ).start()
 
 client.bot = TelegramClient(
-    "SelfBot",
-    config.API_ID,
-    config.API_HASH,
+    session="FidoBot",
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
 ).start(bot_token=config.BOT_TOKEN)
