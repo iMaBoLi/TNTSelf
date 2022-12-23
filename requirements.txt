@@ -4,6 +4,7 @@ redis
 psycopg2
 requests
 redis
+bs4
 aiofiles
 PyGithub
 aiocron
@@ -15,5 +16,5 @@ cowpy
 selenium
 setuptools
 ShazamAPI
-bs4
+yt-dlp
 youtube-search-python
