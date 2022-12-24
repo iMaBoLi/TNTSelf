@@ -21,6 +21,7 @@ FONTS = {
     10: "⁰,¹,²,³,⁴,⁵,⁶,⁷,⁸,⁹",
     11: "𝟶,𝟷,𝟸,𝟹,𝟺,𝟻,𝟼,𝟽,𝟾,𝟿",
     12: "0⃣,1⃣,2⃣,3⃣,4⃣,5⃣,6⃣,7⃣,8⃣,9⃣",
+    13: "⒪,⑴,⑵,⑶,⑷,⑸,⑹,⑺,⑻,⑼",
 }
 TIMER = {
     1:{
@@ -120,7 +121,10 @@ async def changer():
         color = ImageColor.getrgb(color)
         img = Image.open(photo)
         width, height = img.size
-        img.resize((640,640))
+        if width > 640:
+            width = 640
+        if height > 640:
+            height = 640
         ffont = info["font"]
         if ffont == "random":
             ffont = random.choice(list(FONTS.keys()))
