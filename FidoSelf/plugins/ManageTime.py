@@ -19,8 +19,7 @@ FONTS = {
     9: "₀,₁,₂,₃,₄,₅,₆,₇,₈,₉",
     10: "⁰,¹,²,³,⁴,⁵,⁶,⁷,⁸,⁹",
     11: "𝟶,𝟷,𝟸,𝟹,𝟺,𝟻,𝟼,𝟽,𝟾,𝟿",
-    12: "0⃣,1⃣,2⃣,3⃣,4⃣,5⃣,6⃣,7⃣,8⃣,9⃣",
-    13: "⒪,⑴,⑵,⑶,⑷,⑸,⑹,⑺,⑻,⑼",
+    12: "⒪,⑴,⑵,⑶,⑷,⑸,⑹,⑺,⑻,⑼",
 }
 TIMER = {
     1:{
@@ -170,8 +169,8 @@ async def timechanger():
             await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
         except:
             pass
-        os.remove("NEWPROFILE.jpg")
-        os.remove(photo)
+        #os.remove("NEWPROFILE.jpg")
+        #os.remove(photo)
         os.remove(ffont)
 
 timechanger.start()
