@@ -5,6 +5,7 @@ from datetime import datetime
 import aiocron
 import random
 import os
+import re
 import requests
 
 FONTS = {
@@ -85,7 +86,7 @@ async def timechanger():
     mins = create_font(mins, timefont)
     dateen = datetime.now().strftime("%F").replace("-", "/")
     datefa = client.DB.get_key("DATE_FA") or "-"
-    if datefa == "-" or newtime == "00:00":
+    if datefa == "-" or newtime == "00:00" or re.search("(.*)\/(.*)\/(.*)", str(datefa)):
         datefa = (requests.get("http://api.codebazan.ir/time-date/?json=en").json())["result"]["date"]
         client.DB.set_key("DATE_FA", datefa)
     wname = datetime.now().strftime("%A")
@@ -169,8 +170,13 @@ async def timechanger():
             await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
         except:
             pass
-        #os.remove("NEWPROFILE.jpg")
-        #os.remove(photo)
+        try:
+            pphoto = (await client.get_profile_photos("me"))[0]
+            await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
+        except:
+            pass
+        os.remove("NEWPROFILE.jpg")
+        os.remove(photo)
         os.remove(ffont)
 
 timechanger.start()
