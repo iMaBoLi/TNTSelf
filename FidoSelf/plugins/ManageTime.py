@@ -3,7 +3,6 @@ from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
 import aiocron
-import asyncio
 import random
 import os
 import re
@@ -125,11 +124,6 @@ async def photochanger():
         os.remove(photo)
         os.remove(ffont)
 
-async def mainchanger():
-    name = aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
-    bio = aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
-    photo = aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
-    while True:
-        await asyncio.sleep(1)
-
-asyncio.run(mainchanger())
+aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
+aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
+aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
