@@ -59,7 +59,8 @@ COLORS = ["black", "white", "blue", "red", "yellow", "green", "purple", "orange"
 def create_font(newtime, font):
     for par in newtime:
         if par != ":":
-            newtime = newtime.replace(par, FONTS[int(font)].split(",")[int(par)])
+            nfont = FONTS[int(font)].split(",")[int(par)].replace("⃣⃣", "⃣").replace("⃣⃣⃣", "⃣")
+            newtime = newtime.replace(par, nfont)
     return newtime
 
 @aiocron.crontab("*/1 * * * *")
@@ -158,18 +159,18 @@ async def timechanger():
         elif info["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
         draw.text((newwidth, newheight), TEXT, color, font=font)
-        img.save("NEWPROFILE.png")
-        pphoto = (await client.get_profile_photos("me"))[0]
+        img.save("NEWPROFILE.jpg")
         try:
+            pphoto = (await client.get_profile_photos("me"))[0]
             await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
         except:
             pass
         try:
-            file = await client.upload_file("NEWPROFILE.png")
-            await client(functions.photos.UploadProfilePhotoRequest(file=file))
+            phfile = await client.upload_file("NEWPROFILE.png")
+            await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
         except:
             pass
-        os.remove("NEWPROFILE.png")
+        os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
 
