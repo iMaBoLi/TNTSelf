@@ -43,7 +43,21 @@ async def delphoto(event):
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
     await event.edit(f"**{client.str} The Photo** ( `{phname}` ) **Deleted From Photo List!**")  
-    
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}GetPhoto (.*)$")
+async def getphoto(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    photos = client.DB.get_key("PHOTOS") or {}
+    phname = str(event.pattern_match.group(1))
+    if phname not in photos:
+        return await event.edit(f"**{client.str} The Photo** ( `{phname}` ) **Not In Photo List!**")
+    photo = photos[phname]
+    get = await client.get_messages(photo["chat_id"], ids=int(photo["msg_id"]))
+    fphoto = await get.download_media()
+    await event.respond(f"""**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{photo["where"]}` )\n**{client.str} Size:** ( `{photo["size"].title()}` )\n**{client.str} Color:** ( `{photo["color"].title()}` )\n**{client.str} Font:** ( `{photo["font"].title()}` )\n**{client.str} Align:** ( `{photo["align"].title()}` )""", file=fphoto)
+    await event.delete()
+    os.remove(fphoto)
+
 @client.Cmd(pattern=f"(?i)^\{client.cmd}PhotoList$")
 async def photolist(event):
     await event.edit(f"**{client.str} Processing . . .**")
@@ -116,7 +130,7 @@ async def photo(event):
         color = data[3]
         font = data[4]
         text = f"**{client.str} Please Specify How To Align The Time Text On This Image:**"
-        buttons = [[Button.inline("• Left •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:left")], [Button.inline("• Center •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:center")], [Button.inline("• Right •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:right")]]
+        buttons = [[Button.inline("• Left •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:left"), Button.inline("• Center •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:center"), Button.inline("• Right •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:right")]]
         buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "complete":
@@ -127,7 +141,7 @@ async def photo(event):
         data = client.DB.get_key("PHOTOS")[phname]
         photos.update({phname: {"chat_id": data["chat_id"], "msg_id": data["msg_id"], "where": where,"size": size,"color": color,"font": font,"align": align}})
         client.DB.set_key("PHOTOS", photos)
-        await event.edit(text=f"**{client.str} The New Photo Was Saved!**\n\n**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{where}` )\n**{client.str} Size:** ( `{size.title()}` )\n**{client.str} Color:** ( `{color.title()}` )\n**{client.str} Font:** ( `{font.title()}` )")
+        await event.edit(text=f"**{client.str} The New Photo Was Saved!**\n\n**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{where}` )\n**{client.str} Size:** ( `{size.title()}` )\n**{client.str} Color:** ( `{color.title()}` )\n**{client.str} Font:** ( `{font.title()}` )\n**{client.str} Align:** ( `{align.title()}` )")
 
 @client.Callback(data="photoclose\:(.*)")
 async def closephoto(event):
