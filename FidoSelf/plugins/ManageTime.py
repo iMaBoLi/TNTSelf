@@ -166,7 +166,7 @@ async def timechanger():
         except:
             pass
         try:
-            phfile = await client.upload_file("NEWPROFILE.png")
+            phfile = await client.upload_file("NEWPROFILE.jpg")
             await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
         except:
             pass
