@@ -158,20 +158,12 @@ async def timechanger():
             newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
         elif info["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
-        draw.text((newwidth, newheight), TEXT, color, font=font, align="center")
+        draw.text((newwidth, newheight), TEXT, color, font=font, align=str(info["align"])
         img.save("NEWPROFILE.jpg")
-        try:
-            pphoto = (await client.get_profile_photos("me"))[0]
-            await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
-        except:
-            pass
         try:
             phfile = await client.upload_file("NEWPROFILE.jpg")
             await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
-        except:
-            pass
-        try:
-            pphoto = (await client.get_profile_photos("me"))[0]
+            pphoto = (await client.get_profile_photos("me"))[1]
             await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
         except:
             pass
