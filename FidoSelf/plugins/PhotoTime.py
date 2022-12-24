@@ -183,7 +183,7 @@ async def cleanfonts(event):
     client.DB.del_key("FONTS")
     await event.edit(f"**{client.str} The Font File List Is Cleared!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddTextTime (.+)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddTextTime ([\s\S]*)$")
 async def addtexttime(event):
     await event.edit(f"**{client.str} Processing . . .**")
     texttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -198,7 +198,7 @@ async def addtexttime(event):
     client.DB.set_key("TEXT_TIMES", texttimes)
     await event.edit(f"**{client.str} The Text Time** ( `{newtexttime}` ) **Added To Text Time List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelTextTime (.+)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}DelTextTime ([\s\S]*)$")
 async def deltexttime(event):
     await event.edit(f"**{client.str} Processing . . .**")
     texttimes = client.DB.get_key("TEXT_TIMES") or []
