@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import functions
+from telethon import functions, types
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelProfile ?(\-\d*)?$")
 async def delprofiles(event):
