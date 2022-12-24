@@ -2,9 +2,10 @@ from FidoSelf import client
 from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
-import aiocron
-import random
 import os
+os.system("pip install schedule")
+import schedule
+import random
 import re
 
 FONTS = {
@@ -124,6 +125,10 @@ async def photochanger():
         os.remove(photo)
         os.remove(ffont)
 
-aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
-aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
-aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
+#aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
+#aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
+#aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
+
+schedule.every().minutes.do(namechanger)
+schedule.every().minutes.do(biochanger)
+schedule.run_pending()
