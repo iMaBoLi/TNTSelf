@@ -60,8 +60,3 @@ async def smartmonshi(event):
     sleep = client.DB.get_key("SMART_MONSHI_SLEEP") or "0"
     await asyncio.sleep(int(sleep))
     await event.reply(msg)
-
-@aiocron.crontab("*/60 * * * *")
-async def monshichanger():
-    client.DB.del_key("SMART_MONSHI_USERS")
-monshichanger.start()
