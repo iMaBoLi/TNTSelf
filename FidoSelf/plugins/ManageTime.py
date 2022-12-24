@@ -158,7 +158,7 @@ async def timechanger():
             newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
         elif info["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
-        draw.text((newwidth, newheight), TEXT, color, font=font, align=str(info["align"])
+        draw.text((newwidth, newheight), TEXT, color, font=font, align=str(info["align"]))
         img.save("NEWPROFILE.jpg")
         try:
             phfile = await client.upload_file("NEWPROFILE.jpg")
