@@ -86,7 +86,7 @@ async def timechanger():
     mins = create_font(mins, timefont)
     dateen = datetime.now().strftime("%F").replace("-", "/")
     datefa = client.DB.get_key("DATE_FA") or "-"
-    if datefa == "-" or newtime == "00:00" or re.search("(.*)\/(.*)\/(.*)", str(datefa)):
+    if datefa == "-" or newtime == "00:00":
         datefa = (requests.get("http://api.codebazan.ir/time-date/?json=en").json())["result"]["date"]
         client.DB.set_key("DATE_FA", datefa)
     wname = datetime.now().strftime("%A")
