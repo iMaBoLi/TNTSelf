@@ -10,7 +10,7 @@ client = TelegramClient(
     api_id=config.API_ID,
     api_hash=config.API_HASH,
     device_model="FidoSelf",
-    system_version="0.4.1",
+    app_version="0.4.1",
 ).start()
 
 client.bot = TelegramClient(
