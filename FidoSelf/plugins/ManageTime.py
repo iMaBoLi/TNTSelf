@@ -125,10 +125,6 @@ async def photochanger():
         os.remove(photo)
         os.remove(ffont)
 
-#aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
-#aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
-#aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
-
-schedule.every().minutes.do(namechanger)
-schedule.every().minutes.do(biochanger)
-schedule.run_pending()
+aiocron.crontab('*/1 * * * *', func=namechanger)
+aiocron.crontab('*/1 * * * *', func=biochanger)
+aiocron.crontab('*/1 * * * *', func=photochanger)
