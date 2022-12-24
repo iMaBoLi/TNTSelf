@@ -140,10 +140,6 @@ async def timechanger():
         os.remove(photo)
         os.remove(ffont)
 
-timechanger.start()
-
-@aiocron.crontab("*/2 * * * *")
+@aiocron.crontab("*/1 * * * *")
 async def ggchanger():
-    await client.send_message("me", "Hi")
-
-ggchanger.start()
+    await client.send_message("me", f"Time: {datetime.now().strftime('%H:%M')}")
