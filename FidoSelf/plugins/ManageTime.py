@@ -2,11 +2,10 @@ from FidoSelf import client
 from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
-import os
-os.system("pip install schedule")
-import schedule
+import aiocron
 import random
 import re
+import os
 
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
