@@ -74,7 +74,7 @@ async def addphoto(event):
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
         buttons.append(Button.inline(f"• {where} •", data=f"sizephoto:{phname}:{where}"))
     buttons = list(client.utils.chunks(buttons, 3))
-    buttons.append([Button.inline("🚫 Close 🚫", data=f"close:{phname}")])
+    buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Photo", text=text, buttons=buttons)])
 
 @client.Callback(data="(.*)photo\:(.*)")
@@ -87,16 +87,16 @@ async def photo(event):
     if work == "size":
         text = f"**{client.str} Please Choose Size Of The Text Time:**"
         buttons = [[Button.inline("• Very Small •", data=f"colorphoto:{phname}:{where}:vsmall"), Button.inline("• Small •", data=f"colorphoto:{phname}:{where}:small")], [Button.inline("• Medium •", data=f"colorphoto:{phname}:{where}:medium")], [Button.inline("• Big •", data=f"colorphoto:{phname}:{where}:big"), Button.inline("• Very Big •", data=f"colorphoto:{phname}:{where}:vbig")]]
-        buttons.append([Button.inline("🚫 Close 🚫", data=f"close:{phname}")])
+        buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "color":
         size = data[2]
         text = f"**{client.str} Please Choose Color For Your Time Text:**"
-        buttons = [[Button.inline(f"Random ♻️", data=f"fontphoto:{phname}:{where}:{size}:random")]]
+        buttons = [[Button.inline("Random ♻️", data=f"fontphoto:{phname}:{where}:{size}:random")]]
         for color in COLORS:
             buttons.append(Button.inline(f"• {color.title()} •", data=f"fontphoto:{phname}:{where}:{size}:{color}"))
         buttons = [buttons[0]] + list(client.utils.chunks(buttons[1:], 4))
-        buttons.append([Button.inline("🚫 Close 🚫", data=f"close:{phname}")])
+        buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "font":
         size = data[2]
@@ -105,22 +105,31 @@ async def photo(event):
         fonts = client.DB.get_key("FONTS") or {}
         if len(fonts) == 0:
             return await event.answer(f"{client.str} Please Save A Font File First!", alert=True)
-        buttons = [[Button.inline(f"Random ♻️", data=f"completephoto:{phname}:{where}:{size}:{color}:random")]]
+        buttons = [[Button.inline("Random ♻️", data=f"alignphoto:{phname}:{where}:{size}:{color}:random")]]
         for font in fonts:
-            buttons.append(Button.inline(f"• {font.title()} •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}"))
+            buttons.append(Button.inline(f"• {font.title()} •", data=f"alignphoto:{phname}:{where}:{size}:{color}:{font}"))
         buttons = [buttons[0]] + list(client.utils.chunks(buttons[1:], 2))
-        buttons.append([Button.inline("🚫 Close 🚫", data=f"close:{phname}")])
+        buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
+        await event.edit(text=text, buttons=buttons)
+    elif work == "align":
+        size = data[2]
+        color = data[3]
+        font = data[4]
+        text = f"**{client.str} Please Specify How To Align The Time Text On This Image:**"
+        buttons = [[Button.inline("• Left •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:left")], [Button.inline("• Center •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:center")], [Button.inline("• Right •", data=f"completephoto:{phname}:{where}:{size}:{color}:{font}:right")]]
+        buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "complete":
         size = data[2]
         color = data[3]
         font = data[4]
+        align = data[5]
         data = client.DB.get_key("PHOTOS")[phname]
-        photos.update({phname: {"chat_id": data["chat_id"], "msg_id": data["msg_id"], "where": where,"size": size,"color": color,"font":font}})
+        photos.update({phname: {"chat_id": data["chat_id"], "msg_id": data["msg_id"], "where": where,"size": size,"color": color,"font": font,"align": align}})
         client.DB.set_key("PHOTOS", photos)
         await event.edit(text=f"**{client.str} The New Photo Was Saved!**\n\n**{client.str} Photo Name:** ( `{phname}` )\n**{client.str} Where:** ( `{where}` )\n**{client.str} Size:** ( `{size.title()}` )\n**{client.str} Color:** ( `{color.title()}` )\n**{client.str} Font:** ( `{font.title()}` )")
 
-@client.Callback(data="close\:(.*)")
+@client.Callback(data="photoclose\:(.*)")
 async def closephoto(event):
     phname = str(event.data_match.group(1).decode('utf-8'))
     photos = client.DB.get_key("PHOTOS") or {}
