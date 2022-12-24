@@ -3,10 +3,10 @@ from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
 import aiocron
+import asyncio
 import random
 import os
 import re
-import requests
 
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
@@ -32,36 +32,16 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
-@aiocron.crontab("*/1 * * * *")
-async def timechanger():
-    NAMES = client.DB.get_key("NAMES") or []
-    BIOS = client.DB.get_key("BIOS") or []
+async def namechanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
         timefont = random.randint(1, len(FONTS))
     newtime = datetime.now().strftime("%H:%M")
-    hours = newtime.split(":")[0]
-    mins = newtime.split(":")[1]
-    gtimer = hours
-    if int(hours) > 12:
-        gtimer = int(hours) - 12
-    elif hours.startswith("0"):
-        gtimer = hours[1:]
-    if int(hours) == 0:
-        gtimer = 12
-    timer = TIMER[2][int(gtimer)] if int(mins) > 29 else TIMER[1][int(gtimer)]
     time = create_font(newtime, timefont)
-    hours = create_font(hours, timefont)
-    mins = create_font(mins, timefont)
-    dateen = datetime.now().strftime("%F").replace("-", "/")
-    datefa = client.DB.get_key("DATE_FA") or "-"
-    if datefa == "-" or newtime == "00:00":
-        datefa = (requests.get("http://api.codebazan.ir/time-date/?json=en").json())["result"]["date"]
-        client.DB.set_key("DATE_FA", datefa)
-    wname = datetime.now().strftime("%A")
-    if client.DB.get_key("NAME_MODE") and client.DB.get_key("NAME_MODE") == "on" and NAMES:
-        chname = random.choice(NAMES)
-        chname = chname.format(TIME=time, HEART=random.choice(HEARTS), TIMER=timer, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
+    NAMES = client.DB.get_key("NAMES") or []
+    nmode = client.DB.get_key("NAME_MODE") or "off"
+    if nmode == "on" and NAMES:
+        chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
@@ -69,65 +49,70 @@ async def timechanger():
                 await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
             except:
                 pass
-    if client.DB.get_key("BIO_MODE") and client.DB.get_key("BIO_MODE") == "on" and BIOS:
-        chbio = random.choice(BIOS)
-        chbio = chbio.format(TIME=time, HEART=random.choice(HEARTS), TIMER=timer, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
+
+async def biochanger():
+    timefont = client.DB.get_key("TIME_FONT") or 1
+    if str(timefont) == "random":
+        timefont = random.randint(1, len(FONTS))
+    newtime = datetime.now().strftime("%H:%M")
+    time = create_font(newtime, timefont)
+    BIOS = client.DB.get_key("BIOS") or []
+    bmode = client.DB.get_key("BIO_MODE") or "off"
+    if bmode == "on" and BIOS:
+        chbio = random.choice(BIOS).format(TIME=time, HEART=random.choice(HEARTS))
         try:
             await client(functions.account.UpdateProfileRequest(about=str(chbio)))
         except:
             pass
+
+async def photochanger():
+    time = datetime.now().strftime("%H:%M")
     PHOTOS = client.DB.get_key("PHOTOS") or {}
     FONTS = client.DB.get_key("FONTS") or {}
     TEXTS = client.DB.get_key("TEXT_TIMES") or []
-    if client.DB.get_key("PHOTO_MODE") and client.DB.get_key("PHOTO_MODE") == "on" and PHOTOS and TEXTS and FONTS:
+    phmode = client.DB.get_key("PHOTO_MODE") or "off"
+    if phmode == "on" and PHOTOS and TEXTS and FONTS:
         phname = random.choice(list(PHOTOS.keys()))
-        info = PHOTOS[phname] 
-        chatid = int(info["chat_id"])
-        msgid = int(info["msg_id"])
-        get = await client.get_messages(chatid, ids=msgid)
-        photo = await get.download_media()
-        TEXT = random.choice(TEXTS)
-        TEXT = TEXT.format(TIME=newtime, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
+        phinfo = PHOTOS[phname]
+        getphoto = await client.get_messages(int(phinfo["chat_id"]), ids=int(phinfo["msg_id"]))
+        PHOTO = await getphoto.download_media()
+        TEXT = random.choice(TEXTS).format(TIME=time)
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
-        size = sizes[info["size"]]
-        color = info["color"]
-        if color == "random":
-            color = random.choice(COLORS)
-        color = ImageColor.getrgb(color)
-        img = Image.open(photo)
+        SIZE = sizes[phinfo["size"]]
+        COLOR = info["color"]
+        if COLOR == "random":
+            COLOR = random.choice(COLORS)
+        COLOR = ImageColor.getrgb(COLOR)
+        img = Image.open(PHOTO)
         width, height = img.size
-        if width > 640:
-            width = 640
-        if height > 640:
-            height = 640
+        if width > 640: width = 640
+        if height > 640: height = 640
         ffont = info["font"]
         if ffont == "random":
-            ffont = random.choice(list(FONTS.keys()))
-        chatid = FONTS[ffont]["chat_id"]
-        msgid = FONTS[ffont]["msg_id"]
-        get = await client.get_messages(chatid, ids=msgid)
-        ffont = await get.download_media()
-        font = ImageFont.truetype(ffont, size)
+            ffont = random.choice(list(FONTS.keys())) 
+        getfont = await client.get_messages(FONTS[ffont]["chat_id"], ids=int(FONTS[ffont]["msg_id"]))
+        ffont = await getfont.download_media()
+        FONT = ImageFont.truetype(ffont, size)
         draw = ImageDraw.Draw(img)
-        twidth, theight = draw.textsize(TEXT, font=font)
+        twidth, theight = draw.textsize(TEXT, font=FONT)
         newwidth, newheight = (width - twidth) / 2, (height - theight) / 2
-        if info["where"] == "↖️":
+        if phinfo["where"] == "↖️":
             newwidth, newheight = 20, 20
-        elif info["where"] == "⬆️":
+        elif phinfo["where"] == "⬆️":
             newwidth, newheight = (width - twidth) / 2, 20
-        elif info["where"] == "↗️":
+        elif phinfo["where"] == "↗️":
             newwidth, newheight = (width - twidth) - 20, 20
-        elif info["where"] == "⬅️":
+        elif phinfo["where"] == "⬅️":
             newwidth, newheight = 20, (height - theight) /2
-        elif info["where"] == "➡️":
+        elif phinfo["where"] == "➡️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) / 2
-        elif info["where"] == "↙️":
+        elif phinfo["where"] == "↙️":
             newwidth, newheight = 20, (height - theight) - 20
-        elif info["where"] == "⬇️":
+        elif phinfo["where"] == "⬇️":
             newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
-        elif info["where"] == "↘️":
+        elif phinfo["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
-        draw.text((newwidth, newheight), TEXT, color, font=font, align=str(info["align"]))
+        draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(info["align"]))
         img.save("NEWPROFILE.jpg")
         try:
             phfile = await client.upload_file("NEWPROFILE.jpg")
@@ -140,6 +125,11 @@ async def timechanger():
         os.remove(photo)
         os.remove(ffont)
 
-@aiocron.crontab("*/1 * * * *")
-async def ggchanger():
-    await client.send_message("me", f"Time: {datetime.now().strftime('%H:%M')}")
+async def mainchanger():
+    name = aiocron.crontab('*/1 * * * *', func=namechanger, start=True)
+    bio = aiocron.crontab('*/1 * * * *', func=biochanger, start=True)
+    photo = aiocron.crontab('*/1 * * * *', func=photochanger, start=True)
+    while True:
+        await asyncio.sleep(1)
+
+asyncio.run(mainchanger())
