@@ -7,7 +7,6 @@ import random
 import os
 import requests
 
-
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
     2: "０,１,２,３,４,５,６,７,８,９",
@@ -64,7 +63,7 @@ def create_font(newtime, font):
     return newtime
 
 @aiocron.crontab("*/1 * * * *")
-async def changer():
+async def timechanger():
     NAMES = client.DB.get_key("NAMES") or []
     BIOS = client.DB.get_key("BIOS") or []
     timefont = client.DB.get_key("TIME_FONT") or 1
@@ -96,11 +95,17 @@ async def changer():
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
-            await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
+            try:
+                await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
+            except:
+                pass
     if client.DB.get_key("BIO_MODE") and client.DB.get_key("BIO_MODE") == "on" and BIOS:
         chbio = random.choice(BIOS)
         chbio = chbio.format(TIME=time, HEART=random.choice(HEARTS), TIMER=timer, HOURS=hours, MINS=mins, DATEEN=dateen, DATEFA=datefa, WEEK=wname)
-        await client(functions.account.UpdateProfileRequest(about=str(chbio)))
+        try:
+            await client(functions.account.UpdateProfileRequest(about=str(chbio)))
+        except:
+            pass
     PHOTOS = client.DB.get_key("PHOTOS") or {}
     FONTS = client.DB.get_key("FONTS") or {}
     TEXTS = client.DB.get_key("TEXT_TIMES") or []
@@ -156,10 +161,16 @@ async def changer():
         img.save("NEWPROFILE.png")
         file = await client.upload_file("NEWPROFILE.png")
         pphoto = (await client.get_profile_photos("me"))[0]
-        await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
-        await client(functions.photos.UploadProfilePhotoRequest(file=file))
+        try:
+            await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
+        except:
+            pass
+        try:
+            await client(functions.photos.UploadProfilePhotoRequest(file=file))
+        except:
+            pass
         os.remove("NEWPROFILE.png")
         os.remove(photo)
         os.remove(ffont)
 
-changer.start()
+timechanger.start()
