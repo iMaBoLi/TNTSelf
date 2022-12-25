@@ -17,4 +17,4 @@ selenium
 setuptools
 ShazamAPI
 yt-dlp
-youtube-search-python
+git+https://github.com/iMaBoLi/youtube-search-python
