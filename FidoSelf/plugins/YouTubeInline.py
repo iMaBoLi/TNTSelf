@@ -37,6 +37,7 @@ async def ytsearch(event):
                 title=title,
                 description=desc,
                 thumb=file,
+                content=file,
                 text=text,
             ),
         )
