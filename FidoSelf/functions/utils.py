@@ -1,5 +1,6 @@
 from pathlib import Path
 from traceback import format_exc
+from importlib import import_module
 import os
 import sys
 import time
@@ -34,6 +35,18 @@ def chunks(elements, size):
     return (elements[i:i + n] for i in range(0, len(elements), n))
 
 def load_plugins(folder):
+    files = sorted(glob.glob(f"{folder}/*.py"))
+    for name in files:
+        plugin_name = os.path.basename(name)
+        filename = plugin_name.replace(".py" , "")
+        try:
+            fullname = "{}.{}".format(folder.replace("/", "."), filename)
+            load = import_module(fullname)
+            LOADED_PLUGS.append(filename)
+        except:
+            NOT_LOADED_PLUGS.update({filename: format_exc()})
+            
+def load_pluginsmm(folder):
     files = sorted(glob.glob(f"{folder}/*.py"))
     for name in files:
         plugin_name = os.path.basename(name)
