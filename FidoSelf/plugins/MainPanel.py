@@ -2,6 +2,7 @@ from FidoSelf import client
 from telethon import Button
 from datetime import datetime
 from FidoSelf.plugins.ManageTime import FONTS, create_font
+import time
 
 PAGES_COUNT = 3
 
@@ -27,8 +28,11 @@ def get_mode_buttons(page):
         "OFFLINE_MONSHI_MODE": "Offline Monshi",
         "TIMER_MODE": "Timer Save",
     }
-    for mode in MODES: 
-        gmode = client.DB.get_key(mode) or "off"
+    for mode in MODES:
+        if mode in ["SELF_ALL_MODE", "QUICKS_MODE"] and not client.DB.get_key(mode):
+            gmode = "on"
+        else:
+            gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if gmode == "off" else "off"
         buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = get_pages_button(page)
@@ -92,6 +96,8 @@ async def setmode(event):
     mode = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
     client.DB.set_key(mode, change)
+    if mode == "AFK_MODE":
+        client.DB.set_key("AFK_LASTSEEN", str(time.time()))
     buttons = get_mode_buttons(page)
     await event.edit(buttons=buttons)
 
