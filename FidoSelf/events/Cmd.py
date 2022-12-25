@@ -31,7 +31,7 @@ def Cmd(
                 cmds = client.DB.get_key("SELF_CMDS") or []
                 event.is_cmd = False
                 for cmd in cmds:
-                    if cmd in event.text: 
+                    if event.text == cmd or event.text == (client.cmd + cmd): 
                         event.is_cmd = True
                 event.userid = None
                 event.chatid = event.chat_id
@@ -39,14 +39,14 @@ def Cmd(
                     event.userid = event.reply_message.sender_id 
                 elif len(event.text.split()) > 1:
                     try:
-                        userid =  await client.get_peer_id(int(event.text.split()[1]))
-                        event.userid = userid
-                        event.chatid = userid
+                        gpeer =  await client.get_peer_id(int(event.text.split()[1]))
+                        event.userid = gpeer
+                        event.chatid = gpeer
                     except:
                         try:
-                            userid =  await client.get_peer_id(str(event.text.split()[1]))
-                            event.userid = userid
-                            event.chatid = userid
+                            gpeer =  await client.get_peer_id(str(event.text.split()[1]))
+                            event.userid = gpeer
+                            event.chatid = gpeer
                         except:
                             pass
                 await func(event)
