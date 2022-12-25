@@ -3,7 +3,7 @@ from youtubesearchpython import VideosSearch
 
 @client.Inline(pattern="yt\:(.*)")
 async def ytsearch(event):
-    quick = str(event.pattern_match.group(1))
+    string = str(event.pattern_match.group(1))
     results = []
     searchs = VideosSearch(string, limit=10).result()["result"]
     for vid in searchs:
