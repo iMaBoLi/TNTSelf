@@ -9,8 +9,8 @@ def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    buttons.append([Button.inline("• Random •", data="setfonttime:{page}:random"), Button.inline(("✔️|Active" if str(last) == "random" else "✖️|DeActive"), data="setfonttime:{page}:random")])
-    buttons.append([Button.inline("• Random 2 •", data="setfonttime:{page}:random2"), Button.inline(("✔️|Active" if str(last) == "random2" else "✖️|DeActive"), data="setfonttime:{page}:random2")])
+    buttons.append([Button.inline("• Random •", data=f"setfonttime:{page}:random"), Button.inline(("✔️|Active" if str(last) == "random" else "✖️|DeActive"), data=f"setfonttime:{page}:random")])
+    buttons.append([Button.inline("• Random 2 •", data=f"setfonttime:{page}:random2"), Button.inline(("✔️|Active" if str(last) == "random2" else "✖️|DeActive"), data=f"setfonttime:{page}:random2")])
     for font in FONTS:
         buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline(("✔️|Active" if str(last) == str(font) else "✖️|DeActive"), data=f"setfonttime:{page}:{font}")])
     pgbts = []
