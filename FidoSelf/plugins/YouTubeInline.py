@@ -13,14 +13,10 @@ async def ytsearch(event):
         duration = vid["duration"]
         thumb = f"https://img.youtube.com/vi/{ids}/hqdefault.jpg"
         text = f"**{client.str} Title:** ( `{title}`)\n\n**• [Link]({link}) •**\n\n**{client.str} Duration:** (`{duration}` )"
-        desc = f"Title : {title}\nDuration : {duration}"
         results.append(
             event.builder.photo(
                 thumb,
-                title=title,
-                description=desc,
                 text=text,
-                include_media=True,
             ),
         )
     await event.answer(results)
