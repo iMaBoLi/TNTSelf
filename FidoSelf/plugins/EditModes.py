@@ -3,8 +3,8 @@ from FidoSelf import client
 @client.Cmd(pattern=f"(?i)^\{client.cmd}(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
 async def bio(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    mode = event.pattern_match.group(0).lower()
-    change = event.pattern_match.group(1).lower()
+    mode = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(2).lower()
     last = client.DB.get_key("EDIT_MODE") or False
     if change == "on":
         if not str(last) == str(mode):
