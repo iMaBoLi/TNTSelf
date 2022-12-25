@@ -9,10 +9,10 @@ def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT")
     buttons = []
-    buttons.append([Button.inline("• Random •", data="setfonttime:random"), Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random")])
-    buttons.append([Button.inline("• Random 2 •", data="setfonttime:random2"), Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:random2")])
+    buttons.append([Button.inline("• Random •", data="setfonttime:{page}:random"), Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:{page}:random")])
+    buttons.append([Button.inline("• Random 2 •", data="setfonttime:{page}:random2"), Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:{page}:random2")])
     for font in FONTS:
-        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"), Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{font}")])
+        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{page}:{font}")])
     pgbts = []
     if page > 1:
         pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
@@ -25,12 +25,14 @@ def get_time_buttons(page):
 def get_mode_buttons(page):
     buttons = []
     MODES = {
+        "SELF_ALL_MODE": "Self Mode",
         "QUICKS_MODE": "Quicks",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
         "SMART_MONSHI_MODE": "Smart Monshi",
         "OFFLINE_MONSHI_MODE": "Offline Monshi",
+        "TIMER_MODE": "Timer Save",
     }
     for mode in MODES: 
         gmode = client.DB.get_key(mode) or "off"
@@ -59,7 +61,7 @@ async def inlinepanel(event):
     await event.answer([event.builder.article(f"{client.str} Smart Self - Panel", text=text, buttons=buttons)])
 
 @client.Callback(data="panelpage\:(.*)")
-async def pages(event):
+async def panelpages(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     if page == 1:
         text = f"**{client.str} Please Use The Buttons Below To Control The Different Parts:**\n\n"
@@ -70,14 +72,15 @@ async def pages(event):
         buttons = get_time_buttons(page)
         await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="setfonttime\:(.*)")
+@client.Callback(data="setfonttime\:(.*)\:(.*)")
 async def setfonttime(event):
-    font = event.data_match.group(1).decode('utf-8')
+    page = int(event.data_match.group(1).decode('utf-8'))
+    font = event.data_match.group(2).decode('utf-8')
     client.DB.set_key("TIME_FONT", font)
     buttons = get_time_buttons(page)
     await event.edit(buttons=buttons)
 
-@client.Callback(data="setmode\:(.*)\:(.*)")
+@client.Callback(data="setmode\:(.*)\:(.*)\:(.*)")
 async def setmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     mode = event.data_match.group(2).decode('utf-8')
