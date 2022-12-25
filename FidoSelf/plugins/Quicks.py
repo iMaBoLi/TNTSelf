@@ -103,9 +103,8 @@ async def quicklist(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def quicksupdate(event):
-    if event.is_cmd or not event.text:
-        return
-    mode = client.DB.get_key("QUICKS_MODE") or "off"
+    if event.is_cmd or not event.text: return
+    mode = client.DB.get_key("QUICKS_MODE") or "on"
     if mode == "off": return
     quicks = client.DB.get_key("QUICKS") or {}
     if not quicks: return
