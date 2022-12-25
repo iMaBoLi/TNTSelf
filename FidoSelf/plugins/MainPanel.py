@@ -5,6 +5,31 @@ from FidoSelf.plugins.ManageTime import FONTS, create_font
 
 PAGES_COUNT = 2
 
+def get_mode_buttons(page):
+    buttons = []
+    MODES = {
+        "SELF_ALL_MODE": "Self Mode",
+        "QUICKS_MODE": "Quicks",
+        "NAME_MODE": "Name",
+        "BIO_MODE": "Bio",
+        "PHOTO_MODE": "Photo",
+        "SMART_MONSHI_MODE": "Smart Monshi",
+        "OFFLINE_MONSHI_MODE": "Offline Monshi",
+        "TIMER_MODE": "Timer Save",
+    }
+    for mode in MODES: 
+        gmode = client.DB.get_key(mode) or "off"
+        cmode = "on" if gmode == "off" else "off"
+        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
+    pgbts = []
+    if page > 1:
+        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
+    if page < PAGES_COUNT:
+        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
+    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    buttons.append(pgbts)
+    return buttons
+
 def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
@@ -22,22 +47,12 @@ def get_time_buttons(page):
     buttons.append(pgbts)
     return buttons
 
-def get_mode_buttons(page):
+def get_edit_buttons(page):
+    last = client.DB.get_key("EDIT_MODE") or False
     buttons = []
-    MODES = {
-        "SELF_ALL_MODE": "Self Mode",
-        "QUICKS_MODE": "Quicks",
-        "NAME_MODE": "Name",
-        "BIO_MODE": "Bio",
-        "PHOTO_MODE": "Photo",
-        "SMART_MONSHI_MODE": "Smart Monshi",
-        "OFFLINE_MONSHI_MODE": "Offline Monshi",
-        "TIMER_MODE": "Timer Save",
-    }
-    for mode in MODES: 
-        gmode = client.DB.get_key(mode) or "off"
-        cmode = "on" if gmode == "off" else "off"
-        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
+    EDITS = ["Bold", "Mono", "Italic"]
+    for edit in EDITS:
+        buttons.append([Button.inline(f"• {edit} •", data=f"seteditmode:{page}:{edit}"), Button.inline(("✔️|Active" if str(last) == str(edit) else "✖️|DeActive"), data=f"seteditmode:{page}:{edit}")])
     pgbts = []
     if page > 1:
         pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
@@ -71,6 +86,19 @@ async def panelpages(event):
         text = f"**{client.str} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**"
         buttons = get_time_buttons(page)
         await event.edit(text=text, buttons=buttons)
+    elif page == 3:
+        text = f"**{client.str} Please Use The Options Below To Manage Edit Texts Mode:**"
+        buttons = get_edit_buttons(page)
+        await event.edit(text=text, buttons=buttons)
+
+@client.Callback(data="setmode\:(.*)\:(.*)\:(.*)")
+async def setmode(event):
+    page = int(event.data_match.group(1).decode('utf-8'))
+    mode = event.data_match.group(2).decode('utf-8')
+    change = event.data_match.group(3).decode('utf-8')
+    client.DB.set_key(mode, change)
+    buttons = get_mode_buttons(page)
+    await event.edit(buttons=buttons)
 
 @client.Callback(data="setfonttime\:(.*)\:(.*)")
 async def setfonttime(event):
@@ -80,13 +108,16 @@ async def setfonttime(event):
     buttons = get_time_buttons(page)
     await event.edit(buttons=buttons)
 
-@client.Callback(data="setmode\:(.*)\:(.*)\:(.*)")
-async def setmode(event):
+@client.Callback(data="seteditmode\:(.*)\:(.*)")
+async def seteditmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
-    mode = event.data_match.group(2).decode('utf-8')
-    change = event.data_match.group(3).decode('utf-8')
-    client.DB.set_key(mode, change)
-    buttons = get_mode_buttons(page)
+    edit = event.data_match.group(2).decode('utf-8')
+    last = client.DB.get_key("EDIT_MODE") or False
+    if str(last) == str(edit):
+        client.DB.set_key("EDIT_MODE", False)
+    else:
+        client.DB.set_key("EDIT_MODE", str(edit))
+    buttons = get_edit_buttons(page)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="closepanel")
