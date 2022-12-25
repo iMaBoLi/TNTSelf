@@ -3,7 +3,16 @@ from telethon import Button
 from datetime import datetime
 from FidoSelf.plugins.ManageTime import FONTS, create_font
 
-PAGES_COUNT = 2
+PAGES_COUNT = 3
+
+def get_pages_button(page):
+    buttons = []
+    if page > 1:
+        buttons.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
+    if page < PAGES_COUNT:
+        buttons.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
+    buttons.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    return buttons
 
 def get_mode_buttons(page):
     buttons = []
@@ -21,12 +30,7 @@ def get_mode_buttons(page):
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if gmode == "off" else "off"
         buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
-    pgbts = []
-    if page > 1:
-        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
-    if page < PAGES_COUNT:
-        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
-    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
 
@@ -38,12 +42,7 @@ def get_time_buttons(page):
     buttons.append([Button.inline("• Random 2 •", data=f"setfonttime:{page}:random2"), Button.inline(("✔️|Active" if str(last) == "random2" else "✖️|DeActive"), data=f"setfonttime:{page}:random2")])
     for font in FONTS:
         buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline(("✔️|Active" if str(last) == str(font) else "✖️|DeActive"), data=f"setfonttime:{page}:{font}")])
-    pgbts = []
-    if page > 1:
-        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
-    if page < PAGES_COUNT:
-        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
-    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
 
@@ -53,12 +52,7 @@ def get_edit_buttons(page):
     EDITS = ["Bold", "Mono", "Italic"]
     for edit in EDITS:
         buttons.append([Button.inline(f"• {edit} •", data=f"seteditmode:{page}:{edit}"), Button.inline(("✔️|Active" if str(last) == str(edit) else "✖️|DeActive"), data=f"seteditmode:{page}:{edit}")])
-    pgbts = []
-    if page > 1:
-        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
-    if page < PAGES_COUNT:
-        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
-    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
 
