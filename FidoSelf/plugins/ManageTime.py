@@ -6,8 +6,6 @@ import aiocron
 import random
 import re
 import os
-os.system("pip install pycron")
-import pycron
 
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
@@ -33,27 +31,8 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
+@aiocron.crontab("*/1 * * * *")
 async def namechanger():
-    timefont = client.DB.get_key("TIME_FONT") or 1
-    if str(timefont) == "random":
-        timefont = random.randint(1, len(FONTS))
-    newtime = datetime.now().strftime("%H:%M")
-    time = create_font(newtime, timefont)
-    NAMES = client.DB.get_key("NAMES") or []
-    nmode = client.DB.get_key("NAME_MODE") or "off"
-    while nmode == "on" and NAMES:
-        if pycron.is_now('*/1 * * * *'): 
-            chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
-            try:
-                await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
-            except:
-                try:
-                    await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
-                except:
-                    pass
-            await client.send_message(client.backch, "Name Changed!")
-
-async def namechangeruu():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
         timefont = random.randint(1, len(FONTS))
@@ -72,6 +51,7 @@ async def namechangeruu():
                 pass
     await client.send_message(client.backch, "Name Changed!")
 
+@aiocron.crontab("*/1 * * * *")
 async def biochanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
@@ -88,6 +68,7 @@ async def biochanger():
             pass
     await client.send_message(client.backch, "Bio Changed!")
 
+@aiocron.crontab("*/1 * * * *")
 async def photochanger():
     time = datetime.now().strftime("%H:%M")
     PHOTOS = client.DB.get_key("PHOTOS") or {}
@@ -147,5 +128,3 @@ async def photochanger():
         os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
-
-client.loop.create_task(namechanger())
