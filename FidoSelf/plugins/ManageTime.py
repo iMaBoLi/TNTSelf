@@ -31,7 +31,7 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
-@aiocron.crontab("*/1 * * * *", start=False)
+@aiocron.crontab("*/1 * * * *")
 async def namechanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
