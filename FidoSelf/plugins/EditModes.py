@@ -7,8 +7,8 @@ async def bio(event):
     change = event.pattern_match.group(2).lower()
     last = client.DB.get_key("EDIT_MODE") or False
     if change == "on":
-        if not str(last) == str(mode):
-            client.DB.set_key("EDIT_MODE", mode)
+        if not str(last).lower() == str(mode):
+            client.DB.set_key("EDIT_MODE", mode.title())
             await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Has Been Actived!**")
         else:
             await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Is Already Actived!**")
