@@ -128,5 +128,5 @@ async def photochanger():
         except:
             pass
         os.remove("NEWPROFILE.jpg")
-        os.remove(photo)
+        os.remove(PHOTO)
         os.remove(ffont)
