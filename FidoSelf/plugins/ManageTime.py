@@ -98,7 +98,7 @@ async def photochanger():
             ffont = random.choice(list(FONTS.keys())) 
         getfont = await client.get_messages(FONTS[ffont]["chat_id"], ids=int(FONTS[ffont]["msg_id"]))
         ffont = await getfont.download_media()
-        FONT = ImageFont.truetype(ffont, size)
+        FONT = ImageFont.truetype(ffont, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
         newwidth, newheight = (width - twidth) / 2, (height - theight) / 2
