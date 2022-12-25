@@ -52,7 +52,7 @@ def Cmd(
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
-                open("CmdError.txt", "w").write(str(stext))
+                open("CmdError.log", "w").write(str(stext))
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if edits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
