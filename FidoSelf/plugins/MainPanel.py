@@ -7,12 +7,12 @@ PAGES_COUNT = 2
 
 def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
-    last = client.DB.get_key("TIME_FONT")
+    last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    buttons.append([Button.inline("• Random •", data="setfonttime:{page}:random"), Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:{page}:random")])
-    buttons.append([Button.inline("• Random 2 •", data="setfonttime:{page}:random2"), Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:{page}:random2")])
+    buttons.append([Button.inline("• Random •", data="setfonttime:{page}:random"), Button.inline(("✔️|Active" if str(last) == "random" else "✖️|DeActive"), data="setfonttime:{page}:random")])
+    buttons.append([Button.inline("• Random 2 •", data="setfonttime:{page}:random2"), Button.inline(("✔️|Active" if str(last) == "random2" else "✖️|DeActive"), data="setfonttime:{page}:random2")])
     for font in FONTS:
-        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{page}:{font}")])
+        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline(("✔️|Active" if str(last) == str(font) else "✖️|DeActive"), data=f"setfonttime:{page}:{font}")])
     pgbts = []
     if page > 1:
         pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
@@ -76,7 +76,7 @@ async def panelpages(event):
 async def setfonttime(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     font = event.data_match.group(2).decode('utf-8')
-    client.DB.set_key("TIME_FONT", font)
+    client.DB.set_key("TIME_FONT", str(font))
     buttons = get_time_buttons(page)
     await event.edit(buttons=buttons)
 
