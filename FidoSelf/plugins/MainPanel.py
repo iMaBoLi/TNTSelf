@@ -19,7 +19,7 @@ def get_time_buttons(page):
     if page < PAGES_COUNT:
         pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
     pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
-    buttons += pgbts
+    buttons.append(pgbts)
     return buttons
 
 def get_mode_buttons(page):
@@ -42,7 +42,7 @@ def get_mode_buttons(page):
     if page < PAGES_COUNT:
         pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
     pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
-    buttons += pgbts
+    buttons.append(pgbts)
     return buttons
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Panel$")
