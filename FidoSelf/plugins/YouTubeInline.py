@@ -33,12 +33,10 @@ async def ytsearch(event):
         desc = f"{title}\n{duration}"
         file = wb(thumb, 0, "image/jpeg", [])
         results.append(
-            await event.builder.article(
-                type="photo",
+            await event.builder.document(
+                file=file,
                 title=title,
                 description=desc,
-                thumb=file,
-                content=file,
                 text=text,
                 include_media=True,
             ),
