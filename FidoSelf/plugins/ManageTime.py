@@ -132,5 +132,5 @@ async def photochanger():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 schedule = AsyncIOScheduler()
-schedule.add_job(namechanger, "interval", seconds="60")
+schedule.add_job(namechanger, "interval", seconds=60)
 schedule.start()
