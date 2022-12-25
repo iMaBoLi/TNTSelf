@@ -1,19 +1,11 @@
-from pathlib import Path
 from traceback import format_exc
 from importlib import import_module
-import os
-import sys
-import time
-import logging
-import math
-import importlib
-import glob
-import shlex
 import asyncio
-import functools
-import re
+import shlex
+import math
+import glob
 import random
-import logging
+import os
 
 LOADED_PLUGS = []
 NOT_LOADED_PLUGS = {}
@@ -36,33 +28,14 @@ def chunks(elements, size):
 
 def load_plugins(folder):
     files = sorted(glob.glob(f"{folder}/*.py"))
-    for name in files:
-        plugin_name = os.path.basename(name)
-        filename = plugin_name.replace(".py" , "")
+    for file in files:
         try:
-            fullname = "{}.{}".format(folder.replace("/", "."), filename)
-            load = import_module(fullname)
-            LOADED_PLUGS.append(filename)
+            filename = file.replace("/", ".").replace(".py" , "")
+            load = import_module(filename)
+            LOADED_PLUGS.append(os.path.basename(file))
         except:
-            NOT_LOADED_PLUGS.update({filename: format_exc()})
-            
-def load_pluginsmm(folder):
-    files = sorted(glob.glob(f"{folder}/*.py"))
-    for name in files:
-        plugin_name = os.path.basename(name)
-        filename = plugin_name.replace(".py" , "")
-        try:
-            path = Path(f"{folder}/{plugin_name}")
-            name = "{}.{}".format(folder.replace("/", "."), filename)
-            spec = importlib.util.spec_from_file_location(name, path)
-            load = importlib.util.module_from_spec(spec)
-            load.logger = logging.getLogger(plugin_name)
-            spec.loader.exec_module(load)
-            sys.modules[name] = load
-            LOADED_PLUGS.append(filename)
-        except:
-            NOT_LOADED_PLUGS.update({filename: format_exc()})
-            
+            NOT_LOADED_PLUGS.update({os.path.basename(file): format_exc()})
+
 def convert_bytes(size_bytes):
    if size_bytes == 0:
        return "0B"
