@@ -63,11 +63,22 @@ async def delquick(event):
         return await event.edit(f"**{client.str} The Command** ( `{cmd}` ) **Not In Quicks Command Lists!**")    
     for nq in qlist:
         info = quicks[nq]
-        file = None
         if info["type"] == "Media":
             msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
-            file = msg.media
-        await event.respond(f"""
+            send = await event.respond(msg)
+            await send.reply(f"""
+**{client.str} Command:** ( `{info["cmd"]}` )
+
+**{client.str} Answer(s):** ( `Repleyed Media` )
+
+**{client.str} Whom:** ( `{info["whom"].replace("user", "")}` )
+**{client.str} Where:** ( `{info["where"].replace("chat", "")}` )
+**{client.str} Type:** ( `{info["type"]}` )
+**{client.str} Find:** ( `{info["find"]}` )
+**{client.str} Sleep:** ( `{client.utils.convert_time(info["sleep"]) or "---"}` )
+""")
+        else:
+            await event.respond(f"""
 **{client.str} Command:** ( `{info["cmd"]}` )
 
 **{client.str} Answer(s):** ( `{info["answers"]}` )
@@ -77,7 +88,7 @@ async def delquick(event):
 **{client.str} Type:** ( `{info["type"]}` )
 **{client.str} Find:** ( `{info["find"]}` )
 **{client.str} Sleep:** ( `{client.utils.convert_time(info["sleep"]) or "---"}` )
-""", file=file)
+""")
     await event.delete()
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}QuickList$")
@@ -135,10 +146,8 @@ async def quicksupdate(event):
                     await asyncio.sleep(int(info["sleep"]))
                 continue
             elif info["type"] == "Media":
-                chatid = int(info["answers"].split(":")[1])
-                msgid = int(info["answers"].split(":")[2])
-                msg = await client.get_messages(chatid, ids=msgid)
-                await event.reply(file=msg.media)
+                msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
+                await event.reply(msg)
                 continue
             elif info["type"] == "Draft":
                 await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=info["answers"]))
