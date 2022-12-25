@@ -38,6 +38,8 @@ async def pages(event):
         last = client.DB.get_key("TIME_FONT")
         buttons.append(Button.inline("• Random •", data="setfonttime:random"))
         buttons.append(Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random"))
+        buttons.append(Button.inline("• Random2 •", data="setfonttime:random2"))
+        buttons.append(Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random2"))
         for font in FONTS:
             buttons.append(Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"))
             buttons.append(Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{font}"))
