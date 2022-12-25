@@ -19,6 +19,7 @@ def get_mode_buttons(page):
     MODES = {
         "SELF_ALL_MODE": "Self Mode",
         "QUICKS_MODE": "Quicks",
+        "AFK_MODE": "Afk",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
