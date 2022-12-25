@@ -3,7 +3,6 @@ from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
 import aiocron
-import asyncio
 import random
 import re
 import os
@@ -32,6 +31,7 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
+@aiocron.crontab("*/1 * * * *")
 async def namechanger():
     newtime = datetime.now().strftime("%H:%M")
     if int(datetime.now().strftime("%S")) == 00:
@@ -127,6 +127,3 @@ async def photochanger():
         os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
-
-while True:
-    client.loop.create_task(namechanger())
