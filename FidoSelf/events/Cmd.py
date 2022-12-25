@@ -31,7 +31,7 @@ def Cmd(
                 cmds = client.DB.get_key("SELF_CMDS") or []
                 event.is_cmd = False
                 for cmd in cmds:
-                    if event.text == cmd or event.text == (client.cmd + cmd): 
+                    if cmd in event.text: 
                         event.is_cmd = True
                 event.userid = None
                 event.chatid = event.chat_id
