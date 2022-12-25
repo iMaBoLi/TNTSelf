@@ -14,7 +14,7 @@ async def ytsearch(event):
         thumb = f"https://img.youtube.com/vi/{ids}/hqdefault.jpg"
         text = f"**{client.str} Title:** ( `{title}`)\n\n**• [Link]({link}) •**\n\n**{client.str} Duration:** (`{duration}` )"
         results.append(
-            event.builder.document(
+            await event.builder.document(
                 file=thumb,
                 text=text,
             ),
