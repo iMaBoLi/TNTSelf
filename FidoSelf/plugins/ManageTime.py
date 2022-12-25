@@ -4,7 +4,6 @@ from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
 import aiocron
 import random
-import re
 import os
 
 FONTS = {
@@ -86,7 +85,7 @@ async def photochanger():
         TEXT = random.choice(TEXTS).format(TIME=time)
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
         SIZE = sizes[phinfo["size"]]
-        COLOR = info["color"]
+        COLOR = phinfo["color"]
         if COLOR == "random":
             COLOR = random.choice(COLORS)
         COLOR = ImageColor.getrgb(COLOR)
@@ -94,7 +93,7 @@ async def photochanger():
         width, height = img.size
         if width > 640: width = 640
         if height > 640: height = 640
-        ffont = info["font"]
+        ffont = phinfo["font"]
         if ffont == "random":
             ffont = random.choice(list(FONTS.keys())) 
         getfont = await client.get_messages(FONTS[ffont]["chat_id"], ids=int(FONTS[ffont]["msg_id"]))
@@ -119,7 +118,7 @@ async def photochanger():
             newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
         elif phinfo["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
-        draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(info["align"]))
+        draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["align"]))
         img.save("NEWPROFILE.jpg")
         try:
             phfile = await client.upload_file("NEWPROFILE.jpg")
