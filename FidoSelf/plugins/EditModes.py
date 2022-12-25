@@ -1,6 +1,23 @@
 from FidoSelf import client
 
-EDITS = ["Bold", "Mono", "Italic", "Underline", "Strike", "Spoiler"]
+@client.Cmd(pattern=f"(?i)^\{client.cmd}(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
+async def bio(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    mode = event.pattern_match.group(0).lower()
+    change = event.pattern_match.group(1).lower()
+    last = client.DB.get_key("EDIT_MODE") or False
+    if change == "on":
+        if not str(last) == str(mode):
+            client.DB.set_key("EDIT_MODE", mode)
+            await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Has Been Actived!**")
+        else:
+            await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Is Already Actived!**")
+    else:
+        if str(last) == str(mode):
+            client.DB.set_key("EDIT_MODE", False)
+            await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Has Been DeActived!**")
+        else:
+            await event.edit(f"**{client.str} The {mode.title()} Edit Texts Mode Is Already DeActived!**")
 
 @client.Cmd(edits=False)
 async def editmodes(event):
@@ -21,3 +38,6 @@ async def editmodes(event):
         await event.edit("~~" + lasttext + "~~")
     elif mode == "Spoiler":
         await event.edit("||" + lasttext + "||")
+    elif mode == "Hashtag":
+        lasttext = lasttext.replace(" ", "_")
+        await event.edit("#" + lasttext)
