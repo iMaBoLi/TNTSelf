@@ -50,6 +50,36 @@ async def delquick(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
+@client.Cmd(pattern=f"(?i)^\{client.cmd}GetQuick (.*)$")
+async def delquick(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    cmd = event.pattern_match.group(1)
+    quicks = client.DB.get_key("QUICKS") or {}
+    qlist = []
+    for quick in quicks:
+        if cmd == quicks[quick]["cmd"]:
+            qlist.append(quick)
+    if not qlist:
+        return await event.edit(f"**{client.str} The Command** ( `{cmd}` ) **Not In Quicks Command Lists!**")    
+    for nq in qlist:
+        info = quicks[nq]
+        file = None
+        if info["type"] == "Media":
+            msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
+            file = msg.media
+        await event.respond(f"""
+**{client.str} Command:** ( `{info["cmd"]}` )
+
+**{client.str} Answer(s):** ( `{info["answers"]}` )
+
+**{client.str} Whom:** ( `{info["whom"].replace("user", "")}` )
+**{client.str} Where:** ( `{info["where"].replace("chat", "")}` )
+**{client.str} Type:** ( `{info["type"]}` )
+**{client.str} Find:** ( `{info["find"]}` )
+**{client.str} Sleep:** ( `{client.utils.convert_time(info["sleep"]) or "---"}` )
+""", file=file)
+    await event.delete()
+
 @client.Cmd(pattern=f"(?i)^\{client.cmd}QuickList$")
 async def quicklist(event):
     await event.edit(f"**{client.str} Processing . . .**")
@@ -186,8 +216,6 @@ async def callbackquicks(event):
         allquicks.update({quick: {"cmd": gquick["cmd"],"answers": gquick["answers"],"whom": whom,"where": where,"type": type,"find": find,"sleep": sleep}})
         client.DB.set_key("QUICKS", allquicks)
         anss = gquick["answers"]
-        if anss.startswith("Media-"):
-            anss = "Replyed Media"
         await event.edit(text=f"""
 **{client.str} The New Quick Answer Was Saved!**
 
