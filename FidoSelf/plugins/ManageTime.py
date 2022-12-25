@@ -31,7 +31,7 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
-@aiocron.crontab("*/1 * * * *")
+@aiocron.crontab("*/1 * * * *", start=False)
 async def namechanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
@@ -51,7 +51,7 @@ async def namechanger():
                 pass
     await client.send_message(client.backch, "Name Changed!")
 
-@aiocron.crontab("*/1 * * * *")
+@aiocron.crontab("*/1 * * * *", start=False)
 async def biochanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
@@ -68,7 +68,7 @@ async def biochanger():
             pass
     await client.send_message(client.backch, "Bio Changed!")
 
-@aiocron.crontab("*/1 * * * *")
+@aiocron.crontab("*/1 * * * *", start=False)
 async def photochanger():
     time = datetime.now().strftime("%H:%M")
     PHOTOS = client.DB.get_key("PHOTOS") or {}
@@ -128,3 +128,5 @@ async def photochanger():
         os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
+
+namechanger.start()
