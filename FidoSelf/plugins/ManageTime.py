@@ -24,40 +24,44 @@ FONTS = {
 HEARTS = ["❤️", "💙", "💛", "💚", "🧡", "💜", "🖤", "🤍", "❣", "💕", "💞", "💔", "💗", "💖"]
 COLORS = ["black", "white", "blue", "red", "yellow", "green", "purple", "orange", "brown", "pink", "gold", "fuchsia", "lime", "aqua", "skyblue", "gray"]
 
-def create_font(newtime, font):
-    for par in newtime:
-        if par != ":":
-            nfont = FONTS[int(font)].split(",")[int(par)].replace("⃣⃣", "⃣").replace("⃣⃣⃣", "⃣")
-            newtime = newtime.replace(par, nfont)
+def create_font(newtime, timefont):
+    if str(timefont) == "random2":
+        for par in newtime:
+            rfont = random.randint(1, len(FONTS))
+            if par != ":":
+                nfont = FONTS[int(rfont)].split(",")[int(par)]
+                newtime = newtime.replace(par, nfont)
+    else:
+        if str(timefont) == "random":
+            timefont = random.randint(1, len(FONTS))
+        for par in newtime:
+            if par != ":":
+                nfont = FONTS[int(timefont)].split(",")[int(par)]
+                newtime = newtime.replace(par, nfont)
     return newtime
 
 @aiocron.crontab("*/1 * * * *")
 async def namechanger():
     newtime = datetime.now().strftime("%H:%M")
-    if int(datetime.now().strftime("%S")) == 00:
-        timefont = client.DB.get_key("TIME_FONT") or 1
-        if str(timefont) == "random":
-            timefont = random.randint(1, len(FONTS))
-        time = create_font(newtime, timefont)
-        NAMES = client.DB.get_key("NAMES") or []
-        nmode = client.DB.get_key("NAME_MODE") or "off"
-        if nmode == "on" and NAMES:
-            chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
+    timefont = client.DB.get_key("TIME_FONT") or 1
+    time = create_font(newtime, str(timefont))
+    NAMES = client.DB.get_key("NAMES") or []
+    nmode = client.DB.get_key("NAME_MODE") or "off"
+    if nmode == "on" and NAMES:
+        chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
+        try:
+            await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
+        except:
             try:
-                await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
+                await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
             except:
-                try:
-                    await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
-                except:
-                    pass
+                pass
 
 @aiocron.crontab("*/1 * * * *")
 async def biochanger():
-    timefont = client.DB.get_key("TIME_FONT") or 1
-    if str(timefont) == "random":
-        timefont = random.randint(1, len(FONTS))
     newtime = datetime.now().strftime("%H:%M")
-    time = create_font(newtime, timefont)
+    timefont = client.DB.get_key("TIME_FONT") or 1
+    time = create_font(newtime, str(timefont))
     BIOS = client.DB.get_key("BIOS") or []
     bmode = client.DB.get_key("BIO_MODE") or "off"
     if bmode == "on" and BIOS:
