@@ -49,7 +49,7 @@ def get_time_buttons(page):
 def get_edit_buttons(page):
     last = client.DB.get_key("EDIT_MODE") or False
     buttons = []
-    EDITS = ["Bold", "Mono", "Italic", "Underline", "Strike", "Spoiler"]
+    EDITS = ["Bold", "Mono", "Italic", "Underline", "Strike", "Spoiler", "Hashtag"]
     for edit in EDITS:
         buttons.append([Button.inline(f"• {edit} •", data=f"seteditmode:{page}:{edit}"), Button.inline(("✔️|Active" if str(last) == str(edit) else "✖️|DeActive"), data=f"seteditmode:{page}:{edit}")])
     pgbts = get_pages_button(page)
