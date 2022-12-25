@@ -37,7 +37,7 @@ def get_mode_buttons(page):
     for mode in MODES: 
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if gmode == "off" else "off"
-        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:cmode")])
+        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = []
     if page > 1:
         pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
