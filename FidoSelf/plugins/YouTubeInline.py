@@ -15,8 +15,8 @@ async def ytsearch(event):
         text = f"**{client.str} Title:** ( `{title}`)\n\n**• [Link]({link}) •**\n\n**{client.str} Duration:** (`{duration}` )"
         desc = f"Title : {title}\nDuration : {duration}"
         results.append(
-            event.builder.document(
-                file=thumb,
+            event.builder.photo(
+                thumb,
                 title=title,
                 description=desc,
                 text=text,
