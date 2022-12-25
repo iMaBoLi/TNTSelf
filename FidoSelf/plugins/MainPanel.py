@@ -3,6 +3,48 @@ from telethon import Button
 from datetime import datetime
 from FidoSelf.plugins.ManageTime import FONTS, create_font
 
+PAGES_COUNT = 2
+
+def get_time_buttons(page):
+    newtime = datetime.now().strftime("%H:%M")
+    last = client.DB.get_key("TIME_FONT")
+    buttons = []
+    buttons.append([Button.inline("• Random •", data="setfonttime:random"), Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random")])
+    buttons.append([Button.inline("• Random 2 •", data="setfonttime:random2"), Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:random2")])
+    for font in FONTS:
+        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"), Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{font}")])
+    pgbts = []
+    if page > 1:
+        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
+    if page < PAGES_COUNT:
+        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
+    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    buttons += pgbts
+    return buttons
+
+def get_mode_buttons(page):
+    buttons = []
+    MODES = {
+        "QUICKS_MODE": "Quicks",
+        "NAME_MODE": "Name",
+        "BIO_MODE": "Bio",
+        "PHOTO_MODE": "Photo",
+        "SMART_MONSHI_MODE": "Smart Monshi",
+        "OFFLINE_MONSHI_MODE": "Offline Monshi",
+    }
+    for mode in MODES: 
+        gmode = client.DB.get_key(mode) or "off"
+        cmode = "on" if gmode == "off" else "off"
+        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{mode}:cmode")])
+    pgbts = []
+    if page > 1:
+        pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
+    if page < PAGES_COUNT:
+        pgbts.append(Button.inline("Next ▶️", data=f"panelpage:{page+1}"))
+    pgbts.append(Button.inline("🚫 Close 🚫", data="closepanel"))
+    buttons += pgbts
+    return buttons
+
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Panel$")
 async def addecho(event):
     await event.edit(f"**{client.str} Processing . . .**")
@@ -11,64 +53,36 @@ async def addecho(event):
     await event.delete()
 
 @client.Inline(pattern="selfmainpanel")
-async def panel(event):
-    buttons = []
-    text = f"**{client.str} Please Choose Modes:**\n\n"
-    buttons.append(Button.inline("◀️ Back", data=f"panelpage:5"))
-    buttons.append(Button.inline("Next ▶️", data=f"panelpage:2"))
-    buttons.append(Button.inline("🚫 Close 🚫", data="closepanel"))
-    buttons = list(client.utils.chunks(buttons, 2))
+async def inlinepanel(event):
+    text = f"**{client.str} Please Use The Buttons Below To Control The Different Parts:**\n\n"
+    buttons = get_mode_buttons(1)
     await event.answer([event.builder.article(f"{client.str} Smart Self - Panel", text=text, buttons=buttons)])
 
 @client.Callback(data="panelpage\:(.*)")
 async def pages(event):
     page = int(event.data_match.group(1).decode('utf-8'))
-    buttons = []
     if page == 1:
-        text = f"**{client.str} Please Choose Modes:**"
+        text = f"**{client.str} Please Use The Buttons Below To Control The Different Parts:**\n\n"
+        buttons = get_mode_buttons(page)
+        await event.edit(text=text, buttons=buttons)
     elif page == 2:
-        text = f"**{client.str} Please Choose Modes:**"
-    elif page == 3:
-        text = f"**{client.str} Please Choose Modes:**"
-    elif page == 4:
-        text = f"**{client.str} Please Edit Chat Actions To Be Set:**"
-    elif page == 5:
         text = f"**{client.str} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**"
-        newtime = datetime.now().strftime("%H:%M")
-        last = client.DB.get_key("TIME_FONT")
-        buttons.append(Button.inline("• Random •", data="setfonttime:random"))
-        buttons.append(Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random"))
-        buttons.append(Button.inline("• Random2 •", data="setfonttime:random2"))
-        buttons.append(Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:random2"))
-        for font in FONTS:
-            buttons.append(Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"))
-            buttons.append(Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{font}"))
-    back = (page - 1) if page != 1 else 5
-    next = (page + 1) if page != 5 else 1
-    buttons.append(Button.inline("◀️ Back", data=f"panelpage:{back}"))
-    buttons.append(Button.inline("Next ▶️", data=f"panelpage:{next}"))
-    buttons.append(Button.inline("🚫 Close 🚫", data="closepanel"))
-    buttons = list(client.utils.chunks(buttons, 2))
-    await event.edit(text=text, buttons=buttons)
+        buttons = get_time_buttons(page)
+        await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setfonttime\:(.*)")
 async def setfonttime(event):
     font = event.data_match.group(1).decode('utf-8')
     client.DB.set_key("TIME_FONT", font)
-    newtime = datetime.now().strftime("%H:%M")
-    last = client.DB.get_key("TIME_FONT")
-    buttons = []
-    buttons.append(Button.inline("• Random •", data="setfonttime:random"))
-    buttons.append(Button.inline(("✔️|Active" if last == "random" else "✖️|DeActive"), data="setfonttime:random"))
-    buttons.append(Button.inline("• Random2 •", data="setfonttime:random2"))
-    buttons.append(Button.inline(("✔️|Active" if last == "random2" else "✖️|DeActive"), data="setfonttime:random2"))
-    for font in FONTS:
-        buttons.append(Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"))
-        buttons.append(Button.inline(("✔️|Active" if font == last else "✖️|DeActive"), data=f"setfonttime:{font}"))
-    buttons.append(Button.inline("◀️ Back", data="panelpage:4"))
-    buttons.append(Button.inline("Next ▶️", data="panelpage:1"))
-    buttons.append(Button.inline("🚫 Close 🚫", data="closepanel"))
-    buttons = list(client.utils.chunks(buttons, 2))
+    buttons = get_time_buttons(page)
+    await event.edit(buttons=buttons)
+
+@client.Callback(data="setmode\:(.*)\:(.*)")
+async def setfonttime(event):
+    mode = event.data_match.group(1).decode('utf-8')
+    change = event.data_match.group(2).decode('utf-8')
+    client.DB.set_key(mode, change)
+    buttons = get_mode_buttons(page)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="closepanel")
