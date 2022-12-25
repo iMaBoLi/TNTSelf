@@ -35,7 +35,7 @@ def get_mode_buttons(page):
     for mode in MODES: 
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if gmode == "off" else "off"
-        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{mode}:cmode")])
+        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:cmode")])
     pgbts = []
     if page > 1:
         pgbts.append(Button.inline("◀️ Back", data=f"panelpage:{page-1}"))
@@ -78,9 +78,10 @@ async def setfonttime(event):
     await event.edit(buttons=buttons)
 
 @client.Callback(data="setmode\:(.*)\:(.*)")
-async def setfonttime(event):
-    mode = event.data_match.group(1).decode('utf-8')
-    change = event.data_match.group(2).decode('utf-8')
+async def setmode(event):
+    page = int(event.data_match.group(1).decode('utf-8'))
+    mode = event.data_match.group(2).decode('utf-8')
+    change = event.data_match.group(3).decode('utf-8')
     client.DB.set_key(mode, change)
     buttons = get_mode_buttons(page)
     await event.edit(buttons=buttons)
