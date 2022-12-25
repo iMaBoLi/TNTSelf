@@ -6,7 +6,6 @@ import aiocron
 import random
 import re
 import os
-os.system("pip install apscheduler")
 
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
@@ -32,6 +31,7 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
+@aiocron.crontab("*/1 * * * *", start=False)
 async def namechanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
@@ -44,6 +44,7 @@ async def namechanger():
         chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
+            return await client.send_message(client.backch, "Name 1 Changed!")
         except:
             try:
                 await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
@@ -51,7 +52,7 @@ async def namechanger():
                 pass
     await client.send_message(client.backch, "Name Changed!")
 
-@aiocron.crontab("*/1 * * * *", start=False)
+@aiocron.crontab("*/1 * * * *")
 async def biochanger():
     timefont = client.DB.get_key("TIME_FONT") or 1
     if str(timefont) == "random":
@@ -68,7 +69,7 @@ async def biochanger():
             pass
     await client.send_message(client.backch, "Bio Changed!")
 
-@aiocron.crontab("*/1 * * * *", start=False)
+@aiocron.crontab("*/1 * * * *")
 async def photochanger():
     time = datetime.now().strftime("%H:%M")
     PHOTOS = client.DB.get_key("PHOTOS") or {}
@@ -128,9 +129,3 @@ async def photochanger():
         os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
-
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
-schedule = AsyncIOScheduler()
-schedule.add_job(namechanger, "interval", seconds=60)
-schedule.start()
