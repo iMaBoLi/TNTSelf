@@ -3,6 +3,7 @@ from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
 from datetime import datetime
 import aiocron
+import asyncio
 import random
 import re
 import os
@@ -31,26 +32,24 @@ def create_font(newtime, font):
             newtime = newtime.replace(par, nfont)
     return newtime
 
-@aiocron.crontab("*/1 * * * *")
 async def namechanger():
-    timefont = client.DB.get_key("TIME_FONT") or 1
-    if str(timefont) == "random":
-        timefont = random.randint(1, len(FONTS))
     newtime = datetime.now().strftime("%H:%M")
-    time = create_font(newtime, timefont)
-    NAMES = client.DB.get_key("NAMES") or []
-    nmode = client.DB.get_key("NAME_MODE") or "off"
-    if nmode == "on" and NAMES:
-        chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
-        try:
-            await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
-            return await client.send_message(client.backch, "Name 1 Changed!")
-        except:
+    if int(datetime.now().strftime("%S")) == 00:
+        timefont = client.DB.get_key("TIME_FONT") or 1
+        if str(timefont) == "random":
+            timefont = random.randint(1, len(FONTS))
+        time = create_font(newtime, timefont)
+        NAMES = client.DB.get_key("NAMES") or []
+        nmode = client.DB.get_key("NAME_MODE") or "off"
+        if nmode == "on" and NAMES:
+            chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
             try:
-                await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
+                await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
             except:
-                pass
-    await client.send_message(client.backch, "Name Changed!")
+                try:
+                    await client(functions.account.UpdateProfileRequest(first_name="‌", last_name=str(chname)))
+                except:
+                    pass
 
 @aiocron.crontab("*/1 * * * *")
 async def biochanger():
@@ -67,7 +66,6 @@ async def biochanger():
             await client(functions.account.UpdateProfileRequest(about=str(chbio)))
         except:
             pass
-    await client.send_message(client.backch, "Bio Changed!")
 
 @aiocron.crontab("*/1 * * * *")
 async def photochanger():
@@ -129,3 +127,6 @@ async def photochanger():
         os.remove("NEWPROFILE.jpg")
         os.remove(photo)
         os.remove(ffont)
+
+while True:
+    client.loop.create_task(namechanger())
