@@ -35,8 +35,8 @@ async def down_foshs():
     ofile = client.DB.get_key("ORGFOSHS_FILE") or {}
     if ofile:
         get = await client.get_messages(int(ofile["chat_id"]), ids=int(ofile["msg_id"]))
-        await get.downlaod_file("ORGFOSHS.txt")
+        await get.downlaod_media("ORGFOSHS.txt")
     ffile = client.DB.get_key("FRIENDFOSHS_FILE") or {}
     if ffile:
         get = await client.get_messages(int(ffile["chat_id"]), ids=int(ffile["msg_id"]))
-        await get.downlaod_file("FRIENDFOSHS.txt")
+        await get.downlaod_media("FRIENDFOSHS.txt")
