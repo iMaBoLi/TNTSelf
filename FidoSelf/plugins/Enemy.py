@@ -55,7 +55,7 @@ async def quicksupdate(event):
 @client.Inline(pattern="addenemy\:(.*)")
 async def inlineenemy(event):
     userid = event.pattern_match.group(1)
-    text = f"**{client.str} Please Select Type Of This Enemy:"
+    text = f"**{client.str} Please Select Type Of This Enemy:**")
     buttons = [[Button.inline("• Orginal Enemy •", data=f"addenemy:{userid}:Original"), Button.inline("• Friend Enemy •", data=f"addenemy:{userid}:Friend")]]
     buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Enemy", text=text, buttons=buttons)])
@@ -81,7 +81,7 @@ async def addenemies(event):
                     Wheres += f'{Enemies[enemy]["where"]}'
                 else:
                     Wheres += f':{Enemies[enemy]["where"]}'
-        if Enemies[userid]["where"] in Wheres.split(":"):
+        if where in Wheres.split(":"):
             return await event.answer(f"{client.str} The User ( {userinfo.first_name} ) Is Alredy In {type} Enemy List In {where} Location!", alert=True)
         rand = random.randint(11111111, 99999999)
         Enemies.update({rand: {"user_id": userid, "type": type, "where": where}})
