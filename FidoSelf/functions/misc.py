@@ -24,8 +24,19 @@ async def addvars():
     setattr(client, "realm", client.DB.get_key("REALM_CHAT"))
     setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL"))
     setattr(client, "mention", mention)
+    down_foshs()
 
 def stimezone():
     tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
     os.environ["TZ"] = str(tzone)
     time.tzset()
+
+def down_foshs():
+    ffile = client.DB.get_key("ORGFOSHS_FILE") or {}
+    if ffile:
+        get = await client.get_messages(int(ffile["chat_id"]), ids=int(ffile["msg_id"]))
+        await get.downlaod_file("ORGFOSHS.txt")
+    ffile = client.DB.get_key("FRIENDFOSHS_FILE") or {}
+    if ffile:
+        get = await client.get_messages(int(ffile["chat_id"]), ids=int(ffile["msg_id"]))
+        await get.downlaod_file("FRIENDFOSHS.txt")
