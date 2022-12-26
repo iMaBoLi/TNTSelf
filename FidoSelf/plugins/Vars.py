@@ -13,7 +13,7 @@ def get_vars():
         "FADAY": cdate[2],
         "FAMONTH": cdate[1],
         "FAYEAR": cdate[0],
-        "FADATE": cdate[0] + "/" cdate[1] + "/" cdate[2],
+        "FADATE": cdate[0] + "/" + cdate[1] + "/" + cdate[2],
         "FATIME": fatime.strftime("%H:%M"),
         "FASEC": fatime.strftime("%S"),
         "FAMIN": fatime.strftime("%M"),
