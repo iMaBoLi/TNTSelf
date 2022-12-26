@@ -13,7 +13,7 @@ class FidoClient(TelegramClient):
         kwargs["api_id"] = api_id
         kwargs["api_hash"] = api_hash
         super().__init__(session, **kwargs)
-        self.run_in_loop(self.start_client(bot_token=bot_token))
+        self.loop.run_until_complete(self.start_client(bot_token=bot_token))
         self.dc_id = self.session.dc_id
 
     async def start_client(self, **kwargs):
