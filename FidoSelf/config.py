@@ -1,7 +1,7 @@
 API_ID = 26909317
 API_HASH = "bae2fc6f671b02f9bea0473ed369a95f"
 SESSION = "1BJWap1sBuzHN3Tt7z0-ydD5A9pFxpRZE5okIwlBis_JO2ysWZo_AJTq57MrFHUVRGJz3uJuhia2TdwcJ6qQS7BBGggc7ZXRyfmWr3g0KsR-PI4egBmM6fuTC-fQXD3Q49pYVFsn4Lb7W_3glOOWTvkaoMthjEZQDwPAjQE5KnYgl49Ewp3B4aoRRL7Ja0x_l1nsxo2rNUwlLl7eVVFmjRTMl3EsZJEyeCCumkDFjMXQe_WpY88ObpbyVZKe_qkyR0pPyvC5uoS_UCZAvUvm05jsBlLIeVAkdmi6qn3_eoB69WyRht7pA9OzFz0denMsZFv0-pqJRmPCwgNGafjoWELe1HqYIkzQ="
-BOT_TOKEN = "5548351893:AAFoQozNMnzHKhWKm-ebYCD7hRi8tJ8y1hE"
+BOT_TOKEN = "5548351893:AAENqxtfmd7OTUd8crG44uVV-qlqshljsko"
 REDIS_URL = "redis-12319.c59.eu-west-1-2.ec2.cloud.redislabs.com:12319"
 REDIS_PASSWORD = "HvKZ7FppsNWScMFwdV07Q24EeNZHezPT"
 SQL_URL = "postgres://fidoself_user:kNsbkuu1VXeJgOnhwpf0tuCDnSFCIC3Y@dpg-ceffufhgp3jk7mhbm63g-a.frankfurt-postgres.render.com/fidoself"
