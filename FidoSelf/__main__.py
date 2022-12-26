@@ -23,5 +23,5 @@ async def setup():
     except:
         pass
 
-client.run_until_complete(setup())
-client.bot.run_until_disconnected()
+client.bot.loop.run_until_complete(setup())
+client.run_until_disconnected()
