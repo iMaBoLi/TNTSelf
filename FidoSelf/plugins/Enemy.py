@@ -37,7 +37,7 @@ async def inlineenemy(event):
 async def cenemies(event):
     work = str(event.data_match.group(1).decode('utf-8'))
     data = str(event.data_match.group(2).decode('utf-8')).split(":")
-    userid = data[0]
+    userid = int(data[0])
     userinfo = await client.get_entity(userid)
     type = data[1]
     Enemies = client.DB.get_key("ENEMIES") or {}
