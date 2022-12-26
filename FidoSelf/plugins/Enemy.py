@@ -115,7 +115,7 @@ async def quicksupdate(event):
 @client.Inline(pattern="addenemy\:(.*)")
 async def inlineenemy(event):
     userid = event.pattern_match.group(1)
-    text = f"**{client.str} Please Select Type Of This Enemy To Be Saved:**")
+    text = f"**{client.str} Please Select Type Of This Enemy To Be Saved:**"
     buttons = [[Button.inline("• Orginal Enemy •", data=f"addenemy:{userid}:Original"), Button.inline("• Friend Enemy •", data=f"addenemy:{userid}:Friend")]]
     buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Enemy", text=text, buttons=buttons)])
