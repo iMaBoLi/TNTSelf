@@ -85,6 +85,7 @@ async def quicksupdate(event):
             if info["where"] == "Groups" and not event.is_group: continue
             if info["where"] == "Privates" and not event.is_private: continue
             if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
+        if info["user_id"] != event.sender_id: continue
         try:
             if info["type"] == "Original":
                 foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
