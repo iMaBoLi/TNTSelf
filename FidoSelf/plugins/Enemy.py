@@ -13,6 +13,65 @@ async def addenemy(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
+@client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyPm (On|off)$")
+async def delenemypm(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    mode = event.pattern_match.group(1).lower()
+    client.DB.set_key("ENEMY_DELETE", mode)
+    change = "Actived" if mode == "on" else "DeActived"
+    await event.edit(f"**{client.str} The Delete Enemy Messages Mode Has Been {change}!**")
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
+async def setenemysleep(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    sleep = event.pattern_match.group(1)
+    client.DB.set_key("ENEMY_SLEEP", str(sleep))
+    await event.edit(f"**{client.str} The Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddFosh(F)?$")
+async def savefoshfile(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    if not event.reply_message or not event.reply_message.media:
+        return await event.edit(f"**{client.str} Please Reply To Foshs File!**")
+    if not client.backch:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+    try:
+        forward = await event.reply_message.forward_to(int(client.backch))
+    except:
+        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+    if event.text.endswith("F") or event.text.endswith("f"):
+        client.DB.set_key("FEIENDFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
+        await event.edit(f"**{client.str} The Frind Enemy Foshs File Has Been Saved!**")  
+    else:
+        client.DB.set_key("ORGFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
+        await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Saved!**")  
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
+async def delfoshfile(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    if event.text.endswith("F") or event.text.endswith("f"):
+        client.DB.del_key("FEIENDFOSHS_FILE")
+        await event.edit(f"**{client.str} The Frind Enemy Foshs File Has Been Deleted!**")  
+    else:
+        client.DB.del_key("ORGFOSHS_FILE")
+        await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Deleted!**")  
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
+async def getfoshfile(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    if event.text.endswith("F") or event.text.endswith("f"):
+        foshs = client.DB.get_key("FRINEDFOSHS_FILE") or {}
+        if not foshs:
+            return await event.edit(f"**{client.str} The Frind Enemy Foshs File Is Not Saved!**")
+        file = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
+        await event.respond(f"**{client.str} Friend Foshs File!**", file=file)
+    else:
+        foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
+        if not foshs:
+            return await event.edit(f"**{client.str} The Original Enemy Foshs File Is Not Saved!**")
+        file = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
+        await event.respond(f"**{client.str} Original Foshs File!**", file=file)
+
 @client.Cmd(sudo=False, edits=False)
 async def quicksupdate(event):
     if event.is_sudo or not event.text: return
@@ -55,7 +114,7 @@ async def quicksupdate(event):
 @client.Inline(pattern="addenemy\:(.*)")
 async def inlineenemy(event):
     userid = event.pattern_match.group(1)
-    text = f"**{client.str} Please Select Type Of This Enemy:**")
+    text = f"**{client.str} Please Select Type Of This Enemy To Be Saved:**")
     buttons = [[Button.inline("• Orginal Enemy •", data=f"addenemy:{userid}:Original"), Button.inline("• Friend Enemy •", data=f"addenemy:{userid}:Friend")]]
     buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Enemy", text=text, buttons=buttons)])
