@@ -1,6 +1,5 @@
 from FidoSelf import client
 from telethon import functions, types, Button
-from FidoSelf.functions.misc import down_foshs
 import asyncio, random
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
@@ -76,7 +75,6 @@ async def savefoshfile(event):
     else:
         client.DB.set_key("ORGFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
         await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Saved!**")  
-    client.loop.create_task(down_foshs())
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
 async def delfoshfile(event):
@@ -87,7 +85,6 @@ async def delfoshfile(event):
     else:
         client.DB.del_key("ORGFOSHS_FILE")
         await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Deleted!**")  
-    client.loop.create_task(down_foshs())
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
 async def getfoshfile(event):
@@ -125,8 +122,6 @@ async def quicksupdate(event):
                     await event.delete()
                 foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("ORGFOSHS.txt"): continue
-                if not os.path.exists("ORGFOSHS.txt"):
-                    await down_foshs()
                 Foshs = open("ORGFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
@@ -138,8 +133,6 @@ async def quicksupdate(event):
                     await event.delete()
                 foshs = client.DB.get_key("FRIENDFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("FRIENDFOSHS.txt"): continue
-                if not os.path.exists("FRIENDFOSHS.txt"):
-                    await down_foshs()
                 Foshs = open("FEIENDFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
