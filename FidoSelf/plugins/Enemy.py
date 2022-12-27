@@ -122,6 +122,9 @@ async def quicksupdate(event):
                     await event.delete()
                 foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("ORGFOSHS.txt"): continue
+                if not os.path.exists("ORGFOSHS.txt"):
+                    get = await client.get_messages(int(foshs["chat_id"]), int(foshs["msg_id"]))
+                    await get.download_media("ORGFOSHS.txt")
                 Foshs = open("ORGFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
@@ -133,6 +136,9 @@ async def quicksupdate(event):
                     await event.delete()
                 foshs = client.DB.get_key("FRIENDFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("FRIENDFOSHS.txt"): continue
+                if not os.path.exists("FRIENDFOSHS.txt"):
+                    get = await client.get_messages(int(foshs["chat_id"]), int(foshs["msg_id"]))
+                    await get.download_media("FRIENDFOSHS.txt")
                 Foshs = open("FEIENDFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
