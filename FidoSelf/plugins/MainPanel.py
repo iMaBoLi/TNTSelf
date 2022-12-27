@@ -27,6 +27,8 @@ def get_mode_buttons(page):
         "SMART_MONSHI_MODE": "Smart Monshi",
         "OFFLINE_MONSHI_MODE": "Offline Monshi",
         "TIMER_MODE": "Timer Save",
+        "FRIENDENEMY_DELETE": "DelEnemy Pms",
+        "FRIENDENEMY_DELETE": "DelEnemy Friend Pms",
     }
     for mode in MODES:
         if mode in ["SELF_ALL_MODE", "QUICKS_MODE"] and not client.DB.get_key(mode):
