@@ -28,6 +28,19 @@ async def delenemy(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
+@client.Cmd(pattern=f"(?i)^\{client.cmd}EnemyList$")
+async def enemylist(event):
+    await event.edit(f"**{client.str} Processing . . .**")
+    Enemies = client.DB.get_key("ENEMIES") or []
+    if not Enemies:
+        return await event.edit(f"**{client.str} The Bio List Is Empty!**")
+    text = f"**{client.str} The Enemy List:**\n\n"
+    row = 1
+    for enemy in Enemies:
+        text += f"**{row} -** ( `{Enemies[enemy]["where"]}` ) - ( `{Enemies[enemy]["where"]}` )\n"
+        row += 1
+    await event.edit(text)
+
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyPms (On|off)$")
 async def delenemypm(event):
     await event.edit(f"**{client.str} Processing . . .**")
