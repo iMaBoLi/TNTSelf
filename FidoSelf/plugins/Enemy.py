@@ -37,7 +37,7 @@ async def enemylist(event):
     text = f"**{client.str} The Enemy List:**\n\n"
     row = 1
     for enemy in Enemies:
-        text += f"**{row} -** ( `{Enemies[enemy]["where"]}` ) - ( `{Enemies[enemy]["where"]}` )\n"
+        text += f"""**{row} -** ( `{Enemies[enemy]["where"]}` ) - ( `{Enemies[enemy]["where"]}` )\n"""
         row += 1
     await event.edit(text)
 
