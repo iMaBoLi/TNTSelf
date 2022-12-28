@@ -37,7 +37,7 @@ async def enemylist(event):
     text = f"**{client.str} The Enemy List:**\n\n"
     row = 1
     for enemy in Enemies:
-        text += f"""**{row} -** ( `{Enemies[enemy]["where"]}` ) - ( `{Enemies[enemy]["where"]}` )\n"""
+        text += f"""**{row}-** `{Enemies[enemy]["user_id"]}` - ( `{Enemies[enemy]["type"]}` - `{Enemies[enemy]["where"]}` )\n"""
         row += 1
     await event.edit(text)
 
@@ -157,7 +157,8 @@ async def quicksupdate(event):
                 await asyncio.sleep(int(sleep))
                 await event.respond(random.choice(Foshs))
                 continue
-        except:
+        except Exception as e:
+            await event.reply(str(e))
             continue
 
 @client.Inline(pattern="addenemy\:(.*)")
