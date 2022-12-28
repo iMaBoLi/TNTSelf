@@ -1,6 +1,7 @@
 from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random
+import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
 async def addenemy(event):
@@ -157,8 +158,7 @@ async def quicksupdate(event):
                 await asyncio.sleep(int(sleep))
                 await event.respond(random.choice(Foshs))
                 continue
-        except Exception as e:
-            await event.reply(str(e))
+        except:
             continue
 
 @client.Inline(pattern="addenemy\:(.*)")
@@ -183,15 +183,9 @@ async def addenemies(event):
         await event.edit(text=text, buttons=buttons)
     else:
         where = data[2]
-        Wheres = ""
         for enemy in Enemies:
-            if Enemies[enemy]["user_id"] == userid:
-                if not Wheres:
-                    Wheres += f'{Enemies[enemy]["where"]}'
-                else:
-                    Wheres += f':{Enemies[enemy]["where"]}'
-        if where in Wheres.split(":"):
-            return await event.answer(f"{client.str} The User ( {userinfo.first_name} ) Is Alredy In {type} Enemy List In {where} Location!", alert=True)
+            if Enemies[enemy]["user_id"] == userid and Enemies[enemy]["type"] == type and Enemies[enemy]["where"] == where:
+                return await event.answer(f"{client.str} The User ( {userinfo.first_name} ) Is Alredy In {type} Enemy List In {where} Location!", alert=True)
         rand = random.randint(11111111, 99999999)
         Enemies.update({rand: {"user_id": userid, "type": type, "where": where}})
         client.DB.set_key("ENEMIES", Enemies)
