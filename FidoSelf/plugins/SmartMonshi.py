@@ -36,7 +36,7 @@ async def smartmonshisleep(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def smartmonshi(event):
-    mode = client.DB.get_key("SMART_MONSHI_MODE") or "off"
+    mode = client.DB.get_key("SMART_MONSHI_MODE")
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
