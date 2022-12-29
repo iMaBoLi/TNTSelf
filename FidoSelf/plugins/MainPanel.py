@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import Button
 from datetime import datetime
-from FidoSelf.plugins.ManageTime import FONTS, create_font
+from FidoSelf.functions.vars import FONTS, create_font
 import time
 
 PAGES_COUNT = 3
