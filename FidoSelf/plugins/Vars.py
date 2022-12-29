@@ -41,22 +41,24 @@ def get_vars():
     time = datetime.now()
     cdate = convert_date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
     VARS = {
-        "TIME": fatime.strftime("%H:%M"),
-        "DATE": cdate[0] + "/" + cdate[1] + "/" + cdate[2],
+        "TIME": time.strftime("%H:%M"),
+        "DATE": str(cdate[0]) + "/" + str(cdate[1]) + "/" + str(cdate[2]),
         "DAY": cdate[2],
         "MONTH": cdate[1],
         "YEAR": cdate[0],
-        "HOUR": fatime.strftime("%H"),
-        "MIN": fatime.strftime("%M"),
-        "SEC": fatime.strftime("%S"),
-        "STRDAY": time.strftime("%A"),
-        "STRMONTH": time.strftime("B"),
+        "HOUR": time.strftime("%H"),
+        "MIN": time.strftime("%M"),
+        "SEC": time.strftime("%S"),
      }
     timefont = client.DB.get_key("TIME_FONT") or 1
     NewVars = {}
     for Var in Vars:
         NewVars.update({"F" + str(Var): create_font(Vars[Var], str(timefont))})
     Vars += NewVars
+    Vars.update({
+        "STRDAY": time.strftime("%A"),
+        "STRMONTH": time.strftime("B"),
+        })
     Vars.update({"HEART": random.choice(HEARTS)})
     emojies = client.DB.get_key("EMOJIES") or []
     if emojies:
