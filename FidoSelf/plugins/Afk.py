@@ -1,6 +1,5 @@
 from FidoSelf import client
 from datetime import datetime
-from FidoSelf.plugins.ManageTime import HEARTS
 import random
 import asyncio
 import time
@@ -44,16 +43,11 @@ async def afk(event):
     if not event.mentioned: return
     chat = client.DB.get_key("AFK_MSG")
     if not chat: return 
-    user = await event.get_sender()
-    me = await event.client.get_me()
-    uname = f"{user.first_name} {user.last_name}" if user.last_name else user.first_name
-    mname = f"{me.first_name} {me.last_name}" if me.last_name else me.first_name
-    chattitle = (await event.get_chat()).title
-    newtime = datetime.now().strftime("%H:%M")
     lastseen = time.time() - int(client.DB.get_key("AFK_LASTSEEN"))
     lastseen = client.utils.convert_time(lastseen)
     msg = await client.get_messages(int(chat.split(":")[0]), ids=int(chat.split(":")[1]))
-    msg.text = msg.text.format(TITLE=chattitle, UNAME=uname, MNAME=mname, HEART=random.choice(HEARTS), TIME=newtime, LASTSEEN=lastseen)
+    msg.text = await client.vars(msg.text, event)
+    msg.text = msg.text.replace("LASTSEEN", lastseen)
     sleep = client.DB.get_key("AFK_SLEEP") or "0"
     await asyncio.sleep(int(sleep))
     await event.reply(msg)
