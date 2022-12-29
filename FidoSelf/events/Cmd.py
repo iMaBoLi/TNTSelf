@@ -20,7 +20,7 @@ def Cmd(
     def decorator(func):
         async def wrapper(event):
             try:
-                selfall = client.DB.get_key("SELF_ALL_MODE") or "on"
+                selfall = client.DB.get_key("SELF_ALL_MODE")
                 if selfmode and selfall == "off": return
                 selfchats = client.DB.get_key("SELF_MODE") or []
                 if selfmode and event.chat_id in selfchats: return
