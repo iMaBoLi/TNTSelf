@@ -40,9 +40,9 @@ async def smartmonshi(event):
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
-    chat = client.DB.get_key("SMART_MONSHI_MSG") or ""
+    chat = client.DB.get_key("SMART_MONSHI_MSG")
     if not chat: return
-    users = client.DB.get_key("SMART_MONSHI_USERS") or []
+    users = client.DB.get_key("SMART_MONSHI_USERS")
     if event.sender_id in users: return
     users.append(event.sender_id)
     client.DB.set_key("SMART_MONSHI_USERS", users) 
