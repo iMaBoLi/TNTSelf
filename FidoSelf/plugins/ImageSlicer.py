@@ -9,7 +9,7 @@ async def sliceimage(event):
         photo = await event.reply_message.download_media()
         tiles = image_slicer.slice(photo, int(tile))
         photos = [str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
-        for phs in list(client.utils.chunks(photos)):
+        for phs in list(client.utils.chunks(photos, 10)):
             await event.respond(f"**{client.str} The Photo Was Sliced To** ( `{len(photos)}` ) **Tiles!**", file=phs)
         await event.delete()
         os.remove(photo)
