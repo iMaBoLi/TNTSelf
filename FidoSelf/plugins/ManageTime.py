@@ -44,7 +44,7 @@ async def namechanger():
     newtime = datetime.now().strftime("%H:%M")
     timefont = client.DB.get_key("TIME_FONT") or 1
     time = create_font(newtime, str(timefont))
-    NAMES = client.DB.get_key("NAMES") or []
+    NAMES = client.DB.get_key("NAMES")
     nmode = client.DB.get_key("NAME_MODE")
     if nmode == "on" and NAMES:
         chname = random.choice(NAMES).format(TIME=time, HEART=random.choice(HEARTS))
@@ -61,7 +61,7 @@ async def biochanger():
     newtime = datetime.now().strftime("%H:%M")
     timefont = client.DB.get_key("TIME_FONT") or 1
     time = create_font(newtime, str(timefont))
-    BIOS = client.DB.get_key("BIOS") or []
+    BIOS = client.DB.get_key("BIOS")
     bmode = client.DB.get_key("BIO_MODE")
     if bmode == "on" and BIOS:
         chbio = random.choice(BIOS).format(TIME=time, HEART=random.choice(HEARTS))
@@ -73,9 +73,9 @@ async def biochanger():
 @aiocron.crontab("*/1 * * * *")
 async def photochanger():
     time = datetime.now().strftime("%H:%M")
-    PHOTOS = client.DB.get_key("PHOTOS") or {}
-    FONTS = client.DB.get_key("FONTS") or {}
-    TEXTS = client.DB.get_key("TEXT_TIMES") or []
+    PHOTOS = client.DB.get_key("PHOTOS")
+    FONTS = client.DB.get_key("FONTS")
+    TEXTS = client.DB.get_key("TEXT_TIMES")
     phmode = client.DB.get_key("PHOTO_MODE")
     if phmode == "on" and PHOTOS and TEXTS and FONTS:
         phname = random.choice(list(PHOTOS.keys()))
