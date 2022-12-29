@@ -35,7 +35,7 @@ def get_mode_buttons(page):
         if mode in ["SELF_ALL_MODE", "QUICKS_MODE"] and not client.DB.get_key(mode):
             gmode = "on"
         else:
-            gmode = client.DB.get_key(mode) or "off"
+            gmode = client.DB.get_key(mode)
         cmode = "on" if gmode == "off" else "off"
         buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(("✔️|Active" if gmode == "on" else "✖️|DeActive"), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = get_pages_button(page)
@@ -55,7 +55,7 @@ def get_time_buttons(page):
     return buttons
 
 def get_edit_buttons(page):
-    last = client.DB.get_key("EDIT_MODE") or False
+    last = client.DB.get_key("EDIT_MODE")
     buttons = []
     EDITS = ["Bold", "Mono", "Italic", "Underline", "Strike", "Spoiler", "Hashtag"]
     for edit in EDITS:
@@ -116,7 +116,7 @@ async def setfonttime(event):
 async def seteditmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     edit = event.data_match.group(2).decode('utf-8')
-    last = client.DB.get_key("EDIT_MODE") or False
+    last = client.DB.get_key("EDIT_MODE")
     if str(last) == str(edit):
         client.DB.set_key("EDIT_MODE", False)
     else:
