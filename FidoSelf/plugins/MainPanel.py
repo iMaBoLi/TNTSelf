@@ -26,6 +26,7 @@ def get_mode_buttons(page):
         "PHOTO_MODE": "Photo",
         "SMART_MONSHI_MODE": "Smart Monshi",
         "OFFLINE_MONSHI_MODE": "Offline Monshi",
+        "AUTO_DELETE_MODE": "Auto Delete",
         "TIMER_MODE": "Timer Save",
         "ORGENEMY_DELETE": "DelEnemy Pms",
         "FRIENDENEMY_DELETE": "DelEnemy Friend Pms",
