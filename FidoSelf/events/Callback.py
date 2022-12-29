@@ -13,7 +13,7 @@ def Callback(
     def decorator(func):
         async def wrapper(event):
             try:
-                selfall = client.DB.get_key("SELF_ALL_MODE") or "on"
+                selfall = client.DB.get_key("SELF_ALL_MODE")
                 if selfall == "off": return
                 selfchats = client.DB.get_key("SELF_MODE") or []
                 if event.chat_id in selfchats: return
