@@ -1,3 +1,4 @@
+from FidoSelf import client
 from FidoSelf.functions.helper import convert_date
 from datetime import datetime
 import random
