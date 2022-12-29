@@ -123,6 +123,7 @@ async def quicksupdate(event):
             if info["where"] == "Privates" and not event.is_private: continue
             if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
         try:
+            info["answers"] = await client.vars(str(info["answers"]), event)
             answers = info["answers"].split(",")
             if info["type"] == "Normal":
                 await event.reply(info["answers"])
@@ -150,6 +151,7 @@ async def quicksupdate(event):
                 continue
             elif info["type"] == "Media":
                 msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
+                msg.text = await client.vars(str(msg.text), event)
                 await event.reply(msg)
                 continue
             elif info["type"] == "Draft":
