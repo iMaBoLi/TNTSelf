@@ -6,7 +6,7 @@ from FidoSelf.functions.helper import convert_date
 def get_vars():
     fatime = datetime.now()
     entime = datetime.now(date.timezone.utc)
-    cdate = convert_date(entime.strftime("%Y"), entime.strftime("%m"), entime.strftime("%d"))
+    cdate = convert_date(int(entime.strftime("%Y")), int(entime.strftime("%m")), int(entime.strftime("%d")))
     VARS = {
         "ENSTRDAY": entime.strftime("%A"),
         "ENSTRMONTH": entime.strftime("B"),
