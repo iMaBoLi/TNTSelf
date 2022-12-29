@@ -53,8 +53,8 @@ async def get_vars(event):
     timefont = client.DB.get_key("TIME_FONT") or 1
     NewVars = {}
     for Var in Vars:
-        NewVars.update({"F" + str(Var): create_font(Vars[Var], str(timefont))})
-    Vars += NewVars
+        NewVars.update({"F" + str(Var): create_font(str(Vars[Var]), str(timefont))})
+    Vars.update(NewVars)
     Vars.update({
         "STRDAY": time.strftime("%A"),
         "STRMONTH": time.strftime("B"),
