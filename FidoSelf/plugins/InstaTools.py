@@ -3,9 +3,9 @@ import instagrapi
 import os, re
 
 def INSTA():
-    username = client.DB.get_key("INSTA_LOGIN_USER") or False
-    password = client.DB.get_key("INSTA_LOGIN_PASS") or False
-    session = client.DB.get_key("INSTA_LOGIN_SESSION") or False
+    username = client.DB.get_key("INSTA_LOGIN_USER")
+    password = client.DB.get_key("INSTA_LOGIN_PASS")
+    session = client.DB.get_key("INSTA_LOGIN_SESSION")
     if not username or not password: return "empty"
     INSTA = instagrapi.Client()
     if os.path.exists("iNstaSession.json"):
