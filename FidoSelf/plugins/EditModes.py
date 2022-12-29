@@ -5,7 +5,7 @@ async def bio(event):
     await event.edit(f"**{client.str} Processing . . .**")
     mode = event.pattern_match.group(1).lower()
     change = event.pattern_match.group(2).lower()
-    last = client.DB.get_key("EDIT_MODE") or False
+    last = client.DB.get_key("EDIT_MODE")
     if change == "on":
         if not str(last).lower() == str(mode):
             client.DB.set_key("EDIT_MODE", mode.title())
@@ -22,7 +22,7 @@ async def bio(event):
 @client.Cmd(edits=False)
 async def editmodes(event):
     if event.is_cmd or not event.text: return
-    mode = client.DB.get_key("EDIT_MODE") or False
+    mode = client.DB.get_key("EDIT_MODE")
     lasttext = str(event.text)
     if not mode:
         return
