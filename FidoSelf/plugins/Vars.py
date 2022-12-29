@@ -1,9 +1,7 @@
 from FidoSelf import client
 from FidoSelf.functions.helper import convert_date
 from datetime import datetime
-import datetime as date
 import random
-import os
 
 FONTS = {
     1: "0,1,2,3,4,5,6,7,8,9",
@@ -40,35 +38,27 @@ def create_font(newtime, timefont):
     return newtime
 
 def get_vars():
-    fatime = datetime.now()
-    entime = datetime.now(date.timezone.utc)
-    cdate = convert_date(int(entime.strftime("%Y")), int(entime.strftime("%m")), int(entime.strftime("%d")))
-    timefont = client.DB.get_key("TIME_FONT") or 1
+    time = datetime.now()
+    cdate = convert_date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
     VARS = {
-        "ENSTRDAY": entime.strftime("%A"),
-        "ENSTRMONTH": entime.strftime("B"),
-        "FADAY": cdate[2],
-        "FAMONTH": cdate[1],
-        "FAYEAR": cdate[0],
-        "FADATE": cdate[0] + "/" + cdate[1] + "/" + cdate[2],
-        "FATIMES": fatime.strftime("%H:%M"),
-        "FASEC": fatime.strftime("%S"),
-        "FAMIN": fatime.strftime("%M"),
-        "FAHOUR": fatime.strftime("%H"),
-        "ENSTRDAY": entime.strftime("%A"),
-        "ENSTRMONTH": entime.strftime("%B"),
-        "ENDAY": entime.strftime("%d"),
-        "ENMONTH": entime.strftime("%m"),
-        "ENYEAR": entime.strftime("%Y"),
-        "ENDATE": entime.strftime("%F").replace("-", "/"),
-        "ENTIMES": entime.strftime("%H:%M"),
-        "ENSEC": entime.strftime("%S"),
-        "ENMIN": entime.strftime("%M"),
-        "ENHOUR": entime.strftime("%H"),
+        "TIME": fatime.strftime("%H:%M"),
+        "DATE": cdate[0] + "/" + cdate[1] + "/" + cdate[2],
+        "DAY": cdate[2],
+        "MONTH": cdate[1],
+        "YEAR": cdate[0],
+        "HOUR": fatime.strftime("%H"),
+        "MIN": fatime.strftime("%M"),
+        "SEC": fatime.strftime("%S"),
+        "STRDAY": time.strftime("%A"),
+        "STRMONTH": time.strftime("B"),
      }
+    timefont = client.DB.get_key("TIME_FONT") or 1
     NewVars = {}
     for Var in Vars:
-        NewVars.update({"F-" + str(Var): create_font(Vars[Var], timefont)})
+        NewVars.update({"F" + str(Var): create_font(Vars[Var], str(timefont))})
     Vars += NewVars
     Vars.update({"HEART": random.choice(HEARTS)})
+    emojies = client.DB.get_key("EMOJIES") or []
+    if emojies:
+        Vars.update({"EMOJI": random.choice(emojies)})
     return VARS
