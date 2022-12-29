@@ -49,5 +49,5 @@ async def cleanbios(event):
     bios = client.DB.get_key("BIOS") or []
     if not bios:
         return await event.edit(f"**{client.str} The Bio List Is Already Empty!**")
-    client.DB.set_key("BIOS", [])
+    client.DB.del_key("BIOS")
     await event.edit(f"**{client.str} The Bio List Is Cleared!**")
