@@ -42,7 +42,7 @@ async def afk(event):
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
-    chat = client.DB.get_key("AFK_MSG") or ""
+    chat = client.DB.get_key("AFK_MSG")
     if not chat: return 
     user = await event.get_sender()
     me = await event.client.get_me()
