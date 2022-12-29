@@ -158,7 +158,8 @@ async def quicksupdate(event):
                 await asyncio.sleep(int(sleep))
                 await event.respond(random.choice(Foshs))
                 continue
-        except:
+        except Exception as e:
+            await event.reply(str(e))
             continue
 
 @client.Inline(pattern="addenemy\:(.*)")
