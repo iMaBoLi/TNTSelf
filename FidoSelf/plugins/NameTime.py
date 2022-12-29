@@ -11,7 +11,7 @@ async def name(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddName (.*)")
 async def addname(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAMES")
     newname = str(event.pattern_match.group(1))
     if newname in names:
         return await event.edit(f"**{client.str} The Name** ( {newname} ) **Already In Name List!**")  
@@ -22,7 +22,7 @@ async def addname(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelName ?(.*)?")
 async def delname(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAMES")
     newname = str(event.pattern_match.group(1))
     if newname not in names:
         return await event.edit(f"**{client.str} The Name** ( {newname} ) **Not In Name List!**")  
@@ -33,7 +33,7 @@ async def delname(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}NameList$")
 async def namelist(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAMES")
     if not names:
         return await event.edit(f"**{client.str} The Name List Is Empty!**")
     text = f"**{client.str} The Name List:**\n\n"
@@ -46,7 +46,7 @@ async def namelist(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanNameList$")
 async def cleannames(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAMES")
     if not names:
         return await event.edit(f"**{client.str} The Name List Is Already Empty!**")
     client.DB.set_key("NAMES", [])
