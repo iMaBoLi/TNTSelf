@@ -119,7 +119,7 @@ async def getfoshfile(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def quicksupdate(event):
-    if event.is_sudo or not event.text: return
+    if event.is_sudo or not event.text or event.is_ch: return
     Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies: return
     for enemy in Enemies:
@@ -137,7 +137,7 @@ async def quicksupdate(event):
                 foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("ORGFOSHS.txt"): continue
                 if not os.path.exists("ORGFOSHS.txt"):
-                    get = await client.get_messages(int(foshs["chat_id"]), int(foshs["msg_id"]))
+                    get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
                     await get.download_media("ORGFOSHS.txt")
                 Foshs = open("ORGFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
@@ -151,7 +151,7 @@ async def quicksupdate(event):
                 foshs = client.DB.get_key("FRIENDFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("FRIENDFOSHS.txt"): continue
                 if not os.path.exists("FRIENDFOSHS.txt"):
-                    get = await client.get_messages(int(foshs["chat_id"]), int(foshs["msg_id"]))
+                    get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
                     await get.download_media("FRIENDFOSHS.txt")
                 Foshs = open("FEIENDFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
@@ -188,7 +188,7 @@ async def addenemies(event):
             if Enemies[enemy]["user_id"] == userid and Enemies[enemy]["type"] == type and Enemies[enemy]["where"] == where:
                 return await event.answer(f"{client.str} The User ( {userinfo.first_name} ) Is Alredy In {type} Enemy List In {where} Location!", alert=True)
         rand = random.randint(11111111, 99999999)
-        Enemies.update({rand: {"user_id": userid, "type": type, "where": where}})
+        Enemies.update({f"Enemy-{rand}": {"user_id": userid, "type": type, "where": where}})
         client.DB.set_key("ENEMIES", Enemies)
         await event.edit(text=f"**{client.str} The User** ( {client.mention(userinfo)} ) **Is Added To {type} Enemy List For {where} Location!**")
 
