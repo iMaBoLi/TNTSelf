@@ -19,7 +19,7 @@ async def setautodeletesleep(event):
 
 @client.Cmd()
 async def autodeleters(event):
-    mode = client.DB.get_key("AUTO_DELETE_MODE") or "off"
+    mode = client.DB.get_key("AUTO_DELETE_MODE")
     if mode == "on":
         sleep = client.DB.get_key("AUTO_DELETE_SLEEP") or 5
         await asyncio.sleep(int(sleep))
