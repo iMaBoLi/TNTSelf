@@ -1,4 +1,5 @@
 from FidoSelf import client
+import asyncio
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AutoDelete (On|Off)$")
 async def autodelete(event):
@@ -12,7 +13,8 @@ async def autodelete(event):
 async def setautodeletesleep(event):
     await event.edit(f"**{client.str} Processing . . .**")
     sleep = event.pattern_match.group(1)
-    client.DB.set_key("AUTO_DELETE_SLEEP", str(sleep))
+    sleep = int(sleep) * 60
+    client.DB.set_key("AUTO_DELETE_SLEEP", sleep)
     await event.edit(f"**{client.str} The Auto Delete Messages Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
 @client.Cmd()
@@ -20,8 +22,7 @@ async def autodeleters(event):
     mode = client.DB.get_key("AUTO_DELETE_MODE") or "off"
     if mode == "on":
         sleep = client.DB.get_key("AUTO_DELETE_SLEEP") or 5
-        sleep = int(sleep) * 60
-        await asyncio.sleep(sleep)
+        await asyncio.sleep(int(sleep))
         try:
             await event.delete()
         except:
