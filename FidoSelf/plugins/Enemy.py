@@ -131,9 +131,6 @@ async def quicksupdate(event):
         if info["user_id"] != event.sender_id: continue
         try:
             if info["type"] == "Original":
-                delete = client.DB.get_key("ORGENEMY_DELETE") or "off"
-                if delete == "on" and event.is_private:
-                    await event.delete()
                 foshs = client.DB.get_key("ORGFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("ORGFOSHS.txt"): continue
                 if not os.path.exists("ORGFOSHS.txt"):
@@ -142,12 +139,12 @@ async def quicksupdate(event):
                 Foshs = open("ORGFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
-                await event.respond(random.choice(Foshs))
-                continue
-            elif info["type"] == "Friend":
-                delete = client.DB.get_key("FRINDENEMY_DELETE") or "off"
+                await event.reply(random.choice(Foshs))
+                delete = client.DB.get_key("ORGENEMY_DELETE") or "off"
                 if delete == "on" and event.is_private:
                     await event.delete()
+                continue
+            elif info["type"] == "Friend":
                 foshs = client.DB.get_key("FRIENDFOSHS_FILE") or {}
                 if not foshs and not os.path.exists("FRIENDFOSHS.txt"): continue
                 if not os.path.exists("FRIENDFOSHS.txt"):
@@ -156,7 +153,10 @@ async def quicksupdate(event):
                 Foshs = open("FEIENDFOSHS.txt", "r").readlines()
                 sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
-                await event.respond(random.choice(Foshs))
+                await event.reply(random.choice(Foshs))
+                delete = client.DB.get_key("FRINDENEMY_DELETE") or "off"
+                if delete == "on" and event.is_private:
+                    await event.delete()
                 continue
         except Exception as e:
             await event.reply(str(e))
