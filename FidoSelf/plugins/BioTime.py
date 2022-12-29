@@ -11,7 +11,7 @@ async def bio(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddBio (.*)$")
 async def addbio(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    bios = client.DB.get_key("BIOS") or []
+    bios = client.DB.get_key("BIOS")
     newbio = str(event.pattern_match.group(1))
     if newbio in bios:
         return await event.edit(f"**{client.str} The Bio** ( {newbio} ) **Already In Bio List!**")  
@@ -22,7 +22,7 @@ async def addbio(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelBio (.*)$")
 async def delbio(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    bios = client.DB.get_key("BIOS") or []
+    bios = client.DB.get_key("BIOS")
     newbio = str(event.pattern_match.group(1))
     if newbio not in bios:
         return await event.edit(f"**{client.str} The Bio** ( {newbio} ) **Not In Bio List!**")  
@@ -33,7 +33,7 @@ async def delbio(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}BioList$")
 async def biolist(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    bios = client.DB.get_key("BIOS") or []
+    bios = client.DB.get_key("BIOS")
     if not bios:
         return await event.edit(f"**{client.str} The Bio List Is Empty!**")
     text = f"**{client.str} The Bio List:**\n\n"
@@ -46,7 +46,7 @@ async def biolist(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanBioList$")
 async def cleanbios(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    bios = client.DB.get_key("BIOS") or []
+    bios = client.DB.get_key("BIOS")
     if not bios:
         return await event.edit(f"**{client.str} The Bio List Is Already Empty!**")
     client.DB.set_key("BIOS", [])
