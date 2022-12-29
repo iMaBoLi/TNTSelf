@@ -140,7 +140,7 @@ async def quicksupdate(event):
                 sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
                 await event.reply(random.choice(Foshs))
-                delete = client.DB.get_key("ORGENEMY_DELETE") or "off"
+                delete = client.DB.get_key("ORGENEMY_DELETE")
                 if delete == "on" and event.is_private:
                     await event.delete()
                 continue
@@ -154,7 +154,7 @@ async def quicksupdate(event):
                 sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
                 await asyncio.sleep(int(sleep))
                 await event.reply(random.choice(Foshs))
-                delete = client.DB.get_key("FRINDENEMY_DELETE") or "off"
+                delete = client.DB.get_key("FRINDENEMY_DELETE")
                 if delete == "on" and event.is_private:
                     await event.delete()
                 continue
