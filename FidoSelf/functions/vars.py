@@ -37,10 +37,10 @@ def create_font(newtime, timefont):
                 newtime = newtime.replace(par, nfont)
     return newtime
 
-def get_vars():
+async def get_vars(event):
     time = datetime.now()
     cdate = convert_date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
-    VARS = {
+    Vars = {
         "TIME": time.strftime("%H:%M"),
         "DATE": str(cdate[0]) + "/" + str(cdate[1]) + "/" + str(cdate[2]),
         "DAY": cdate[2],
@@ -63,10 +63,22 @@ def get_vars():
     emojies = client.DB.get_key("EMOJIES") or []
     if emojies:
         Vars.update({"EMOJI": random.choice(emojies)})
-    return VARS
+    if event:
+        user = await event.get_sender()
+        Vars.update({"FIRSTNAME": user.first_name})
+        Vars.update({"LASTNAME": user.last_name})
+        Vars.update({"USERNAME": user.username})
+        me = await event.client.get_me()
+        Vars.update({"MYFIRSTNAME": me.first_name})
+        Vars.update({"MYLASTNAME": me.last_name})
+        Vars.update({"MYUSERNAME": me.username})
+        chat = await event.get_chat()
+        Vars.update({"CHATTITLE": chat.title})
+        Vars.update({"CHATUSERNAME": chat.username})
+    return Vars
 
-def add_vars(text):
-    Vars = get_vars()
+async def add_vars(text, event=None):
+    Vars = await get_vars(event)
     for Var in Vars:
         text = text.replace(Var, Vars[Var])
     return text
