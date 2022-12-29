@@ -11,7 +11,7 @@ async def timersave(event):
 
 @client.Cmd(sudo=False)
 async def dtimers(event):
-    mode = client.DB.get_key("TIMER_MODE") or "off"
+    mode = client.DB.get_key("TIMER_MODE")
     if event.is_private and event.media and event.photo and event.media.to_dict()["_"] == "MessageMediaPhoto" and event.media.ttl_seconds and mode == "on":
         down = await event.download_media(f"{event.sender_id}.jpg")
         mention = client.mention(await event.get_sender())
