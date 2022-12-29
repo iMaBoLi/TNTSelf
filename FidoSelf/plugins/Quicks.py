@@ -20,7 +20,7 @@ async def addquick(event):
     if not answers:
         if not event.is_reply or not event.reply_message.media:
             return await event.edit(f"**{client.str} Please Enter Text Answers Or Reply To Media!**")
-        backch = client.DB.get_key("BACKUP_CHANNEL") or False
+        backch = client.DB.get_key("BACKUP_CHANNEL")
         if not backch:
             return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
         try:
@@ -104,7 +104,7 @@ async def quicklist(event):
 @client.Cmd(sudo=False, edits=False)
 async def quicksupdate(event):
     if event.is_cmd or not event.text: return
-    mode = client.DB.get_key("QUICKS_MODE") or "on"
+    mode = client.DB.get_key("QUICKS_MODE")
     if mode == "off": return
     quicks = client.DB.get_key("QUICKS") or {}
     if not quicks: return
