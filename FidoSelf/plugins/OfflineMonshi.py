@@ -35,11 +35,11 @@ async def offlinemonshimode(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def offlinemonshi(event):
-    mode = client.DB.get_key("OFFLINE_MONSHI_MODE") or "off"
+    mode = client.DB.get_key("OFFLINE_MONSHI_MODE")
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
-    chat = client.DB.get_key("OFFLINE_MONSHI_MSG") or False
+    chat = client.DB.get_key("OFFLINE_MONSHI_MSG")
     if not chat: return
     if "Online" in client.me.to_dict()["status"]["_"]: return
     user = await event.get_sender()
