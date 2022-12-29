@@ -56,11 +56,13 @@ class RedisDB:
         self.cache.update({key: value})
         return self.set(str(key), str(value))
 
-    def get_key(self, key):
+    def get_key(self, key, sambol=None):
         if key in self.cache:
             return self.cache[key]
         get = get_data(self, key)
         self.cache.update({key: get})
+        if not get and sambol:
+            return sambol
         return get
 
     def del_key(self, key):
