@@ -63,3 +63,9 @@ def get_vars():
     if emojies:
         Vars.update({"EMOJI": random.choice(emojies)})
     return VARS
+
+def add_vars(text):
+    Vars = get_vars()
+    for Var in Vars:
+        text = text.replace(Var, Vars[Var])
+    return text
