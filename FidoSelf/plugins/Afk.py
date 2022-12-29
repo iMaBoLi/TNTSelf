@@ -34,11 +34,11 @@ async def afksleep(event):
     await event.edit(f"**{client.str} Processing . . .**")
     sleep = event.pattern_match.group(1)
     client.DB.set_key("AFK_SLEEP", str(sleep))
-    await event.edit(f"**{client.str} The Afk Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
+    await event.edit(f"**{client.str} The Afk Sleep Has Been Set To ({client.utils.convert_time(int(sleep))})**")
 
 @client.Cmd(sudo=False, edits=False)
 async def afk(event):
-    mode = client.DB.get_key("AFK_MODE")
+    mode = client.DB.get_key("AFK_MODE") or "off"
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
