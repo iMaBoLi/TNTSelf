@@ -13,7 +13,7 @@ async def selfallmode(event):
 async def selfmode(event):
     await event.edit(f"**{client.str} Processing . . .**")
     mode = event.pattern_match.group(1).lower()
-    chats = client.DB.get_key("SELF_MODE")
+    chats = client.DB.get_key("SELF_MODE") or []
     change = "Actived" if mode == "on" else "DeActived"
     if mode == "off":
         if event.chat_id not in chats:
