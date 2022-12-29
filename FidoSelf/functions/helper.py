@@ -50,8 +50,8 @@ def convert_date(gy, gm, gd):
    else:
       jm = 7 + ((days - 186) // 30)
       jd = 1 + ((days - 186) % 30)
-   if len(jd) == 1:
+   if len(str(jd)) == 1:
        jd = "0" + str(jd)
-   if len(jm) == 1:
+   if len(str(jm)) == 1:
        jm = "0" + str(jm)
    return [int(jy), int(jm), int(jd)]
