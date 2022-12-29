@@ -38,7 +38,7 @@ async def afksleep(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def afk(event):
-    mode = client.DB.get_key("AFK_MODE") or "off"
+    mode = client.DB.get_key("AFK_MODE")
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
