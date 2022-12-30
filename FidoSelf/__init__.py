@@ -20,6 +20,8 @@ async def getsession():
         try:
             get = await client.get_messages("me", ids=int(session))
             await get.download_media("SelfBot.session")
+            get = await client.get_messages("me", ids=int(session))
+            await get.download_media("MyTest.session")
         except:
             DB.del_key("BOT_SESSION")
             pass
