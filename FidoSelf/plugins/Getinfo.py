@@ -16,7 +16,8 @@ async def Getid(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
 async def ginfo(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    if not event.is_group and not event.is_ch:
+    event = await client.get_ids(event)
+    if not event.chatid:
         return await event.edit(f"**{client.str} Please Enter Chatid Or Chat Username Or Send In Groups Or Channels!**")
     cinfo = await client.get_entity(event.chatid)
     if not cinfo.to_dict()["_"] == "Channel" and not cinfo.to_dict()["_"] == "Group":
@@ -59,7 +60,8 @@ async def ginfo(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
 async def uinfo(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    if not event.is_private and not event.userid:
+    event = await client.get_ids(event)
+    if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Send In Private Chats!**")
     if not event.userid:
         event.userid = event.chat_id
