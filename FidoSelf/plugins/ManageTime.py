@@ -1,6 +1,7 @@
 from FidoSelf import client
 from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
+from FidoSelf.functions.vars import COLORS
 import aiocron
 import random
 import os
