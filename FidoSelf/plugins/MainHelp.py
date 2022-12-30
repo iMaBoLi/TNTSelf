@@ -12,6 +12,7 @@ BUTTONS = [
     [Button.inline("• Settings •", data=f"helpselfpage:settings"), Button.inline("• Manager •", data=f"helpselfpage:manager")],
     [Button.inline("• Account •", data=f"helpselfpage:account"), Button.inline("• Groups •", data=f"helpselfpage:groups")],
     [Button.inline("• Times •", data=f"helpselfpage:times"), Button.inline("• Others •", data=f"helpselfpage:others")],
+    [Button.inline("• Vars •", data=f"helpselfpage:vars")],
     [Button.inline("🚫 Close 🚫", data=f"closehelpself")],
 ]
 
@@ -24,7 +25,7 @@ async def helpselfinline(event):
 async def helpselfpages(event):
     page = str(event.data_match.group(1).decode('utf-8'))
     newemoji = "➖"*14
-    emoji = "◆"*8
+    emoji = "◆"*9
     oemoji = "𖡼"*12
     text = f"**{client.str} The Self Help {page.title()}:**\n"
     if page == "settings":
@@ -287,6 +288,50 @@ async def helpselfpages(event):
 🔅 تبدیل عکس به استیکر
 **↪️ PHOTO**
 {newemoji}
+"""
+    elif page == "vars":
+        text += f"""
+{emoji}
+⚡ `FTIME` - ساعت با فونت
+{emoji}
+⚡ `FDATE` - تاریخ با فونت
+{emoji}
+⚡ `FDAY` - عدد روز با فونت
+{emoji}
+⚡ `FMONTH` - عدد ماه با فونت
+{emoji}
+⚡ `FYEAR` - عدد سال با فونت
+{emoji}
+⚡ `FHOUR` - عدد ساعت با فونت
+{emoji}
+⚡ `FMIN` - عدد دقیقه با فونت
+{emoji}
+⚡ `FSEC` - عدد ثانیه با فونت
+{emoji}
+⚡ `TIME` - ساعت ساده
+{emoji}
+⚡ `DATE` - تاریخ ساده
+{emoji}
+⚡ `DAY` - عدد روز ساده
+{emoji}
+⚡ `MONTH` - عدد ماه ساده
+{emoji}
+⚡ `YEAR` - عدد سال ساده
+{emoji}
+⚡ `HOUR` - عدد ساعت ساده
+{emoji}
+⚡ `MIN` - عدد دقیقه ساده
+{emoji}
+⚡ `SEC` - عدد ثانیه ساده
+{emoji}
+⚡ `STRDAY` - اسم روز به صورت متن
+{emoji}
+⚡ `STRMONTH` - اسم ماه به صورت متن
+{emoji}
+⚡ `HEART` - قلب به صورت رندوم
+{emoji}
+⚡ `EMOJI` - ایموجی به صورت رندوم
+{emoji}
 """
     await event.edit(text=text, buttons=BUTTONS)
 
