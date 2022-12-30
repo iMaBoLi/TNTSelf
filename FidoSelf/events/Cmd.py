@@ -33,22 +33,6 @@ def Cmd(
                 for cmd in cmds:
                     if cmd in event.text: 
                         event.is_cmd = True
-                event.userid = None
-                event.chatid = None 
-                if len(event.text.split()) > 1:
-                    try:
-                        gpeer =  await client.get_peer_id(int(event.text.split()[1]))
-                        event.userid, event.chatid = gpeer, gpeer
-                    except:
-                        try:
-                            gpeer =  await client.get_peer_id(str(event.text.split()[1]))
-                            event.userid, event.chatid = gpeer, gpeer
-                        except:
-                            pass
-                elif event.reply_message:
-                    event.userid, event.chatid = event.reply_message.sender_id, event.chat_id
-                elif event.is_private:
-                    event.userid, event.chatid = event.chat_id, event.chat_id
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
