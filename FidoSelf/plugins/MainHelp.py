@@ -19,7 +19,7 @@ PAGES = {
 async def helpself(event):
     text = f"**{client.str} The Help Self Pages:**\n\n"
     for page in PAGES:
-        text += f"**{client.str}** `{client.cmd}Help {page.title()}`\n**{client.str} To Get Help Page Of {PAGES[pgae]}!**\n\n"
+        text += f"**{client.str} Help Page {PAGES[page]}:**\n• `{client.cmd}Help {page.title()}`\n\n"
     await event.edit(text)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Help (s1|s2|s3|m1|m2|o1|o2|a|g|t|v)$")
@@ -270,59 +270,33 @@ async def helpselfpages(event):
         text += f"""
 {newemoji}
 ⚡ `FTIME` - ساعت با فونت
-{emoji}
 ⚡ `FDATE` - تاریخ با فونت
-{emoji}
 ⚡ `FDAY` - عدد روز با فونت
-{emoji}
 ⚡ `FMONTH` - عدد ماه با فونت
-{emoji}
 ⚡ `FYEAR` - عدد سال با فونت
-{emoji}
 ⚡ `FHOUR` - عدد ساعت با فونت
-{emoji}
 ⚡ `FMIN` - عدد دقیقه با فونت
-{emoji}
 ⚡ `FSEC` - عدد ثانیه با فونت
-{emoji}
 ⚡ `TIME` - ساعت ساده
-{emoji}
 ⚡ `DATE` - تاریخ ساده
-{emoji}
 ⚡ `DAY` - عدد روز ساده
-{emoji}
 ⚡ `MONTH` - عدد ماه ساده
-{emoji}
 ⚡ `YEAR` - عدد سال ساده
-{emoji}
 ⚡ `HOUR` - عدد ساعت ساده
-{emoji}
 ⚡ `MIN` - عدد دقیقه ساده
-{emoji}
 ⚡ `SEC` - عدد ثانیه ساده
-{emoji}
 ⚡ `STRDAY` - اسم روز به صورت متن
-{emoji}
 ⚡ `STRMONTH` - اسم ماه به صورت متن
-{emoji}
 ⚡ `HEART` - قلب به صورت رندوم
-{emoji}
 ⚡ `EMOJI` - ایموجی به صورت رندوم
 {newemoji}
 ⚡ `FIRSTNAME` - نام کاربر ارسال کننده
-{emoji}
 ⚡ `LASTNAME` - نام خانوادگی کاربر ارسال کننده
-{emoji}
 ⚡ `USERNAME` - یوزرنیم کاربر ارسال کننده
-{emoji}
 ⚡ `MYFIRSTNAME` - نام شما
-{emoji}
 ⚡ `MYLASTNAME` - نام خانوادگی شما
-{emoji}
 ⚡ `MYUSERNAME` - یوزرنیم شما
-{emoji}
 ⚡ `CHATTITLE` - اسم چت
-{emoji}
 ⚡ `CHATUSERNAME` - یوزرنیم چت
 {newemoji}
 """
