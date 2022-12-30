@@ -6,7 +6,7 @@ async def addemoji(event):
     data = event.pattern_match.group(1)
     emojis = client.DB.get_key("EMOJIES") or []
     for emoji in data.split(","):
-        if emoji not in emojies:
+        if emoji not in emojis:
             emojis.append(emoji)
     client.DB.set_key("EMOJIES", emojis)
     await event.edit(f"**{client.str} The Emojies** ( `{data}` ) **Is Added To Emoji List!**")  
@@ -17,7 +17,7 @@ async def delemoji(event):
     data = event.pattern_match.group(1)
     emojis = client.DB.get_key("EMOJIES") or []
     for emoji in data.split(","):
-        if emoji in emojies:
+        if emoji in emojis:
             emojis.remove(emoji)
     client.DB.set_key("EMOJIES", emojis)
     await event.edit(f"**{client.str} The Emojies** ( `{data}` ) **Is Deleted From Emoji List!**")  
