@@ -113,7 +113,6 @@ async def quicksupdate(event):
     if not quicks: return
     for quick in quicks:
         info = quicks[quick]
-        if not "find" in info.keys(): continue
         if info["find"] == "Yes" and not info["cmd"] in event.text or info["find"] == "No" and not info["cmd"] == event.text: continue
         if info["whom"] == "Sudo" and not event.is_sudo and not event.is_ch: continue
         if info["whom"] == "Others" and event.is_sudo: continue
@@ -263,14 +262,14 @@ async def inlinequicks(event):
     buttons = []
     for quick in qlist:
         info = quicks[quick]
-        buttons.append([Button.inline(f"""( {info["whom"]} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"dquickdel:{quick}")])
+        buttons.append([Button.inline(f"""( {info["whom"].replace("user", "")} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"dquickdel:{quick}")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Del Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="dquickdel\:(.*)")
 async def delquicks(event):
     quick = str(event.data_match.group(1).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
-    await event.edit(text=f"""**{client.str} The Quick** ( `{quicks[quick]["cmd"]}` ) **From List** ( `{quicks[quick]["whom"]} -> {quicks[quick]["where"]} -> {quicks[quick]["type"]}` ) **Has Been Deleted!**""")
+    await event.edit(text=f"""**{client.str} The Quick** ( `{quicks[quick]["cmd"]}` ) **From List** ( `{quicks[quick]["where"].replace("chat", "")} -> {quicks[quick]["whom"].replace("user", "")} -> {quicks[quick]["type"]}` ) **Has Been Deleted!**""")
     del quicks[quick]
     client.DB.set_key("QUICKS", quicks)
 
@@ -281,7 +280,7 @@ async def inlinequicklist(event):
     buttons = []
     for quick in list(quicks)[:10]:
         info = quicks[quick]
-        buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"]} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:1")])
+        buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"].replace("user", "")} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:1")])
     if len(quicks) > 10:
         buttons.append([Button.inline("Next ▶️", data=f"quicklistpage:2")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - List Quick", text=text, buttons=buttons)])
@@ -295,7 +294,7 @@ async def listquicks(event):
     qcount = (int(page) * 10)
     for quick in list(quicks)[(qcount-10):qcount]:
         info = quicks[quick]
-        buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"]} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:{page}")])
+        buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"].replace("user", "")} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:{page}")])
     pbts = []
     if int(page) != 1:
         pbts.append(Button.inline("◀️ Back", data=f"quicklistpage:{int(page)-1}"))
