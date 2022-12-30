@@ -6,34 +6,34 @@ import time
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Afk (On|Off)$")
 async def afkmode(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Afk_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("AFK_MODE", mode)
     if mode == "on":
         client.DB.set_key("AFK_LASTSEEN", str(time.time()))
     change = "Actived" if mode == "on" else "DeActived"
-    await event.edit(f"**{client.str} The Afk Mode Has Been {change}!**")
+    await event.edit(client.get_string("Afk_2").format(client.str, change))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetAfk$")
 async def setafk(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Afk_1").format(client.str))
     if not event.is_reply:
-        return await event.edit(f"**{client.str} Please Reply To Message Or Media**")
+        return await event.edit(client.get_string("Afk_3").format(client.str))
     if not client.backch:
-        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
+        return await event.edit(client.get_string("Afk_4").format(client.str))
     try:
         forward = await event.reply_message.forward_to(int(client.backch))
     except:
-        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
+        return await event.edit(client.get_string("Afk_5").format(client.str))
     client.DB.set_key("AFK_MSG", str(client.backch) + ":" + str(forward.id))
-    await event.edit(f"**{client.str} The Afk Message Has Been Saved!**")
+    await event.edit(client.get_string("Afk_6").format(client.str))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetAfkSleep (\d*)$")
 async def afksleep(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Afk_1").format(client.str))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("AFK_SLEEP", str(sleep))
-    await event.edit(f"**{client.str} The Afk Sleep Has Been Set To ({client.utils.convert_time(int(sleep))})**")
+    await event.edit(client.get_string("Afk_7").format(client.str, client.utils.convert_time(int(sleep))))
 
 @client.Cmd(sudo=False, edits=False)
 async def afk(event):
