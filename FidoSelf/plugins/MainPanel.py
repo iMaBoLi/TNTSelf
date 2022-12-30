@@ -20,6 +20,7 @@ def get_mode_buttons(page):
     MODES = {
         "SELF_ALL_MODE": "Self Mode",
         "QUICKS_MODE": "Quicks",
+        "AUTO_REPLACE_MODE": "Auto Replace",
         "AFK_MODE": "Afk Mode",
         "NAME_MODE": "Name Mode",
         "BIO_MODE": "Bio Mode",
@@ -29,7 +30,7 @@ def get_mode_buttons(page):
         "FRIENDENEMY_DELETE": "DelEnemy Friend Pms",
     }
     for mode in MODES:
-        if mode in ["SELF_ALL_MODE", "QUICKS_MODE"] and not client.DB.get_key(mode):
+        if mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
             gmode = "on"
         else:
             gmode = client.DB.get_key(mode)
