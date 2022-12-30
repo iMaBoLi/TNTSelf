@@ -40,7 +40,7 @@ def create_font(newtime, timefont):
 async def get_vars(event):
     time = datetime.now()
     cdate = convert_date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
-    NewVars = {
+    Vars = {
         "TIME": time.strftime("%H:%M"),
         "DATE": str(cdate[0]) + "/" + str(cdate[1]) + "/" + str(cdate[2]),
         "DAY": cdate[2],
@@ -51,9 +51,9 @@ async def get_vars(event):
         "SEC": time.strftime("%S"),
      }
     timefont = client.DB.get_key("TIME_FONT") or 1
-    Vars = {}
-    for Var in NewVars:
-        Vars.update({"F" + str(Var): create_font(str(NewVars[Var]), str(timefont))})
+    NewVars = {}
+    for Var in Vars:
+        NewVars.update({"F" + str(Var): create_font(str(Vars[Var]), str(timefont))})
     Vars.update(NewVars)
     Vars.update({
         "STRDAY": time.strftime("%A"),
@@ -80,5 +80,5 @@ async def get_vars(event):
 async def add_vars(text, event=None):
     Vars = await get_vars(event)
     for Var in Vars:
-        text = text.replace(str(Var), str(Vars[Var]))
+        text = text.replace("{" + str(Var) + "}", str(Vars[Var]))
     return text
