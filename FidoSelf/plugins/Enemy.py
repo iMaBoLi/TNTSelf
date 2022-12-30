@@ -6,7 +6,8 @@ import os
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
 async def addenemy(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    if not event.is_private and not event.userid:
+    event = await client.get_ids(event)
+    if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Send In Private Chats!**")
     if not event.userid:
         event.userid = event.chat_id
@@ -17,7 +18,8 @@ async def addenemy(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemy ?(.*)?$")
 async def delenemy(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    Enemies = client.DB.get_key("ENEMIES")
+    event = await client.get_ids(event)
+    Enemies = client.DB.get_key("ENEMIES") or {}
     elist = []
     info = await client.get_entity(event.userid)
     for enemy in Enemies:
@@ -32,7 +34,7 @@ async def delenemy(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}EnemyList$")
 async def enemylist(event):
     await event.edit(f"**{client.str} Processing . . .**")
-    Enemies = client.DB.get_key("ENEMIES")
+    Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies:
         return await event.edit(f"**{client.str} The Bio List Is Empty!**")
     text = f"**{client.str} The Enemy List:**\n\n"
@@ -120,7 +122,7 @@ async def getfoshfile(event):
 @client.Cmd(sudo=False, edits=False)
 async def quicksupdate(event):
     if event.is_sudo or not event.text or event.is_ch: return
-    Enemies = client.DB.get_key("ENEMIES")
+    Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies: return
     for enemy in Enemies:
         info = Enemies[enemy]
@@ -176,7 +178,7 @@ async def addenemies(event):
     userid = int(data[0])
     userinfo = await client.get_entity(userid)
     type = data[1]
-    Enemies = client.DB.get_key("ENEMIES")
+    Enemies = client.DB.get_key("ENEMIES") or {}
     if len(data) == 2:
         text = f"**{client.str} Please Select You Want This Enemy User To Be Saved For Where:**"
         buttons = [[Button.inline("• All •", data=f"addenemy:{userid}:{type}:All"), Button.inline("• Groups •", data=f"addenemy:{userid}:{type}:Groups"), Button.inline("• Privates •", data=f"addenemy:{userid}:{type}:Privates"), Button.inline("• Here •", data=f"addenemy:{userid}:{type}:chat{event.chat_id}")]]
@@ -196,7 +198,7 @@ async def addenemies(event):
 async def delenemyinline(event):
     cmd = str(event.pattern_match.group(1))
     text = f"**{client.str} Please Choose From Which List You Want This Enemy User To Be Deleted:**"
-    Enemies = client.DB.get_key("ENEMIES")
+    Enemies = client.DB.get_key("ENEMIES") or {}
     buttons = []
     for enemy in Enemies:
         info = Enemies[enemy]
@@ -206,7 +208,7 @@ async def delenemyinline(event):
 @client.Callback(data="delenemydel\:(.*)")
 async def delenemies(event):
     enemy = str(event.data_match.group(1).decode('utf-8'))
-    Enemies = client.DB.get_key("ENEMIES")
+    Enemies = client.DB.get_key("ENEMIES") or {}
     info = await client.get_entity(int(Enemies[enemy]["user_id"]))
     await event.edit(text=f"""**{client.str} The User** ( {client.mention(info)} ) **From Enemy List** ( `{Enemies[enemy]["where"]} -> {Enemies[enemy]["type"]}` ) **Has Been Deleted!**""")
     del Enemies[enemy]
