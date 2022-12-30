@@ -310,7 +310,7 @@ async def listquicks(event):
     page = str(event.data_match.group(2).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
     info = quicks[quick]
-    buttons = [[Button.inline("↩️ Back", data=f"quicklistpage:{page}")]]
+    buttons = [[Button.inline("❌ Delete ❌", data=f"dquickdel:{quick}")], [Button.inline("↩️ Back", data=f"quicklistpage:{page}")]]
     await event.edit(text=f"""
 **{client.str} Quick Command:** ( `{info["cmd"]}` )
 
