@@ -9,7 +9,7 @@ async def setup():
     load_plugins("FidoSelf/plugins")
     try:
         endtime = client.utils.convert_time(time.time() - START_TIME)
-        send = await client.bot.send_message((client.realm or "TheaBoLi"), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took: {endtime}__")
+        send = await client.bot.send_message((client.realm or client.me.id), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
         if LOADED_PLUGS:
             text = f"**✅ Loaded Plugins :**\n\n"
             for plug in LOADED_PLUGS:
