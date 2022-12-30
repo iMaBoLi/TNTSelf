@@ -10,7 +10,7 @@ async def quicksmode(event):
     change = "Actived" if mode == "on" else "DeActived"
     await event.edit(f"**{client.str} The Quicks Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'(.+)\' ?(.+)?")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
 async def addquick(event):
     await event.edit(f"**{client.str} Processing . . .**")
     cmd = event.pattern_match.group(1)
@@ -38,7 +38,7 @@ async def addquick(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelQuick (.*)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}DelQuick ([\s\S]*)$")
 async def delquick(event):
     await event.edit(f"**{client.str} Processing . . .**")
     cmd = event.pattern_match.group(1)
