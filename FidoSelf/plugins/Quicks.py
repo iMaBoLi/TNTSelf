@@ -123,10 +123,10 @@ async def quicksupdate(event):
             if info["where"] == "Privates" and not event.is_private: continue
             if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
         try:
-            info["answers"] = await client.vars(str(info["answers"]), event)
-            answers = info["answers"].split(",")
+            lastanswers = await client.vars(str(info["answers"]), event)
+            answers = lastanswers.split(",")
             if info["type"] == "Normal":
-                await event.reply(info["answers"])
+                await event.reply(lastanswers)
                 continue
             elif info["type"] == "Random":
                 if info["whom"] == "Sudo":
@@ -155,7 +155,7 @@ async def quicksupdate(event):
                 await event.reply(msg)
                 continue
             elif info["type"] == "Draft":
-                await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=info["answers"]))
+                await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=lastanswers))
                 continue
         except:
             continue
