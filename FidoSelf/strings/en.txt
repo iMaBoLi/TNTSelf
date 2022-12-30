@@ -1,7 +1,12 @@
 {
     "Afk": {
-        "1": "",
-        "2": ""
+        "1": "**{} Processing . . .**",
+        "2": "**{} The Afk Mode Has Been {}!**",
+        "3": "**{} Please Reply To Message Or Media!**",
+        "4": "**{} The BackUp Channel Is Not Added!**",
+        "5": "**{} The BackUp Channel Is Not Available!**",
+        "6": "**{} The Afk Message Has Been Saved!**",
+        "7": "**{} The Afk Sleep Has Been Set To ( {} )**",
     },
     "AutoJoiner": {
         "1": "",
