@@ -26,6 +26,7 @@ async def progress(event, current, total, start, type, file_name=None):
         await event.edit(text)
 
 async def get_ids(event):
+    event.userid, event.chatid = None, None
     if len(event.text.split()) > 1:
         try:
             gpeer =  await client.get_peer_id(int(event.text.split()[1]))
