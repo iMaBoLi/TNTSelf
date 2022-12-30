@@ -28,10 +28,12 @@ def Cmd(
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 if sudo and not event.is_sudo and not event.is_ch: return
+                blacks = client.DB.get_key("BLACKS") or []
+                if not event.is_sudo and event.sender_id in blacks: return
                 cmds = client.DB.get_key("SELF_CMDS") or []
                 event.is_cmd = False
                 for cmd in cmds:
-                    if cmd in event.text: 
+                    if (client.cmd + cmd) in event.text: 
                         event.is_cmd = True
                 await func(event)
             except:
