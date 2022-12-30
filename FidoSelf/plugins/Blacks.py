@@ -3,6 +3,7 @@ from FidoSelf import client
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddBlack ?(.*)?")
 async def addblack(event):
     await event.edit(f"**{client.str} Processing . . .**")
+    event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Reply To User Or Send In Private Chats!**")
     blacks = client.DB.get_key("BLACKS") or []
@@ -15,6 +16,7 @@ async def addblack(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
 async def delblack(event):
     await event.edit(f"**{client.str} Processing . . .**")
+    event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Reply To User Or Send In Private Chats!**")
     blacks = client.DB.get_key("BLACKS") or []
