@@ -1,34 +1,35 @@
 from FidoSelf import client
 from telethon import Button
 
+PAGES = {
+    "s1": "Settings 1",
+    "s2": "Settings 2",
+    "s3": "Settings 3",
+    "m1": "Manager 1",
+    "m2": "Manager 2",
+    "a": "Account",
+    "g": "Groups",
+    "o1": "Others 1",
+    "o2": "Others 2",
+    "t": "Times",
+    "v": "Variables",
+}
+
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Help$")
-async def helpselfpanel(event):
-    await event.edit(f"**{client.str} Processing . . .**")
-    res = await client.inline_query(client.bot.me.username, "helpselfpanel")
-    await res[0].click(event.chat_id, reply_to=event.id)
-    await event.delete()
+async def helpself(event):
+    text = f"**{client.str} The Help Self Pages:**\n\n"
+    for page in PAGES:
+        text += f"**{client.str}** `{client.cmd}Help {page.title()}`\n**{client.str} To Get Help Page Of {PAGES[pgae]}!**\n\n"
+    await event.edit(text)
 
-BUTTONS = [
-    [Button.inline("• Settings •", data=f"helpselfpage:settings"), Button.inline("• Manager •", data=f"helpselfpage:manager")],
-    [Button.inline("• Account •", data=f"helpselfpage:account"), Button.inline("• Groups •", data=f"helpselfpage:groups")],
-    [Button.inline("• Times •", data=f"helpselfpage:times"), Button.inline("• Others •", data=f"helpselfpage:others")],
-    [Button.inline("• Vars •", data=f"helpselfpage:vars")],
-    [Button.inline("🚫 Close 🚫", data=f"closehelpself")],
-]
-
-@client.Inline(pattern="helpselfpanel")
-async def helpselfinline(event):
-    text = f"**{client.str} Please Choose Help Panel Page To Get Help Information:**\n\n"
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Help", text=text, buttons=BUTTONS)])
-
-@client.Callback(data="helpselfpage\:(.*)")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Help (s1|s2|s3|m1|m2|o1|o2|a|g|t|v)$")
 async def helpselfpages(event):
-    page = str(event.data_match.group(1).decode('utf-8'))
+    page = event.pattern_match.group(1).lower()
     newemoji = "➖"*14
     emoji = "◆"*9
     oemoji = "𖡼"*12
-    text = f"**{client.str} The Self Help {page.title()}:**\n"
-    if page == "settings":
+    text = f"**{client.str} The Self Help Page {PAGES[page]}:**\n"
+    if page == "s1":
         text += f"""
 {newemoji}
 ⚡ `{client.cmd}SelfAll On-Off`
@@ -62,13 +63,7 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}SetSmartMonshiSleep TIME`
 🔅 تنظیم زمان اسلیپ برای منشی خودکار
 {oemoji}
-**⭐ Variables:**
-💠 `MNAME` = اسم فرد
-💠 `UNAME` = اسن خودتان
-💠 `TITLE` = اسم چت
-💠 `HEART` = قلب رندوم
-💠 `TIME` = ساعت
-💠 `DATE` = تاریخ
+**⭐ Use From Variables!**
 {newemoji}
 ⚡ `{client.cmd}OfflineMonshi On-Off`
 🔅 روشن-خاموش کردن حالت منشی آفلاینی
@@ -80,16 +75,14 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}SetOfflineMonshiSleep TIME`
 🔅 تنظیم زمان اسلیپ برای منشی آفلاینی
 {oemoji}
-**⭐ Variables:**
-💠 `MNAME` = اسم فرد
-💠 `UNAME` = اسن خودتان
-💠 `TITLE` = اسم چت
-💠 `HEART` = قلب رندوم
-💠 `TIME` = ساعت
-💠 `DATE` = تاریخدقیقه
+**⭐ Use From Variables!**
 {newemoji}
 """
-    elif page == "manager":
+    elif page == "s2":
+        text += f"**{client.str} Empty ....**"
+    elif page == "s3":
+        text += f"**{client.str} Empty ....**"
+    elif page == "m1":
         text += f"""
 {newemoji}
 ⚡ `{client.cmd}Panel`
@@ -110,6 +103,8 @@ async def helpselfpages(event):
 {emoji}
 ⚡ `{client.cmd}CleanQuickList`
 🔅 پاکسازی لیست پاسخ های سریع
+{oemoji}
+**⭐ Use From Variables!**
 {oemoji}
 **⭐ Notes:**
 💎 برای تنظیم چند پاسخ بین هر کدام از , استفاده کنید
@@ -137,7 +132,9 @@ async def helpselfpages(event):
 🔅 دریافت آیدی چت و کاربر
 {newemoji}
 """
-    elif page == "account":
+    elif page == "m2":
+        text += f"**{client.str} Empty ....**"
+    elif page == "a":
         text += f"""
 {newemoji}
 ⚡ `{client.cmd}DelProfile`
@@ -148,7 +145,7 @@ async def helpselfpages(event):
 💎 اگر قبل از عدد - قرار دهید به تعداد آن عدد از پروفایلهایتان پاک می شود.
 {newemoji}
 """
-    elif page == "times":
+    elif page == "t":
         text += f"""
 {newemoji}
 ⚡ `{client.cmd}Name On-Off`
@@ -166,15 +163,7 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}CleanNameList`
 🔅 پاکسازی لیست اسم ها
 {oemoji}
-**⭐ Variables:**
-💠 `TIME` = ساعت کامل
-💠 `DATEEN` = تاریخ میلادی
-💠 `DATEFA` = تاریخ شمسی
-💠 `HEART` = قلب رندوم
-💠 `TIMER` = ساعت آنالوگ
-💠 `HOURS` = ساعت
-💠 `MINS` = دقیقه
-💠 `WEEK` = روز هفته
+**⭐ Use From Variables!**
 {newemoji}
 ⚡ `{client.cmd}Bio On-Off`
 🔅 روشن-خاموش کردن حالت بیوگرافی
@@ -191,15 +180,7 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}CleanBioList`
 🔅 پاکسازی لیست بیوگرافی ها
 {oemoji}
-**⭐ Variables:**
-💠 `TIME` = ساعت کامل
-💠 `DATEEN` = تاریخ میلادی
-💠 `DATEFA` = تاریخ شمسی
-💠 `HEART` = قلب رندوم
-💠 `TIMER` = ساعت آنالوگ
-💠 `HOURS` = ساعت
-💠 `MINS` = دقیقه
-💠 `WEEK` = روز هفته
+**⭐ Use From Variables!**
 {newemoji}
 ⚡ `{client.cmd}Photo On-Off`
 🔅 روشن-خاموش کردن حالت عکس
@@ -217,13 +198,7 @@ async def helpselfpages(event):
 ⚡ `{client.cmd}CleanPhotoList`
 🔅 پاکسازی لیست عکس ها
 {oemoji}
-**⭐ Variables:**
-💠 `TIME` = ساعت کامل
-💠 `DATEEN` = تاریخ میلادی
-💠 `DATEFA` = تاریخ شمسی
-💠 `HOURS` = ساعت
-💠 `MINS` = دقیقه
-💠 `WEEK` = روز هفته
+**⭐ Use From Variables!**
 {newemoji}
 ⚡ `{client.cmd}AddFont NAME`
 🔅 افزودن یک فونت جدید
@@ -251,9 +226,9 @@ async def helpselfpages(event):
 🔅 پاکسازی لیست متن های روی عکس
 {newemoji}
 """
-    elif page == "groups":
-        text += f"**{client.str} Empty!**"
-    elif page == "others":
+    elif page == "g":
+        text += f"**{client.str} Empty ....**"
+    elif page == "o1":
         text += f"""
 {newemoji}
 ⚡ `{client.cmd}Ping`
@@ -289,9 +264,11 @@ async def helpselfpages(event):
 **↪️ PHOTO**
 {newemoji}
 """
-    elif page == "vars":
+    elif page == "o2":
+        text += f"**{client.str} Empty ....**"
+    elif page == "v":
         text += f"""
-{emoji}
+{newemoji}
 ⚡ `FTIME` - ساعت با فونت
 {emoji}
 ⚡ `FDATE` - تاریخ با فونت
@@ -331,10 +308,22 @@ async def helpselfpages(event):
 ⚡ `HEART` - قلب به صورت رندوم
 {emoji}
 ⚡ `EMOJI` - ایموجی به صورت رندوم
+{newemoji}
+⚡ `FIRSTNAME` - نام کاربر ارسال کننده
 {emoji}
+⚡ `LASTNAME` - نام خانوادگی کاربر ارسال کننده
+{emoji}
+⚡ `USERNAME` - یوزرنیم کاربر ارسال کننده
+{emoji}
+⚡ `MYFIRSTNAME` - نام شما
+{emoji}
+⚡ `MYLASTNAME` - نام خانوادگی شما
+{emoji}
+⚡ `MYUSERNAME` - یوزرنیم شما
+{emoji}
+⚡ `CHATTITLE` - اسم چت
+{emoji}
+⚡ `CHATUSERNAME` - یوزرنیم چت
+{newemoji}
 """
-    await event.edit(text=text, buttons=BUTTONS)
-
-@client.Callback(data="closehelpself")
-async def closehelpselfpanel(event):
-    await event.edit(text=f"**{client.str} The Help Panel Successfuly Closed!**")
+    await event.edit(text)
