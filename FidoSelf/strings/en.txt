@@ -37,7 +37,7 @@
         "TIMER_MODE": "Timer-Save",
         "ORGENEMY_DELETE": "DelEnemy-Pms",
         "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms"
-    }
+    },
     "Edits":
         "Bold": "Bold",
         "Mono": "Mono",
