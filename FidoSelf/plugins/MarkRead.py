@@ -10,7 +10,7 @@ async def markread(event):
     client.DB.set_key(key, change)
     await event.edit(client.get_string("MarkRead_1").format(type.title(), changer))
 
-@client.Cmd()
+@client.Cmd(sudo=False)
 async def mark(event):
     all = client.DB.get_key("READALL_MODE") or "off"
     pv = client.DB.get_key("READPV_MODE") or "off"
