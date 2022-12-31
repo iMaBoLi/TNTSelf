@@ -5,7 +5,7 @@ import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Photo (On|Off)$")
 async def photo(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("PHOTO_MODE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
@@ -13,7 +13,7 @@ async def photo(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
 async def addphoto(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     if not event.reply_message or not event.reply_message.photo:
         return await event.edit(f"**{client.str} Please Reply To Photo!**")
     phname = str(event.pattern_match.group(1))
@@ -35,7 +35,7 @@ async def addphoto(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelPhoto (.*)$")
 async def delphoto(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     photos = client.DB.get_key("PHOTOS") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -46,7 +46,7 @@ async def delphoto(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}GetPhoto (.*)$")
 async def getphoto(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     photos = client.DB.get_key("PHOTOS") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -60,7 +60,7 @@ async def getphoto(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}PhotoList$")
 async def photolist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     photos = client.DB.get_key("PHOTOS") or {}
     if not photos:
         return await event.edit(f"**{client.str} The Photo List Is Empty!**")
@@ -73,7 +73,7 @@ async def photolist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanPhotoList$")
 async def cleanphotos(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     photos = client.DB.get_key("PHOTOS") or {}
     if not photos:
         return await event.edit(f"**{client.str} The Photo List Is Already Empty!**")
@@ -153,7 +153,7 @@ async def closephoto(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddFont (.*)$")
 async def savefontfile(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     fname = str(event.pattern_match.group(1))
     fonts = client.DB.get_key("FONTS") or {}
     if len(fonts) > 10:
@@ -175,7 +175,7 @@ async def savefontfile(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelFont (.*)$")
 async def delfontfile(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     fname = str(event.pattern_match.group(1))
     fonts = client.DB.get_key("FONTS") or {}
     if fname not in fonts:
@@ -186,7 +186,7 @@ async def delfontfile(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}FontList$")
 async def fontlist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     fonts = client.DB.get_key("FONTS") or {}
     if not fonts:
         return await event.edit(f"**{client.str} The Font File List Is Empty!**")
@@ -199,7 +199,7 @@ async def fontlist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanFontList$")
 async def cleanfonts(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     fonts = client.DB.get_key("FONTS") or {}
     if not fonts:
         return await event.edit(f"**{client.str} The Font File List Is Already Empty!**")
@@ -208,7 +208,7 @@ async def cleanfonts(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddTextTime ([\s\S]*)$")
 async def addtexttime(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
     newtexttime = str(event.pattern_match.group(1))
     if newtexttime in texttimes:
@@ -223,7 +223,7 @@ async def addtexttime(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelTextTime ([\s\S]*)$")
 async def deltexttime(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
     newtexttime = str(event.pattern_match.group(1))
     if newtexttime not in texttimes:
@@ -234,7 +234,7 @@ async def deltexttime(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}TextTimeList$")
 async def texttimelist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
     if not texttimes:
         return await event.edit(f"**{client.str} The Text Time List Is Empty!**")
@@ -247,7 +247,7 @@ async def texttimelist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanTextTimeList$")
 async def cleantexttimes(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
     if not texttimes:
         return await event.edit(f"**{client.str} The Text Time List Is Already Empty!**")
