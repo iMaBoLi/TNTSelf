@@ -4,7 +4,7 @@ import asyncio, random
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Quicks (On|Off)$")
 async def quicksmode(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("QUICKS_MODE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
@@ -12,7 +12,7 @@ async def quicksmode(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
 async def addquick(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
     answers = event.pattern_match.group(2)
     quicks = client.DB.get_key("INQUICKS") or {}
@@ -40,7 +40,7 @@ async def addquick(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelQuick ([\s\S]*)$")
 async def delquick(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICKS") or {}
     qlist = []
@@ -55,7 +55,7 @@ async def delquick(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}GetQuick (.*)$")
 async def delquick(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICKS") or {}
     qlist = []
@@ -96,7 +96,7 @@ async def delquick(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}QuickList$")
 async def quicklist(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     quicks = client.DB.get_key("QUICKS") or {}
     if not quicks:
         return await event.edit(f"**{client.str} The Quick List Is Empty!**")    
