@@ -4,50 +4,50 @@ import random
 import asyncio
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Afk (On|Off)$")
-async def afkmode(event):
-    await event.edit(client.get_string("Afk_1").format(client.str))
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Monshi (On|Off)$")
+async def monshimode(event):
+    await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("AFK_MODE", mode)
+    client.DB.set_key("MONSHI_MODE", mode)
     if mode == "on":
-        client.DB.set_key("AFK_LASTSEEN", str(time.time()))
+        client.DB.set_key("MONSHI_LASTSEEN", str(time.time()))
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(client.get_string("Afk_2").format(client.str, change))
+    await event.edit(client.get_string("Monshi_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetAfk$")
-async def setafk(event):
-    await event.edit(client.get_string("Afk_1").format(client.str))
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetMonshi$")
+async def setmonshi(event):
+    await event.edit(client.get_string("Wait"))
     if not event.is_reply:
-        return await event.edit(client.get_string("Afk_3").format(client.str))
+        return await event.edit(client.get_string("Reply_MM"))
     if not client.backch:
-        return await event.edit(client.get_string("Afk_4").format(client.str))
+        return await event.edit(client.get_string("LogCh_1"))
     try:
         forward = await event.reply_message.forward_to(int(client.backch))
     except:
-        return await event.edit(client.get_string("Afk_5").format(client.str))
-    client.DB.set_key("AFK_MSG", str(client.backch) + ":" + str(forward.id))
-    await event.edit(client.get_string("Afk_6").format(client.str))
+        return await event.edit(client.get_string("LogCh_2"))
+    client.DB.set_key("MONSHI_MSG", str(client.backch) + ":" + str(forward.id))
+    await event.edit(client.get_string("Monshi_2"))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetAfkSleep (\d*)$")
-async def afksleep(event):
-    await event.edit(client.get_string("Afk_1").format(client.str))
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetMonshiSleep (\d*)$")
+async def monshisleep(event):
+    await event.edit(client.get_string("Monshi_1").format(client.str))
     sleep = event.pattern_match.group(1)
-    client.DB.set_key("AFK_SLEEP", str(sleep))
-    await event.edit(client.get_string("Afk_7").format(client.str, client.utils.convert_time(int(sleep))))
+    client.DB.set_key("MONSHI_SLEEP", str(sleep))
+    await event.edit(client.get_string("Monshi_3").format(client.utils.convert_time(int(sleep))))
 
 @client.Cmd(sudo=False, edits=False)
-async def afk(event):
-    mode = client.DB.get_key("AFK_MODE") or "off"
+async def monshi(event):
+    mode = client.DB.get_key("MONSHI_MODE") or "off"
     if mode == "off": return
     if event.is_sudo: return
     if not event.mentioned: return
-    chat = client.DB.get_key("AFK_MSG")
+    chat = client.DB.get_key("MONSHI_MSG")
     if not chat: return 
-    lastseen = time.time() - int(client.DB.get_key("AFK_LASTSEEN"))
+    lastseen = time.time() - int(client.DB.get_key("MONSHI_LASTSEEN"))
     lastseen = client.utils.convert_time(lastseen)
     msg = await client.get_messages(int(chat.split(":")[0]), ids=int(chat.split(":")[1]))
     msg.text = await client.vars(msg.text, event)
-    msg.text = msg.text.replace("LASTSEEN", lastseen)
-    sleep = client.DB.get_key("AFK_SLEEP") or "0"
+    msg.text = msg.text.replace("{LASTSEEN}", lastseen)
+    sleep = client.DB.get_key("MONSHI_SLEEP") or "0"
     await asyncio.sleep(int(sleep))
     await event.reply(msg)
