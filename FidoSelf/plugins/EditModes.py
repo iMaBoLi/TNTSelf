@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}E(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
 async def bio(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     mode = event.pattern_match.group(1).lower()
     change = event.pattern_match.group(2).lower()
     last = client.DB.get_key("EDIT_MODE") or ""
