@@ -25,30 +25,31 @@ async def saveocrapi(event):
     await event.edit(client.get_string("Wait"))
     api = event.pattern_match.group(1)
     client.DB.set_key("OCR_API_KEY", api)
-    await event.edit(f"**{client.str} The Ocr ApiKey** ( `{api}` ) **Has Been Saved!**")
+    await event.edit(client.get_string("OcrApi_1").format(api))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Ocr (.*)$")
 async def ocrapi(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1)
     if not client.DB.get_key("OCR_API_KEY"):
-        return await event.edit(f"**{client.str} Please Save Ocr ApiKey First!**")
+        return await event.edit(client.get_string("OcrApi_2"))
     if not lang in LANGS:
-        return await event.edit(f"**{client.str} The Language Not Found!**")
+        return await event.edit(client.get_string("OCrApi_3"))
     if not event.is_reply or not event.photo:
-        return await event.edit(f"**{client.str} Please Reply To Photo!**")
+        return await event.edit(client.get_string("Reply_P"))
     photo = f"{event.reply_message.id}.png"
     await event.reply_message.download_media(photo)
     stat, res = ocr_file(photo, lang)
     if not stat:
-        return await event.edit(text=f"**{client.str} The Extract Text Not Completed!**\n**{client.str} Error:** ( `{res}` )")
-    await event.edit(f"**{client.str} The Extract Text Completed!**\n**{client.str} Language:** ( `{LANGS[lang]}` )\n\n**{client.str} Result:** ( `{res}` )")    
+        text = client.get_string("OcrApi_4").format(res)
+        return await event.edit(text)
+    await event.edit(client.get_string("OcrApi_5").format(LANGS[lang], res)    
     os.remove(photo)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}OcrLangs$")
 async def ocrlangs(event):
     await event.edit(client.get_string("Wait"))
-    text = f"**{client.str} The Ocr Languages:**\n\n"
+    text = client.get_string("OcrApi_6")
     for lang in LANGS:
         text += f"• `{lang}` - **{LANGS[lang]}**\n"
     await event.edit(text)
