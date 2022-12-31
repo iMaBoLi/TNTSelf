@@ -23,7 +23,7 @@ def get_file_icon(name):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}ls(?:\s|$)([\s\S]*)$")
 async def ls(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
