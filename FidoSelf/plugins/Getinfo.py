@@ -3,7 +3,7 @@ from telethon import functions
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Gid$")
 async def Getid(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     if event.is_private:
         text = f"**{client.str} YourID:** ( `{client.me.id}` )\n**{client.str} UserID:** ( `{event.chat_id}` )\n"    
         await event.edit(text) 
@@ -15,7 +15,7 @@ async def Getid(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
 async def ginfo(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
     if not event.chatid:
         return await event.edit(f"**{client.str} Please Enter Chatid Or Chat Username Or Send In Groups Or Channels!**")
@@ -59,7 +59,7 @@ async def ginfo(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
 async def uinfo(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Send In Private Chats!**")
