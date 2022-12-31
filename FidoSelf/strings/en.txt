@@ -4,6 +4,10 @@
         "1": "Actived-✔️",
         "2": "DeActived-✖️"
     },
+    "Random": {
+        "1": "Random",
+        "2": "Random 2"
+    },
     "Reply": {
         "1": "**{STR} Please Reply To A Message!**",
         "2": "**{STR} Please Reply To A Message Or Media!**",
@@ -91,5 +95,11 @@
             "v": "Variables"
         },
         "3": "**{STR} The Help Self Page** ( `{}` ):"
-    }
+    },
+    "Panel": {
+        "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
+        "2": "**{STR} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**",
+        "3": "**{STR} Please Use The Options Below To Manage Edit Texts Mode:**",
+        "4": "**{STR} The Panel Successfuly Closed!**",
+    },
 }
