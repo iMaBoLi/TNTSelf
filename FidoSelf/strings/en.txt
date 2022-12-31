@@ -26,121 +26,16 @@
         "1": "**{STR} The Realm Chat Is Not Added!**",
         "2": "**{STR} The Realm Chat Is Not Available!**"
     },
-    "Afk": {
-        "1": "**{STR} The Afk Mode Has Been {}!**",
-        "2": "**{STR} The Afk Message Has Been Saved!**",
-        "3": "**{STR} The Afk Sleep Has Been Set To ( {} )**"
-    },
-    "AutoJoiner": {
-        "1": "",
-        "2": ""
-    },
-    "AutoReplace": {
-        "1": "",
-        "2": ""
-    },
-    "BioTime": {
-        "1": "",
-        "2": ""
-    },
-    "Blacks": {
-        "1": "",
-        "2": ""
-    },
-    "CheckBot": {
-        "1": "",
-        "2": ""
-    },
-    "DelProfiles": {
-        "1": "",
-        "2": ""
-    },
-    "EditModes": {
-        "1": "",
-        "2": ""
-    },
-    "Emojies": {
-        "1": "",
-        "2": ""
-    },
-    "Enemy": {
-        "1": "",
-        "2": ""
-    },
-    "Getinfo": {
-        "1": "",
-        "2": ""
-    },
-    "ImageSlicer": {
-        "1": "",
-        "2": ""
-    },
-    "InstaTools": {
-        "1": "",
-        "2": ""
-    },
-    "MainHelp": {
-        "1": "",
-        "2": ""
-    },
-    "MainPanel": {
-        "1": "",
-        "2": ""
-    },
-    "ManageTime": {
-        "1": "",
-        "2": ""
-    },
-    "NameTime": {
-        "1": "",
-        "2": ""
-    },
-    "OcrApi": {
-        "1": "",
-        "2": ""
-    },
-    "PhotoTime": {
-        "1": "",
-        "2": ""
-    },
-    "Quicks": {
-        "1": "",
-        "2": ""
-    },
-    "SPConvert": {
-        "1": "",
-        "2": ""
-    },
-    "SelfMode": {
-        "1": "",
-        "2": ""
-    },
-    "SetVars": {
-        "1": "",
-        "2": ""
-    },
-    "TimerSave": {
-        "1": "",
-        "2": ""
-    },
-    "Translate": {
-        "1": "",
-        "2": ""
-    },
-    "YouTubeInline": {
-        "1": "",
-        "2": ""
-    },
-    "logs": {
-        "1": "",
-        "2": ""
-    },
-    "ls": {
-        "1": "",
-        "2": ""
-    },
-    "runcodes": {
-        "1": "",
-        "2": ""
+    "Modes": {
+        "SELF_ALL_MODE": "Self",
+        "QUICKS_MODE": "Quicks",
+        "AUTO_REPLACE_MODE": "Auto-Replace",
+        "AFK_MODE": "Afk",
+        "NAME_MODE": "Name",
+        "BIO_MODE": "Bio",
+        "PHOTO_MODE": "Photo",
+        "TIMER_MODE": "Timer-Save",
+        "ORGENEMY_DELETE": "DelEnemy-Pms",
+        "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms",
     }
 }
