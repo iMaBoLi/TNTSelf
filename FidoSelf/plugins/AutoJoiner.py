@@ -3,7 +3,7 @@ from telethon import functions
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}S(Join|Leave)$")
 async def autojoiner(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     if not event.is_reply:
         return await event.edit(f"**{client.str} Please Reply To Message!**")
