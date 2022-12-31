@@ -1,9 +1,20 @@
 from FidoSelf import client
+import glob
+
+LANGUAGES = {}
+
+def load_langs():
+    for file in glob.glob("FidoSelf/strings/*.yml"):
+        STRS = open(file, "r").read()
+        STRING = eval(STRS)
+        lang = file.split("/")[-1].split(".")[0]
+        LANGUAGES[lang] = STRING
 
 def get_string(string):
-    lang = client.DB.get_key("LANGUAGE") or "en"
-    STRS = open(f"FidoSelf/strings/strings/{str(lang)}.yml", "r").read()
-    STRING = eval(STRS)
+    lang = client.lang
+    if not LANGUAGES:
+        load_langs()
+    STRING = LANGUAGES[lang]
     for page in string.split("_"):
         STRING = STRING[page]
     newstr = STRING
@@ -11,11 +22,3 @@ def get_string(string):
         newstr = newstr.replace("{STR}", client.str)
         newstr = newstr.replace("{CMD}", client.cmd)    
     return newstr
-
-def get_cmd(cmd):
-    lang = client.DB.get_key("LANGUAGE") or "en"
-    STRS = open(f"FidoSelf/strings/commands/{str(lang)}.yml", "r").read()
-    STRING = eval(STRS)
-    STRING = STRING[cmd]
-    STRING = f"(?i)^\{client.cmd}{STRING}$"
-    return STRING
