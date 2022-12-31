@@ -20,5 +20,5 @@ async def dtimers(event):
     if event.is_private and event.media and event.video and event.media.to_dict()["_"] == "MessageMediaDocument" and event.media.ttl_seconds and mode == "on":
         down = await event.download_media(f"{event.sender_id}.mp4")
         mention = client.mention(await event.get_sender())
-        await client.send_file(client.realm, down, caption=client.get_string("TimerSave_3").format(mention, client.utils.convert_time(event.media.ttl_seconds)))
+        await client.send_file(client.realm, down, caption=client.get_string("TimerSave_2").format(mention, client.utils.convert_time(event.media.ttl_seconds)))
         os.remove(down)
