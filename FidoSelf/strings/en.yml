@@ -45,6 +45,10 @@
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
+        "READALL_MODE": "Mark All",
+        "READPV_MODE": "Mark Pv",
+        "READGP_MODE": "Mark Grouo",
+        "READCH_MODE": "Mark Channel",
         "TIMER_MODE": "Timer Save",
         "ORGENEMY_DELETE": "DelEnemy Pms",
         "FRIENDENEMY_DELETE": "DelEnemyFriend Pms",
@@ -124,6 +128,9 @@
     },
     "EditMode": {
         "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
+    },
+    "MarkRead": {
+        "1": "**{STR} The MarkRead {} Messages Has Been {}!**",
     },
     "Translate": {
         "1": "**{STR} The Entered Language Is Not Available!**",
