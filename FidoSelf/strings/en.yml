@@ -10,7 +10,16 @@
         "2": "Random 2",
     },
     "Reply": {
-        "1": "**{STR} Please Reply To {}!**",
+        "M": "**{STR} Please Reply To Message!**",
+        "MM": "**{STR} Please Reply To Message Or Media!**",
+        "P": "**{STR} Please Reply To Photo!**",
+        "V": "**{STR} Please Reply To Video!**",
+        "A": "**{STR} Please Reply To Audio!**",
+        "S": "**{STR} Please Reply To Sticker!**",
+        "G": "**{STR} Please Reply To Gif!**",
+        "U": "**{STR} Please Reply To User!**",
+        "UU": "**{STR} Please Reply To User Or Enter Username!**",
+        "UUP": "**{STR} Please Reply To User Or Enter Username Or Send In Pv!**",
     },
     "Inline": {
         "1": "( ✔️|Actived )",
