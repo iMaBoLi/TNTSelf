@@ -126,13 +126,11 @@
         "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
     },
     "Translate": {
-        "1": "**{STR} Please Reply To Message For Translate!**",
-        "2": "**{STR} The Entered Language Is Not Available!**",
-        "3": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
+        "1": "**{STR} The Entered Language Is Not Available!**",
+        "2": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
     },
     "TimerSave": {
         "1": "**{STR} The Download Timers Photo adn Video Mode Has Been {}!**",
-        "2": "**{STR} The Photo Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
-        "3": "**{STR} The Video Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
+        "2": "**{STR} The {} Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
     },
 }
