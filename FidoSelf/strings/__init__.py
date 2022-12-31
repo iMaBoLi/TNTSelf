@@ -4,8 +4,10 @@ import json
 def get_string(string):
     lang = client.DB.get_key("LANGUAGE") or "en"
     STRS = open(f"FidoSelf/strings/{str(lang)}.txt", "r").read()
-    STRS = json.loads(STRS)
-    plugin = str(string.split("_")[0])
-    count = str(string.split("_")[1])
-    newstr = STRS[plugin][count]
+    STRING = json.loads(STRS)
+    for page in string.split("_"):
+        STRING = STRING[page]
+    newstr = STRING
+    newstr = newstr.replace("{STR}", client.str)
+    newstr = newstr.replace("{CMD}", client.cmd)
     return newstr
