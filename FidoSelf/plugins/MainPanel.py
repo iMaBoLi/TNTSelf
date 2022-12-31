@@ -17,18 +17,7 @@ def get_pages_button(page):
 
 def get_mode_buttons(page):
     buttons = []
-    MODES = {
-        "SELF_ALL_MODE": "Self Mode",
-        "QUICKS_MODE": "Quicks",
-        "AUTO_REPLACE_MODE": "Auto Replace",
-        "AFK_MODE": "Afk Mode",
-        "NAME_MODE": "Name Mode",
-        "BIO_MODE": "Bio Mode",
-        "PHOTO_MODE": "Photo Mode",
-        "TIMER_MODE": "Timer Save",
-        "ORGENEMY_DELETE": "DelEnemy Pms",
-        "FRIENDENEMY_DELETE": "DelEnemy Friend Pms",
-    }
+    MODES = client.get_string("Modes")
     for mode in MODES:
         if mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
             gmode = "on"
@@ -55,9 +44,9 @@ def get_time_buttons(page):
 def get_edit_buttons(page):
     last = client.DB.get_key("EDIT_MODE")
     buttons = []
-    EDITS = ["Bold", "Mono", "Italic", "Underline", "Strike", "Spoiler", "Hashtag"]
+    EDITS = client.get_string("Edits")
     for edit in EDITS:
-        buttons.append([Button.inline(f"• {edit} •", data=f"seteditmode:{page}:{edit}"), Button.inline((client.get_string("Inline_1") if str(last) == str(edit) else client.get_string("Inline_2")), data=f"seteditmode:{page}:{edit}")])
+        buttons.append([Button.inline(f"• {EDITS[edit]} •", data=f"seteditmode:{page}:{edit}"), Button.inline((client.get_string("Inline_1") if str(last) == str(edit) else client.get_string("Inline_2")), data=f"seteditmode:{page}:{edit}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
