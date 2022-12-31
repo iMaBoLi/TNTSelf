@@ -158,8 +158,8 @@
         "hin": "هندی",
     },
     "AutoJoiner": {
-        "1": "**{STR} The Message Is Not Have Link Or Username!**",
-        "2": "**{STR} The Join To** ( `{}` ) **Channel Was Completed!**",
-        "3": "**{STR} The Leave From** ( `{}` ) **Channel Was Completed!**",
+        "1": "**{STR} این پیام هیچ یوزرنیم یا لینک کانال یا گروهی ندارد!**",
+        "2": "**{STR} جوین شدن در** ( `{}` ) **چنل با موفقیت انجام شد!**",
+        "3": "**{STR} خارج شدن از** ( `{}` ) **چنل با موفقیت انجام شد!**",
     },
 }
