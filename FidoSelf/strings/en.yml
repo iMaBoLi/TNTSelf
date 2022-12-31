@@ -166,4 +166,9 @@
         "hrv": "Croatian",
         "hin": "Hindi",
     },
+    "AutoJoiner": {
+        "1": "**{STR} The Message Is Not Have Link Or Username!**",
+        "2": "**{STR} The Join To** ( `{}` ) **Channel Was Completed!**",
+        "3": "**{STR} The Leave From** ( `{}` ) **Channel Was Completed!**",
+    },
 }
