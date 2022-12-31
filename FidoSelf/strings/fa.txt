@@ -38,7 +38,7 @@
         "ORGENEMY_DELETE": "پاک‌‌کردن پیام دشمن",
         "FRIENDENEMY_DELETE": "پاک‌کردن پیام دوست دشمن"
     },
-    "Edits":
+    "Edits": {
         "Bold": "بولد",
         "Mono": "مونو",
         "Italic": "کج نویسی",
