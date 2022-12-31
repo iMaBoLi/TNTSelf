@@ -106,6 +106,5 @@
     "SelfMode": {
         "1": "**{STR} The Self For All Chats Has Been {}!**",
         "2": "**{STR} The Self  In This Chat Has Been {}!**",
-        "3": f"**{STR} The Self In This Chat Is Already {}!**",
     },
 }
