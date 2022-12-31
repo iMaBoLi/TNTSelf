@@ -134,6 +134,11 @@
         "2": "**{STR} The Photo Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
         "3": "**{STR} The Video Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
     },
+    "Monshi": {
+        "1": "**{STR} The Monshi Mode Has Been {}!**",
+        "2": "**{STR} The Monshi Message Has Been Saved!**",
+        "3": "**{STR} The Monshi Sleep Time Has Been Set To** ( `{}` )",
+    },
     "OcrApi": {
         "1": "**{STR} The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
         "2": "**{STR} The Ocr ApiKey Is Not Saved!**",
