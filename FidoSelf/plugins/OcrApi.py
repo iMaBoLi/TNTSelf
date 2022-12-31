@@ -1,8 +1,6 @@
 from FidoSelf import client
 import requests, os
 
-LANGS = {"ara": "Arabic", "eng": "English", "fre": "French", "kor": "Korean", "ita": "Italian", "jpn": "Japanese", "chs": "Chinese", "ger": "German", "spa": "Spanish", "swe": "Swedish", "tur": "Turkish", "bul": "Bulgarian", "pol": "Polish", "por": "Portugal", "rus": "Russian", "hrv": "Croatian", "hin": "Hindi"}
-
 def ocr_file(file, language):
     payload = {
         "isOverlayRequired": True,
@@ -31,6 +29,7 @@ async def saveocrapi(event):
 async def ocrapi(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1)
+    LANGS = client.get_string("OcrLangs")
     if not client.DB.get_key("OCR_API_KEY"):
         return await event.edit(client.get_string("OcrApi_2"))
     if not lang in LANGS:
@@ -43,13 +42,14 @@ async def ocrapi(event):
     if not stat:
         text = client.get_string("OcrApi_4").format(res)
         return await event.edit(text)
-    await event.edit(client.get_string("OcrApi_5").format(LANGS[lang], res)    
+    await event.edit(client.get_string("OcrApi_5").format(LANGS[lang], res))   
     os.remove(photo)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}OcrLangs$")
 async def ocrlangs(event):
     await event.edit(client.get_string("Wait"))
     text = client.get_string("OcrApi_6")
+    LANGS = client.get_string("OcrLangs")
     for lang in LANGS:
         text += f"• `{lang}` - **{LANGS[lang]}**\n"
     await event.edit(text)
