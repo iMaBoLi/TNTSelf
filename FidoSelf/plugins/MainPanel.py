@@ -64,7 +64,7 @@ def get_edit_buttons(page):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Panel$")
 async def addecho(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     res = await client.inline_query(client.bot.me.username, "selfmainpanel")
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
