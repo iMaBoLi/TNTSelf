@@ -19,13 +19,8 @@ async def selfmode(event):
         if event.chat_id not in chats:
             chats.append(event.chat_id)
             client.DB.set_key("SELF_MODE", chats)
-            await event.edit(client.get_string("SelfMode_2"))
-        else:
-            await event.edit(client.get_string("SelfMode_3"))
     elif mode == "on":
         if event.chat_id in chats:
             chats.remove(event.chat_id)
             client.DB.set_key("SELF_MODE", chats)
-            await event.edit(client.get_string("SelfMode_2"))
-        else:
-            await event.edit(client.get_string("SelfMode_3"))
+    await event.edit(client.get_string("SelfMode_2"))
