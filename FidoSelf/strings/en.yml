@@ -124,4 +124,9 @@
         "2": "**{STR} The Entered Language Is Not Available!**",
         "3": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
     },
+    "TimerSave": {
+        "1": "**{STR} The Download Timers Photo adn Video Mode Has Been {}!**",
+        "2": "**{STR} The Photo Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )"
+        "3": "**{STR} The Video Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
+    },
 }
