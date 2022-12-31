@@ -11,7 +11,7 @@ async def namechanger():
     NAMES = client.DB.get_key("NAMES")
     nmode = client.DB.get_key("NAME_MODE") or "off"
     if nmode == "on" and NAMES:
-        chname = client.vars(random.choice(NAMES))
+        chname = await client.vars(random.choice(NAMES))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
