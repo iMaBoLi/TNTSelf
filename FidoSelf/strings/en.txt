@@ -1,46 +1,47 @@
 {
     "Wait": "**{STR} Please Wait . . .**",
+    "Lang": "**{STR} The Language Was Changed To English!**",
     "Change": {
         "1": "Actived-✔️",
-        "2": "DeActived-✖️"
+        "2": "DeActived-✖️",
     },
     "Random": {
         "1": "Random",
-        "2": "Random 2"
+        "2": "Random 2",
     },
     "Reply": {
         "1": "**{STR} Please Reply To A Message!**",
         "2": "**{STR} Please Reply To A Message Or Media!**",
         "3": "**{STR} Please Reply To A Media!**",
         "4": "**{STR} Please Reply To A Photo!**",
-        "5": "**{STR} Please Reply To A User!**"
+        "5": "**{STR} Please Reply To A User!**",
     },
     "Inline": {
         "1": "( ✔️|Actived )",
         "2": "( ✖️|DeActived )",
         "3": "🚫 Close 🚫",
         "4": "Next ▶️",
-        "5": "◀️ Back"
+        "5": "◀️ Back",
     },
     "LogCh": {
         "1": "**{STR} The BackUp Channel Is Not Added!**",
-        "2": "**{STR} The BackUp Channel Is Not Available!**"
+        "2": "**{STR} The BackUp Channel Is Not Available!**",
     },
     "RealmCh": {
         "1": "**{STR} The Realm Chat Is Not Added!**",
-        "2": "**{STR} The Realm Chat Is Not Available!**"
+        "2": "**{STR} The Realm Chat Is Not Available!**",
     },
     "Modes": {
         "SELF_ALL_MODE": "Self",
         "QUICKS_MODE": "Quicks",
-        "AUTO_REPLACE_MODE": "Auto-Replace",
+        "AUTO_REPLACE_MODE": "Auto Replace",
         "AFK_MODE": "Afk",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
-        "TIMER_MODE": "Timer-Save",
-        "ORGENEMY_DELETE": "DelEnemy-Pms",
-        "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms"
+        "TIMER_MODE": "Timer Save",
+        "ORGENEMY_DELETE": "DelEnemy Pms",
+        "FRIENDENEMY_DELETE": "DelEnemyFriend Pms",
     },
     "Edits": {
         "Bold": "Bold",
@@ -49,7 +50,7 @@
         "Underline": "Underline",
         "Strike": "Strike",
         "Spoiler": "Spoiler",
-        "Hashtag": "Hashtag"
+        "Hashtag": "Hashtag",
     },
     "Ping": "**{STR}** [I'm Never](tg://user?id={}) **Lose!**",
     "Help": {
@@ -92,9 +93,9 @@
             "o1": "Others 1",
             "o2": "Others 2",
             "t": "Times",
-            "v": "Variables"
+            "v": "Variables",
         },
-        "3": "**{STR} The Help Self Page** ( `{}` ):"
+        "3": "**{STR} The Help Self Page** ( `{}` ):",
     },
     "Panel": {
         "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
