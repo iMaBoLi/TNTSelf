@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AutoReplace (On|Off)$")
 async def autoreplace(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("AUTO_REPLACE_MODE", mode)
     change = "Actived" if mode == "on" else "DeActived"
