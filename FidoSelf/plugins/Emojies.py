@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddEmoji (.*)")
 async def addemoji(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     data = event.pattern_match.group(1)
     emojis = client.DB.get_key("EMOJIES") or []
     for emoji in data.split(","):
@@ -13,7 +13,7 @@ async def addemoji(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEmoji (.*)")
 async def delemoji(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     data = event.pattern_match.group(1)
     emojis = client.DB.get_key("EMOJIES") or []
     for emoji in data.split(","):
@@ -24,7 +24,7 @@ async def delemoji(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}EmojiList$")
 async def emojilist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     emojis = client.DB.get_key("EMOJIES") or []
     if not emojis:
         return await event.edit(f"**{client.str} The Emoji List Is Empty!**")
@@ -37,7 +37,7 @@ async def emojilist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanEmojiList$")
 async def cleanemojilist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     emojis = client.DB.get_key("EMOJIES") or []
     if not emojis:
         return await event.edit(f"**{client.str} The Emoji List Is Already Empty!**")
