@@ -12,7 +12,7 @@ async def ssticker(event):
         os.remove(photo)
         os.remove("sticker.webp")
         return await event.delete()
-    await event.edit(f"**{client.str} Please Reply To Photo!**")
+    await event.edit(client.get_string("Reply_1"))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Sphoto$")
 async def sphoto(event):
@@ -25,4 +25,4 @@ async def sphoto(event):
         os.remove(sticker)
         os.remove("photo.jpg")
         return await event.delete()
-    await event.edit(f"**{client.str} Please Reply To Sticker!**")
+    await event.edit(client.get_string("Reply_4"))
