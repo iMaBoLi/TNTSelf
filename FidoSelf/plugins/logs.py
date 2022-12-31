@@ -3,7 +3,7 @@ import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}log (m|c|i)$")
 async def logs(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     type = str(event.pattern_match.group(1))
     if type == "m" and os.path.exists("CmdError.log"):
         await event.respond(f"**{client.str} Log File!**", file="CmdError.log")
