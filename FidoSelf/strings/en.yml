@@ -171,4 +171,7 @@
         "2": "**{STR} The Join To** ( `{}` ) **Channel Was Completed!**",
         "3": "**{STR} The Leave From** ( `{}` ) **Channel Was Completed!**",
     },
+    "AutoReplace": {
+        "1": "**{STR} The Auto Replace Messages Mode Has Been {}!**",
+    },
 }
