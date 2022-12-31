@@ -10,11 +10,7 @@
         "2": "Random 2",
     },
     "Reply": {
-        "1": "**{STR} Please Reply To A Message!**",
-        "2": "**{STR} Please Reply To A Message Or Media!**",
-        "3": "**{STR} Please Reply To A Media!**",
-        "4": "**{STR} Please Reply To A Photo!**",
-        "5": "**{STR} Please Reply To A User!**",
+        "1": "**{STR} Please Reply To {}!**",
     },
     "Inline": {
         "1": "( ✔️|Actived )",
