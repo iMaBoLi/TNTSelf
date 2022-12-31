@@ -174,4 +174,10 @@
     "AutoReplace": {
         "1": "**{STR} The Auto Replace Messages Mode Has Been {}!**",
     },
+    "DelProfiles": {
+        "1": "**{STR} The Profile Photos Is Not Found!**",
+        "2": "**{STR} The Last Profile Photo Has Been Deleted!**",
+        "3": "**{STR} The** ( `{}` ) **Of Your Profile Photos Has Been Deleted!**",
+        "4": "**{STR} The Profile Photo** ( `{}` ) **Has Been Deleted!**",
+    },
 }
