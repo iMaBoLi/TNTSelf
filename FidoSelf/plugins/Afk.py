@@ -11,7 +11,7 @@ async def afkmode(event):
     client.DB.set_key("AFK_MODE", mode)
     if mode == "on":
         client.DB.set_key("AFK_LASTSEEN", str(time.time()))
-    change = "Actived" if mode == "on" else "DeActived"
+    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("Afk_2").format(client.str, change))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetAfk$")
