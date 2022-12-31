@@ -46,5 +46,6 @@
         "Strike": "Strike",
         "Spoiler": "Spoiler",
         "Hashtag": "Hashtag"
-    }
+    },
+    "Ping": "**{STR}** [I'm Never](tg://user?id={}) **Lose!**",
 }
