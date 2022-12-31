@@ -48,5 +48,48 @@
         "Hashtag": "هشتگ"
     },
     "Ping": "**{STR}** [من هرگز](tg://user?id={}) **نمیمیرم!**",
+    "Help": {
+        "1": """
+ **{STR} به راهنمای سلف خوش آمدید:**
 
+**• تنظیمات:**
+   > `{CMD}Help S1`
+   > `{CMD}Help S2`
+   > `{CMD}Help S3`
+
+**• مدیریت:**
+   > `{CMD}Help M1`
+   > `{CMD}Help M2`
+
+**• اکانت:**
+   > `{CMD}Help A`
+
+**• گروه ها:**
+   > `{CMD}Help G`
+
+**• ساعت:**
+   > `{CMD}Help T`
+
+**• متغییر ها:**
+   > `{CMD}Help V`
+
+**• غیره:**
+   > `{CMD}Help O1`
+   > `{CMD}Help O2`
+""",
+        "2": {
+            "s1": "Settings 1",
+            "s2": "Settings 2",
+            "s3": "Settings 3",
+            "m1": "Manager 1",
+            "m2": "Manager 2",
+            "a": "Account",
+            "g": "Groups",
+            "o1": "Others 1",
+            "o2": "Others 2",
+            "t": "Times",
+            "v": "Variables"
+        },
+        "3": "**{STR} راهنمای سلف صفحه** ( `{}` ):"
+    }
 }
