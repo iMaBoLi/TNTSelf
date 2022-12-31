@@ -3,7 +3,7 @@ from telethon import functions, types
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelProfile ?(\-\d*)?$")
 async def delprofiles(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     pphoto = await client.get_profile_photos("me")
     if not pphoto:
         return await event.edit(f"**{client.str} The Profile Photos Is Empty!**")
