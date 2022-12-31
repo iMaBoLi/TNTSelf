@@ -3,7 +3,7 @@ from googletrans import Translator
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Str (.*)$")
 async def translator(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     if not event.reply_message or not event.reply_message.text:
         return await event.edit(f"**{client.str} Please Reply To Message For Translate!**")
     dest = event.text.split()[1]
