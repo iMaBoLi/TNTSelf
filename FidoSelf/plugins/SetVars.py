@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
 async def messagesstarter(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     string = event.pattern_match.group(1)
     client.DB.set_key("MESSAGES_STARTER", str(string))
     client.str = str(string)
@@ -10,7 +10,7 @@ async def messagesstarter(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetCmd (.*)$")
 async def cmdmessage(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     cmd = event.pattern_match.group(1)
     client.DB.set_key("SELF_CMD", str(cmd))
     client.cmd = str(cmd)
@@ -18,14 +18,14 @@ async def cmdmessage(event):
 
 @client.Cmd(pattern=f"(?i)^.DelCmd$")
 async def dcmdmessage(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     client.DB.del_key("SELF_CMD")
     client.cmd = "."
     await event.edit(f"**{client.str} The Self Commands Starter Has Been Deleted!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetRealm$")
 async def realm(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     if not event.is_group:
         return await event.edit(f"**{client.str} Please Send In Group For Added Realm Chat!**")
     client.DB.set_key("REALM_CHAT", event.chat_id)
@@ -34,7 +34,7 @@ async def realm(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetBackCh$")
 async def backch(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     if not event.is_ch:
         return await event.edit(f"**{client.str} Please Send In Channel For Added BackUp Channel!**")
     client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
