@@ -6,7 +6,7 @@ async def autojoiner(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
     if not event.is_reply:
-        return await event.edit(f"**{client.str} Please Reply To Message!**")
+        return await event.edit(client.get_string("Reply_M"))
     links = []
     if event.reply_message.entities:
         for entity in event.reply_message.entities:
@@ -18,24 +18,22 @@ async def autojoiner(event):
                 if but.url:
                     links.append(but.url)
     if not links:
-        return await event.edit(f"**{client.str} The Message Is Not Have Link Or Username!**")
-    errors = []
+        return await event.edit(client.get_string("AutoJoiner_1"))
     if mode == "join":
         joined = 0
         for link in links:
             try:
                 await client(functions.channels.JoinChannelRequest(channel=link))
                 joined += 1
-            except Exception as e:
-                errors.append(str(e))
-        await event.edit(f"**{client.str} The Join To** ( `{joined}` ) **Channel Was Completed!**")
+            except:
+                pass
+        await event.edit(client.get_string("AutoJoiner_2").format(joined))
     elif mode == "leave":
         leaved = 0
         for link in links:
             try:
                 await client(functions.channels.LeaveChannelRequest(channel=link)) 
                 leaved += 1
-            except Exception as e:
-                errors.append(str(e))
-        await event.edit(f"**{client.str} The Leave From** ( `{leaved}` ) **Channel Was Completed!**")
-    await client.send_message(client.backch, str(errors))
+            except:
+                pass
+        await event.edit(client.get_string("AutoJoiner_3").format(leaved))
