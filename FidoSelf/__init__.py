@@ -32,7 +32,6 @@ client.bot = FidoClient(
     session=StringSession("1BJWap1sBu2mKaYy9jTv5C_1lbx0SziJBSDn7uSDEhs_ea8lRxCJy3jPHG3-92TQgk0jDwf7jU5X5L2KGeCtqMKncyKd85JUX1RXEgSQMYZHSMYTYZo0nfi4adjm3g1R2BICIWU0B4CaX7nfxbQjCqU8d58v9D6Jz8PlA8jIUNS6PHbbKhWGwy69O0CueiivXGplsXEitVsTWaCf7cqVZczAAJrq12MLePzqZ5aNDzGFnMmB-yicCixbTPfDgGvTSSQZUkbobeeRxu1ozTcEwqQ4RsQRBHtUXD458JyrSH9LhAMs0-Sbg_ayMpL1MgScm9tJamm0Oz8kA6qFK7N1n20of-tzMgKI="),
     api_id=config.API_ID,
     api_hash=config.API_HASH,
-    bot_token=config.BOT_TOKEN,
 )
 
 async def setsession():
