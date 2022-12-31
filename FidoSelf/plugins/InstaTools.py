@@ -43,7 +43,7 @@ def INSTA():
 
 @client.Cmd(pattern=f"(?i)^{client.cmd}instalogin (.*)\:(.*)$")
 async def logininstagram(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     username = event.pattern_match.group(1)
     password = event.pattern_match.group(2)
     client.DB.set_key("INSTA_LOGIN_USER", username)
@@ -55,7 +55,7 @@ async def logininstagram(event):
 
 @client.Cmd(pattern=f"(?i)^{client.cmd}igpost (.*)$")
 async def postdownload(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     link = event.pattern_match.group(1)
     if not re.search("(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/?(?:p|reel|tv)\/(.*)", link):
         return await event.edit(f"**{client.str} Your Entered Link For Not A Post Media!**")     
@@ -86,7 +86,7 @@ async def postdownload(event):
 
 @client.Cmd(pattern=f"(?i)^{client.cmd}iginfo (.*)$")
 async def userinfo(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     username = event.pattern_match.group(1).replace("@", "")
     insta = INSTA()
     if insta == "invalid" or insta == "empty":
