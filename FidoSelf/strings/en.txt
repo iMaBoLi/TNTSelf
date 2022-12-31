@@ -36,6 +36,15 @@
         "PHOTO_MODE": "Photo",
         "TIMER_MODE": "Timer-Save",
         "ORGENEMY_DELETE": "DelEnemy-Pms",
-        "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms",
+        "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms"
+    }
+    "EDITS":
+        "Bold": "Bold",
+        "Mono": "Mono",
+        "Italic": "Italic",
+        "Underline": "Underline",
+        "Strike": "Strike",
+        "Spoiler": "Spoiler",
+        "Hashtag": "Hashtag"
     }
 }
