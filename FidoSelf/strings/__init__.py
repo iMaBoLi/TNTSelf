@@ -8,6 +8,7 @@ def get_string(string):
     for page in string.split("_"):
         STRING = STRING[page]
     newstr = STRING
-    newstr = newstr.replace("{STR}", client.str)
-    newstr = newstr.replace("{CMD}", client.cmd)
+    if type(newstr) == str:
+        newstr = newstr.replace("{STR}", client.str)
+        newstr = newstr.replace("{CMD}", client.cmd)    
     return newstr
