@@ -16,11 +16,11 @@ async def cmdmessage(event):
     client.cmd = str(cmd)
     await event.edit(client.get_string("Vars_2").format(cmd))
 
-@client.Cmd(pattern=f"(?i)^DelCmd$")
+@client.Cmd(pattern=f"(?i)^.DelCmd$")
 async def dcmdmessage(event):
     await event.edit(client.get_string("Wait").format(client.str))
-    client.DB.del_key("SELF_CMD")
-    client.cmd = ""
+    client.DB.set_key("SELF_CMD", ".")
+    client.cmd = "."
     await event.edit(client.get_string("Vars_3"))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetRealm$")
