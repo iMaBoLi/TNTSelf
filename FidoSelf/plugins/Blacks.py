@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddBlack ?(.*)?")
 async def addblack(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Reply To User Or Send In Private Chats!**")
@@ -15,7 +15,7 @@ async def addblack(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
 async def delblack(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Reply To User Or Send In Private Chats!**")
@@ -28,7 +28,7 @@ async def delblack(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}BlackList$")
 async def blacklist(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     blacks = client.DB.get_key("BLACKS") or []
     if not blacks:
         return await event.edit(f"**{client.str} The Black List Is Empty!**")
@@ -41,7 +41,7 @@ async def blacklist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanBlackList$")
 async def cleanblacklist(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     blacks = client.DB.get_key("BLACKS") or []
     if not blacks:
         return await event.edit(f"**{client.str} The Black List Is Already Empty!**")
