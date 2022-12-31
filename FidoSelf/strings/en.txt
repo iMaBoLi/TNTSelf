@@ -2,9 +2,19 @@
     "Wait": {
         "1": "**{} Please Wait . . .**"
     },
-    "AutoReplace": {
-        "1": "",
-        "2": ""
+    "Change": {
+        "1": "Actived-✔️",
+        "2": "DeActived-✖️"
+    },
+    "Reply": {
+        "1": "**{} Please Reply To A {}!**",
+    },
+    "Inline": {
+        "1": "( ✔️|Actived )",
+        "2": "( ✖️|DeActived )",
+        "3": "🚫 Close 🚫",
+        "4": "Next ▶️",
+        "5": "◀️ Back"
     },
     "Afk": {
         "1": "**{} Processing . . .**",
