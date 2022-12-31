@@ -3,7 +3,7 @@ from PIL import Image
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Ssticker$")
 async def ssticker(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     if event.reply_message and event.reply_message.photo:
         photo = await event.reply_message.download_media()
         img = Image.open(photo)
@@ -16,7 +16,7 @@ async def ssticker(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Sphoto$")
 async def sphoto(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     if event.reply_message and event.reply_message.sticker:
         sticker = await event.reply_message.download_media()
         img = Image.open(sticker)
