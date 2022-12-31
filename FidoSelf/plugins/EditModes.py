@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}E(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
 async def bio(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
     change = event.pattern_match.group(2).lower()
     changer = client.get_string("Change_1") if change == "on" else client.get_string("Change_2")
