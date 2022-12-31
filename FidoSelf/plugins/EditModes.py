@@ -10,6 +10,7 @@ async def bio(event):
         client.DB.set_key("EDIT_MODE", mode.title())
     else:
         client.DB.del_key("EDIT_MODE")
+    mode = client.get_string(f"Edits_{mode.title()}")
     await event.edit(client.get_string("EditMode_1").format(mode.title(), changer))
 
 @client.Cmd(edits=False)
