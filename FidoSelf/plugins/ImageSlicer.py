@@ -4,7 +4,7 @@ import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SSlice (\d*)$")
 async def sliceimage(event):
-    await event.edit(client.get_string("Wait").format(client.str))
+    await event.edit(client.get_string("Wait"))
     tile = event.pattern_match.group(1)
     if event.is_reply and event.reply_message.photo:
         photo = await event.reply_message.download_media("SliceImage.jpg")
