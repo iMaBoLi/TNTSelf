@@ -116,4 +116,7 @@
         "6": "**{STR} Please Send In Channel For Added BackUp Channel!**",
         "7": "**{STR} This Channel Is Saved For BackUp Channel!**",
     },
+    "EditMode": {
+        "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
+    },
 }
