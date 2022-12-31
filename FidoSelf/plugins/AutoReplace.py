@@ -6,7 +6,7 @@ async def autoreplace(event):
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("AUTO_REPLACE_MODE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Auto Replace Messages Mode Has Been {change}!**")
+    await event.edit(client.get_string("AutoReplace_1").format(change))
 
 @client.Cmd()
 async def autodeleters(event):
