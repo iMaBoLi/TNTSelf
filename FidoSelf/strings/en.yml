@@ -134,4 +134,12 @@
         "2": "**{STR} The Photo Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
         "3": "**{STR} The Video Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
     },
+    "OcrApi": {
+        "1": "**{STR} The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
+        "2": "**{STR} The Ocr ApiKey Is Not Saved!**",
+        "3": "**{STR} The Entered Language Is Not Found!**",
+        "4": "**{STR} The Extract Text Not Completed!**\n**{STR} Error:** ( `{}` )",
+        "5": "**{STR} The Extract Text Completed!**\n**{STR} Language:** ( `{}` )\n\n**{STR} Result:** ( `{}` )",
+        "6": "**{STR} The Available OcrApi Languages:**\n\n",
+    },
 }
