@@ -2,7 +2,7 @@ from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Name (On|Off)$")
 async def name(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("NAME_MODE", mode)
     change = "Actived" if mode == "on" else "DeActived"
@@ -10,7 +10,7 @@ async def name(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddName (.*)")
 async def addname(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     names = client.DB.get_key("NAMES") or []
     newname = str(event.pattern_match.group(1))
     if newname in names:
@@ -21,7 +21,7 @@ async def addname(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelName ?(.*)?")
 async def delname(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     names = client.DB.get_key("NAMES") or []
     newname = str(event.pattern_match.group(1))
     if newname not in names:
@@ -32,7 +32,7 @@ async def delname(event):
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}NameList$")
 async def namelist(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     names = client.DB.get_key("NAMES") or []
     if not names:
         return await event.edit(f"**{client.str} The Name List Is Empty!**")
@@ -45,7 +45,7 @@ async def namelist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}CleanNameList$")
 async def cleannames(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     names = client.DB.get_key("NAMES") or []
     if not names:
         return await event.edit(f"**{client.str} The Name List Is Already Empty!**")
