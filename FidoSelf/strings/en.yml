@@ -131,6 +131,7 @@
     },
     "TimerSave": {
         "1": "**{STR} The Download Timers Photo adn Video Mode Has Been {}!**",
-        "2": "**{STR} The {} Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
+        "2": "**{STR} The Photo Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
+        "3": "**{STR} The Video Has Been Downloaded!**\n\n**{STR} User:** ( {} )\n**{STR} Timer:** ( `{}` )",
     },
 }
