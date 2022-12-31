@@ -33,7 +33,7 @@ def Cmd(
                 cmds = client.DB.get_key("SELF_CMDS") or []
                 event.is_cmd = False
                 for cmd in cmds:
-                    if (client.cmd + cmd) in event.text: 
+                    if re.search(f"(?i){cmd}", event.text): 
                         event.is_cmd = True
                 await func(event)
             except:
