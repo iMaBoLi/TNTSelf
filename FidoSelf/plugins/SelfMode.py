@@ -7,7 +7,7 @@ async def selfallmode(event):
     client.DB.set_key("SELF_ALL_MODE", mode)
     client.DB.del_key("SELF_MODE")
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Self Has Been {change} For All Chats!**")
+    await event.edit(client.get_string("SelfMode_1"))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Self (On|Off)$", selfmode=False)
 async def selfmode(event):
@@ -19,13 +19,13 @@ async def selfmode(event):
         if event.chat_id not in chats:
             chats.append(event.chat_id)
             client.DB.set_key("SELF_MODE", chats)
-            await event.edit(f"**{client.str} The Self Has Been {change} In This Chat!**")
+            await event.edit(client.get_string("SelfMode_2"))
         else:
-            await event.edit(f"**{client.str} The Self Is Already {change} In This Chat!**")
+            await event.edit(client.get_string("SelfMode_3"))
     elif mode == "on":
         if event.chat_id in chats:
             chats.remove(event.chat_id)
             client.DB.set_key("SELF_MODE", chats)
-            await event.edit(f"**{client.str} The Self Has Been {change} In This Chat!**")
+            await event.edit(client.get_string("SelfMode_2"))
         else:
-            await event.edit(f"**{client.str} The Self Is Already {change} In This Chat!**")
+            await event.edit(client.get_string("SelfMode_3"))
