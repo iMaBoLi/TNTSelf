@@ -1,34 +1,18 @@
 from FidoSelf import client
 from telethon import Button
 
-PAGES = {
-    "s1": "Settings 1",
-    "s2": "Settings 2",
-    "s3": "Settings 3",
-    "m1": "Manager 1",
-    "m2": "Manager 2",
-    "a": "Account",
-    "g": "Groups",
-    "o1": "Others 1",
-    "o2": "Others 2",
-    "t": "Times",
-    "v": "Variables",
-}
-
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Help$")
 async def helpself(event):
-    text = f"**{client.str} The Help Self Pages:**\n\n"
-    for page in PAGES:
-        text += f"**{client.str} Help Page {PAGES[page]}:**\n• `{client.cmd}Help {page.title()}`\n\n"
-    await event.edit(text)
+    await event.edit(client.get_string("Help_1"))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Help (s1|s2|s3|m1|m2|o1|o2|a|g|t|v)$")
 async def helpselfpages(event):
     page = event.pattern_match.group(1).lower()
     newemoji = "➖"*14
     emoji = "◆"*9
-    oemoji = "𖡼"*12
-    text = f"**{client.str} The Self Help Page {PAGES[page]}:**\n"
+    oemoji = "𖡼"*12  
+    PAGES =  client.get_string("Help_2")
+    text = client.get_string("Help_3").format(PAGES[page])
     if page == "s1":
         text += f"""
 {newemoji}
