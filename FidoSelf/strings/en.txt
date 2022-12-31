@@ -1,4 +1,11 @@
 {
+    "Wait": {
+        "1": "**{} Please Wait . . .**"
+    },
+    "AutoReplace": {
+        "1": "",
+        "2": ""
+    },
     "Afk": {
         "1": "**{} Processing . . .**",
         "2": "**{} The Afk Mode Has Been {}!**",
