@@ -119,4 +119,9 @@
     "EditMode": {
         "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
     },
+    "Translate": {
+        "1": "**{STR} Please Reply To Message For Translate!**",
+        "2": "**{STR} The Entered Language Is Not Available!**",
+        "3": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
+    },
 }
