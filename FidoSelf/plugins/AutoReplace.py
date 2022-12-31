@@ -5,7 +5,7 @@ async def autoreplace(event):
     await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("AUTO_REPLACE_MODE", mode)
-    change = "Actived" if mode == "on" else "DeActived"
+    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Auto Replace Messages Mode Has Been {change}!**")
 
 @client.Cmd()
