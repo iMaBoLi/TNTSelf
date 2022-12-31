@@ -33,8 +33,8 @@ def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    buttons.append([Button.inline("• Random •", data=f"setfonttime:{page}:random"), Button.inline((client.get_string("Inline_1") if str(last) == "random" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random")])
-    buttons.append([Button.inline("• Random 2 •", data=f"setfonttime:{page}:random2"), Button.inline((client.get_string("Inline_1") if str(last) == "random2" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random2")])
+    buttons.append([Button.inline(f'• {client.get_string("Random_1")} •', data=f"setfonttime:{page}:random"), Button.inline((client.get_string("Inline_1") if str(last) == "random" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random")])
+    buttons.append([Button.inline(f'• {client.get_string("Random_2")} •', data=f"setfonttime:{page}:random2"), Button.inline((client.get_string("Inline_1") if str(last) == "random2" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random2")])
     for font in FONTS:
         buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline((client.get_string("Inline_1") if str(last) == str(font) else client.get_string("Inline_2")), data=f"setfonttime:{page}:{font}")])
     pgbts = get_pages_button(page)
@@ -60,7 +60,7 @@ async def addecho(event):
 
 @client.Inline(pattern="selfmainpanel")
 async def inlinepanel(event):
-    text = f"**{client.str} Please Use The Buttons Below To Control The Different Parts:**\n\n"
+    text = client.get_string("Panel_1")
     buttons = get_mode_buttons(1)
     await event.answer([event.builder.article(f"{client.str} Smart Self - Panel", text=text, buttons=buttons)])
 
@@ -68,15 +68,15 @@ async def inlinepanel(event):
 async def panelpages(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     if page == 1:
-        text = f"**{client.str} Please Use The Buttons Below To Control The Different Parts:**\n\n"
+        text = client.get_string("Panel_1")
         buttons = get_mode_buttons(page)
         await event.edit(text=text, buttons=buttons)
     elif page == 2:
-        text = f"**{client.str} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**"
+        text = client.get_string("Panel_2")
         buttons = get_time_buttons(page)
         await event.edit(text=text, buttons=buttons)
     elif page == 3:
-        text = f"**{client.str} Please Use The Options Below To Manage Edit Texts Mode:**"
+        text = client.get_string("Panel_3")
         buttons = get_edit_buttons(page)
         await event.edit(text=text, buttons=buttons)
 
@@ -113,4 +113,5 @@ async def seteditmode(event):
 
 @client.Callback(data="closepanel")
 async def closepanel(event):
-    await event.edit(text=f"**{client.str} The Panel Successfuly Closed!**")
+    text = client.get_string("Panel_4")
+    await event.edit(text=text)
