@@ -38,7 +38,7 @@
         "ORGENEMY_DELETE": "DelEnemy-Pms",
         "FRIENDENEMY_DELETE": "DelEnemyFriend-Pms"
     },
-    "Edits":
+    "Edits": {
         "Bold": "Bold",
         "Mono": "Mono",
         "Italic": "Italic",
