@@ -49,7 +49,7 @@ async def delenemypm(event):
     await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("ORGENEMY_DELETE", mode)
-    change = "Actived" if mode == "on" else "DeActived"
+    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Delete Original Enemy Messages Mode Has Been {change}!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
@@ -64,7 +64,7 @@ async def delenemypm(event):
     await event.edit(client.get_string("Wait_1").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("FRIENDENEMY_DELETE", mode)
-    change = "Actived" if mode == "on" else "DeActived"
+    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Delete Friend Enemy Messages Mode Has Been {change}!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemyFriendSleep (\d*)$")
