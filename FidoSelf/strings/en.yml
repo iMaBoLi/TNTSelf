@@ -1,0 +1,122 @@
+{
+    "Wait": "**{STR} Please Wait . . .**",
+    "Lang": "**{STR} The Language Was Changed To English!**",
+    "Change": {
+        "1": "Actived-✔️",
+        "2": "DeActived-✖️",
+    },
+    "Random": {
+        "1": "Random",
+        "2": "Random 2",
+    },
+    "Reply": {
+        "1": "**{STR} Please Reply To A Message!**",
+        "2": "**{STR} Please Reply To A Message Or Media!**",
+        "3": "**{STR} Please Reply To A Media!**",
+        "4": "**{STR} Please Reply To A Photo!**",
+        "5": "**{STR} Please Reply To A User!**",
+    },
+    "Inline": {
+        "1": "( ✔️|Actived )",
+        "2": "( ✖️|DeActived )",
+        "3": "🚫 Close 🚫",
+        "4": "Next ▶️",
+        "5": "◀️ Back",
+    },
+    "LogCh": {
+        "1": "**{STR} The BackUp Channel Is Not Added!**",
+        "2": "**{STR} The BackUp Channel Is Not Available!**",
+    },
+    "RealmCh": {
+        "1": "**{STR} The Realm Chat Is Not Added!**",
+        "2": "**{STR} The Realm Chat Is Not Available!**",
+    },
+    "Modes": {
+        "SELF_ALL_MODE": "Self",
+        "QUICKS_MODE": "Quicks",
+        "AUTO_REPLACE_MODE": "Auto Replace",
+        "AFK_MODE": "Afk",
+        "NAME_MODE": "Name",
+        "BIO_MODE": "Bio",
+        "PHOTO_MODE": "Photo",
+        "TIMER_MODE": "Timer Save",
+        "ORGENEMY_DELETE": "DelEnemy Pms",
+        "FRIENDENEMY_DELETE": "DelEnemyFriend Pms",
+    },
+    "Edits": {
+        "Bold": "Bold",
+        "Mono": "Mono",
+        "Italic": "Italic",
+        "Underline": "Underline",
+        "Strike": "Strike",
+        "Spoiler": "Spoiler",
+        "Hashtag": "Hashtag",
+    },
+    "Ping": "**{STR}** [I'm Never](tg://user?id={}) **Lose!**",
+    "Help": {
+        "1": """
+ **{STR} WelCome To Self Help:**
+
+**• Settings:**
+   > `{CMD}Help S1`
+   > `{CMD}Help S2`
+   > `{CMD}Help S3`
+
+**• Settings:**
+   > `{CMD}Help M1`
+   > `{CMD}Help M2`
+
+**• Account:**
+   > `{CMD}Help A`
+
+**• Groups:**
+   > `{CMD}Help G`
+
+**• Times:**
+   > `{CMD}Help T`
+
+**• Variables:**
+   > `{CMD}Help V`
+
+**• Others:**
+   > `{CMD}Help O1`
+   > `{CMD}Help O2`
+""",
+        "2": {
+            "s1": "Settings 1",
+            "s2": "Settings 2",
+            "s3": "Settings 3",
+            "m1": "Manager 1",
+            "m2": "Manager 2",
+            "a": "Account",
+            "g": "Groups",
+            "o1": "Others 1",
+            "o2": "Others 2",
+            "t": "Times",
+            "v": "Variables",
+        },
+        "3": "**{STR} The Help Self Page** ( `{}` ):",
+    },
+    "Panel": {
+        "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
+        "2": "**{STR} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**",
+        "3": "**{STR} Please Use The Options Below To Manage Edit Texts Mode:**",
+        "4": "**{STR} The Panel Successfuly Closed!**",
+    },
+    "SelfMode": {
+        "1": "**{STR} The Self For All Chats Has Been {}!**",
+        "2": "**{STR} The Self  In This Chat Has Been {}!**",
+    },
+    "Vars": {
+        "1": "**{STR} The Messages Starter String Has Been Set To** ( `{}` )",
+        "2": "**{STR} The Self Commands Starter Has Been Set To** ( `{}` )",
+        "3": "**{STR} The Self Commands Starter Has Been Deleted!**",
+        "4": "**{STR} Please Send In Group For Added Realm Chat!**",
+        "5": "**{STR} This Chat Is Saved For Realm Chat!**",
+        "6": "**{STR} Please Send In Channel For Added BackUp Channel!**",
+        "7": "**{STR} This Channel Is Saved For BackUp Channel!**",
+    },
+    "EditMode": {
+        "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
+    },
+}
