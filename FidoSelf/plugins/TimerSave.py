@@ -3,7 +3,7 @@ import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}TSave (On|Off)$")
 async def timersave(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("TIMER_MODE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
