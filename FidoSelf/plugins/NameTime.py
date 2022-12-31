@@ -8,7 +8,7 @@ async def name(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Name Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddName (.*)")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}AddName (.*)$")
 async def addname(event):
     await event.edit(client.get_string("Wait"))
     names = client.DB.get_key("NAMES") or []
@@ -19,7 +19,7 @@ async def addname(event):
     client.DB.set_key("NAMES", names)
     await event.edit(f"**{client.str} The Name** ( `{newname}` ) **Added To Name List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelName ?(.*)?")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}DelName (.*)$")
 async def delname(event):
     await event.edit(client.get_string("Wait"))
     names = client.DB.get_key("NAMES") or []
