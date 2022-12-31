@@ -107,4 +107,13 @@
         "1": "**{STR} The Self For All Chats Has Been {}!**",
         "2": "**{STR} The Self  In This Chat Has Been {}!**",
     },
+    "Vars": {
+        "1": "**{STR} The Messages Starter String Has Been Set To** ( `{}` )",
+        "2": "**{STR} The Self Commands Starter Has Been Set To** ( `{}` )",
+        "3": "**{STR} The Self Commands Starter Has Been Deleted!**",
+        "4": "**{STR} Please Send In Group For Added Realm Chat!**",
+        "5": "**{STR} This Chat Is Saved For Realm Chat!**",
+        "6": "**{STR} Please Send In Channel For Added BackUp Channel!**",
+        "7": "**{STR} This Channel Is Saved For BackUp Channel!**",
+    },
 }
