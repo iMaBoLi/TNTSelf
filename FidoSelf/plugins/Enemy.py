@@ -5,7 +5,7 @@ import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
 async def addenemy(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     event = await client.get_ids(event)
     if not event.userid:
         return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Send In Private Chats!**")
@@ -17,7 +17,7 @@ async def addenemy(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemy ?(.*)?$")
 async def delenemy(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     event = await client.get_ids(event)
     Enemies = client.DB.get_key("ENEMIES") or {}
     elist = []
@@ -33,7 +33,7 @@ async def delenemy(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}EnemyList$")
 async def enemylist(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies:
         return await event.edit(f"**{client.str} The Bio List Is Empty!**")
@@ -46,7 +46,7 @@ async def enemylist(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyPms (On|off)$")
 async def delenemypm(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("ORGENEMY_DELETE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
@@ -54,14 +54,14 @@ async def delenemypm(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
 async def setenemysleep(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ORGENEMY_SLEEP", str(sleep))
     await event.edit(f"**{client.str} The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyFriendPms (On|off)$")
 async def delenemypm(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("FRIENDENEMY_DELETE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
@@ -69,14 +69,14 @@ async def delenemypm(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemyFriendSleep (\d*)$")
 async def setenemysleep(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("FRIENDENEMY_SLEEP", str(sleep))
     await event.edit(f"**{client.str} The Friend Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddFosh(F)?$")
 async def savefoshfile(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     if not event.reply_message or not event.reply_message.media:
         return await event.edit(f"**{client.str} Please Reply To Foshs File!**")
     if not client.backch:
@@ -94,7 +94,7 @@ async def savefoshfile(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
 async def delfoshfile(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     if event.text.endswith("F") or event.text.endswith("f"):
         client.DB.del_key("FEIENDFOSHS_FILE")
         await event.edit(f"**{client.str} The Frind Enemy Foshs File Has Been Deleted!**")  
@@ -104,7 +104,7 @@ async def delfoshfile(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
 async def getfoshfile(event):
-    await event.edit(client.get_string("Wait_1").format(client.str))
+    await event.edit(client.get_string("Wait").format(client.str))
     if event.text.endswith("F") or event.text.endswith("f"):
         foshs = client.DB.get_key("FRINEDFOSHS_FILE")
         if not foshs:
