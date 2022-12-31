@@ -22,14 +22,14 @@ def ocr_file(file, language):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}OcrApi (.*)$")
 async def saveocrapi(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     api = event.pattern_match.group(1)
     client.DB.set_key("OCR_API_KEY", api)
     await event.edit(f"**{client.str} The Ocr ApiKey** ( `{api}` ) **Has Been Saved!**")
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Ocr (.*)$")
 async def ocrapi(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     lang = event.pattern_match.group(1)
     if not client.DB.get_key("OCR_API_KEY"):
         return await event.edit(f"**{client.str} Please Save Ocr ApiKey First!**")
@@ -47,7 +47,7 @@ async def ocrapi(event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}OcrLangs$")
 async def ocrlangs(event):
-    await event.edit(f"**{client.str} Processing . . .**")
+    await event.edit(client.get_string("Wait_1").format(client.str))
     text = f"**{client.str} The Ocr Languages:**\n\n"
     for lang in LANGS:
         text += f"• `{lang}` - **{LANGS[lang]}**\n"
