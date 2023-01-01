@@ -239,27 +239,28 @@ async def inlinequicks(event):
 async def delquicks(event):
     quick = str(event.data_match.group(1).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
-    await event.edit(text=f"""**{client.str} The Quick** ( `{quicks[quick]["cmd"]}` ) **From List** ( `{quicks[quick]["where"].replace("chat", "")} -> {quicks[quick]["whom"].replace("user", "")} -> {quicks[quick]["type"]}` ) **Has Been Deleted!**""")
+    text = client.get_string("Quicks_14").format(quicks[quick]["cmd"], quicks[quick]["where"].replace("chat", ""), quicks[quick]["whom"].replace("user", ""), quicks[quick]["type"])
+    await event.edit(text=text)
     del quicks[quick]
     client.DB.set_key("QUICKS", quicks)
 
 @client.Inline(pattern="allquicklist")
 async def inlinequicklist(event):
     quicks = client.DB.get_key("QUICKS") or {}
-    text = f"**{client.str} Please Select Each Quick Answer To View Its Information:**\n\n**{client.str} Quicks Count:** ( `{len(quicks)}` )"
+    text = client.get_string("Quicks_15").format(len(quicks))
     buttons = []
     for quick in list(quicks)[:10]:
         info = quicks[quick]
         buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"].replace("user", "")} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:1")])
     if len(quicks) > 10:
-        buttons.append([Button.inline("Next ▶️", data=f"quicklistpage:2")])
+        buttons.append([Button.inline(client.get_string("Inline_4"), data=f"quicklistpage:2")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - List Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="quicklistpage\:(.*)")
 async def listquicks(event):
     page = str(event.data_match.group(1).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
-    text = f"**{client.str} Please Select Each Quick Answer To View Its Information:**\n\n**{client.str} Quicks Count:** ( `{len(quicks)}` )"
+    text = client.get_string("Quicks_15").format(len(quicks))
     buttons = []
     qcount = (int(page) * 10)
     for quick in list(quicks)[(qcount-10):qcount]:
@@ -267,9 +268,9 @@ async def listquicks(event):
         buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {info["whom"].replace("user", "")} ) - ( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"viwequick:{quick}:{page}")])
     pbts = []
     if int(page) != 1:
-        pbts.append(Button.inline("◀️ Back", data=f"quicklistpage:{int(page)-1}"))
+        pbts.append(Button.inline(client.get_string("Inline_4"), data=f"quicklistpage:{int(page)-1}"))
     if len(quicks) > qcount:
-        pbts.append(Button.inline("Next ▶️", data=f"quicklistpage:{int(page)+1}"))
+        pbts.append(Button.inline(client.get_string("Inline_3"), data=f"quicklistpage:{int(page)+1}"))
     buttons.append(pbts)
     await event.edit(text=text, buttons=buttons)
 
@@ -280,13 +281,5 @@ async def listquicks(event):
     quicks = client.DB.get_key("QUICKS") or {}
     info = quicks[quick]
     buttons = [[Button.inline("❌ Delete ❌", data=f"dquickdel:{quick}")], [Button.inline("↩️ Back", data=f"quicklistpage:{page}")]]
-    await event.edit(text=f"""
-**{client.str} Quick Command:** ( `{info["cmd"]}` )
-
-**{client.str} Answer(s):** ( `{info["answers"]}` )
-
-**{client.str} Whom:** ( `{info["whom"].replace("user", "")}` )
-**{client.str} Where:** ( `{info["where"].replace("chat", "")}` )
-**{client.str} Type:** ( `{info["type"]}` )
-**{client.str} Find:** ( `{info["find"]}` )
-**{client.str} Sleep:** ( `{client.utils.convert_time(info["sleep"]) or "---"}` )""",buttons=buttons)
+    text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], info["whom"].replace("user", ""), info["where"].replace("chat", ""), info["type"], info["find"], (client.utils.convert_time(info["sleep"]) or "---"))
+    await event.edit(text=text,buttons=buttons)
