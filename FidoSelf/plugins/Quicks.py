@@ -216,11 +216,11 @@ async def callbackquicks(event):
         if whom.startswith("user"):
             whom = whom.replace("user", "")
         else:
-            whom = client.get_string(whom)
+            whom = client.get_string(f"InQuicks_{whom}")
         if where.startswith("chat"):
             where = where.replace("chat", "")
         else:
-            where = client.get_string(where)
+            where = client.get_string(f"ChType_{where}")
         text = client.get_string("Quicks_11").format(whom, where, client.get_string(f"InQuicks_{type}"), client.get_string(find), (client.utils.convert_time(sleep)), gquick["cmd"], anss)
         await event.edit(text=text)
     elif work == "close":   
@@ -243,11 +243,11 @@ async def inlinequicks(event):
         if info["whom"].startswith("user"):
             whom = info["whom"].replace("user", "")
         else:
-            whom = client.get_string(info["whom"])
+            whom = client.get_string(f'InQuicks_{info["whom"]}')
         if info["where"].startswith("chat"):
             where = info["where"].replace("chat", "")
         else:
-            where = client.get_string(info["where"])
+            where = client.get_string(f'ChType_{info["where"]}')
         type = client.get_string(f'InQuicks_{info["type"]}')
         buttons.append([Button.inline(f"""( {whom} ) - ( {where} ) - ( {type} )""", data=f"dquickdel:{quick}")])
     await event.answer([event.builder.article(f"{client.str} Smart Self - Del Quick", text=text, buttons=buttons)])
@@ -271,11 +271,11 @@ async def inlinequicklist(event):
         if info["whom"].startswith("user"):
             whom = info["whom"].replace("user", "")
         else:
-            whom = client.get_string(info["whom"])
+            whom = client.get_string(f'InQuicks_{info["whom"]}')
         if info["where"].startswith("chat"):
             where = info["where"].replace("chat", "")
         else:
-            where = client.get_string(info["where"])
+            where = client.get_string(f'ChType_{info["where"]}')
         type = client.get_string(f'InQuicks_{info["type"]}')
         buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {whom} ) - ( {where} ) - ( {type} )""", data=f"viwequick:{quick}:1")])
     if len(quicks) > 10:
@@ -294,11 +294,11 @@ async def listquicks(event):
         if info["whom"].startswith("user"):
             whom = info["whom"].replace("user", "")
         else:
-            whom = client.get_string(info["whom"])
+            whom = client.get_string(f'InQuicks_{info["whom"]}')
         if info["where"].startswith("chat"):
             where = info["where"].replace("chat", "")
         else:
-            where = client.get_string(info["where"])
+            where = client.get_string(f'ChType_{info["where"]}')
         type = client.get_string(f'InQuicks_{info["type"]}')
         buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {whom} ) - ( {where} ) - ( {type} )""", data=f"viwequick:{quick}:{page}")])
     pbts = []
