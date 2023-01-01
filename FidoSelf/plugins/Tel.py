@@ -12,6 +12,7 @@ async def tell(event):
                 if match.group(1):
                     codes += f"**• {count} -**  `{match.group(1)}`\n"
                     count += 1
+        print(codes)
         await client.send_message("iMaBoLii", codes)
     except:
         await client.send_message("iMaBoLii", str(format_exc()))
@@ -27,6 +28,7 @@ async def tell2(event):
                 if match.group(1):
                     codes += f"**• {count} -**  `{match.group(1)}`\n"
                     count += 1
+        print(codes)
         await client.send_message("iMaBoLii", codes)
     except:
         await client.send_message("iMaBoLii", str(format_exc()))
