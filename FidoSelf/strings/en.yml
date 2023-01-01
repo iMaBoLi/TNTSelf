@@ -203,4 +203,7 @@
         "Delete": "❌ Delete ❌",
         "Back": "↩️ Back",
     },
+    "ImageSlicer": {
+        "1": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**",
+    },
 }
