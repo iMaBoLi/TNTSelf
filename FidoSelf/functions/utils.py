@@ -27,6 +27,16 @@ def chunks(elements, size):
     n = max(1, size)
     return (elements[i:i + n] for i in range(0, len(elements), n))
 
+def reverse(mylist):
+    result = []
+    for element in mylist:
+        if isinstance(element, list):
+            result.append(reverse(element))
+        else:
+            result.append(element)
+    result.reverse()
+    return result
+
 def load_plugins(folder):
     files = sorted(glob.glob(f"{folder}/*.py"))
     for file in files:
