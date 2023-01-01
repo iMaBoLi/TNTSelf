@@ -1,6 +1,8 @@
 {
     "Wait": "**{STR} Please Wait . . .**",
     "Lang": "**{STR} The Language Was Changed To English!**",
+    "Yes": "Yes",
+    "No": "No",
     "Change": {
         "1": "Actived-✔️",
         "2": "DeActived-✖️",
@@ -193,5 +195,7 @@
         "6": "Edit",
         "7": "Random",
         "8": "Draft",
+        "9": "❌ Delete ❌",
+        "10": "↩️ Back",
     },
 }
