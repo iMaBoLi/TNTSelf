@@ -45,6 +45,10 @@
         "Pv": "Privates",
         "Gp": "Groups",
         "Ch": "Channels",
+        "Privates": "Privates",
+        "Groups": "Groups",
+        "Channels": "Channels",
+        "Here": "Here",
     },
     "Modes": {
         "SELF_ALL_MODE": "Self",
