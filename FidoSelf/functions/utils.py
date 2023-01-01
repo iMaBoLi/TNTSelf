@@ -31,10 +31,9 @@ def reverse(mylist):
     result = []
     for element in mylist:
         if isinstance(element, list):
-            result.append(reverse(element))
+            result.append(list(reversed(element)))
         else:
             result.append(element)
-    result.reverse()
     return result
 
 def load_plugins(folder):
