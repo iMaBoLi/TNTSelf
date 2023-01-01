@@ -22,3 +22,10 @@ def get_string(string):
         newstr = newstr.replace("{STR}", client.str)
         newstr = newstr.replace("{CMD}", client.cmd)    
     return newstr
+
+def get_buttons(buttons):
+    if client.lang == "fa":
+        buttons = client.utils.reverse(buttons)
+    elif client.lang == "en":
+        buttons = buttons
+    return buttons
