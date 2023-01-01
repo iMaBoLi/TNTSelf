@@ -37,6 +37,12 @@
         "1": "**{STR} The Realm Chat Is Not Added!**",
         "2": "**{STR} The Realm Chat Is Not Available!**",
     },
+    "ChType": {
+        "All": "All",
+        "Pv": "Privates",
+        "Gp": "Groups",
+        "Ch": "Channels",
+    },
     "Modes": {
         "SELF_ALL_MODE": "Self",
         "QUICKS_MODE": "Quicks",
