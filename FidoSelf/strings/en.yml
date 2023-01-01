@@ -28,6 +28,7 @@
         "3": "🚫 Close 🚫",
         "4": "Next ▶️",
         "5": "◀️ Back",
+        "6": "{STR} This Button Is Only For Show!",
     },
     "LogCh": {
         "1": "**{STR} The BackUp Channel Is Not Added!**",
