@@ -319,11 +319,11 @@ async def listquicks(event):
     if info["whom"].startswith("user"):
         whom = info["whom"].replace("user", "")
     else:
-        whom = client.get_string(info["whom"])
+        whom = client.get_string(f'InQuicks_{info["whom"]}')
     if info["where"].startswith("chat"):
         where = info["where"].replace("chat", "")
     else:
-        where = client.get_string(info["where"])
+        where = client.get_string(f'ChType_{info["where"]}')
     type = client.get_string(f'InQuicks_{info["type"]}')
     text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"])))
     await event.edit(text=text, buttons=buttons)
