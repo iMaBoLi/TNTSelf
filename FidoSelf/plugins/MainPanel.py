@@ -24,7 +24,7 @@ def get_mode_buttons(page):
         else:
             gmode = client.DB.get_key(mode)
         cmode = "on" if gmode == "off" else "off"
-        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline((client.get_string("Inline_1") if gmode == "on" else client.get_string("Inline_2")), data=f"setmode:{page}:{mode}:{cmode}")])
+        buttons.append([Button.inline(f"• {MODES[mode]} •", data="empty"), Button.inline((client.get_string("Inline_1") if gmode == "on" else client.get_string("Inline_2")), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
@@ -33,10 +33,10 @@ def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    buttons.append([Button.inline(f'• {client.get_string("Random_1")} •', data=f"setfonttime:{page}:random"), Button.inline((client.get_string("Inline_1") if str(last) == "random" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random")])
-    buttons.append([Button.inline(f'• {client.get_string("Random_2")} •', data=f"setfonttime:{page}:random2"), Button.inline((client.get_string("Inline_1") if str(last) == "random2" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random2")])
+    buttons.append([Button.inline(f'• {client.get_string("Random_1")} •', data="empty"), Button.inline((client.get_string("Inline_1") if str(last) == "random" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random")])
+    buttons.append([Button.inline(f'• {client.get_string("Random_2")} •', data="empty"), Button.inline((client.get_string("Inline_1") if str(last) == "random2" else client.get_string("Inline_2")), data=f"setfonttime:{page}:random2")])
     for font in FONTS:
-        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline((client.get_string("Inline_1") if str(last) == str(font) else client.get_string("Inline_2")), data=f"setfonttime:{page}:{font}")])
+        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data="empty"), Button.inline((client.get_string("Inline_1") if str(last) == str(font) else client.get_string("Inline_2")), data=f"setfonttime:{page}:{font}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
@@ -46,7 +46,7 @@ def get_edit_buttons(page):
     buttons = []
     EDITS = client.get_string("Edits")
     for edit in EDITS:
-        buttons.append([Button.inline(f"• {EDITS[edit]} •", data=f"seteditmode:{page}:{edit}"), Button.inline((client.get_string("Inline_1") if str(last) == str(edit) else client.get_string("Inline_2")), data=f"seteditmode:{page}:{edit}")])
+        buttons.append([Button.inline(f"• {EDITS[edit]} •", data="empty"), Button.inline((client.get_string("Inline_1") if str(last) == str(edit) else client.get_string("Inline_2")), data=f"seteditmode:{page}:{edit}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
     return buttons
@@ -115,3 +115,8 @@ async def seteditmode(event):
 async def closepanel(event):
     text = client.get_string("Panel_4")
     await event.edit(text=text)
+
+@client.Callback(data="empty")
+async def closepanel(event):
+    text = client.get_string("Inline_6")
+    await event.answer(text, alert=True)
