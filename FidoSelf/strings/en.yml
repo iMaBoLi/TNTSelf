@@ -11,7 +11,7 @@
     },
     "Reply": {
         "M": "**{STR} Please Reply To Message!**",
-        "M": "**{STR} Please Reply To Text!**",
+        "T": "**{STR} Please Reply To Text!**",
         "MM": "**{STR} Please Reply To Message Or Media!**",
         "P": "**{STR} Please Reply To Photo!**",
         "V": "**{STR} Please Reply To Video!**",
