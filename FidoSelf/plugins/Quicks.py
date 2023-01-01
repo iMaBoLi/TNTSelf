@@ -256,7 +256,17 @@ async def inlinequicks(event):
 async def delquicks(event):
     quick = str(event.data_match.group(1).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
-    text = client.get_string("Quicks_14").format(quicks[quick]["cmd"], quicks[quick]["where"].replace("chat", ""), quicks[quick]["whom"].replace("user", ""), quicks[quick]["type"])
+    info = quicks[quick]
+    if info["whom"].startswith("user"):
+        whom = info["whom"].replace("user", "")
+    else:
+        whom = client.get_string(f'InQuicks_{info["whom"]}')
+    if info["where"].startswith("chat"):
+        where = info["where"].replace("chat", "")
+    else:
+        where = client.get_string(f'ChType_{info["where"]}')
+    type = client.get_string(f'InQuicks_{info["type"]}')
+    text = client.get_string("Quicks_14").format(info["cmd"], whom, where, type)
     await event.edit(text=text)
     del quicks[quick]
     client.DB.set_key("QUICKS", quicks)
