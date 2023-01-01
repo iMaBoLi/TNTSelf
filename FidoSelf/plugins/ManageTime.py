@@ -50,9 +50,7 @@ async def photochanger():
             COLOR = random.choice(COLORS)
         COLOR = ImageColor.getrgb(COLOR)
         img = Image.open(PHOTO)
-        width, height = img.size
-        if width > 640: width = 640
-        if height > 640: height = 640
+        img = img.resize((640, 640))
         ffont = phinfo["font"]
         if ffont == "random":
             ffont = random.choice(list(FONTS.keys())) 
