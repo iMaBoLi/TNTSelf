@@ -194,4 +194,46 @@
         "3": "**{STR} The** ( `{}` ) **Of Your Profile Photos Has Been Deleted!**",
         "4": "**{STR} The Profile Photo** ( `{}` ) **Has Been Deleted!**",
     },
+    "Quicks": {
+        "1": "**{STR} The Quicks Mode Has Been {}!**",
+        "2": "**{STR} Please Enter Text Answers Or Reply To Message!**",
+        "3": "**{STR} The Command** ( `{}` ) **Not In Quicks Command Lists!**",
+        "4": """
+**{STR} Command:** ( `{}` )
+
+**{STR} Answer(s):** ( `{}` )
+
+**{STR} Whom:** ( `{}` )
+**{STR} Where:** ( `{}` )
+**{STR} Type:** ( `{}` )
+**{STR} Find:** ( `{}` )
+**{STR} Sleep:** ( `{}` )
+""",
+        "5": "**{STR} The Quicks List Is Empty!**",
+        "6": "**{STR} Please Select You Want This Quick Answer To Be Saved For Whom:**",
+        "7": "**{STR} Please Choose Where You Want This Quick Answer To Be Saved:**",
+        "8": "**{STR} Please Select The Type Of This Quick Answer:**",
+        "9": "**{STR} Please Select Whether To Search For This Quick Answer Command In Messages:**",
+        "10": "**{STR} Please Choose A Sleep Time Between Each Answer:**",
+        "11": """
+**{STR} The New Quick Answer Was Saved!**
+
+**{STR} Whom:** ( `{}` )
+**{STR} Where:** ( `{}` )
+**{STR} Type:** ( `{}` )
+**{STR} Find:** ( `{}` )
+**{STR} Sleep:** ( `{}` )
+
+**{STR} Command:** ( `{}` )
+
+**{STR} Answer(s):** ( `{}` )
+""",
+        "12": "**{STR} The Quick Panel Successfuly Closed!**",
+        "13": "**{STR} Please Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
+    },
+    "InQuicks": {
+        "1": "SuDo",
+        "2": "OtheRs",
+        "3": "Replyed User",
+    },
 }
