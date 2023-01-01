@@ -342,6 +342,6 @@ async def listquicks(event):
         where = client.get_string(f'ChType_{info["where"]}')
     type = client.get_string(f'InQuicks_{info["type"]}')
     text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"])))
-    buttons = [[Button.inline(f' {client.get_string("InQuicks_Delete")} ', data=f"dquickdel:{quick}"), Button.inline(f'• {client.get_string("InQuicks_Back")} •', data=f"quicklistpage:{page}")]]
+    buttons = [[Button.inline(client.get_string("InQuicks_Delete"), data=f"dquickdel:{quick}"), Button.inline(client.get_string("InQuicks_Back"), data=f"quicklistpage:{page}")]]
     buttons = client.get_buttons(buttons)
     await event.edit(text=text, buttons=buttons)
