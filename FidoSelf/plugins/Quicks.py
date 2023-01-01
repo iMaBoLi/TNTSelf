@@ -221,7 +221,7 @@ async def callbackquicks(event):
             where = where.replace("chat", "")
         else:
             where = client.get_string(where)
-        text = client.get_string("Quicks_11").format(whom, where, client.get_string(f"InQuicks_{type}"), client.get_string(find), (client.utils.convert_time(sleep) or "---"), gquick["cmd"], anss)
+        text = client.get_string("Quicks_11").format(whom, where, client.get_string(f"InQuicks_{type}"), client.get_string(find), (client.utils.convert_time(sleep)), gquick["cmd"], anss)
         await event.edit(text=text)
     elif work == "close":   
         del quicks[quick]
@@ -325,5 +325,5 @@ async def listquicks(event):
     else:
         where = client.get_string(info["where"])
     type = client.get_string(f'InQuicks_{info["type"]}')
-    text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"]) or "---"))
-    await event.edit(text=text,buttons=buttons)
+    text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"])))
+    await event.edit(text=text, buttons=buttons)
