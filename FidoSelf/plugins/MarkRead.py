@@ -4,11 +4,12 @@ from FidoSelf import client
 async def markread(event):
     await event.edit(client.get_string("Wait"))
     type = event.pattern_match.group(1).lower()
-    key = "READ" + type.upper() + "_Mode"
     change = event.pattern_match.group(2).lower()
     changer = client.get_string("Change_1") if change == "on" else client.get_string("Change_2")
+    key = "READ" + type.upper() + "_Mode"
     client.DB.set_key(key, change)
-    await event.edit(client.get_string("MarkRead_1").format(type.title(), changer))
+    type = client.get_string("ChType")[type.title()]
+    await event.edit(client.get_string("MarkRead_1").format(type, changer))
 
 @client.Cmd(sudo=False)
 async def mark(event):
