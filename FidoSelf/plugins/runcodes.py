@@ -18,11 +18,11 @@ async def runner(code , event):
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}crun(?:\s|$)([\s\S]*)$", sudo=False)
 async def runcodes(event):
-    event = await event.reply(f"`{client.str} Running ...`")
+    edit = await event.reply(f"`{client.str} Running ...`")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
-        return await event.edit(f"**{client.str} What Should I Run ?**")
+        return await edit.edit(f"**{client.str} What Should I Run ?**")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -57,7 +57,7 @@ async def runcodes(event):
 `{result}`
 """
     if len(out) < 4096:
-        await event.edit(out)
+        await edit.edit(out)
     else:
         f = open(f"{res}.txt", "w")
         f.write(str(result))
@@ -81,4 +81,5 @@ async def runcodes(event):
             f.write(str(out))
             await client.send_file(event.chat_id, f"{res}.txt" , caption=f"**{client.str} {res} :** \n\n**In File‌!**")
         os.remove(f"{res}.txt")
-        await event.delete()
+        await edit.delete()
+
