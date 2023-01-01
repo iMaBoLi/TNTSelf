@@ -188,5 +188,10 @@
         "1": "SuDo",
         "2": "OtheRs",
         "3": "Replyed User",
+        "4": "Normal",
+        "5": "Multi",
+        "6": "Edit",
+        "7": "Random",
+        "8": "Draft",
     },
 }
