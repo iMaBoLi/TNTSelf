@@ -8,6 +8,8 @@ import os
 import sys
 import io
 import glob
+import re
+import json
 
 async def runner(code , event):
     chat = await event.get_chat()
@@ -16,13 +18,13 @@ async def runner(code , event):
     exec("async def coderunner(event , local, chat_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, reply)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}crun(?:\s|$)([\s\S]*)$", sudo=False)
+@client.Cmd(pattern=f"(?i)^\{client.cmd}run(?:\s|$)([\s\S]*)$", sudo=False)
 async def runcodes(event):
-    edit = await event.reply(f"`{client.str} Running ...`")
+    await event.edit(f"`{client.str} Running ...`")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
-        return await edit.edit(f"**{client.str} What Should I Run ?**")
+        return await event.edit(f"**{client.str} What Should I Run ?**")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -57,7 +59,7 @@ async def runcodes(event):
 `{result}`
 """
     if len(out) < 4096:
-        await edit.edit(out)
+        await event.edit(out)
     else:
         f = open(f"{res}.txt", "w")
         f.write(str(result))
@@ -81,5 +83,4 @@ async def runcodes(event):
             f.write(str(out))
             await client.send_file(event.chat_id, f"{res}.txt" , caption=f"**{client.str} {res} :** \n\n**In File‌!**")
         os.remove(f"{res}.txt")
-        await edit.delete()
-
+        await event.delete()
