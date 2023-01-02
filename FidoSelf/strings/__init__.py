@@ -1,14 +1,26 @@
 from FidoSelf import client
+from googletrans import Translator
 import glob
+import os
 
 LANGUAGES = {}
 
 def load_langs():
-    for file in glob.glob("FidoSelf/strings/*.yml"):
-        STRS = open(file, "r").read()
-        STRING = eval(STRS)
-        lang = file.split("/")[-1].split(".")[0]
-        LANGUAGES[lang] = STRING
+    langs = ["en", "fa", "fr"]
+    for lang in langs:
+        file = f"FidoSelf/strings/{lang}.yml"
+        if os.path.exists(file):
+            STRING = open(file, "r").read()
+            STRING = eval(STRING)
+            LANGUAGES[lang] = STRING
+        else:
+            STRING = open("FidoSelf/strings/en.yml", "r").read()           
+            STRING = eval(STRING) 
+            translator = Translator()
+            trjome = translator.translate(STRING, dest=lang.lower())
+            STRING = str(trjome.text)
+            open(f"FidoSelf/strings/{lang}.yml", "w").write(STRING)
+            #LANGUAGES[lang] = STRING
 
 def get_string(string):
     lang = client.lang
