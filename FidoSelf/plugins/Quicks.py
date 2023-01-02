@@ -35,7 +35,10 @@ async def addquick(event):
         quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": answers, "reply": replyuser}})
     client.DB.set_key("INQUICKS", quicks)
     res = await client.inline_query(client.bot.me.username, f"addquick:quick-{str(rand)}")
-    await res[0].click(event.chat_id, reply_to=event.id)
+    if replyuser:
+        await res[0].click(event.chat_id, reply_to=event.reply_message.id)
+    else:
+        await res[0].click(event.chat_id)
     await event.delete()
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelQuick ([\s\S]*)$")
@@ -218,6 +221,8 @@ async def callbackquicks(event):
         allquicks.update({quick: {"cmd": gquick["cmd"],"answers": gquick["answers"],"whom": whom,"where": where,"type": type,"find": find,"sleep": sleep}})
         client.DB.set_key("QUICKS", allquicks)
         anss = gquick["answers"]
+        if anss.startswith("QuickMedia"):
+            anss = client.get_string("InQuicks_Media")
         if whom.startswith("user"):
             whom = whom.replace("user", "")
         else:
@@ -341,7 +346,10 @@ async def listquicks(event):
     else:
         where = client.get_string(f'ChType_{info["where"]}')
     type = client.get_string(f'InQuicks_{info["type"]}')
-    text = client.get_string("Quicks_4").format(info["cmd"], info["answers"], whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"])))
+    anss = info["answers"]
+    if anss.startswith("QuickMedia"):
+        anss = client.get_string("InQuicks_Media")
+    text = client.get_string("Quicks_4").format(info["cmd"], anss, whom, where, type, client.get_string(info["find"]), (client.utils.convert_time(info["sleep"])))
     buttons = [[Button.inline(client.get_string("InQuicks_Delete"), data=f"dquickdel:{quick}"), Button.inline(client.get_string("InQuicks_Back"), data=f"quicklistpage:{page}")]]
     buttons = client.get_buttons(buttons)
     await event.edit(text=text, buttons=buttons)
