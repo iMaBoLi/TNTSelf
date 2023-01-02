@@ -99,8 +99,9 @@ async def setmode(event):
     if mode == "LANGUAGE":
         client.lang = change
     client.DB.set_key(mode, change)
+    text = client.get_string("Panel_1")
     buttons = get_mode_buttons(page)
-    await event.edit(buttons=buttons)
+    await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setfonttime\:(.*)\:(.*)")
 async def setfonttime(event):
