@@ -21,10 +21,16 @@ def get_mode_buttons(page):
     for mode in MODES:
         if mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
             gmode = "on"
-        else:
+            cmode = "on" if gmode == "off" else "off"
+            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline((client.get_string("Inline_1") if gmode == "on" else client.get_string("Inline_2")), data=f"setmode:{page}:{mode}:{cmode}")])
+        elif mode == "LANGUAGE":
+            gmode = client.DB.get_key(mode) or client.lang or "en"
+            cmode = "en" if gmode == "fa" else "fa"
+            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(client.get_string("Lang_2"), data=f"setmode:{page}:{mode}:{cmode}")])
+        elif not client.DB.get_key(mode):
             gmode = client.DB.get_key(mode)
-        cmode = "on" if gmode == "off" else "off"
-        buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline((client.get_string("Inline_1") if gmode == "on" else client.get_string("Inline_2")), data=f"setmode:{page}:{mode}:{cmode}")])
+            cmode = "on" if gmode == "off" else "off"
+            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline((client.get_string("Inline_1") if gmode == "on" else client.get_string("Inline_2")), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
     buttons = client.get_buttons(buttons)
@@ -88,9 +94,11 @@ async def setmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     mode = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    client.DB.set_key(mode, change)
     if mode == "AFK_MODE":
         client.DB.set_key("AFK_LASTSEEN", str(time.time()))
+    if mode == "LANGUAGE":
+        client.lang = change
+    client.DB.set_key(mode, change)
     buttons = get_mode_buttons(page)
     await event.edit(buttons=buttons)
 
