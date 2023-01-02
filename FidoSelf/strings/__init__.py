@@ -3,13 +3,16 @@ import glob
 
 LANGUAGES = {}
 
-for file in glob.glob("FidoSelf/strings/*.json"):
-    STRING = open(file, "r").read()
-    lang = file.split("/")[-1].split(".")[0]
-    LANGUAGES[lang] = STRING
+def load_langs():
+    for file in glob.glob("FidoSelf/strings/*.json"):
+        STRING = open(file, "r").read()
+        lang = file.split("/")[-1].split(".")[0]
+        LANGUAGES[lang] = STRING
 
 def get_string(string):
     lang = client.lang
+    if not LANGUAGES:
+        load_langs()
     STRING = LANGUAGES[lang]
     for page in string.split("_"):
         STRING = STRING[page]
