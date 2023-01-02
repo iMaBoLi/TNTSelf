@@ -25,8 +25,8 @@
         "UUP": "**{STR} Please Reply To User Or Enter Username Or Send In Pv!**",
     },
     "Inline": {
-        "1": "( ✔️|Actived )",
-        "2": "( ✖️|DeActived )",
+        "1": "❲ ✔️|Active ❳",
+        "1": "❲ ✖️|DeActive ❳",
         "3": "🚫 Close 🚫",
         "4": "Next ▶️",
         "5": "◀️ Back",
