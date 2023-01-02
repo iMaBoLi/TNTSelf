@@ -92,8 +92,8 @@ async def setmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     mode = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    if mode == "AFK_MODE":
-        client.DB.set_key("AFK_LASTSEEN", str(time.time()))
+    if mode == "MONSHI_MODE":
+        client.DB.set_key("MONSHI_LASTSEEN", str(time.time()))
     if mode == "LANGUAGE":
         client.lang = change
     client.DB.set_key(mode, change)
