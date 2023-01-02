@@ -53,6 +53,7 @@
     "Modes": {
         "SELF_ALL_MODE": "Self",
         "QUICKS_MODE": "Quicks",
+        "LANGUAGE": "Language",
         "AUTO_REPLACE_MODE": "Auto Replace",
         "MONSHI_MODE": "Monshi",
         "NAME_MODE": "Name",
