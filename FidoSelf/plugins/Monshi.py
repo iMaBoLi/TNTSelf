@@ -9,8 +9,6 @@ async def monshimode(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("MONSHI_MODE", mode)
-    if mode == "on":
-        client.DB.set_key("MONSHI_LASTSEEN", str(time.time()))
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("Monshi_1").format(change))
 
@@ -40,14 +38,11 @@ async def monshi(event):
     mode = client.DB.get_key("MONSHI_MODE") or "off"
     if mode == "off": return
     if event.is_sudo: return
-    if not event.mentioned: return
+    if not event.mentioned and not event.is_private: return
     chat = client.DB.get_key("MONSHI_MSG")
     if not chat: return 
-    lastseen = time.time() - int(client.DB.get_key("MONSHI_LASTSEEN"))
-    lastseen = client.utils.convert_time(lastseen)
     msg = await client.get_messages(int(chat.split(":")[0]), ids=int(chat.split(":")[1]))
     msg.text = await client.vars(msg.text, event)
-    msg.text = msg.text.replace("{LASTSEEN}", lastseen)
     sleep = client.DB.get_key("MONSHI_SLEEP") or "0"
     await asyncio.sleep(int(sleep))
     await event.reply(msg)
