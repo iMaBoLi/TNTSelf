@@ -38,7 +38,7 @@ async def monshi(event):
     mode = client.DB.get_key("MONSHI_MODE") or "off"
     if mode == "off": return
     if event.is_sudo: return
-    if not event.mentioned and not event.is_private: return
+    if not event.mentioned: return
     chat = client.DB.get_key("MONSHI_MSG")
     if not chat: return 
     msg = await client.get_messages(int(chat.split(":")[0]), ids=int(chat.split(":")[1]))
