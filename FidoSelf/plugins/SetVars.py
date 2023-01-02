@@ -3,10 +3,10 @@ from FidoSelf import client
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Set(en|fa)$")
 async def language(event):
     await event.edit(client.get_string("Wait"))
-    mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("LANGUAGE", mode)
-    client.lang = mode
-    text = client.get_string("Lang")
+    lang = event.pattern_match.group(1).lower()
+    client.DB.set_key("LANGUAGE", lang)
+    client.lang = lang
+    text = client.get_string("Lang_1")
     await event.edit(text)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
