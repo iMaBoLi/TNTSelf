@@ -24,7 +24,7 @@ def get_mode_buttons(page):
             cmode = "en" if gmode == "fa" else "fa"
             buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(client.get_string("Lang_2"), data=f"setmode:{page}:{mode}:{cmode}")])
         elif mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
-            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(client.get_string("Inline_1"), data=f"setmode:{page}:{mode}:off")])
+            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:off"), Button.inline(client.get_string("Inline_1"), data=f"setmode:{page}:{mode}:off")])
         else:
             gmode = client.DB.get_key(mode) or "off"
             cmode = "on" if gmode == "off" else "off"
