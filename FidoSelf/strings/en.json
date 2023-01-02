@@ -1,6 +1,9 @@
 {
     "Wait": "**{STR} Please Wait . . .**",
-    "Lang": "**{STR} The Language Was Changed To English!**",
+    "Lang": {
+        "1": "**{STR} The Language Was Changed To English!**",
+        "2": "English",
+    },
     "Yes": "Yes",
     "No": "No",
     "Change": {
