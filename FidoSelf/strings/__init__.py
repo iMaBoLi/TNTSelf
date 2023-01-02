@@ -7,6 +7,7 @@ def load_langs():
     for file in glob.glob("FidoSelf/strings/*.json"):
         STRING = open(file, "r").read()
         lang = file.split("/")[-1].split(".")[0]
+        STRING = eval(STRING)
         LANGUAGES[lang] = STRING
 
 def get_string(string):
