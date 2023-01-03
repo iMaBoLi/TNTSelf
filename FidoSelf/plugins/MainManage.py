@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import functions, Button
+import asyncio
 
 async def get_manage_buttons(userid):
     buttons = []
@@ -15,6 +16,7 @@ async def get_manage_buttons(userid):
         cmode = "del" if userid in lists else "add"
         otbuttons.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
     buttons.append(otbuttons)
+    buttons.append([Button.inline(client.get_string("Inline_3"), data="closemanage")])
     buttons = client.get_buttons(buttons)
     return buttons
 
@@ -62,6 +64,7 @@ async def closemanagepanel(event):
         await client(functions.contacts.BlockRequest(userid))
     elif change == "unblock":
         await client(functions.contacts.UnblockRequest(userid))
+    await asyncio.sleep(1)
     buttons = await get_manage_buttons(userid)    
     await event.edit(buttons=buttons)
 
