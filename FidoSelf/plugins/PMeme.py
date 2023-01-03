@@ -16,7 +16,7 @@ async def inlinememe(event):
     results = await client.inline_query("Persian_Meme_Bot", query)
     if not results:
         text = client.get_string("PMeme_1").format(query)
-        return await event.answer([event.builder.article(f"{client.str} Smart Self - PMeme Empty", text=text)])
+        return await event.answer([event.builder.article(f"{client.str} FidoSelf - PMeme Empty", text=text)])
     text = client.get_string("PMeme_2").format(query)
     buttons = []
     con = 0
@@ -25,7 +25,7 @@ async def inlinememe(event):
         type = "🎞️" if result.type == "video" else "🎤"
         buttons.append([Button.inline(f"{type} {title}", data=f"getpmeme:{query}:{con}")])
         con += 1
-    await event.answer([event.builder.article(f"{client.str} Smart Self - PMeme", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - PMeme", text=text, buttons=buttons)])
 
 @client.Callback(data="getpmeme\:(.*)\:(.*)")
 async def getpmeme(event):
