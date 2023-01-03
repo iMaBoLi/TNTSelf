@@ -235,6 +235,8 @@
     "Manages": {
         "BLACKS": "Black",
         "ECHOS": "Echo",
+        "BLOCK": "Block",
+        "UNBLOCK": "UnBlock",
     },
     "Manage": {
         "1": "**{STR} Please Use The Options Below To Manage User Modes:**",
