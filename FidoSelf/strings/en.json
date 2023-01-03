@@ -210,4 +210,22 @@
     "ImageSlicer": {
         "1": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**",
     },
+    "Blacks": {
+        "1": "**{STR} The User** ( {} ) **Already In Black List!**",
+        "2": "**{STR} The User** ( {} ) **Is Added To Black List!**",
+        "3": "**{STR} The User** ( {} ) **Is Not In Black List!**",
+        "4": "**{STR} The User** ( {} ) **Deleted From Black List!**",
+        "5": "**{STR} The Black List Is Empty!**",
+        "6": "**{STR} The Black List:**\n\n",
+        "7": "**{STR} The Black List Has Been Cleaned!**",
+    },
+    "Echo": {
+        "1": "**{STR} The User** ( {} ) **Already In Echo List!**",
+        "2": "**{STR} The User** ( {} ) **Is Added To Echo List!**",
+        "3": "**{STR} The User** ( {} ) **Is Not In Echo List!**",
+        "4": "**{STR} The User** ( {} ) **Deleted From Echo List!**",
+        "5": "**{STR} The Echo List Is Empty!**",
+        "6": "**{STR} The Echo List:**\n\n",
+        "7": "**{STR} The Echo List Has Been Cleaned!**",
+    },
 }
