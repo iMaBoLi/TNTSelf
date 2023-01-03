@@ -1,14 +1,20 @@
 from FidoSelf import client
-from telethon import Button
+from telethon import functions, Button
 
 def get_manage_buttons(userid):
     buttons = []
     MANAGES = client.get_string("Manages")
-    for manage in MANAGES:
+    info = (await client(functions.users.GetFullUserRequest("imabolii"))).full_user
+    smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
+    cmode = "unblock" if info.blocked else "block"
+    buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
+    otbuttons = []
+    for manage in ["BLACKS", "ECHOS"]:
         lists = client.DB.get_key(manage) or []
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
-        cmode = "del" if userid in lists else "add"       
-        buttons.append([Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}")])
+        cmode = "del" if userid in lists else "add"
+        otbuttons.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
+    buttons += otbuttons
     buttons = client.get_buttons(buttons)
     return buttons
 
@@ -46,6 +52,17 @@ async def setusermanage(event):
         lists.remove(userid)
         client.DB.set_key(mode, lists)
     buttons = get_manage_buttons(userid)
+    await event.edit(buttons=buttons)
+
+@client.Callback(data="(block|unblock)\:(.*)")
+async def closemanagepanel(event):
+    change = int(event.data_match.group(1).decode('utf-8'))
+    userid = int(event.data_match.group(2).decode('utf-8'))
+    if change == "block":
+        await client(functions.contacts.BlockRequest(userid))
+    elif change == "unblock":
+        await client(functions.contacts.UnblockRequest(userid))
+    buttons = get_manage_buttons(userid)    
     await event.edit(buttons=buttons)
 
 @client.Callback(data="closemanage")
