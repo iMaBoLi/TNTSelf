@@ -6,6 +6,10 @@
     },
     "Yes": "Yes",
     "No": "No",
+    "OtherUse": {
+        "Inline": "**{STR} This Bot Is Not For You!**\n**{STR} Don't Use From Bot!**",
+        "Callback": "{STR} This Button Is Not For You!\n{STR} Don't Use From Bot!",
+    },
     "Change": {
         "1": "Actived-✔️",
         "2": "DeActived-✖️",
