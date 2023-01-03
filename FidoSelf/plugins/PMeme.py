@@ -41,4 +41,5 @@ async def getpmeme(event):
     caption = "Test"
     await client.send_file(event.chat_id, file, caption=caption)  
     os.remove(file) 
+    await client.send_message("me", str(event))
     await event.delete()
