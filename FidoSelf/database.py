@@ -1,6 +1,7 @@
 from redis import Redis
 from FidoSelf import config
 import psycopg2
+import json
 
 def get_data(self, key):
     data = self.get(str(key))
@@ -34,6 +35,12 @@ class RedisDB:
         self.cache = {}
         for keys in self.keys():
             self.cache.update({keys: self.get_key(keys)})
+
+    @property
+    def all(self):
+        self.recache()
+        cache = json.dumps(self.cache, sort_keys=True, indent=4)
+        return cache
 
     @property
     def name(self):
