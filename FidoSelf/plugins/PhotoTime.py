@@ -89,7 +89,7 @@ async def addphoto(event):
         buttons.append(Button.inline(f"• {where} •", data=f"sizephoto:{phname}:{where}"))
     buttons = list(client.utils.chunks(buttons, 3))
     buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Photo", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Photo", text=text, buttons=buttons)])
 
 @client.Callback(data="(.*)photo\:(.*)")
 async def photo(event):
