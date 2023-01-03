@@ -15,9 +15,9 @@ async def inlinememe(event):
     query = str(event.pattern_match.group(1))
     results = await client.inline_query("Persian_Meme_Bot", query)
     if not results:
-        text = "Empty"
+        text = client.get_string("PMeme_1").format(query)
         return await event.answer([event.builder.article(f"{client.str} Smart Self - PMeme Empty", text=text)])
-    text = f"**{client.str} The Persian Meme Results For Query:** ( `{query}` )"
+    text = client.get_string("PMeme_2").format(query)
     buttons = []
     con = 0
     for result in results[:20]:
@@ -25,7 +25,6 @@ async def inlinememe(event):
         type = "🎞️" if result.type == "video" else "🎤"
         buttons.append([Button.inline(f"{type} {title}", data=f"getpmeme:{query}:{con}")])
         con += 1
-    #buttons = list(client.utils.chunks(buttons, 2))
     await event.answer([event.builder.article(f"{client.str} Smart Self - PMeme", text=text, buttons=buttons)])
 
 @client.Callback(data="getpmeme\:(.*)\:(.*)")
@@ -38,8 +37,6 @@ async def getpmeme(event):
         file = await result.download_media(f"{result.title}.mp4")
     elif result.type == "voice":
         file = await result.download_media(f"{result.title}.ogg")
-    caption = "Test"
+    caption = client.get_string("PMeme_3").format(result.title, result.type)
     await client.send_file(event.chat_id, file, caption=caption)  
-    os.remove(file) 
-    await client.send_message("me", str(event))
-    await event.delete()
+    os.remove(file)
