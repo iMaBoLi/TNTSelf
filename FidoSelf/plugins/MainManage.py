@@ -4,7 +4,7 @@ from telethon import functions, Button
 async def get_manage_buttons(userid):
     buttons = []
     MANAGES = client.get_string("Manages")
-    info = (await client(functions.users.GetFullUserRequest(int(userid)))).full_user
+    info = (await client(functions.users.GetFullUserRequest(userid))).full_user
     smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
@@ -33,7 +33,7 @@ async def managepanel(event):
 
 @client.Inline(pattern="managepanel\:(.*)")
 async def inlinemanagepanel(event):
-    userid = str(event.pattern_match.group(1))
+    userid = int(event.pattern_match.group(1))
     text = client.get_string("Manage_1")
     buttons = await get_manage_buttons(userid)
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Manage", text=text, buttons=buttons)])
