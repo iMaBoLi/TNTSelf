@@ -170,7 +170,7 @@ async def inlineenemy(event):
     text = f"**{client.str} Please Select Type Of This Enemy To Be Saved:**"
     buttons = [[Button.inline("• Orginal Enemy •", data=f"addenemy:{userid}:Original"), Button.inline("• Friend Enemy •", data=f"addenemy:{userid}:Friend")]]
     buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Enemy", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="addenemy\:(.*)")
 async def addenemies(event):
@@ -203,7 +203,7 @@ async def delenemyinline(event):
     for enemy in Enemies:
         info = Enemies[enemy]
         buttons.append([Button.inline(f"""( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"delenemydel:{enemy}")])
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Del Enemy", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Del Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="delenemydel\:(.*)")
 async def delenemies(event):
