@@ -15,7 +15,7 @@ def Callback(
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 if sudo and not event.is_sudo:
-                    return await event.answer(f"{client.str} This Is Not For You‌!", alert=True)
+                    return await event.answer(client.get_string("OtherUse_Callback"), alert=True)
                 await func(event)
             except:
                 stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
