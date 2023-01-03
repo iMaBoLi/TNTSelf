@@ -8,7 +8,7 @@ def get_manage_buttons(userid):
         lists = client.DB.get_key(manage) or []
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"       
-        buttons.append([Button.inline(f"• {MODES[mode]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}")])
+        buttons.append([Button.inline(f"• {MANAGES[mode]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}")])
     buttons = client.get_buttons(buttons)
     return buttons
 
