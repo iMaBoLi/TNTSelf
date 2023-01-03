@@ -14,7 +14,7 @@ async def get_manage_buttons(userid):
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"
         otbuttons.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
-    buttont.append(otbuttons)
+    buttons.append(otbuttons)
     buttons = client.get_buttons(buttons)
     return buttons
 
