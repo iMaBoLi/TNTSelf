@@ -69,7 +69,7 @@ async def addecho(event):
 async def inlinepanel(event):
     text = client.get_string("Panel_1")
     buttons = get_mode_buttons(1)
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Panel", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Panel", text=text, buttons=buttons)])
 
 @client.Callback(data="panelpage\:(.*)")
 async def panelpages(event):
