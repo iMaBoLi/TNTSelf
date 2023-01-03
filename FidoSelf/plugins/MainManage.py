@@ -56,7 +56,7 @@ async def setusermanage(event):
 
 @client.Callback(data="(block|unblock)\:(.*)")
 async def closemanagepanel(event):
-    change = int(event.data_match.group(1).decode('utf-8'))
+    change = str(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
     if change == "block":
         await client(functions.contacts.BlockRequest(userid))
