@@ -237,7 +237,7 @@
         "2": "**{STR} The Manage Panel Successfuly Closed!**",
     },
     "PMeme": {
-        "1": "**{STR} The Persian Meme Results For Query** ( `{}` ) **Is Not Found!**",
+        "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Persian Meme!**",
         "2": "**{STR} The Persian Meme Results For Query:** ( `{}` )",
         "3": "**{STR} Title:** ( `{}` )\n**{STR} Type:** ( `{}` )",
     },
