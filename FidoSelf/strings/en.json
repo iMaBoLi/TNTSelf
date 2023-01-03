@@ -228,4 +228,12 @@
         "6": "**{STR} The Echo List:**\n\n",
         "7": "**{STR} The Echo List Has Been Cleaned!**",
     },
+    "Manages": {
+        "BLACKS": "Black",
+        "ECHO": "Echo",
+    },
+    "Manage": {
+        "1": "**{STR} Please Use The Options Below To Manage User Modes:**",
+        "2": "**{STR} The Manage Panel Successfuly Closed!**",
+    },
 }
