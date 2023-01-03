@@ -54,4 +54,5 @@ async def cleanecholist(event):
 async def echo(event):
     echos = client.DB.get_key("ECHOS") or []
     if event.sender_id in echos:
-        await event.respond(event)
+        message = await client.get_messages(event.chat_id, ids=event.id)
+        await event.respond(message)
