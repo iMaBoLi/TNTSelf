@@ -33,10 +33,11 @@ async def getpmeme(event):
     count = int(event.data_match.group(2).decode('utf-8'))
     results = await client.inline_query("Persian_Meme_Bot", query)
     result = results[count]
-    if result.type == "video":
-        file = await result.download_media(f"{result.title}.mp4")
-    elif result.type == "voice":
-        file = await result.download_media(f"{result.title}.ogg")
     caption = client.get_string("PMeme_3").format(result.title, result.type)
-    await client.send_file(event.chat_id, file, caption=caption)  
+    if result.type == "video":
+        file = await result.download_media()
+        await client.send_file(event.chat_id, file, caption=caption)  
+    elif result.type == "voice":
+        file = await result.download_media()
+        await client.send_file(event.chat_id, file, caption=caption, voice_note=True)  
     os.remove(file)
