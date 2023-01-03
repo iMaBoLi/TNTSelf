@@ -28,7 +28,9 @@ class RedisDB:
         self.keys = self.db.keys
         self.ping = self.db.ping
         self.delete = self.db.delete
+        self.cache = {}
         self.recache()
+        return self.cache
 
     def recache(self):
         self.cache = {}
@@ -152,4 +154,3 @@ if config.DATABASE_TYPE == "Redis":
     DB = RedisDB()
 elif config.DATABASE_TYPE == "Sql":
     DB = SqlDB()
-DB = RedisDB()
