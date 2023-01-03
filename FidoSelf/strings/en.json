@@ -236,4 +236,9 @@
         "1": "**{STR} Please Use The Options Below To Manage User Modes:**",
         "2": "**{STR} The Manage Panel Successfuly Closed!**",
     },
+    "PMeme": {
+        "1": "**{STR} The Persian Meme Results For Query** ( `{}` ) **Is Not Found!**",
+        "2": "**{STR} The Persian Meme Results For Query:** ( `{}` )",
+        "3": "**{STR} Title:** ( `{}` )\n**{STR} Type:** ( `{}` )",
+    },
 }
