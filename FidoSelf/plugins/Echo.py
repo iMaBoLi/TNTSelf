@@ -9,10 +9,10 @@ async def addecho(event):
     echos = client.DB.get_key("ECHOS") or []
     info = await client.get_entity(event.userid)
     if event.userid in echos:
-        return await event.edit(client.get_string("Echo_1").format(client.mention(info))
+        return await event.edit(client.get_string("Echo_1").format(client.mention(info)))
     echos.append(event.userid)
     client.DB.set_key("ECHOS", echos)
-    await event.edit(client.get_string("Echo_2").format(client.mention(info))
+    await event.edit(client.get_string("Echo_2").format(client.mention(info)))
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelEcho ?(.*)?")
 async def delecho(event):
@@ -23,10 +23,10 @@ async def delecho(event):
     echos = client.DB.get_key("ECHOS") or []
     info = await client.get_entity(event.userid)
     if event.userid not in echos:
-        return await event.edit(client.get_string("Echo_3").format(client.mention(info))  
+        return await event.edit(client.get_string("Echo_3").format(client.mention(info)))  
     echos.remove(event.userid)
     client.DB.set_key("ECHOS", echos)
-    await event.edit(client.get_string("Echo_4").format(client.mention(info))
+    await event.edit(client.get_string("Echo_4").format(client.mention(info)))
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}EchoList$")
 async def echolist(event):
