@@ -4,7 +4,7 @@ from telethon import functions, Button
 async def get_manage_buttons(userid):
     buttons = []
     MANAGES = client.get_string("Manages")
-    info = (await client(functions.users.GetFullUserRequest("imabolii"))).full_user
+    info = (await client(functions.users.GetFullUserRequest(userid))).full_user
     smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
