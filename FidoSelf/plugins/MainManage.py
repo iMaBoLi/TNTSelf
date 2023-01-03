@@ -30,7 +30,7 @@ async def inlinemanagepanel(event):
     userid = str(event.pattern_match.group(1))
     text = client.get_string("Manage_1")
     buttons = get_manage_buttons(userid)
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Manage", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Manage", text=text, buttons=buttons)])
 
 @client.Callback(data="setuser\:(.*)\:(.*)\:(.*)")
 async def setusermanage(event):
