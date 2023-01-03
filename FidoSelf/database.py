@@ -28,9 +28,7 @@ class RedisDB:
         self.keys = self.db.keys
         self.ping = self.db.ping
         self.delete = self.db.delete
-        self.cache = {}
         self.recache()
-        return self.cache
 
     def recache(self):
         self.cache = {}
@@ -44,8 +42,8 @@ class RedisDB:
     @property
     def usage(self):
         allusage = 0
-        for x in self.keys():
-            usage = self.db.memory_usage(x)
+        for key in self.keys():
+            usage = self.db.memory_usage(key)
             allusage += usage
         return allusage
 
