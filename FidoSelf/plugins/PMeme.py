@@ -19,7 +19,7 @@ async def inlinememe(event):
     for result in results[:20]:
         title = result.title[:10]
         type = result.type
-        buttons.append(Button.inline(f"• {title} - {type} •", data=f"getpmeme:{query}:{con}))
+        buttons.append(Button.inline(f"• {title} - {type} •", data=f"getpmeme:{query}:{con}"))
         con += 1
     buttons = list(client.utils.chunks(buttons, 2))
     await event.answer([event.builder.article(f"{client.str} Smart Self - PMeme", text=text, buttons=buttons)])
@@ -29,5 +29,12 @@ async def getpmeme(event):
     query = str(event.data_match.group(1).decode('utf-8'))
     count = int(event.data_match.group(2).decode('utf-8'))
     results = await client.inline_query("Persian_Meme_Bot", query)
-    await res[count].click(event.chat_id)
+    result = results[count]
+    await result.click(event.chat_id)
+    if result.type == "video":
+        file = await result.download_media(f"{result.title}.mp4")
+    elif result.type == "voice":
+        file = await result.download_media(f"{result.title}.ogg")
+    caption = "Test"
+    await client.send_media(event.chat_id, file, caption=caption)   
     await event.delete()
