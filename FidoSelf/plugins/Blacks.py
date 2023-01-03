@@ -12,7 +12,7 @@ async def addblack(event):
         return await event.edit(client.get_string("Blacks_1").format(client.mention(info)))
     blacks.append(event.userid)
     client.DB.set_key("BLACKS", blacks)
-    await event.edit(client.get_string("Black_2").format(client.mention(info)))
+    await event.edit(client.get_string("Blacks_2").format(client.mention(info)))
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
 async def delblack(event):
@@ -23,10 +23,10 @@ async def delblack(event):
     blacks = client.DB.get_key("BLACKS") or []
     info = await client.get_entity(event.userid)
     if event.userid not in blacks:
-        return await event.edit(client.get_string("Black_3").format(client.mention(info)))  
+        return await event.edit(client.get_string("Blacks_3").format(client.mention(info)))  
     blacks.remove(event.userid)
     client.DB.set_key("BLACKS", blacks)
-    await event.edit(client.get_string("Black_4").format(client.mention(info)))
+    await event.edit(client.get_string("Blacks_4").format(client.mention(info)))
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}BlackList$")
 async def blacklist(event):
