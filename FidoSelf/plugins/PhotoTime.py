@@ -213,10 +213,6 @@ async def addtexttime(event):
     newtexttime = str(event.pattern_match.group(1))
     if newtexttime in texttimes:
         return await event.edit(f"**{client.str} The Text Time** ( `{newtexttime}` ) **Already In Text Time List!**")  
-    trtexts = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "{", "}", "[", "]", "(", ")", " ", ":", "-", "_", "*", "#", "\n"]
-    for word in newtexttime:
-        if word not in trtexts:
-            newtexttime = newtexttime.replace(word, "")
     texttimes.append(newtexttime)
     client.DB.set_key("TEXT_TIMES", texttimes)
     await event.edit(f"**{client.str} The Text Time** ( `{newtexttime}` ) **Added To Text Time List!**")  
