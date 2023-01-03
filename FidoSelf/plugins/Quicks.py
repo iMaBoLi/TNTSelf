@@ -153,7 +153,7 @@ async def inlinequicks(event):
         buttons.append([Button.inline(f'• {client.get_string("InQuicks_ReplyUser")} •', data=f"wherequick:{quick}:user{user}")])
     buttons.append([Button.inline(client.get_string("Inline_3"), data=f"closequick:{quick}")])
     buttons = client.get_buttons(buttons)
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Add Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Add Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="(.*)quick\:(.*)")
 async def callbackquicks(event):
@@ -260,7 +260,7 @@ async def inlinequicks(event):
             where = client.get_string(f'ChType_{info["where"]}')
         type = client.get_string(f'InQuicks_{info["type"]}')
         buttons.append([Button.inline(f"""( {whom} ) - ( {where} ) - ( {type} )""", data=f"dquickdel:{quick}")])
-    await event.answer([event.builder.article(f"{client.str} Smart Self - Del Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - Del Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="dquickdel\:(.*)")
 async def delquicks(event):
@@ -301,7 +301,7 @@ async def inlinequicklist(event):
     if len(quicks) > 10:
         buttons.append([Button.inline(client.get_string("Inline_4"), data=f"quicklistpage:2")])
     buttons = client.get_buttons(buttons)
-    await event.answer([event.builder.article(f"{client.str} Smart Self - List Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article(f"{client.str} FidoSelf - List Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="quicklistpage\:(.*)")
 async def listquicks(event):
