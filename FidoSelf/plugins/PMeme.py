@@ -13,7 +13,7 @@ async def persianmeme(event):
 async def inlinememe(event):
     query = str(event.pattern_match.group(1))
     results = await client.inline_query("Persian_Meme_Bot", query)
-    text = f"**{client.str} The Persian Meme Results For Query:** ( `{}` )"
+    text = f"**{client.str} The Persian Meme Results For Query:** ( `{query}` )"
     buttons = []
     con = 0
     for result in results[:20]:
