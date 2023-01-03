@@ -45,7 +45,7 @@ async def setusermanage(event):
     elif change == "del":
         lists.remove(userid)
         client.DB.set_key(mode, lists)
-    buttons = get_mode_buttons(page)
+    buttons = get_manage_buttons(userid)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="closemanage")
