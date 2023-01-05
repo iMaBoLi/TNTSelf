@@ -4,18 +4,19 @@ import asyncio
 
 async def get_manage_buttons(userid):
     buttons = []
-    MANAGES = client.get_string("Manages")
-    info = (await client(functions.users.GetFullUserRequest(userid))).full_user
-    smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
+    info = await client(functions.users.GetFullUserRequest(userid))
+    info = info.full_user
+    smode = client.get_string("Manages_UNBLOCK") if info.blocked else client.get_string("Manages_BLOCK")
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
-    otbuttons = []
+    MANAGES = client.get_string("Manages")
+    obuts = []
     for manage in ["BLACKS", "ECHOS"]:
         lists = client.DB.get_key(manage) or []
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"
-        otbuttons.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
-    buttons.append(otbuttons)
+        obuts.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
+    buttons.append(obuts)
     buttons.append([Button.inline(client.get_string("Inline_3"), data="closemanage")])
     buttons = client.get_buttons(buttons)
     return buttons
@@ -64,7 +65,7 @@ async def closemanagepanel(event):
         await client(functions.contacts.BlockRequest(userid))
     elif change == "unblock":
         await client(functions.contacts.UnblockRequest(userid))
-    await asyncio.sleep(1)
+    await asyncio.sleep(0.5)
     buttons = await get_manage_buttons(userid)    
     await event.edit(buttons=buttons)
 
