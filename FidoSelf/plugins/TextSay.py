@@ -1,4 +1,5 @@
 from FidoSelf import client
+import asyncio
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AutoSay (On|off)$")
 async def autosay(event):
