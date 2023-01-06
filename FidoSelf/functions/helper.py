@@ -10,7 +10,7 @@ async def progress(event, current, total, start, type, file_name=None):
         type = "Uploading . . ."
     now = time.time()
     diff = time.time() - start
-    if round(diff % 7.00) == 0 or current == total:
+    if round(diff % 5.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
@@ -45,7 +45,7 @@ async def get_ids(event):
 
 def mention(info):
     if info.username:
-        return f"""[{info.first_name}]("@" + info.username)"""
+        return f'[{info.first_name}](f"@{info.username}")'
     return f"[{info.first_name}](tg://user?id={info.id})"
 
 def convert_date(gy, gm, gd):
