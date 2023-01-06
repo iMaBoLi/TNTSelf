@@ -4,12 +4,13 @@ import asyncio
 
 async def get_manage_buttons(userid):
     buttons = []
+    MANAGES = client.get_string("Manages")
+    buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"getinfo:{userid}")])
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     smode = client.get_string("Manages_UNBLOCK") if info.blocked else client.get_string("Manages_BLOCK")
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
-    MANAGES = client.get_string("Manages")
     obuts = []
     for manage in ["BLACKS", "ECHOS"]:
         lists = client.DB.get_key(manage) or []
@@ -68,6 +69,45 @@ async def closemanagepanel(event):
     await asyncio.sleep(0.5)
     buttons = await get_manage_buttons(userid)    
     await event.edit(buttons=buttons)
+
+@client.Callback(data="getinfo\:(.*)")
+async def getinfo(event):
+    userid = int(event.data_match.group(1).decode('utf-8'))
+    uinfo = await client.get_entity(event.userid)
+    info = await client(functions.users.GetFullUserRequest(userid))
+    info = info.full_user
+    contact = "✅" if uinfo.contact else "❌"
+    mcontact = "✅" if uinfo.mutual_contact else "❌"
+    isbot = "✅" if uinfo.bot else "❌"
+    verified = "✅" if uinfo.verified else "❌"
+    pcalls = "✅" if info.phone_calls_available else "❌"
+    vcalls = "✅" if info.video_calls_available else "❌"
+    if uinfo.status: 
+        status = uinfo.status.to_dict()["_"].replace("UserStatus", "")
+    else:
+        status = "---"
+    username = f"@{uinfo.username}" if uinfo.username else "---"
+    userinfo = f"""
+**{client.str} User Info:**
+    
+**{client.str} ID:** ( `{uinfo.id}` )
+**{client.str} First Name:** ( `{uinfo.first_name}` )
+**{client.str} Last Name:** ( `{uinfo.last_name or "---"}` )
+**{client.str} Username :** ( `{username}` )
+**{client.str} Is Bot:** ( `{isbot}` )
+**{client.str} Contact:** ( `{contact}` )
+**{client.str} Mutual Contact:** ( `{mcontact}` )
+**{client.str} Verified:** ( `{verified}` )
+**{client.str} PhoneCalls Available:** ( `{pcalls}` )
+**{client.str} VideoCalls Available:** ( `{vcalls}` )
+**{client.str} Status:** ( `{status}` )
+**{client.str} Common Chats:** ( `{info.common_chats_count}` )
+**{client.str} Bio:** ( `{info.about or "---"}` )
+"""
+    if info.profile_photo:
+        await client.send_file(event.chat_id, info.profile_photo, caption=userinfo)
+    else:
+        await client.send_message(event.chat_id, userinfo)
 
 @client.Callback(data="closemanage")
 async def closemanagepanel(event):
