@@ -9,7 +9,7 @@ async def autosay(event):
     client.DB.set_key("AUTO_SAY_MODE", mode)
     await event.edit(client.get_string("TextSay_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetSaySleep (\d\.*)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetSaySleep (\d*)$")
 async def saysleep(event):
     await event.edit(client.get_string("Wait"))
     sleep = event.pattern_match.group(1)
@@ -26,8 +26,8 @@ async def say(event):
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(int(sleep))
         await event.edit(new)
+        await asyncio.sleep(int(sleep))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}TSay ([\S\s]*)$")
 async def tsay(event):
@@ -36,5 +36,5 @@ async def tsay(event):
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(int(sleep))
         await event.edit(new)
+        await asyncio.sleep(int(sleep))
