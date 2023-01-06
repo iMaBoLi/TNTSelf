@@ -66,7 +66,7 @@ async def closemanagepanel(event):
         await client(functions.contacts.BlockRequest(userid))
     elif change == "unblock":
         await client(functions.contacts.UnblockRequest(userid))
-    await asyncio.sleep(0.5)
+    await asyncio.sleep(0.3)
     buttons = await get_manage_buttons(userid)    
     await event.edit(buttons=buttons)
 
@@ -85,6 +85,8 @@ async def getinfo(event):
         await client.send_file(event.chat_id, info.profile_photo, caption=userinfo)
     else:
         await client.send_message(event.chat_id, userinfo)
+    buttons = await get_manage_buttons(userid)    
+    await event.edit(buttons=buttons)
 
 @client.Callback(data="closemanage")
 async def closemanagepanel(event):
