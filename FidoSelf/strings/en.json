@@ -62,6 +62,7 @@
         "QUICKS_MODE": "Quicks",
         "LANGUAGE": "Language",
         "AUTO_REPLACE_MODE": "Auto Replace",
+        "SAY_MODE": "Auto Say",
         "MONSHI_MODE": "Monshi",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
