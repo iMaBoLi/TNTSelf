@@ -20,7 +20,7 @@ async def saysleep(event):
 async def say(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("AUTO_SAY_MODE") or "off"
-    sleep = client.DB.get_key("SAY_SLEEP") or "0"
+    sleep = client.DB.get_key("SAY_SLEEP") or "0.5"
     if mode == "off": return
     text = str(event.text)
     new = ""
