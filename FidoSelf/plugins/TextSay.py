@@ -29,7 +29,7 @@ async def say(event):
         await asyncio.sleep(int(sleep))
         await event.edit(new)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}tSay ([\S\s*])$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}TSay ([\S\s*])$")
 async def tsay(event):
     text = event.pattern_match.group(1)
     sleep = client.DB.get_key("SAY_SLEEP") or "0"
