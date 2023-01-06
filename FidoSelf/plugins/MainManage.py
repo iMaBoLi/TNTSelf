@@ -73,7 +73,7 @@ async def closemanagepanel(event):
 @client.Callback(data="getinfo\:(.*)")
 async def getinfo(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
-    uinfo = await client.get_entity(event.userid)
+    uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     contact = "✅" if uinfo.contact else "❌"
