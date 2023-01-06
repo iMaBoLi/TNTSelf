@@ -257,4 +257,9 @@
         "1": "**{STR} The Auto Say Mode Has Been {}!**",
         "2": "**{STR} The Say Sleep Time Has Been Set To** ( `{}` )",
     },
+    "Kick": {
+        "1": "**{STR} You Must Be Admin In This Group To Do This!**",
+        "2": "**{STR} An Error Occurred While Kick The User!** ( `{}` )",
+        "3": "**{STR} The User** ( {} ) **Is Kicked From This Chat!**",        
+    },   
 }
