@@ -45,7 +45,7 @@ async def get_ids(event):
 
 def mention(info):
     if info.username:
-        return f'[{info.first_name}](f"@{info.username}")'
+        return f"[{info.first_name}](@{info.username})"
     return f"[{info.first_name}](tg://user?id={info.id})"
 
 def convert_date(gy, gm, gd):
