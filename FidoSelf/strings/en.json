@@ -249,7 +249,7 @@
         "3": "**{STR} Title:** ( `{}` )\n**{STR} Type:** ( `{}` )",
     },
     "GetInfo": {
-        "1": "**{STR} User Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )"
-        "2": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )"
+        "1": "**{STR} User Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
+        "2": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )",
     },
 }
