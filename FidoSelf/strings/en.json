@@ -249,22 +249,6 @@
         "3": "**{STR} Title:** ( `{}` )\n**{STR} Type:** ( `{}` )",
     },
     "GetInfo": {
-        "1": """
-**{STR} User Info:**
-    
-**{STR} ID:** ( `{}` )
-**{STR} First Name:** ( `{}` )
-**{STR} Last Name:** ( `{}` )
-**{STR} Username :** ( `{}` )
-**{STR} Is Bot:** ( `{}` )
-**{STR} Contact:** ( `{}` )
-**{STR} Mutual Contact:** ( `{}` )
-**{STR} Verified:** ( `{}` )
-**{STR} PhoneCalls Available:** ( `{}` )
-**{STR} VideoCalls Available:** ( `{}` )
-**{STR} Status:** ( `{}` )
-**{STR} Common Chats:** ( `{}` )
-**{STR} Bio:** ( `{}` )
-"""
+        "1": "**{STR} User Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )"
     },
 }
