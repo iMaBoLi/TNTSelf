@@ -233,10 +233,11 @@
         "7": "**{STR} The Echo List Has Been Cleaned!**",
     },
     "Manages": {
-        "BLACKS": "Black",
-        "ECHOS": "Echo",
+        "INFO": "User Info",
         "BLOCK": "Block",
         "UNBLOCK": "UnBlock",
+        "BLACKS": "Black",
+        "ECHOS": "Echo",
     },
     "Manage": {
         "1": "**{STR} Please Use The Options Below To Manage User Modes:**",
