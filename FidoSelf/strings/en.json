@@ -248,4 +248,23 @@
         "2": "**{STR} The Persian Meme Results For Query:** ( `{}` )",
         "3": "**{STR} Title:** ( `{}` )\n**{STR} Type:** ( `{}` )",
     },
+    "GetInfo": {
+        "1": """
+**{STR} User Info:**
+    
+**{STR} ID:** ( `{}` )
+**{STR} First Name:** ( `{}` )
+**{STR} Last Name:** ( `{}` )
+**{STR} Username :** ( `{}` )
+**{STR} Is Bot:** ( `{}` )
+**{STR} Contact:** ( `{}` )
+**{STR} Mutual Contact:** ( `{}` )
+**{STR} Verified:** ( `{}` )
+**{STR} PhoneCalls Available:** ( `{}` )
+**{STR} VideoCalls Available:** ( `{}` )
+**{STR} Status:** ( `{}` )
+**{STR} Common Chats:** ( `{}` )
+**{STR} Bio:** ( `{}` )
+"""
+    },
 }
