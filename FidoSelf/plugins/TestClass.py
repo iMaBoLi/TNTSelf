@@ -5,5 +5,5 @@ class TestClass:
         self.client = client
     def ping(self):
         @self.client.Cmd(pattern="Kosk")
-        async def ping(self):
-            await self.client.send_message(event.chat_id, 'online')
+        async def ping(event):
+            await self.client.send_message(event.chat_id, "**• Im Online!**")
