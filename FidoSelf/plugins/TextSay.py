@@ -26,15 +26,15 @@ async def say(event):
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(int(sleep))
+        await asyncio.sleep(eval(sleep))
         await event.edit(new)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}TSay ([\S\s*])$")
 async def tsay(event):
     text = event.pattern_match.group(1)
-    sleep = client.DB.get_key("SAY_SLEEP") or "0"
+    sleep = client.DB.get_key("SAY_SLEEP") or "0.5"
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(int(sleep))
+        await asyncio.sleep(eval(sleep))
         await event.edit(new)
