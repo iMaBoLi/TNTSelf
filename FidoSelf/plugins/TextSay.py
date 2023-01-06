@@ -6,7 +6,7 @@ async def autosay(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
     change = client.get_string("Change_1") if change == "on" else client.get_string("Change_2")
-    client.DB.set_key("SAY_MODE", mode)
+    client.DB.set_key("AUTO_SAY_MODE", mode)
     await event.edit(client.get_string("TextSay_1").format(change))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetSaySleep (\d\.*)$")
@@ -19,7 +19,7 @@ async def saysleep(event):
 @client.Cmd(edits=False)
 async def say(event):
     if event.is_cmd or not event.text: return
-    mode = client.DB.get_key("EDIT_MODE") or "off"
+    mode = client.DB.get_key("AUTO_SAY_MODE") or "off"
     sleep = client.DB.get_key("SAY_SLEEP") or "0"
     if mode == "off": return
     text = str(event.text)
