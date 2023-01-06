@@ -13,50 +13,6 @@ async def Getid(event):
             text += f"**{client.str} Reply UserID:** ( `{event.reply_message.sender_id}` )"
         await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
-async def ginfo(event):
-    await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.chatid:
-        return await event.edit(f"**{client.str} Please Enter Chatid Or Chat Username Or Send In Groups Or Channels!**")
-    cinfo = await client.get_entity(event.chatid)
-    if not cinfo.to_dict()["_"] == "Channel" and not cinfo.to_dict()["_"] == "Group":
-        return await event.edit(f"**{client.str} Please Enter Chatid Or Chat Username Or Send In Groups Or Channels!**")
-    try:
-        info = (await client(functions.channels.GetFullChannelRequest(event.chatid))).full_chat
-    except:
-        info = (await client(functions.messages.GetFullChatRequest(event.chatid))).full_chat
-    history = await client(functions.messages.GetHistoryRequest(peer=event.chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
-    members = getattr(info, "participants_count", None) or "---"
-    bans = getattr(info, "banned_count", None) or "---"
-    admins = getattr(info, "admins_count", None) or "---"
-    kicks = getattr(info, "kicked_count", None) or "---"
-    onlines = getattr(info, "online_count", None) or "---"
-    username = f"@{cinfo.username}" if cinfo.username else "---"
-    chatinfo = f"""
-**{client.str} Chat Info:**
-    
-**{client.str} ID:** ( `{cinfo.id}` )
-**{client.str} Title:** ( `{cinfo.title}` )
-**{client.str} Username :** ( `{username}` )
-
-**{client.str} Messages Count:** ( `{history.count}` )
-
-**{client.str} Members Count:** ( `{members}` )
-**{client.str} Administrators Count:** ( `{admins}` )
-**{client.str} Bots Count:** ( `{len(info.bot_info)}` )
-**{client.str} Onlines Count:** ( `{onlines}` )
-**{client.str} Banned Count:** ( `{bans}` )
-**{client.str} Kicked Count:** ( `{kicks}` )
-
-**{client.str} Description:** ( `{info.about[:2000] or "---"}` )
-"""
-    if str(cinfo.photo) == "ChatPhotoEmpty()":
-        await event.respond(chatinfo)
-    else:
-        await event.respond(chatinfo, file=info.chat_photo)
-    await event.delete()
-
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
 async def uinfo(event):
     await event.edit(client.get_string("Wait"))
@@ -75,4 +31,29 @@ async def uinfo(event):
         await event.respond(userinfo, file=info.profile_photo)
     else:
         await event.respond(userinfo)
+    await event.delete()
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
+async def ginfo(event):
+    await event.edit(client.get_string("Wait"))
+    event = await client.get_ids(event)
+    if not event.chatid:
+        return await event.edit(client.get_string("Reply_U"))
+    cinfo = await client.get_entity(event.chatid)
+    try:
+        info = (await client(functions.channels.GetFullChannelRequest(event.chatid))).full_chat
+    except:
+        info = (await client(functions.messages.GetFullChatRequest(event.chatid))).full_chat
+    history = await client(functions.messages.GetHistoryRequest(peer=event.chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
+    members = getattr(info, "participants_count", None) or "---"
+    bans = getattr(info, "banned_count", None) or "---"
+    admins = getattr(info, "admins_count", None) or "---"
+    kicks = getattr(info, "kicked_count", None) or "---"
+    onlines = getattr(info, "online_count", None) or "---"
+    username = f"@{cinfo.username}" if cinfo.username else "---"
+    chatinfo = client.get_string("GetInfo_2").format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
+    if str(cinfo.photo) == "ChatPhotoEmpty()":
+        await event.respond(chatinfo)
+    else:
+        await event.respond(chatinfo, file=info.chat_photo)
     await event.delete()
