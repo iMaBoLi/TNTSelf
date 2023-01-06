@@ -32,6 +32,7 @@ async def say(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}tSay ([\S\s*])$")
 async def tsay(event):
     text = event.pattern_match.group(1)
+    sleep = client.DB.get_key("SAY_SLEEP") or "0"
     new = ""
     for par in text:
         new += par
