@@ -20,8 +20,8 @@ async def setup():
                 text = f"**❌ Unloaded Plugin :**\n\n"
                 text += f"{client.str} `{plug}` - ( `{NOT_LOADED_PLUGS[plug]}` )\n"
                 await send.reply(text)
-        res = await client.utils.runcmd('git log --pretty=format:"%an: %s" -5')
-        await send.reply(f"**{client.str} The 5 Lastest Github Commits:**\n\n`{res[0]}`")
+        res = await client.utils.runcmd('git log --pretty=format:"%an: %s" -10')
+        await send.reply(f"**{client.str} The 10 Lastest Github Commits:**\n\n`{res[0]}`")
     except:
         pass
 
