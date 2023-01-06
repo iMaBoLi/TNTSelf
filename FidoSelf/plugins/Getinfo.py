@@ -26,7 +26,7 @@ async def uinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = client.get_string("GetInfo_1").format(uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = client.get_string("GetInfo_1").format(client.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:
@@ -38,7 +38,7 @@ async def ginfo(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
     if not event.chatid:
-        return await event.edit(client.get_string("Reply_U"))
+        return await event.edit(client.get_string("Reply_UUP"))
     cinfo = await client.get_entity(event.chatid)
     try:
         info = (await client(functions.channels.GetFullChannelRequest(event.chatid))).full_chat
