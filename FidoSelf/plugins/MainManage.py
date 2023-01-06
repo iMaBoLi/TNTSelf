@@ -78,32 +78,9 @@ async def getinfo(event):
     info = info.full_user
     contact = "✅" if uinfo.contact else "❌"
     mcontact = "✅" if uinfo.mutual_contact else "❌"
-    isbot = "✅" if uinfo.bot else "❌"
-    verified = "✅" if uinfo.verified else "❌"
-    pcalls = "✅" if info.phone_calls_available else "❌"
-    vcalls = "✅" if info.video_calls_available else "❌"
-    if uinfo.status: 
-        status = uinfo.status.to_dict()["_"].replace("UserStatus", "")
-    else:
-        status = "---"
+    status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = f"""
-**{client.str} User Info:**
-    
-**{client.str} ID:** ( `{uinfo.id}` )
-**{client.str} First Name:** ( `{uinfo.first_name}` )
-**{client.str} Last Name:** ( `{uinfo.last_name or "---"}` )
-**{client.str} Username :** ( `{username}` )
-**{client.str} Is Bot:** ( `{isbot}` )
-**{client.str} Contact:** ( `{contact}` )
-**{client.str} Mutual Contact:** ( `{mcontact}` )
-**{client.str} Verified:** ( `{verified}` )
-**{client.str} PhoneCalls Available:** ( `{pcalls}` )
-**{client.str} VideoCalls Available:** ( `{vcalls}` )
-**{client.str} Status:** ( `{status}` )
-**{client.str} Common Chats:** ( `{info.common_chats_count}` )
-**{client.str} Bio:** ( `{info.about or "---"}` )
-"""
+    userinfo = client.get_string("GetInfo_1").format(uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await client.send_file(event.chat_id, info.profile_photo, caption=userinfo)
     else:
