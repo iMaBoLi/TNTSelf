@@ -20,21 +20,21 @@ async def saysleep(event):
 async def say(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("AUTO_SAY_MODE") or "off"
-    sleep = client.DB.get_key("SAY_SLEEP") or "0.5"
+    sleep = client.DB.get_key("SAY_SLEEP") or "1"
     if mode == "off": return
     text = str(event.text)
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(eval(sleep))
+        await asyncio.sleep(int(sleep))
         await event.edit(new)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}TSay ([\S\s]*)$")
 async def tsay(event):
     text = event.pattern_match.group(1)
-    sleep = client.DB.get_key("SAY_SLEEP") or "0.5"
+    sleep = client.DB.get_key("SAY_SLEEP") or "1"
     new = ""
     for par in text:
         new += par
-        await asyncio.sleep(eval(sleep))
+        await asyncio.sleep(int(sleep))
         await event.edit(new)
