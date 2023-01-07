@@ -1,5 +1,5 @@
 from FidoSelf import client
-from FidoSelf.functions.async import run_async
+from FidoSelf.functions.helper import run_async
 from yt_dlp import YoutubeDL
 
 @run_async
