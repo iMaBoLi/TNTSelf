@@ -1,25 +1,13 @@
 from FidoSelf import client
-from functools import partial, wraps
-from concurrent.futures import ThreadPoolExecutor
+from traceback import format_exc
 import asyncio
-import multiprocessing
 import time
 import math
-
-def run_async(function):
-    @wraps(function)
-    async def wrapper(*args, **kwargs):
-        return await asyncio.get_event_loop().run_in_executor(
-            ThreadPoolExecutor(max_workers=multiprocessing.cpu_count() * 5),
-            partial(function, *args, **kwargs),
-        )
-    return wrapper
-
 
 async def progress(event, current, total, start, type, file_name="---"):
     type = client.get_string("Progress_2") if type == "down" else client.get_string("Progress_3")
     now = time.time()
-    diff = now - start
+    diff = time.time() - start
     if round(diff % 7.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
@@ -32,14 +20,10 @@ async def get_ids(event):
     event.userid, event.chatid = None, None
     if len(event.text.split()) > 1:
         try:
-            gpeer =  await client.get_peer_id(int(event.text.split()[1]))
+            gpeer =  await client.get_peer_id(eval(event.text.split()[1]))
             event.userid, event.chatid = gpeer, gpeer
         except:
-            try:
-                gpeer =  await client.get_peer_id(str(event.text.split()[1]))
-                event.userid, event.chatid = gpeer, gpeer
-            except:
-                pass
+            event.errorid = format_exc()
     elif event.reply_message:
         event.userid, event.chatid = event.reply_message.sender_id, event.chat_id
     elif event.is_private:
@@ -71,8 +55,4 @@ def convert_date(gy, gm, gd):
    else:
       jm = 7 + ((days - 186) // 30)
       jd = 1 + ((days - 186) % 30)
-   if len(str(jd)) == 1:
-       jd = "0" + str(jd)
-   if len(str(jm)) == 1:
-       jm = "0" + str(jm)
-   return [int(jy), int(jm), int(jd)]
+   return [jy, jm, jd]
