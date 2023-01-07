@@ -6,6 +6,7 @@
     },
     "Yes": "Yes",
     "No": "No",
+    "LargeSize": "**{STR} The File Size Must Be Less Than From:** ( `{}` )",
     "OtherUse": {
         "Inline": "**{STR} This Bot Is Not For You!**\n**{STR} Don't Use From Bot!**",
         "Callback": "{STR} This Button Is Not For You!\n{STR} Don't Use From Bot!",
