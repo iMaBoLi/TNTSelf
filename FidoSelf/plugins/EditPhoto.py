@@ -1,15 +1,19 @@
 from FidoSelf import client
-from PIL import Image, ImageFilter
+from PIL import Image
+from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Blur|Contour|Emboss|Edge)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Blur|Contour|Detail|Emboss|Edge|Smooth|Sharpen)$")
 async def editphoto(event):
     await event.edit(client.get_string("Wait"))
     modes = {
-        "Blur": ImageFilter.BLUR,
-        "Contour": ImageFilter.CONTOUR,
-        "Emboss": ImageFilter.EMBOSS,
-        "Edge": ImageFilter.EDGE_ENHANCE_MORE,
+        "Blur": BLUR,
+        "Contour": CONTOUR,
+        "Detail": DETAIL,
+        "Emboss": EMBOSS,
+        "Edge": EDGE_ENHANCE_MORE,
+        "Smooth": SMOOTH_MORE,
+        "Sharpen": SHARPEN,
     }
     mode = event.pattern_match.group(1).title()
     mode = modes[mode]
