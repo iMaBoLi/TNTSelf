@@ -279,4 +279,7 @@
     "Rotater": {
         "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
     },
+    "Searcher": {
+        "1": "**{STR} Search Result Messages For Text:** ( `{}` )\n\n"
+    },
 }
