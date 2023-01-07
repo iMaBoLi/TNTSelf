@@ -19,3 +19,4 @@ ShazamAPI
 yt-dlp
 image_slicer
 git+https://github.com/iMaBoLi/youtube-search-python
+wikipedia
