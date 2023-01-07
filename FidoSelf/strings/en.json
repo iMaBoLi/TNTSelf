@@ -279,7 +279,19 @@
     "Rotater": {
         "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
     },
+    "FilterType": {
+        "All": "All",
+        "Photo": "Photo",
+        "Video": "Video",
+        "Gif": "Gif",
+        "Voice": "Voice",
+        "Music": "Music",
+        "Voice": "Voice",
+        "Url": "Url",
+    },
     "Searcher": {
-        "1": "**{STR} Search Result Messages For Text:** ( `{}` )\n\n"
+        "1": "**{STR} Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n"
+        "2": "Click Here!"
+        "3": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )"
     },
 }
