@@ -20,14 +20,18 @@ async def inlinewiki(event):
         return await event.answer([event.builder.article(f"{client.str} FidoSelf - Wiki Empty", text=text)])
     text = client.get_string("Wikipedia_2").format(query)
     buttons = []
+    con = 0
     for result in results[:20]:
-        buttons.append([Button.inline(f"• {result} •", data=f"getwikipedia:{result}")])
+        buttons.append([Button.inline(f"• {result} •", data=f"getwikipedia:{query}:{con}")])
+        con += 1
     buttons = list(client.utils.chunks(buttons, 2))
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Wikipedia", text=text, buttons=buttons)])
 
-@client.Callback(data="getwikipedia\:(.*)")
+@client.Callback(data="getwikipedia\:(.*)\(.*)")
 async def getwikipedia(event):
     query = str(event.data_match.group(1).decode('utf-8'))
-    result = wikipedia.summary(query)
+    count = int(event.data_match.group(2).decode('utf-8'))
+    search = wikipedia.search(query)[count]
+    result = wikipedia.summary(search)
     text = client.get_string("Wikipedia_3").format(query, result)
     await event.edit(text=text)
