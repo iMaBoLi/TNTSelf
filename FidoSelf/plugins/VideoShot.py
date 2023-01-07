@@ -25,8 +25,9 @@ async def videoshot(event):
             await client.utils.runcmd(cmd)
             files.append(out)
             lastdur += newdur
-        await event.edit(client.get_string("VideoShot_2").format(count))
-        caption = client.get_string("VideoShot_3").format(str(con))
+            await event.edit(client.get_string("VideoShot_2").format(con))
+        await event.edit(client.get_string("VideoShot_3").format(count))
+        caption = client.get_string("VideoShot_4").format(str(con))
         for shots in list(client.utils.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=caption)
         os.remove(file)
@@ -36,10 +37,10 @@ async def videoshot(event):
     else:
         if int(data) > duration:
             data = duration
-        await event.edit(client.get_string("VideoShot_4").format(data))
+        await event.edit(client.get_string("VideoShot_5").format(data))
         out = f"Shot-{data}.jpg"
         cmd = f"ffmpeg -i {file} -ss {int(data)} -vframes 1 {out}"
         await client.utils.runcmd(cmd)
-        caption = client.get_string("VideoShot_5").format(str(data))
+        caption = client.get_string("VideoShot_6").format(str(data))
         await client.send_file(event.chat_id, out, caption=caption)
         await event.delete()
