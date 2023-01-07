@@ -16,12 +16,15 @@ async def searcher(event):
         "Url": types.InputMessagesFilterUrl,
     }
     filter = event.pattern_match.group(1).title()
+    infilter = client.get_string(f"FilterType_{filter}")
     filter = filters[filter]
-    text = client.get_string("Searcher_1").format((query or "---"))
+    text = client.get_string("Searcher_1").format((query or "---"), infilter)
     count = 1
     async for message in client.iter_messages(event.chat_id, search=query, filter=filter, limit=50):
         link = await client(functions.channels.ExportMessageLinkRequest(channel=event.chat_id, id=message.id, thread=True))
-        name = message.text[:10] if message.text else "--------"
+        name = client.get_string("Searcher_2")
         text += f"**{count} -** [{name}]({link.link})\n"
         count += 1
+    if count < 2:
+        text = client.get_string("Searcher_3").format((query or "---"), infilter)
     await event.edit(text)
