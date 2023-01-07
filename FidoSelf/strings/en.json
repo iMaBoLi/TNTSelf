@@ -297,9 +297,10 @@
     },
     "VideoShot": {
         "1": "**{STR} Taking** ( `{}` ) **Screen Shot From Your Video ...**",
-        "2": "**{STR} Sending** ( `{}` ) **Screen Shots ...**",
-        "3": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video!**",
-        "4": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
-        "5": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
+        "2": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video ...**",
+        "3": "**{STR} Sending** ( `{}` ) **Screen Shots ...**",
+        "4": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video!**",
+        "5": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
+        "6": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
     },
 }
