@@ -270,6 +270,10 @@
     "Wikipedia": {
         "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
         "2": "**{STR} The Wikipedia Results For Query:** ( `{}` )",
-        "3": "**{STR} Query:** ( `{}` )\n\n`{}`",
+        "3": "**{STR} Title:** ( `{}` )\n\n`{}`",
+    },
+    "AutoDelete": {
+        "1": "**{STR} The Auto Delete Messages Mode Has Been {}!**",
+        "2": "**{STR} The Auto Delete Sleep Time Has Been Set To** ( `{}` )",
     },
 }
