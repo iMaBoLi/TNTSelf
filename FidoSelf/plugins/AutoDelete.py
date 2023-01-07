@@ -20,14 +20,16 @@ async def setautodeletesleep(event):
 @client.Cmd(edits=False)
 async def autodeletes(event):
     if event.is_cmd: return
+    client.loop.create_task(trydelete(event))
+
+async def trydelete(event):
+    mode = client.DB.get_key("AUTO_DELETE_MODE")
+    if mode == "off": return
+    sleep = client.DB.get_key("AUTO_DELETE_SLEEP") or 300
+    await asyncio.sleep(int(sleep))
     mode = client.DB.get_key("AUTO_DELETE_MODE")
     if mode == "on":
-        sleep = client.DB.get_key("AUTO_DELETE_SLEEP") or 300
-        client.loop.create_task(delete(event, sleep))
-
-async def delete(event, sleep):
-    await asyncio.sleep(int(sleep))
-    try:
-        await event.delete()
-    except:
-        pass
+        try:
+            await event.delete()
+        except:
+            pass
