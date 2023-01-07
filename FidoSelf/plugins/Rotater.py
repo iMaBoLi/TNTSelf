@@ -5,7 +5,7 @@ from PIL import Image
 async def ssticker(event):
     await event.edit(client.get_string("Wait"))
     darge = int(event.pattern_match.group(1))
-    if event.reply_message and event.reply_message.photo:
+    if not event.is_reply or not event.reply_message.photo:
         return await event.edit(client.get_string("Reply_P"))
     photo = await event.reply_message.download_media()
     newfile = f"RotatedImage-{str(darge)}.jpg"
