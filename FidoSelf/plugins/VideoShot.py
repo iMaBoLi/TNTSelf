@@ -18,14 +18,14 @@ async def videoshot(event):
         newdur = duration / count
         files = []
         lastdur = 0
-        await event.edit(client.get_string("VideoShot_1").format(str(con)))
+        await event.edit(client.get_string("VideoShot_1").format(count))
         for con in range(count):
             out = f"Shot-{con}.jpg"
             cmd = f"ffmpeg -i {file} -ss {lastdur} -vframes 1 {out}"
             await client.utils.runcmd(cmd)
             files.append(out)
             lastdur += newdur
-        await event.edit(client.get_string("VideoShot_2").format(str(con)))
+        await event.edit(client.get_string("VideoShot_2").format(count))
         caption = client.get_string("VideoShot_3").format(str(con))
         for shots in list(client.utils.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=caption)
