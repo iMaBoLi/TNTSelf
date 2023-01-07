@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions, types
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(All|Photo|Video|Gif|Music|Voice|Doc|Url) ?(.*)?$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}S(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?$")
 async def searcher(event):
     await event.edit(client.get_string("Wait"))
     query = str(event.pattern_match.group(2) or "")
@@ -12,7 +12,7 @@ async def searcher(event):
         "Gif": types.InputMessagesFilterGif,
         "Voice": types.InputMessagesFilterVoice,
         "Music": types.InputMessagesFilterMusic,
-        "Doc": types.InputMessagesFilterDocument,
+        "File": types.InputMessagesFilterDocument,
         "Url": types.InputMessagesFilterUrl,
     }
     filter = event.pattern_match.group(1).title()
