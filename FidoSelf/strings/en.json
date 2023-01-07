@@ -295,4 +295,11 @@
         "2": "Click Here!",
         "3": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
     },
+    "VideoShot": {
+        "1": "**{STR} Taking** ( `{}` ) **Screen Shot From Your Video ...**",
+        "2": "**{STR} Sending** ( `{}` ) **Screen Shots ...**",
+        "3": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video!**",
+        "4": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
+        "5": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
+    },
 }
