@@ -3,7 +3,7 @@ from FidoSelf.events import Cmd, Callback, Inline
 from FidoSelf.functions import utils
 from FidoSelf.strings import get_string, get_buttons
 from FidoSelf.functions.github import Git
-from FidoSelf.functions.helper import progress, get_ids, mention
+from FidoSelf.functions.helper import run_async, progress, get_ids, mention
 from FidoSelf.functions.vars import add_vars
 from FidoSelf import config
 from FidoSelf.database import DB
@@ -22,6 +22,7 @@ async def addvars():
     setattr(client, "get_string", get_string)
     setattr(client, "get_buttons", get_buttons)
     setattr(client, "config", config)
+    setattr(client, "run_async", run_async)
     setattr(client, "vars", add_vars)
     setattr(client, "progress", progress)
     setattr(client, "get_ids", get_ids)
