@@ -27,7 +27,7 @@ async def inlinewiki(event):
     buttons = list(client.utils.chunks(buttons, 2))
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Wikipedia", text=text, buttons=buttons)])
 
-@client.Callback(data="getwikipedia\:(.*)\(.*)")
+@client.Callback(data="getwikipedia\:(.*)\:(.*)")
 async def getwikipedia(event):
     query = str(event.data_match.group(1).decode('utf-8'))
     count = int(event.data_match.group(2).decode('utf-8'))
