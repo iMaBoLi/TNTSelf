@@ -16,26 +16,16 @@ def run_async(function):
     return wrapper
 
 
-async def progress(event, current, total, start, type, file_name=None):
-    if type == "down":
-        type = "Downloading . . ."
-    elif type == "up":
-        type = "Uploading . . ."
+async def progress(event, current, total, start, type, file_name="---"):
+    type = client.get_string("Progress_2") if type == "down" else client.get_string("Progress_3")
     now = time.time()
-    diff = time.time() - start
-    if round(diff % 5.00) == 0 or current == total:
+    diff = now - start
+    if round(diff % 7.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
         strs = "".join("●" for i in range(math.floor(perc / 5)))
-        text = f"""
-`{client.str} {type}`\n\n
-`[ {strs} ]{round(perc, 2)}%`\n\n
-**{client.str} File Name:** ( `{file_name or "---"}` )\n
-**{client.str} Size:** ( `{client.utils.convert_bytes(current)}` **Of** `{client.utils.convert_bytes(total)}` )\n
-**{client.str} Speed:** ( `{client.utils.convert_bytes(speed)}` )\n
-**{client.str} ETA:** ( `{client.utils.convert_time(eta) or "---"}` )
-"""
+        text = client.get_string("Progress_1").format(type, strs, round(perc, 2), file_name, client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
 async def get_ids(event):
