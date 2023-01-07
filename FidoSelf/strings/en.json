@@ -261,5 +261,10 @@
         "1": "**{STR} You Must Be Admin In This Group To Do This!**",
         "2": "**{STR} An Error Occurred While Kick The User!** ( `{}` )",
         "3": "**{STR} The User** ( {} ) **Is Kicked From This Chat!**",        
-    },   
+    }, 
+    "Progress": {
+        "1": "`{} {}`\n\n`[ {strs} ]{round(perc, 2)}%`\n\n**{STR} File Name:** ( `{}` )\n**{STR} Size:** ( `{}` **Of** `{}` )\n**{STR} Speed:** ( `{}` )\n**{STR} ETA:** ( `{}` )", 
+        "2": "Downloading . . .",
+        "3": "Uploading . . .",
+    },
 }
