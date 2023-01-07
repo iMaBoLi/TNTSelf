@@ -276,4 +276,7 @@
         "1": "**{STR} The Auto Delete Messages Mode Has Been {}!**",
         "2": "**{STR} The Auto Delete Sleep Time Has Been Set To** ( `{}` )",
     },
+    "Rotater": {
+        "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
+    },
 }
