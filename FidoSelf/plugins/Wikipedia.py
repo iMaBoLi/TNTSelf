@@ -33,5 +33,5 @@ async def getwikipedia(event):
     count = int(event.data_match.group(2).decode('utf-8'))
     search = wikipedia.search(query)[count]
     result = wikipedia.summary(search)
-    text = client.get_string("Wikipedia_3").format(query, result)
+    text = client.get_string("Wikipedia_3").format(search, result)
     await event.edit(text=text)
