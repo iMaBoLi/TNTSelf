@@ -28,7 +28,8 @@ async def videoshot(event):
             await client.utils.runcmd(cmd)
             files.append(out)
             lastdur += newdur
-            await event.edit(client.get_string("VideoShot_2").format(con + 1))
+            if con == 0 or (con % 5) == 0:
+                await event.edit(client.get_string("VideoShot_2").format(con + 1))
         await event.edit(client.get_string("VideoShot_3").format(count))
         caption = client.get_string("VideoShot_4").format(count)
         for shots in list(client.utils.chunks(files, 9)):
@@ -39,7 +40,7 @@ async def videoshot(event):
         await event.delete()
     else:
         if int(data) > duration:
-            data = duration - 2
+            data = duration
         await event.edit(client.get_string("VideoShot_5").format(data))
         out = f"Shot-{data}.jpg"
         cmd = f"ffmpeg -i {file} -ss {int(data)} -vframes 1 {out}"
