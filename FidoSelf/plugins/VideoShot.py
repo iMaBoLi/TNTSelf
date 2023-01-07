@@ -16,6 +16,9 @@ async def videoshot(event):
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
         newdur = duration / count
+        if newdur < 1:
+            newdur = 1
+            count = duration
         files = []
         lastdur = 0
         await event.edit(client.get_string("VideoShot_1").format(count))
@@ -25,9 +28,9 @@ async def videoshot(event):
             await client.utils.runcmd(cmd)
             files.append(out)
             lastdur += newdur
-            await event.edit(client.get_string("VideoShot_2").format(con))
+            await event.edit(client.get_string("VideoShot_2").format(con + 1))
         await event.edit(client.get_string("VideoShot_3").format(count))
-        caption = client.get_string("VideoShot_4").format(str(con))
+        caption = client.get_string("VideoShot_4").format(count)
         for shots in list(client.utils.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=caption)
         os.remove(file)
@@ -44,3 +47,5 @@ async def videoshot(event):
         caption = client.get_string("VideoShot_6").format(str(data))
         await client.send_file(event.chat_id, out, caption=caption)
         await event.delete()
+        os.remove(file)
+        os.remove(out)
