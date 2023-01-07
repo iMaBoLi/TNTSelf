@@ -10,6 +10,8 @@ from FidoSelf.database import DB
 import time
 import os
 
+MAX_SIZE = 102400
+
 async def addvars():
     setattr(client, "utils", utils)
     setattr(client, "Git", Git)
@@ -25,6 +27,7 @@ async def addvars():
     setattr(client, "mention", mention)
     setattr(client, "progress", progress)
     setattr(client, "get_ids", get_ids)
+    setattr(client, "MAX_SIZE", MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
     setattr(client.bot, "me", (await client.bot.get_me()))
     setattr(client, "str", client.DB.get_key("MESSAGES_STARTER") or "✥")
