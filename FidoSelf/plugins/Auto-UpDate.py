@@ -10,4 +10,4 @@ async def autoupdater():
     text = f"# Auto Updater For Your Self!\n\n# Random Number Is: {str(rand)}\n\n# Good Luck!!"
     open(file, "w").write(text)
     git.create(file, file)
-    git.delete(file)
+    git.update(file, file)
