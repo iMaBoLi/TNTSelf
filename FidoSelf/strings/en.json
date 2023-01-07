@@ -267,4 +267,9 @@
         "2": "Downloading . . .",
         "3": "Uploading . . .",
     },
+    "Wikipedia": {
+        "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
+        "2": "**{STR} The Wikipedia Results For Query:** ( `{}` )",
+        "3": "**{STR} Query:** ( `{}` )\n\n`{}`",
+    },
 }
