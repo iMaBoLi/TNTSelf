@@ -21,8 +21,8 @@ async def inlinewiki(event):
     text = client.get_string("Wikipedia_2").format(query)
     buttons = []
     con = 0
-    for result in results[:20]:
-        buttons.append([Button.inline(f"• {result} •", data=f"getwikipedia:{query}:{con}")])
+    for result in results[:10]:
+        buttons.append(Button.inline(f"• {result} •", data=f"getwikipedia:{query}:{con}"))
         con += 1
     buttons = list(client.utils.chunks(buttons, 2))
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Wikipedia", text=text, buttons=buttons)])
