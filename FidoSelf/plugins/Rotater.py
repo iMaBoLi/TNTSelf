@@ -1,5 +1,6 @@
 from FidoSelf import client
 from PIL import Image
+import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SRotate (\d*)$")
 async def ssticker(event):
