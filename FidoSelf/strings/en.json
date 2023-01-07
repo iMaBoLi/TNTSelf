@@ -286,7 +286,7 @@
         "Gif": "Gif",
         "Voice": "Voice",
         "Music": "Music",
-        "Voice": "Voice",
+        "Doc": "File",
         "Url": "Url",
     },
     "Searcher": {
