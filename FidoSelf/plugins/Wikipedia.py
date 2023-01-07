@@ -1,4 +1,5 @@
 from FidoSelf import client
+from telethon import Button
 import wikipedia
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SWiki (.*)$")
