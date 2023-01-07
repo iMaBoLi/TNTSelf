@@ -10,7 +10,7 @@ from FidoSelf.database import DB
 import time
 import os
 
-MAX_SIZE = 102400
+MAX_SIZE = 104857600
 
 async def addvars():
     setattr(client, "utils", utils)
