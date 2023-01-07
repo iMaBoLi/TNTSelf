@@ -9,6 +9,8 @@ async def videoshot(event):
     data = event.pattern_match.group(1)
     if not event.is_reply or not event.reply_message.video:
         return await event.edit(client.get_string("Reply_V"))
+    if event.reply_message.file.size > client.MAX_SIZE:
+        return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down"))
     file = await event.reply_message.download_media(progress_callback=callback)
