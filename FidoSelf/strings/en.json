@@ -290,8 +290,8 @@
         "Url": "Url",
     },
     "Searcher": {
-        "1": "**{STR} Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n"
-        "2": "Click Here!"
-        "3": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )"
+        "1": "**{STR} Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n",
+        "2": "Click Here!",
+        "3": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
     },
 }
