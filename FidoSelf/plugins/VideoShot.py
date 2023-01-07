@@ -36,7 +36,7 @@ async def videoshot(event):
         await event.delete()
     else:
         if int(data) > duration:
-            data = duration
+            data = duration - 2
         await event.edit(client.get_string("VideoShot_5").format(data))
         out = f"Shot-{data}.jpg"
         cmd = f"ffmpeg -i {file} -ss {int(data)} -vframes 1 {out}"
