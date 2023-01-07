@@ -61,6 +61,7 @@
         "SELF_ALL_MODE": "سلف",
         "QUICKS_MODE": "پاسخ سریع",
         "LANGUAGE": "زبان",
+        "AUTO_DELETE_MODE": "پاک کردن خودکار",
         "AUTO_REPLACE_MODE": "جایگزین خودکار",
         "AUTO_SAY_MODE": "ادیت خودکار",
         "MONSHI_MODE": "منشی",
