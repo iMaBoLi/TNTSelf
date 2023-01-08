@@ -319,4 +319,8 @@
         "1": "**{STR} Extracting Audio From Video ...**",
         "2": "**{STR} The Audio Was Extracted From Video!**",
     },
+    "EditAudio": {
+        "1": "**{STR} The Duration Of This Audio Was Changed To** ( `{}` )",
+        "2": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )",
+    },
 }
