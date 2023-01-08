@@ -1,7 +1,9 @@
-from . import client, START_TIME
+from . import client, START_TIME, __version__
+from telethon import __version__ as telever
 from FidoSelf.functions.utils import load_plugins, LOADED_PLUGS, NOT_LOADED_PLUGS
 from FidoSelf.functions.misc import stimezone, addvars
 import time
+import platform
 
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
@@ -10,9 +12,9 @@ async def setup():
     stimezone()
     client.LOGS.info("• Installing Main Plugins ...")
     load_plugins("FidoSelf/plugins")
-    client.LOGS.info("• Successfully Installed {len(LOADED_PLUGS)} From Main Plugins!")
+    client.LOGS.info(f"• Successfully Installed {len(LOADED_PLUGS)} From Main Plugins!")
+    endtime = client.utils.convert_time(time.time() - START_TIME)
     try:
-        endtime = client.utils.convert_time(time.time() - START_TIME)
         send = await client.bot.send_message((client.realm or client.me.id), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
         if LOADED_PLUGS:
             text = f"**✅ Loaded Plugins :**\n\n"
@@ -28,7 +30,11 @@ async def setup():
         await send.reply(f"**{client.str} The 10 Lastest Github Commits:**\n\n`{res[0]}`")
     except:
         pass
-    client.LOGS.info("• Starting FidoSelf ...")
+    client.LOGS.info(f"• Took In ( {endtime} )")
+    client.LOGS.info(f"• Python Version: {platform.python_version()}")
+    client.LOGS.info(f"• Telethon Version: {telever}")
+    client.LOGS.info(f"• FidoSelf Version: {__version__}")
+    client.LOGS.info("----------------------------------------\n  • Starting FidoSelf Was Successful!\n----------------------------------------")
 
 client.bot.loop.run_until_complete(setup())
 client.run_until_disconnected()
