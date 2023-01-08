@@ -27,11 +27,15 @@
         "V": "**{STR} Please Reply To Video!**",
         "PV": "**{STR} Please Reply To Photo Or Video!**",
         "A": "**{STR} Please Reply To Audio!**",
+        "Vo": "**{STR} Please Reply To Voice!**",
+        "AV": "**{STR} Please Reply To Audio Or Voice!**",
         "S": "**{STR} Please Reply To Sticker!**",
         "G": "**{STR} Please Reply To Gif!**",
         "U": "**{STR} Please Reply To User!**",
         "UU": "**{STR} Please Reply To User Or Enter Username!**",
         "UUP": "**{STR} Please Reply To User Or Enter Username Or Send In Pv!**",
+        "UC": "**{STR} Please Enter Username Or Send In Chat!**",
+        "UCH": "**{STR} Please Enter Username Or Send In Channel!**",
     },
     "Inline": {
         "1": "❲ ✔️|Active ❳",
@@ -306,5 +310,9 @@
         "4": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video!**",
         "5": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
         "6": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
+    },
+    "TrimAudio": {
+        "1": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
+        "2": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
     },
 }
