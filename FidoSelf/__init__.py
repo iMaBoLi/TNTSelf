@@ -7,13 +7,13 @@ import time
 import sys
 
 START_TIME = time.time()
-__version__ = "0.7.6"
+__version__ = "0.8.2"
 
-LOGS = getLogger("FidoLogs")
+LOGS = getLogger()
 basicConfig(
-    format="%(asctime)s | %(name)s [%(levelname)s] : %(message)s",
+    format="%(asctime)s | %(pathname)s [ %(funcName)s ] : %(message)s",
     level=INFO,
-    datefmt="%m/%d/%Y - %H:%M:%S",
+    datefmt="%H:%M:%S",
     handlers=[FileHandler("Fido.log"), StreamHandler()],
 )
 
