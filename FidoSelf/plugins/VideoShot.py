@@ -15,7 +15,7 @@ async def videoshot(event):
     file_name = event.reply_message.file.name or "---"
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
     file = await event.reply_message.download_media(progress_callback=callback)
-    duration = event.reply_message.video.attributes[0].duration
+    duration = event.reply_message.file.duration
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
         newdur = duration / count
@@ -31,7 +31,7 @@ async def videoshot(event):
             await client.utils.runcmd(cmd)
             files.append(out)
             lastdur += newdur
-            if con == 0 or (con % 5) == 0:
+            if con == 0 or ((con + 1) % 3) == 0:
                 await event.edit(client.get_string("VideoShot_2").format(con + 1))
         await event.edit(client.get_string("VideoShot_3").format(count))
         caption = client.get_string("VideoShot_4").format(count)
