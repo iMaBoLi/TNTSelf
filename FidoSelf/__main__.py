@@ -4,9 +4,13 @@ from FidoSelf.functions.misc import stimezone, addvars
 import time
 
 async def setup():
+    client.LOGS.info("• Adding Coustom Vars To Client ...")
     await addvars()
+    client.LOGS.info("• Setting TimeZone ...")
     stimezone()
+    client.LOGS.info("• Installing Main Plugins ...")
     load_plugins("FidoSelf/plugins")
+    client.LOGS.info("• Successfully Installed {len(LOADED_PLUGS)} From Main Plugins!")
     try:
         endtime = client.utils.convert_time(time.time() - START_TIME)
         send = await client.bot.send_message((client.realm or client.me.id), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
@@ -24,6 +28,7 @@ async def setup():
         await send.reply(f"**{client.str} The 10 Lastest Github Commits:**\n\n`{res[0]}`")
     except:
         pass
+    client.LOGS.info("• Starting FidoSelf ...")
 
 client.bot.loop.run_until_complete(setup())
 client.run_until_disconnected()
