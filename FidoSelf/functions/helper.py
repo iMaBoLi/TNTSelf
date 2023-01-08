@@ -30,10 +30,14 @@ async def get_ids(event):
         event.userid, event.chatid = event.chat_id, event.chat_id
     return event
 
-def mention(info):
+def mention(info, coustom=None):
+    if coustom:
+        name = coustom
+    else:
+        name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
     if info.username:
-        return f"[{info.first_name}](@{info.username})"
-    return f"[{info.first_name}](tg://user?id={info.id})"
+        return f"[{name}](@{info.username})"
+    return f"[{name}](tg://user?id={info.id})"
 
 def convert_date(gy, gm, gd):
    g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
