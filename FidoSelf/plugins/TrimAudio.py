@@ -1,5 +1,4 @@
 from FidoSelf import client
-from PIL import Image
 import os
 import time
 
