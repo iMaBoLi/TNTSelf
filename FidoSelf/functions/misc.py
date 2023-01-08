@@ -29,16 +29,20 @@ async def addvars():
         "get_ids": get_ids,
         "MAX_SIZE": MAX_SIZE,
         "me": (await client.get_me()),
+    }
+    for item in ITEMS:
+        setattr(client, item, ITEMS[item])
+    DBITEMS = {
         "str": client.DB.get_key("MESSAGES_STARTER") or "✥",
         "cmd": client.DB.get_key("SELF_CMD") or ".",
         "realm": client.DB.get_key("REALM_CHAT"),
         "backch": client.DB.get_key("BACKUP_CHANNEL"),
     }
+    for item in DBITEMS:
+        setattr(client, item, ITEMS[item])
     BOTITEMS = {
         "me": (await client.bot.get_me()), 
     }
-    for item in ITEMS:
-        setattr(client, item, ITEMS[item])
     for item in BOTITEMS:
         setattr(client.bot, item, ITEMS[item])
 
