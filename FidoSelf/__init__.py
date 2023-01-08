@@ -4,9 +4,10 @@ from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
 from FidoSelf.database import DB
 import time
+import sys
 
 START_TIME = time.time()
-__version__ = "0.7.3"
+__version__ = "0.7.6"
 
 LOGS = getLogger("FidoLogs")
 basicConfig(
@@ -17,21 +18,30 @@ basicConfig(
 )
 
 LOGS.info("• Login Account ...")
-client = TelegramClient(
-    session=StringSession(str(config.SESSION)),
-    api_id=config.API_ID,
-    api_hash=config.API_HASH,
-    device_model="FidoSelf",
-    app_version=__version__,
-).start()
+try:
+    client = TelegramClient(
+        session=StringSession(str(config.SESSION)),
+        api_id=config.API_ID,
+        api_hash=config.API_HASH,
+        device_model="FidoSelf",
+        app_version=__version__,
+    ).start()
+except Exception as error:
+    LOGS.error("• Login To Account Was Unsuccessful!")
+    LOGS.error(error)
 
 LOGS.info("• Login Bot ...")
-client.bot = TelegramClient(
-    session=StringSession(str(config.BOT_SESSION)),
-    api_id=config.API_ID,
-    api_hash=config.API_HASH,
-).start()
+try:
+    client.bot = TelegramClient(
+        session=StringSession(str(config.BOT_SESSION)),
+        api_id=config.API_ID,
+        api_hash=config.API_HASH,
+    ).start()
+except Exception as error:
+    LOGS.error("• Login To Bot Was Unsuccessful!")
+    LOGS.error(error)
 
 LOGS.info("• Logins Was Successful!")
 
 client.LOGS = LOGS
+client.__version__ = __version__
