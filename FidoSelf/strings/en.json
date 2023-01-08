@@ -315,4 +315,8 @@
         "1": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
         "2": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
     },
+    "ExAudio": {
+        "1": "**{STR} Extracting Audio From Video ...**",
+        "2": "**{STR} The Audio Was Extracted From Video!**",
+    },
 }
