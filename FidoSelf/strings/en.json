@@ -25,6 +25,7 @@
         "MM": "**{STR} Please Reply To Message Or Media!**",
         "P": "**{STR} Please Reply To Photo!**",
         "V": "**{STR} Please Reply To Video!**",
+        "PV": "**{STR} Please Reply To Photo Or Video!**",
         "A": "**{STR} Please Reply To Audio!**",
         "S": "**{STR} Please Reply To Sticker!**",
         "G": "**{STR} Please Reply To Gif!**",
@@ -280,6 +281,7 @@
     },
     "Rotater": {
         "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
+        "2": "**{STR} The Video Was Rotated To** ( `{}°` )",
     },
     "FilterType": {
         "All": "All",
