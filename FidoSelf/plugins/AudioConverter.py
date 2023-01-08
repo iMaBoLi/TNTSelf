@@ -18,6 +18,6 @@ async def audioconverter(event):
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
     voice == False if mode == "Audio" else True
-    await client.send_file(event.chat_id, video, attributes=attributes, progress_callback=callback, voice_note=voice)
+    await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=voice)
     os.remove(audio)
     await event.delete()
