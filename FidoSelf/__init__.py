@@ -8,6 +8,15 @@ import time
 START_TIME = time.time()
 __version__ = "0.7.3"
 
+LOGS = getLogger("FidoLogs")
+basicConfig(
+    format="%(asctime)s | %(name)s [%(levelname)s] : %(message)s",
+    level=INFO,
+    datefmt="%m/%d/%Y - %H:%M:%S",
+    handlers=[FileHandler("Fido.log"), StreamHandler()],
+)
+
+LOGS.info("• Login Account ...")
 client = TelegramClient(
     session=StringSession(str(config.SESSION)),
     api_id=config.API_ID,
@@ -16,18 +25,13 @@ client = TelegramClient(
     app_version=__version__,
 ).start()
 
+LOGS.info("• Login Bot ...")
 client.bot = TelegramClient(
     session=StringSession(str(config.BOT_SESSION)),
     api_id=config.API_ID,
     api_hash=config.API_HASH,
 ).start()
 
-client.LOGS = getLogger("FidoLogs")
+LOGS.info("• Logins Was Successful!")
 
-file = "Fido.log"
-basicConfig(
-    format="%(asctime)s | %(name)s [%(levelname)s] : %(message)s",
-    level=INFO,
-    datefmt="%m/%d/%Y - %H:%M:%S",
-    handlers=[FileHandler(file), StreamHandler()],
-)
+client.LOGS = LOGS
