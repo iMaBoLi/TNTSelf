@@ -7,7 +7,7 @@ bs4
 aiofiles
 PyGithub
 aiocron
-pillow
+pillow>=7.0.0
 moviepy
 googletrans==3.1.0a0
 psutil
