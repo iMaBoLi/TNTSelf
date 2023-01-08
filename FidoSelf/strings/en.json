@@ -323,4 +323,8 @@
         "1": "**{STR} The Duration Of This Audio Was Changed To** ( `{}` )",
         "2": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )",
     },
+    "CarbonText": {
+        "1": "**{STR} Carbonizing Your Text  ...**",
+        "2": "**{STR} The Text Was Carbonized!**",
+    },
 }
