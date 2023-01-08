@@ -319,9 +319,10 @@
         "1": "**{STR} Extracting Audio From Video ...**",
         "2": "**{STR} The Audio Was Extracted From Video!**",
     },
-    "EditAudio": {
+    "EditInfo": {
         "1": "**{STR} The Duration Of This Audio Was Changed To** ( `{}` )",
-        "2": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )",
+        "2": "**{STR} The Duration Of This Video Was Changed To** ( `{}` )",
+        "3": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )",
     },
     "CarbonText": {
         "1": "**{STR} Carbonizing Your Text  ...**",
