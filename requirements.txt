@@ -20,4 +20,5 @@ ShazamAPI
 yt-dlp
 image_slicer
 carbonnow
+wikipedia
 git+https://github.com/iMaBoLi/youtube-search-python
