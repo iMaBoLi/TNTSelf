@@ -8,7 +8,7 @@ import platform
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await addvars()
-    client.LOGS.info("• Setting TimeZone ...")
+    client.LOGS.info("• Setting Your TimeZone ...")
     stimezone()
     client.LOGS.info("• Installing Main Plugins ...")
     load_plugins("FidoSelf/plugins")
@@ -26,15 +26,15 @@ async def setup():
                 text = f"**❌ Unloaded Plugin :**\n\n"
                 text += f"{client.str} `{plug}` - ( `{NOT_LOADED_PLUGS[plug]}` )\n"
                 await send.reply(text)
-        res = await client.utils.runcmd('git log --pretty=format:"%an: %s" -10')
-        await send.reply(f"**{client.str} The 10 Lastest Github Commits:**\n\n`{res[0]}`")
+        res = await client.utils.runcmd('git log --pretty=format:"[%an] : ( %s )" -20')
+        await send.reply(f"**{client.str} The Github Commits:**\n\n`{res[0]}`")
     except:
         pass
     client.LOGS.info(f"• Took In ( {endtime} )")
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
     client.LOGS.info(f"• Telethon Version: {telever}")
     client.LOGS.info(f"• FidoSelf Version: {__version__}")
-    client.LOGS.info("----------------------------------------\n  • Starting FidoSelf Was Successful!\n----------------------------------------")
+    client.LOGS.info("\n----------------------------------------\n  • Starting FidoSelf Was Successful!\n----------------------------------------")
 
 client.bot.loop.run_until_complete(setup())
 client.run_until_disconnected()
