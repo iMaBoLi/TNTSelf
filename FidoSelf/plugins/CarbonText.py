@@ -8,7 +8,6 @@ async def carbontext(event):
     if not event.is_reply or not event.reply_message.text:
         return await event.edit(client.get_string("Reply_T"))
     code = event.reply_message.text
-    filename = f"CarbonText-{code[:5]}.png"
     await event.edit(client.get_string("CarbonText_1"))
     carbon = Carbon(
         code=code, # Your Code
@@ -31,7 +30,8 @@ async def carbontext(event):
         window_controls=False,  # Optional: Window Controls
         window_theme='Material',  # Optional: Window Theme
     )
-    await carbon.save(filename)
+    await carbon.save("CarbonText")
+    filename = "CarbonText.jpg"
     await event.respond(client.get_string("CarbonText_2"), file=filename)
     os.remove(filename)
     await event.delete()
