@@ -17,7 +17,7 @@ async def setduration(event):
     file_name = event.reply_message.file.name or "---"
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
     audio = await event.reply_message.download_media(progress_callback=callback)
-    attributes = [types.DocumentAttributeAudio(duration=dur)] 
+    attributes = [types.DocumentAttributeAudio(duration=dur, title=event.reply_message.file.title, performer=event.reply_message.file.performer)] 
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
     caption = client.get_string("EditAudio_1").format(client.utils.convert_time(dur))
@@ -38,7 +38,7 @@ async def editaudio(event):
     file_name = event.reply_message.file.name or "---"
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
     audio = await event.reply_message.download_media(progress_callback=callback)
-    attributes = [types.DocumentAttributeAudio(title=title, performer=performer)] 
+    attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
     caption = client.get_string("EditAudio_2").format(title, performer)
