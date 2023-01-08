@@ -19,6 +19,6 @@ setuptools
 ShazamAPI
 yt-dlp
 image_slicer
-git+https://github.com/iMaBoLi/youtube-search-python
 wikipedia
 carbonnow
+git+https://github.com/iMaBoLi/youtube-search-python
