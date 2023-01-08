@@ -4,7 +4,7 @@ import time
 import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SV(Note|Normal)$")
-async def videoshot(event):
+async def videoconverter(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
     if not event.is_reply or not event.reply_message.video:
