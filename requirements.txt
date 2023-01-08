@@ -9,6 +9,7 @@ aiofiles
 PyGithub
 aiocron
 Pillow
+moviepy
 googletrans==3.1.0a0
 psutil
 instagrapi
@@ -20,3 +21,4 @@ yt-dlp
 image_slicer
 git+https://github.com/iMaBoLi/youtube-search-python
 wikipedia
+carbonnow
