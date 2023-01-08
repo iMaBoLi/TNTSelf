@@ -281,7 +281,7 @@
     },
     "Rotater": {
         "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
-        "2": "**{STR} Rotating Video To** ( `{}°` )",
+        "2": "**{STR} Rotating Video To** ( `{}°` ) **...*",
         "3": "**{STR} The Video Was Rotated To** ( `{}°` )",
     },
     "FilterType": {
