@@ -39,12 +39,12 @@ async def addvars():
         "backch": client.DB.get_key("BACKUP_CHANNEL"),
     }
     for item in DBITEMS:
-        setattr(client, item, ITEMS[item])
+        setattr(client, item, DBITEMS[item])
     BOTITEMS = {
         "me": (await client.bot.get_me()), 
     }
     for item in BOTITEMS:
-        setattr(client.bot, item, ITEMS[item])
+        setattr(client.bot, item, BOTITEMS[item])
 
 def stimezone():
     tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
