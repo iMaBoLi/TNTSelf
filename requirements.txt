@@ -1,5 +1,4 @@
-git+https://github.com/iMaBoLi/Telethon
-Tgcrypto
+tgcrypto
 redis
 psycopg2
 requests
@@ -8,7 +7,7 @@ bs4
 aiofiles
 PyGithub
 aiocron
-Pillow
+pillow
 moviepy
 googletrans==3.1.0a0
 psutil
@@ -21,4 +20,6 @@ yt-dlp
 image_slicer
 carbonnow
 wikipedia
+
+git+https://github.com/iMaBoLi/Telethon
 git+https://github.com/iMaBoLi/youtube-search-python
