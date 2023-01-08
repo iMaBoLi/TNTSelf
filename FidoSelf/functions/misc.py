@@ -10,30 +10,37 @@ from FidoSelf.database import DB
 import time
 import os
 
-MAX_SIZE = 104857600
+MAX_SIZE = 104857600 * 2
 
 async def addvars():
-    setattr(client, "utils", utils)
-    setattr(client, "Git", Git)
-    setattr(client, "Cmd", Cmd)
-    setattr(client, "Callback", Callback)
-    setattr(client, "Inline", Inline)
-    setattr(client, "DB", DB)
-    setattr(client, "lang", client.DB.get_key("LANGUAGE") or "en")
-    setattr(client, "get_string", get_string)
-    setattr(client, "get_buttons", get_buttons)
-    setattr(client, "config", config)
-    setattr(client, "vars", add_vars)
-    setattr(client, "mention", mention)
-    setattr(client, "progress", progress)
-    setattr(client, "get_ids", get_ids)
-    setattr(client, "MAX_SIZE", MAX_SIZE)
-    setattr(client, "me", (await client.get_me()))
-    setattr(client.bot, "me", (await client.bot.get_me()))
-    setattr(client, "str", client.DB.get_key("MESSAGES_STARTER") or "✥")
-    setattr(client, "cmd", client.DB.get_key("SELF_CMD") or ".")
-    setattr(client, "realm", client.DB.get_key("REALM_CHAT"))
-    setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL"))
+    ITEMS = {
+        "utils": utils,
+        "Git": Git,
+        "Cmd": Cmd,
+        "Callback": Callback,
+        "Inline": Inline,
+        "DB": DB,
+        "lang": client.DB.get_key("LANGUAGE") or "en",
+        "get_string": get_string,
+        "get_buttons": get_buttons,
+        "vars": add_vars,
+        "mention": mention,
+        "progress": progress,
+        "get_ids": get_ids,
+        "MAX_SIZE": MAX_SIZE,
+        "me": (await client.get_me()),
+        "str": client.DB.get_key("MESSAGES_STARTER") or "✥",
+        "cmd": client.DB.get_key("SELF_CMD") or ".",
+        "realm": client.DB.get_key("REALM_CHAT"),
+        "backch": client.DB.get_key("BACKUP_CHANNEL"),
+    }
+    BOTITEMS = {
+        "me": (await client.bot.get_me()), 
+    }
+    for item in ITEMS:
+        setattr(client, item, ITEMS[item])
+    for item in BOTITEMS:
+        setattr(client.bot, item, ITEMS[item])
 
 def stimezone():
     tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
