@@ -18,6 +18,6 @@ async def videoshot(event):
     attributes = [types.DocumentAttributeVideo(duration=event.reply_message.file.duration, w=event.reply_message.file.width, h=event.reply_message.file.height, round_message=True)]
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
-    await client.send_file(event.chat_id, video, caption=client.get_string("VideoConverter_1"), attributes=attributes, progress_callback=callback)
+    await client.send_file(event.chat_id, video, attributes=attributes, progress_callback=callback)
     os.remove(video)
     await event.delete()
