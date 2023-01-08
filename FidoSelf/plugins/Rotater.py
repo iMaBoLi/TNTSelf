@@ -23,12 +23,13 @@ async def ssticker(event):
         newtime = time.time()
         callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down"))
         video = await event.reply_message.download_media(progress_callback=callback)
+        await event.edit(client.get_string("Rotater_2").format(str(darge)))
         newfile = f"RotatedVideo-{str(darge)}.mp4"
-        cmd = 'ffmpeg -i {video} -vf "rotate={darge}" {newfile}'
+        cmd = f'ffmpeg -i {video} -vf "rotate={darge}" {newfile}'
         await client.utils.runcmd(cmd)
         newtime = time.time()
         callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
-        caption = client.get_string("Rotater_2").format(str(darge))
+        caption = client.get_string("Rotater_3").format(str(darge))
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(video)
         os.remove(newfile)
