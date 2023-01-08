@@ -4,7 +4,7 @@ import os
 import time
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SRotate (\d*)$")
-async def ssticker(event):
+async def rotate(event):
     await event.edit(client.get_string("Wait"))
     darge = int(event.pattern_match.group(1))
     if event.is_reply and event.reply_message.photo:
