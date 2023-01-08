@@ -12,7 +12,7 @@ async def progress(event, current, total, start, type, file_name="---"):
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "●".join("●" for i in range(math.floor(perc / 5)))
+        strs = "●".join("●" for i in range(math.floor(perc / 8)))
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), file_name, client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
