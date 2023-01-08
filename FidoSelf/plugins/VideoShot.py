@@ -12,7 +12,8 @@ async def videoshot(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down"))
+    file_name = event.reply_message.file.name or "---"
+    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
     file = await event.reply_message.download_media(progress_callback=callback)
     duration = event.reply_message.video.attributes[0].duration
     if str(data).startswith("-"):
