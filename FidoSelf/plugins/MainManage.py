@@ -12,11 +12,12 @@ async def get_manage_buttons(userid):
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
     obuts = []
-    for manage in ["BLACKS", "ECHOS"]:
+    for manage in ["BLACKS", "WHITES", "ECHOS"]:
         lists = client.DB.get_key(manage) or []
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
+    obuts = list(client.utils.chunks(obuts, 2))
     buttons.append(obuts)
     buttons.append([Button.inline(client.get_string("Inline_3"), data="closemanage")])
     buttons = client.get_buttons(buttons)
