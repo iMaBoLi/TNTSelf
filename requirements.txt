@@ -16,7 +16,6 @@ cowpy
 selenium
 setuptools
 ShazamAPI
-yt-dlp
 
 git+https://github.com/iMaBoLi/Telethon
 git+https://github.com/iMaBoLi/youtube-search-python
