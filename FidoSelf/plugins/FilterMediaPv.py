@@ -43,19 +43,26 @@ async def mediafilter(event):
     for type in TYPES:
         mode = client.DB.get_key(type) or "off" 
         MODES.update({type: mode})
-    if event.photo and MODES["FILTERPV_PHOTO"] == "on":
+    if event.text and MODES["FILTERPV_TEXT"] == "on":
         await event.delete()
-    elif event.gif and MODES["FILTERPV_GIF"] == "on":
+    elif client.mediatype(event) == "photo" and MODES["FILTERPV_PHOTO"] == "on":
         await event.delete()
-    elif event.video and MODES["FILTERPV_VIDEO"] == "on":
+    elif client.mediatype(event) == "video" and MODES["FILTERPV_VIDEO"] == "on":
         await event.delete()
-    elif event.voice and MODES["FILTERPV_VOICE"] == "on":
+    elif client.mediatype(event) == "gif" and MODES["FILTERPV_GIF"] == "on":
         await event.delete()
-    elif event.audio and MODES["FILTERPV_MUSIC"] == "on":
+    elif client.mediatype(event) == "voice" and MODES["FILTERPV_VOICE"] == "on":
         await event.delete()
-    elif event.sticker and MODES["FILTERPV_STICKER"] == "on":
+    elif client.mediatype(event) == "music" and MODES["FILTERPV_MUSIC"] == "on":
         await event.delete()
-    elif event.photo and MODES["FILTERPV_PHOTO"] == "on":
+    elif client.mediatype(event) == "sticker" and MODES["FILTERPV_STICKER"] == "on":
         await event.delete()
-    elif event.photo and MODES["FILTERPV_PHOTO"] == "on":
+    elif client.mediatype(event) == "animated sticker" and MODES["FILTERPV_ANISTICKER"] == "on":
         await event.delete()
+    elif client.mediatype(event) == "file" and MODES["FILTERPV_FILE"] == "on":
+        await event.delete()
+    elif event.text and MODES["FILTERPV_LINK"] == "on":
+        if event.reply_message.entities:
+            for entity in event.reply_message.to_dict()["entities"]:
+                if entity["_"] in ["MessageEntityUrl"]:
+                    await event.delete()
