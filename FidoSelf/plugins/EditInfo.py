@@ -9,8 +9,12 @@ async def setduration(event):
     dur = int(event.pattern_match.group(1))
     if dur >= 2147483647:
         dur = 2147483647
-    if not event.is_reply or not (event.reply_message.audio or event.reply_message.video):
-        return await event.edit(client.get_string("Reply_VA"))
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["Video", "Music"]:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Video"] + " - " + medias["Music"]
+        rtype = medias[mtype]
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
@@ -36,8 +40,12 @@ async def editaudio(event):
     await event.edit(client.get_string("Wait"))
     title = str(event.pattern_match.group(1))
     performer = str(event.pattern_match.group(2))
-    if not event.is_reply or not event.reply_message.audio:
-        return await event.edit(client.get_string("Reply_A"))
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["Music"]:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Music"]
+        rtype = medias[mtype]
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
