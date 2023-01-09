@@ -7,7 +7,7 @@ import time
 import sys
 
 START_TIME = time.time()
-__version__ = "0.8.3"
+__version__ = "1.4.6"
 
 LOGS = getLogger()
 basicConfig(
