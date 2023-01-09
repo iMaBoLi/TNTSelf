@@ -355,4 +355,18 @@
         "6": "**{STR} The Words Filter Pv List:**\n\n",
         "7": "**{STR} The Words Filter Pv List Has Been Cleaned!**",
     },
+    "FilterPvType": {
+        "FILTERPV_PHOTO": "Photo",
+        "FILTERPV_VIDEO": "Video",
+        "FILTERPV_GIF": "Gif",
+        "FILTERPV_VOICE": "Voice",
+        "FILTERPV_MUSIC": "Music",
+        "FILTERPV_STICKER": "Sticker",
+        "FILTERPV_ANISTICKER": "Animated Sticker",
+        "FILTERPV_FILE": "File",
+        "FILTERPV_LINK": "Link",
+    },
+    "FilterMediaPv": {
+        "1": "**{STR} Please Use The Buttons Below To Control The Filter Medias In Pv:**",
+    },
 }
