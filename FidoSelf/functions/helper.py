@@ -48,7 +48,7 @@ def mediatype(event):
     elif event.video:
         if event.video_note:
             type = "VideoNote"
-        elif event.gif:
+        elif event.gif or event.file.mime_type == "image/gif":
             type = "Gif"
         else:
             type = "Video"
