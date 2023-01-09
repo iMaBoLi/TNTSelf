@@ -20,7 +20,7 @@ async def searcher(event):
     filter = filters[filter]
     text = client.get_string("Searcher_1").format((query or "---"), infilter)
     count = 1
-    async for message in client.iter_messages(event.chat_id, search=query, filter=filter, limit=50):
+    async for message in client.iter_messages(event.chat_id, search=query, filter=filter, limit=40):
         link = await client(functions.channels.ExportMessageLinkRequest(channel=event.chat_id, id=message.id, thread=True))
         name = client.get_string("Searcher_2")
         text += f"**{count} -** [{name}]({link.link})\n"
