@@ -40,29 +40,31 @@ def mention(info, coustom=None):
     return f"[{name}](tg://user?id={info.id})"
 
 def mediatype(event):
-    type = "notsupported"
+    type = "Empty"
     if not event:
-        type = "empty"
+        return type
     elif event.photo:
-        type = "photo"
+        type = "Photo"
     elif event.video:
         if event.video_note:
-            type = "video note"
+            type = "VideoNote"
         elif event.gif:
             type = "Gif"
         else:
-            type = "video"
+            type = "Video"
     elif event.voice:
-        type = "voice"
+        type = "Voice"
     elif event.audio:
-        type = "audio"
+        type = "Music"
     elif event.sticker:
         if event.file.mime_type == "image/webp":
-            type = "sticker"
+            type = "Sticker"
         elif event.file.mime_type == "application/x-tgsticker":
-            type = "animated sticker"
+            type = "ASticker"
     elif event.document:
-        type = "file"
+        type = "File"
+    elif event.text:
+        type = "Text"
     return type
 
 def convert_date(gy, gm, gd):
