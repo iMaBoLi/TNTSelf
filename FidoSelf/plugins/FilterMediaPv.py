@@ -34,3 +34,28 @@ async def setfilterpvs(event):
     text = client.get_string("FilterMediaPv_1")
     buttons = get_filter_buttons()
     await event.edit(text=text, buttons=buttons)
+
+@client.Cmd(sudo=False, edits=False)
+async def mediafilter(event):
+    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
+    TYPES = client.get_string("FilterPvType")
+    MODES = {}
+    for type in TYPES:
+        mode = client.DB.get_key(type) or "off" 
+        MODES.update({type: mode})
+    if event.photo and MODES["FILTERPV_PHOTO"] == "on":
+        await event.delete()
+    elif event.gif and MODES["FILTERPV_GIF"] == "on":
+        await event.delete()
+    elif event.video and MODES["FILTERPV_VIDEO"] == "on":
+        await event.delete()
+    elif event.voice and MODES["FILTERPV_VOICE"] == "on":
+        await event.delete()
+    elif event.audio and MODES["FILTERPV_MUSIC"] == "on":
+        await event.delete()
+    elif event.sticker and MODES["FILTERPV_STICKER"] == "on":
+        await event.delete()
+    elif event.photo and MODES["FILTERPV_PHOTO"] == "on":
+        await event.delete()
+    elif event.photo and MODES["FILTERPV_PHOTO"] == "on":
+        await event.delete()
