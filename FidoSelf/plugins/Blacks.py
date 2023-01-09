@@ -12,6 +12,10 @@ async def addblack(event):
         return await event.edit(client.get_string("Blacks_1").format(client.mention(info)))
     blacks.append(event.userid)
     client.DB.set_key("BLACKS", blacks)
+    whites = client.DB.get_key("WHITES") or []
+    if event.userid in whites:
+        whites.remove(event.userid)
+        client.DB.set_key("WHITES", whites)
     await event.edit(client.get_string("Blacks_2").format(client.mention(info)))
     
 @client.Cmd(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
