@@ -39,6 +39,31 @@ def mention(info, coustom=None):
         return f"[{name}](@{info.username})"
     return f"[{name}](tg://user?id={info.id})"
 
+def mediatype(event):
+    if not event:
+        type = None
+    if event.photo:
+        type = "photo"
+    elif event.video:
+        if event.video_note:
+            type = "video note"
+        elif event.gif:
+            type = "Gif"
+        else:
+            type = "video"
+    elif event.voice:
+        type = "voice"
+    elif event.audio:
+        type = "audio"
+    elif event.sticker:
+        if event.file.mime_type == "image/webp":
+            type = "sticker"
+        elif event.file.mime_type == "application/x-tgsticker":
+            type = "animated sticker"
+    elif event.document:
+        type = "file"
+    return type
+
 def convert_date(gy, gm, gd):
    g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
    if (gm > 2):
