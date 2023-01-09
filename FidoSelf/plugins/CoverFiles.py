@@ -14,7 +14,7 @@ async def setcover(event):
     except:
         return await event.edit(client.get_string("LogCh_2"))
     client.DB.set_key("FILE_COVER", {"chat_id": client.backch, "msg_id": forward.id})
-    await event.edit(client.get_string("CoverFiles_1"))  
+    await event.edit(client.get_string("CoverFile_1"))  
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddCover$")
 async def addcover(event):
