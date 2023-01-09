@@ -16,6 +16,12 @@ cowpy
 selenium
 setuptools
 ShazamAPI
+opencv-python
+cairosvg
+lottie
+image_slicer
+carbonnow
+wikipedia
 
 git+https://github.com/iMaBoLi/Telethon
 git+https://github.com/iMaBoLi/youtube-search-python
