@@ -27,6 +27,7 @@
         "V": "**{STR} Please Reply To Video!**",
         "PV": "**{STR} Please Reply To Photo Or Video!**",
         "A": "**{STR} Please Reply To Audio!**",
+        "VA": "**{STR} Please Reply To Video Or Audio!**",
         "Vo": "**{STR} Please Reply To Voice!**",
         "AV": "**{STR} Please Reply To Audio Or Voice!**",
         "S": "**{STR} Please Reply To Sticker!**",
@@ -74,6 +75,8 @@
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
+        "MUTE_PV": "Mute Pv",
+        "LOCK_PV": "Lock Pv",
         "READALL_MODE": "Mark All",
         "READPV_MODE": "Mark Pv",
         "READGP_MODE": "Mark Group",
@@ -327,5 +330,11 @@
     "CarbonText": {
         "1": "**{STR} Carbonizing Your Text  ...**",
         "2": "**{STR} The Text Was Carbonized!**",
+    },
+    "MutePv": {
+        "1": "**{STR} The Mute Pv Mode Has Been {}!**",
+    },
+    "LockPv": {
+        "1": "**{STR} The Lock Pv Mode Has Been {}!**",
     },
 }
