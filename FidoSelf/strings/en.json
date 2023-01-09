@@ -357,6 +357,7 @@
         "7": "**{STR} The Words Filter Pv List Has Been Cleaned!**",
     },
     "FilterPvType": {
+        "FILTERPV_TEXT": "Text",
         "FILTERPV_PHOTO": "Photo",
         "FILTERPV_VIDEO": "Video",
         "FILTERPV_GIF": "Gif",
