@@ -18,7 +18,8 @@ async def get_manage_buttons(userid):
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
     obuts = list(client.utils.chunks(obuts, 2))
-    buttons.append(obuts)
+    for but in obuts:
+        buttons.append(but)
     buttons.append([Button.inline(client.get_string("Inline_3"), data="closemanage")])
     buttons = client.get_buttons(buttons)
     return buttons
