@@ -15,15 +15,21 @@ async def audioconverter(event):
         return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-    newtime = time.time()
-    file_name = event.reply_message.file.name or "---"
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
-    audio = await event.reply_message.download_media(progress_callback=callback)
-    newtime = time.time()
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
     if mode == "Music" and mtype in ["Voice"]:
+        newtime = time.time()
+        file_name = event.reply_message.file.name or "---"
+        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
+        audio = await event.reply_message.download_media(progress_callback=callback)
+        newtime = time.time()
+        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
         await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=False)
     elif mode == "Voice" and mtype in ["Music"]:
+        newtime = time.time()
+        file_name = event.reply_message.file.name or "---"
+        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
+        audio = await event.reply_message.download_media(progress_callback=callback)
+        newtime = time.time()
+        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
         await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=True)
     else:
         medias = client.get_string("ReplyMedia")
