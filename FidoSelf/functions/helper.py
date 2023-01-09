@@ -40,9 +40,10 @@ def mention(info, coustom=None):
     return f"[{name}](tg://user?id={info.id})"
 
 def mediatype(event):
+    type = "notsupported"
     if not event:
-        type = None
-    if event.photo:
+        type = "empty"
+    elif event.photo:
         type = "photo"
     elif event.video:
         if event.video_note:
