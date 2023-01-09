@@ -10,7 +10,7 @@ async def setcover(event):
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
         rtype = medias[mtype]
-        return await event.edit(medias["Main"].format(rtype, media))
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if not client.backch:
         return await event.edit(client.get_string("LogCh_1"))
     try:
@@ -28,7 +28,7 @@ async def addcover(event):
         medias = client.get_string("ReplyMedia")
         media = medias["File"] + " - " + medias["Music"]
         rtype = medias[mtype]
-        return await event.edit(medias["Main"].format(rtype, media))
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     cover = client.DB.get_key("FILE_COVER") or {}
