@@ -7,8 +7,12 @@ async def trimaudio(event):
     await event.edit(client.get_string("Wait"))
     saudio = int(event.pattern_match.group(1))
     eaudio = int(event.pattern_match.group(2))
-    if not event.is_reply or not event.reply_message.audio:
-        return await event.edit(client.get_string("Reply_A"))
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["Music"]:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Music"]
+        rtype = medias[mtype]
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
