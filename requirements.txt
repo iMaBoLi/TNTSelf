@@ -8,5 +8,6 @@ pillow
 moviepy
 selenium
 aiofiles
+setuptools
 PyGithub
 bs4
