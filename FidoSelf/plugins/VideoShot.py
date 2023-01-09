@@ -7,8 +7,12 @@ import os
 async def videoshot(event):
     await event.edit(client.get_string("Wait"))
     data = event.pattern_match.group(1)
-    if not event.is_reply or not event.reply_message.video:
-        return await event.edit(client.get_string("Reply_V"))
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["Video"]:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Video"]
+        rtype = medias[mtype]
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
@@ -50,6 +54,6 @@ async def videoshot(event):
         await client.utils.runcmd(cmd)
         caption = client.get_string("VideoShot_6").format(str(data))
         await client.send_file(event.chat_id, out, caption=caption)
-        await event.delete()
         os.remove(file)
         os.remove(out)
+        await event.delete()
