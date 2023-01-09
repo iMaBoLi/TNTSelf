@@ -5,10 +5,12 @@ import os
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetCover$")
 async def setcover(event):
     await event.edit(client.get_string("Wait"))
-    if not event.is_reply or client.mediatype(event.reply_message) != "photo":
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype != "Photo":
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
-        return await event.edit(medias["Main"].format(media))
+        rtype = medias[mtype]
+        return await event.edit(medias["Main"].format(rtype, media))
     if not client.backch:
         return await event.edit(client.get_string("LogCh_1"))
     try:
@@ -21,10 +23,12 @@ async def setcover(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddCover$")
 async def addcover(event):
     await event.edit(client.get_string("Wait"))
-    if not event.is_reply or client.mediatype(event.reply_message) not in ["file", "audio"]:
+    mtype = client.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["File", "Music"]:
         medias = client.get_string("ReplyMedia")
         media = medias["File"] + " - " + medias["Music"]
-        return await event.edit(medias["Main"].format(media))
+        rtype = medias[mtype]
+        return await event.edit(medias["Main"].format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     cover = client.DB.get_key("FILE_COVER") or {}
