@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 install_requirements() {
+    echo -e "• Installing Ffmpeg Library  ..."
+    sudo apt-get update
+    sudo apt-get install -y ffmpeg
     pip3 install -q --upgrade pip
     echo -e "• Installing Requirements ..."
     pip3 install -q --no-cache-dir -r $DIR/requirements.txt
