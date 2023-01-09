@@ -380,4 +380,7 @@
         "3": "**{STR} Adding Cover To Your File ...**",
         "4": "**{STR} The Cover Photo Is Added To Your File!**",
     },
+    "EditPhoto": {
+        "1": "**{STR} Filter** ( `{}` ) **Successfully Added To Your Photo!**",
+    },
 }
