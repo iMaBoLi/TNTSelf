@@ -19,8 +19,8 @@ async def setcover(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddCover$")
 async def addcover(event):
     await event.edit(client.get_string("Wait"))
-    if not event.is_reply or client.mediatype(event.reply_message) != "file":
-        return await event.edit(client.get_string("Reply_P"))
+    if not event.is_reply or client.mediatype(event.reply_message) not in ["file", "music"]:
+        return await event.edit(client.get_string("Reply_F"))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     cover = client.DB.get_key("FILE_COVER") or {}
