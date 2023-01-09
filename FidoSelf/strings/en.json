@@ -234,6 +234,15 @@
         "6": "**{STR} The Black List:**\n\n",
         "7": "**{STR} The Black List Has Been Cleaned!**",
     },
+    "Whites": {
+        "1": "**{STR} The User** ( {} ) **Already In White List!**",
+        "2": "**{STR} The User** ( {} ) **Is Added To White List!**",
+        "3": "**{STR} The User** ( {} ) **Is Not In White List!**",
+        "4": "**{STR} The User** ( {} ) **Deleted From White List!**",
+        "5": "**{STR} The White List Is Empty!**",
+        "6": "**{STR} The White List:**\n\n",
+        "7": "**{STR} The White List Has Been Cleaned!**",
+    },
     "Echo": {
         "1": "**{STR} The User** ( {} ) **Already In Echo List!**",
         "2": "**{STR} The User** ( {} ) **Is Added To Echo List!**",
@@ -336,5 +345,14 @@
     },
     "LockPv": {
         "1": "**{STR} The Lock Pv Mode Has Been {}!**",
+    },
+    "FilterPv": {
+        "1": "**{STR} The Word** ( `{}` ) **Already In Words Filter Pv List!**",
+        "2": "**{STR} The Word** ( `{}` ) **Is Added To Words Filter Pv List!**",
+        "3": "**{STR} The Word** ( `{}` ) **Is Not In Words Filter Pv List!**",
+        "4": "**{STR} The Word** ( `{}` ) **Deleted From Words Filter Pv List!**",
+        "5": "**{STR} The Words Filter Pv List Is Empty!**",
+        "6": "**{STR} The Words Filter Pv List:**\n\n",
+        "7": "**{STR} The Words Filter Pv List Has Been Cleaned!**",
     },
 }
