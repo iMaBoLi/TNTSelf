@@ -18,8 +18,7 @@ def Callback(
                     return await event.answer(client.get_string("OtherUse_Callback"), alert=True)
                 await func(event)
             except:
-                stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
-                open("CallbackError.log", "w").write(stext)
+                client.LOGS.error(format_exc())
         client.bot.add_event_handler(wrapper, events.CallbackQuery(data=data, **kwargs))
         return wrapper
     return decorator
