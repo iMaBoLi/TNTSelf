@@ -20,7 +20,7 @@
         "2": "Random 2",
     },
     "ReplyMedia": {
-        "1": "**{STR} The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
+        "Main": "**{STR} The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Message": "Message",
         "Text": "Text",
         "Photo": "Photo",
