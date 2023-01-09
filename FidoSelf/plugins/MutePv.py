@@ -10,7 +10,7 @@ async def mutepv(event):
 
 @client.Cmd(sudo=False, edits=False)
 async def muter(event):
-    if not event.is_private or event.is_white: return
+    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mode = client.DB.get_key("MUTE_PV") or "off"
     if mode == "on":
         await event.delete()
