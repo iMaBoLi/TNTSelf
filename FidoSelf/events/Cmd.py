@@ -27,7 +27,9 @@ def Cmd(
                 event.reply_message = await event.get_reply_message()
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
-                event.is_bot = event.sender.bot if event.sender else False
+                event.is_bot = False
+                if event.sender and event.sender.to_dict()["_"] == "User":
+                    event.is_bot = event.sender.bot
                 if sudo and not event.is_sudo and not event.is_ch: return
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
