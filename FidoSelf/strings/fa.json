@@ -356,6 +356,7 @@
         "7": "**{STR} لیست کلمات فیلتر شده پیوی با موفقیت خالی شد!**",
     },
     "FilterPvType": {
+        "FILTERPV_TEXT": "متن",
         "FILTERPV_PHOTO": "عکس",
         "FILTERPV_VIDEO": "ویدیو",
         "FILTERPV_GIF": "گیف",
