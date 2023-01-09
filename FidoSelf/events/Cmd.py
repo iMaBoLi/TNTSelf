@@ -28,8 +28,14 @@ def Cmd(
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 if sudo and not event.is_sudo and not event.is_ch: return
+                event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
-                if not event.is_sudo and event.sender_id in blacks: return
+                if event.sender_id in blacks:
+                    event.is_black = True
+                event.is_white = False
+                whites = client.DB.get_key("WHITES") or []
+                if event.sender_id in whites:
+                    event.is_white = True
                 cmds = client.DB.get_key("SELF_CMDS") or []
                 event.is_cmd = False
                 for cmd in cmds:
@@ -37,8 +43,7 @@ def Cmd(
                         event.is_cmd = True
                 await func(event)
             except:
-                stext = f"{client.str} The Lastest Error:\n\n{format_exc()}"
-                open("CmdError.log", "w").write(str(stext))
+                client.LOGS.error(format_exc())
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if edits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
