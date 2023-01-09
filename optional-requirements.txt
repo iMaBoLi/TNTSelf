@@ -1,6 +1,0 @@
-opencv-python
-cairosvg
-lottie
-image_slicer
-carbonnow
-wikipedia
