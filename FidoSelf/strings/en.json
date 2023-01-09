@@ -21,6 +21,7 @@
     },
     "ReplyMedia": {
         "Main": "**{STR} The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
+        "Not": "**{STR} You Have Not Replied Please Reply To** ( `{}` )",
         "Message": "Message",
         "Text": "Text",
         "Photo": "Photo",
@@ -327,9 +328,11 @@
         "5": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
         "6": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
     },
-    "TrimAudio": {
-        "1": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
-        "2": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
+    "TrimMedia": {
+        "1": "**{STR} Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
+        "2": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
+        "3": "**{STR} The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
+        "4": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
     },
     "ExAudio": {
         "1": "**{STR} Extracting Audio From Video ...**",
