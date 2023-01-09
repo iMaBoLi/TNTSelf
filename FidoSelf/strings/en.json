@@ -371,4 +371,10 @@
     "FilterMediaPv": {
         "1": "**{STR} Please Use The Buttons Below To Control The Filter Medias In Pv:**",
     },
+    "CoverFile": {
+        "1": "**{STR} The Cover Photo For Files Has Been Saved!**",
+        "2": "**{STR} The Cover Photo Is Not Saved!**",
+        "3": "**{STR} Adding Cover To Your File ...**",
+        "4": "**{STR} The Cover Photo Is Added To Your File!**",
+    },
 }
