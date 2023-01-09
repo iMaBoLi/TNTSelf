@@ -3,10 +3,11 @@ from telethon import types
 import time
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Audio|Voice)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Music|Voice)$")
 async def audioconverter(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
+    mtype = client.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Music", "Voice"]:
         medias = client.get_string("ReplyMedia")
         media = medias["Music"] + " - " + medias["Voice"]
@@ -20,7 +21,14 @@ async def audioconverter(event):
     audio = await event.reply_message.download_media(progress_callback=callback)
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up", file_name))
-    voice = False if mode == "Audio" else True
-    await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=voice)
+    if mode == "Music" and mtype in ["Voice"]:
+        await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=False)
+    elif mode == "Voice" and mtype in ["Music"]:
+        await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=True)
+    else:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Voice"] if mode == "Music" else medias["Music"]
+        rtype = medias[mtype]
+        await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     os.remove(audio)
     await event.delete()
