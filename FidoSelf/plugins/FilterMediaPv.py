@@ -62,7 +62,7 @@ async def mediafilter(event):
     elif client.mediatype(event) == "file" and MODES["FILTERPV_FILE"] == "on":
         await event.delete()
     elif event.text and MODES["FILTERPV_LINK"] == "on":
-        if event.reply_message.entities:
-            for entity in event.reply_message.to_dict()["entities"]:
+        if event.entities:
+            for entity in event.to_dict()["entities"]:
                 if entity["_"] in ["MessageEntityUrl"]:
                     await event.delete()
