@@ -5,7 +5,6 @@ import os
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetCover$")
 async def setcover(event):
     await event.edit(client.get_string("Wait"))
-    fname = str(event.pattern_match.group(1))
     if not event.is_reply or client.mediatype(event.reply_message) != "photo":
         return await event.edit(client.get_string("Reply_P"))
     if not client.backch:
