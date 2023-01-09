@@ -32,11 +32,11 @@ async def trimmedia(event):
         clip.write_videofile(newfile)
         newtime = time.time()
         callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
-        caption = client.get_string("TrimMedia_2").format(saudio, eaudio)
+        caption = client.get_string("TrimMedia_3").format(saudio, eaudio)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(newfile)
     elif mtype == "Music":
-        await event.edit(client.get_string("TrimMedia_3").format(ss, ee))
+        await event.edit(client.get_string("TrimMedia_2").format(ss, ee))
         newfile = f"TrimedAudio-{ss}-{ee}.mp3"
         cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -vn -acodec copy "{newfile}" -y'
         await client.utils.runcmd(cmd)
