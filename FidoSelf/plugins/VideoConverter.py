@@ -7,8 +7,11 @@ import os
 async def videoconverter(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
-    if not event.is_reply or not event.reply_message.video:
-        return await event.edit(client.get_string("Reply_V"))
+    if not event.is_reply or mtype not in ["Video", "Gif", "VideoNote"]:
+        medias = client.get_string("ReplyMedia")
+        media = medias["Video"] + " - " + medias["Gif"] + " - " + medias["VideoNote"]
+        rtype = medias[mtype]
+        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     newtime = time.time()
