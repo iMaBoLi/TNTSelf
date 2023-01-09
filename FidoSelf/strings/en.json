@@ -256,6 +256,7 @@
         "INFO": "User Info",
         "BLOCK": "Block",
         "UNBLOCK": "UnBlock",
+        "WHITES": "White",
         "BLACKS": "Black",
         "ECHOS": "Echo",
     },
