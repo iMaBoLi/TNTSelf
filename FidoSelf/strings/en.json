@@ -287,9 +287,9 @@
         "3": "**{STR} The User** ( {} ) **Is Kicked From This Chat!**",        
     }, 
     "Progress": {
-        "1": "`{STR} {}`\n\n`[ {} ]{}%`\n\n**{STR} FileName:** ( `{}` )\n**{STR} Size:** ( `{}` **Of** `{}` )\n**{STR} Speed:** ( `{}` )\n**{STR} ETA:** ( `{}` )", 
-        "2": "Downloading . . .",
-        "3": "Uploading . . .",
+        "1": "**{STR}** `{}`\n\n`[ {} ]{}%`\n\n**{STR} Size:** ( `{}` ) - ( `{}` )\n**{STR} Speed:** ( `{}` )\n**{STR} ETA:** ( `{}` )",
+        "2": "Downloading . . ."
+        "2": "Uploading . . ."
     },
     "Wikipedia": {
         "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
