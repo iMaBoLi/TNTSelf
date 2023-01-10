@@ -10,17 +10,17 @@ async def audioconverter(event):
     if mode == "Music" and mtype in ["Voice"]:
         if event.reply_message.file.size > client.MAX_SIZE:
             return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-        callback = event.progress("download")
+        callback = event.progress(download=True)
         voice = await event.reply_message.download_media(progress_callback=callback)
-        callback = event.progress("upload")
+        callback = event.progress(upload=True)
         await client.send_file(event.chat_id, voice, progress_callback=callback, voice_note=False)
         os.remove(voice)
     elif mode == "Voice" and mtype in ["Music"]:
         if event.reply_message.file.size > client.MAX_SIZE:
             return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-        callback = event.progress("download")
+        callback = event.progress(download=True)
         audio = await event.reply_message.download_media(progress_callback=callback)
-        callback = event.progress("upload")
+        callback = event.progress(upload=True)
         await client.send_file(event.chat_id, audio, progress_callback=callback, voice_note=True)
         os.remove(audio)
     else:
