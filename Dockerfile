@@ -1,8 +1,5 @@
 FROM python:3.10
 
-ENV TZ=Asia/Tehran
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 COPY . /app/
 WORKDIR /app/
 
