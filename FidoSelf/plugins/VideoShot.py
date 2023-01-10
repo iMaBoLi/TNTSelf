@@ -10,15 +10,14 @@ async def videoshot(event):
     mtype = client.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Video"]:
         medias = client.get_string("ReplyMedia")
-        media = medias["Video"]
-        rtype = medias[mtype]
+        media = medias["Video"] 
         if mtype == "Empty":
             return await event.edit(client.get_string("ReplyMedia_Not").format(media))
         else:
-            return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+            return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-    callback = event.progress("download")
+    callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
     duration = event.reply_message.file.duration
     if str(data).startswith("-"):
