@@ -386,4 +386,8 @@
     "EditPhoto": {
         "1": "**{STR} Filter** ( `{}` ) **Successfully Added To Your Photo!**",
     },
+    "AudioConvert": {
+        "1": "**{STR} Converted Your Voice To Music!**",
+        "2": "**{STR} Converted Your Music To Voice!**",
+    },
 }
