@@ -1,9 +1,9 @@
 from . import client, START_TIME, __version__
 from telethon import __version__ as telever
-from FidoSelf.functions.utils import load_plugins, LOADED_PLUGS, NOT_LOADED_PLUGS
+from FidoSelf.functions.utils import load_plugins
 from FidoSelf.functions.misc import stimezone, addvars
-import time
 import platform
+import time
 
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
@@ -11,20 +11,21 @@ async def setup():
     client.LOGS.info("• Setting Your TimeZone ...")
     stimezone()
     client.LOGS.info("• Installing Main Plugins ...")
-    load_plugins("FidoSelf/plugins")
-    client.LOGS.info(f"• Successfully Installed {len(LOADED_PLUGS)} From Main Plugins!")
+    plugs, notplugs = load_plugins("FidoSelf/plugins")
+    client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
+    client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
     endtime = client.utils.convert_time(time.time() - START_TIME)
     try:
         send = await client.bot.send_message((client.realm or client.me.id), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
-        if LOADED_PLUGS:
+        if plugs:
             text = f"**✅ Loaded Plugins :**\n\n"
-            for plug in LOADED_PLUGS:
+            for plug in plugs:
                 text += f"{client.str} `{plug}`\n"
             await send.reply(text)
-        if NOT_LOADED_PLUGS:
-            for plug in NOT_LOADED_PLUGS:
+        if notplugs:
+            for plug in notplugs:
                 text = f"**❌ Unloaded Plugin :**\n\n"
-                text += f"{client.str} `{plug}` - ( `{NOT_LOADED_PLUGS[plug]}` )\n"
+                text += f"{client.str} `{plug}` - ( `{notplugs[plug]}` )\n"
                 await send.reply(text)
         res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
         await send.reply(f"**{client.str} The Github Commits:**\n\n`{res[0]}`")
