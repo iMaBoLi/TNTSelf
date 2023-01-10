@@ -5,22 +5,23 @@ import asyncio
 import time
 import math
 
-def progress(event):
+def progress(event, type):
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(
         create_progress(
             event,
             start,
             end,
-            newtime
+            newtime,
+            type,
          )
     )
     return callback
 
 setattr(Message, "progress", progress)
 
-async def create_progress(event, current, total, start):
-    type = client.get_string("Progress_2") if type == "down" else client.get_string("Progress_3")
+async def create_progress(event, current, total, start, type):
+    type = client.get_string("Progress_2") if type == "download" else client.get_string("Progress_3")
     now = time.time()
     diff = time.time() - start
     if round(diff % 8.00) == 0 or current == total:
@@ -28,7 +29,7 @@ async def create_progress(event, current, total, start):
         speed = current / diff
         eta = round((total - current) / speed) * 1000
         strs = "".join("●" for i in range(math.floor(perc / 8)))
-        text = client.get_string("Progress_1").format(strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
+        text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
 async def get_ids(event):
