@@ -12,12 +12,13 @@ async def videoshot(event):
         medias = client.get_string("ReplyMedia")
         media = medias["Video"]
         rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+        if mtype == "Empty":
+            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
+        else:
+            return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-    newtime = time.time()
-    file_name = event.reply_message.file.name or "---"
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
+    callback = event.progress("download")
     file = await event.reply_message.download_media(progress_callback=callback)
     duration = event.reply_message.file.duration
     if str(data).startswith("-"):
