@@ -288,8 +288,8 @@
     }, 
     "Progress": {
         "1": "**{STR}** `{}`\n\n`[ {} ]{}%`\n\n**{STR} Size:** ( `{}` ) - ( `{}` )\n**{STR} Speed:** ( `{}` )\n**{STR} ETA:** ( `{}` )",
-        "2": "Downloading . . ."
-        "3": "Uploading . . ."
+        "2": "Downloading . . .",
+        "3": "Uploading . . .",
     },
     "Wikipedia": {
         "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
