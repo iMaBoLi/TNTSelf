@@ -8,7 +8,7 @@ import math
 def progress(event, type):
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(
-        client.create_progress(
+        create_progress(
             event,
             start,
             end,
@@ -28,7 +28,7 @@ async def create_progress(event, current, total, start, type, file_name="---"):
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "●".join("●" for i in range(math.floor(perc / 8)))
+        strs = "".join("●" for i in range(math.floor(perc / 8)))
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), file_name, client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
