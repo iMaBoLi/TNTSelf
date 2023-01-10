@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import types
+from moviepy.editor import VideoFileClip
 import time
 import os
 
@@ -34,7 +35,8 @@ async def videoconvert(event):
         callback = event.progress(download=True)
         video = await event.reply_message.download_media(progress_callback=callback)
         newfile = video + ".gif"
-        os.rename(video, newfile)
+        videoClip = VideoFileClip(video)
+        videoClip.write_gif(newfile)
         callback = event.progress(upload=True)
         await client.send_file(event.chat_id, newfile, progress_callback=callback)
         os.remove(newfile)
