@@ -5,7 +5,7 @@ import asyncio
 import time
 import math
 
-def progress(event, type, download=False, upload=False):
+def progress(event, download=False, upload=False):
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(
         create_progress(
@@ -30,11 +30,11 @@ async def create_progress(event, current, total, start, download=False, upload=F
         type = "-----"
     now = time.time()
     diff = time.time() - start
-    if round(diff % 8.00) == 0 or current == total:
+    if round(diff % 7.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "".join("●" for i in range(math.floor(perc / 8)))
+        strs = "".join("●" for i in range(math.floor(perc / 7)))
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
