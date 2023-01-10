@@ -6,7 +6,7 @@ import os
 async def audioconverter(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
-    mtype = event.reply_message.mediatype()
+    mtype = client.mediatype(event.reply_message)
     if mode == "Music" and mtype in ["Voice"]:
         if event.reply_message.file.size > client.MAX_SIZE:
             return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
