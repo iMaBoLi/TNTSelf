@@ -1,10 +1,26 @@
 from FidoSelf import client
 from traceback import format_exc
+from telethon.types import Message
 import asyncio
 import time
 import math
 
-async def progress(event, current, total, start, type, file_name="---"):
+def progress(event, type):
+    newtime = time.time()
+    callback = lambda start, end: client.loop.create_task(
+        client.create_progress(
+            event,
+            start,
+            end,
+            newtime,
+            type
+         )
+    )
+    return callback
+
+setattr(Message, "progress", progress)
+
+async def create_progress(event, current, total, start, type, file_name="---"):
     type = client.get_string("Progress_2") if type == "down" else client.get_string("Progress_3")
     now = time.time()
     diff = time.time() - start
