@@ -5,7 +5,7 @@ import asyncio
 import time
 import math
 
-def progress(event, type):
+def progress(event, type, download=False, upload=False):
     newtime = time.time()
     callback = lambda start, end: client.loop.create_task(
         create_progress(
@@ -13,15 +13,21 @@ def progress(event, type):
             start,
             end,
             newtime,
-            type,
+            download,
+            upload,
          )
     )
     return callback
 
 setattr(Message, "progress", progress)
 
-async def create_progress(event, current, total, start, type):
-    type = client.get_string("Progress_2") if type == "download" else client.get_string("Progress_3")
+async def create_progress(event, current, total, start, download=False, upload=False):
+    if download:
+        type = client.get_string("Progress_2")
+    elif upload:
+        type = client.get_string("Progress_3")
+    else:
+        type = "-----"
     now = time.time()
     diff = time.time() - start
     if round(diff % 8.00) == 0 or current == total:
@@ -82,6 +88,8 @@ def mediatype(event):
     elif event.text:
         type = "Text"
     return type
+
+setattr(Message, "mediatype", mediatype)
 
 def convert_date(gy, gm, gd):
    g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
