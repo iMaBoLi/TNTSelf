@@ -1,5 +1,5 @@
 from PIL import Image
-from math import floor
+import math
 
 class Composition:
     def __init__(
@@ -16,8 +16,8 @@ class Composition:
 
     def create(self, outfile):
         img = Image.new(self.mode, (self.size, self.size), self.background)
-        sizes = self.get_sizes()
-        count = 0
+        sizes = self.get_sizes_v2()
+        count = 1
         for photo in self.photos:
             image = Image.open(photo)
             size = (round(sizes[count]["size"][0]), round(sizes[count]["size"][1]))
@@ -164,10 +164,16 @@ class Composition:
         rows = round(self.tiles / lines) * lines
         baghi = self.tiles - rows
         SIZE = {}
-        for y in range(lines):
-            for x in range(lines):
-                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / x) * x, (self.size / y) * y]}})
+        count = 1
+        for x in range(lines):
+            for y in range(lines):
+                wx = 1 if x == 0 else x
+                wy = 1 if y == 0 else y
+                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / wx) * x, (self.size / wy) * y]}})
+                count += 1
         if baghi:
             for bag in range(baghi):
-                SIZE.update({count: {"size": [self.size / bag, self.size / lines],"where": [(self.size / lines) * bag, (self.size / lines) * lines]}})
+                ws = 1 if bag == 0 else bag
+                SIZE.update({count: {"size": [self.size / ws, self.size / lines],"where": [(self.size / lines) * bag, (self.size / lines) * lines]}})
+                count += 1
         return SIZE
