@@ -16,9 +16,10 @@ class Composition:
 
     def create(self, outfile):
         img = Image.new(self.mode, (self.size, self.size), self.background)
-        sizes = self.get_sizes_v2()
+        sizes = self.get_sizes()
+        photos = self.photos[:len(sizes)]
         count = 1
-        for photo in self.photos:
+        for photo in photos:
             image = Image.open(photo)
             size = (round(sizes[count]["size"][0]), round(sizes[count]["size"][1]))
             where = (round(sizes[count]["where"][0]), round(sizes[count]["where"][1]))
@@ -27,137 +28,18 @@ class Composition:
             count += 1
         img.save(outfile)
         return outfile
-
+            
     def get_sizes(self):
-        SIZES = {
-            1: {
-                1: {
-                    "size": [self.size, rows],
-                    "where": [0, 0],
-                },
-            },
-            2: {
-                1: {
-                    "size": [self.size, rows],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size, rows],
-                    "where": [0, self.size / 2],
-                },
-            },
-            3: {
-                1: {
-                    "size": [self.size / 2, rows],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size / 2, rows],
-                    "where": [self.size / 2, 0],
-                },
-                3: {
-                    "size": [self.size, rows],
-                    "where": [0, self.size / 2],
-                },
-            },
-            4: {
-                1: {
-                    "size": [self.size / 2, rows],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size / 2, rows],
-                    "where": [self.size / 2, 0],
-                },
-                3: {
-                    "size": [self.size / 2, rows],
-                    "where": [0, self.size / 2],
-                },
-                4: {
-                    "size": [self.size / 2, rows],
-                    "where": [self.size / 2, self.size / 2],
-                },
-            },
-            5: {
-                1: {
-                    "size": [self.size / 3, rows],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3, 0],
-                },
-                3: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3 * 2, 0],
-                },
-                4: {
-                    "size": [self.size / 2, self.size / 2],
-                    "where": [0, self.size / 2],
-                },
-                5: {
-                    "size": [self.size / 2, self.size / 2],
-                    "where": [self.size / 2, self.size / 2],
-                },
-            },
-            6: {
-                1: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3, 0],
-                },
-                3: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3 * 2, 0],
-                },
-                4: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [0, self.size / 2],
-                },
-                5: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3, self.size / 2],
-                },
-                6: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3 * 2, self.size / 2],
-                },
-            },
-            7: {
-                1: {
-                    "size": [self.size / 4, self.size / 2],
-                    "where": [0, 0],
-                },
-                2: {
-                    "size": [self.size / 4, self.size / 2],
-                    "where": [self.size / 4, 0],
-                },
-                3: {
-                    "size": [self.size / 4, self.size / 2],
-                    "where": [self.size / 4 * 2, 0],
-                },
-                4: {
-                    "size": [self.size / 4, self.size / 2],
-                    "where": [self.size / 4 * 3, 0],
-                },
-                5: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [0, self.size / 2],
-                },
-                6: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3, self.size / 2],
-                },
-                7: {
-                    "size": [self.size / 3, self.size / 2],
-                    "where": [self.size / 3 * 2, self.size / 2],
-                },
-            },
-        }
-        return SIZES[self.tiles]
+        lines = round(math.sqrt(self.tiles))
+        rows = round(self.tiles / lines) * lines
+        baghi = self.tiles - rows
+        SIZE = {}
+        count = 1
+        for x in range(lines):
+            for y in range(lines):
+                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / lines) * x, (self.size / lines) * y]}})
+                count += 1
+        return SIZE
 
     def get_sizes_v2(self):
         lines = round(math.sqrt(self.tiles))
@@ -167,9 +49,7 @@ class Composition:
         count = 1
         for x in range(lines):
             for y in range(lines):
-                wx = 1 if x == 0 else x
-                wy = 1 if y == 0 else y
-                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / wx) * x, (self.size / wy) * y]}})
+                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / lines) * x, (self.size / lines) * y]}})
                 count += 1
         if baghi:
             for bag in range(baghi):
