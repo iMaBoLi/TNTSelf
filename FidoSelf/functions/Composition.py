@@ -15,7 +15,7 @@ class Composition:
 
     def create(self, outfile):
         img = Image.new("RGB", (self.size, self.size), self.background)
-        sizes = self.get_sizes()
+        sizes = self.get_sizes_v2()
         photos = self.photos[:len(sizes)]
         count = 1
         for photo in photos:
@@ -29,27 +29,29 @@ class Composition:
         return outfile
             
     def get_sizes(self):
-        lines = math.floor(math.sqrt(self.tiles))
+        sqrt = math.sqrt(self.tiles)
+        line = math.floor(sqrt)
         SIZE = {}
         count = 1
         for x in range(lines):
             for y in range(lines):
-                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / lines) * x, (self.size / lines) * y]}})
+                SIZE.update({count: {"size": [self.size / line, self.size / line],"where": [(self.size / line) * x, (self.size / line) * y]}})
                 count += 1
         return SIZE
 
     def get_sizes_v2(self):
-        lines = round(math.sqrt(self.tiles))
-        baghi = self.tiles - (round(self.tiles / lines) * lines)
+        sqrt = math.sqrt(self.tiles)
+        line = math.floor(sqrt)
+        all = line * line
+        other = self.tiles - all
         SIZE = {}
         count = 1
-        for x in range(lines):
-            for y in range(lines):
-                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / lines) * x, (self.size / lines) * y]}})
+        for x in range(line):
+            for y in range(line):
+                SIZE.update({count: {"size": [self.size / line, self.size / line],"where": [(self.size / line) * x, (self.size / line) * y]}})
                 count += 1
-        if baghi:
-            for bag in range(baghi):
-                ws = 1 if bag == 0 else bag
-                SIZE.update({count: {"size": [self.size / ws, self.size / lines],"where": [(self.size / lines) * bag, (self.size / lines) * lines]}})
+        if other > 0:
+            for bug in range(other):
+                SIZE.update({count: {"size": [self.size / other, self.size / line],"where": [(self.size / line) * (bug / 2), (self.size / line) * (line - 1)]}})
                 count += 1
         return SIZE
