@@ -29,14 +29,6 @@ class Composition:
         return outfile
 
     def get_sizes(self):
-        rows = round(self.tiles / 2)
-        lines = self.tiles - rows
-        SIZE = {}
-        for count in range(self.tiles):
-            
-            SIZE.update({count: {"size": [],"where": [,rows]}})
-        return SIZE
-
         SIZES = {
             1: {
                 1: {
@@ -166,3 +158,12 @@ class Composition:
             },
         }
         return SIZES[self.tiles]
+
+    def get_sizes_v2(self):
+        rows = round(self.tiles / 2)
+        lines = self.tiles - rows
+        SIZE = {}
+        for count in range(self.tiles):
+            
+            SIZE.update({count: {"size": [],"where": [,rows]}})
+        return SIZE
