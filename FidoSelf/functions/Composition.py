@@ -10,12 +10,11 @@ class Composition:
 
         self.photos = photos
         self.background = background
-        self.mode = "RGB"
-        self.size = 500
+        self.size = 720
         self.tiles = len(self.photos)
 
     def create(self, outfile):
-        img = Image.new(self.mode, (self.size, self.size), self.background)
+        img = Image.new("RGB", (self.size, self.size), self.background)
         sizes = self.get_sizes()
         photos = self.photos[:len(sizes)]
         count = 1
@@ -30,9 +29,7 @@ class Composition:
         return outfile
             
     def get_sizes(self):
-        lines = round(math.sqrt(self.tiles))
-        rows = round(self.tiles / lines) * lines
-        baghi = self.tiles - rows
+        lines = math.floor(math.sqrt(self.tiles))
         SIZE = {}
         count = 1
         for x in range(lines):
@@ -43,8 +40,7 @@ class Composition:
 
     def get_sizes_v2(self):
         lines = round(math.sqrt(self.tiles))
-        rows = round(self.tiles / lines) * lines
-        baghi = self.tiles - rows
+        baghi = self.tiles - (round(self.tiles / lines) * lines)
         SIZE = {}
         count = 1
         for x in range(lines):
