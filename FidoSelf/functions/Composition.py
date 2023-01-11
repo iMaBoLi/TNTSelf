@@ -15,7 +15,7 @@ class Composition:
         self.tiles = len(self.photos)
 
     def create(self, outfile):
-        img = Image.new(self.mode, (self.size + 10, self.size + 10), self.background)
+        img = Image.new(self.mode, (self.size, self.size), self.background)
         sizes = self.get_sizes()
         count = 0
         for photo in self.photos:
@@ -160,10 +160,14 @@ class Composition:
         return SIZES[self.tiles]
 
     def get_sizes_v2(self):
-        rows = round(self.tiles / 2)
-        lines = self.tiles - rows
+        lines = round(math.sqrt(self.tiles))
+        rows = round(self.tiles / lines) * lines
+        baghi = self.tiles - rows
         SIZE = {}
-        for count in range(self.tiles):
-            
-            SIZE.update({count: {"size": [],"where": [,rows]}})
+        for y in range(lines):
+            for x in range(lines):
+                SIZE.update({count: {"size": [self.size / lines, self.size / lines],"where": [(self.size / x) * x, (self.size / y) * y]}})
+        if baghi:
+            for bag in range(baghi):
+                SIZE.update({count: {"size": [self.size / bag, self.size / lines],"where": [(self.size / lines) * bag, (self.size / lines) * lines]}})
         return SIZE
