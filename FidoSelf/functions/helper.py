@@ -40,8 +40,8 @@ async def create_progress(event, current, total, start, download=False, upload=F
 
 async def getuserid(event, group=1):
     userid = None
-    inputid = event.pattern_match.group(group)
-    if inputid:
+    if hasattr(event, "pattern_match") and event.pattern_match.group(group):
+        inputid = event.pattern_match.group(group)
         try:
             gpeer =  await client.get_peer_id(eval(inputid))
             userid = gpeer
