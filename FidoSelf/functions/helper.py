@@ -38,19 +38,22 @@ async def create_progress(event, current, total, start, download=False, upload=F
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
-async def get_ids(event):
-    event.userid, event.chatid = None, None
-    if len(event.text.split()) > 1:
+async def getuserid(event, group=1):
+    userid = None
+    inputid = event.pattern_match.group(group)
+    if inputid:
         try:
-            gpeer =  await client.get_peer_id(eval(event.text.split()[1]))
-            event.userid, event.chatid = gpeer, gpeer
+            gpeer =  await client.get_peer_id(eval(inputid))
+            userid = gpeer
         except:
-            event.errorid = format_exc()
+            userid = None
     elif event.reply_message:
-        event.userid, event.chatid = event.reply_message.sender_id, event.chat_id
+        userid = event.reply_message.sender_id
     elif event.is_private:
-        event.userid, event.chatid = event.chat_id, event.chat_id
+        userid = event.chat_id
     return event
+
+setattr(Message, "userid", getuserid)
 
 def mention(info, coustom=None):
     if coustom:
