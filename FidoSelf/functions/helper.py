@@ -38,10 +38,9 @@ async def create_progress(event, current, total, start, download=False, upload=F
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
-async def getuserid(event, group=1):
+async def getuserid(event, inputid=None):
     userid = None
-    if event.pattern_match and event.pattern_match.group(group):
-        inputid = event.pattern_match.group(group)
+    if inputid:
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
             userid =  await client.get_peer_id(inputid)
@@ -53,10 +52,9 @@ async def getuserid(event, group=1):
         userid = event.chat_id
     return userid
 
-async def getchatid(event, group=1):
+async def getchatid(event, inputid=None):
     chatid = None
-    if event.pattern_match and event.pattern_match.group(group):
-        inputid = event.pattern_match.group(group)
+    if inputid:
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
             chatid =  await client.get_peer_id(inputid)
