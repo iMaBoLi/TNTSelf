@@ -43,17 +43,29 @@ async def getuserid(event, group=1):
     if hasattr(event, "pattern_match") and event.pattern_match.group(group):
         inputid = event.pattern_match.group(group)
         try:
-            gpeer =  await client.get_peer_id(eval(inputid))
-            userid = gpeer
+            userid =  await client.get_peer_id(eval(inputid))
         except:
             userid = None
     elif event.reply_message:
         userid = event.reply_message.sender_id
     elif event.is_private:
         userid = event.chat_id
-    return event
+    return userid
+
+async def getchatid(event, group=1):
+    chatid = None
+    if hasattr(event, "pattern_match") and event.pattern_match.group(group):
+        inputid = event.pattern_match.group(group)
+        try:
+            chatid =  await client.get_peer_id(eval(inputid))
+        except:
+            chatid = None
+    else:
+        chatid = event.chat_id
+    return chatid
 
 setattr(Message, "userid", getuserid)
+setattr(Message, "chatid", getchatid)
 
 def mention(info, coustom=None):
     if coustom:
