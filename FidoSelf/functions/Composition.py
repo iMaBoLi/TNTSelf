@@ -41,12 +41,12 @@ class Composition:
 
     def get_sizes_v2(self):
         sqrt = math.sqrt(self.tiles)
-        line = math.floor(sqrt)
+        line = round(sqrt)
         all = line * line
+        if all > self.tiles:
+            all = line * (line - 1)
         other = self.tiles - all
-        if other > 2:
-            line += 1
-        elif other > 0:
+        if other > 0:
             other += line
         SIZE = {}
         count = 1
@@ -55,7 +55,7 @@ class Composition:
                 SIZE.update({count: {"size": [self.size / line, self.size / line],"where": [(self.size / line) * x, (self.size / line) * y]}})
                 count += 1
         if other > 0:
-            for bug in range(other):
-                SIZE.update({count: {"size": [self.size / other, self.size / line],"where": [(self.size / line) * (bug / 2), (self.size / line) * (line - 1)]}})
+            for i in range(other):
+                SIZE.update({count: {"size": [self.size / other, self.size / line],"where": [(self.size / other) * i, (self.size / line) * (line - 1)]}})
                 count += 1
         return SIZE
