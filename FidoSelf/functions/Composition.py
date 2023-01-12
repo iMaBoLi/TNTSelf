@@ -44,6 +44,11 @@ class Composition:
         line = math.floor(sqrt)
         all = line * line
         other = self.tiles - all
+        if other > 2:
+            line += 1
+        elif other > 0:
+            line -= 1
+            other += line
         SIZE = {}
         count = 1
         for x in range(line):
@@ -54,4 +59,6 @@ class Composition:
             for bug in range(other):
                 SIZE.update({count: {"size": [self.size / other, self.size / line],"where": [(self.size / line) * (bug / 2), (self.size / line) * (line - 1)]}})
                 count += 1
+        if other > line:
+            SIZE = SIZE.reverse()
         return SIZE
