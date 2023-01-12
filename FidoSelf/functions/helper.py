@@ -30,11 +30,11 @@ async def create_progress(event, current, total, start, download=False, upload=F
         type = "-----"
     now = time.time()
     diff = time.time() - start
-    if round(diff % 7.00) == 0 or current == total:
+    if round(diff % 5.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "".join("●" for i in range(math.floor(perc / 7)))
+        strs = "●".join("●" for i in range(math.floor(perc / 7)))
         text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
@@ -42,8 +42,9 @@ async def getuserid(event, group=1):
     userid = None
     if hasattr(event, "pattern_match") and event.pattern_match.group(group):
         inputid = event.pattern_match.group(group)
+        inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
-            userid =  await client.get_peer_id(eval(inputid))
+            userid =  await client.get_peer_id(inputid)
         except:
             userid = None
     elif event.reply_message:
@@ -56,8 +57,9 @@ async def getchatid(event, group=1):
     chatid = None
     if hasattr(event, "pattern_match") and event.pattern_match.group(group):
         inputid = event.pattern_match.group(group)
+        inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
-            chatid =  await client.get_peer_id(eval(inputid))
+            chatid =  await client.get_peer_id(inputid)
         except:
             chatid = None
     else:
