@@ -4,7 +4,7 @@ from telethon import functions
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
 async def uinfo(event):
     await event.edit(client.get_string("Wait"))
-    userid = await event.userid()
+    userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.get_string("Reply_UUP"))
     uinfo = await client.get_entity(userid)
@@ -24,7 +24,7 @@ async def uinfo(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}(G|C)info ?(.*)?$")
 async def ginfo(event):
     await event.edit(client.get_string("Wait"))
-    chatid = await event.chatid(group=2)
+    chatid = await event.chatid(event.pattern_match.group(2))
     if not chatid:
         return await event.edit(client.get_string("Reply_UUP"))
     cinfo = await client.get_entity(chatid)
