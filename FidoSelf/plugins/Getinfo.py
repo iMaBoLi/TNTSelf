@@ -1,26 +1,14 @@
 from FidoSelf import client
 from telethon import functions
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Gid$")
-async def Getid(event):
-    await event.edit(client.get_string("Wait"))
-    if event.is_private:
-        text = f"**{client.str} YourID:** ( `{client.me.id}` )\n**{client.str} UserID:** ( `{event.chat_id}` )\n"    
-        await event.edit(text) 
-    else:
-        text = f"**{client.str} YourID:** ( `{client.me.id}` )\n**{client.str} ChatID:** ( `{event.chat_id}` )\n"
-        if event.reply_message:
-            text += f"**{client.str} Reply UserID:** ( `{event.reply_message.sender_id}` )"
-        await event.edit(text)
-
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
 async def uinfo(event):
     await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.userid:
+    userid = await event.userid()
+    if not userid:
         return await event.edit(client.get_string("Reply_UUP"))
-    uinfo = await client.get_entity(event.userid)
-    info = await client(functions.users.GetFullUserRequest(event.userid))
+    uinfo = await client.get_entity(userid)
+    info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     contact = "✅" if uinfo.contact else "❌"
     mcontact = "✅" if uinfo.mutual_contact else "❌"
@@ -33,18 +21,18 @@ async def uinfo(event):
         await event.respond(userinfo)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}(G|C)info ?(.*)?$")
 async def ginfo(event):
     await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.chatid:
+    chatid = await event.chatid(group=2)
+    if not chatid:
         return await event.edit(client.get_string("Reply_UUP"))
-    cinfo = await client.get_entity(event.chatid)
+    cinfo = await client.get_entity(chatid)
     try:
-        info = (await client(functions.channels.GetFullChannelRequest(event.chatid))).full_chat
+        info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
     except:
-        info = (await client(functions.messages.GetFullChatRequest(event.chatid))).full_chat
-    history = await client(functions.messages.GetHistoryRequest(peer=event.chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
+        info = (await client(functions.messages.GetFullChatRequest(chatid))).full_chat
+    history = await client(functions.messages.GetHistoryRequest(peer=chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
     members = getattr(info, "participants_count", None) or "---"
     bans = getattr(info, "banned_count", None) or "---"
     admins = getattr(info, "admins_count", None) or "---"
