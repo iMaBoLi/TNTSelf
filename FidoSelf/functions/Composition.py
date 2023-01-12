@@ -47,7 +47,7 @@ class Composition:
             all = line * (line - 1)
         other = self.tiles - all
         if other > 0:
-            line -= 1
+            line += 1
             other += line
         SIZE = {}
         count = 1
