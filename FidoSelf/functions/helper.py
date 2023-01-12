@@ -40,7 +40,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
 
 async def getuserid(event, group=1):
     userid = None
-    if hasattr(event, "pattern_match") and event.pattern_match.group(group):
+    if event.pattern_match and event.pattern_match.group(group):
         inputid = event.pattern_match.group(group)
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
@@ -55,7 +55,7 @@ async def getuserid(event, group=1):
 
 async def getchatid(event, group=1):
     chatid = None
-    if hasattr(event, "pattern_match") and event.pattern_match.group(group):
+    if event.pattern_match and event.pattern_match.group(group):
         inputid = event.pattern_match.group(group)
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
