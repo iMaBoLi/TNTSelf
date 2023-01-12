@@ -10,7 +10,7 @@ class Composition:
 
         self.photos = photos
         self.background = background
-        self.size = 720
+        self.size = 1024
         self.tiles = len(self.photos)
 
     def create(self, outfile):
@@ -59,6 +59,4 @@ class Composition:
             for bug in range(other):
                 SIZE.update({count: {"size": [self.size / other, self.size / line],"where": [(self.size / line) * (bug / 2), (self.size / line) * (line - 1)]}})
                 count += 1
-        if other > line:
-            SIZE = SIZE.reverse()
         return SIZE
