@@ -47,7 +47,6 @@ class Composition:
         if other > 2:
             line += 1
         elif other > 0:
-            line -= 1
             other += line
         SIZE = {}
         count = 1
