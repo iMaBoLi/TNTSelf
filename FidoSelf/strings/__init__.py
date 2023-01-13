@@ -12,6 +12,8 @@ def load_langs():
         STRING = eval(STRING)
         LANGUAGES[main] = STRING
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added From File!")
+
+def load_other_langs():
     for dest in OTHERLANGS:
         translator = Translator()
         NewLang = {}
