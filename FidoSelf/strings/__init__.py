@@ -14,18 +14,18 @@ def load_langs():
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added From File!")
     for dest in OTHERLANGS:
         translator = Translator()
-        Main = LANGUAGES["en"]
         NewLang = {}
-        for obj in Main:
-            if isinstance(obj, dict):
+        for object in LANGUAGES["en"]:
+            result = LANGUAGES["en"][object]
+            if isinstance(result, dict):
                 newlist = {}
-                for key in obj:
-                    trjome = translator.translate(obj[key], dest=dest)  
+                for key in result:
+                    trjome = translator.translate(result[key], dest=dest)  
                     newlist.update({key: trjome.text})
-                NewLang.update({obj: eval(newlist)})
-            elif isinstance(obj, str):
-                trjome = translator.translate(Main[obj], dest=dest)  
-                NewLang.update({obj: trjome.text})
+                NewLang.update({object: newlist})
+            elif isinstance(result, str):
+                trjome = translator.translate(result, dest=dest)  
+                NewLang.update({object: trjome.text})
         LANGUAGES.update({dest: NewLang})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
 
