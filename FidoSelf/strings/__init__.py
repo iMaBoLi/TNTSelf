@@ -3,7 +3,7 @@ from googletrans import Translator
 
 LANGUAGES = {}
 MAINLANGS = ["en", "fa"]
-OTHERLANGS = ["ar", "fr", "it"]
+OTHERLANGS = ["ar", "fr", "it", "ru", "ko"]
 
 def load_langs():
     for main in MAINLANGS:
@@ -26,7 +26,7 @@ def load_langs():
             elif isinstance(obj, str):
                 trjome = translator.translate(Main[obj], dest=dest)  
                 NewLang.update({obj: trjome.text})
-        LANGUAGES.update({dest: NewLang})
+        LANGUAGES.update({dest: eval(NewLang)})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
 
 def get_string(string):
