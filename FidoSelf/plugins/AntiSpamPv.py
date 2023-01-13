@@ -23,10 +23,11 @@ async def antispam(event):
     warns = client.DB.get_key("ANTISPAM_WARNS") or {}
     if mode == "on":
         if not event.sender_id in warns:
-            warns.update({event.sender_id: 1})
+            warns.update({event.sender_id: 0})
         last = warns[event.sender_id]
         uwarns = last + 1
         warns.update({event.sender_id: uwarns})
+        client.DB.set_key("ANTISPAM_WARNS", warns)
         limit = client.DB.get_key("SPAM_PV_LIMIT") or 5
         WARNS = f"{uwarns}/{limit}"
         if uwarns >= limit:
