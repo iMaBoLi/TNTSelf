@@ -5,7 +5,7 @@ import wikipedia
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SWiki (.*)$")
 async def wikisearch(event):
     await event.edit(client.get_string("Wait"))
-    wikipedia.set_lang("fa")
+    wikipedia.set_lang(client.lang)
     query = event.pattern_match.group(1)
     res = await client.inline_query(client.bot.me.username, f"wikipedia:{query}")
     await res[0].click(event.chat_id)
