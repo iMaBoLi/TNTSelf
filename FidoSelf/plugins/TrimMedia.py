@@ -18,8 +18,7 @@ async def trimmedia(event):
         return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
-    newtime = time.time()
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down"))
+    callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
     if ee > event.reply_message.file.duration:
         ee = event.reply_message.file.duration
@@ -30,9 +29,8 @@ async def trimmedia(event):
         newfile = f"TrimedVideo-{ss}-{ee}.mp4"
         clip = VideoFileClip(file).cutout(ss, ee)
         clip.write_videofile(newfile)
-        newtime = time.time()
-        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
-        caption = client.get_string("TrimMedia_3").format(saudio, eaudio)
+        callback = event.progress(upload=True)
+        caption = client.get_string("TrimMedia_3").format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(newfile)
     elif mtype == "Music":
@@ -40,9 +38,8 @@ async def trimmedia(event):
         newfile = f"TrimedAudio-{ss}-{ee}.mp3"
         cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -vn -acodec copy "{newfile}" -y'
         await client.utils.runcmd(cmd)
-        newtime = time.time()
-        callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
-        caption = client.get_string("TrimAMedia_4").format(saudio, eaudio)
+        callback = event.progress(upload=True)
+        caption = client.get_string("TrimAMedia_4").format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(newfile)
     os.remove(file)
