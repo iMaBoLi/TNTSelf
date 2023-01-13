@@ -14,7 +14,7 @@ CATS = {
     "Time": "Time ⏰",
 }
 
-def get_help_buttons(page):
+def get_help_buttons():
     buttons = []
     for cat in CATS:
         name = CATS[cat] if client.lang == "en" else translate(CATS[cat], client.lang)
