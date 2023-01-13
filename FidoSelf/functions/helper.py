@@ -1,6 +1,7 @@
 from FidoSelf import client
 from traceback import format_exc
 from telethon.types import Message
+from telethon.errors.rpcerrorlist import UsernameInvalidError
 import asyncio
 import time
 import math
@@ -40,29 +41,40 @@ async def create_progress(event, current, total, start, download=False, upload=F
 
 async def getuserid(event, inputid=None):
     userid = None
+    result = False
     if inputid:
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
             userid =  await client.get_peer_id(inputid)
+            result = True
+        except (UsernameInvalidError, ValueError):
+            userid = "Invalid"
         except:
             userid = None
     elif event.reply_message:
         userid = event.reply_message.sender_id
+        result = True
     elif event.is_private:
         userid = event.chat_id
-    return userid
+        result = True
+    return result, userid
 
 async def getchatid(event, inputid=None):
     chatid = None
+    result = False
     if inputid:
         inputid = int(inputid) if inputid.isdigit() else str(inputid)
         try:
             chatid =  await client.get_peer_id(inputid)
+            result = True
+        except (UsernameInvalidError, ValueError):
+            userid = "Invalid"
         except:
-            chatid = None
-    else:
+            userid = None
+    elif not event.is_private:
         chatid = event.chat_id
-    return chatid
+        result = True
+    return result, chatid
 
 setattr(Message, "userid", getuserid)
 setattr(Message, "chatid", getchatid)
