@@ -19,7 +19,7 @@ def get_string(string):
         STRING = LANGUAGES[lang]
         for page in string.split("_"):
             STRING = STRING[page]
-        if type(STRING) == str:
+        if isinstance(STRING, str):
             STRING = STRING.replace("{STR}", client.str)
             STRING = STRING.replace("{CMD}", client.cmd)    
         return STRING
@@ -27,13 +27,20 @@ def get_string(string):
         STRING = LANGUAGES["en"]
         for page in string.split("_"):
             STRING = STRING[page]
-        if type(STRING) == str:
-            STRING = STRING.replace("{STR}", client.str)
-            STRING = STRING.replace("{CMD}", client.cmd)
         translator = Translator()
-        dest = lang.lower()
-        STRING = translator.translate(STRING, dest=dest)  
-        return STRING.text
+        if isinstance(STRING, dict):
+            newlist = {}
+            for key in STRING:
+                string = STRING[key].replace("{STR}", client.str)
+                string = string.replace("{CMD}", client.cmd) 
+                trjome = translator.translate(string, dest=lang)  
+                newlist.update({key: trjome.text})
+            return newlist
+        elif isinstance(STRING, str):
+            STRING = STRING.replace("{STR}", client.str)
+            STRING = STRING.replace("{CMD}", client.cmd) 
+            trjome = translator.translate(STRING, dest=lang)  
+            return trjome.text
 
 def get_buttons(buttons):
     if client.lang in ["fa"]:
