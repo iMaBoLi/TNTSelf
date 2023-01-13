@@ -12,7 +12,7 @@ async def setcover(event):
         if mtype == "Empty":
             return await event.edit(client.get_string("ReplyMedia_Not").format(media))
         return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
-    res, info = await client.save(event.reply_message)
+    res, info = await event.reply_message.save()
     if not res:
         await event.edit(info)
     client.DB.set_key("FILE_COVER", info)
