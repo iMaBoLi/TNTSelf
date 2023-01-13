@@ -36,9 +36,10 @@
         "Empty": "Empty",
      },
     "GetID": {
+        "IU": "**{STR} The Entered UserID Is Not Valid!**",
         "U": "**{STR} Please Reply To User!**",
         "UU": "**{STR} Please Reply To User Or Enter Username!**",
-        "UUP": "**{STR} Please Reply To User Or Enter Username Or Send In Pv!**",
+        "UUP": "**{STR} Please Reply To User Or Enter UserID Or Send In Pv!**",
         "UC": "**{STR} Please Enter Username Or Send In Chat!**",
         "UCH": "**{STR} Please Enter Username Or Send In Channel!**",
     },
