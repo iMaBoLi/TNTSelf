@@ -24,7 +24,7 @@ def load_langs():
                     newlist.update({key: trjome.text})
                 NewLang.update({obj: newlist})
             elif isinstance(obj, str):
-                trjome = translator.translate(obj, dest=dest)  
+                trjome = translator.translate(Main[obj], dest=dest)  
                 NewLang.update({obj: trjome.text})
         LANGUAGES.update({dest: NewLang})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
