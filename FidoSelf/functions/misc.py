@@ -10,7 +10,8 @@ from FidoSelf.database import DB
 import time
 import os
 
-MAX_SIZE = 104857600 * 4
+MAX_SIZE = 104857600 * 5
+PLUGINSHELP = {}
 
 async def addvars():
     setattr(client, "utils", utils)
@@ -27,6 +28,7 @@ async def addvars():
     setattr(client, "mention", mention)
     setattr(client, "progress", progress)
     setattr(client, "mediatype", mediatype)
+    setattr(client, "HELP", PLUGINSHELP)
     setattr(client, "MAX_SIZE", MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
     setattr(client.bot, "me", (await client.bot.get_me()))
