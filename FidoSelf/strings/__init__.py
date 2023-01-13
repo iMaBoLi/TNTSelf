@@ -22,14 +22,10 @@ def load_langs():
                 for key in obj:
                     trjome = translator.translate(obj[key], dest=dest)  
                     newlist.update({key: trjome.text})
-                NewLang.update({obj: newlist})
+                NewLang.update({obj: eval(newlist)})
             elif isinstance(obj, str):
                 trjome = translator.translate(Main[obj], dest=dest)  
                 NewLang.update({obj: trjome.text})
-        try:
-            NewLang = eval(NewLang)
-        except:
-            pass
         LANGUAGES.update({dest: NewLang})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
 
