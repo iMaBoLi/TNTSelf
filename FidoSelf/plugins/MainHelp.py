@@ -11,6 +11,9 @@ def translate(text, lang):
 CATS = {
     "Settings": "Settings ⚙️",
     "Manager": "Manager 👮",
+    "Tools": "Tools 🔧",
+    "Account": "Account 💎",
+    "Groups": "Groups 👥",
     "Time": "Time ⏰",
 }
 
@@ -49,14 +52,13 @@ async def help(event):
 
 @client.Inline(pattern="selfmainhelp")
 async def inlinehelp(event):
-    text = "Ok"
+    text = "Please Chose Your Page:"
     buttons = get_help_buttons()
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Help", text=text, buttons=buttons)])
 
-@client.Callback(data="gethelp\:(.*)")
+@client.Callback(data="gethelp\:(.*)\:(.*)")
 async def gethelp(event):
     cat = str(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
-    text = "Ok"
     buttons = get_cat_buttons(cat, page) 
     await event.edit(buttons=buttons) 
