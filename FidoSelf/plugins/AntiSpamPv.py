@@ -27,7 +27,7 @@ async def antispam(event):
         last = warns[event.sender_id]
         uwarns = last + 1
         warns.update({event.sender_id: uwarns})
-        limit = client.DB.set_key("SPAM_PV_LIMIT") or 5
+        limit = client.DB.get_key("SPAM_PV_LIMIT") or 5
         WARNS = f"{uwarns}/{limit}"
         if uwarns >= limit:
             await event.respond(f"**• Warns:** ( `{WARNS}` )\n\n**• You Are Blocked!**")
