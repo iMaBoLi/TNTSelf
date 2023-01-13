@@ -9,15 +9,13 @@ async def setcover(event):
     if not event.is_reply or mtype != "Photo":
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
-        rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
-    if not client.backch:
-        return await event.edit(client.get_string("LogCh_1"))
-    try:
-        forward = await event.reply_message.forward_to(int(client.backch))
-    except:
-        return await event.edit(client.get_string("LogCh_2"))
-    client.DB.set_key("FILE_COVER", {"chat_id": client.backch, "msg_id": forward.id})
+        if mtype == "Empty":
+            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
+        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
+    res, info = await client.save(event.reply_message)
+    if not res:
+        await event.edit(info)
+    client.DB.set_key("FILE_COVER", info)
     await event.edit(client.get_string("CoverFile_1"))  
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}AddCover$")
@@ -27,22 +25,20 @@ async def addcover(event):
     if not event.is_reply or mtype not in ["File", "Music"]:
         medias = client.get_string("ReplyMedia")
         media = medias["File"] + " - " + medias["Music"]
-        rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+        if mtype == "Empty":
+            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
+        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
     cover = client.DB.get_key("FILE_COVER") or {}
     if not cover:
         return await event.edit(client.get_string("CoverFile_2"))
-    newtime = time.time()
-    file_name = event.reply_message.file.name or "---"
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "down", file_name))
+    callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
     await event.edit(client.get_string("CoverFile_3"))
-    get = await client.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
-    thumb = await get.download_media()
-    newtime = time.time()
-    callback = lambda start, end: client.loop.create_task(client.progress(event, start, end, newtime, "up"))
+    message = await client.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
+    thumb = await message.download_media()
+    callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, thumb=thumb, caption=client.get_string("CoverFile_4"), progress_callback=callback)
     os.remove(file)
     os.remove(thumb)
