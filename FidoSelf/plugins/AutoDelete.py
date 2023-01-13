@@ -38,15 +38,17 @@ category = "Manager"
 filename = str(__file__).split("/")[-1].split(".")[0]
 note = "Delete Automatic Messages After A Time!"
 client.HELP.update({
-    "category": category,
-    "note": note,
-    "commands": {
-        "AutoDelete": {
-            "{CMD}AutoDelete On": "To Active Auto Delete Message",
-            "{CMD}AutoDelete Off": "To DeActive Auto Delete Message",
+    filename: {
+        "category": category,
+        "note": note,
+        "commands": {
+            "AutoDelete": {
+                "{CMD}AutoDelete On": "To Active Auto Delete Message",
+                "{CMD}AutoDelete Off": "To DeActive Auto Delete Message",
+            },
+            "AutoDeleteSleep": {
+                "{CMD}SetAutoDeleteSleep <Min>": "Set Auto Delete Message Sleep Time",
+            },
         },
-        "AutoDeleteSleep": {
-            "{CMD}SetAutoDeleteSleep <Min>": "Set Auto Delete Message Sleep Time",
-        },
-    },
+    }
 })
