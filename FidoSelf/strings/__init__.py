@@ -1,4 +1,5 @@
 from FidoSelf import client
+from googletrans import Translator
 import glob
 
 LANGUAGES = {}
@@ -14,17 +15,29 @@ def get_string(string):
     lang = client.lang
     if not LANGUAGES:
         load_langs()
-    STRING = LANGUAGES[lang]
-    for page in string.split("_"):
-        STRING = STRING[page]
-    if type(STRING) == str:
-        STRING = STRING.replace("{STR}", client.str)
-        STRING = STRING.replace("{CMD}", client.cmd)    
-    return STRING
+    if lang in LANGUAGES:
+        STRING = LANGUAGES[lang]
+        for page in string.split("_"):
+            STRING = STRING[page]
+        if type(STRING) == str:
+            STRING = STRING.replace("{STR}", client.str)
+            STRING = STRING.replace("{CMD}", client.cmd)    
+        return STRING
+    else:
+        STRING = LANGUAGES["en"]
+        for page in string.split("_"):
+            STRING = STRING[page]
+        if type(STRING) == str:
+            STRING = STRING.replace("{STR}", client.str)
+            STRING = STRING.replace("{CMD}", client.cmd)
+        translator = Translator()
+        dest = lang.lower()
+        STRING = translator.translate(STRING, dest=dest)  
+        return STRING
 
 def get_buttons(buttons):
-    if client.lang == "fa":
+    if client.lang in ["fa"]:
         buttons = client.utils.reverse(buttons)
-    elif client.lang == "en":
+    else:
         buttons = buttons
     return buttons
