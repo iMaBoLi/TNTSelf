@@ -33,7 +33,7 @@ def get_string(string):
         translator = Translator()
         dest = lang.lower()
         STRING = translator.translate(STRING, dest=dest)  
-        return STRING
+        return STRING.text
 
 def get_buttons(buttons):
     if client.lang in ["fa"]:
