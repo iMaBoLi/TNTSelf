@@ -43,6 +43,17 @@
         "UC": "**{STR} Please Enter Username Or Send In Chat!**",
         "UCH": "**{STR} Please Enter Username Or Send In Channel!**",
     },
+    "Changer": {
+        "Main": "**{STR} The {} Has Been {}!**",
+        "Name": "Name Mode",
+        "Bio": "Bio Mode",
+        "Photo": "Photo Mode",
+        "DTimer": "Download Timer Medias",
+        "Quicks": "Quicks Mode",
+        "Monshi": "Monshi Self",
+        "AutoDelete": "Auto Delete Messages",
+        "AutoReplace": "Auto Replace Mode",
+    },
     "Inline": {
         "1": "❲ ✔️|Active ❳",
         "2": "❲ ✖️|DeActive ❳",
