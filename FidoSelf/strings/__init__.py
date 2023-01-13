@@ -26,8 +26,7 @@ def load_langs():
             elif isinstance(obj, str):
                 trjome = translator.translate(Main[obj], dest=dest)  
                 NewLang.update({obj: trjome.text})
-        NewLang = eval(NewLang)
-        LANGUAGES.update({dest: eval(NewLang)})
+        LANGUAGES.update({dest: NewLang})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
 
 def get_string(string):
@@ -35,9 +34,10 @@ def get_string(string):
     STRING = LANGUAGES[lang]
     for page in string.split("_"):
         STRING = STRING[page]
+    STRING = eval(STRING)
     if isinstance(STRING, str):
         STRING = STRING.replace("{STR}", client.str)
-        STRING = STRING.replace("{CMD}", client.cmd)    
+        STRING = STRING.replace("{CMD}", client.cmd)
     return STRING
 
 def get_buttons(buttons):
