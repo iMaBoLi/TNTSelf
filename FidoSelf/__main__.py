@@ -2,6 +2,7 @@ from . import client, START_TIME, __version__
 from telethon import __version__ as telever
 from FidoSelf.functions.utils import load_plugins
 from FidoSelf.functions.misc import stimezone, addvars
+from FidoSelf.strings import load_langs
 import platform
 import time
 
@@ -10,6 +11,8 @@ async def setup():
     await addvars()
     client.LOGS.info("• Setting Your TimeZone ...")
     stimezone()
+    client.LOGS.info("• Loading Languages ...")
+    load_langs()
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins("FidoSelf/plugins")
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
