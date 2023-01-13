@@ -99,15 +99,14 @@
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
+        "TIMER_MODE": "Timer Save",
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
+        "ANTISPAM_PV": "AntiSpam Pv",
         "READALL_MODE": "Mark All",
         "READPV_MODE": "Mark Pv",
         "READGP_MODE": "Mark Group",
         "READCH_MODE": "Mark Channel",
-        "TIMER_MODE": "Timer Save",
-        "ORGENEMY_DELETE": "DelEnemy Pms",
-        "FRIENDENEMY_DELETE": "DelEnemyFriend Pms",
     },
     "Edits": {
         "Bold": "Bold",
@@ -118,33 +117,15 @@
         "Spoiler": "Spoiler",
         "Hashtag": "Hashtag",
     },
-    "Ping": "**{STR}** [I'm](tg://user?id={}) **Online Forever!**",
+    "Ping": "**{STR} Im Online Forever!**",
     "Help": {
         "1": "**{STR} WelCome To Self Help:**\n\n**• Help Settings:**\n   > `{CMD}Help S1`\n   > `{CMD}Help S2`\n   > `{CMD}Help S3`\n**• Help Manager:**\n   > `{CMD}Help M1`\n   > `{CMD}Help M2`\n**• Help Account:**\n   > `{CMD}Help A`\n**• Help Groups:**\n   > `{CMD}Help G`\n**• Help Time:**\n   > `{CMD}Help T`\n**• Help Variables:**\n   > `{CMD}Help V`\n**• Help Others:**\n   > `{CMD}Help O1`\n   > `{CMD}Help O2`",
-        "2": {
-            "s1": "Settings 1",
-            "s2": "Settings 2",
-            "s3": "Settings 3",
-            "m1": "Manager 1",
-            "m2": "Manager 2",
-            "a": "Account",
-            "g": "Groups",
-            "o1": "Others 1",
-            "o2": "Others 2",
-            "t": "Times",
-            "v": "Variables",
-        },
-        "3": "**{STR} The Help Self Page** ( `{}` ):",
     },
     "Panel": {
         "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
         "2": "**{STR} Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**",
         "3": "**{STR} Please Use The Options Below To Manage Edit Texts Mode:**",
         "4": "**{STR} The Panel Successfuly Closed!**",
-    },
-    "SelfMode": {
-        "1": "**{STR} The Self For All Chats Has Been {}!**",
-        "2": "**{STR} The Self  In This Chat Has Been {}!**",
     },
     "Vars": {
         "1": "**{STR} The Messages Starter String Has Been Set To** ( `{}` )",
@@ -154,12 +135,6 @@
         "5": "**{STR} This Chat Is Saved For Realm Chat!**",
         "6": "**{STR} Please Send In Channel For Added BackUp Channel!**",
         "7": "**{STR} This Channel Is Saved For BackUp Channel!**",
-    },
-    "EditMode": {
-        "1": "**{STR} The {} Edit Texts Mode Has Been {}!**",
-    },
-    "MarkRead": {
-        "1": "**{STR} The MarkRead {} Messages Has Been {}!**",
     },
     "Translate": {
         "1": "**{STR} The Entered Language Is Not Available!**",
@@ -201,14 +176,6 @@
         "rus": "Russian",
         "hrv": "Croatian",
         "hin": "Hindi",
-    },
-    "AutoJoiner": {
-        "1": "**{STR} The Message Is Not Have Link Or Username!**",
-        "2": "**{STR} The Join To** ( `{}` ) **Channel Was Completed!**",
-        "3": "**{STR} The Leave From** ( `{}` ) **Channel Was Completed!**",
-    },
-    "AutoReplace": {
-        "1": "**{STR} The Auto Replace Messages Mode Has Been {}!**",
     },
     "DelProfiles": {
         "1": "**{STR} The Profile Photos Is Not Found!**",
@@ -297,10 +264,6 @@
         "1": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
         "2": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )",
     },
-    "TextSay": {
-        "1": "**{STR} The Auto Say Mode Has Been {}!**",
-        "2": "**{STR} The Say Sleep Time Has Been Set To** ( `{}` )",
-    },
     "Kick": {
         "1": "**{STR} You Must Be Admin In This Group To Do This!**",
         "2": "**{STR} An Error Occurred While Kick The User!** ( `{}` )",
@@ -315,10 +278,6 @@
         "1": "**{STR} No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
         "2": "**{STR} The Wikipedia Results For Query:** ( `{}` )",
         "3": "**{STR} Title:** ( `{}` )\n\n`{}`",
-    },
-    "AutoDelete": {
-        "1": "**{STR} The Auto Delete Messages Mode Has Been {}!**",
-        "2": "**{STR} The Auto Delete Sleep Time Has Been Set To** ( `{}` )",
     },
     "Rotater": {
         "1": "**{STR} The Photo Was Rotated To** ( `{}°` )",
@@ -350,8 +309,8 @@
     },
     "TrimMedia": {
         "1": "**{STR} Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
-        "2": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
-        "3": "**{STR} The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
+        "2": "**{STR} The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
+        "3": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
         "4": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
     },
     "ExAudio": {
@@ -366,12 +325,6 @@
     "CarbonText": {
         "1": "**{STR} Carbonizing Your Text  ...**",
         "2": "**{STR} The Text Was Carbonized!**",
-    },
-    "MutePv": {
-        "1": "**{STR} The Mute Pv Mode Has Been {}!**",
-    },
-    "LockPv": {
-        "1": "**{STR} The Lock Pv Mode Has Been {}!**",
     },
     "FilterPv": {
         "1": "**{STR} The Word** ( `{}` ) **Already In Words Filter Pv List!**",
@@ -405,9 +358,5 @@
     },
     "EditPhoto": {
         "1": "**{STR} Filter** ( `{}` ) **Successfully Added To Your Photo!**",
-    },
-    "AudioConvert": {
-        "1": "**{STR} Converted Your Voice To Music!**",
-        "2": "**{STR} Converted Your Music To Voice!**",
     },
 }
