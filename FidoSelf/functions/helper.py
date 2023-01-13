@@ -88,6 +88,19 @@ def mention(info, coustom=None):
         return f"[{name}](@{info.username})"
     return f"[{name}](tg://user?id={info.id})"
 
+def save_message(event):
+    if not client.backch:
+        return False, client.get_string("LogCh_1")
+    try:
+        message = await client.get_messages(event.chat_id, ids=event.id)
+        send = await client.send_message(client.backch, message)
+        info = {"chat_id": client.backch, "msg_id": send.id}
+        return True, info
+    except:
+        return False, client.get_string("LogCh_2")
+
+setattr(Message, "save", save_message)
+
 def mediatype(event):
     type = "Empty"
     if not event:
