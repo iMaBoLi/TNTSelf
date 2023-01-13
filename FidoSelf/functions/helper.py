@@ -88,7 +88,7 @@ def mention(info, coustom=None):
         return f"[{name}](@{info.username})"
     return f"[{name}](tg://user?id={info.id})"
 
-def save_message(event):
+async def save_message(event):
     if not client.backch:
         return False, client.get_string("LogCh_1")
     try:
