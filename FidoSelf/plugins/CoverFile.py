@@ -1,5 +1,4 @@
 from FidoSelf import client
-import time
 import os
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetCover$")
