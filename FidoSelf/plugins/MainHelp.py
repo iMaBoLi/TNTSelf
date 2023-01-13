@@ -3,7 +3,7 @@ from telethon import Button
 from googletrans import Translator
 import math
 
-def translate(text, lang)
+def translate(text, lang):
     translator = Translator()
     trjome = translator.translate(text, dest=lang.lower())
     return trjome.text
