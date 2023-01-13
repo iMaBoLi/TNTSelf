@@ -1,12 +1,14 @@
 from FidoSelf import client
 from telethon import functions
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Uinfo ?(.*)?$")
-async def uinfo(event):
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Info ?(.*)?$")
+async def userinfo(event):
     await event.edit(client.get_string("Wait"))
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
-        return await event.edit(client.get_string("Reply_UUP"))
+    result, userid = await event.userid(event.pattern_match.group(1))
+    if not result and str(userid) == "Invalid":
+        return await event.edit(client.get_string("GetID_IU"))
+    elif not result and not userid:
+        return await event.edit(client.get_string("GetID_UUP"))
     uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
@@ -21,12 +23,14 @@ async def uinfo(event):
         await event.respond(userinfo)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}(G|C)info ?(.*)?$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
 async def ginfo(event):
     await event.edit(client.get_string("Wait"))
-    chatid = await event.chatid(event.pattern_match.group(2))
-    if not chatid:
-        return await event.edit(client.get_string("Reply_UUP"))
+    result, chatid = await event.chatid(event.pattern_match.group(1))
+    if not result and str(chatid) == "Invalid":
+        return await event.edit(client.get_string("GetID_IU"))
+    elif not result and not chatid:
+        return await event.edit(client.get_string("GetID_UC"))
     cinfo = await client.get_entity(chatid)
     try:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
