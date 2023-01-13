@@ -26,6 +26,10 @@ def load_langs():
             elif isinstance(obj, str):
                 trjome = translator.translate(Main[obj], dest=dest)  
                 NewLang.update({obj: trjome.text})
+        try:
+            NewLang = eval(NewLang)
+        except:
+            pass
         LANGUAGES.update({dest: NewLang})
         client.LOGS.info(f"• Language ( {dest} ) Successfuly Added By Translate!")
 
@@ -34,7 +38,6 @@ def get_string(string):
     STRING = LANGUAGES[lang]
     for page in string.split("_"):
         STRING = STRING[page]
-    STRING = eval(STRING)
     if isinstance(STRING, str):
         STRING = STRING.replace("{STR}", client.str)
         STRING = STRING.replace("{CMD}", client.cmd)
