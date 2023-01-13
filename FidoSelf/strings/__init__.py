@@ -20,7 +20,7 @@ def load_langs():
             if isinstance(obj, dict):
                 newlist = {}
                 for key in obj:
-                    trjome = translator.translate(string, dest=dest)  
+                    trjome = translator.translate(obj[key], dest=dest)  
                     newlist.update({key: trjome.text})
                 NewLang.update({obj: newlist})
             elif isinstance(obj, str):
