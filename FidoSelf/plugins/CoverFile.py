@@ -6,7 +6,7 @@ import os
 async def setcover(event):
     await event.edit(client.get_string("Wait"))
     mtype = client.mediatype(event.reply_message)
-    if not event.is_reply or mtype != "Photo":
+    if not event.is_reply or mtype not in ["Photo"]:
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
         if mtype == "Empty":
@@ -14,7 +14,7 @@ async def setcover(event):
         return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
     res, info = await event.reply_message.save()
     if not res:
-        await event.edit(info)
+        return await event.edit(info)
     client.DB.set_key("FILE_COVER", info)
     await event.edit(client.get_string("CoverFile_1"))  
 
