@@ -23,23 +23,23 @@ async def trimmedia(event):
     if ee > event.reply_message.file.duration:
         ee = event.reply_message.file.duration
     if ss >= ee:
-        ss = ee - 30
+        ss = ee - event.reply_message.file.duration 
     if mtype == "Video":
         await event.edit(client.get_string("TrimMedia_1").format(ss, ee))
         newfile = f"TrimedVideo-{ss}-{ee}.mp4"
         clip = VideoFileClip(file).cutout(ss, ee)
         clip.write_videofile(newfile)
         callback = event.progress(upload=True)
-        caption = client.get_string("TrimMedia_3").format(ss, ee)
+        caption = client.get_string("TrimMedia_2").format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(newfile)
     elif mtype == "Music":
-        await event.edit(client.get_string("TrimMedia_2").format(ss, ee))
+        await event.edit(client.get_string("TrimMedia_3").format(ss, ee))
         newfile = f"TrimedAudio-{ss}-{ee}.mp3"
         cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -vn -acodec copy "{newfile}" -y'
         await client.utils.runcmd(cmd)
         callback = event.progress(upload=True)
-        caption = client.get_string("TrimAMedia_4").format(ss, ee)
+        caption = client.get_string("TrimMedia_4").format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
         os.remove(newfile)
     os.remove(file)
