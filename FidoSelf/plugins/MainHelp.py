@@ -85,7 +85,7 @@ async def gethelp(event):
     cat = str(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     buttons = get_cat_buttons(cat, page)
-    text = client.get_string("Help_2").format(count, get_cmds_count(cat))
+    text = client.get_string("Help_2").format(get_cmds_count(cat))
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="gethelpplugin\:(.*)\:(.*)")
