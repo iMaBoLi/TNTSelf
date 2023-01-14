@@ -62,7 +62,8 @@ def get_cat_buttons(cat, page):
         buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
     buttons = list(client.utils.chunks(buttons, 2))
     pgbts = get_pages_button(cat, page)
-    buttons.append(pgbts)
+    buttons += pgbts
+    client.LOGS.info(str(buttons))
     buttons = client.get_buttons(buttons)
     return buttons
 
