@@ -32,8 +32,7 @@ def get_cmds_count(cat=None):
     count = 0
     for plugin in plugins:
         for command in client.HELP[plugin]["commands"]:
-            for com in client.HELP[plugin]["commands"][command]:
-                count += 1
+            count += 1
     return count
 
 def get_pages_button(cat, page):
@@ -59,7 +58,7 @@ def get_cat_buttons(cat, page):
         end = len(plugins)
     for plugin in plugins[start:end]:
         emoji = client.DB.get_key("HELP_EMOJI") or "•"
-        name = emoji + " " + plugin + " " + emoji
+        name = emoji + " " + translate(plugin) + " " + emoji
         buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
     buttons = list(client.utils.chunks(buttons, 2))
     pgbts = get_pages_button(cat, page)
