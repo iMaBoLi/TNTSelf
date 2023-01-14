@@ -11,8 +11,9 @@ async def editphoto(event):
     if not event.is_reply or mtype not in ["Photo"]:
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
-        rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+        if mtype == "Empty":
+            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
+        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
     photo = await event.reply_message.download_media()
     newfile = f"EditPhoto-{str(mode)}.jpg"
     if mode == "Bw":
@@ -29,9 +30,9 @@ async def editphoto(event):
             "Smooth": SMOOTH_MORE,
             "Sharpen": SHARPEN,
         }
-        mode = modes[mode]
+        pmode = modes[mode]
         img = Image.open(photo)
-        newimg = img.filter(mode)
+        newimg = img.filter(pmode)
         newimg.save(newfile)
     mode = "BlackWhite" if mode == "Bw" else mode
     caption = client.get_string("EditPhoto_1").format(mode)
