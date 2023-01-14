@@ -57,7 +57,8 @@ def get_cat_buttons(cat, page):
     if end > len(plugins):
         end = len(plugins)
     for plugin in plugins:
-        name = "• " + plugin + " •"
+        emoji = client.DB.get_key("HELP_EMOJI") or "•"
+        name = emoji + " " + plugin + " " + emoji
         buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
         if len(buttons) == end: break
     buttons = list(client.utils.chunks(buttons, 2))
@@ -82,6 +83,7 @@ async def inlinehelp(event):
 
 @client.Callback(data="gethelp\:(.*)\:(.*)")
 async def gethelp(event):
+    await event.edit(client.get_string("Wait"))
     cat = str(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     buttons = get_cat_buttons(cat, page)
@@ -102,9 +104,9 @@ async def getplugin(event):
         for com in info["commands"][command]:
             ncom = com.replace("{CMD}", client.cmd)
             cominfo = translate(info["commands"][command][com])
-            text += f'    `{ncom}` - **{cominfo}**\n'
-    #buttons = get_plugin_buttons(page) 
-    await event.edit(text=text) 
+            text += f'    `{ncom}` - __{cominfo}__\n'
+    buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}')]] 
+    await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="closehelp")
 async def closehelp(event):
