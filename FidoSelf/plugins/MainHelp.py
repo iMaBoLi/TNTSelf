@@ -46,7 +46,7 @@ def get_pages_button(cat, page):
         buttons.append(Button.inline(client.get_string("Inline_4"), data=f"gethelp:{cat}:{page+1}"))
     if page > 1:
         buttons.append(Button.inline(client.get_string("Inline_5"), data=f"gethelp:{cat}:{page-1}"))
-    buttons.append(Button.inline(client.get_string("Inline_3"), data="closehelp"))
+    buttons.append([Button.inline(client.get_string("InQuicks_Back"), data="selfmainhelp"), Button.inline(client.get_string("Inline_3"), data="closehelp")])
     return buttons
 
 def get_cat_buttons(cat, page):
@@ -80,6 +80,13 @@ async def inlinehelp(event):
     text = client.get_string("Help_1").format(len(CATS), get_cmds_count())
     buttons = get_help_buttons()
     await event.answer([event.builder.article(f"{client.str} FidoSelf - Help", text=text, buttons=buttons)])
+
+@client.Callback(data="selfmainhelp")
+async def callhelp(event):
+    CATS = client.get_string("Categorys")
+    text = client.get_string("Help_1").format(len(CATS), get_cmds_count())
+    buttons = get_help_buttons()
+    await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="gethelp\:(.*)\:(.*)")
 async def gethelp(event):
