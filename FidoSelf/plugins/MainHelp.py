@@ -105,17 +105,16 @@ async def getplugin(event):
     info = client.HELP[plugin]
     text += client.get_string("Help_4").format(CATS[info["category"]])
     text += client.get_string("Help_5").format(translate(info["note"]))
-    for command in info["commands"]:
-        text += f' \n**{client.str} {command}:**\n'
-        for com in info["commands"][command]:
-            ncom = com.replace("{CMD}", client.cmd)
-            cominfo = translate(info["commands"][command][com])
-            text += f'   `{ncom}`\n'
-            text += f'     __{cominfo}__\n'
+    text += client.get_string("Help_6").format(len(info["commands"]))
+    for com in info["commands"]:
+        ncom = com.replace("{CMD}", client.cmd)
+        cominfo = translate(info["commands"][com])
+        text += f' `{ncom}`\n'
+        text += f'   __{cominfo}__\n'
     buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}')]] 
     await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="closehelp")
 async def closehelp(event):
-    text = client.get_string("Help_6")
+    text = client.get_string("Help_7")
     await event.edit(text=text)
