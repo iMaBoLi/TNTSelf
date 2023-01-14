@@ -124,7 +124,7 @@
     },
     "Help": {
         "1": "**{STR} Please Select The Desired Category From The Following Categories To See The Commands Available In It And Their Instructions:**\n\n**{STR} Total Number Of Categories:** ( `{}` )\n**{STR} Total Number Of Self Commands:** ( `{}` )",
-        "2": "**{STR} Please Select The Desired Command From The Commands Below To See The Rest Of The Commands In It And Their Instructions:**\n\n**{STR} Total number of orders in this category:** ( `{}` )",
+        "2": "**{STR} Please Select The Desired Command From The Commands Below To See The Rest Of The Commands In It And Their Instructions:**\n\n**{STR} Total Number Of Commands In This Category:** ( `{}` )",
         "3": "**{STR} Command Name:** ( `{}` )\n",
         "4": "**{STR} Category:** ( `{}` )\n",
         "5": "**{STR} Note:** ( `{}` )\n",
