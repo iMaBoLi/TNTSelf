@@ -21,10 +21,10 @@ def get_help_buttons():
     return buttons
 
 def get_plugins(cat):
-    plugins = {}
+    plugins = []
     for plugin in client.HELP:
         if client.HELP[plugin]["category"] == cat:
-            plugins.update({plugin: client.HELP[plugin]})
+            plugins.append(plugin)
     return plugins
 
 def get_cmds_count(cat=None):
@@ -52,15 +52,15 @@ def get_pages_button(cat, page):
 def get_cat_buttons(cat, page):
     buttons = []
     plugins = get_plugins(cat)
+    plugins 
     start = (page - 1) * 10
     end = start + 10
     if end > len(plugins):
         end = len(plugins)
-    for plugin in plugins:
+    for plugin in plugins[start:end]:
         emoji = client.DB.get_key("HELP_EMOJI") or "•"
         name = emoji + " " + plugin + " " + emoji
         buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
-        if len(buttons) == end: break
     buttons = list(client.utils.chunks(buttons, 2))
     pgbts = get_pages_button(cat, page)
     buttons.append(pgbts)
@@ -83,7 +83,6 @@ async def inlinehelp(event):
 
 @client.Callback(data="gethelp\:(.*)\:(.*)")
 async def gethelp(event):
-    await event.edit(client.get_string("Wait"))
     cat = str(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     buttons = get_cat_buttons(cat, page)
@@ -100,11 +99,12 @@ async def getplugin(event):
     text += client.get_string("Help_4").format(CATS[info["category"]])
     text += client.get_string("Help_5").format(translate(info["note"]))
     for command in info["commands"]:
-        text += f'  \n**{client.str} {command}:**\n'
+        text += f' \n**{client.str} {command}:**\n'
         for com in info["commands"][command]:
             ncom = com.replace("{CMD}", client.cmd)
             cominfo = translate(info["commands"][command][com])
-            text += f'    `{ncom}` - __{cominfo}__\n'
+            text += f'   `{ncom}`\n'
+            text += f'     __{cominfo}__\n'
     buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}')]] 
     await event.edit(text=text, buttons=buttons) 
 
