@@ -49,3 +49,30 @@ async def backch(event):
     client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
     client.backch = event.chat_id
     await event.edit(client.get_string("Vars_7"))
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SetHelpEmoji (.*)$")
+async def helpemoji(event):
+    await event.edit(client.get_string("Wait"))
+    string = event.pattern_match.group(1)
+    client.DB.set_key("HELP_EMOJI", str(string))
+    await event.edit(client.get_string("Vars_8").format(string))
+
+category = "Settings"
+filename = str(__file__).split("/")[-1].split(".")[0]
+note = "Set Coustom Variebels In Self!"
+client.HELP.update({
+    filename: {
+        "category": category,
+        "note": note,
+        "commands": {
+            "{CMD}SetFa": "To Set Language In Farsi",
+            "{CMD}Seten": "To Set Language In English",
+            "{CMD}SetStr <Text>": "Set Message Starter Sambol",
+            "{CMD}SetCmd <Text>": "Set Commands Stater Sambol",
+            ".DelCmd": "Delete Commands Stater Sambol",
+            "{CMD}SetRealm": "Set Realm Chat",
+            "{CMD}SetBackCh": "Set BackUp Channel",
+            "{CMD}SetHelpEmoji <Text>": "Set Help Panel Emoji Sambol",
+        },
+    }
+})
