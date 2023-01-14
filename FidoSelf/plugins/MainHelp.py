@@ -37,9 +37,10 @@ def get_cat_buttons(cat, page):
     end = start + 10
     if end > len(PLUGS):
         end = len(PLUGS)
-    for Plug in PLUGS[start:end]:
+    for Plug in PLUGS:
         name = "•" + Plug + "•"
-        buttons.append(Button.inline(f"• {name} •", data=f"getplugin:{cat}:{Plug}:{page}"))
+        buttons.append(Button.inline(f"• {name} •", data=f"getplugin:{Plug}:{page}"))
+        if len(buttons) == end: break
     buttons = list(client.utils.chunks(buttons, 2))
     return buttons
 
@@ -61,4 +62,20 @@ async def gethelp(event):
     cat = str(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     buttons = get_cat_buttons(cat, page) 
-    await event.edit(buttons=buttons) 
+    await event.edit(buttons=buttons)
+
+@client.Callback(data="getplugin\:(.*)\:(.*)")
+async def getplugin(event):
+    plugin = str(event.data_match.group(1).decode('utf-8'))
+    page = int(event.data_match.group(2).decode('utf-8'))
+    text = f"**{client.str} Plugin Name:** ( `{plugin}` )\n"
+    info = client.HELP[plugin]
+    text += f'**{client.str} Category:** ( `{info["category"]}` )\n'
+    text += f'**{client.str} Note:** ( `{info["note"]}` )\n'
+    for command in info["commands"]:
+        text += f'\n**{client.str} {command}:**\n'
+        for com in info["commands"][command]:
+            ncom = com.replace("{CMD}", client.cmd)
+            text += f'    `{ncom} - **{info["commands"][command][com]}\n'
+    #buttons = get_plugin_buttons(page) 
+    await event.edit(text=text) 
