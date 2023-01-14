@@ -88,18 +88,30 @@ def mention(info, coustom=None):
         return f"[{name}](@{info.username})"
     return f"[{name}](tg://user?id={info.id})"
 
-async def save_message(event):
+async def save_message(event, *args, **kwargs):
     if not client.backch:
         return False, client.get_string("LogCh_1")
     try:
         message = await client.get_messages(event.chat_id, ids=event.id)
-        send = await client.send_message(client.backch, message)
+        send = await client.send_message(client.backch, message, *args, **kwargs)
         info = {"chat_id": client.backch, "msg_id": send.id}
         return True, info
     except:
         return False, client.get_string("LogCh_2")
 
+async def save_realm(event, *args, **kwargs):
+    if not client.backch:
+        return False, client.get_string("RealmCh_1")
+    try:
+        message = await client.get_messages(event.chat_id, ids=event.id)
+        send = await client.send_message(client.realm, message, *args, **kwargs)
+        info = {"chat_id": client.backch, "msg_id": send.id}
+        return True, info
+    except:
+        return False, client.get_string("RealmCh_2")
+
 setattr(Message, "save", save_message)
+setattr(Message, "save_realm", save_realm)
 
 def mediatype(event):
     type = "Empty"
