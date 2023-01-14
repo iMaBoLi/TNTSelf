@@ -74,10 +74,6 @@
         "1": "**{STR} The BackUp Channel Is Not Added!**",
         "2": "**{STR} The BackUp Channel Is Not Available!**",
     },
-    "RealmCh": {
-        "1": "**{STR} The Realm Chat Is Not Added!**",
-        "2": "**{STR} The Realm Chat Is Not Available!**",
-    },
     "ChType": {
         "All": "All",
         "Pv": "Privates",
@@ -118,8 +114,21 @@
         "Hashtag": "Hashtag",
     },
     "Ping": "**{STR} Im Online Forever!**",
+    "Categorys": {
+        "Settings": "Settings ⚙️",
+        "Manager": "Manager 👮",
+        "Tools": "Tools 🔧",
+        "Account": "Account 💎",
+        "Groups": "Groups 👥",
+        "Time": "Time ⏰",
+    },
     "Help": {
-        "1": "**{STR} WelCome To Self Help:**\n\n**• Help Settings:**\n   > `{CMD}Help S1`\n   > `{CMD}Help S2`\n   > `{CMD}Help S3`\n**• Help Manager:**\n   > `{CMD}Help M1`\n   > `{CMD}Help M2`\n**• Help Account:**\n   > `{CMD}Help A`\n**• Help Groups:**\n   > `{CMD}Help G`\n**• Help Time:**\n   > `{CMD}Help T`\n**• Help Variables:**\n   > `{CMD}Help V`\n**• Help Others:**\n   > `{CMD}Help O1`\n   > `{CMD}Help O2`",
+        "1": "**{STR} Please Select The Desired Category From The Following Categories To See The Commands Available In It And Their Instructions:**\n\n**{STR} Total Number Of Categories:** ( `{}` )\n**{STR} Total Number Of Self Commands:** ( `{}` )",
+        "2": "**{STR} Please Select The Desired Command From The Commands Below To See The Rest Of The Commands In It And Their Instructions:**\n\n**{STR} Total number of orders in this category:** ( `{}` )",
+        "3": "**{STR} Command Name:** ( `{}` )\n",
+        "4": "**{STR} Category:** ( `{}` )\n",
+        "5": "**{STR} Note:** ( `{}` )\n",
+        "6": "**{STR} The Help Panel Successfuly Closed!**",
     },
     "Panel": {
         "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
