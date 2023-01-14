@@ -3,7 +3,21 @@ from PIL import Image
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Bw|Blur|Contour|Detail|Emboss|Edge|Smooth|Sharpen)$")
+MODES = {
+    "Blur": BLUR,
+    "Contour": CONTOUR,
+    "Detail": DETAIL,
+    "Emboss": EMBOSS,
+    "Edge": EDGE_ENHANCE_MORE,
+    "Smooth": SMOOTH_MORE,
+    "Sharpen": SHARPEN,
+}
+Pattern = "Bw|"
+for mode in MODES:
+    Pattern += mode + "|"
+Pattern = Pattern[:-1]
+
+@client.Cmd(pattern=f"(?i)^\{client.cmd}SF({Pattern)$")
 async def editphoto(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
@@ -21,16 +35,7 @@ async def editphoto(event):
         newimg = img.convert("1")
         newimg.save(newfile)
     else:
-        modes = {
-            "Blur": BLUR,
-            "Contour": CONTOUR,
-            "Detail": DETAIL,
-            "Emboss": EMBOSS,
-            "Edge": EDGE_ENHANCE_MORE,
-            "Smooth": SMOOTH_MORE,
-            "Sharpen": SHARPEN,
-        }
-        pmode = modes[mode]
+        pmode = MODES[mode]
         img = Image.open(photo)
         newimg = img.filter(pmode)
         newimg.save(newfile)
