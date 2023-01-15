@@ -58,21 +58,41 @@ async def helpemoji(event):
     await event.edit(client.get_string("Vars_8").format(string))
 
 category = "Settings"
-filename = str(__file__).split("/")[-1].split(".")[0]
-note = "Set Coustom Variebels In Self!"
+plugin = "SetLanguage"
+note = "Set Bot Language!"
 client.HELP.update({
-    filename: {
+    plugin: {
         "category": category,
         "note": note,
         "commands": {
-            "{CMD}SetFa": "To Set Language In Farsi",
-            "{CMD}Seten": "To Set Language In English",
-            "{CMD}SetStr <Text>": "Set Message Starter Sambol",
-            "{CMD}SetCmd <Text>": "Set Commands Stater Sambol",
-            ".DelCmd": "Delete Commands Stater Sambol",
+            "{CMD}SetFa": "To Set Language To Farsi",
+            "{CMD}SetEn": "To Set Language To English",
+        },
+    }
+})
+plugin = "SetChats"
+note = "Set Coustom Realm Chat And BackUp Channel!"
+client.HELP.update({
+    plugin: {
+        "category": category,
+        "note": note,
+        "commands": {
             "{CMD}SetRealm": "Set Realm Chat",
             "{CMD}SetBackCh": "Set BackUp Channel",
-            "{CMD}SetHelpEmoji <Text>": "Set Help Panel Emoji Sambol",
+        },
+    }
+})
+plugin = "Variebels"
+note = "Set Command Starter And Message Starter!"
+client.HELP.update({
+    plugin: {
+        "category": category,
+        "note": note,
+        "commands": {
+            "{CMD}SetCmd <Text>": "Set Commands Stater Sambol",
+            ".DelCmd": "Delete Commands Stater Sambol",
+            "{CMD}SetStr <Text>": "Set Message Starter Sambol",
+            "{CMD}SetHelpEmoji <Text>": "Set Emoji In Help Sambol",
         },
     }
 })
