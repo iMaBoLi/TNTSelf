@@ -374,4 +374,15 @@
     "EditPhoto": {
         "1": "**{STR} Filter** ( `{}` ) **Successfully Added To Your Photo!**",
     },
+    "Save": {
+        "1": "**{STR} The Name** ( `{}` ) **Already In Saves List!**",
+        "2": "**{STR} The Message White Name** ( `{}` ) **Is Saved!**",
+        "3": "**{STR} The Name** ( `{}` ) **Is Not In Saves List!**",
+        "4": "**{STR} The Name And Message** ( `{}` ) **Deleted From Saves List!**",
+        "5": "**{STR} The Message White Name** ( `{}` ) **Is Not Available!**",
+        "6": "**{STR} The Saves List Is Empty!**",
+        "7": "**{STR} The Saves List:**\n\n",
+        "8": "**{STR} The Saves List Is Already Empty!**",
+        "9": "**{STR} The Saves List Has Been Cleaned And Messages Deleted!**",
+    },
 }
