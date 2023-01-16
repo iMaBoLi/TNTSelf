@@ -22,6 +22,7 @@ RMSTRS = {
 }
 
 def translate(text, lang):
+    translator = Translator()
     for STR in RMSTRS:
         text = text.replace(STR, RMSTRS[STR]) 
     trjome = translator.translate(text, dest=lang) 
