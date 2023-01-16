@@ -9,7 +9,7 @@ async def setlanguage(event):
         return await event.edit(client.get_string("Language_1").format(lang))
     client.DB.set_key("LANGUAGE", lang)
     client.lang = lang
-    langname = f"{lang} - {LANGS[lang]}"
+    langname = f"{lang} - {LANGS[lang].title()}"
     await event.edit(client.get_string("Language_2").format(langname))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}InstallLang (.*)$")
@@ -20,7 +20,7 @@ async def installlanguage(event):
         return await event.edit(client.get_string("Language_15"))
     if lang not in LANGS:
         return await event.edit(client.get_string("Language_3").format(lang))
-    langname = f"{lang} - {LANGS[lang]}"
+    langname = f"{lang} - {LANGS[lang].title()}"
     await event.edit(client.get_string("Language_4").format(langname))
     install = install_lang(lang)
     langs = client.DB.get_key("INSTALL_LANGS") or []
@@ -28,9 +28,9 @@ async def installlanguage(event):
         langs.append(lang)
         client.DB.set_key("INSTALL_LANGS", langs)
     if install == "Installed":
-        return await event.edit(client.get_string("Language_5").format(langname))
+        await event.edit(client.get_string("Language_5").format(langname))
     elif install == "Updated":
-        return await event.edit(client.get_string("Language_6").format(langname))
+        await event.edit(client.get_string("Language_6").format(langname))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}RemoveLang (.*)$")
 async def removelanguage(event):
@@ -40,7 +40,7 @@ async def removelanguage(event):
         return await event.edit(client.get_string("Language_15"))
     if lang not in LANGUAGES:
         return await event.edit(client.get_string("Language_7").format(lang))
-    langname = f"{lang} - {LANGS[lang]}"
+    langname = f"{lang} - {LANGS[lang].title()}"
     langs = client.DB.get_key("INSTALL_LANGS") or []
     if lang in langs:
         langs.remove(lang)
@@ -58,7 +58,7 @@ async def removelanguage(event):
     langnames = "\n"
     for lang in others:
         install_lang(lang)
-        langname = f"{lang} - {LANGS[lang]}"
+        langname = f"{lang} - {LANGS[lang].title()}"
         await event.edit(client.get_string("Language_11").format(langname))
         langnames += langname + "\n"
     await event.edit(client.get_string("Language_12").format(langnames))
@@ -69,7 +69,7 @@ async def alllanguages(event):
     text = client.get_string("Language_13")
     row = 1
     for lang in LANGS:
-        text += f"**{row}-** `{lang}`|{LANGS[lang]}\n"
+        text += f"**{row}-** `{lang}`|{LANGS[lang].title()}\n"
         row += 1
     await event.edit(text)
 
@@ -79,7 +79,7 @@ async def languages(event):
     text = client.get_string("Language_14")
     row = 1
     for lang in LANGUAGES:
-        text += f"**{row}-** `{lang}`|{LANGS[lang]}\n"
+        text += f"**{row}-** `{lang}`|{LANGS[lang].title()}\n"
         row += 1
     await event.edit(text)
 
