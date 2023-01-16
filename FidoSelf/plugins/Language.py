@@ -1,5 +1,5 @@
 from FidoSelf import client
-from FidoSelf.strings import LANGUAGES, LANGS, MAINLANGS, install_lang
+from FidoSelf.languages import install_lang, LANGUAGES, LANGS, MAINLANGS
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetLang (.*)$")
 async def setlanguage(event):
@@ -25,7 +25,7 @@ async def installlanguage(event):
     client.loop.create_task(install(event, lang, langname))
 
 async def install(event, lang, langname):
-    install = install_lang(lang)
+    install = client.loop.create_task(install_lang(lang))
     langs = client.DB.get_key("INSTALL_LANGS") or []
     if lang not in langs:
         langs.append(lang)
