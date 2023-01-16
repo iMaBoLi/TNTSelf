@@ -6,10 +6,11 @@ async def setlanguage(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1).lower()
     if lang not in LANGUAGES:
-        return await event.edit(client.get_string("Language_1"))
+        return await event.edit(client.get_string("Language_1").format(lang))
     client.DB.set_key("LANGUAGE", lang)
     client.lang = lang
-    await event.edit(client.get_string("Language_2"))
+    langname = f"{lang} - {LANGS[lang]}"
+    await event.edit(client.get_string("Language_2").format(langname)
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}InstallLang (.*)$")
 async def installlanguage(event):
@@ -36,7 +37,7 @@ async def installlanguage(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}LangList$")
 async def alllanguages(event):
     await event.edit(client.get_string("Wait"))
-    text = client.get_string("Language_6").format(len(LANGS))
+    text = client.get_string("Language_6")
     row = 1
     for lang in LANGS:
         text += f"**{row}-** `{lang}` | **{LANGS[lang]}**\n"
@@ -46,7 +47,7 @@ async def alllanguages(event):
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Languages$")
 async def languages(event):
     await event.edit(client.get_string("Wait"))
-    text = client.get_string("Language_7").format(len(LANGUAGES))
+    text = client.get_string("Language_7")
     row = 1
     for lang in LANGUAGES:
         text += f"**{row}-** `{lang}` | **{LANGS[lang]}**\n"
