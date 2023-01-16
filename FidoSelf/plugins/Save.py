@@ -76,3 +76,20 @@ async def cleansaves(event):
             pass
     client.DB.del_key("SAVES")
     await event.edit(client.get_string("Save_9"))
+
+category = "Tools"
+plugin = "Save"
+note = "Seve Your Message In Channel!"
+client.HELP.update({
+    plugin: {
+        "category": category,
+        "note": note,
+        "commands": {
+            "{CMD}Save <Text> [Reply]": "To Save Replyed Message White Name",
+            "{CMD}Del <Text>": "To Delete Saved Message White Name",
+            "{CMD}Get <Text>": "To Get Saved Message White Name",
+            "{CMD}SaveList": "To Get List Of Saved Messages",
+            "{CMD}CleanSaveList": "To Clean Saved Messages",
+        },
+    }
+})
