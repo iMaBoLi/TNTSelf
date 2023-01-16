@@ -2,7 +2,7 @@ from . import client, START_TIME, __version__
 from telethon import __version__ as telever
 from FidoSelf.functions.utils import load_plugins
 from FidoSelf.functions.misc import stimezone, addvars
-from FidoSelf.strings import load_langs
+from FidoSelf.languages import load_langs
 import platform
 import time
 
