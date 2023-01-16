@@ -35,6 +35,7 @@
     "ReplyMedia": {
         "Main": "**{STR} The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Not": "**{STR} You Have Not Replied Please Reply To** ( `{}` )",
+        "NotAll": "**{STR} You Have Not Replied Please Reply To A Message!**",
         "Message": "Message",
         "Text": "Text",
         "Photo": "Photo",
