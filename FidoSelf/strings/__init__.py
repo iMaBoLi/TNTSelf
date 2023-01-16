@@ -11,11 +11,11 @@ def load_langs():
         STRING = eval(STRING)
         LANGUAGES[main] = STRING
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added!")
-        others = client.DB.get_key("INSTALL_LANGS") or []
-        if others:
-            for lang in others:
-                install_lang(lang)
-                client.LOGS.info(f"• Language ( {lang} ) Successfuly Installed!")
+    others = client.DB.get_key("INSTALL_LANGS") or []
+    if others:
+        for lang in others:
+            install_lang(lang)
+            client.LOGS.info(f"• Language ( {lang} ) Successfuly Installed!")
 
 REMOVEDSTRS = {
     "\n": "{LINE}",
