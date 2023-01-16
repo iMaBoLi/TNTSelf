@@ -10,7 +10,7 @@ async def setlanguage(event):
     client.DB.set_key("LANGUAGE", lang)
     client.lang = lang
     langname = f"{lang} - {LANGS[lang]}"
-    await event.edit(client.get_string("Language_2").format(langname)
+    await event.edit(client.get_string("Language_2").format(langname))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}InstallLang (.*)$")
 async def installlanguage(event):
