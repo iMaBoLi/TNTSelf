@@ -15,6 +15,7 @@
         "12": "**{STR} The Languages** ( `{}` ) **Successfuly Reloaded!**",
         "13": "**{STR} The All Languages List:**\n\n",
         "14": "**{STR} The Installed Languages List:**\n\n",
+        "15": "**{STR} You Can't Install Or Remove This Language!**",
     },
     "Yes": "Yes",
     "No": "No",
