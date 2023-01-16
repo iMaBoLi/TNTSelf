@@ -31,7 +31,7 @@ async def addvars():
     setattr(client.bot, "me", (await client.bot.get_me()))
     setattr(client, "str", client.DB.get_key("MESSAGES_STARTER") or "✥")
     setattr(client, "cmd", client.DB.get_key("SELF_CMD") or ".")
-    setattr(client, "realm", client.DB.get_key("REALM_CHAT"))
+    setattr(client, "realm", client.DB.get_key("REALM_CHAT") or client.me.id)
     setattr(client, "backup", client.DB.get_key("BACKUP_CHANNEL"))
     setattr(client, "support", client.DB.get_key("SUPPORT_CHANNEL"))
 
