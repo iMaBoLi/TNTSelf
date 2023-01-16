@@ -32,8 +32,7 @@ async def addvars():
     setattr(client, "str", client.DB.get_key("MESSAGES_STARTER") or "✥")
     setattr(client, "cmd", client.DB.get_key("SELF_CMD") or ".")
     setattr(client, "realm", client.DB.get_key("REALM_CHAT") or client.me.id)
-    setattr(client, "backup", client.DB.get_key("BACKUP_CHANNEL"))
-    setattr(client, "support", client.DB.get_key("SUPPORT_CHANNEL"))
+    setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL"))
 
 def stimezone():
     tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
