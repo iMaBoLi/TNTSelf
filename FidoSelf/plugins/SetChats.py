@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Set(Realm|Backup|Support)$")
+@client.Cmd(pattern=f"(?i)^\{client.cmd}Set(Realm|Backup)$")
 async def setchats(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
@@ -14,14 +14,8 @@ async def setchats(event):
         if not event.is_ch:
             return await event.edit(client.get_string("SetChats_3"))
         client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
-        client.backup = event.chat_id
+        client.backch = event.chat_id
         await event.edit(client.get_string("SetChats_4"))
-    elif mode == "Backup":
-        if not event.is_ch:
-            return await event.edit(client.get_string("SetChats_3"))
-        client.DB.set_key("SUPPORT_CHANNEL", event.chat_id)
-        client.support = event.chat_id
-        await event.edit(client.get_string("SetChats_5"))
 
 category = "Settings"
 plugin = "SetChats"
@@ -33,7 +27,6 @@ client.HELP.update({
         "commands": {
             "{CMD}SetRealm": "To Set Coustom Realm Chat",
             "{CMD}SetBackUp": "To Set Coustom BackUp Channel",
-            "{CMD}SetSupport": "To Set Coustom Support Channel",
         },
     }
 })
