@@ -100,7 +100,6 @@
     "Modes": {
         "SELF_ALL_MODE": "Self",
         "QUICKS_MODE": "Quicks",
-        "LANGUAGE": "Language",
         "AUTO_DELETE_MODE": "Auto Delete",
         "AUTO_REPLACE_MODE": "Auto Replace",
         "AUTO_SAY_MODE": "Auto Say",
@@ -140,8 +139,8 @@
         "2": "**{STR} Please Select The Desired Command From The Commands Below To See The Rest Of The Commands In It And Their Instructions:**\n\n**{STR} Total Number Of Commands In This Category:** ( `{}` )",
         "3": "**{STR} Command Name:** ( `{}` )\n",
         "4": "**{STR} Category:** ( `{}` )\n",
-        "5": "**{STR} Note:** ( `{}` )\n",
-        "6": "**{STR} Commands** ( `{}` ):\n\n",
+        "5": "**{STR} Note:** ( `{}` )\n\n",
+        "6": "**{STR} Commands** ( `{}` ):\n",
         "7": "**{STR} The Help Panel Successfuly Closed!**",
     },
     "Panel": {
