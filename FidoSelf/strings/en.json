@@ -137,7 +137,8 @@
         "3": "**{STR} Command Name:** ( `{}` )\n",
         "4": "**{STR} Category:** ( `{}` )\n",
         "5": "**{STR} Note:** ( `{}` )\n",
-        "6": "**{STR} The Help Panel Successfuly Closed!**",
+        "6": "**{STR} Commands** ( `{}` ):\n",
+        "7": "**{STR} The Help Panel Successfuly Closed!**",
     },
     "Panel": {
         "1": "**{STR} Please Use The Buttons Below To Control The Different Parts:**",
