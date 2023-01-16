@@ -17,6 +17,11 @@ def load_langs():
                 install_lang(lang)
                 client.LOGS.info(f"• Language ( {lang} ) Successfuly Installed!")
 
+REMOVEDSTRS = {
+    "\n": "{LINE}",
+    "?": "{SOAL}",
+}
+
 def install_lang(dest):
     if dest not in LANGS:
         return "NotFound"
@@ -31,12 +36,24 @@ def install_lang(dest):
         if isinstance(result, dict):
             newlist = {}
             for key in result:
-                trjome = translator.translate(result[key], dest=dest)  
-                newlist.update({key: trjome.text})
+                ttext = result[key]
+                for tr in REMOVEDSTRS:
+                    ttext = ttext.replace(tr, REMOVEDSTRS[tr]) 
+                trjome = translator.translate(ttext, dest=dest)  
+                ntext = trjome.text
+                for tr in REMOVEDSTRS:
+                    ntext = ntext.replace(REMOVEDSTRS[tr], tr) 
+                newlist.update({key: ntext})
             NewLang.update({object: newlist})
         elif isinstance(result, str):
-            trjome = translator.translate(result, dest=dest)  
-            NewLang.update({object: trjome.text})
+            ttext = result
+            for tr in REMOVEDSTRS:
+                ttext = ttext.replace(tr, REMOVEDSTRS[tr]) 
+            trjome = translator.translate(result, dest=dest) 
+            ntext = trjome.text
+            for tr in REMOVEDSTRS:
+                ntext = ntext.replace(REMOVEDSTRS[tr], tr)  
+            NewLang.update({object: ntext})
     LANGUAGES.update({dest: NewLang})
     return mode
 
