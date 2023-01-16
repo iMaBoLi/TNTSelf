@@ -14,11 +14,11 @@ def load_langs():
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added!")
 
 RMSTRS = {
-    " ": "{FASLE}",
-    "\n": "{LINE}",
-    "?": "{SOAL}",
-    ".": "{NOGHTE}",
-    ",": "{CAMA}",
+    " ": "(F.A.S.L.E)",
+    "\n": "(L.I.N.E)",
+    "?": "(S.O.A.L)",
+    ".": "(N.O.G.H.T.E)",
+    ",": "(C.A.M.A)",
 }
 
 def translate(text, lang):
@@ -64,7 +64,8 @@ def get_string(string):
             STRING = STRING.replace("{STR}", client.str)
             STRING = STRING.replace("{CMD}", client.cmd)
         return STRING
-    except:
+    except Exception as e:
+        client.loop.create_task(client.send_message("me", str(e)))
         STRING = LANGUAGES["en"]
         for page in string.split("_"):
             STRING = STRING[page]
