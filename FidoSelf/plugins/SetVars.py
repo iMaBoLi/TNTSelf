@@ -1,14 +1,5 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Set(en|fa)$")
-async def language(event):
-    await event.edit(client.get_string("Wait"))
-    lang = event.pattern_match.group(1).lower()
-    client.DB.set_key("LANGUAGE", lang)
-    client.lang = lang
-    text = client.get_string("Lang_1")
-    await event.edit(text)
-
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
 async def messagesstarter(event):
     await event.edit(client.get_string("Wait"))
@@ -58,18 +49,6 @@ async def helpemoji(event):
     await event.edit(client.get_string("Vars_8").format(string))
 
 category = "Settings"
-plugin = "SetLanguage"
-note = "Set Bot Language!"
-client.HELP.update({
-    plugin: {
-        "category": category,
-        "note": note,
-        "commands": {
-            "{CMD}SetFa": "To Set Language To Farsi",
-            "{CMD}SetEn": "To Set Language To English",
-        },
-    }
-})
 plugin = "SetChats"
 note = "Set Coustom Realm Chat And BackUp Channel!"
 client.HELP.update({
