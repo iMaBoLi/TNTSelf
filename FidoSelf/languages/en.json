@@ -149,14 +149,12 @@
         "3": "**{STR} Please Use The Options Below To Manage Edit Texts Mode:**",
         "4": "**{STR} The Panel Successfuly Closed!**",
     },
-    "Vars": {
-        "1": "**{STR} The Messages Starter String Has Been Set To** ( `{}` )",
-        "2": "**{STR} The Self Commands Starter Has Been Set To** ( `{}` )",
-        "3": "**{STR} The Self Commands Starter Has Been Deleted!**",
-        "4": "**{STR} Please Send In Group For Added Realm Chat!**",
-        "5": "**{STR} This Chat Is Saved For Realm Chat!**",
-        "6": "**{STR} Please Send In Channel For Added BackUp Channel!**",
-        "7": "**{STR} This Channel Is Saved For BackUp Channel!**",
+    "SetChats": {
+        "1": "**{STR} Please Send In Group For Added Realm Chat!**",
+        "2": "**{STR} This Chat Is Saved For Realm Chat!**",
+        "3": "**{STR} Please Send In Channel For Added BackUp Or Support Channel!**",
+        "4": "**{STR} This Channel Is Saved For BackUp Channel!**",
+        "5": "**{STR} This Channel Is Saved For Support Channel!**",
     },
     "Translate": {
         "1": "**{STR} The Entered Language Is Not Available!**",
