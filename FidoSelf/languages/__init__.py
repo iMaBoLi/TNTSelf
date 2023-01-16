@@ -7,7 +7,7 @@ MAINLANGS = ["en", "fa"]
 
 def load_langs():
     for main in MAINLANGS:
-        file = f"FidoSelf/strings/{main}.json"
+        file = f"FidoSelf/languages/{main}.json"
         STRING = open(file, "r").read()
         STRING = eval(STRING)
         LANGUAGES[main] = STRING
