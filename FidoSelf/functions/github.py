@@ -10,33 +10,25 @@ class Git:
         self.git = Github(self.token)
         self.repo = self.git.get_repo(repo)
 
-    def create(self, oldfile, newfile):
+    def create(self, content, newfile):
         try:
-            content = open(oldfile, "r").read()
-        except:
-            content = open(oldfile, "rb").read()
-        try:
-            self.repo.create_file(newfile, f"Create {newfile.split('/')[-1]}", content, branch="master")
+            self.repo.create_file(newfile, f"Create {newfile.split('/')[-1]}", content, branch="main")
             return True
-        except:
-            return False
+        except Exception as error:
+            return error
 
-    def update(self, file, oldfile):
+    def update(self, file, content):
         try:
-            content = open(oldfile, "r").read()
-        except:
-            content = open(oldfile, "rb").read()
-        try:
-            contents = self.repo.get_contents(file, ref="master")
-            self.repo.update_file(contents.path,  f"Update {file.split('/')[-1]}", content, contents.sha, branch="master")
+            contents = self.repo.get_contents(file, ref="main")
+            self.repo.update_file(contents.path,  f"Update {file.split('/')[-1]}", content, contents.sha, branch="main")
             return True
-        except:
-            return False
+        except Exception as error:
+            return error
 
     def delete(self, file):
         try:
-            contents = self.repo.get_contents(file, ref="master")
-            self.repo.delete_file(contents.path,  f"Remove {file.split('/')[-1]}", contents.sha, branch="master")
+            contents = self.repo.get_contents(file, ref="main")
+            self.repo.delete_file(contents.path,  f"Remove {file.split('/')[-1]}", contents.sha, branch="main")
             return True
-        except:
-            return False
+        except Exception as error:
+            return error
