@@ -110,7 +110,7 @@ async def getplugin(event):
         ncom = com.replace("{CMD}", client.cmd)
         cominfo = translate(info["commands"][com])
         text += f'  `{ncom}`\n'
-        text += f'      __ •{cominfo}__\n'
+        text += f'      __• {cominfo}__\n'
     buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}')]] 
     await event.edit(text=text, buttons=buttons) 
 
