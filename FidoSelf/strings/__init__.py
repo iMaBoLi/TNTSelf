@@ -14,11 +14,9 @@ def load_langs():
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added!")
 
 RMSTRS = {
-    " ": "(F.A.S.L.E)",
-    "\n": "(L.I.N.E)",
-    "?": "(S.O.A.L)",
-    ".": "(N.O.G.H.T.E)",
-    ",": "(C.A.M.A)",
+    "\n": "{LI_NE}",
+    "?": "{SO_AL}",
+    ".": "{NOGH_TE}",
 }
 
 def translate(text, lang):
