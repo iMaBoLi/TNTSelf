@@ -1,1 +1,0 @@
-FidoSelf/functions/vars.py
