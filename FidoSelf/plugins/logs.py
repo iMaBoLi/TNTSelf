@@ -8,7 +8,7 @@ async def logs(event):
         await event.respond(f"**{client.str} The Console Logs File!**", file="Fido.log")
         await event.delete()
     elif type == "g":
-        git = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
+        git = await client.utils.runcmd('git log --pretty=format:"[%an]: %s"')
         open("Github.log", "w").write(str(git[0]))
         await event.respond(f"**{client.str} The Github Commits Logs File!**", file="Github.log")
         os.remove("Github.log")
