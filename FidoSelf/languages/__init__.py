@@ -20,6 +20,10 @@ RMSTRS = {
     "\n": "{L_I_N_E}",
     "?": "{S_O_A_L}",
     ".": "{N_O_G_H_T_E}",
+    "( `{}` )": "{G_I_V_E_1}",
+    "( {} )": "{G_I_V_E_2}",
+    "`{}`": "{G_I_V_E_3}",
+    "{}": "{G_I_V_E_4}",
 }
 
 def translate(text, lang):
@@ -29,8 +33,9 @@ def translate(text, lang):
     trjome = translator.translate(text, dest=lang) 
     trtext = trjome.text
     for STR in RMSTRS:
-        trtext = trtext.replace(RMSTRS[STR], STR)  
-    return trtext
+        trtext = trtext.replace(RMSTRS[STR], STR)
+    text = "**" + trtext + "**"
+    return text
 
 def install_lang(dest):
     if dest not in LANGS:
