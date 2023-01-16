@@ -22,6 +22,9 @@ async def installlanguage(event):
         return await event.edit(client.get_string("Language_3").format(lang))
     langname = f"{lang} - {LANGS[lang].title()}"
     await event.edit(client.get_string("Language_4").format(langname))
+    client.loop.create_task(install(event, lang, langname))
+
+async def install(event, lang, langname):
     install = install_lang(lang)
     langs = client.DB.get_key("INSTALL_LANGS") or []
     if lang not in langs:
@@ -55,6 +58,9 @@ async def removelanguage(event):
     if not others:
         return await event.edit(client.get_string("Language_9"))
     await event.edit(client.get_string("Language_10"))
+    client.loop.create_task(reload(event, others))
+
+async def reload(event, others):
     langnames = "\n"
     for lang in others:
         install_lang(lang)
