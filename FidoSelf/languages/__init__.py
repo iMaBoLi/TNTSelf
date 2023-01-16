@@ -17,13 +17,13 @@ def load_langs():
         client.LOGS.info(f"• Language ( {client} ) Successfuly Added By Translate!")
 
 RMSTRS = {
-    "\n": "{L_I_N_E}",
-    "?": "{S_O_A_L}",
-    ".": "{N_O_G_H_T_E}",
-    "( `{}` )": "{G_I_V_E_1}",
-    "( {} )": "{G_I_V_E_2}",
-    "`{}`": "{G_I_V_E_3}",
-    "{}": "{G_I_V_E_4}",
+    "\n": "{{L_I_N_E}}",
+    "?": "{{S_O_A_L}}",
+    ".": "{{N_O_G_H_T_E}}",
+    "( `{}` )": "{{G_I_V_E_1}}",
+    "( {} )": "{{G_I_V_E_2}}",
+    "`{}`": "{{G_I_V_E_3}}",
+    "{}": "{{G_I_V_E_4}}",
 }
 
 def translate(text, lang):
