@@ -12,11 +12,14 @@ def load_langs():
         STRING = eval(STRING)
         LANGUAGES[main] = STRING
         client.LOGS.info(f"• Language ( {main} ) Successfuly Added!")
+    if client.lang not in MAINLANGS:
+        install_lang(client.lang)
+        client.LOGS.info(f"• Language ( {client} ) Successfuly Added By Translate!")
 
 RMSTRS = {
-    "\n": "{LI_NE}",
-    "?": "{SO_AL}",
-    ".": "{NOGH_TE}",
+    "\n": "{L_I_N_E}",
+    "?": "{S_O_A_L}",
+    ".": "{N_O_G_H_T_E}",
 }
 
 def translate(text, lang):
