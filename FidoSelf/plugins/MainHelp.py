@@ -58,7 +58,7 @@ def get_cat_buttons(cat, page):
         end = len(plugins)
     for plugin in plugins[start:end]:
         emoji = client.DB.get_key("HELP_EMOJI") or "•"
-        name = emoji + " " + translate(plugin) + " " + emoji
+        name = emoji + " " + plugin + " " + emoji
         buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
     buttons = list(client.utils.chunks(buttons, 2))
     pgbts = get_pages_button(cat, page)
@@ -109,8 +109,8 @@ async def getplugin(event):
     for com in info["commands"]:
         ncom = com.replace("{CMD}", client.cmd)
         cominfo = translate(info["commands"][com])
-        text += f' `{ncom}`\n'
-        text += f'   __{cominfo}__\n'
+        text += f'  `{ncom}`\n'
+        text += f'      __ •{cominfo}__\n'
     buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}')]] 
     await event.edit(text=text, buttons=buttons) 
 
