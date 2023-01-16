@@ -10,5 +10,5 @@ async def dtimermedias(event):
         sender = await event.get_sender()
         mention = client.mention(sender)
         ttl = client.utils.convert_time(event.media.ttl_seconds)
-        await event.save_realm(caption=client.get_string("TimerSave").format(mention, ttl))
+        await client.send_file(client.realm, file, caption=client.get_string("TimerSave").format(mention, ttl))
         os.remove(file)
