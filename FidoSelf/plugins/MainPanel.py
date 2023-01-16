@@ -19,11 +19,7 @@ def get_mode_buttons(page):
     buttons = []
     MODES = client.get_string("Modes")
     for mode in MODES:
-        if mode == "LANGUAGE":
-            gmode = client.DB.get_key(mode) or client.lang or "en"
-            cmode = "en" if gmode == "fa" else "fa"
-            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline(client.get_string("Lang_2"), data=f"setmode:{page}:{mode}:{cmode}")])
-        elif mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
+        if mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
             buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:off"), Button.inline(client.get_string("Inline_1"), data=f"setmode:{page}:{mode}:off")])
         else:
             gmode = client.DB.get_key(mode) or "off"
@@ -92,8 +88,6 @@ async def setmode(event):
     page = int(event.data_match.group(1).decode('utf-8'))
     mode = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    if mode == "LANGUAGE":
-        client.lang = change
     client.DB.set_key(mode, change)
     text = client.get_string("Panel_1")
     buttons = get_mode_buttons(page)
