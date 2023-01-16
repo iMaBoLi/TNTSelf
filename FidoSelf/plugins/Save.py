@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Save (.*)$")
-async def save(event):
+async def savesaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
     if not event.is_reply:
@@ -17,7 +17,7 @@ async def save(event):
     await event.edit(client.get_string("Save_2").format(name))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Del (.*)$")
-async def del(event):
+async def delsaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
     saves = client.DB.get_key("SAVES") or {}
@@ -34,7 +34,7 @@ async def del(event):
     await event.edit(client.get_string("Save_4").format(name))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}Get (.*)$")
-async def get(event):
+async def getsaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
     saves = client.DB.get_key("SAVES") or {}
@@ -49,7 +49,7 @@ async def get(event):
         await event.edit(client.get_string("Save_5").format(name))
 
 @client.Cmd(pattern=f"(?i)^\{client.cmd}SaveList$")
-async def savelist(event):
+async def saveslist(event):
     await event.edit(client.get_string("Wait"))
     saves = client.DB.get_key("SAVES") or {}
     if not saves:
