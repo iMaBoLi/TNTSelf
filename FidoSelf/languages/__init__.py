@@ -34,8 +34,7 @@ def translate(text, lang):
     trtext = trjome.text
     for STR in RMSTRS:
         trtext = trtext.replace(RMSTRS[STR], STR)
-    text = "**" + trtext + "**"
-    return text
+    return trtext
 
 def install_lang(dest):
     if dest not in LANGS:
