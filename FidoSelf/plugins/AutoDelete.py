@@ -19,28 +19,21 @@ async def trydelete(event):
     if mode == "off": return
     sleep = client.DB.get_key("AUTO_DELETE_SLEEP") or 300
     await asyncio.sleep(int(sleep))
-    mode = client.DB.get_key("AUTO_DELETE_MODE")
-    if mode == "on":
-        try:
-            await event.delete()
-        except:
-            pass
+    try:
+        await event.delete()
+    except:
+        pass
 
-category = "Manager"
-filename = str(__file__).split("/")[-1].split(".")[0]
-note = "Delete Automatic Messages After A Time!"
+category = "Tools"
+plugin = "AutoDelete"
+note = "Delete Your Messages After A Time!"
 client.HELP.update({
-    filename: {
+    plugin: {
         "category": category,
         "note": note,
         "commands": {
-            "AutoDelete": {
-                "{CMD}AutoDelete On": "To Active Auto Delete Message",
-                "{CMD}AutoDelete Off": "To DeActive Auto Delete Message",
-            },
-            "AutoDeleteSleep": {
-                "{CMD}SetAutoDeleteSleep <Min>": "Set Auto Delete Message Sleep Time",
-            },
+            "{CMD}AutoDelete <On|Off>": "To Active Or DeActive Auto Delete Mode",
+            "{CMD}Sleep AutoDelete <Min>": "To Set Sleep For Auto Delete Mode",
         },
     }
 })
