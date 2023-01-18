@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Save (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Save (.*)$")
 async def savesaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
@@ -16,7 +16,7 @@ async def savesaves(event):
     client.DB.set_key("SAVES", saves)
     await event.edit(client.get_string("Save_2").format(name))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Del (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Del (.*)$")
 async def delsaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
@@ -33,7 +33,7 @@ async def delsaves(event):
     client.DB.set_key("SAVES", saves)
     await event.edit(client.get_string("Save_4").format(name))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Get (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Get (.*)$")
 async def getsaves(event):
     await event.edit(client.get_string("Wait"))
     name = event.pattern_match.group(1)
