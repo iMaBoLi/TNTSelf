@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import Button
 import wikipedia
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SWiki (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SWiki (.*)$")
 async def wikisearch(event):
     await event.edit(client.get_string("Wait"))
     wikipedia.set_lang(client.lang)
