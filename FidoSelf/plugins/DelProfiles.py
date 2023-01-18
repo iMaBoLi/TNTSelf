@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions, types
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelProfile ?((\-)?\d*)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelProfile ?((\-)?\d*)?$")
 async def delprofiles(event):
     await event.edit(client.get_string("Wait"))
     pphoto = await client.get_profile_photos("me")
