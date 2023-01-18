@@ -67,7 +67,7 @@ def get_cat_buttons(cat, page):
     buttons = client.get_buttons(buttons)
     return buttons
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Help$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Help$")
 async def help(event):
     await event.edit(client.get_string("Wait"))
     res = await client.inline_query(client.bot.me.username, "selfmainhelp")
