@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Bio (On|off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Bio (On|off)$")
 async def bio(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -8,7 +8,7 @@ async def bio(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Bio Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddBio (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddBio (.*)$")
 async def addbio(event):
     await event.edit(client.get_string("Wait"))
     bios = client.DB.get_key("BIOS") or []
@@ -19,7 +19,7 @@ async def addbio(event):
     client.DB.set_key("BIOS", bios)
     await event.edit(f"**{client.str} The Bio** ( `{newbio}` ) **Is Added To Bio List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelBio (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelBio (.*)$")
 async def delbio(event):
     await event.edit(client.get_string("Wait"))
     bios = client.DB.get_key("BIOS") or []
@@ -30,7 +30,7 @@ async def delbio(event):
     client.DB.set_key("BIOS", bios)
     await event.edit(f"**{client.str} The Bio** ( `{newbio}` ) **Deleted From Bio List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}BioList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}BioList$")
 async def biolist(event):
     await event.edit(client.get_string("Wait"))
     bios = client.DB.get_key("BIOS") or []
@@ -43,7 +43,7 @@ async def biolist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanBioList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanBioList$")
 async def cleanbios(event):
     await event.edit(client.get_string("Wait"))
     bios = client.DB.get_key("BIOS") or []
