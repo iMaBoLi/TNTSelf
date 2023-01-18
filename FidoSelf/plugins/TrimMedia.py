@@ -3,7 +3,7 @@ from moviepy.editor import VideoFileClip
 import os
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}STrim (\d*)\-(\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}STrim (\d*)\-(\d*)$")
 async def trimmedia(event):
     await event.edit(client.get_string("Wait"))
     ss = int(event.pattern_match.group(1))
