@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AntiSpamPv (On|Off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AntiSpamPv (On|Off)$")
 async def antispampv(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -9,14 +9,14 @@ async def antispampv(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("AntiSpamPv_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetSpamPvLimit (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetSpamPvLimit (\d*)$")
 async def setautodeletesleep(event):
     await event.edit(client.get_string("Wait"))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("SPAM_PV_LIMIT", sleep)
     await event.edit(client.get_string("AntiSpamPv_2").format(client.utils.convert_time(sleep)))
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def antispam(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mode = client.DB.get_key("ANTISPAM_PV") or "off"
