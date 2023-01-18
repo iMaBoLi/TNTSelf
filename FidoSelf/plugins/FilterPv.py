@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddFilterPv (.*)")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddFilterPv (.*)")
 async def addfilterpv(event):
     await event.edit(client.get_string("Wait"))
     word = str(event.pattern_match.group(1))
@@ -11,7 +11,7 @@ async def addfilterpv(event):
     client.DB.set_key("FILTER_PVS", filterpvs)
     await event.edit(client.get_string("FilterPv_2").format(word))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelFilterPv (.*)")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelFilterPv (.*)")
 async def delfilterpv(event):
     await event.edit(client.get_string("Wait"))
     word = str(event.pattern_match.group(1))
@@ -22,7 +22,7 @@ async def delfilterpv(event):
     client.DB.set_key("FILTER_PVS", filterpvs)
     await event.edit(client.get_string("FilterPv_4").format(word))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}FilterPvList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}FilterPvList$")
 async def filterpvlist(event):
     await event.edit(client.get_string("Wait"))
     filterpvs = client.DB.get_key("FILTER_PVS") or []
@@ -35,7 +35,7 @@ async def filterpvlist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanFilterPvList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanFilterPvList$")
 async def cleanfilterpv(event):
     await event.edit(client.get_string("Wait"))
     filterpvs = client.DB.get_key("FILTER_PVS") or []
@@ -44,7 +44,7 @@ async def cleanfilterpv(event):
     client.DB.del_key("FILTER_PVS")
     await event.edit(client.get_string("FilterPv_7"))
     
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def filterpv(event):
     if not event.text or not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     words = client.DB.get_key("FILTER_PVS") or []
