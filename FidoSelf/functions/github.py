@@ -8,7 +8,7 @@ class Git:
         self.git = Github(self.token)
         self.repo = self.git.get_repo(repo)
 
-    def create(self, content, newfile, branch="main"):
+    def create(self, newfile, content, branch="main"):
         try:
             self.repo.create_file(newfile, f"Create {newfile.split('/')[-1]}", content, branch=branch)
             return True
