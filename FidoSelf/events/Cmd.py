@@ -3,7 +3,7 @@ from telethon import events
 from traceback import format_exc
 import re
 
-def Cmd(
+def Command(
     pattern=None,
     sudo=True,
     edits=True,
