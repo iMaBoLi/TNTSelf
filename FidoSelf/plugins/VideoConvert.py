@@ -4,7 +4,7 @@ from moviepy.editor import VideoFileClip
 import time
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SV(Note|Normal|Gif)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SV(Note|Normal|Gif)$")
 async def videoconvert(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
