@@ -20,7 +20,7 @@ for LIST in LISTS:
         Pattern += Pat + "|"
 Pattern = Pattern[:-1]
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}List ({Pattern})$")
+@client.Command(pattern=f"(?i)^\{client.cmd}List ({Pattern})$")
 async def lister(event):
     await event.edit(client.get_string("Wait"))
     inlist = event.pattern_match.group(1).title()
