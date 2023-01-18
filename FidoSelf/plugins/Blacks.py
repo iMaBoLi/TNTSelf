@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddBlack ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddBlack ?(.*)?")
 async def addblack(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -18,7 +18,7 @@ async def addblack(event):
         client.DB.set_key("WHITES", whites)
     await event.edit(client.get_string("Blacks_2").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelBlack ?(.*)?")
 async def delblack(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -32,7 +32,7 @@ async def delblack(event):
     client.DB.set_key("BLACKS", blacks)
     await event.edit(client.get_string("Blacks_4").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}BlackList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}BlackList$")
 async def blacklist(event):
     await event.edit(client.get_string("Wait"))
     blacks = client.DB.get_key("BLACKS") or []
@@ -45,7 +45,7 @@ async def blacklist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanBlackList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanBlackList$")
 async def cleanblacklist(event):
     await event.edit(client.get_string("Wait"))
     blacks = client.DB.get_key("BLACKS") or []
