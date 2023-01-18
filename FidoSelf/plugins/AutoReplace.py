@@ -1,15 +1,7 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AutoReplace (On|Off)$")
-async def autoreplace(event):
-    await event.edit(client.get_string("Wait"))
-    mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("AUTO_REPLACE_MODE", mode)
-    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(client.get_string("AutoReplace_1").format(change))
-
 @client.Cmd()
-async def autodeleters(event):
+async def replace(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("AUTO_REPLACE_MODE") or "on"
     if mode == "on":
@@ -18,3 +10,16 @@ async def autodeleters(event):
             await event.edit(text)
         except:
             pass
+
+category = "Tools"
+plugin = "AutoReplace"
+note = "Replace Variebels In Your Messages!"
+client.HELP.update({
+    plugin: {
+        "category": category,
+        "note": note,
+        "commands": {
+            "{CMD}AutoReplace <On|Off>": "To Active Or DeActive Auto Replace Mode",
+        },
+    }
+})
