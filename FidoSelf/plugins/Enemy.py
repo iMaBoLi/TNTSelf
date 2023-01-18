@@ -3,7 +3,7 @@ from telethon import functions, types, Button
 import asyncio, random
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
 async def addenemy(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -15,7 +15,7 @@ async def addenemy(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemy ?(.*)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemy ?(.*)?$")
 async def delenemy(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -31,7 +31,7 @@ async def delenemy(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}EnemyList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}EnemyList$")
 async def enemylist(event):
     await event.edit(client.get_string("Wait"))
     Enemies = client.DB.get_key("ENEMIES") or {}
@@ -44,7 +44,7 @@ async def enemylist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyPms (On|off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemyPms (On|off)$")
 async def delenemypm(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -52,14 +52,14 @@ async def delenemypm(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Delete Original Enemy Messages Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
 async def setenemysleep(event):
     await event.edit(client.get_string("Wait"))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ORGENEMY_SLEEP", str(sleep))
     await event.edit(f"**{client.str} The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelEnemyFriendPms (On|off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemyFriendPms (On|off)$")
 async def delenemypm(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -67,14 +67,14 @@ async def delenemypm(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Delete Friend Enemy Messages Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetEnemyFriendSleep (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetEnemyFriendSleep (\d*)$")
 async def setenemysleep(event):
     await event.edit(client.get_string("Wait"))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("FRIENDENEMY_SLEEP", str(sleep))
     await event.edit(f"**{client.str} The Friend Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddFosh(F)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddFosh(F)?$")
 async def savefoshfile(event):
     await event.edit(client.get_string("Wait"))
     if not event.reply_message or not event.reply_message.media:
@@ -92,7 +92,7 @@ async def savefoshfile(event):
         client.DB.set_key("ORGFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
         await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Saved!**")  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
 async def delfoshfile(event):
     await event.edit(client.get_string("Wait"))
     if event.text.endswith("F") or event.text.endswith("f"):
@@ -102,7 +102,7 @@ async def delfoshfile(event):
         client.DB.del_key("ORGFOSHS_FILE")
         await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Deleted!**")  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
 async def getfoshfile(event):
     await event.edit(client.get_string("Wait"))
     if event.text.endswith("F") or event.text.endswith("f"):
@@ -119,7 +119,7 @@ async def getfoshfile(event):
         await event.respond(f"**{client.str} Original Foshs File!**", file=file)
     client.loop.create_task(down_foshs())
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def quicksupdate(event):
     if event.is_sudo or not event.text or event.is_ch: return
     Enemies = client.DB.get_key("ENEMIES") or {}
