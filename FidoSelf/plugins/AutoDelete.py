@@ -1,7 +1,7 @@
 from FidoSelf import client
 import asyncio
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetAutoDeleteSleep (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetAutoDeleteSleep (\d*)$")
 async def setautodeletesleep(event):
     await event.edit(client.get_string("Wait"))
     sleep = event.pattern_match.group(1)
@@ -9,7 +9,7 @@ async def setautodeletesleep(event):
     client.DB.set_key("AUTO_DELETE_SLEEP", sleep)
     await event.edit(client.get_string("AutoDelete_2").format(client.utils.convert_time(sleep)))
 
-@client.Cmd(edits=False)
+@client.Command(edits=False)
 async def autodeletes(event):
     if event.is_cmd: return
     client.loop.create_task(trydelete(event))
