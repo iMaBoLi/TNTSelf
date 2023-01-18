@@ -54,7 +54,7 @@ def get_edit_buttons(page):
     buttons = client.get_buttons(buttons)
     return buttons
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Panel$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Panel$")
 async def addecho(event):
     await event.edit(client.get_string("Wait"))
     res = await client.inline_query(client.bot.me.username, "selfmainpanel")
