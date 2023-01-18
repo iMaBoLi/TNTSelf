@@ -3,7 +3,7 @@ from PIL import Image
 import time
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Photo|Sticker)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}S(Photo|Sticker)$")
 async def spconverter(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
