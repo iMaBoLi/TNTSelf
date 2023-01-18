@@ -24,7 +24,7 @@ async def get_manage_buttons(userid):
     buttons = client.get_buttons(buttons)
     return buttons
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Manage ?(.*)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Manage ?(.*)?$")
 async def managepanel(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
