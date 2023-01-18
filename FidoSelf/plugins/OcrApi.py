@@ -18,14 +18,14 @@ def ocr_file(file, language):
         return False, raw['ErrorMessage'][0]
     return True, raw['ParsedResults'][0]['ParsedText']
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}OcrApi (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}OcrApi (.*)$")
 async def saveocrapi(event):
     await event.edit(client.get_string("Wait"))
     api = event.pattern_match.group(1)
     client.DB.set_key("OCR_API_KEY", api)
     await event.edit(client.get_string("OcrApi_1").format(api))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Ocr (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Ocr (.*)$")
 async def ocrapi(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1)
@@ -45,7 +45,7 @@ async def ocrapi(event):
     await event.edit(client.get_string("OcrApi_5").format(LANGS[lang], res))   
     os.remove(photo)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}OcrLangs$")
+@client.Command(pattern=f"(?i)^\{client.cmd}OcrLangs$")
 async def ocrlangs(event):
     await event.edit(client.get_string("Wait"))
     text = client.get_string("OcrApi_6")
