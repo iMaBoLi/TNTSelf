@@ -48,38 +48,9 @@ async def getsaves(event):
     except:
         await event.edit(client.get_string("Save_5").format(name))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SaveList$")
-async def saveslist(event):
-    await event.edit(client.get_string("Wait"))
-    saves = client.DB.get_key("SAVES") or {}
-    if not saves:
-        return await event.edit(client.get_string("Save_6"))
-    text = client.get_string("Save_7")
-    row = 1
-    for save in saves:
-        text += f"**{row} -** `{save}`\n"
-        row += 1
-    await event.edit(text)
-
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanSaveList$")
-async def cleansaves(event):
-    await event.edit(client.get_string("Wait"))
-    saves = client.DB.get_key("SAVES") or {}
-    if not saves:
-        return await event.edit(client.get_string("Save_8"))
-    for save in saves:
-        info = saves[save]
-        try:
-            message = await client.get_messages(info["chat_id"], ids=info["msg_id"])
-            await message.delete()
-        except:
-            pass
-    client.DB.del_key("SAVES")
-    await event.edit(client.get_string("Save_9"))
-
 category = "Tools"
 plugin = "Save"
-note = "Seve Your Message In Channel!"
+note = "Seve Your Message In Coustom Channel!"
 client.HELP.update({
     plugin: {
         "category": category,
