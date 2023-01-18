@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetStr (.*)$")
 async def messagesstarter(event):
     await event.edit(client.get_string("Wait"))
     string = event.pattern_match.group(1)
@@ -8,7 +8,7 @@ async def messagesstarter(event):
     client.str = str(string)
     await event.edit(client.get_string("Vars_1").format(string))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetCmd (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetCmd (.*)$")
 async def cmdmessage(event):
     await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
@@ -16,14 +16,14 @@ async def cmdmessage(event):
     client.cmd = str(cmd)
     await event.edit(client.get_string("Vars_2").format(cmd))
 
-@client.Cmd(pattern=f"(?i)^.DelCmd$")
+@client.Command(pattern=f"(?i)^.DelCmd$")
 async def dcmdmessage(event):
     await event.edit(client.get_string("Wait"))
     client.DB.set_key("SELF_CMD", ".")
     client.cmd = "."
     await event.edit(client.get_string("Vars_3"))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetRealm$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetRealm$")
 async def realm(event):
     await event.edit(client.get_string("Wait"))
     if not event.is_group:
@@ -32,7 +32,7 @@ async def realm(event):
     client.realm = event.chat_id
     await event.edit(client.get_string("Vars_5"))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetBackCh$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetBackCh$")
 async def backch(event):
     await event.edit(client.get_string("Wait"))
     if not event.is_ch:
@@ -41,7 +41,7 @@ async def backch(event):
     client.backch = event.chat_id
     await event.edit(client.get_string("Vars_7"))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetHelpEmoji (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetHelpEmoji (.*)$")
 async def helpemoji(event):
     await event.edit(client.get_string("Wait"))
     string = event.pattern_match.group(1)
