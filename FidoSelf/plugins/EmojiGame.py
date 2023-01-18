@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon.tl import types
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}S(Dice|Dart|Basket|Foot|Boll|Slot)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}S(Dice|Dart|Basket|Foot|Boll|Slot)$")
 async def gameemojis(event):
     await event.delete()
     emojis = {
