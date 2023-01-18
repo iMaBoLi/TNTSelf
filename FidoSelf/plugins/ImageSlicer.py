@@ -2,7 +2,7 @@ from FidoSelf import client
 import image_slicer
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SSlice (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SSlice (\d*)$")
 async def sliceimage(event):
     await event.edit(client.get_string("Wait"))
     tile = event.pattern_match.group(1)
