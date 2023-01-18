@@ -11,7 +11,7 @@ for SLEEP in SLEEPS:
     Pattern += SLEEP + "|"
 Pattern = Pattern[:-1]
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Sleep ?({Pattern}) (\d*(\.)?\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Sleep ?({Pattern}) (\d*(\.)?\d*)$")
 async def sleeper(event):
     await event.edit(client.get_string("Wait"))
     inlist = event.pattern_match.group(1).title()
