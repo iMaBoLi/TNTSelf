@@ -1,7 +1,7 @@
 from FidoSelf import client
 import os
 
-@client.Cmd(sudo=False)
+@client.Command(sudo=False)
 async def dtimermedias(event):
     mode = client.DB.get_key("TIMER_MODE")
     mtype = client.mediatype(event)
