@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}E(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}E(Bold|Mono|Italic|Underline|Strike|Spoiler|Hashtag) (On|off)$")
 async def bio(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -13,7 +13,7 @@ async def bio(event):
     mode = client.get_string(f"Edits_{mode.title()}")
     await event.edit(client.get_string("EditMode_1").format(mode.title(), changer))
 
-@client.Cmd(edits=False)
+@client.Command(edits=False)
 async def editmodes(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("EDIT_MODE") or ""
