@@ -1,5 +1,5 @@
 from FidoSelf import client
-from FidoSelf.events import Cmd, Callback, Inline
+from FidoSelf.events import Command, Callback, Inline
 from FidoSelf.functions import utils
 from FidoSelf.languages import get_string, get_buttons
 from FidoSelf.functions.helper import progress, mention, mediatype
@@ -13,7 +13,7 @@ MAX_SIZE = 104857600 * 10
 
 async def addvars():
     setattr(client, "utils", utils)
-    setattr(client, "Cmd", Cmd)
+    setattr(client, "Command", Command)
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
     setattr(client, "DB", DB)
