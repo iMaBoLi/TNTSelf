@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd()
+@client.Command()
 async def replace(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("AUTO_REPLACE_MODE") or "on"
