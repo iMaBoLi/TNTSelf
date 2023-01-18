@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Info ?(.*)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Info ?(.*)?$")
 async def userinfo(event):
     await event.edit(client.get_string("Wait"))
     result, userid = await event.userid(event.pattern_match.group(1))
@@ -23,7 +23,7 @@ async def userinfo(event):
         await event.respond(userinfo)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Cinfo ?(.*)?$")
 async def ginfo(event):
     await event.edit(client.get_string("Wait"))
     result, chatid = await event.chatid(event.pattern_match.group(1))
