@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddWhite ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddWhite ?(.*)?")
 async def addwhite(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -18,7 +18,7 @@ async def addwhite(event):
         client.DB.set_key("BLACKS", blacks)
     await event.edit(client.get_string("Whites_2").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelWhite ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelWhite ?(.*)?")
 async def delwhite(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -32,7 +32,7 @@ async def delwhite(event):
     client.DB.set_key("WHITES", whites)
     await event.edit(client.get_string("Whites_4").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}WhiteList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}WhiteList$")
 async def whitelist(event):
     await event.edit(client.get_string("Wait"))
     whites = client.DB.get_key("WHITES") or []
@@ -45,7 +45,7 @@ async def whitelist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanWhiteList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanWhiteList$")
 async def cleanwhitelist(event):
     await event.edit(client.get_string("Wait"))
     whites = client.DB.get_key("WHITES") or []
