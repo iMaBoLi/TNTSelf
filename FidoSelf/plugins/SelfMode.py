@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SelfAll (On|Off)$", selfmode=False)
+@client.Command(pattern=f"(?i)^\{client.cmd}SelfAll (On|Off)$", selfmode=False)
 async def selfallmode(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -9,7 +9,7 @@ async def selfallmode(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("SelfMode_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Self (On|Off)$", selfmode=False)
+@client.Command(pattern=f"(?i)^\{client.cmd}Self (On|Off)$", selfmode=False)
 async def selfmode(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
