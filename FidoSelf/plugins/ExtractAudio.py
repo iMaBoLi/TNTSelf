@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SAudio$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SAudio$")
 async def exaudio(event):
     await event.edit(client.get_string("Wait"))
     if not event.is_reply or not event.reply_message.video:
