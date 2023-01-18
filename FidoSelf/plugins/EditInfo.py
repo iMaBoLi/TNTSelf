@@ -3,7 +3,7 @@ from telethon import types
 import os
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SDur (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SDur (\d*)$")
 async def setduration(event):
     await event.edit(client.get_string("Wait"))
     dur = int(event.pattern_match.group(1))
@@ -33,7 +33,7 @@ async def setduration(event):
     os.remove(file)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SEAudio (.*)\:(.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SEAudio (.*)\:(.*)$")
 async def editaudio(event):
     await event.edit(client.get_string("Wait"))
     title = str(event.pattern_match.group(1))
