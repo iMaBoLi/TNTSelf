@@ -4,7 +4,7 @@ import random
 import asyncio
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Monshi (On|Off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Monshi (On|Off)$")
 async def monshimode(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -12,7 +12,7 @@ async def monshimode(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("Monshi_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetMonshi$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetMonshi$")
 async def setmonshi(event):
     await event.edit(client.get_string("Wait"))
     if not event.is_reply:
@@ -26,14 +26,14 @@ async def setmonshi(event):
     client.DB.set_key("MONSHI_MSG", str(client.backch) + ":" + str(forward.id))
     await event.edit(client.get_string("Monshi_2"))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetMonshiSleep (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetMonshiSleep (\d*)$")
 async def monshisleep(event):
     await event.edit(client.get_string("Monshi_1").format(client.str))
     sleep = event.pattern_match.group(1)
     client.DB.set_key("MONSHI_SLEEP", str(sleep))
     await event.edit(client.get_string("Monshi_3").format(client.utils.convert_time(int(sleep))))
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def monshi(event):
     mode = client.DB.get_key("MONSHI_MODE") or "off"
     if mode == "off": return
