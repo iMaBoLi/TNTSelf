@@ -1,7 +1,7 @@
 from FidoSelf import client
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetCover$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetCover$")
 async def setcover(event):
     await event.edit(client.get_string("Wait"))
     mtype = client.mediatype(event.reply_message)
@@ -17,7 +17,7 @@ async def setcover(event):
     client.DB.set_key("FILE_COVER", info)
     await event.edit(client.get_string("CoverFile_1"))  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddCover$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddCover$")
 async def addcover(event):
     await event.edit(client.get_string("Wait"))
     mtype = client.mediatype(event.reply_message)
