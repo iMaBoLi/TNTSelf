@@ -1,7 +1,7 @@
 from FidoSelf import client
 from FidoSelf.languages import install_lang, LANGUAGES, LANGS, MAINLANGS
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SetLang (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SetLang (.*)$")
 async def setlanguage(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1).lower()
@@ -12,7 +12,7 @@ async def setlanguage(event):
     langname = f"{lang} - {LANGS[lang].title()}"
     await event.edit(client.get_string("Language_2").format(langname))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}InstallLang (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}InstallLang (.*)$")
 async def installlanguage(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1).lower()
@@ -32,7 +32,7 @@ async def installlanguage(event):
     elif install == "Updated":
         await event.edit(client.get_string("Language_6").format(langname))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}RemoveLang (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}RemoveLang (.*)$")
 async def removelanguage(event):
     await event.edit(client.get_string("Wait"))
     lang = event.pattern_match.group(1).lower()
@@ -48,7 +48,7 @@ async def removelanguage(event):
     del LANGUAGES[lang]
     await event.edit(client.get_string("Language_8").format(langname))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}ReloadLangs$")
+@client.Command(pattern=f"(?i)^\{client.cmd}ReloadLangs$")
 async def removelanguage(event):
     await event.edit(client.get_string("Wait"))
     others = client.DB.get_key("INSTALL_LANGS") or []
@@ -66,7 +66,7 @@ async def reload(event, others):
         langnames += langname + "\n"
     await event.edit(client.get_string("Language_12").format(langnames))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}LangList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}LangList$")
 async def alllanguages(event):
     await event.edit(client.get_string("Wait"))
     text = client.get_string("Language_13")
@@ -76,7 +76,7 @@ async def alllanguages(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Languages$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Languages$")
 async def languages(event):
     await event.edit(client.get_string("Wait"))
     text = client.get_string("Language_14")
