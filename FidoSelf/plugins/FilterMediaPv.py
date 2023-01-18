@@ -13,7 +13,7 @@ def get_filter_buttons():
     buttons = client.get_buttons(buttons)
     return buttons
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SFilterPv$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SFilterPv$")
 async def filterpvmedia(event):
     await event.edit(client.get_string("Wait"))
     res = await client.inline_query(client.bot.me.username, "filtermediapv")
@@ -35,7 +35,7 @@ async def setfilterpvs(event):
     buttons = get_filter_buttons()
     await event.edit(text=text, buttons=buttons)
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def mediafilter(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     TYPES = client.get_string("FilterPvType")
