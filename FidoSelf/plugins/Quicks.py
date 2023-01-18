@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random 
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Quicks (On|Off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Quicks (On|Off)$")
 async def quicksmode(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -10,7 +10,7 @@ async def quicksmode(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(client.get_string("Quicks_1").format(change))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
 async def addquick(event):
     await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
@@ -41,7 +41,7 @@ async def addquick(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelQuick ([\s\S]*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelQuick ([\s\S]*)$")
 async def delquick(event):
     await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
@@ -56,7 +56,7 @@ async def delquick(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}GetQuick (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}GetQuick (.*)$")
 async def delquick(event):
     await event.edit(client.get_string("Wait"))
     cmd = event.pattern_match.group(1)
@@ -77,7 +77,7 @@ async def delquick(event):
             await event.respond(client.get_string("Quicks_4").format(info["cmd"], info["answers"], info["whom"].replace("user", ""), info["where"].replace("chat", ""), info["type"], info["find"], (client.utils.convert_time(info["sleep"]) or "---")))
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}QuickList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}QuickList$")
 async def quicklist(event):
     await event.edit(client.get_string("Wait"))
     quicks = client.DB.get_key("QUICKS") or {}
@@ -87,7 +87,7 @@ async def quicklist(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def quicksupdate(event):
     if event.is_cmd or not event.text: return
     mode = client.DB.get_key("QUICKS_MODE") or "off"
