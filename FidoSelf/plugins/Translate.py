@@ -1,7 +1,7 @@
 from FidoSelf import client
 from googletrans import Translator
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Str (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Str (.*)$")
 async def translator(event):
     await event.edit(client.get_string("Wait"))
     if not event.reply_message or not event.reply_message.text:
