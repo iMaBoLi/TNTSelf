@@ -3,7 +3,7 @@ from telethon import Button
 from FidoSelf.functions.vars import COLORS
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Photo (On|Off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Photo (On|Off)$")
 async def photo(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
@@ -11,7 +11,7 @@ async def photo(event):
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
     await event.edit(f"**{client.str} The Photo Mode Has Been {change}!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
 async def addphoto(event):
     await event.edit(client.get_string("Wait"))
     if not event.reply_message or not event.reply_message.photo:
@@ -33,7 +33,7 @@ async def addphoto(event):
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelPhoto (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelPhoto (.*)$")
 async def delphoto(event):
     await event.edit(client.get_string("Wait"))
     photos = client.DB.get_key("PHOTOS") or {}
@@ -44,7 +44,7 @@ async def delphoto(event):
     client.DB.set_key("PHOTOS", photos)
     await event.edit(f"**{client.str} The Photo** ( `{phname}` ) **Deleted From Photo List!**")  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}GetPhoto (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}GetPhoto (.*)$")
 async def getphoto(event):
     await event.edit(client.get_string("Wait"))
     photos = client.DB.get_key("PHOTOS") or {}
@@ -58,7 +58,7 @@ async def getphoto(event):
     await event.delete()
     os.remove(fphoto)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}PhotoList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}PhotoList$")
 async def photolist(event):
     await event.edit(client.get_string("Wait"))
     photos = client.DB.get_key("PHOTOS") or {}
@@ -71,7 +71,7 @@ async def photolist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanPhotoList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanPhotoList$")
 async def cleanphotos(event):
     await event.edit(client.get_string("Wait"))
     photos = client.DB.get_key("PHOTOS") or {}
@@ -151,7 +151,7 @@ async def closephoto(event):
     client.DB.set_key("PHOTOS", photos)
     await event.edit(text=f"**{client.str} The Photo Panel Successfuly Closed!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddFont (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddFont (.*)$")
 async def savefontfile(event):
     await event.edit(client.get_string("Wait"))
     fname = str(event.pattern_match.group(1))
@@ -173,7 +173,7 @@ async def savefontfile(event):
     client.DB.set_key("FONTS", fonts)
     await event.edit(f"**{client.str} The Font File** ( `{fname}.ttf` ) **Has Been Saved!**")  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelFont (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelFont (.*)$")
 async def delfontfile(event):
     await event.edit(client.get_string("Wait"))
     fname = str(event.pattern_match.group(1))
@@ -184,7 +184,7 @@ async def delfontfile(event):
     client.DB.set_key("FONTS", fonts)
     await event.edit(f"**{client.str} The Font File** ( `{fname}` ) **Has Been Deleted!**")  
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}FontList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}FontList$")
 async def fontlist(event):
     await event.edit(client.get_string("Wait"))
     fonts = client.DB.get_key("FONTS") or {}
@@ -197,7 +197,7 @@ async def fontlist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanFontList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanFontList$")
 async def cleanfonts(event):
     await event.edit(client.get_string("Wait"))
     fonts = client.DB.get_key("FONTS") or {}
@@ -206,7 +206,7 @@ async def cleanfonts(event):
     client.DB.del_key("FONTS")
     await event.edit(f"**{client.str} The Font File List Is Cleared!**")
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddTextTime ([\s\S]*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddTextTime ([\s\S]*)$")
 async def addtexttime(event):
     await event.edit(client.get_string("Wait"))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -217,7 +217,7 @@ async def addtexttime(event):
     client.DB.set_key("TEXT_TIMES", texttimes)
     await event.edit(f"**{client.str} The Text Time** ( `{newtexttime}` ) **Added To Text Time List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelTextTime ([\s\S]*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelTextTime ([\s\S]*)$")
 async def deltexttime(event):
     await event.edit(client.get_string("Wait"))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -228,7 +228,7 @@ async def deltexttime(event):
     client.DB.set_key("TEXT_TIMES", texttimes)
     await event.edit(f"**{client.str} The Text Time** ( `{newtexttime}` ) **Deleted From Text Time List!**")  
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}TextTimeList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}TextTimeList$")
 async def texttimelist(event):
     await event.edit(client.get_string("Wait"))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -241,7 +241,7 @@ async def texttimelist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanTextTimeList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanTextTimeList$")
 async def cleantexttimes(event):
     await event.edit(client.get_string("Wait"))
     texttimes = client.DB.get_key("TEXT_TIMES") or []
