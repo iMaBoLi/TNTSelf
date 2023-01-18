@@ -21,7 +21,7 @@ def get_file_icon(name):
         type = "📝"
     return type
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}ls(?:\s|$)([\s\S]*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}ls(?:\s|$)([\s\S]*)$")
 async def ls(event):
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
