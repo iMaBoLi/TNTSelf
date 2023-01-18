@@ -23,7 +23,7 @@ for mode in Modes:
     Pattern += mode + "|"
 Pattern = Pattern[:-1]
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}({Pattern}) (On|Off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}({Pattern}) (On|Off)$")
 async def changer(event):
     await event.edit(client.get_string("Wait"))
     Mode = event.pattern_match.group(1).title()
