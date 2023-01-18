@@ -3,7 +3,7 @@ from PIL import Image
 import os
 import time
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SRotate (\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SRotate (\d*)$")
 async def rotate(event):
     await event.edit(client.get_string("Wait"))
     darge = int(event.pattern_match.group(1))
