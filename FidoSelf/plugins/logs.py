@@ -1,7 +1,7 @@
 from FidoSelf import client
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Logs \-(c|g)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Logs \-(c|g)$")
 async def logs(event):
     type = str(event.pattern_match.group(1))
     if type == "c" and os.path.exists("Fido.log"):
