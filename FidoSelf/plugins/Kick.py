@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon.errors import ChatAdminRequiredError
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Kick ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}Kick ?(.*)?")
 async def kick(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -17,7 +17,7 @@ async def kick(event):
         return await event.edit(client.get_string("Kick_2").format(str(e)))
     await event.edit(client.get_string("Kick_3").format(client.mention(info)))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Ban ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}Ban ?(.*)?")
 async def ban(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -32,7 +32,7 @@ async def ban(event):
         return await event.edit(client.get_string("Kick_2").format(str(e)))
     await event.edit(client.get_string("Kick_3").format(client.mention(info)))
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}UnBan ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}UnBan ?(.*)?")
 async def unban(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
