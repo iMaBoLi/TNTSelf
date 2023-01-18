@@ -2,7 +2,7 @@ from FidoSelf import client
 from carbonnow import Carbon
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}SCarbon$")
+@client.Command(pattern=f"(?i)^\{client.cmd}SCarbon$")
 async def carbontext(event):
     await event.edit(client.get_string("Wait"))
     if not event.is_reply or not event.reply_message.text:
