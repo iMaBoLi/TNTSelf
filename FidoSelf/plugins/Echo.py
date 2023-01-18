@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}AddEcho ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}AddEcho ?(.*)?")
 async def addecho(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -14,7 +14,7 @@ async def addecho(event):
     client.DB.set_key("ECHOS", echos)
     await event.edit(client.get_string("Echo_2").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}DelEcho ?(.*)?")
+@client.Command(pattern=f"(?i)^\{client.cmd}DelEcho ?(.*)?")
 async def delecho(event):
     await event.edit(client.get_string("Wait"))
     event = await client.get_ids(event)
@@ -28,7 +28,7 @@ async def delecho(event):
     client.DB.set_key("ECHOS", echos)
     await event.edit(client.get_string("Echo_4").format(client.mention(info)))
     
-@client.Cmd(pattern=f"(?i)^\{client.cmd}EchoList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}EchoList$")
 async def echolist(event):
     await event.edit(client.get_string("Wait"))
     echos = client.DB.get_key("ECHOS") or []
@@ -41,7 +41,7 @@ async def echolist(event):
         row += 1
     await event.edit(text)
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}CleanEchoList$")
+@client.Command(pattern=f"(?i)^\{client.cmd}CleanEchoList$")
 async def cleanecholist(event):
     await event.edit(client.get_string("Wait"))
     echos = client.DB.get_key("ECHOS") or []
@@ -50,7 +50,7 @@ async def cleanecholist(event):
     client.DB.del_key("ECHOS")
     await event.edit(client.get_string("Echo_7"))
 
-@client.Cmd(sudo=False, edits=False)
+@client.Command(sudo=False, edits=False)
 async def echo(event):
     echos = client.DB.get_key("ECHOS") or []
     if event.sender_id in echos:
