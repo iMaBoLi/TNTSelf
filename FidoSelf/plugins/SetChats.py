@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Set(Realm|Backup)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Set(Realm|Backup)$")
 async def setchats(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).title()
