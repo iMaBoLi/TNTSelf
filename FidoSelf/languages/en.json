@@ -78,6 +78,7 @@
     },
     "Cleaner": {
         "Main": "**{STR} The List {} Has Been Cleaned!**",
+        "Not": "**{STR} The List {} Is Already Empty!**",
         "NAMES": "Names",
         "BIOS": "Bios",
         "PHOTOS": "Photos",
