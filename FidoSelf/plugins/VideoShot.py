@@ -3,7 +3,7 @@ from telethon import functions, types
 import time
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}VShot ((\-)?\d*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}VShot ((\-)?\d*)$")
 async def videoshot(event):
     await event.edit(client.get_string("Wait"))
     data = event.pattern_match.group(1)
