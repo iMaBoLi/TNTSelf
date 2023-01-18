@@ -1,6 +1,6 @@
 from FidoSelf import client
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}MarkRead(All|Pv|Gp|Ch) (On|off)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}MarkRead(All|Pv|Gp|Ch) (On|off)$")
 async def markread(event):
     await event.edit(client.get_string("Wait"))
     type = event.pattern_match.group(1).lower()
@@ -11,7 +11,7 @@ async def markread(event):
     type = client.get_string("ChType")[type.title()]
     await event.edit(client.get_string("MarkRead_1").format(type, changer))
 
-@client.Cmd(sudo=False)
+@client.Command(sudo=False)
 async def mark(event):
     all = client.DB.get_key("READALL_MODE") or "off"
     pv = client.DB.get_key("READPV_MODE") or "off"
