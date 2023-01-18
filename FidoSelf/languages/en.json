@@ -106,6 +106,12 @@
         "SAVES": "Saves",
         "FILTER_PVS": "FilterPvs",
     },
+    "Sleeper": {
+        "Main": "**{STR} The Sleep Time For {} Was Set To** ( `{}` )",
+        "SAY_SLEEP": "Say",
+        "MONSHI_SLEEP": "Monshi",
+        "AUTO_DELETE_SLEEP": "Auto Delete",
+    },
     "Inline": {
         "1": "❲ ✔️|Active ❳",
         "2": "❲ ✖️|DeActive ❳",
