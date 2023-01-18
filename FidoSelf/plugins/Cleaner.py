@@ -27,8 +27,8 @@ async def cleaner(event):
     for LIST in LISTS: 
         if inlist in LISTS[LIST]: break
     lists = client.DB.get_key(LIST) or None
-    mode = client.get_string("Cleaners")[LIST]
+    mode = client.get_string("Cleaner")[LIST]
     if not lists:
-        return await event.edit(client.get_string("Cleaner_1").format(mode))
+        return await event.edit(client.get_string("Cleaner_Not").format(mode))
     client.DB.del_key(LIST)
-    await event.edit(client.get_string("Cleaner_2").format(mode))
+    await event.edit(client.get_string("Cleaner_Main").format(mode))
