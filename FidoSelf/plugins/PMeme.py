@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import Button
 import os
 
-@client.Cmd(pattern=f"(?i)^\{client.cmd}Pmeme (.*)$")
+@client.Command(pattern=f"(?i)^\{client.cmd}Pmeme (.*)$")
 async def persianmeme(event):
     await event.edit(client.get_string("Wait"))
     query = event.pattern_match.group(1)
