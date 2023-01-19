@@ -10,6 +10,7 @@ async def addvars():
     setattr(client, "LANG", client.DB.get_key("LANGUAGE") or "EN")
     setattr(client, "get_string", get_string)
     setattr(client, "add_vars", add_vars)
+    setattr(client, "mention", mention)
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
