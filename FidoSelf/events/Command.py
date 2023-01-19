@@ -3,34 +3,37 @@ from telethon import events
 from traceback import format_exc
 import re
 
+SELFCMDS = []
+
 def Command(
     pattern=None,
-    sudo=True,
-    edits=True,
-    selfmode=True,
+    commands=None,
+    onlysudo=True,
+    alowedits=True,
     **kwargs,
 ):
-    cmds = client.DB.get_key("SELF_CMDS") or []
-    if pattern:
-        finds = re.findall("\w+", pattern)
-        for find in finds:
-            if len(find) > 2 and not find in cmds:
-                cmds.append(find)
-    client.DB.set_key("SELF_CMDS", cmds)
+    if commamds: 
+        PAT = pattern if pattern else "(?i)^\{SAM}{CMD}$"
+        SAM = client.CMD or ""
+        if SAM:
+            PAT = PAT.replace("{SAM}", SAM)
+        else:
+            PAT = PAT.replace("\{SAM}", "")
+        CMD = commands[client.LANG]
+        PAT = PAT.replace("{CMD}", CMD)
+        pattern = PAT
+        save_cmd(pattern)        
     def decorator(func):
         async def wrapper(event):
             try:
-                selfall = client.DB.get_key("SELF_ALL_MODE") or "on"
-                if selfmode and selfall == "off": return
-                selfchats = client.DB.get_key("SELF_MODE") or []
-                if selfmode and event.chat_id in selfchats: return
-                event.reply_message = await event.get_reply_message()
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
+                if sudo and not event.is_sudo and not event.is_ch:
+                    return
+                event.reply_message = await event.get_reply_message()
                 event.is_bot = False
                 if event.sender and event.sender.to_dict()["_"] == "User":
                     event.is_bot = event.sender.bot
-                if sudo and not event.is_sudo and not event.is_ch: return
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
                 if event.sender_id in blacks:
@@ -52,3 +55,11 @@ def Command(
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
+
+def save_cmd(pattern):
+    CMDS = []
+    finds = re.findall("\w+", pattern)
+    for find in finds:
+        if len(find) > 2:
+            CMDS.append(find)
+    SELFCMDS += CMDS
