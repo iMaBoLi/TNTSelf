@@ -1,40 +1,32 @@
-from . import client, START_TIME, __version__
+from . import client, __version__
 from telethon import __version__ as telever
-from FidoSelf.functions.utils import load_plugins
-from FidoSelf.functions.misc import stimezone, addvars
-from FidoSelf.languages import load_langs
+from FidoSelf.functions import load_plugins
+from FidoSelf.functions import addvars
 import platform
 import time
 
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await addvars()
-    client.LOGS.info("• Setting Your TimeZone ...")
-    stimezone()
-    client.LOGS.info("• Loading Languages ...")
-    load_langs()
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins("FidoSelf/plugins")
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
-    endtime = client.utils.convert_time(time.time() - START_TIME)
     try:
-        send = await client.bot.send_message((client.realm or client.me.id), f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
+        send = await client.bot.send_message(client.realm, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
         if plugs:
             text = f"**✅ Loaded Plugins :**\n\n"
             for plug in plugs:
-                text += f"{client.str} `{plug}`\n"
+                text += f"`{plug}`\n"
             await send.reply(text)
         if notplugs:
+            text = f"**❌ Unloaded Plugins :**\n\n"
             for plug in notplugs:
-                text = f"**❌ Unloaded Plugin :**\n\n"
-                text += f"{client.str} `{plug}` - ( `{notplugs[plug]}` )\n"
-                await send.reply(text)
+                text += f"`{plug}`\n"
+            await send.reply(text)
         res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
-        await send.reply(f"**{client.str} The Github Commits:**\n\n`{res[0]}`")
     except:
         pass
-    client.LOGS.info(f"• Took In ( {endtime} )")
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
     client.LOGS.info(f"• Telethon Version: {telever}")
     client.LOGS.info(f"• FidoSelf Version: {__version__}")
