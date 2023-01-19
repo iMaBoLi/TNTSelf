@@ -28,7 +28,7 @@ def Command(
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
-                if sudo and not event.is_sudo and not event.is_ch:
+                if onlysudo and not event.is_sudo and not event.is_ch:
                     return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = False
