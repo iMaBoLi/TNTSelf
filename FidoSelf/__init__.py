@@ -2,12 +2,9 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
-from FidoSelf.database import DB
-import time
 import sys
 
-START_TIME = time.time()
-__version__ = "1.4.6"
+__version__ = "2.2.3"
 
 LOGS = getLogger()
 basicConfig(
