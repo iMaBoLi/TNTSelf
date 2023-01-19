@@ -1,8 +1,10 @@
 from FidoSelf import client
-from FidoSelf.functions.database import DB
 from FidoSelf import config
-from FidoSelf.functions.language import get_string
-from FidoSelf.functions.helper import progress, mention, mediatype
-from FidoSelf.functions.vars import add_vars
+from FidoSelf.functions.database import *
+from FidoSelf.functions.language import *
+from FidoSelf.functions.helper import *
+from FidoSelf.functions.vars import *
+from FidoSelf.functions.utils import *
+from FidoSelf.functions.misc import *
 
 MAX_SIZE = 104857600 * 10
