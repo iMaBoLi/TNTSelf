@@ -1,15 +1,8 @@
 from FidoSelf import client
 from FidoSelf.events import Command, Callback, Inline
-from FidoSelf.functions import utils
-from FidoSelf.languages import get_string, get_buttons
-from FidoSelf.functions.helper import progress, mention, mediatype
-from FidoSelf.functions.vars import add_vars
-from FidoSelf import config
-from FidoSelf.database import DB
+from FidoSelf.functions import *
 import time
 import os
-
-MAX_SIZE = 104857600 * 10
 
 async def addvars():
     setattr(client, "utils", utils)
@@ -17,9 +10,8 @@ async def addvars():
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
     setattr(client, "DB", DB)
-    setattr(client, "lang", client.DB.get_key("LANGUAGE") or "en")
+    setattr(client, "lang", client.DB.get_key("LANGUAGE") or "EN")
     setattr(client, "get_string", get_string)
-    setattr(client, "get_buttons", get_buttons)
     setattr(client, "config", config)
     setattr(client, "vars", add_vars)
     setattr(client, "mention", mention)
@@ -33,8 +25,3 @@ async def addvars():
     setattr(client, "cmd", client.DB.get_key("SELF_CMD") or ".")
     setattr(client, "realm", client.DB.get_key("REALM_CHAT") or client.me.id)
     setattr(client, "backch", client.DB.get_key("BACKUP_CHANNEL"))
-
-def stimezone():
-    tzone = client.DB.get_key("TIME_ZONE") or "Asia/Tehran"
-    os.environ["TZ"] = str(tzone)
-    time.tzset()
