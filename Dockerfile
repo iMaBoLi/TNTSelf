@@ -3,8 +3,6 @@ FROM python:3.10
 COPY . /app/
 WORKDIR /app/
 
-EXPOSE 3000 35729
-
 RUN apt-get update
 RUN apt-get install -y ffmpeg
 
