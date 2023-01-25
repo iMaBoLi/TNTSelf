@@ -8,13 +8,14 @@ SELFCMDS = []
 def Command(
     pattern=None,
     commands=None,
+    handler=client.CMD,
     onlysudo=True,
     alowedits=True,
     **kwargs,
 ):
     if commamds: 
         PAT = pattern if pattern else "(?i)^\{SAM}{CMD}$"
-        SAM = client.CMD or ""
+        SAM = handler or ""
         if SAM:
             PAT = PAT.replace("{SAM}", SAM)
         else:
@@ -51,7 +52,7 @@ def Command(
             except:
                 client.LOGS.error(format_exc())
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
-        if edits:
+        if alowedits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
