@@ -1,1 +1,1 @@
-worker: bash setup
+worker: python3 -m FidoSelf
