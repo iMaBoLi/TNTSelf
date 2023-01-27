@@ -27,6 +27,6 @@ async def language(event):
         return await event.edit(text)
     client.DB.set_key("LANGUAGE", lang)
     client.LANG = lang
-    load_plugins(client.PLUGINS, reload=True)
+    load_plugins(client.PLUGINS)
     text = client.get_string("change", STRINGS)
     await event.edit(text)
