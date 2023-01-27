@@ -1,4 +1,5 @@
 from FidoSelf import client
+from FidoSelf.functions import load_plugins
 
 STRINGS = {
     "EN": {
