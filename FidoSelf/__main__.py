@@ -8,7 +8,7 @@ async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await AddVarsToClient()
     client.LOGS.info("• Installing Main Plugins ...")
-    plugs, notplugs = load_plugins("FidoSelf/plugins")
+    plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
     try:
