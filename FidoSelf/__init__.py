@@ -6,7 +6,7 @@ import sys
 
 __version__ = "1.5.6"
 
-LOGS = getLogger()
+LOGS = getLogger("FidoSelf")
 basicConfig(
     format="%(asctime)s | %(name)s [%(levelname)s] : %(message)s",
     level=INFO,
