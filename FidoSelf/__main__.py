@@ -14,12 +14,12 @@ async def setup():
     try:
         send = await client.bot.send_message(client.REALM, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
         if plugs:
-            text = f"**✅ Loaded Plugins :**\n\n"
+            text = "**✅ Loaded Plugins :**\n\n"
             for plug in plugs:
                 text += f"`{plug}`\n"
             await send.reply(text)
         if notplugs:
-            text = f"**❌ Unloaded Plugins :**\n\n"
+            text = "**❌ Unloaded Plugins :**\n\n"
             ftext = ""
             for plug in notplugs:
                 text += f"`{plug}`\n"
@@ -28,7 +28,8 @@ async def setup():
             file = "NotPlugs.txt"
             open(file, "w").write(ftext)
             await send.reply(file=file)
-        #res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
+        res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
+        await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
     except:
         pass
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
