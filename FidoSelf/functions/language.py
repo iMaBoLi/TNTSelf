@@ -10,7 +10,7 @@ MAINSTRINGS = {
 }
 
 def get_string(STRINGS, string):
-    lang = client.lang or "EN"
+    lang = client.LANG or "EN"
     if string in MAINSTRINGS[lang]:
         STRING = MAINSTRINGS[lang][string]
     else:
