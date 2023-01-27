@@ -20,7 +20,7 @@ async def runner(code , event):
     exec("async def coderunner(event , local, chat_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, reply)
 
-@client.bot.on(events.NewMessage(pattern=f"(?i)^(\.|\/|\,)Run(?:\s|$)([\s\S]*)$"))
+@client.on(events.NewMessage(pattern=f"(?i)^(\.|\/|\,)Run(?:\s|$)([\s\S]*)$", outgoing=True))
 async def runcodes(event):
     edit = await event.reply(f"`• Running ...`")
     if event.text[4:]:
@@ -52,6 +52,6 @@ async def runcodes(event):
     else:
         file = "OutPut.txt"
         open(file, "w").write(str(result))
-        await client.send_file(event.chat_id, file , caption="**• Your Code OutPut!**")
+        await client.send_file(event.chat_id, file , caption="**• Your Code OutPut!**", reply_to=event.id)
         os.remove(file)
         await edit.delete()
