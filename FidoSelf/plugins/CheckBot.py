@@ -18,7 +18,7 @@ STRINGS = {
      }
 )
 async def ping(event):
-    text = client.get_string(STRINGS, "ping")
+    text = client.get_string("ping", STRINGS)
     await event.edit(text)
 
 @client.Command(
@@ -28,5 +28,5 @@ async def ping(event):
      }
 )
 async def bot(event):
-    text = client.get_string(STRINGS, "bot")
+    text = client.get_string("bot", STRINGS)
     await event.edit(text)
