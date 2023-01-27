@@ -1,13 +1,13 @@
 from . import client
 from telethon import __version__ as telever
 from FidoSelf.functions import load_plugins
-from FidoSelf.functions import addvars
+from FidoSelf.functions import AddVarsToClient
 import platform
 import time
 
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
-    await addvars()
+    await AddVarsToClient()
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins("FidoSelf/plugins")
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
