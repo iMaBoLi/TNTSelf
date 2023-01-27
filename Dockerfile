@@ -5,6 +5,7 @@ WORKDIR /app/
 
 #RUN apt-get update
 #RUN apt-get install -y ffmpeg
+RUN apt-get install redis-server
 
 RUN pip3 install -U pip
 RUN pip3 install -U -r requirements.txt
