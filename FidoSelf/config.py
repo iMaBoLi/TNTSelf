@@ -5,5 +5,5 @@ BOT_SESSION = "1BJWap1sBu2mKaYy9jTv5C_1lbx0SziJBSDn7uSDEhs_ea8lRxCJy3jPHG3-92TQg
 REDIS_URL = "redis-12319.c59.eu-west-1-2.ec2.cloud.redislabs.com:12319"
 REDIS_PASSWORD = "HvKZ7FppsNWScMFwdV07Q24EeNZHezPT"
 SQL_URL = "postgres://fidoself_user:kNsbkuu1VXeJgOnhwpf0tuCDnSFCIC3Y@dpg-ceffufhgp3jk7mhbm63g-a.frankfurt-postgres.render.com/fidoself"
-DATABASE_TYPE = "Redis"
+DATABASE_TYPE = "Sql"
 GIT_TOKEN = "Z2hwXzRNbTJoT1Y3YUJIZ2FUckw2ODhEcUlJZ0ZUeGRMNjBXbERZTg=="
