@@ -13,7 +13,7 @@ def Command(
     alowedits=True,
     **kwargs,
 ):
-    if commamds: 
+    if commands: 
         PAT = pattern if pattern else "(?i)^\{SAM}{CMD}$"
         SAM = handler or ""
         if SAM:
