@@ -12,7 +12,7 @@ async def AddVarsToClient():
     setattr(client, "DB", DB)
     setattr(client, "LANG", client.DB.get_key("LANGUAGE") or "EN")
     setattr(client, "get_string", get_string)
-    setattr(client, "add_vars", add_vars)
+    setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", MAX_SIZE)
