@@ -9,12 +9,12 @@ MAINSTRINGS = {
     }
 }
 
-def get_string(STRINGS, string):
+def get_string(string, STRINGS):
     lang = client.LANG or "EN"
-    if string in MAINSTRINGS[lang]:
-        STRING = MAINSTRINGS[lang][string]
-    else:
+    if STRINGS:
         STRING = STRINGS[lang][string]
+    else:
+        STRING = MAINSTRINGS[lang][string]
     REPLACES = {
         "{STR}": client.STR,
         "{CMD}": client.CMD,
