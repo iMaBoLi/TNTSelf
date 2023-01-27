@@ -11,7 +11,7 @@ async def namechanger():
     NAMES = client.DB.get_key("NAMES")
     nmode = client.DB.get_key("NAME_MODE") or "off"
     if nmode == "on" and NAMES:
-        chname = await client.vars(random.choice(NAMES))
+        chname = await client.AddVars(random.choice(NAMES))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
@@ -25,7 +25,7 @@ async def biochanger():
     BIOS = client.DB.get_key("BIOS")
     bmode = client.DB.get_key("BIO_MODE") or "off"
     if bmode == "on" and BIOS:
-        chbio = await client.vars(random.choice(BIOS))
+        chbio = await client.AddVars(random.choice(BIOS))
         try:
             await client(functions.account.UpdateProfileRequest(about=str(chbio)))
         except:
@@ -42,7 +42,7 @@ async def photochanger():
         phinfo = PHOTOS[phname]
         getphoto = await client.get_messages(int(phinfo["chat_id"]), ids=int(phinfo["msg_id"]))
         PHOTO = await getphoto.download_media()
-        TEXT = await client.vars(random.choice(TEXTS))
+        TEXT = await client.AddVars(random.choice(TEXTS))
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
         SIZE = sizes[phinfo["size"]]
         COLOR = phinfo["color"]
