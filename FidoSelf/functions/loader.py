@@ -1,10 +1,13 @@
 from traceback import format_exc
 from importlib import import_module, reload
 
-def load_plugins(folder, reload=False):
+def get_plugins():
+    files = sorted(glob.glob(f"FidoSelf/plugins/*.py"))
+    return files
+
+def load_plugins(files, reload=False):
     plugs = []
     notplugs = {}
-    files = sorted(glob.glob(f"{folder}/*.py"))
     for file in files:
         try:
             filename = file.replace("/", ".").replace(".py" , "")
