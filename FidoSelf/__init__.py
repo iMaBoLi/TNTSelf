@@ -4,7 +4,7 @@ from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
 import sys
 
-__version__ = "2.2.3"
+__version__ = "1.5.6"
 
 LOGS = getLogger()
 basicConfig(
