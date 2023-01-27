@@ -9,7 +9,7 @@ MAINSTRINGS = {
     }
 }
 
-def get_string(string, STRINGS):
+def get_string(string, STRINGS=None):
     lang = client.LANG or "EN"
     if STRINGS:
         STRING = STRINGS[lang][string]
