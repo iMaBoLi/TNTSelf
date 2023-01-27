@@ -5,14 +5,10 @@ from FidoSelf.functions.language import *
 from FidoSelf.functions.helper import *
 from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
-from FidoSelf.events import *
 
 MAX_SIZE = 104857600 * 10
 
 async def AddVarsToClient():
-    setattr(client, "Command", Command)
-    setattr(client, "Callback", Callback)
-    setattr(client, "Inline", Inline)
     setattr(client, "DB", DB)
     setattr(client, "LANG", client.DB.get_key("LANGUAGE") or "EN")
     setattr(client, "get_string", get_string)
@@ -26,3 +22,10 @@ async def AddVarsToClient():
     setattr(client, "CMD", client.DB.get_key("SELF_CMD") or "")
     setattr(client, "REALM", client.DB.get_key("REALM_CHAT") or client.me.id)
     setattr(client, "BACKUP", client.DB.get_key("BACKUP_CHANNEL"))
+    AddHandlersToClient()
+
+async def AddHandlersToClient():
+    from FidoSelf.events import *
+    setattr(client, "Command", Command)
+    setattr(client, "Callback", Callback)
+    setattr(client, "Inline", Inline)
