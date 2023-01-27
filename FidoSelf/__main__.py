@@ -20,9 +20,14 @@ async def setup():
             await send.reply(text)
         if notplugs:
             text = f"**❌ Unloaded Plugins :**\n\n"
+            ftext = ""
             for plug in notplugs:
                 text += f"`{plug}`\n"
+                ftext += f"{notplugs[plug]}\n\n"
             await send.reply(text)
+            file = "NotPlugs.txt"
+            open(file, "w").write(ftext)
+            await send.reply(file=file)
         #res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
     except:
         pass
