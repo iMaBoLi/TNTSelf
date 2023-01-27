@@ -1,10 +1,6 @@
-from FidoSelf import client
-from traceback import format_exc
-from importlib import import_module
 import asyncio
 import shlex
 import math
-import glob
 import random
 import os
 
@@ -32,19 +28,6 @@ def reverse(mylist):
         else:
             result.append(element)
     return result
-
-def load_plugins(folder):
-    plugs = []
-    notplugs = {}
-    files = sorted(glob.glob(f"{folder}/*.py"))
-    for file in files:
-        try:
-            filename = file.replace("/", ".").replace(".py" , "")
-            load = import_module(filename)
-            plugs.append(os.path.basename(file))
-        except:
-            notplugs.update({os.path.basename(file): format_exc()})
-    return plugs, notplugs
 
 def convert_bytes(size_bytes):
    if size_bytes == 0: return "0B"
