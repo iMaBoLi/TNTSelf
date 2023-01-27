@@ -1,7 +1,6 @@
 from . import client
 from telethon import __version__ as telever
-from FidoSelf.functions import load_plugins
-from FidoSelf.functions import AddVarsToClient
+from FidoSelf.functions import AddVarsToClient, load_plugins, runcmd 
 import platform
 
 async def setup():
@@ -27,8 +26,8 @@ async def setup():
             await send.reply(text)
             file = "NotPlugs.txt"
             open(file, "w").write(ftext)
-            await send.reply(file=file)
-        res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
+            #await send.reply(file=file)
+        res = await runcmd('git log --pretty=format:"[%an]: %s" -20')
         await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
     except:
         pass
