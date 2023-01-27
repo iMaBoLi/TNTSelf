@@ -3,8 +3,6 @@ from telethon import events
 from traceback import format_exc
 import re
 
-SELFCMDS = []
-
 def Command(
     pattern=None,
     commands=None,
@@ -58,9 +56,9 @@ def Command(
     return decorator
 
 def save_cmd(pattern):
-    CMDS = []
+    CMDS = client.DB.get_key("SELFCMDS") or []
     finds = re.findall("\w+", pattern)
     for find in finds:
         if len(find) > 2:
             CMDS.append(find)
-    SELFCMDS += CMDS
+    client.DB.set_key("SELFCMDS", CMDS)
