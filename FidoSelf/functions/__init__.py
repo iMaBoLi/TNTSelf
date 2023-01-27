@@ -5,7 +5,7 @@ from FidoSelf.functions.language import *
 from FidoSelf.functions.helper import *
 from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
-from FidoSelf.events *
+from FidoSelf.events import *
 
 MAX_SIZE = 104857600 * 10
 
