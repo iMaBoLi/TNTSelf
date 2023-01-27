@@ -31,7 +31,7 @@ async def runcodes(event):
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
-    stdout, stderr, exc = None, None, None
+    stdout, stderr, exec = None, None, None
     try:
         await runner(cmd , event)
     except:
