@@ -24,8 +24,8 @@ async def AddVarsToClient():
     setattr(client, "BACKUP", client.DB.get_key("BACKUP_CHANNEL"))
     AddHandlersToClient()
 
-async def AddHandlersToClient():
-    from FidoSelf.events import *
+def AddHandlersToClient():
+    from FidoSelf.events import Command, Callback, Inline
     setattr(client, "Command", Command)
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
