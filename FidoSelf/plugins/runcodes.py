@@ -48,7 +48,7 @@ async def runcodes(event):
     elif stdout:
         result = stdout
     if len(result) < 4096:
-        await event.edit(f"**• Results:**\n\n`{result}`")
+        await edit.edit(f"**• Results:**\n\n`{result}`")
     else:
         file = "OutPut.txt"
         open(file, "w").write(str(result))
