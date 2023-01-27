@@ -1,5 +1,6 @@
 from traceback import format_exc
 from importlib import import_module, reload
+import glob
 
 def get_plugins():
     files = sorted(glob.glob(f"FidoSelf/plugins/*.py"))
