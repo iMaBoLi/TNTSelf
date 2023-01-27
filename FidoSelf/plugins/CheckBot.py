@@ -2,12 +2,12 @@ from FidoSelf import client
 
 STRINGS = {
     "EN": {
-        "ping": "**{STR} IM Online Forever!**",
-        "bot": "**{STR} Bot Is Online!**",
+        "ping": "^{STR} IM Online Forever!$",
+        "bot": "^{STR} Bot Is Online!$",
     },
     "FA": {
-        "ping": "**{STR} من همیشه آنلاین هستم!**",
-        "bot": "**{STR} ربات آنلاین است!**",
+        "ping": "^{STR} من همیشه آنلاین هستم!$",
+        "bot": "^{STR} ربات آنلاین است!$",
     },
 }
 
