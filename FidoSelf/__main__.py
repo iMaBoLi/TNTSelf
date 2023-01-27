@@ -1,4 +1,4 @@
-from . import client, __version__
+from . import client
 from telethon import __version__ as telever
 from FidoSelf.functions import load_plugins
 from FidoSelf.functions import addvars
@@ -29,7 +29,7 @@ async def setup():
         pass
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
     client.LOGS.info(f"• Telethon Version: {telever}")
-    client.LOGS.info(f"• FidoSelf Version: {__version__}")
+    client.LOGS.info(f"• FidoSelf Version: {client.__version__}")
     client.LOGS.info("\n----------------------------------------\n  • Starting FidoSelf Was Successful!\n----------------------------------------")
 
 client.bot.loop.run_until_complete(setup())
