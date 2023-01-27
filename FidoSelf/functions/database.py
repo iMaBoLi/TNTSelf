@@ -66,3 +66,5 @@ class RedisDB:
         for x in self.keys():
             self.del_key(x)
         return True
+
+DB = RedisDB()
