@@ -48,10 +48,10 @@ async def runcodes(event):
     elif stdout:
         result = stdout
     if len(result) < 4096:
-        await event.edit(f"**• Results:**\n\n`{result`}")
+        await event.edit(f"**• Results:**\n\n`{result}`")
     else:
         file = "OutPut.txt"
         open(file, "w").write(str(result))
-        await client.send_file(event.chat_id, file , caption="**• Code OutPut!**")
+        await client.send_file(event.chat_id, file , caption="**• Your Code OutPut!**")
         os.remove(file)
         await edit.delete()
