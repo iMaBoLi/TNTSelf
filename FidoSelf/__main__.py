@@ -3,7 +3,6 @@ from telethon import __version__ as telever
 from FidoSelf.functions import load_plugins
 from FidoSelf.functions import AddVarsToClient
 import platform
-import time
 
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
@@ -13,7 +12,7 @@ async def setup():
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
     try:
-        send = await client.bot.send_message(client.realm, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}\n\n__Took In: {endtime}__")
+        send = await client.bot.send_message(client.REALM, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
         if plugs:
             text = f"**✅ Loaded Plugins :**\n\n"
             for plug in plugs:
@@ -24,7 +23,7 @@ async def setup():
             for plug in notplugs:
                 text += f"`{plug}`\n"
             await send.reply(text)
-        res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
+        #res = await client.utils.runcmd('git log --pretty=format:"[%an]: %s" -20')
     except:
         pass
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
