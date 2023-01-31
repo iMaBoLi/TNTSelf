@@ -17,7 +17,7 @@ STRINGS = {
 @client.Command(
     commands={
         "EN": "Set (Realm|BackUp)",
-        "FA": "تنظیم )ریلم|پشتیبان)",
+        "FA": "تنظیم (ریلم|پشتیبان)",
      }
 )
 async def ping(event):
@@ -41,16 +41,28 @@ async def ping(event):
         text = client.get_string("backup", STRINGS)
         await event.edit(text)
 
-category = "Settings"
-plugin = "SetChats"
-note = "Set Coustom Realm Chat And BackUp And Support Channel!"
-client.HELP.update({
-    plugin: {
-        "category": category,
-        "note": note,
-        "commands": {
-            "{CMD}SetRealm": "To Set Coustom Realm Chat",
-            "{CMD}SetBackUp": "To Set Coustom BackUp Channel",
+Category = "Settings"
+Plugin = {
+    "EN": "Setting Chats",
+    "FA": "تنظیم چت ها",
+}
+Note = {
+    "EN": "Set Coustom Realm Chat And BackUp Channel!",
+    "FA": "تنظیم ریلم چت و چنل پشتیبان دلخواه",
+}
+note = "client.HELP.update({
+    Plugin: {
+        "Category": Category,
+        "Note": Note,
+        "Commands": {
+            "EN": {
+                "{CMD}Set Realm": "To Set Coustom Realm Chat",
+                "{CMD}Set BackUp": "To Set Coustom BackUp Channel",
+            },
+            "FA": {
+                "تنظیم ریلم": "برای تنظیم ریلم چت دلخواه{CMD}",
+                "تنظیم پشتیبان": "برای تنظیم چنل پشتیبان دلخواه{CMD}",
+             },
         },
     }
 })
