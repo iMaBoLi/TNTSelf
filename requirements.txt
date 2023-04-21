@@ -13,4 +13,3 @@ PyGithub
 bs4
 yt-dlp
 youtube-search-python
-shazamio
