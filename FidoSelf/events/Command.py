@@ -13,15 +13,12 @@ def Command(
 ):
     if commands: 
         PAT = pattern if pattern else "(?i)^\{SAM}{CMD}$"
-        SAM = handler or ""
-        if SAM:
-            PAT = PAT.replace("{SAM}", SAM)
-        else:
-            PAT = PAT.replace("\{SAM}", "")
-        CMD = commands[client.LANG]
-        PAT = PAT.replace("{CMD}", CMD)
-        pattern = PAT
-        save_cmd(pattern)        
+        SAM = handler or "."
+        PAT = PAT.replace("{SAM}", SAM)
+        pattern = {}
+        pattern.pattern = PAT
+        pattern.lang = client.LANG
+        pattern.commands = commands
     def decorator(func):
         async def wrapper(event):
             try:
@@ -49,9 +46,12 @@ def Command(
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
-        client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
+        PAT = pattern.pattern
+        CMD = pattern.commands[client.LANG]
+        PAT = PAT.replace("{CMD}", CMD)
+        client.add_event_handler(wrapper, events.NewMessage(pattern=PAT, **kwargs))
         if alowedits:
-            client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+            client.add_event_handler(wrapper, events.MessageEdited(pattern=PAT, **kwargs))
         return wrapper
     return decorator
 
