@@ -28,7 +28,7 @@ async def setup():
                 await send.reply(text)
                 file = "NotPlugs.txt"
                 open(file, "w").write(ftext)
-                #await send.reply(file=file)
+                await send.reply(file=file)
             res = await runcmd('git log --pretty=format:"[%an]: %s" -20')
             await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
         except:
