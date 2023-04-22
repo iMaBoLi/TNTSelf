@@ -3,14 +3,14 @@ from FidoSelf.functions import runcmd
 
 STRINGS = {
     "EN": {
-        "ping": "^{STR} IM Online Forever!$",
-        "bot": "^{STR} Bot Is Online!$",
-        "reload": "^{STR} Reloading Bot ...$",
+        "ping": "**{STR} IM Online Forever!**",
+        "bot": "**{STR} Bot Is Online!**",
+        "reload": "**{STR} Reloading Bot ...**",
     },
     "FA": {
-        "ping": "^{STR} من همیشه آنلاین هستم!$",
-        "bot": "^{STR} ربات آنلاین است!$",
-        "reload": "^{STR} در حال بازنشانی ربات ...$",
+        "ping": "**{STR} من همیشه آنلاین هستم!**",
+        "bot": "**{STR} ربات آنلاین است!**",
+        "reload": "**{STR} در حال بازنشانی ربات ...**",
     },
 }
 
