@@ -9,8 +9,8 @@ MAINSTRINGS = {
     }
 }
 
-def get_string(string, STRINGS=None):
-    lang = client.LANG or "EN"
+def get_string(string, STRINGS=None, LANG="EN"):
+    lang = client.LANG or LANG
     if STRINGS:
         STRING = STRINGS[lang][string]
     else:
