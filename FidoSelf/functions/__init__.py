@@ -12,7 +12,8 @@ MAX_SIZE = 104857600 * 10
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
-    setattr(client, "LANG", client.DB.get_key("LANGUAGE") or "EN")
+    setattr(client, "Config", config)
+    setattr(client, "LANG", config.LANGUAGE)
     setattr(client, "get_string", get_string)
     setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
