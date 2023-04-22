@@ -7,8 +7,6 @@ from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
 from FidoSelf.functions.loader import *
 
-MAX_SIZE = 104857600 * 10
-
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
@@ -18,7 +16,7 @@ async def AddVarsToClient():
     setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
     setattr(client, "HELP", {})
-    setattr(client, "MAX_SIZE", MAX_SIZE)
+    setattr(client, "MAX_SIZE", config.MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
     setattr(client.bot, "me", (await client.bot.get_me()))
     setattr(client, "STR", client.DB.get_key("MESSAGES_STARTER") or "✥")
