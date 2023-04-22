@@ -11,14 +11,12 @@ def Command(
     alowedits=True,
     **kwargs,
 ):
-    if commands: 
-        PAT = pattern if pattern else "(?i)^\{SAM}{CMD}$"
+    if commands:
+        pattern = pattern or "(?i)^\{SAM}{CMD}$"
         SAM = handler or "."
-        PAT = PAT.replace("{SAM}", SAM)
-        pattern = {}
-        pattern.pattern = PAT
-        pattern.lang = client.LANG
-        pattern.commands = commands
+        CMD = commands[client.LANG]
+        pattern = pattern.replace("{SAM}", SAM)
+        pattern = pattern.replace("{CMD}", CMD)
     def decorator(func):
         async def wrapper(event):
             try:
@@ -27,9 +25,6 @@ def Command(
                 if onlysudo and not event.is_sudo and not event.is_ch:
                     return
                 event.reply_message = await event.get_reply_message()
-                event.is_bot = False
-                if event.sender and event.sender.to_dict()["_"] == "User":
-                    event.is_bot = event.sender.bot
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
                 if event.sender_id in blacks:
@@ -38,27 +33,11 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
-                cmds = client.DB.get_key("SELF_CMDS") or []
-                event.is_cmd = False
-                for cmd in cmds:
-                    if re.search(f"(?i){cmd}", event.text): 
-                        event.is_cmd = True
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
-        PAT = pattern.pattern
-        CMD = pattern.commands[client.LANG]
-        PAT = PAT.replace("{CMD}", CMD)
-        client.add_event_handler(wrapper, events.NewMessage(pattern=PAT, **kwargs))
+        client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if alowedits:
-            client.add_event_handler(wrapper, events.MessageEdited(pattern=PAT, **kwargs))
+            client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
-
-def save_cmd(pattern):
-    CMDS = client.DB.get_key("SELFCMDS") or []
-    finds = re.findall("\w+", pattern)
-    for find in finds:
-        if len(find) > 2:
-            CMDS.append(find)
-    client.DB.set_key("SELFCMDS", CMDS)
