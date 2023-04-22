@@ -7,9 +7,9 @@ STRINGS = {
         "phone": "**{STR} Your Phone:** ( `{RES}` )",
     },
     "FA": {
-        "آیدی": "^{STR} من همیشه آنلاین هستم!$",
-        "اسم": "^{STR} ربات آنلاین است!$",
-        "شماره": "^{STR} در حال بازنشانی ربات ...$",
+        "آیدی": "**{STR} آیدی شما:** ( `{RES}` )",
+        "اسم": "**{STR} اسم شما:** ( `{RES}` )",
+        "شماره": "**{STR} شماره شما:** ( `{RES}` )",
     },
 }
 
@@ -27,12 +27,12 @@ async def myinfo(event):
             "ID": info.id,
             "NAME": f"{info.first_name} {info.last_name}" if info.last_name else info.first_name,
             "PHONE": info.phone,
-        }
+        },
         "FA": {
             "آیدی": info.id,
             "اسم": f"{info.first_name} {info.last_name}" if info.last_name else info.first_name,
             "شماره": info.phone,
-        }
+        },
     }
     result = infos[client.LANG][type.upper()]
     text = client.get_string(type.lower(), STRINGS)
