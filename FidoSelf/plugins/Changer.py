@@ -96,7 +96,6 @@ FAPAT = FAPAT[:-1]
         "FA": f"({FAPAT}) (روشن|خاموش)",
      }
 )
-)
 async def changer(event):
     await event.edit(client.get_string("wait"))
     Mode = event.pattern_match.group(1).title()
