@@ -23,8 +23,8 @@ def get_file_icon(name):
 
 @client.Command(
     commands={
-        "EN": "ls",
-        "FA": "فایل ها",
+        "EN": "ls (.*)?",
+        "FA": "فایل ها (.*)?",
      }
 )
 async def ls(event):
