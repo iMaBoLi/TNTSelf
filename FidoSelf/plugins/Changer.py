@@ -98,7 +98,7 @@ FAPAT = FAPAT[:-1]
 )
 )
 async def changer(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.get_string("wait"))
     Mode = event.pattern_match.group(1).title()
     Change = event.pattern_match.group(2).lower()   
     client.DB.set_key(Modes[client.LANG][Mode], Change)
