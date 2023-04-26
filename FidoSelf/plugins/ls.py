@@ -21,18 +21,23 @@ def get_file_icon(name):
         type = "📝"
     return type
 
-@client.Command(pattern=f"(?i)^\{client.cmd}ls(?:\s|$)([\s\S]*)$")
+@client.Command(
+    commands={
+        "EN": "ls",
+        "FA": "فایل ها",
+     }
+)
 async def ls(event):
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
-        return await event.edit(f"**{client.str} There Is No Such Directory Or File With The Name :** ( `{input}` )")
+        return await event.edit(f"**{client.STR} There Is No Such Directory Or File With The Name :** ( `{input}` )")
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
-            output = f"**{client.str} Folders And Files In** ( `{path}` ):\n\n"
+            output = f"**{client.STR} Folders And Files In** ( `{path}` ):\n\n"
         else:
-            output = f"**{client.str} Folders And Files in Current Directory:**\n\n"
+            output = f"**{client.STR} Folders And Files in Current Directory:**\n\n"
         lists = os.listdir(path)
         files = ""
         folders = ""
@@ -52,7 +57,7 @@ async def ls(event):
             output = output + "**Empty Path!**"
     else:
         size = os.path.getsize(path)
-        output = f"**{client.str} The Details Of Given File:**\n\n"
+        output = f"**{client.STR} The Details Of Given File:**\n\n"
         icon = get_file_icon(path)
         time2 = time.ctime(os.path.getmtime(path))
         time3 = time.ctime(os.path.getatime(path))
@@ -66,5 +71,5 @@ async def ls(event):
     else:
         output = output.replace("*", "").replace("`", "")
         open("ls.txt", "w").write(output)
-        await event.reply(f"**{client.str} Results In File‌!**", file="ls.txt")
+        await event.reply(f"**{client.STR} Results In File‌!**", file="ls.txt")
         await event.delete()
