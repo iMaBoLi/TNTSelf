@@ -3,9 +3,13 @@ from FidoSelf import client
 MAINSTRINGS = {
     "EN": {
         "wait": "^{STR} Please Wait . . .$", 
+        "On": "Actived",
+        "Off": "DeActived",
     },
     "FA": {
         "wait": "^{STR} لطفا صبر کنید . . .$", 
+        "On": "فعال شد",
+        "Off": "غیر فعال شد",
     }
 }
 
