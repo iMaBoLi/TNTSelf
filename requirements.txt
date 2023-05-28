@@ -1,8 +1,8 @@
-git+https://github.com/iMaBoLi/Telethon
-Tgcrypto
+telethon
+tgcrypto
 requests
 redis
-psycopg2
+
 opencv-python
 pillow
 moviepy
@@ -11,5 +11,4 @@ aiofiles
 setuptools
 PyGithub
 bs4
-yt-dlp
 youtube-search-python
