@@ -33,7 +33,7 @@ async def myinfo(event):
     info = await client.get_me()
     mypic = await client.get_profile_photos("me")
     name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
-    username = f"@{info.username}" if info.usrename else "---"
+    username = f"@{info.username}" if info.username else "---"
     if type.upper() in ["INFO", "اطلاعات"]:
         text = client.get_string(type.lower(), STRINGS)
         uinfo = (await client(functions.users.GetFullUserRequest("me"))).full_user
