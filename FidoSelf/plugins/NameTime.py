@@ -1,6 +1,49 @@
 from FidoSelf import client
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Name (On|Off)$")
+STRINGS = {
+
+    "EN": {
+
+        "ping": "**{STR} IM Online Forever!**",
+
+        "bot": "**{STR} Bot Is Online!**",
+
+        "reload": "**{STR} Reloading Bot ...**",
+
+    },
+
+    "FA": {
+
+        "ping": "**{STR} من همیشه آنلاین هستم!**",
+
+        "bot": "**STR} ربات آنلاین است!**",
+
+        "reload": "**{STR} در حال بازنشانی ربات ...**",
+
+    },
+
+}
+
+@client.Command(
+
+    commands={
+
+        "EN": "Ping",
+
+        "FA": "پینگ",
+
+     }
+
+)
+
+async def ping(event):
+
+@client.Command(
+    commands={
+        "EN": "NewName (.*)$",
+        "FA": "نام جدید (.*)",
+    }
+)
 async def name(event):
     await event.edit(client.get_string("Wait"))
     mode = event.pattern_match.group(1).lower()
