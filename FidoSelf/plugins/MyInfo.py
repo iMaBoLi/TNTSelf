@@ -31,12 +31,12 @@ STRINGS = {
 async def myinfo(event):
     type = event.pattern_match.group(1)
     info = await client.get_me()
+    uinfo = (await client(functions.users.GetFullUserRequest("me"))).full_user
     mypic = await client.get_profile_photos("me")
     name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
     username = f"@{info.username}" if info.username else "---"
     if type.upper() in ["INFO", "اطلاعات"]:
         text = client.get_string(type.lower(), STRINGS)
-        uinfo = (await client(functions.users.GetFullUserRequest("me"))).full_user
         text = text.format(info.id, name, username, uinfo.about)
         await event.respond(text, file=mypic[0])
         await event.delete()
