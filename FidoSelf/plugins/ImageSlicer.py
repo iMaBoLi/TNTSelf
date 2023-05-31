@@ -18,7 +18,7 @@ STRINGS = {
         }
     )
 async def sliceimage(event):
-    await event.edit(client.get_string("wait"))
+    await event.edit(client.get_string("Wait"))
     tile = event.pattern_match.group(1)
     mtype = client.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
