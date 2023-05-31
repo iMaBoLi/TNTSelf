@@ -5,11 +5,11 @@ import os
 STRINGS = {
     "EN": {
         "slice": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**",
-        }
+    },
     "FA": {
         "slice": "**{STR}عکس به** ( `{}` ) **قسمت تقسیم شد!**",
-        }
-    }
+    },
+}
 
 @client.Command(
     commands={
