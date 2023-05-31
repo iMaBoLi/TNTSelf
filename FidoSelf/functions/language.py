@@ -20,7 +20,7 @@ def get_string(string, STRINGS=None, LANG=None):
     else:
         if not MAINSTRINGS:
             MAINSTRINGS = ADDSTRINGS()
-        STRING = MAINSTRINGS[string]
+        STRING = MAINSTRINGS[lang][string]
     REPLACES = {
         "{STR}": client.STR,
         "{CMD}": client.CMD,
