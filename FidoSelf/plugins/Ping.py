@@ -6,7 +6,7 @@ STRINGS = {
         "ping": "**{STR} PonG!** [ `{ping}` ]",
     },
     "FA": {
-        "ping": "**{STR}پونگ! [ `{ping}` ]**",
+        "ping": "**{STR} پونگ! [ `{ping}` ]**",
     },
 }
 
@@ -21,7 +21,7 @@ async def ping(event):
     await event.edit("**!!!**")
     end = datetime.now()
     tms = (end - start).microseconds / 100000
-    ping = round((tms - 0.6) / 3, 2)
+    ping = round(tms / 4, 2)
     text = client.get_string("ping", STRINGS)
     text = text.format(ping=ping)
     await event.edit(text)
