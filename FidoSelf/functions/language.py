@@ -6,9 +6,10 @@ def ADDSTRINGS():
     MAINSTRINGS = {}
     files = ["EN.json", "FA.json"]
     for file in files:
+        lang = file.split(".")[0]
         STRINGS = open("FidoSelf/languages/" + file, "r").read()
         STRINGS = eval(STRINGS)
-        MAINSTRINGS += STRINGS
+        MAINSTRINGS += {lang: STRINGS}
         return MAINSTRINGS
         
 def get_string(string, STRINGS=None, LANG=None):
