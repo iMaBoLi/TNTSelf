@@ -1,4 +1,5 @@
 from FidoSelf import client
+from FidoSelf.functions import mediatype
 import image_slicer
 import os
 
@@ -20,7 +21,7 @@ STRINGS = {
 async def sliceimage(event):
     await event.edit(client.get_string("Wait"))
     tile = event.pattern_match.group(1)
-    mtype = client.mediatype(event.reply_message)
+    mtype = mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
