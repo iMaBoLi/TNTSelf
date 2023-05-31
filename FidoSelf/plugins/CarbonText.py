@@ -2,13 +2,14 @@ from FidoSelf import client
 from carbonnow import Carbon
 import os
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SCarbon$")
+@client.Command(
+    commands={
+        "EN": "Carbon",
+        "FA": "کربن",
+    }
+)
 async def carbontext(event):
-    await event.edit(client.get_string("Wait"))
-    if not event.is_reply or not event.reply_message.text:
-        return await event.edit(client.get_string("Reply_T"))
     code = event.reply_message.text
-    await event.edit(client.get_string("CarbonText_1"))
     carbon = Carbon(
         code=code, # Your Code
         background='#4a90e6',  # Optional: Hex-Color for Background
