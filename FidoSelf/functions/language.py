@@ -9,7 +9,7 @@ def ADDSTRINGS():
         lang = file.split(".")[0]
         STRINGS = open("FidoSelf/languages/" + file, "r").read()
         STRINGS = eval(STRINGS)
-        MAINSTRINGS += {lang: STRINGS}
+        MAINSTRINGS = MAINSTRINGS.update({lang: STRINGS})
         return MAINSTRINGS
         
 def get_string(string, STRINGS=None, LANG=None):
