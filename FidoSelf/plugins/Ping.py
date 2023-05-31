@@ -21,7 +21,7 @@ async def ping(event):
     await event.edit("**!!!**")
     end = datetime.now()
     tms = (end - start).microseconds / 1000
-    ms = round((tms - 0.6) / 3, 1)
+    ping = round((tms - 0.6) / 3, 1)
     text = client.get_string("ping", STRINGS)
     text = text.format(ping=ping)
     await event.edit(text)
