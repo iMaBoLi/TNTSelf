@@ -12,6 +12,7 @@ def ADDSTRINGS():
         return MAINSTRINGS
         
 def get_string(string, STRINGS=None, LANG=None):
+    global MAINSTRINGS
     lang = LANG or client.LANG
     if STRINGS:
         STRING = STRINGS[lang][string]
