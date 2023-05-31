@@ -5,7 +5,7 @@ MAINSTRINGS = {}
 def ADDSTRINGS():
     files = ["EN.json", "FA.json"]
     for file in files:
-        STRINGS = open(file, "r").read()
+        STRINGS = open("FidoSelf/languages/" + file, "r").read()
         STRINGS = eval(STRINGS)
         MAINSTRINGS += STRINGS
 
