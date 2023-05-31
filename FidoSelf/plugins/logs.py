@@ -1,10 +1,16 @@
 from FidoSelf import client
 import os
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Logs \-(c|g)$")
+
+@client.Command(
+    commands={
+        "EN": "Logs \-(c|g)",
+        "FA": "ارور \-(c|g)",
+     }
+)
 async def logs(event):
     type = str(event.pattern_match.group(1))
-    if type == "c" and os.path.exists("Fido.log"):
+    if type == "c" and os.path.exists("Fidog.log"):
         await event.respond(f"**{client.str} The Console Logs File!**", file="Fido.log")
         await event.delete()
     elif type == "g":
