@@ -3,7 +3,7 @@ from datetime import datetime
 
 STRINGS = {
     "bping": "**!!!**",
-    "ping": "**{STR} PonG!** [ `{ping}` ]",
+    "ping": "**PonG!** [ `{ping}` ]",
 }
 
 @client.Command(command="Ping")
