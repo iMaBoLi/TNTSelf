@@ -2,26 +2,17 @@ from FidoSelf import client
 from datetime import datetime
 
 STRINGS = {
-    "EN": {
-        "ping": "**{STR} PonG!** [ `{ping}` ]",
-    },
-    "FA": {
-        "ping": "**{STR} پونگ! [ `{ping}` ]**",
-    },
+    "bping": "**!!!**",
+    "ping": "**{STR} PonG!** [ `{ping}` ]",
 }
 
-@client.Command(
-    commands={
-        "EN": "Ping",
-        "FA": "پینگ",
-     }
-)
+@client.Command(command="Ping")
 async def ping(event):
     start = datetime.now()
-    await event.edit("**!!!**")
+    await event.edit(STRINGS["bping"])
     end = datetime.now()
     tms = (end - start).microseconds / 10000
     ping = round(tms / 3, 2)
-    text = client.get_string("ping", STRINGS)
+    text = STRINGS["ping"]
     text = text.format(ping=ping)
     await event.edit(text)
