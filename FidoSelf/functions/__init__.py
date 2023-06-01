@@ -5,6 +5,7 @@ from FidoSelf.functions.helper import *
 from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
 from FidoSelf.functions.loader import *
+from FidoSelf.data.strings import STRINGS
 
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
@@ -12,6 +13,7 @@ async def AddVarsToClient():
     setattr(client, "Config", config)
     setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
+    setattr(client, "STRINGS", STRINGS)
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
