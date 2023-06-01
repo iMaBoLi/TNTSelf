@@ -3,13 +3,12 @@ import image_slicer
 import os
 
 STRINGS = {
-    "wait": "**Please Wait ...",
     "slice": "**The Photo Was Sliced To** ( `{}` ) **Tiles!**",
 }
 
 @client.Command(command="Slice (\d*)")
 async def sliceimage(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     tile = event.pattern_match.group(1)
     mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
