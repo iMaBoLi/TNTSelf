@@ -1,7 +1,6 @@
 from FidoSelf import client
 from FidoSelf import config
 from FidoSelf.functions.database import *
-from FidoSelf.functions.language import *
 from FidoSelf.functions.helper import *
 from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
@@ -11,8 +10,6 @@ async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
-    setattr(client, "LANG", config.LANGUAGE)
-    setattr(client, "get_string", get_string)
     setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
     setattr(client, "HELP", {})
