@@ -2,13 +2,13 @@ from FidoSelf import client
 from telethon import functions
 
 STRINGS = {
-    "info": "**{STR} Your Profile Info:**\n\n   **ID:** ( `{}` )\n   **Name:** ( `{}` )\n   **UserName:** ( `{}` )\n   **Biography:** ( `{}` )",
-    "id": "**{STR} Your ID:** ( `{RES}` )",
-    "name": "**{STR} Your Name:** ( `{RES}` )",
-    "username": "**{STR} Your UserName:** ( `{RES}` )",
-    "bio": "**{STR} Your Biography:** ( `{RES}` )",
-    "phone": "**{STR} Your Phone:** ( `{RES}` )",
-    "profile": "**{STR} Your Profile Picture!**",
+    "info": "**Your Profile Info:**\n\n   **ID:** ( `{}` )\n   **Name:** ( `{}` )\n   **UserName:** ( `{}` )\n   **Biography:** ( `{}` )",
+    "id": "**Your ID:** ( `{RES}` )",
+    "name": "**Your Name:** ( `{RES}` )",
+    "username": "**Your UserName:** ( `{RES}` )",
+    "bio": "**Your Biography:** ( `{RES}` )",
+    "phone": "**Your Phone:** ( `{RES}` )",
+    "profile": "**Your Profile Picture!**",
 }
 
 @client.Command(command="My(iNfo|iD|Name|Bio|Username|Phone|Profile)")
