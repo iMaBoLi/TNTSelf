@@ -1,27 +1,17 @@
 from FidoSelf import client
-from FidoSelf.functions import mediatype
 import image_slicer
 import os
 
 STRINGS = {
-    "EN": {
-        "slice": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**",
-    },
-    "FA": {
-        "slice": "**{STR}عکس به** ( `{}` ) **قسمت تقسیم شد!**",
-    },
+    "wait": "**Please Wait ...",
+    "slice": "**The Photo Was Sliced To** ( `{}` ) **Tiles!**",
 }
 
-@client.Command(
-    commands={
-        "EN": "Slice (\d*)",
-        "FA": "تیکه (\d*)",
-        }
-    )
+@client.Command(command="Slice (\d*)")
 async def sliceimage(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(STRINGS["wait"])
     tile = event.pattern_match.group(1)
-    mtype = mediatype(event.reply_message)
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
         medias = client.get_string("ReplyMedia")
         media = medias["Photo"]
@@ -36,4 +26,4 @@ async def sliceimage(event):
     os.remove(photo)
     for ph in photos:
         os.remove(ph)
-    await event.delete()
+    await event.delete
