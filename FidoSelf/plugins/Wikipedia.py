@@ -7,7 +7,7 @@ STRINGS = {
     "wait": "**Please Wait ...**",
     "not": "**No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
     "result": "**The Wikipedia Results For Query:** ( `{}` )",
-    "info": "**{STR} Title:** ( `{}` )\n\n`{}`",
+    "info": "**Title:** ( `{}` )\n\n`{}`",
 }
 
 @client.Command(command="SWiki (.*)")
