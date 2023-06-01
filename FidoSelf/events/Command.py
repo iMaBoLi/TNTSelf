@@ -5,18 +5,16 @@ import re
 
 def Command(
     pattern=None,
-    commands=None,
+    command=None,
     handler=client.CMD,
     onlysudo=True,
     alowedits=True,
     **kwargs,
 ):
-    if commands:
+    if command:
         pattern = pattern or "(?i)^\{SAM}{CMD}$"
-        SAM = handler or "."
-        CMD = commands[client.LANG]
-        pattern = pattern.replace("{SAM}", SAM)
-        pattern = pattern.replace("{CMD}", CMD)
+        pattern = pattern.replace("{SAM}", handler or ".")
+        pattern = pattern.replace("{CMD}", command)
     def decorator(func):
         async def wrapper(event):
             try:
