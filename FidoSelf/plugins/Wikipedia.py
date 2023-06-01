@@ -2,10 +2,17 @@ from FidoSelf import client
 from telethon import Button
 import wikipedia
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SWiki (.*)$")
+
+STRINGS = {
+    "wait": "**Please Wait ...**",
+    "not": "**No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
+    "result": "**The Wikipedia Results For Query:** ( `{}` )",
+    "info": "**{STR} Title:** ( `{}` )\n\n`{}`",
+}
+
+@client.Command(command="SWiki (.*)")
 async def wikisearch(event):
-    await event.edit(client.get_string("Wait"))
-    wikipedia.set_lang(client.lang)
+    await event.edit(STRINGS["wait"])
     query = event.pattern_match.group(1)
     res = await client.inline_query(client.bot.me.username, f"wikipedia:{query}")
     await res[0].click(event.chat_id)
@@ -16,16 +23,16 @@ async def inlinewiki(event):
     query = str(event.pattern_match.group(1))
     results = wikipedia.search(query)
     if not results:
-        text = client.get_string("Wikipedia_1").format(query)
-        return await event.answer([event.builder.article(f"{client.str} FidoSelf - Wiki Empty", text=text)])
-    text = client.get_string("Wikipedia_2").format(query)
+        text = STRINGS["not"].format(query)
+        return await event.answer([event.builder.article("FidoSelf - Wiki Empty", text=text)])
+    text = STRINGS["result"].format(query)
     buttons = []
     con = 0
     for result in results[:10]:
         buttons.append(Button.inline(f"• {result} •", data=f"getwikipedia:{query}:{con}"))
         con += 1
     buttons = list(client.utils.chunks(buttons, 2))
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Wikipedia", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - Wikipedia", text=text, buttons=buttons)])
 
 @client.Callback(data="getwikipedia\:(.*)\:(.*)")
 async def getwikipedia(event):
@@ -33,5 +40,5 @@ async def getwikipedia(event):
     count = int(event.data_match.group(2).decode('utf-8'))
     search = wikipedia.search(query)[count]
     result = wikipedia.summary(search)
-    text = client.get_string("Wikipedia_3").format(search, result)
+    text = STRINGS["info"].format(search, result)
     await event.edit(text=text)
