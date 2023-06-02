@@ -1,15 +1,6 @@
 from FidoSelf import client
 from telethon import Button
-from FidoSelf.functions.vars import COLORS
 import os
-
-@client.Command(pattern=f"(?i)^\{client.cmd}Photo (On|Off)$")
-async def photo(event):
-    await event.edit(client.get_string("Wait"))
-    mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("PHOTO_MODE", mode)
-    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Photo Mode Has Been {change}!**")
 
 @client.Command(pattern=f"(?i)^\{client.cmd}AddPhoto (.*)$")
 async def addphoto(event):
@@ -107,7 +98,7 @@ async def photo(event):
         size = data[2]
         text = f"**{client.str} Please Choose Color For Your Time Text:**"
         buttons = [[Button.inline("Random ♻️", data=f"fontphoto:{phname}:{where}:{size}:random")]]
-        for color in COLORS:
+        for color in client.functions.COLORS:
             buttons.append(Button.inline(f"• {color.title()} •", data=f"fontphoto:{phname}:{where}:{size}:{color}"))
         buttons = [buttons[0]] + list(client.utils.chunks(buttons[1:], 4))
         buttons.append([Button.inline("🚫 Close 🚫", data=f"photoclose:{phname}")])
