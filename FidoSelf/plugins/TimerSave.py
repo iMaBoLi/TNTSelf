@@ -15,5 +15,5 @@ async def dtimermedias(event):
         mention = client.functions.mention(sender)
         ttl = client.functions.convert_time(event.media.ttl_seconds)
         caption = STRINGS["caption"].format(mention, ttl)
-        await client.send_file(client.realm, file, caption=caption)
+        await client.send_file(client.REALM, file, caption=caption)
         os.remove(file)
