@@ -1,96 +1,56 @@
 from FidoSelf import client
 
 STRINGS = {
-
-    "EN": {
-
-        "ping": "**{STR} IM Online Forever!**",
-
-        "bot": "**{STR} Bot Is Online!**",
-
-        "reload": "**{STR} Reloading Bot ...**",
-
-    },
-
-    "FA": {
-
-        "ping": "**{STR} من همیشه آنلاین هستم!**",
-
-        "bot": "**STR} ربات آنلاین است!**",
-
-        "reload": "**{STR} در حال بازنشانی ربات ...**",
-
-    },
-
+    "newnot": "**The Name** ( `{}` ) **Already In Name List!**",
+    "newadd": "**The Name** ( `{}` ) **Added To Name List!**",
+    "delnot": "**The Name** ( `{}` ) **Not In Name List!**",
+    "del": "**The Name** ( `{}` ) **Deleted From Name List!**",
+    "empty": "**The Name List Is Empty!**",
+    "list": "**The Name List:**\n\n",
+    "aempty": "**The Name List Is Already Empty!**",
+    "clean": "**The Name List Is Cleaned!**",
 }
 
-@client.Command(
-
-    commands={
-
-        "EN": "Ping",
-
-        "FA": "پینگ",
-
-     }
-
-)
-
-async def ping(event):
-
-@client.Command(
-    commands={
-        "EN": "NewName (.*)$",
-        "FA": "نام جدید (.*)",
-    }
-)
-async def name(event):
-    await event.edit(client.get_string("Wait"))
-    mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("NAME_MODE", mode)
-    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Name Mode Has Been {change}!**")
-
-@client.Command(pattern=f"(?i)^\{client.cmd}AddName (.*)$")
+@client.Command(command="NewName (.*)")
 async def addname(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     names = client.DB.get_key("NAMES") or []
     newname = str(event.pattern_match.group(1))
     if newname in names:
-        return await event.edit(f"**{client.str} The Name** ( `{newname}` ) **Already In Name List!**")  
+        return await event.edit(STRINGS["newnot"].format(newname))  
     names.append(newname)
     client.DB.set_key("NAMES", names)
-    await event.edit(f"**{client.str} The Name** ( `{newname}` ) **Added To Name List!**")  
+    await event.edit(STRINGS["newadd"].format(newname))
     
-@client.Command(pattern=f"(?i)^\{client.cmd}DelName (.*)$")
+@client.Command(command="DelName (.*)")
 async def delname(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     names = client.DB.get_key("NAMES") or []
     newname = str(event.pattern_match.group(1))
     if newname not in names:
-        return await event.edit(f"**{client.str} The Name** ( `{newname}` ) **Not In Name List!**")  
+        return await event.edit(STRINGS["delnot"].format(newname))  
     names.remove(newname)
     client.DB.set_key("NAMES", names)
-    await event.edit(f"**{client.str} The Name** ( `{newname}` ) **Deleted From Name List!**")  
-    
-@client.Command(pattern=f"(?i)^\{client.cmd}NameList$")
+    await event.edit(STRINGS["del"].format(newname))
+
+@client.Command(command="NameList")
 async def namelist(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     names = client.DB.get_key("NAMES") or []
     if not names:
-        return await event.edit(f"**{client.str} The Name List Is Empty!**")
-    text = f"**{client.str} The Name List:**\n\n"
+        return await event.edit(STRINGS["empty"])
+    text = STRINGS["list"]
     row = 1
     for name in names:
         text += f"**{row} -** `{name}`\n"
         row += 1
     await event.edit(text)
 
-@client.Command(pattern=f"(?i)^\{client.cmd}CleanNameList$")
+@client.Command(command="CleanNameList")
 async def cleannames(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     names = client.DB.get_key("NAMES") or []
     if not names:
-        return await event.edit(f"**{client.str} The Name List Is Already Empty!**")
+        return await event.edit(STRINGS["aempty"])
     client.DB.del_key("NAMES")
-    await event.edit(f"**{client.str} The Name List Is Cleared!**")
+    await event.edit(STRINGS["clean"])
