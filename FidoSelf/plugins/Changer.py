@@ -28,7 +28,7 @@ for mode in STRINGS["Modes"]:
     ENPAT += mode + "|"
 ENPAT = ENPAT[:-1]
 
-@client.Command(command="({ENPAT}) (On|Off)")
+@client.Command(command=f"({ENPAT}) (On|Off)")
 async def changer(event):
     await event.edit(client.STRINGS["wait"])
     Mode = event.pattern_match.group(1).title()
