@@ -12,17 +12,18 @@ async def sliceimage(event):
     tile = event.pattern_match.group(1)
     mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.get_string("ReplyMedia")
+        medias = client.STRINGS["replyMedia"]
         media = medias["Photo"]
         rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia")["Main"].format(rtype, media))
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
     photo = await event.reply_message.download_media("SliceImage.jpg")
     tiles = image_slicer.slice(photo, int(tile))
     photos = [str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
-    text = client.get_string("slice", STRINGS)
-    for phs in list(client.utils.chunks(photos, 9)):
-        await event.respond(text.format(len(photos)), file=phs)
+    text = STRINGS["slice"].format(len(photos))
+    for phs in list(client.functions.chunks(photos, 9)):
+        await event.respond(text, file=phs)
     os.remove(photo)
     for ph in photos:
         os.remove(ph)
-    await event.delete
+    await event.delete()
