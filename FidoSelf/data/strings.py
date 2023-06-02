@@ -2,30 +2,21 @@ STRINGS = {
     "wait": "**Please Wait ⏳**",
     "On": "Actived",
     "Off": "DeActived",
-    "replyMain": "**The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
-    "replyNot": "**You Have Not Replied Please Reply To** ( `{}` )",
-    "replyNotAll": "**You Have Not Replied Please Reply To A Message!**",
-    "replyMessage": "Message",
-    "replyText": "Text",
-    "replyPhoto": "Photo",
-    "replyVideo": "Video",
-    "replyVideoNote": "Video Note",
-    "replyGif": "Gif",
-    "replyVoice": "Voice",
-    "replyMusic": "Music",
-    "replySticker": "Sticker",
-    "replyASticker": "Animated Sticker",
-    "replyFile": "File",
-    "replyEmpty": "Empty",
-	
-	
-	
-	
-	
-
-	
-	
-	
-
-	
+    "replyMedia": {
+        "Main": "**The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
+        "Not": "**You Have Not Replied Please Reply To** ( `{}` )",
+        "NotAll": "**You Have Not Replied Please Reply To A Message!**",
+        "Message": "Message",
+        "Text": "Text",
+        "Photo": "Photo",
+        "Video": "Video",
+        "VideoNote": "Video Note",
+        "Gif": "Gif",
+        "Voice": "Voice",
+        "Music": "Music",
+        "Sticker": "Sticker",
+        "ASticker": "Animated Sticker",
+        "File": "File",
+        "Empty": "Empty",
+    }
 }
