@@ -8,7 +8,7 @@ STRINGS = {
         "Bio": ["Bio Mode", "BIO_MODE"],
         "Photo": ["Photo Mode", "PHOTO_MODE"],
         "Dtimer": ["Download Timer Medias", "TIMER_MODE"],
-        "Quicks": ["Quicks Mode", "QUICKS_MODE"]
+        "Quicks": ["Quicks Mode", "QUICKS_MODE"],
         "Monshi": ["Monshi Self", "MONSHI_MODE"],
         "Autodelete": ["Auto Delete Messages", "AUTO_DELETE_MODE"],
         "Autoreplace": ["Auto Replace Mode", "AUTO_REPLACE_MODE"],
