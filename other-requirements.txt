@@ -6,3 +6,4 @@ cairosvg
 lottie
 image_slicer
 carbonnow
+jdatetime
