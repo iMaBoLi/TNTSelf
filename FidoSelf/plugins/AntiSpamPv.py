@@ -10,7 +10,7 @@ async def setautodeletesleep(event):
 
 @client.Command(onlysudo=False, alowedits=False)
 async def antispam(event):
-    if not event.is_private or event.is_white or event.is_sudo: return
+    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mode = client.DB.get_key("ANTISPAM_PV") or "off"
     warns = client.DB.get_key("ANTISPAM_WARNS") or {}
     if mode == "on":
