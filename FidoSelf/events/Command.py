@@ -40,7 +40,7 @@ def Command(
                     event.is_white = True
                 if notcmd:
                     event.is_cmd = False
-                    commands = client.DB.get_key("SELFCOMMANDS")
+                    commands = client.DB.get_key("SELFCOMMANDS") or []
                     for command in commands:
                         if re.search(command, event.text):
                             event.is_cmd = True
