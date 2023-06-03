@@ -17,9 +17,9 @@ async def videoshot(event):
     await event.edit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
     mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo"]:
+    if not event.is_reply or mtype not in ["Video"]:
         medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"]
+        media = medias["Video"]
         rtype = medias[mtype]
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
