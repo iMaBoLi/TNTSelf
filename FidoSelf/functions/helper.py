@@ -2,9 +2,11 @@ from FidoSelf import client
 from traceback import format_exc
 from telethon.types import Message
 from telethon.errors.rpcerrorlist import UsernameInvalidError
+from jdatetime import datetime
+from jdatetime import date as jdate
 import asyncio
 import time
-import math
+import 
 
 def progress(event, download=False, upload=False):
     newtime = time.time()
@@ -36,7 +38,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
         speed = current / diff
         eta = round((total - current) / speed) * 1000
         strs = "".join("●" for i in range(math.floor(perc / 7)))
-        text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
+        text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
 async def getuserid(event, inputid=None):
@@ -118,24 +120,8 @@ def mediatype(event):
 
 setattr(Message, "mediatype", mediatype)
 
-def convert_date(gy, gm, gd):
-   g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
-   if (gm > 2):
-       gy2 = gy + 1
-   else:
-       gy2 = gy
-   days = 355666 + (365 * gy) + ((gy2 + 3) // 4) - ((gy2 + 99) // 100) + ((gy2 + 399) // 400) + gd + g_d_m[gm - 1]
-   jy = -1595 + (33 * (days // 12053))
-   days %= 12053
-   jy += 4 * (days // 1461)
-   days %= 1461
-   if (days > 365):
-       jy += (days - 1) // 365
-       days = (days - 1) % 365
-   if (days < 186):
-       jm = 1 + (days // 31)
-       jd = 1 + (days % 31)
-   else:
-      jm = 7 + ((days - 186) // 30)
-      jd = 1 + ((days - 186) % 30)
-   return [jy, jm, jd]
+def convert_date(year, month, day):
+    gregorian_date = datetime(year, month, day)
+    shamsi_date = jdate.fromgregorian(date=gregorian_date)
+    shamsi = f"{shamsi_date.year}/{shamsi_date.month}/{shamsi_date.day}"
+    return shamsi
