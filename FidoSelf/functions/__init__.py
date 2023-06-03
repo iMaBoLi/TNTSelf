@@ -14,6 +14,7 @@ async def AddVarsToClient():
     setattr(client, "AddVars", add_vars)
     setattr(client, "mention", mention)
     setattr(client, "STRINGS", STRINGS)
+    setattr(client, "COMMANDS", []])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
     setattr(client, "me", (await client.get_me()))
