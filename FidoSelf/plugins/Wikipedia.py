@@ -4,7 +4,6 @@ import wikipedia
 
 
 STRINGS = {
-    "wait": "**Please Wait ...**",
     "not": "**No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
     "result": "**The Wikipedia Results For Query:** ( `{}` )",
     "info": "**Title:** ( `{}` )\n\n`{}`",
@@ -12,7 +11,7 @@ STRINGS = {
 
 @client.Command(command="SWiki (.*)")
 async def wikisearch(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     res = await client.inline_query(client.bot.me.username, f"wikipedia:{query}")
     await res[0].click(event.chat_id)
