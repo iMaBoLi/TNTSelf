@@ -21,7 +21,7 @@ def get_file_icon(name):
         type = "📝"
     return type
 
-@client.Command(command="Ls")
+@client.Command(command="Ls ?(.*)?")
 async def ls(event):
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
