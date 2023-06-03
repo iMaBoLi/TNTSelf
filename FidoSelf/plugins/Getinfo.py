@@ -36,7 +36,7 @@ async def ginfo(event):
         return await event.edit(client.STRINGS["getid"]["IU"])
     elif not result and not chatid:
         return await event.edit(client.STRINGS["getid"]["UC"])
-     cinfo = await client.get_entity(chatid)
+    cinfo = await client.get_entity(chatid)
     try:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
     except:
