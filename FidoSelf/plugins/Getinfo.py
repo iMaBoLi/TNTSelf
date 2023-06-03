@@ -8,7 +8,7 @@ STRINGS = {
 
 @client.Command(command="Info ?(.*)?")
 async def userinfo(event):
-    await event.edit(client.STRINGS(["wait"]))
+    await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
     if not result and str(userid) == "Invalid":
         return await event.edit(client.STRINGS["getid"]["IU"])
@@ -30,7 +30,7 @@ async def userinfo(event):
 
 @client.Command(command="Cinfo ?(.*)?")
 async def ginfo(event):
-    await event.edit(client.STRINGS(["wait"]))
+    await event.edit(client.STRINGS["wait"])
     result, chatid = await event.chatid(event.pattern_match.group(1))
     if not result and str(chatid) == "Invalid":
         return await event.edit(client.STRINGS["getid"]["IU"])
