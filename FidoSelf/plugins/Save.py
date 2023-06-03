@@ -12,7 +12,7 @@ STRINGS = {
     "clean": "**The Saveds List Has Been Cleaned!**",
 }
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Save (.*)$")
+@client.Command(command="Save (.*)")
 async def savesaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
@@ -28,7 +28,7 @@ async def savesaves(event):
     client.DB.set_key("SAVES", saves)
     await event.edit(STRINGS["save"].format(name))
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Del (.*)$")
+@client.Command(command="Del (.*)$")
 async def delsaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
@@ -45,7 +45,7 @@ async def delsaves(event):
     client.DB.set_key("SAVES", saves)
     await event.edit(STRINGS["del"].format(name))
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Get (.*)$")
+@client.Command(command="Get (.*)$")
 async def getsaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
