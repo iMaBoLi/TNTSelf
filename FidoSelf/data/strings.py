@@ -36,4 +36,9 @@ STRINGS = {
         "Back": "◀️ Back",
         "Show": "This Button Is Only For Show!",
     },
+    "progress": {
+        "Text": "**{STR}** `{}`\n\n`[ {} ]{}%`\n\n**Size:** ( `{}` ) - ( `{}` )\n**Speed:** ( `{}` )\n**ETA:** ( `{}` )",
+        "Down": "Downloading . . .",
+        "Up": "Uploading . . .",
+    },
 }
