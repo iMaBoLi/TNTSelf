@@ -1,7 +1,7 @@
 from FidoSelf import client
 import os
 
-@client.Command("log")
+@client.Command(command="Logs")
 async def logs(event):
     if os.path.exists("Fido.log"):
         await event.respond("**The Console Logs File!**", file="Fido.log")
