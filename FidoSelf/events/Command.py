@@ -17,7 +17,7 @@ def Command(
     
     if pattern:
         COMMANDS = client.DB.get_key("SELFCOMMANDS") or []
-        COMMANDS = COMMANDS.append(pattern)
+        COMMANDS += [pattern]
         client.DB.set_key("SELFCOMMANDS", COMMANDS)
 
     def decorator(func):
