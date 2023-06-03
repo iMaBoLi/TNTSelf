@@ -64,7 +64,6 @@ def get_mode_buttons(page):
             buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{page}:{mode}:{cmode}"), Button.inline((client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]), data=f"setmode:{page}:{mode}:{cmode}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
-    buttons = client.functions.get_buttons(buttons)
     return buttons
 
 def get_time_buttons(page):
@@ -77,7 +76,6 @@ def get_time_buttons(page):
         buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{page}:{font}"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]), data=f"setfonttime:{page}:{font}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
-    buttons = client.get_buttons(buttons)
     return buttons
 
 def get_edit_buttons(page):
@@ -88,7 +86,6 @@ def get_edit_buttons(page):
         buttons.append([Button.inline(f"• {EDITS[edit]} •", data=f"seteditmode:{page}:{edit}"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]), data=f"seteditmode:{page}:{edit}")])
     pgbts = get_pages_button(page)
     buttons.append(pgbts)
-    buttons = client.get_buttons(buttons)
     return buttons
 
 @client.Command(command="Panel")
