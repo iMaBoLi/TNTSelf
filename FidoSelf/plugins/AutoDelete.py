@@ -9,7 +9,7 @@ async def setautodeletesleep(event):
     client.DB.set_key("AUTO_DELETE_SLEEP", sleep)
     await event.edit(client.get_string("AutoDelete_2").format(client.utils.convert_time(sleep)))
 
-@client.Command(allow_edits=False)
+@client.Command(alowedits=False)
 async def autodeletes(event):
     if event.is_cmd: return
     client.loop.create_task(trydelete(event))
