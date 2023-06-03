@@ -1,23 +1,25 @@
 from FidoSelf import client
 from telethon import Button
-from googletrans import Translator
 import math
 
-def translate(text):
-    if client.lang == "en":
-        return text
-    translator = Translator()
-    trjome = translator.translate(text, dest=client.lang)
-    return trjome.text
-
+STRINGS = {
+    "Categorys": {
+        "Settings": "Settings ⚙️",
+        "Manager": "Manager 👮",
+        "Tools": "Tools 🔧",
+        "Account": "Account 💎",
+        "Groups": "Groups 👥",
+        "Time": "Time ⏰",
+    },
+}
 def get_help_buttons():
     buttons = []
-    CATS = client.get_string("Categorys")
+    CATS = STRINGS["Categorys"]
     for cat in CATS:
         buttons.append(Button.inline(f"• {CATS[cat]} •", data=f"gethelp:{cat}:1"))
-    buttons = list(client.utils.chunks(buttons, 2))
-    buttons.append([Button.inline(client.get_string("Inline_3"), data="closehelp")])
-    buttons = client.get_buttons(buttons)
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")])
+    buttons = client.functions.get_buttons(buttons)
     return buttons
 
 def get_plugins(cat):
@@ -42,10 +44,10 @@ def get_pages_button(cat, page):
     start = (page - 1) * 10
     end = start + 10
     if end < len(plugins):
-        buttons.append(Button.inline(client.get_string("Inline_4"), data=f"gethelp:{cat}:{page+1}"))
+        buttons.append(Button.inline(client.STRINGS["inline"]["Next"], data=f"gethelp:{cat}:{page+1}"))
     if page > 1:
-        buttons.append(Button.inline(client.get_string("Inline_5"), data=f"gethelp:{cat}:{page-1}"))
-    buttons.append([Button.inline(client.get_string("InQuicks_Back"), data="selfmainhelp"), Button.inline(client.get_string("Inline_3"), data="closehelp")])
+        buttons.append(Button.inline(client.STRINGS["inline"]["Back"], data=f"gethelp:{cat}:{page-1}"))
+    buttons.append([Button.inline(client.get_string("InQuicks_Back"), data="selfmainhelp"), Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")])
     return buttons
 
 def get_cat_buttons(cat, page):
@@ -111,7 +113,7 @@ async def getplugin(event):
         cominfo = translate(info["commands"][com])
         text += f'`{ncom}`\n'
         text += f'     __• {cominfo}__\n'
-    buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}'), Button.inline(client.get_string("Inline_3"), data="closehelp")]] 
+    buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}'), Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")]] 
     await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="closehelp")
