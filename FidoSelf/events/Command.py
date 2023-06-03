@@ -41,7 +41,6 @@ def Command(
                     for command in COMMANDS:
                         if re.search(command, event.text):
                             event.is_cmd = True
-                if re.search()
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
