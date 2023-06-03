@@ -6,6 +6,7 @@ from jdatetime import datetime
 from jdatetime import date as jdate
 import asyncio
 import time
+import math
 
 def progress(event, download=False, upload=False):
     newtime = time.time()
@@ -36,7 +37,9 @@ async def create_progress(event, current, total, start, download=False, upload=F
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "".join("●" for i in range(math.floor(perc / 7)))
+        pstrs = "".join("■" for i in range(math.floor(perc / 10)))
+        fstrs = "".join("□" for i in range(10-len(pstrs)))
+        strs = pstrs + fstrs
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
