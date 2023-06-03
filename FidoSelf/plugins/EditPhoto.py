@@ -23,7 +23,7 @@ Pattern = Pattern[:-1]
 
 @client.Command(command=f"SF({Pattern})")
 async def editphoto(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
     mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
