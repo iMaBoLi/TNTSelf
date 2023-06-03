@@ -24,9 +24,9 @@ setattr(Message, "progress", progress)
 
 async def create_progress(event, current, total, start, download=False, upload=False):
     if download:
-        type = client.get_string("Progress_2")
+        type = client.STRINGS["progress"]["Down"]
     elif upload:
-        type = client.get_string("Progress_3")
+        type = client.STRINGS["progress"]["Up"]
     else:
         type = "-----"
     now = time.time()
@@ -35,8 +35,8 @@ async def create_progress(event, current, total, start, download=False, upload=F
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        strs = "●".join("●" for i in range(math.floor(perc / 7)))
-        text = client.get_string("Progress_1").format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
+        strs = "".join("●" for i in range(math.floor(perc / 7)))
+        text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.utils.convert_bytes(current), client.utils.convert_bytes(total), client.utils.convert_bytes(speed), client.utils.convert_time(eta))
         await event.edit(text)
 
 async def getuserid(event, inputid=None):
