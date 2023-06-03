@@ -8,7 +8,6 @@ COMMANDS = []
 def Command(
     pattern=None,
     command=None,
-    cmds=[],
     notcmd=False,
     onlysudo=True,
     alowedits=True,
@@ -17,7 +16,9 @@ def Command(
     if command and not pattern:
         pattern = "(?i)^\.{CMD}$"
         pattern = pattern.replace("{CMD}", command)
-    COMMANDS = COMMANDS.append(cmds)
+        COMMANDS = COMMANDS.append(command)
+    elif pattern:
+        COMMANDS = COMMANDS.append(pattern)
     
     def decorator(func):
         async def wrapper(event):
