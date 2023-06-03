@@ -27,4 +27,12 @@ STRINGS = {
         "UC": "**Please Enter Username Or Send In Chat!**",
         "UCH": "**Please Enter Username Or Send In Channel!**",
     },
+    "inline": {
+        "On": "❲ ✔️|Active ❳",
+        "Off": "❲ ✖️|DeActive ❳",
+        "Close": "🚫 Close 🚫",
+        "Next": "Next ▶️",
+        "Back": "◀️ Back",
+        "Show": "{STR} This Button Is Only For Show!",
+    },
 }
