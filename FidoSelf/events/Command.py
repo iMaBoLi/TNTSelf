@@ -3,8 +3,6 @@ from telethon import events
 from traceback import format_exc
 import re
 
-COMMANDS = []
-
 def Command(
     pattern=None,
     command=None,
@@ -18,7 +16,7 @@ def Command(
         pattern = pattern.replace("{CMD}", command)
         
     if pattern:
-        COMMANDS = COMMANDS.append(pattern)
+        client.COMMANDS = client.COMMANDS.append(pattern)
     
     def decorator(func):
         async def wrapper(event):
