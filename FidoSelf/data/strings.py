@@ -2,6 +2,7 @@ STRINGS = {
     "wait": "**Please Wait ⏳**",
     "On": "Actived",
     "Off": "DeActived",
+    "LargeSize": "**The File Size Must Be Less Than From:** ( `{}` )",
     "replyMedia": {
         "Main": "**The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Not": "**You Have Not Replied Please Reply To** ( `{}` )",
