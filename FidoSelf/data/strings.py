@@ -18,5 +18,13 @@ STRINGS = {
         "ASticker": "Animated Sticker",
         "File": "File",
         "Empty": "Empty",
-    }
+    },
+    "getid": {
+        "IU": "**The Entered UserID Is Not Valid!**",
+        "U": "**Please Reply To User!**",
+        "UU": "**Please Reply To User Or Enter Username!**",
+        "UUP": "**Please Reply To User Or Enter UserID Or Send In Pv!**",
+        "UC": "**Please Enter Username Or Send In Chat!**",
+        "UCH": "**Please Enter Username Or Send In Channel!**",
+    },
 }
