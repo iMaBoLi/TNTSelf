@@ -125,10 +125,10 @@ setattr(Message, "mediatype", mediatype)
 async def save(event):
     if client.BACKUP:
         forward = await event.forward_to(client.BACKUP)
-        info = {"chatid": client.BACKUP, "msgid": forward.id}
+        info = {"chat_id": client.BACKUP, "msg_id": forward.id}
     else:
         forward = await event.forward_to(client.me.id)
-        info = {"chatid": client.me.id, "msgid": forward.id}
+        info = {"chat_id": client.me.id, "msg_id": forward.id}
     return info
 
 setattr(Message, "save", save)
