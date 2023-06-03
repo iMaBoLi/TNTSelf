@@ -16,7 +16,7 @@ def Command(
         pattern = pattern.replace("{CMD}", command)
     
     if pattern:
-        COMMANDS = client.DB.get_key("SELFCOMMAMDS") or []
+        COMMANDS = client.DB.get_key("SELFCOMMANDS") or []
         COMMANDS = COMMANDS.append(pattern)
         client.DB.set_key("SELFCOMMANDS", COMMANDS)
 
