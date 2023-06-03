@@ -3,6 +3,10 @@ from PIL import Image
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
+STRINGS = {
+    "add": "**Filter** ( `{}` ) **Successfully Added To Your Photo!**",
+}
+
 MODES = {
     "Blur": BLUR,
     "Contour": CONTOUR,
@@ -17,17 +21,17 @@ for mode in MODES:
     Pattern += mode + "|"
 Pattern = Pattern[:-1]
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SF({Pattern})$")
+@client.Command(command=f"SF({Pattern})")
 async def editphoto(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    mtype = client.mediatype(event.reply_message)
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.get_string("ReplyMedia")
+        medias = client.STRINGS["replyMedia"]
         media = medias["Photo"]
-        if mtype == "Empty":
-            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
-        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
+        rtype = medias[mtype]
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
     photo = await event.reply_message.download_media()
     newfile = f"EditPhoto-{str(mode)}.jpg"
     if mode == "Bw":
@@ -40,7 +44,7 @@ async def editphoto(event):
         newimg = img.filter(pmode)
         newimg.save(newfile)
     mode = "BlackWhite" if mode == "Bw" else mode
-    caption = client.get_string("EditPhoto_1").format(mode)
+    caption = STRINGS["add"].format(mode)
     await client.send_file(event.chat_id, newfile, caption=caption)        
     os.remove(photo)
     os.remove(newfile)
