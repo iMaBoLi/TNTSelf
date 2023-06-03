@@ -122,6 +122,17 @@ def mediatype(event):
 
 setattr(Message, "mediatype", mediatype)
 
+async def save(event):
+    if client.BACKUP:
+        forward = await event.forward_to(client.BACKUP)
+        info = {"chatid": client.BACKUP, "msgid": forward.id}
+    else:
+        forward = await event.forward_to(client.me.id)
+        info = {"chatid": client.me.id, "msgid": forward.id}
+    return info
+
+setattr(Message, "save", save)
+
 def convert_date(year, month, day):
     gregorian_date = datetime(year, month, day)
     shamsi_date = jdate.fromgregorian(date=gregorian_date)
