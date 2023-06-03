@@ -3,7 +3,7 @@ from telethon import functions
 
 @client.Command(command="SetSpamPvLimit (\d*)")
 async def setautodeletesleep(event):
-    await event.edit(STRINGS["wait]")
+    await event.edit(STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("SPAM_PV_LIMIT", sleep)
     await event.edit(client.get_string("AntiSpamPv_2").format(client.utils.convert_time(sleep)))
