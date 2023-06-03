@@ -6,6 +6,7 @@ from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
 from FidoSelf.functions.loader import *
 from FidoSelf.data.strings import STRINGS
+import os
 
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
@@ -24,6 +25,8 @@ async def AddVarsToClient():
     setattr(client, "REALM", client.DB.get_key("REALM_CHAT") or client.me.id)
     setattr(client, "BACKUP", client.DB.get_key("BACKUP_CHANNEL"))
     AddHandlersToClient()
+    os.environ['TZ'] = "Asia/Tehran"
+    time.tzset()
 
 def AddHandlersToClient():
     from FidoSelf.events import Command, Callback, Inline
