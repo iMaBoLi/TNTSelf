@@ -2,13 +2,27 @@ from FidoSelf import client
 from telethon import functions, Button
 import asyncio
 
+STRINGS = {
+    "Manages": {
+        "INFO": "User Info",
+        "BLOCK": "Block",
+        "UNBLOCK": "UnBlock",
+        "WHITES": "White",
+        "BLACKS": "Black",
+        "ECHOS": "Echo",
+    },
+    "menu": "**Please Use The Options Below To Manage User Modes:**",
+    "close": "**The Manage Panel Successfuly Closed!**",
+    "infouser": "**User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
+}
+
 async def get_manage_buttons(userid):
     buttons = []
-    MANAGES = client.get_string("Manages")
+    MANAGES = STRINGS["Manages"]
     buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"getinfo:{userid}")])
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
-    smode = client.get_string("Manages_UNBLOCK") if info.blocked else client.get_string("Manages_BLOCK")
+    smode = MANAGES["INFO"]["UNBLOCK"] if info.blocked else MANAGES["INFO"]["BLOCK"]
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
     obuts = []
@@ -17,20 +31,21 @@ async def get_manage_buttons(userid):
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{userid}:{manage}:{cmode}"))
-    obuts = list(client.utils.chunks(obuts, 2))
+    obuts = list(client.functions.chunks(obuts, 2))
     for but in obuts:
         buttons.append(but)
-    buttons.append([Button.inline(client.get_string("Inline_3"), data="closemanage")])
-    buttons = client.get_buttons(buttons)
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closemanage")])
     return buttons
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Manage ?(.*)?$")
+@client.Command(command="Manage ?(.*)?")
 async def managepanel(event):
-    await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.userid:
-        return await event.edit(client.get_string("Reply_UUP"))
-    res = await client.inline_query(client.bot.me.username, f"managepanel:{event.userid}")
+    await event.edit(client.STRINGS["wait"])
+    result, userid = await event.userid(event.pattern_match.group(1))
+    if not result and str(userid) == "Invalid":
+        return await event.edit(client.STRINGS["getid"]["IU"])
+    elif not result and not userid:
+        return await event.edit(client.STRINGS["getid"]["UUP"])
+   res = await client.inline_query(client.bot.me.username, f"managepanel:{userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
@@ -40,9 +55,9 @@ async def managepanel(event):
 @client.Inline(pattern="managepanel\:(.*)")
 async def inlinemanagepanel(event):
     userid = int(event.pattern_match.group(1))
-    text = client.get_string("Manage_1")
+    text = STRINGS["menu"]
     buttons = await get_manage_buttons(userid)
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Manage", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
 @client.Callback(data="setuser\:(.*)\:(.*)\:(.*)")
 async def setusermanage(event):
@@ -82,7 +97,7 @@ async def getinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = client.get_string("GetInfo_1").format(uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = STRINGS["infouser"].format(uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await client.send_file(event.chat_id, info.profile_photo, caption=userinfo)
     else:
@@ -92,5 +107,5 @@ async def getinfo(event):
 
 @client.Callback(data="closemanage")
 async def closemanagepanel(event):
-    text = client.get_string("Manage_2")
+    text = STRINGS["close"]
     await event.edit(text=text)
