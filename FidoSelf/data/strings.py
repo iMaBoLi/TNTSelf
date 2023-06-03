@@ -24,8 +24,8 @@ STRINGS = {
         "U": "**Please Reply To User!**",
         "UU": "**Please Reply To User Or Enter Username!**",
         "UUP": "**Please Reply To User Or Enter UserID Or Send In Pv!**",
-        "UC": "**Please Enter Username Or Send In Chat!**",
-        "UCH": "**Please Enter Username Or Send In Channel!**",
+        "UC": "**Please Enter Chat Username Or Send In Chat!**",
+        "UCH": "**Please Enter Channel Username Or Send In Channel!**",
     },
     "inline": {
         "On": "❲ ✔️|Active ❳",
