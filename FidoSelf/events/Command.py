@@ -3,18 +3,22 @@ from telethon import events
 from traceback import format_exc
 import re
 
+COMMANDS = []
+
 def Command(
     pattern=None,
     command=None,
-    handler=client.CMD,
+    cmds=[],
+    notcmd=False,
     onlysudo=True,
     alowedits=True,
     **kwargs,
 ):
-    if command:
-        pattern = pattern or "(?i)^\{SAM}{CMD}$"
-        pattern = pattern.replace("{SAM}", handler or ".")
+    if command and not pattern:
+        pattern = "(?i)^\.{CMD}$"
         pattern = pattern.replace("{CMD}", command)
+    COMMANDS = COMMANDS.append(cmds)
+    
     def decorator(func):
         async def wrapper(event):
             try:
@@ -31,6 +35,12 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
+                if not_cmd:
+                    event.is_cmd = False
+                    for command in COMMANDS:
+                        if re.search(command, event.text):
+                            event.is_cmd = True
+                if re.search()
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
