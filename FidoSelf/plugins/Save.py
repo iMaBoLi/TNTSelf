@@ -21,9 +21,7 @@ async def savesaves(event):
     saves = client.DB.get_key("SAVES") or {}
     if name in saves:
         return await event.edit(STRINGS["notall"].format(name))
-    res, info = await event.reply_message.save()
-    if not res:
-        return await event.edit(info)
+    info = await event.reply_message.save()
     saves.update({name: info})
     client.DB.set_key("SAVES", saves)
     await event.edit(STRINGS["save"].format(name))
