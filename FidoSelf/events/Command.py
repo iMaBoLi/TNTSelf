@@ -17,9 +17,6 @@ def Command(
         pattern = "(?i)^\.{CMD}$"
         pattern = pattern.replace("{CMD}", command)
         
-    if pattern:
-        global SELFCOMMANDS
-        SELFCOMMANDS = SELFCOMMANDS.append(pattern)
     
     def decorator(func):
         async def wrapper(event):
