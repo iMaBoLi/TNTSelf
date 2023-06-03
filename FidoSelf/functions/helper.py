@@ -6,7 +6,6 @@ from jdatetime import datetime
 from jdatetime import date as jdate
 import asyncio
 import time
-import 
 
 def progress(event, download=False, upload=False):
     newtime = time.time()
