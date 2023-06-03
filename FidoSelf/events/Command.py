@@ -35,7 +35,7 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
-                if not_cmd:
+                if notcmd:
                     event.is_cmd = False
                     for command in COMMANDS:
                         if re.search(command, event.text):
