@@ -3,6 +3,8 @@ from telethon import events
 from traceback import format_exc
 import re
 
+SELFCOMMANDS = []
+
 def Command(
     pattern=None,
     command=None,
@@ -16,8 +18,8 @@ def Command(
         pattern = pattern.replace("{CMD}", command)
         
     if pattern:
-        getcom = client.COMMANDS or []
-        client.COMMANDS = getcom.append(pattern)
+        global SELFCOMMANDS
+        SELFCOMMANDS = SELFCOMMANDS.append(pattern)
     
     def decorator(func):
         async def wrapper(event):
@@ -37,7 +39,7 @@ def Command(
                     event.is_white = True
                 if notcmd:
                     event.is_cmd = False
-                    for command in COMMANDS:
+                    for command in SELFCOMMANDS:
                         if re.search(command, event.text):
                             event.is_cmd = True
                 await func(event)
