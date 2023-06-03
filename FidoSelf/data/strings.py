@@ -33,6 +33,6 @@ STRINGS = {
         "Close": "🚫 Close 🚫",
         "Next": "Next ▶️",
         "Back": "◀️ Back",
-        "Show": "{STR} This Button Is Only For Show!",
+        "Show": "This Button Is Only For Show!",
     },
 }
