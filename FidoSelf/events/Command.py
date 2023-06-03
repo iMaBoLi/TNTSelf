@@ -16,7 +16,8 @@ def Command(
         pattern = pattern.replace("{CMD}", command)
         
     if pattern:
-        client.COMMANDS = client.COMMANDS.append(pattern)
+        getcom = client.COMMANDS or []
+        client.COMMANDS = getcom.append(pattern)
     
     def decorator(func):
         async def wrapper(event):
