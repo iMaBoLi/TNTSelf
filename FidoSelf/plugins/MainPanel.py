@@ -45,10 +45,10 @@ PAGES_COUNT = 3
 
 def get_pages_button(page):
     buttons = []
-    if page < PAGES_COUNT:
-        buttons.append(Button.inline(client.STRINGS["inline"]["Next"], data=f"panelpage:{page+1}"))
     if page > 1:
         buttons.append(Button.inline(client.STRINGS["inline"]["Back"], data=f"panelpage:{page-1}"))
+    if page < PAGES_COUNT:
+        buttons.append(Button.inline(client.STRINGS["inline"]["Next"], data=f"panelpage:{page+1}"))
     buttons.append(Button.inline(client.STRINGS["inline"]["Close"], data="closepanel"))
     return buttons
 
