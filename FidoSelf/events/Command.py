@@ -16,8 +16,8 @@ def Command(
     if command and not pattern:
         pattern = "(?i)^\.{CMD}$"
         pattern = pattern.replace("{CMD}", command)
-        COMMANDS = COMMANDS.append(command)
-    elif pattern:
+        
+    if pattern:
         COMMANDS = COMMANDS.append(pattern)
     
     def decorator(func):
