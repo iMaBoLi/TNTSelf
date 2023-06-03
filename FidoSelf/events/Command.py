@@ -12,9 +12,8 @@ def Command(
     **kwargs,
 ):
     if command and not pattern:
-        pattern = "(?i)^\.{CMD}$"
-        pattern = pattern.replace("{CMD}", command)
-    
+        pattern = f"(?i)^\.{command}$"
+        
     if pattern:
         COMMANDS = client.DB.get_key("SELFCOMMANDS") or []
         if pattern not in COMMANDS:
