@@ -45,7 +45,7 @@ async def managepanel(event):
         return await event.edit(client.STRINGS["getid"]["IU"])
     elif not result and not userid:
         return await event.edit(client.STRINGS["getid"]["UUP"])
-   res = await client.inline_query(client.bot.me.username, f"managepanel:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"managepanel:{userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
