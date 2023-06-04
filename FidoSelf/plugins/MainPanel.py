@@ -183,7 +183,7 @@ async def actionall(event):
     
 @client.Callback(data="actionchat\:(.*)\:(.*)\:(.*)")
 async def actionschats(event):
-    client.LOGS.error(event.chat_id)
+    client.LOGS.error(event.chat_instance)
     action = event.data_match.group(1).decode('utf-8')
     chatid = int(event.data_match.group(2).decode('utf-8'))
     change = event.data_match.group(3).decode('utf-8')
