@@ -129,7 +129,7 @@ async def setmode(event):
 async def setfonttime(event):
     font = event.data_match.group(1).decode('utf-8')
     client.DB.set_key("TIME_FONT", str(font))
-    buttons = get_time_buttons(1)
+    buttons = get_time_buttons(2)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="seteditmode\:(.*)")
