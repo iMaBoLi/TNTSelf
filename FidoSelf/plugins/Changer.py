@@ -8,11 +8,6 @@ STRINGS = {
         "Bio": ["Bio Mode", "BIO_MODE"],
         "Photo": ["Photo Mode", "PHOTO_MODE"],
         "Dtimer": ["Download Timer Medias", "TIMER_MODE"],
-        "Quicks": ["Quicks Mode", "QUICKS_MODE"],
-        "Monshi": ["Monshi Self", "MONSHI_MODE"],
-        "Autodelete": ["Auto Delete Messages", "AUTO_DELETE_MODE"],
-        "Autoreplace": ["Auto Replace Mode", "AUTO_REPLACE_MODE"],
-        "Autosay": ["Auto Say Mode", "AUTO_SAY_MODE"],
         "Mutepv": ["Mute Pv", "MUTE_PV"],
         "Lockpv": ["Lock Pv", "LOCK_PV"],
         "Antispampv": ["Anti Spam Pv", "ANTISPAM_PV"],
@@ -23,12 +18,12 @@ STRINGS = {
     }
 }
 
-ENPAT = ""
+PATTERN = ""
 for mode in STRINGS["Modes"]:
-    ENPAT += mode + "|"
-ENPAT = ENPAT[:-1]
+    PATTERN += mode + "|"
+PATTERN = PATTERN[:-1]
 
-@client.Command(command=f"({ENPAT}) (On|Off)")
+@client.Command(command=f"({PATTERN}) (On|Off)")
 async def changer(event):
     await event.edit(client.STRINGS["wait"])
     Mode = event.pattern_match.group(1).title()
