@@ -12,8 +12,5 @@ REDIS_PASSWORD = ""
 START_TIME = 
 REMAIN_TIME = 
 
-#Keys
-OCR_APIKEY = ""
-
 #Other
 COMMANDS_STARTER = "."
