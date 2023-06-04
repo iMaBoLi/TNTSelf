@@ -18,7 +18,7 @@ ACTIONS = [
 
 @client.Command(onlysudo=False)
 async def action(event):
-    if event.is_bot: return
+    if event.is_bot or event.is_ch: return
     for action in ACTIONS:
         mode = client.DB.get_key(action.upper() + "_ALL") or "off"
         chats = client.DB.get_key(action.upper() + "_CHATS") or []
