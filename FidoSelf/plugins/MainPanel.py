@@ -55,7 +55,7 @@ def get_mode_buttons(page):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{mode}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(Button.inline(STRINGS["fasle"], data="empty"))
+    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -75,7 +75,7 @@ def get_time_buttons(page):
         mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(Button.inline(STRINGS["fasle"], data="empty"))
+    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -89,7 +89,7 @@ def get_edit_buttons(page):
         mode = client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"seteditmode:{edit}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(Button.inline(STRINGS["fasle"], data="empty"))
+    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -108,7 +108,7 @@ def get_action_buttons(page, chatid):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(Button.inline(STRINGS["fasle"], data="empty"))
+    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
