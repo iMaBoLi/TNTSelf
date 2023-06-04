@@ -3,6 +3,8 @@ STRINGS = {
     "On": "Actived",
     "Off": "DeActived",
     "LargeSize": "**The File Size Must Be Less Than From:** ( `{}` )",
+    "OtherCallback": "This Is Not Created For You!",
+    "OtherInline": "**This Is Not Created For You!**\n\n**Don't Use From Bot!**",
     "replyMedia": {
         "Main": "**The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Not": "**You Have Not Replied Please Reply To** ( `{}` )",
