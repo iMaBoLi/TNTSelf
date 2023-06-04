@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions
 
- ACTIONS = [
+ACTIONS = [
     "typing",
     "game",
     "photo",
