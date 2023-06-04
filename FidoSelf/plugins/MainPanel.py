@@ -2,6 +2,7 @@ from FidoSelf import client
 from telethon import Button
 from datetime import datetime
 from .Action import ACTIONS
+from .EditModes import EDITS
 
 STRINGS = {
     "modepage": "**Select Which Mode You Want Turn On-Off:**",
@@ -10,7 +11,6 @@ STRINGS = {
     "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
     "readpage": "**Select Which Reader Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
-    "fasle": "-" * 30,
     "Modes": {
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
@@ -23,15 +23,6 @@ STRINGS = {
         "READPV_MODE": "Read Pv",
         "READGP_MODE": "Read Group",
         "READCH_MODE": "Read Channel",
-    "Edits": {
-        "Bold": "Bold",
-        "Mono": "Mono",
-        "Italic": "Italic",
-        "Underline": "Underline",
-        "Strike": "Strike",
-        "Spoiler": "Spoiler",
-        "Hashtag": "Hashtag",
-    },
     "Random1": "Random",
     "Random2": "Random V2",
 }
@@ -55,7 +46,6 @@ def get_mode_buttons(page):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{mode}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -75,21 +65,22 @@ def get_time_buttons(page):
         mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
-def get_edit_buttons(page):
-    last = client.DB.get_key("EDIT_MODE")
+def get_edit_buttons(page, chatid):
+    lastall = client.DB.get_key("EDITALL_MODE")
+    lastchat = client.DB.get_key("EDITCHATS_MODE") or {}
     buttons = []
-    EDITS = STRINGS["Edits"]
     for edit in EDITS:
-        name = EDITS[edit]
-        mode = client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{name} {mode}", data=f"seteditmode:{edit}"))
+        gmode = "off" if chatid in lastchat and lastchat[chatid] == edit else "on"
+        nmode = client.STRINGS["inline"]["On"] if gmode == "off" else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{edit} {nmode}", data=f"seteditchat:{edit}:{chatid}"))
+        name = edit + "All"        
+        mode = client.STRINGS["inline"]["On"] if str(lastall) == str(edit) else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {mode}", data=f"seteditall:{edit}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -108,7 +99,6 @@ def get_action_buttons(page, chatid):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -160,14 +150,24 @@ async def setfonttime(event):
     buttons = get_time_buttons(2)
     await event.edit(buttons=buttons)
 
-@client.Callback(data="seteditmode\:(.*)")
+@client.Callback(data="seteditall\:(.*)")
 async def seteditmode(event):
     edit = event.data_match.group(1).decode('utf-8')
-    last = client.DB.get_key("EDIT_MODE")
+    last = client.DB.get_key("EDITALL_MODE")
     if str(last) == str(edit):
-        client.DB.set_key("EDIT_MODE", False)
+        client.DB.set_key("EDITALL_MODE", False)
     else:
-        client.DB.set_key("EDIT_MODE", str(edit))
+        client.DB.set_key("EDITALL_MODE", str(edit))
+    buttons = get_edit_buttons(3)
+    await event.edit(buttons=buttons)
+    
+@client.Callback(data="seteditchat\:(.*)\:(.*)")
+async def seteditmode(event):
+    edit = event.data_match.group(1).decode('utf-8')
+    chatid = int(event.data_match.group(2).decode('utf-8'))
+    last = client.DB.get_key("EDITCHATS_MODE") or {}
+    last[chatid] = edit
+    client.DB.set_key("EDITALL_MODE", last)
     buttons = get_edit_buttons(3)
     await event.edit(buttons=buttons)
     
