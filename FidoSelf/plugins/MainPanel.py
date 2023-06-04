@@ -10,8 +10,6 @@ STRINGS = {
     "editpage": "**Please Use The Options Below To Manage Edit Texts Mode:**",
     "close": "**The Panel Successfuly Closed!**",
     "Modes": {
-        "SELF_ALL_MODE": "Self",
-        "QUICKS_MODE": "Quicks",
         "AUTO_DELETE_MODE": "Auto Delete",
         "AUTO_REPLACE_MODE": "Auto Replace",
         "AUTO_SAY_MODE": "Auto Say",
@@ -43,7 +41,7 @@ STRINGS = {
 
 def get_pages_button():
     buttons = []
-    PAGES_COUNT = 5
+    PAGES_COUNT = 5 + 1
     for page in range(1, PAGES_COUNT):
         name = client.functions.create_font(page, 3)
         buttons.append(Button.inline(f"( {name} )", data=f"panelpage:{page}"))
@@ -53,12 +51,12 @@ def get_mode_buttons():
     buttons = []
     MODES = STRINGS["Modes"]
     for mode in MODES:
-        if mode in ["SELF_ALL_MODE", "QUICKS_MODE", "AUTO_REPLACE_MODE"] and not client.DB.get_key(mode):
-            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{mode}:off"), Button.inline(client.STRINGS["inline"]["On"], data=f"setmode:{mode}:off")])
-        else:
-            gmode = client.DB.get_key(mode) or "off"
-            cmode = "on" if gmode == "off" else "off"
-            buttons.append([Button.inline(f"• {MODES[mode]} •", data=f"setmode:{mode}:{cmode}"), Button.inline((client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]), data=f"setmode:{mode}:{cmode}")])
+        gmode = client.DB.get_key(mode) or "off"
+        cmode = "on" if gmode == "off" else "off"
+        name = MODES[mode]
+        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{mode}:{cmode}"))
+    buttons = client.functions.chunks(buttons, 2)
     pgbts = get_pages_button()
     buttons.append(pgbts)
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
