@@ -1,5 +1,17 @@
 from FidoSelf import client
 
+EDITS ={
+    "Sign",
+    "Poker",
+    "Bold",
+    "Mono",
+    "Italic",
+    "Underline",
+    "Strike",
+    "Spoiler",
+    "Hashtag",
+}
+
 @client.Command(notcmd=True, alowedits=False)
 async def editmodes(event):
     if event.is_cmd or not event.text: return
