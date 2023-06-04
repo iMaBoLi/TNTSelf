@@ -8,6 +8,7 @@ STRINGS = {
     "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
     "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
+    "readpage": "**Select Which Reader Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
     "fasle": "-" * 30,
     "Modes": {
@@ -18,10 +19,16 @@ STRINGS = {
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
         "ANTISPAM_PV": "AntiSpam Pv",
-        "READALL_MODE": "Mark All",
-        "READPV_MODE": "Mark Pv",
-        "READGP_MODE": "Mark Group",
-        "READCH_MODE": "Mark Channel",
+    },
+    "Readers": {
+        "READALL_MODE": "Read All",
+        "READPV_MODE": "Read Pv",
+        "READGP_MODE": "Read Group",
+        "READCH_MODE": "Read Channel",
+        "TAGREADALL_MODE": "TagRead All",
+        "TAGREADPV_MODE": "TagRead Pv",
+        "TAGREADGP_MODE": "TagRead Group",
+        "TAGREADCH_MODE": "TagRead Channel",
     },
     "Edits": {
         "Bold": "Bold",
@@ -54,6 +61,21 @@ def get_mode_buttons(page):
         name = MODES[mode]
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{mode}:{cmode}"))
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
+    buttons.append(get_pages_button(page))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
+    return buttons
+
+def get_reader_buttons(page):
+    buttons = []
+    READERS = STRINGS["Readers"]
+    for mode in READERS:
+        gmode = client.DB.get_key(mode) or "off"
+        cmode = "on" if gmode == "off" else "off"
+        name = MODES[mode]
+        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {nmode}", data=f"setreader:{mode}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(STRINGS["fasle"], data="empty")])
     buttons.append(get_pages_button(page))
@@ -120,13 +142,6 @@ async def addecho(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Command(command="ToGif")
-async def addecho(event):
-    import pylottie
-    media = await event.reply_message.download_media()
-    pylottie.convertLottie2GIF(media, "res.gif")
-    await event.reply(file="res.gif")
-
 @client.Inline(pattern="selfmainpanel")
 async def inlinepanel(event):
     text = STRINGS["modepage"]
@@ -149,6 +164,9 @@ async def panelpages(event):
     elif page == 5:
         text = STRINGS["actionpage"]
         buttons = get_action_buttons(page, event.chat_id)
+    elif page == 6:
+        text = STRINGS["readpage"]
+        buttons = get_reader_buttons(page)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setmode\:(.*)\:(.*)")
@@ -158,6 +176,15 @@ async def setmode(event):
     client.DB.set_key(mode, change)
     text = STRINGS["modepage"]
     buttons = get_mode_buttons(1)
+    await event.edit(text=text, buttons=buttons)
+
+@client.Callback(data="setreader\:(.*)\:(.*)")
+async def setreader(event):
+    mode = event.data_match.group(1).decode('utf-8')
+    change = event.data_match.group(2).decode('utf-8')
+    client.DB.set_key(mode, change)
+    text = STRINGS["readpage"]
+    buttons = get_reader_buttons(6)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setfonttime\:(.*)")
