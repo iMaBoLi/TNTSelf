@@ -1,7 +1,6 @@
 from FidoSelf import client
 from telethon import Button
 from datetime import datetime
-from FidoSelf.functions import FONTS, create_font
 import time
 
 STRINGS = {
@@ -68,8 +67,8 @@ def get_time_buttons(page):
     r2mode = client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]
     buttons.append(Button.inline(f"{rname} {rmode}", data=f"setfonttime:random"))
     buttons.append(Button.inline(f"{r2name} {r2mode}", data=f"setfonttime:random2"))
-    for font in FONTS:
-        name = create_font(newtime, font)
+    for font in client.functions.FONTS:
+        name = client.functions.create_font(newtime, font)
         mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
