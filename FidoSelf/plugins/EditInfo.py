@@ -6,7 +6,7 @@ import time
 STRINGS = {
     "adur": "**The Duration Of This Audio Was Changed To** ( `{}` )",
     "vdur": "**The Duration Of This Video Was Changed To** ( `{}` )",
-    "atiper": "**The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
+    "atilper": "**The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
 }
 
 @client.Command(command="SDur (\d*)")
@@ -30,7 +30,7 @@ async def setduration(event):
     elif mtype == "Video":
         attributes = [types.DocumentAttributeVideo(duration=dur, w=event.reply_message.file.width, h=event.reply_message.file.height)]
     caption = STRINGS["adur"] if mtype == "Music" else STRINGS["adur"]
-    caption = caption.format(client.utils.convert_time(dur))
+    caption = caption.format(client.functions.convert_time(dur))
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, caption=caption, progress_callback=callback, attributes=attributes)        
     os.remove(file)
