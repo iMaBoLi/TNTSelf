@@ -97,7 +97,7 @@ async def addecho(event):
 @client.Inline(pattern="selfmainpanel")
 async def inlinepanel(event):
     text = STRINGS["modepage"]
-    buttons = get_mode_buttons()
+    buttons = get_mode_buttons(1)
     await event.answer([event.builder.article("FidoSelf - Panel", text=text, buttons=buttons)])
 
 @client.Callback(data="panelpage\:(.*)")
@@ -120,14 +120,14 @@ async def setmode(event):
     change = event.data_match.group(2).decode('utf-8')
     client.DB.set_key(mode, change)
     text = STRINGS["modepage"]
-    buttons = get_mode_buttons()
+    buttons = get_mode_buttons(1)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setfonttime\:(.*)")
 async def setfonttime(event):
     font = event.data_match.group(1).decode('utf-8')
     client.DB.set_key("TIME_FONT", str(font))
-    buttons = get_time_buttons()
+    buttons = get_time_buttons(1)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="seteditmode\:(.*)\:(.*)")
@@ -138,7 +138,7 @@ async def seteditmode(event):
         client.DB.set_key("EDIT_MODE", False)
     else:
         client.DB.set_key("EDIT_MODE", str(edit))
-    buttons = get_edit_buttons()
+    buttons = get_edit_buttons(3)
     await event.edit(buttons=buttons)
 
 @client.Callback(data="closepanel")
