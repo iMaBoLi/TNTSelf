@@ -2,6 +2,7 @@ from FidoSelf import client
 import asyncio
 
 ACTIONS = [
+    "bandari",
     "typing",
     "game",
     "photo",
@@ -18,10 +19,15 @@ ACTIONS = [
 
 @client.Command(onlysudo=False)
 async def action(event):
-    if event.is_bot or event.is_ch: return
     for action in ACTIONS:
         mode = client.DB.get_key(action.upper() + "_ALL") or "off"
         chats = client.DB.get_key(action.upper() + "_CHATS") or []
         if mode == "on" or event.chat_id in chats:
-            async with client.action(event.chat_id, action):
-                await asyncio.sleep(5)
+            if action == "bandari":
+                for action in ACTIONS[1:]:
+                    async with client.action(event.chat_id, action):
+                        await asyncio.sleep(3)
+                return
+            else:
+                async with client.action(event.chat_id, action):
+                    await asyncio.sleep(3)
