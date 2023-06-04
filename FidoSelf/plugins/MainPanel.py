@@ -93,17 +93,15 @@ def get_edit_buttons(page):
 def get_action_buttons(page, chatid):
     buttons = []
     for action in ACTIONS:
-        mode = action.upper() + "_CHATS"
-        chats = client.DB.get_key(mode) or []
+        chats = client.DB.get_key(action.upper() + "_CHATS") or []
         gmode = "del" if chatid in chats else "add"
         name = action.replace("-", " ").title()
         nmode = client.STRINGS["inline"]["On"] if gmode == "del" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionchat:{action}:{chatid}:{gmode}"))
-        mode = action.upper() + "_ALL"
-        gmode = client.DB.get_key(mode) or "off"
-        cmode = "on" if mode == "off" else "off"
+        gmode = client.DB.get_key(action.upper() + "_ALL") or "off"
+        cmode = "on" if gmode == "off" else "off"
         name = action.replace("-", " ").title() + " All"
-        nmode = client.STRINGS["inline"]["On"] if cmode == "off" else client.STRINGS["inline"]["Off"]
+        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(page))
