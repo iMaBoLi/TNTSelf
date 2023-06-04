@@ -43,7 +43,7 @@ def get_pages_button(opage):
         font = 3 if page != opage else 4
         name = client.functions.create_font(page, font)
         pbts.append(Button.inline(f"( {name} )", data=f"panelpage:{page}"))
-    buttons = buttons.append(pbts)
+    buttons = buttons + pbts
     return buttons
 
 def get_mode_buttons(page):
