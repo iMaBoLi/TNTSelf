@@ -56,7 +56,7 @@ def get_mode_buttons():
         name = MODES[mode]
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{mode}:{cmode}"))
-    buttons = client.functions.chunks(buttons, 2)
+    buttons = list(client.functions.chunks(buttons, 2))
     pgbts = get_pages_button()
     buttons.append(pgbts)
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
