@@ -128,6 +128,7 @@ async def inlinepanel(event):
 
 @client.Callback(data="panelpage\:(.*)")
 async def panelpages(event):
+    client.LOGS.error(event.chat_id)
     page = int(event.data_match.group(1).decode('utf-8'))
     if page == 1:
         text = STRINGS["modepage"]
@@ -182,6 +183,7 @@ async def actionall(event):
     
 @client.Callback(data="actionchat\:(.*)\:(.*)\:(.*)")
 async def actionschats(event):
+    client.LOGS.error(event.chat_id)
     action = event.data_match.group(1).decode('utf-8')
     chatid = int(event.data_match.group(2).decode('utf-8'))
     change = event.data_match.group(3).decode('utf-8')
