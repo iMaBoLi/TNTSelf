@@ -1,12 +1,12 @@
 from FidoSelf import client
 from telethon import Button
-from datetime import datetime
-import time
+from .Action import ACTIONS
 
 STRINGS = {
     "modepage": "**Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
+    "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
     "Modes": {
         "NAME_MODE": "Name",
@@ -89,6 +89,26 @@ def get_edit_buttons(page):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
+def get_action_buttons(page):
+    buttons = []
+    for action in ACTIONS:
+        mode = action.upper() + "_CHATS"
+        chats = client.DB.get_key(mode) or []
+        gmode = "del" if event.chat_id in chats: else "add"
+        name = action.replace("-", " ").title()
+        nmode = client.STRINGS["inline"]["On"] if gmode == "del" else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {nmode}", data=f"actionchat:{action}:{event.chat_id}:{gmode}"))
+        mode = action.upper() + "_ALL"
+        gmode = client.DB.get_key(mode) or "off"
+        cmode = "on" if mode == "off" else "off"
+        name = action.replace("-", " ").title()
+        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append(get_pages_button(page))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
+    return buttons
+
 @client.Command(command="Panel")
 async def addecho(event):
     await event.edit(client.STRINGS["wait"])
@@ -114,6 +134,9 @@ async def panelpages(event):
     elif page == 3:
         text = STRINGS["editpage"]
         buttons = get_edit_buttons(page)
+    elif page == 5:
+        text = STRINGS["actionpage"]
+        buttons = get_action_buttons(page)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setmode\:(.*)\:(.*)")
