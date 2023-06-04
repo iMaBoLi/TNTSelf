@@ -62,10 +62,17 @@ def get_time_buttons(page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    buttons.append([Button.inline(f'• {STRINGS["Random1"]} •', data=f"setfonttime:random"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == "random" else client.STRINGS["inline"]["Off"]), data=f"setfonttime:random")])
-    buttons.append([Button.inline(f'• {STRINGS["Random2"]} •', data=f"setfonttime:random2"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]), data=f"setfonttime:random2")])
+    rname = STRINGS["Random1"]
+    rmode = client.STRINGS["inline"]["On"] if str(last) == "random1" else client.STRINGS["inline"]["Off"]
+    r2name = STRINGS["Random2"]
+    r2mode = client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]
+    buttons.append(Button.inline(f"{rname} {rmode}", data=f"setfonttime:random"))
+    buttons.append(Button.inline(f"{r2name} {r2mode}", data=f"setfonttime:random2"))
     for font in FONTS:
-        buttons.append([Button.inline(f"• {create_font(newtime, font)} •", data=f"setfonttime:{font}"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]), data=f"setfonttime:{font}")])
+        name = create_font(newtime, font)
+        mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{font}"))
+    buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
@@ -78,7 +85,7 @@ def get_edit_buttons(page):
         buttons.append([Button.inline(f"• {EDITS[edit]} •", data=f"seteditmode:{edit}"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]), data=f"seteditmode:{edit}")])
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
-     return buttons
+    return buttons
 
 @client.Command(command="Panel")
 async def addecho(event):
