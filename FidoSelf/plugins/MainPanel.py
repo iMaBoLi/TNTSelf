@@ -185,7 +185,7 @@ async def actionchats(event):
     if change == "add":
         new = last.append(chatid)
         client.DB.set_key(action, new)
-    if change == "del":
+    elif change == "del":
         new = last.remove(chatid)
         client.DB.set_key(action, new)
     text = STRINGS["actionpage"]
