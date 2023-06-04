@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import functions
+import asyncio
 
 ACTIONS = [
     "typing",
@@ -20,12 +20,8 @@ ACTIONS = [
 async def action(event):
     if event.is_bot: return
     for action in ACTIONS:
-        mode = action.upper() + "_ALL"
-        mode = client.DB.get_key(mode) or "off"
-        if mode == "on":
-            await client.action(event.chat_id, action)
-            continue
-        mode = action.upper() + "_CHATS"
-        chats = client.DB.get_key(mode) or []
-        if event.chat_id in chats:
-            await client.action(event.chat_id, action)
+        mode = client.DB.get_key(action.upper() + "_ALL") or "off"
+        chats = client.DB.get_key(action.upper() + "_CHATS") or []
+        if mode == "on" or event.chat_id in chats:
+            async with client.action(event.chat_id, action):
+                await asyncio.sleep(5)
