@@ -26,8 +26,8 @@ async def action(event):
             if action == "bandari":
                 for action in ACTIONS[1:]:
                     async with client.action(event.chat_id, action):
-                        await asyncio.sleep(3)
+                        client.loop.create_task(asyncio.sleep(3))
                 return
             else:
                 async with client.action(event.chat_id, action):
-                    await asyncio.sleep(3)
+                    client.loop.create_task(asyncio.sleep(3))
