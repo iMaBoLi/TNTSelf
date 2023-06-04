@@ -1,4 +1,4 @@
-telethon
+git+https://github.com/iMaBoLi/Telethon
 tgcrypto
 requests
 redis
