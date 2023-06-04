@@ -62,7 +62,7 @@ def get_time_buttons(page):
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
     rname = STRINGS["Random1"]
-    rmode = client.STRINGS["inline"]["On"] if str(last) == "random1" else client.STRINGS["inline"]["Off"]
+    rmode = client.STRINGS["inline"]["On"] if str(last) == "random" else client.STRINGS["inline"]["Off"]
     r2name = STRINGS["Random2"]
     r2mode = client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]
     buttons.append(Button.inline(f"{rname} {rmode}", data=f"setfonttime:random"))
@@ -81,7 +81,10 @@ def get_edit_buttons(page):
     buttons = []
     EDITS = STRINGS["Edits"]
     for edit in EDITS:
-        buttons.append([Button.inline(f"• {EDITS[edit]} •", data=f"seteditmode:{edit}"), Button.inline((client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]), data=f"seteditmode:{edit}")])
+        name = EDITS[edit]
+        mode = client.STRINGS["inline"]["On"] if str(last) == str(edit) else client.STRINGS["inline"]["Off"]
+        buttons.append(Button.inline(f"{name} {mode}", data=f"seteditmode:{edit}"))
+    buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
