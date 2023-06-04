@@ -14,7 +14,7 @@ ACTIONS = [
     "record-video",
     "record-audio",
     "record-round",
- ]
+]
 
 @client.Command(onlysudo=False)
 async def action(event):
