@@ -20,7 +20,7 @@ from telethon import functions
 async def action(event):
     if event.is_bot: return
     for action in ACTIONS:
-        mode = action.upper() + "_All"
+        mode = action.upper() + "_ALL"
         mode = client.DB.get_key(mode) or "off"
         if mode == "on":
             await client.action(event.chat_id, action)
