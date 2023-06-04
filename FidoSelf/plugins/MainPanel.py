@@ -28,7 +28,7 @@ STRINGS = {
     "Random2": "Random V2",
 }
 
-def get_pages_button(opage):
+def get_pages_button():
     buttons = []
     PAGES_COUNT = 8 + 1
     for page in range(1, PAGES_COUNT):
