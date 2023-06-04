@@ -10,10 +10,6 @@ STRINGS = {
     "editpage": "**Please Use The Options Below To Manage Edit Texts Mode:**",
     "close": "**The Panel Successfuly Closed!**",
     "Modes": {
-        "AUTO_DELETE_MODE": "Auto Delete",
-        "AUTO_REPLACE_MODE": "Auto Replace",
-        "AUTO_SAY_MODE": "Auto Say",
-        "MONSHI_MODE": "Monshi",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
