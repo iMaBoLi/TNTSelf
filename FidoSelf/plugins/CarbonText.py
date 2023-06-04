@@ -2,12 +2,7 @@ from FidoSelf import client
 from carbonnow import Carbon
 import os
 
-@client.Command(
-    commands={
-        "EN": "Carbon",
-        "FA": "کربن",
-    }
-)
+@client.Command(command="Carbon")
 async def carbontext(event):
     code = event.reply_message.text
     carbon = Carbon(
@@ -33,6 +28,7 @@ async def carbontext(event):
     )
     await carbon.save("CarbonText")
     filename = "CarbonText.jpg"
-    await event.respond(client.get_string("CarbonText_2"), file=filename)
+    caption = "Hi"
+    await event.respond(caption, file=filename)
     os.remove(filename)
     await event.delete()
