@@ -38,7 +38,7 @@ STRINGS = {
 
 def get_pages_button(opage):
     buttons = []
-    PAGES_COUNT = 5 + 1
+    PAGES_COUNT = 8 + 1
     for page in range(1, PAGES_COUNT):
         font = 3 if page != opage else 4
         name = client.functions.create_font(page, font)
