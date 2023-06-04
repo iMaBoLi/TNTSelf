@@ -23,6 +23,7 @@ STRINGS = {
         "READPV_MODE": "Read Pv",
         "READGP_MODE": "Read Group",
         "READCH_MODE": "Read Channel",
+    },
     "Random1": "Random",
     "Random2": "Random V2",
 }
