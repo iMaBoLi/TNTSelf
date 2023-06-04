@@ -89,7 +89,7 @@ def get_edit_buttons(page):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
-def get_action_buttons(page):
+def get_action_buttons(page, chatid):
     buttons = []
     for action in ACTIONS:
         mode = action.upper() + "_CHATS"
@@ -97,7 +97,7 @@ def get_action_buttons(page):
         gmode = "del" if event.chat_id in chats else "add"
         name = action.replace("-", " ").title()
         nmode = client.STRINGS["inline"]["On"] if gmode == "del" else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{name} {nmode}", data=f"actionchat:{action}:{event.chat_id}:{gmode}"))
+        buttons.append(Button.inline(f"{name} {nmode}", data=f"actionchat:{action}:{chatid}:{gmode}"))
         mode = action.upper() + "_ALL"
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if mode == "off" else "off"
@@ -136,7 +136,7 @@ async def panelpages(event):
         buttons = get_edit_buttons(page)
     elif page == 5:
         text = STRINGS["actionpage"]
-        buttons = get_action_buttons(page)
+        buttons = get_action_buttons(page, event.chat_id)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="setmode\:(.*)\:(.*)")
@@ -173,7 +173,7 @@ async def setmode(event):
     action = action.upper() + "_ALL"
     client.DB.set_key(action, change)
     text = STRINGS["actionpage"]
-    buttons = get_action_buttons(5)
+    buttons = get_action_buttons(5, event.chat_id)
     await event.edit(text=text, buttons=buttons)
     
 @client.Callback(data="actionchats\:(.*)\:(.*)\:(.*)")
@@ -190,7 +190,7 @@ async def setmode(event):
         new = last.remove(chatid)
         client.DB.set_key(action, new)
     text = STRINGS["actionpage"]
-    buttons = get_action_buttons(5)
+    buttons = get_action_buttons(5, event.chat_id)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="closepanel")
