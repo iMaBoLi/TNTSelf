@@ -168,7 +168,7 @@ async def seteditmode(event):
     last = client.DB.get_key("EDITCHATS_MODE") or {}
     last[chatid] = edit
     client.DB.set_key("EDITALL_MODE", last)
-    buttons = get_edit_buttons()
+    buttons = get_edit_buttons(event.chat_id)
     await event.edit(buttons=buttons)
     
 @client.Callback(data="actionall\:(.*)\:(.*)")
