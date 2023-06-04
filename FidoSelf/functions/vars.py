@@ -22,6 +22,7 @@ HEARTS = ["❤️", "💙", "💛", "💚", "🧡", "💜", "🖤", "🤍", "❣
 COLORS = ["black", "white", "blue", "red", "yellow", "green", "purple", "orange", "brown", "pink", "gold", "fuchsia", "lime", "aqua", "skyblue", "gray"]
 
 def create_font(newtime, timefont):
+    newtime = str(newtime)
     if str(timefont) == "random2":
         for par in newtime:
             rfont = random.randint(1, len(FONTS))
