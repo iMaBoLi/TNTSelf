@@ -102,7 +102,7 @@ def get_action_buttons(page, chatid):
         mode = action.upper() + "_ALL"
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if mode == "off" else "off"
-        name = action.replace("-", " ").title()
+        name = action.replace("-", " ").title() + " All"
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
@@ -168,7 +168,7 @@ async def seteditmode(event):
     await event.edit(buttons=buttons)
     
 @client.Callback(data="actionall\:(.*)\:(.*)")
-async def setmode(event):
+async def actionall(event):
     action = event.data_match.group(1).decode('utf-8')
     change = event.data_match.group(2).decode('utf-8')
     action = action.upper() + "_ALL"
@@ -177,8 +177,8 @@ async def setmode(event):
     buttons = get_action_buttons(5, event.chat_id)
     await event.edit(text=text, buttons=buttons)
     
-@client.Callback(data="actionchats\:(.*)\:(.*)\:(.*)")
-async def setmode(event):
+@client.Callback(data="actionchat\:(.*)\:(.*)\:(.*)")
+async def actionchats(event):
     action = event.data_match.group(1).decode('utf-8')
     chatid = int(event.data_match.group(2).decode('utf-8'))
     change = event.data_match.group(3).decode('utf-8')
