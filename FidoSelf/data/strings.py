@@ -29,8 +29,8 @@ STRINGS = {
         "UCH": "**Please Enter Channel Username Or Send In Channel!**",
     },
     "inline": {
-        "On": "❲ ✔️|Active ❳",
-        "Off": "❲ ✖️|DeActive ❳",
+        "On": "❲ ✅ ❳",
+        "Off": "❲ ❌ ❳",
         "Close": "🚫 Close 🚫",
         "Next": "Next ▶️",
         "Back": "◀️ Back",
