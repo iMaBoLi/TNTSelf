@@ -12,6 +12,7 @@ STRINGS = {
     "readpage": "**Select Which Reader Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
     "Modes": {
+        "ONLINE_MODE": "Online",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
