@@ -165,6 +165,33 @@ async def seteditmode(event):
         client.DB.set_key("EDIT_MODE", str(edit))
     buttons = get_edit_buttons(3)
     await event.edit(buttons=buttons)
+    
+@client.Callback(data="actionall\:(.*)\:(.*)")
+async def setmode(event):
+    action = event.data_match.group(1).decode('utf-8')
+    change = event.data_match.group(2).decode('utf-8')
+    action = action.upper() + "_ALL"
+    client.DB.set_key(action, change)
+    text = STRINGS["actionpage"]
+    buttons = get_action_buttons(5)
+    await event.edit(text=text, buttons=buttons)
+    
+@client.Callback(data="actionchats\:(.*)\:(.*)\:(.*)")
+async def setmode(event):
+    action = event.data_match.group(1).decode('utf-8')
+    chatid = int(event.data_match.group(2).decode('utf-8'))
+    change = event.data_match.group(3).decode('utf-8')
+    action = action.upper() + "_CHATS"
+    last = client.DB.get_key(action)
+    if change == "add":
+        new = last.append(chatid)
+        client.DB.set_key(action, new)
+    if change == "del":
+        new = last.remove(chatid)
+        client.DB.set_key(action, new)
+    text = STRINGS["actionpage"]
+    buttons = get_action_buttons(5)
+    await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="closepanel")
 async def closepanel(event):
