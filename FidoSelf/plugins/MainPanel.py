@@ -103,7 +103,7 @@ def get_action_buttons(page, chatid):
         gmode = client.DB.get_key(mode) or "off"
         cmode = "on" if mode == "off" else "off"
         name = action.replace("-", " ").title() + " All"
-        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
+        nmode = client.STRINGS["inline"]["On"] if cmode == "off" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(page))
