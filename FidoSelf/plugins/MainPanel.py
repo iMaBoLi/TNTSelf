@@ -9,7 +9,7 @@ STRINGS = {
     "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
     "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
-    "fasle": " -------------- ",
+    "fasle": "-" * 30,
     "Modes": {
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
@@ -120,6 +120,13 @@ async def addecho(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
+@client.Command(command="ToGif")
+async def addecho(event):
+    import pylottie
+    media = await event.reply_message.download_media()
+    pylottie.convertLottie2GIF(media, "res.gif")
+    await event.reply(file="res.gif")
+
 @client.Inline(pattern="selfmainpanel")
 async def inlinepanel(event):
     text = STRINGS["modepage"]
@@ -185,7 +192,6 @@ async def actionall(event):
 async def actionschats(event):
     client.LOGS.error(event.chat_instance)
     action = event.data_match.group(1).decode('utf-8')
-    chatid = int(event.data_match.group(2).decode('utf-8'))
     change = event.data_match.group(3).decode('utf-8')
     action = action.upper() + "_CHATS"
     last = client.DB.get_key(action) or []
