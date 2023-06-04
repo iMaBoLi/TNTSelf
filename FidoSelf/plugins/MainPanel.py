@@ -180,16 +180,22 @@ async def actionschats(event):
     action = event.data_match.group(1).decode('utf-8')
     chatid = int(event.data_match.group(2).decode('utf-8'))
     change = event.data_match.group(3).decode('utf-8')
-    client.LOGS.error(event)
     action = action.upper() + "_CHATS"
     last = client.DB.get_key(action) or []
+    client.LOGS.error("1")
+    client.LOGS.error(action)
     if change == "add":
         new = last.append(chatid)
+        client.LOGS.error("2")
         client.DB.set_key(action, new)
+        client.LOGS.error("3")
     elif change == "del":
         new = last.remove(chatid)
+        client.LOGS.error("4")
         client.DB.set_key(action, new)
+        client.LOGS.error("5")
     text = STRINGS["actionpage"]
+    client.LOGS.error("6")
     buttons = get_action_buttons(5, event.chat_id)
     await event.edit(text=text, buttons=buttons)
 
