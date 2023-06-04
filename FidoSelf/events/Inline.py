@@ -12,8 +12,8 @@ def Inline(
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 if onlysudo and not event.is_sudo:
-                    text = client.get_string("OtherUse_Inline")
-                    return await event.answer([event.builder.article(f"{client.str} FidoSelf - NotForYou", text=text)])
+                    text = client.STRINGS["OtherInline"]
+                    return await event.answer([event.builder.article("FidoSelf - NotForYou", text=text)])
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
