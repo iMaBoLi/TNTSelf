@@ -4,9 +4,9 @@ from datetime import datetime
 import time
 
 STRINGS = {
-    "modepage": "**Please Use The Buttons Below To Control The Different Parts:**",
-    "fontpage": "**Please Use The Options Below To Select The Font You Want To Use In Time Name And Bio:**",
-    "editpage": "**Please Use The Options Below To Manage Edit Texts Mode:**",
+    "modepage": "**Select Which Mode You Want Turn On-Off:**",
+    "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
+    "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
     "Modes": {
         "NAME_MODE": "Name",
