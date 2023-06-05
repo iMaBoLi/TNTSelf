@@ -31,5 +31,8 @@ async def action(event):
                 client.loop.create_task(sendaction(event.chat_id, action))
                 
 async def sendaction(chat_id, action):
-    async with client.action(chat_id, action):
-        await asyncio.sleep(3)
+    try:
+        async with client.action(chat_id, action):
+            await asyncio.sleep(5)
+    except:
+        pass
