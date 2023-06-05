@@ -10,6 +10,7 @@ STRINGS = {
         "Dtimer": ["Download Timer Medias", "TIMER_MODE"],
         "Sign": ["Sign", "SIGN_MODE"],
         "EnemySign": ["Enemy Sign", "SIGNENEMY_MODE"],
+        "DelEnemyPms": ["Delete Enemy Pms", "ENEMY_DELETE"],
         "Mutepv": ["Mute Pv", "MUTE_PV"],
         "Lockpv": ["Lock Pv", "LOCK_PV"],
         "Antispampv": ["Anti Spam Pv", "ANTISPAM_PV"],
