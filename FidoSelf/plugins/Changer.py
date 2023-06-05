@@ -8,13 +8,15 @@ STRINGS = {
         "Bio": ["Bio Mode", "BIO_MODE"],
         "Photo": ["Photo Mode", "PHOTO_MODE"],
         "Dtimer": ["Download Timer Medias", "TIMER_MODE"],
+        "Sign": ["Sign", "SIGN_MODE"],
+        "EnemySign": ["Enemy Sign", "SIGNENEMY_MODE"],
         "Mutepv": ["Mute Pv", "MUTE_PV"],
         "Lockpv": ["Lock Pv", "LOCK_PV"],
         "Antispampv": ["Anti Spam Pv", "ANTISPAM_PV"],
-        "Readall": ["MarkRead All", "READALL_MODE"],
-        "Readpv": ["MarkRead Pvs", "READPV_MODE"],
-        "Readgp": ["MarkRead Groups", "READGP_MODE"],
-        "Readch": ["MarkRead Channels", "READCH_MODE"],
+        "Readall": ["Read All", "READALL_MODE"],
+        "Readpv": ["Read Pvs", "READPV_MODE"],
+        "Readgp": ["Read Groups", "READGP_MODE"],
+        "Readch": ["Read Channels", "READCH_MODE"],
     }
 }
 
