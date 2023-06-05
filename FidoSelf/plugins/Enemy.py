@@ -70,7 +70,7 @@ async def setenemysleep(event):
     client.DB.set_key("ORGENEMY_SLEEP", str(sleep))
     await event.edit("**The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
-@client.Command(sudo=False, edits=False)
+@client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
     if event.is_sudo or not event.text or event.is_ch: return
     Enemies = client.DB.get_key("ENEMIES") or {}
