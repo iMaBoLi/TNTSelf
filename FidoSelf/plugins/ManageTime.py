@@ -39,6 +39,7 @@ async def photochanger():
     phmode = client.DB.get_key("PHOTO_MODE") or "off"
     if phmode == "on" and PHOTOS and TEXTS and FONTS:
         PHOTO = random.choice(list(PHOTOS.keys()))
+        phinfo = PHOTOS[PHOTO]
         TEXT = await client.AddVars(random.choice(TEXTS))
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
         SIZE = sizes[phinfo["size"]]
