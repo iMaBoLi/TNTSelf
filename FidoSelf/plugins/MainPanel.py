@@ -94,7 +94,7 @@ def get_action_buttons(chatid, page):
     buttons = []
     for action in ACTIONS:
         chats = client.DB.get_key(action.upper() + "_CHATS") or []
-        gmode = "del" if chatid in chats else "add"
+        gmode = "del" if int(chatid) in chats else "add"
         name = action.replace("-", " ").title()
         nmode = client.STRINGS["inline"]["On"] if gmode == "del" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionchat:{chatid}:{page}:{action}:{gmode}"))
