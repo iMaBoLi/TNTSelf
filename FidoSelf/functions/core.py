@@ -18,4 +18,13 @@ async def DownloadFiles():
     if foshs:
         get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
         await get.download_media("FOSHS.txt")
-    foshs = client.DB.get_key("FOSHS_FILE")
+    photos = client.DB.get_key("PHOTOS")
+    if photos:
+        for photo in photos:
+            get = await client.get_messages(int(photos[photo]["chat_id"]), ids=int(PHOTOS[photo]["msg_id"]))
+            await get.download_media(photo)
+    fonts = client.DB.get_key("FONTS")
+    if fonts:
+        for font in fonts:
+            get = await client.get_messages(int(fonts[font]["chat_id"]), ids=int(fonts[font]["msg_id"]))
+            await get.download_media(font)
