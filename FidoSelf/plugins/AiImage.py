@@ -25,4 +25,4 @@ async def generate(event):
 async def getstyles(event):
     await event.edit(client.STRINGS["wait"])
     link = "https://graph.org/List-Of-Styles-06-05"
-    await event.edit(client.STRINGS["styles"].format(link))
+    await event.edit(STRINGS["styles"].format(link))
