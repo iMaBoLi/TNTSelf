@@ -19,6 +19,7 @@ async def AddVarsToClient():
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
+    setattr(client, "PATH", "downloads/")
     setattr(client, "me", (await client.get_me()))
     setattr(client.bot, "me", (await client.bot.get_me()))
     setattr(client, "REALM", client.DB.get_key("REALM_CHAT") or client.me.id)
