@@ -1,56 +1,77 @@
 from FidoSelf import client
 
-@client.Command(pattern=f"(?i)^\{client.cmd}AddEcho ?(.*)?")
+STRINGS = {
+    "notall": "**The User** ( {} ) **Already In Echo List!**",
+    "add": "**The User** ( {} ) **Is Added To Echo List!**",
+    "notin": "**The User** ( {} ) **Is Not In Echo List!**",
+    "del": "**The User** ( {} ) **Deleted From Echo List!**",
+    "empty": "**The Echo List Is Empty!**",
+    "list": "**The Echo List:**\n\n",
+    "aempty": "**The Echo List Is Already Empty**",
+    "clean": "**The Echo List Has Been Cleaned!**",
+}
+
+@client.Command(command="AddEcho ?(.*)?")
 async def addecho(event):
-    await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.userid:
-        return await event.edit(client.get_string("Reply_UUP"))
+    await event.edit(client.STRINGS["wait"])
+    result, userid = await event.userid(event.pattern_match.group(1))
+    if not result and str(userid) == "Invalid":
+        return await event.edit(client.STRINGS["getid"]["IU"])
+    elif not result and not userid:
+        return await event.edit(client.STRINGS["getid"]["UUP"])
     echos = client.DB.get_key("ECHOS") or []
-    info = await client.get_entity(event.userid)
-    if event.userid in echos:
-        return await event.edit(client.get_string("Echo_1").format(client.mention(info)))
-    echos.append(event.userid)
+    info = await client.get_entity(userid)
+    mention = client.mention(info)
+    if userid in echos:
+        return await event.edit(STRINGS["notall"].format(mention))
+    echos.append(userid)
     client.DB.set_key("ECHOS", echos)
-    await event.edit(client.get_string("Echo_2").format(client.mention(info)))
+    whites = client.DB.get_key("WHITES") or []
+    if userid in whites:
+        whites.remove(userid)
+        client.DB.set_key("WHITES", whites)
+    await event.edit(STRINGS["add"].format(mention))
     
-@client.Command(pattern=f"(?i)^\{client.cmd}DelEcho ?(.*)?")
+@client.Command(command="DelEcho ?(.*)?")
 async def delecho(event):
-    await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.userid:
-        return await event.edit(client.get_string("Reply_UUP"))
+    await event.edit(client.STRINGS["wait"])
+    result, userid = await event.userid(event.pattern_match.group(1))
+    if not result and str(userid) == "Invalid":
+        return await event.edit(client.STRINGS["getid"]["IU"])
+    elif not result and not userid:
+        return await event.edit(client.STRINGS["getid"]["UUP"])
     echos = client.DB.get_key("ECHOS") or []
-    info = await client.get_entity(event.userid)
-    if event.userid not in echos:
-        return await event.edit(client.get_string("Echo_3").format(client.mention(info)))  
-    echos.remove(event.userid)
+    info = await client.get_entity(userid)
+    mention = client.mention(info)
+    if userid not in echos:
+        return await event.edit(STRINGS["notin"].format(mention))  
+    echos.remove(userid)
     client.DB.set_key("ECHOS", echos)
-    await event.edit(client.get_string("Echo_4").format(client.mention(info)))
+    await event.edit(STRINGS["del"].format(mention))
     
-@client.Command(pattern=f"(?i)^\{client.cmd}EchoList$")
+@client.Command(command="EchoList")
 async def echolist(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     echos = client.DB.get_key("ECHOS") or []
     if not echos:
-        return await event.edit(client.get_string("Echo_5"))
-    text = client.get_string("Echo_6")
+        return await event.edit(STRINGS["empty"])
+    text = STRINGS["list"]
     row = 1
     for echo in echos:
         text += f"**{row} -** `{echo}`\n"
         row += 1
     await event.edit(text)
 
-@client.Command(pattern=f"(?i)^\{client.cmd}CleanEchoList$")
+@client.Command(command="CleanEchoList")
 async def cleanecholist(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     echos = client.DB.get_key("ECHOS") or []
     if not echos:
-        return await event.edit(client.get_string("Echo_5"))
+        return await event.edit(STRINGS["aempty"])
     client.DB.del_key("ECHOS")
-    await event.edit(client.get_string("Echo_7"))
-
-@client.Command(sudo=False, edits=False)
+    await event.edit(STRINGS["clean"])
+    
+@client.Command(onlysudo=False, alowedits=False)
 async def echo(event):
     echos = client.DB.get_key("ECHOS") or []
     if event.sender_id in echos:
