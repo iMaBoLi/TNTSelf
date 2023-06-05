@@ -1,4 +1,5 @@
 from FidoSelf import client
+import re
 
 def check_cmd(text):
     commands = client.DB.get_key("SELFCOMMANDS") or []
