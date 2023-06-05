@@ -145,7 +145,7 @@ async def delenemies(event):
     Enemies = client.DB.get_key("ENEMIES") or {}
     uinfo = await client.get_entity(userid)
     mention = client.mention(uinfo)
-    del Enemies[userid][where]
+    Enemies[userid].remove(where)
     client.DB.set_key("ENEMIES", Enemies)
     text = STRINGS["del"].format(mention, where)
     await event.edit(text=text)
