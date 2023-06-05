@@ -6,7 +6,6 @@ import re
 def Command(
     pattern=None,
     command=None,
-    notcmd=False,
     onlysudo=True,
     alowedits=True,
     **kwargs,
@@ -39,12 +38,6 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
-                if notcmd:
-                    event.is_cmd = False
-                    commands = client.DB.get_key("SELFCOMMANDS") or []
-                    for command in commands:
-                        if re.search(command, event.text):
-                            event.is_cmd = True
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
