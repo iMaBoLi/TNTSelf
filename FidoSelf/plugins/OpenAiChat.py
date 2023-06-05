@@ -14,11 +14,8 @@ conversations = {}
 def generate_gpt_response(input_text, chat_id):
     openai.api_key = client.DB.get_key("OPENAI_APIKEY")
     global conversations
-    model = gvarstatus("CHAT_MODEL") or "gpt-3.5-turbo"
-    system_message = gvarstatus("SYSTEM_MESSAGE") or None
+    model = "gpt-3.5-turbo"
     messages = conversations.get(chat_id, [])
-    if system_message and not messages:
-        messages.append({"role": "system", "content": system_message})
     messages.append({"role": "user", "content": input_text})
     try:
         response = openai.ChatCompletion.create(
@@ -26,7 +23,6 @@ def generate_gpt_response(input_text, chat_id):
             messages=messages,
         )
         generated_text = response.choices[0].message.content.strip()
-
         messages.append({"role": "assistant", "content": generated_text})
         conversations[chat_id] = messages
     except Exception as e:
