@@ -19,7 +19,7 @@ STRINGS = {
     "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )",
 }
 
-@client.Command(command="AddPhoto (.*)")
+@client.Command(command="NewPhoto (.*)")
 async def addphoto(event):
     await event.edit(client.STRINGS["wait"])
     mtype = client.functions.mediatype(event.reply_message)
@@ -96,7 +96,7 @@ async def addphoto(event):
     buttons = []
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
         buttons.append(Button.inline(f"• {where} •", data=f"sizephoto:{phname}:{where}"))
-    buttons = list(client.utils.chunks(buttons, 3))
+    buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"photoclose:{phname}")])
     await event.answer([event.builder.article("FidoSelf - Photo", text=text, buttons=buttons)])
 
