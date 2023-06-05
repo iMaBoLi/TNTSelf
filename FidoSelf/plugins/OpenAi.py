@@ -43,7 +43,7 @@ async def aichat(event):
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(STRINGS["noapi"])
-    await event.edit(STRINGS["get"].format(query))
+    await event.edit(STRINGS["getch"].format(query))
     try:
         result = await gpt_response(query, event.chat_id)
     except Exception as error:
@@ -58,6 +58,9 @@ async def aiphoto(event):
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(STRINGS["noapi"])
+    if not openai.api_key:
+        openai.api_key = client.DB.get_key("OPENAI_APIKEY")
+    await event.edit(STRINGS["getim"].format(query))
     try:
         result = await openai.Image.acreate(prompt=query, n=3, size="1024x1024")
     except Exception as error:
