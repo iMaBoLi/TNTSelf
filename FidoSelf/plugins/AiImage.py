@@ -7,7 +7,7 @@ STRINGS = {
     "styles": "**The Styles For Creating Photo:** ( {} )\n\n**Use From StylesID For Create Photos!**",
 }
 
-@client.Command(command="GPhoto \'(\d*)\' (.*)")
+@client.Command(command="CPhoto \'(\d*)\' (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
     client.loop.create_task(generate(event))
