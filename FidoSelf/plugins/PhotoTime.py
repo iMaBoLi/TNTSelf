@@ -15,6 +15,7 @@ STRINGS = {
     "size": "**Select Size Of The Text Time:**",
     "color": "**Select Color For Your Time Text:**",
     "font": "**Select Font For Your Time Text:**",
+    "nfont": "Please Save A Font File First!",
     "align": "**Please Specify How To Align The Time Text On This Image:**",
     "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )",
 }
@@ -127,7 +128,7 @@ async def photo(event):
         text = STRINGS["font"]
         fonts = client.DB.get_key("FONTS")
         if len(fonts) == 0:
-            return await event.answer(f"Please Save A Font File First!", alert=True)
+            return await event.answer(STRINGS["nfont"], alert=True)
         buttons = [[Button.inline("Random ♻️", data=f"alignphoto:{phname}:{where}:{size}:{color}:random")]]
         for font in fonts:
             buttons.append(Button.inline(f"• {font.title()} •", data=f"alignphoto:{phname}:{where}:{size}:{color}:{font}"))
