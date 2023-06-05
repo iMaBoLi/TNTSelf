@@ -53,6 +53,5 @@ async def generate(event):
     result = AiClient.get_response(query)
     if not result:
         return await event.edit(STRINGS["notres"].format(query))
-    caption = STRINGS["result"].format(query, result)
-    await client.send_file(event.chat_id, file, caption=caption)
-    await event.delete()
+    text = STRINGS["result"].format(query, result)
+    await event.edit(text)
