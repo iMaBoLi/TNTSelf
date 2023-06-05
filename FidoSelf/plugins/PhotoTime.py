@@ -16,7 +16,7 @@ STRINGS = {
     "color": "**Select Color For Your Time Text:**",
     "font": "**Select Font For Your Time Text:**",
     "align": "**Please Specify How To Align The Time Text On This Image:**",
-    "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )")
+    "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )",
 }
 
 @client.Command(command="AddPhoto (.*)")
@@ -34,7 +34,7 @@ async def addphoto(event):
     photos = client.DB.get_key("PHOTOS") or {}
     if phname in photos:
         return await event.edit(STRINGS["nall"].format(phname))
-    info = event.reply_message.save()
+    info = await event.reply_message.save()
     photos.update({phname: info)
     client.DB.set_key("PHOTOS", photos)
     res = await client.inline_query(client.bot.me.username, f"addphoto:{phname}")
@@ -160,102 +160,3 @@ async def closephoto(event):
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
     await event.edit(text=f"**The Photo Panel Successfuly Closed!**")
-
-@client.Command(command="AddFont (.*)")
-async def savefontfile(event):
-    await event.edit(client.STRINGS["wait"])
-    fname = str(event.pattern_match.group(1))
-    fonts = client.DB.get_key("FONTS") or {}
-    if len(fonts) > 10:
-        return await event.edit(f"**Sorry, You Cannot Save More Than 10 Fonts!**")
-    if not event.reply_message:
-        return await event.edit(f"**Please Reply To Font File!**")
-    format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
-    if format != "ttf":
-        return await event.edit(f"**Please Reply To A Font File With .TTF Format!**")
-    if not client.backch:
-        return await event.edit(f"**The BackUp Channel Is Not Added!**")
-    try:
-        forward = await event.reply_message.forward_to(int(client.backch))
-    except:
-        return await event.edit(f"**The BackUp Channel Is Not Available!**")
-    fonts.update({fname + ".ttf": {"chat_id": client.backch, "msg_id": forward.id}})
-    client.DB.set_key("FONTS", fonts)
-    await event.edit(f"**The Font File** ( `{fname}.ttf` ) **Has Been Saved!**")  
-
-@client.Command(command="DelFont (.*)")
-async def delfontfile(event):
-    await event.edit(client.STRINGS["wait"])
-    fname = str(event.pattern_match.group(1))
-    fonts = client.DB.get_key("FONTS") or {}
-    if fname not in fonts:
-        return await event.edit(f"**The Font** ( `{fname}` ) **Not In Fonts List!**")
-    del fonts[fname]
-    client.DB.set_key("FONTS", fonts)
-    await event.edit(f"**The Font File** ( `{fname}` ) **Has Been Deleted!**")  
-
-@client.Command(command="FontList")
-async def fontlist(event):
-    await event.edit(client.STRINGS["wait"])
-    fonts = client.DB.get_key("FONTS") or {}
-    if not fonts:
-        return await event.edit(f"**The Font File List Is Empty!**")
-    text = f"**The Font File List:**\n\n"
-    row = 1
-    for font in fonts:
-        text += f"**{row} -** `{font}`\n"
-        row += 1
-    await event.edit(text)
-
-@client.Command(command="CleanFontList")
-async def cleanfonts(event):
-    await event.edit(client.STRINGS["wait"])
-    fonts = client.DB.get_key("FONTS") or {}
-    if not fonts:
-        return await event.edit(f"**The Font File List Is Already Empty!**")
-    client.DB.del_key("FONTS")
-    await event.edit(f"**The Font File List Is Cleared!**")
-
-@client.Command(command="AddTextTime ([\s\S]*)")
-async def addtexttime(event):
-    await event.edit(client.STRINGS["wait"])
-    texttimes = client.DB.get_key("TEXT_TIMES") or []
-    newtexttime = str(event.pattern_match.group(1))
-    if newtexttime in texttimes:
-        return await event.edit(f"**The Text Time** ( `{newtexttime}` ) **Already In Text Time List!**")  
-    texttimes.append(newtexttime)
-    client.DB.set_key("TEXT_TIMES", texttimes)
-    await event.edit(f"**The Text Time** ( `{newtexttime}` ) **Added To Text Time List!**")  
-    
-@client.Command(command="DelTextTime ([\s\S]*)")
-async def deltexttime(event):
-    await event.edit(client.STRINGS["wait"])
-    texttimes = client.DB.get_key("TEXT_TIMES") or []
-    newtexttime = str(event.pattern_match.group(1))
-    if newtexttime not in texttimes:
-        return await event.edit(f"**The Text Time** ( `{newtexttime}` ) **Not In Text Time List!**")  
-    texttimes.remove(newtexttime)
-    client.DB.set_key("TEXT_TIMES", texttimes)
-    await event.edit(f"**The Text Time** ( `{newtexttime}` ) **Deleted From Text Time List!**")  
-    
-@client.Command(command="TextTimeList")
-async def texttimelist(event):
-    await event.edit(client.STRINGS["wait"])
-    texttimes = client.DB.get_key("TEXT_TIMES") or []
-    if not texttimes:
-        return await event.edit(f"**The Text Time List Is Empty!**")
-    text = f"**The Text Time List:**\n\n"
-    row = 1
-    for texttime in texttimes:
-        text += f"**{row} -** `{texttime}`\n"
-        row += 1
-    await event.edit(text)
-
-@client.Command(command="CleanTextTimeList")
-async def cleantexttimes(event):
-    await event.edit(client.STRINGS["wait"])
-    texttimes = client.DB.get_key("TEXT_TIMES") or []
-    if not texttimes:
-        return await event.edit(f"**The Text Time List Is Already Empty!**")
-    client.DB.del_key("TEXT_TIMES")
-    await event.edit(f"**The Text Time List Is Cleared!**")
