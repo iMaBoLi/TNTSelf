@@ -125,7 +125,7 @@ async def addenemies(event):
     if where in Enemies and userid in Enemies[where]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
-    if hasattr(Enemies, where):
+    if not hasattr(Enemies, where):
         Enemies.update({where: []})
     Enemies[where].append(userid)
     client.DB.set_key("ENEMIES", Enemies)
