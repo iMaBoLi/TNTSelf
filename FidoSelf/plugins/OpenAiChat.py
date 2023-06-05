@@ -16,7 +16,7 @@ async def gpt_response(query, chat_id):
     global CONVERSATIONS
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
-    response = await openai.ChatCompletion.create(
+    response = await openai.ChatCompletion.acreate(
         model="gpt-3.5-turbo",
         messages=messages,
     )
