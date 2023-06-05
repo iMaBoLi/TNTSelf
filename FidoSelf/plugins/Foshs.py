@@ -22,6 +22,8 @@ async def savefoshfile(event):
     if format != "txt":
         return await event.edit(STRINGS["txt"])
     info = await event.reply_message.save()
+    get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    await get.download_media("FOSHS.txt")
     client.DB.set_key("FOSHS_FILE", info)
     await event.edit(STRINGS["save"])
 
