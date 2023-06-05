@@ -125,7 +125,7 @@ async def addenemies(event):
 
 @client.Inline(pattern="delenemy\:(.*)")
 async def delenemyinline(event):
-    userid = event.pattern_match.group(1)
+    userid = int(event.pattern_match.group(1))
     text = STRINGS["wheredel"]
     Enemies = client.DB.get_key("ENEMIES") or {}
     buttons = []
@@ -135,7 +135,7 @@ async def delenemyinline(event):
 
 @client.Callback(data="delenemydel\:(.*)\:(.*)")
 async def delenemies(event):
-    userid = event.data_match.group(1).decode('utf-8')
+    userid = int(event.data_match.group(1).decode('utf-8'))
     where = str(event.data_match.group(2).decode('utf-8'))
     Enemies = client.DB.get_key("ENEMIES") or {}
     uinfo = await client.get_entity(userid)
