@@ -10,37 +10,23 @@ STRINGS = {
     "result": "**Query** ( `{}` ):\n\n**Result:** ( `{}` )",
 }
 
-class ThabAi:
-    def __init__(self):
-        self.session = requests.Session()
-        self.session.headers = {
-            "authority": "chatbot.theb.ai",
-            "content-type": "application/json",
-            "origin": "https://chatbot.theb.ai",
-            "user-agent": UserAgent().random,
-        }
-
-    def get_response(self, prompt: str) -> str:
-        response = self.session.post(
-            "https://chatbot.theb.ai/api/chat-process",
-            json={"prompt": prompt, "options": {}},
-            stream=True,
+def generate_gpt_response(input_text, chat_id):
+    openai.api_key = client.DB.get_key("OPENAI_APIKEY")
+    global conversations
+    model = "gpt-3.5-turbo"
+    messages = conversations.get(chat_id, [])
+    messages.append({"role": "user", "content": input_text})
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
         )
-        response.raise_for_status()
-        response_lines = response.iter_lines()
-        response_data = ""
-        for line in response_lines:
-            if line:
-                data = json.loads(line)
-                if "utterances" in data:
-                    response_data += " ".join(
-                        utterance["text"] for utterance in data["utterances"]
-                    )
-                elif "delta" in data:
-                    response_data += data["delta"]
-        return response_data
-        
-AiClient = ThabAi()
+        generated_text = response.choices[0].message.content.strip()
+        messages.append({"role": "assistant", "content": generated_text})
+        conversations[chat_id] = messages
+    except Exception as e:
+        generated_text = f"`Error generating GPT response: {str(e)}`"
+    return generated_text
 
 @client.Command(command="GText (.*)")
 async def aichat(event):
