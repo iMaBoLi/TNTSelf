@@ -71,49 +71,36 @@ async def setenemysleep(event):
     await event.edit("**The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
 @client.Command(onlysudo=False, alowedits=False)
-async def quicksupdate(event):
-    if event.is_sudo or not event.text or event.is_ch: return
+async def enemyfosh(event):
+    if event.is_ch: return
     Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies: return
-    for enemy in Enemies:
-        info = Enemies[enemy]
-        if not info["where"] == "All":
-            if info["where"] == "Groups" and not event.is_group: continue
-            if info["where"] == "Privates" and not event.is_private: continue
-            if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
-        if info["user_id"] != event.sender_id: continue
-        try:
-            if info["type"] == "Original":
-                foshs = client.DB.get_key("ORGFOSHS_FILE")
-                if not foshs and not os.path.exists("ORGFOSHS.txt"): continue
-                if not os.path.exists("ORGFOSHS.txt"):
-                    get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-                    await get.download_media("ORGFOSHS.txt")
-                Foshs = open("ORGFOSHS.txt", "r").readlines()
-                sleep = client.DB.get_key("ORGENEMY_SLEEP") or 0
-                await asyncio.sleep(int(sleep))
-                await event.reply(random.choice(Foshs))
-                delete = client.DB.get_key("ORGENEMY_DELETE")
-                if delete == "on" and event.is_private:
-                    await event.delete()
-                continue
-            elif info["type"] == "Friend":
-                foshs = client.DB.get_key("FRIENDFOSHS_FILE")
-                if not foshs and not os.path.exists("FRIENDFOSHS.txt"): continue
-                if not os.path.exists("FRIENDFOSHS.txt"):
-                    get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-                    await get.download_media("FRIENDFOSHS.txt")
-                Foshs = open("FEIENDFOSHS.txt", "r").readlines()
-                sleep = client.DB.get_key("FRIENDENEMY_SLEEP") or 0
-                await asyncio.sleep(int(sleep))
-                await event.reply(random.choice(Foshs))
-                delete = client.DB.get_key("FRINDENEMY_DELETE")
-                if delete == "on" and event.is_private:
-                    await event.delete()
-                continue
-        except Exception as e:
-            await event.reply(str(e))
-            continue
+    foshs = client.DB.get_key("FOSHS_FILE")
+    if not foshs and not os.path.exists("FOSHS.txt"): return
+    userid = event.sender_id
+    sleep = client.DB.get_key("ENEMY_SLEEP") or 0
+    delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
+    for where in Enemies:
+        if where.startswith("CHAT-") and event.chat_id == int(where.replace("CHAT-", "")):
+            if not os.path.exists("FOSHS.txt"):
+                get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
+                await get.download_media("FOSHS.txt")
+            FOSHS = open("FOSHS.txt", "r").readlines()
+            await asyncio.sleep(int(sleep))
+            if delete == "on" and event.is_private:
+                await event.reply(random.choice(FOSHS))
+                return await event.delete()
+            return await event.reply(random.choice(FOSHS))
+    if (userid in Enemies["All"]) or (userid in Enemies["Groups"] and event.is_group) or (userid in Enemies["Pvs"] and event.is_private):
+        if not os.path.exists("FOSHS.txt"):
+            get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
+            await get.download_media("FOSHS.txt")
+        FOSHS = open("FOSHS.txt", "r").readlines()
+        await asyncio.sleep(int(sleep))
+        if delete == "on" and event.is_private:
+            await event.reply(random.choice(FOSHS))
+            return await event.delete()
+        return await event.reply(random.choice(FOSHS))
 
 @client.Inline(pattern="addenemy\:(.*)\:(.*)")
 async def inlineenemy(event):
