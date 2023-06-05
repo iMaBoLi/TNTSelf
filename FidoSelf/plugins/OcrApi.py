@@ -2,7 +2,7 @@ from FidoSelf import client
 import requests, os
 
 STRINGS = {
-    "setap": "**The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
+    "setapi": "**The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
     "notsave": "**The Ocr ApiKey Is Not Saved!**",
     "notlang": "**The Entered Language Is Not Found!**",
     "notcom": "**The Extract Text Not Completed!**\n**Error:** ( `{}` )",
