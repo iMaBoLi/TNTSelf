@@ -3,16 +3,17 @@ from PIL import Image
 import time
 import os
 
-@client.Command(pattern=f"(?i)^\{client.cmd}S(Photo|Sticker)$")
+@client.Command(command="S(Photo|Sticker)")
 async def spconverter(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    mtype = client.mediatype(event.reply_message)
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Photo", "Sticker"]:
-        medias = client.get_string("ReplyMedia")
+        medias = client.STRINGS["replyMedia"]
         media = medias["Photo"] + " - " + medias["Sticker"]
         rtype = medias[mtype]
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
     if mode == "Photo" and mtype in ["Sticker"]:
         sticker = await event.reply_message.download_media()
         newfile = "StickerToPhoto.jpg"
@@ -21,6 +22,7 @@ async def spconverter(event):
         await client.send_file(event.chat_id, newfile)
         os.remove(sticker)
         os.remove(newfile)
+        await event.delete()
     elif mode == "Sticker" and mtype in ["Photo"]:
         photo = await event.reply_message.download_media()
         newfile = "PhotoToSticker.webp"
@@ -29,9 +31,9 @@ async def spconverter(event):
         await client.send_file(event.chat_id, newfile)
         os.remove(photo)
         os.remove(newfile)
+        await event.delete()
     else:
-        medias = client.get_string("ReplyMedia")
         media = medias["Sticker"] if mode == "Photo" else medias["Photo"]
         rtype = medias[mtype]
-        await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
-    await event.delete()
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
