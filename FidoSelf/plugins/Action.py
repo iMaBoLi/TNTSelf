@@ -35,4 +35,4 @@ async def sendaction(chat_id, action):
         async with client.action(chat_id, action):
             await asyncio.sleep(5)
     except:
-        pass
+        client.LOGS.error(f"Chat Error": {chat_id}"")
