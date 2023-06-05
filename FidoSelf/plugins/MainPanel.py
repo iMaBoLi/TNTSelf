@@ -116,7 +116,7 @@ async def addecho(event):
 @client.Inline(pattern="panel\:(.*)\:(.*)")
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
-    page = event.pattern_match.group(2)
+    page = int(event.pattern_match.group(2))
     text = STRINGS["modepage"]
     buttons = get_mode_buttons(chatid, page)
     await event.answer([event.builder.article("FidoSelf - Panel", text=text, buttons=buttons)])
@@ -160,7 +160,7 @@ async def setfonttime(event):
     await event.edit(buttons=buttons)
 
 @client.Callback(data="seteditall\:(.*)\:(.*)\:(.*)")
-async def seteditmode(event):
+async def seteditmodeall(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     edit = event.data_match.group(3).decode('utf-8')
@@ -173,7 +173,7 @@ async def seteditmode(event):
     await event.edit(buttons=buttons)
     
 @client.Callback(data="seteditchat\:(.*)\:(.*)\:(.*)")
-async def seteditmode(event):
+async def seteditmodechat(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     edit = event.data_match.group(3).decode('utf-8')
