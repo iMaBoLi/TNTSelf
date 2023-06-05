@@ -1,17 +1,19 @@
 from FidoSelf import client
-import os
-os.system("pip install somnium")
 from somnium import Somnium
 
-@client.Command(command="Gen (.*)")
-async def gen_img(event):
-    query = event.pattern_match.group(1)
+STRINGS = {
+    "caption": "**The Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **Created!**",
+}
+
+@client.Command(command="GPhoto (.*)\:?(\d*)?")
+async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
-    styleid = 84
-    file = Somnium.Generate(query, styleid)
-    await client.send_file(
-        event.chat_id,
-        file,
-        force_document=True,
-    )
+    client.loop.create_task(generate(event))
+    
+async def generate(event):
+    query = event.pattern_match.group(1)
+    style = event.pattern_match.group(2) or 84
+    file = Somnium.Generate(query, style)
+    caption = STRINGS["caption"].format(query, style)
+    await client.send_file(event.chat_id, file, caption=caption)
     await event.delete()
