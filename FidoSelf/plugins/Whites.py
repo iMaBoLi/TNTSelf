@@ -30,7 +30,7 @@ async def addwhite(event):
     if userid in whites:
         whites.remove(userid)
         client.DB.set_key("WHITES", whites)
-    await event.edit(client.get_string("Whites_2").format(mention))
+    await event.edit(STRINGS["add"].format(mention))
     
 @client.Command(command="DelWhite ?(.*)?")
 async def delwhite(event):
