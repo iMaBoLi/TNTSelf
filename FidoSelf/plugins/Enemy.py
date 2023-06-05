@@ -80,27 +80,15 @@ async def enemyfosh(event):
     userid = event.sender_id
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
-    for where in Enemies:
-        if where.startswith("CHAT") and event.chat_id == int(where.replace("CHAT", "")):
-            if not os.path.exists("FOSHS.txt"):
-                get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-                await get.download_media("FOSHS.txt")
-            FOSHS = open("FOSHS.txt", "r").readlines()
-            await asyncio.sleep(int(sleep))
-            if delete == "on" and event.is_private:
-                await event.reply(random.choice(FOSHS))
-                return await event.delete()
-            return await event.reply(random.choice(FOSHS))
-    if (hasattr(Enemies, "All") and userid in Enemies["All"]) or (hasattr(Enemies, "Groups") and userid in Enemies["Groups"] and event.is_group) or (hasattr(Enemies, "Pvs") and userid in Enemies["Pvs"] and event.is_private):
+    if (hasattr(Enemies, "All") and userid in Enemies["All"]) or (hasattr(Enemies, "Groups") and userid in Enemies["Groups"] and event.is_group) or (hasattr(Enemies, "Pvs") and userid in Enemies["Pvs"] and event.is_private) or (hasattr(Enemies, "ONLYCHATS") and event.chat_id in Enemies["ONLYCHATS"] and userid in Enemies["CHAT" + event.chat_id]):
         if not os.path.exists("FOSHS.txt"):
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media("FOSHS.txt")
         FOSHS = open("FOSHS.txt", "r").readlines()
         await asyncio.sleep(int(sleep))
+        await event.reply(random.choice(FOSHS))
         if delete == "on" and event.is_private:
-            await event.reply(random.choice(FOSHS))
-            return await event.delete()
-        return await event.reply(random.choice(FOSHS))
+            await event.delete()
 
 @client.Inline(pattern="addenemy\:(.*)\:(.*)")
 async def inlineenemy(event):
@@ -128,6 +116,11 @@ async def addenemies(event):
     if not hasattr(Enemies, where):
         Enemies.update({where: []})
     Enemies[where].append(userid)
+    if where.startswith("CHAT"):
+        if not hasattr(Enemies, "ONLYCHATS"):
+            Enemies.update({"ONLYCHATS": []})
+        chatid = int(where.replace("CHAT", ""))
+        Enemies["ONLYCHATS"].append(chatid)
     client.DB.set_key("ENEMIES", Enemies)
     text = STRINGS["add"].format(client.mention(userinfo), where)
     await event.edit(text=text)
