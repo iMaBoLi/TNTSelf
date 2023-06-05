@@ -35,7 +35,7 @@ def get_pages_button(chatid, opage):
     for page in range(1, PAGES_COUNT):
         font = 3 if page != opage else 4
         name = client.functions.create_font(page, font)
-        buttons.append(Button.inline(f"( {name} )", data=f"page:{chatid}:{page}:{page}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"page:{chatid}:{page}"))
     return buttons
 
 def get_mode_buttons(chatid, page):
