@@ -29,12 +29,12 @@ STRINGS = {
     "Random2": "Random V2",
 }
 
-def get_pages_button():
+def get_pages_button(chatid):
     buttons = []
     PAGES_COUNT = 8 + 1
     for page in range(1, PAGES_COUNT):
         name = client.functions.create_font(page, 5)
-        buttons.append(Button.inline(f"( {name} )", data=f"panelpage:{page}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"page:{chatid}:{page}"))
     return buttons
 
 def get_mode_buttons(chatid):
@@ -47,7 +47,7 @@ def get_mode_buttons(chatid):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"setmode:{chatid}:{mode}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(get_pages_button())
+    buttons.append(get_pages_button(chatid))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
@@ -66,7 +66,7 @@ def get_time_buttons(chatid):
         mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{chatid}:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(get_pages_button())
+    buttons.append(get_pages_button(chatid))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
@@ -82,7 +82,7 @@ def get_edit_buttons(chatid):
         mode = client.STRINGS["inline"]["On"] if str(lastall) == str(edit) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"seteditall:{chatid}:{edit}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(get_pages_button())
+    buttons.append(get_pages_button(chatid))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
@@ -100,7 +100,7 @@ def get_action_buttons(chatid):
         nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {nmode}", data=f"actionall:{chatid}:{action}:{cmode}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(get_pages_button())
+    buttons.append(get_pages_button(chatid))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
