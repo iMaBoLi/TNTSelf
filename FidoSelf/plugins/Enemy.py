@@ -91,7 +91,7 @@ async def enemyfosh(event):
                 await event.reply(random.choice(FOSHS))
                 return await event.delete()
             return await event.reply(random.choice(FOSHS))
-    if (userid in Enemies["All"]) or (userid in Enemies["Groups"] and event.is_group) or (userid in Enemies["Pvs"] and event.is_private):
+    if ("All" in Enemies and userid in Enemies["All"]) or ("Groups" in Enemies and userid in Enemies["Groups"] and event.is_group) or ("Pvs" in Enemies and userid in Enemies["Pvs"] and event.is_private):
         if not os.path.exists("FOSHS.txt"):
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media("FOSHS.txt")
@@ -110,7 +110,7 @@ async def inlineenemy(event):
     buttons = []
     for where in WHERES:
         where = where if where != "Here" else "CHAT-" + str(chatid)
-        buttons.append(Button.inline("• All •", data=f"addenemy:{chatid}:{userid}:{where}"))
+        buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{where}"))
     buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
     await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
@@ -122,7 +122,7 @@ async def addenemies(event):
     where = event.data_match.group(3).decode('utf-8')
     userinfo = await client.get_entity(userid)
     Enemies = client.DB.get_key("ENEMIES") or {}
-    if userid in Enemies[where]:
+    if where in Enemies and userid in Enemies[where]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
     Enemies[where].append(userid)
