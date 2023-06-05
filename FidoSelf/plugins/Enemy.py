@@ -113,7 +113,7 @@ async def addenemies(event):
     if userid not in Enemies:
         Enemies.update({userid: []})
     if not hasattr(Enemies[userid], "Chats"):
-        Enemies[userid].update({"Chats": []})
+        Enemies[userid].append({"Chats": []})
     if where in Enemies[userid] or where.replace("CHAT", "") in Enemies[userid]["Chats"]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
