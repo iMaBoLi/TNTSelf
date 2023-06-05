@@ -80,7 +80,7 @@ async def enemyfosh(event):
     if not foshs and not os.path.exists("FOSHS.txt"): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
-    if (hasattr(Enemies[userid], "All")) or (hasattr(Enemies[userid], "Groups") and event.is_group) or (hasattr(Enemies[userid], "Pvs") and event.is_private) or (event.chat_id in Enemies[userid]["Chats"]):
+    if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (event.chat_id in Enemies[userid]):
         if not os.path.exists("FOSHS.txt"):
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media("FOSHS.txt")
@@ -97,7 +97,7 @@ async def inlineenemy(event):
     text = STRINGS["where"]
     buttons = []
     for where in WHERES:
-        swhere = where if where != "Here" else "CHAT" + str(chatid)
+        swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
@@ -112,16 +112,10 @@ async def addenemies(event):
     Enemies = client.DB.get_key("ENEMIES") or {}
     if userid not in Enemies:
         Enemies.update({userid: []})
-    if not hasattr(Enemies[userid], "Chats"):
-        Enemies[userid].append({"Chats": []})
-    if where in Enemies[userid] or where.replace("CHAT", "") in Enemies[userid]["Chats"]:
+    if where in Enemies[userid]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
-    if where.startswith("CHAT"):
-        chatid = where.replace("CHAT", "")
-        Enemies[userid]["Chats"].appendd(chatid) 
-    else:
-        Enemies[userid].append(where)
+    Enemies[userid].append(where)
     client.DB.set_key("ENEMIES", Enemies)
     text = STRINGS["add"].format(client.mention(userinfo), where)
     await event.edit(text=text)
