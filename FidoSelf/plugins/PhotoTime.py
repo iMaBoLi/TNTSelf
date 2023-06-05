@@ -118,7 +118,7 @@ async def photo(event):
         buttons = [[Button.inline("Random ♻️", data=f"fontphoto:{phname}:{where}:{size}:random")]]
         for color in client.functions.COLORS:
             buttons.append(Button.inline(f"• {color.title()} •", data=f"fontphoto:{phname}:{where}:{size}:{color}"))
-        buttons = [buttons[0]] + list(client.utils.chunks(buttons[1:], 4))
+        buttons = [buttons[0]] + list(client.functions.chunks(buttons[1:], 4))
         buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "font":
@@ -131,7 +131,7 @@ async def photo(event):
         buttons = [[Button.inline("Random ♻️", data=f"alignphoto:{phname}:{where}:{size}:{color}:random")]]
         for font in fonts:
             buttons.append(Button.inline(f"• {font.title()} •", data=f"alignphoto:{phname}:{where}:{size}:{color}:{font}"))
-        buttons = [buttons[0]] + list(client.utils.chunks(buttons[1:], 2))
+        buttons = [buttons[0]] + list(client.functions.chunks(buttons[1:], 2))
         buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"photoclose:{phname}")])
         await event.edit(text=text, buttons=buttons)
     elif work == "align":
