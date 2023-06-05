@@ -13,7 +13,7 @@ STRINGS = {
     "clean": "**The Font List Is Cleaned!**",
 }
 
-@client.Command(command="AddFont (.*)")
+@client.Command(command="NewFont (.*)")
 async def savefontfile(event):
     await event.edit(client.STRINGS["wait"])
     fname = str(event.pattern_match.group(1))
@@ -33,7 +33,7 @@ async def savefontfile(event):
     if format != "ttf":
         return await event.edit(STRINGS["ttf"])
     info = await event.reply_message.save()
-    fonts.update({fname + ".ttf": info)
+    fonts.update({fname + ".ttf": info})
     client.DB.set_key("FONTS", fonts)
     await event.edit(STRINGS["newadd"].format(fname + ".ttf")  
 
