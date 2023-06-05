@@ -13,6 +13,8 @@ STRINGS = {
     "esleep": "**The Echo Sleep Was Set To** ( `{}` )",
     "empty": "**The Echo List Is Empty!**",
     "list": "**The Echo List:**\n\n",
+    "aempty": "**The Echo List Is Already Empty!**",
+    "clean": "**The Echo List Is Cleaned!**",
     "close": "**The Echo Panel Successfuly Closed!**",
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
@@ -65,6 +67,15 @@ async def echolist(event):
         text += f"**{row}-** `{echo}` \n"
         row += 1
     await event.edit(text)
+
+@client.Command(command="CleanEchoList")
+async def cleanechos(event):
+    await event.edit(client.STRINGS["wait"])
+    echos = client.DB.get_key("ECHOS") or []
+    if not echos:
+        return await event.edit(STRINGS["aempty"])
+    client.DB.del_key("ECHOS")
+    await event.edit(STRINGS["clean"])
 
 @client.Command(command="SetEchoSleep (\d*)")
 async def setechosleep(event):
