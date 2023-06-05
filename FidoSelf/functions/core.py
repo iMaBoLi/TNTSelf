@@ -20,7 +20,7 @@ async def DownloadFiles():
     if foshs:
         try:
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-            await get.download_media("FOSHS.txt")
+            await get.download_media(client.PATH + "FOSHS.txt")
         except:
             pass
 
@@ -28,7 +28,7 @@ async def DownloadFiles():
     if cover:
         try:
             get = await client.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
-            await get.download_media("Cover.png")
+            await get.download_media(client.PATH + "Cover.png")
         except:
             pass
 
@@ -37,7 +37,7 @@ async def DownloadFiles():
         for photo in photos:
             try:
                 get = await client.get_messages(int(photos[photo]["chat_id"]), ids=int(PHOTOS[photo]["msg_id"]))
-                await get.download_media(photo)
+                await get.download_media(client.PATH + photo)
             except:
                 pass
             
@@ -46,6 +46,6 @@ async def DownloadFiles():
         for font in fonts:
             try:
                 get = await client.get_messages(int(fonts[font]["chat_id"]), ids=int(fonts[font]["msg_id"]))
-                await get.download_media(font)
+                await get.download_media(client.PATH + font)
             except:
                 pass
