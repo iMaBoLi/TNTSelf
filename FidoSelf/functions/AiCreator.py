@@ -8,8 +8,8 @@ def AiCreate(Chats, filename):
     Chats = list(client.functions.chunks(Chats, 2))
     for chat in Chats:
         NEWMATN = MATN
-        me = con[0]["content"]
-        gpt = con[1]["content"]
+        me = chat[0]["content"]
+        gpt = chat[1]["content"]
         NEWMATN = NEWMATN.replace("{YOURINPUT}", me)
         NEWMATN = NEWMATN.replace("{CHATGPTRESULT}", gpt)
         LASTMATN += NEWMATN
