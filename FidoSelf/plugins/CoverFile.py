@@ -1,44 +1,49 @@
 from FidoSelf import client
 import os
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SetCover$")
-async def setcover(event):
-    await event.edit(client.get_string("Wait"))
-    mtype = client.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.get_string("ReplyMedia")
-        media = medias["Photo"]
-        if mtype == "Empty":
-            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
-        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
-    res, info = await event.reply_message.save()
-    if not res:
-        return await event.edit(info)
-    client.DB.set_key("FILE_COVER", info)
-    await event.edit(client.get_string("CoverFile_1"))  
+STRINGS = {
+    "save": "**The Cover Photo For Files Has Been Saved!**",
+    "notsave": "**The Cover Photo Is Not Saved!**",
+    "adding": "**Adding Cover To Your File ...**",
+    "added": "**The Cover Photo Is Added To Your File!**",
+}
 
-@client.Command(pattern=f"(?i)^\{client.cmd}AddCover$")
+@client.Command(command="SetCover")
+async def setcover(event):
+    await event.edit(client.STRINGS["wait"])
+    mtype = client.functions.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["Photo"]:
+        medias = client.STRINGS["replyMedia"]
+        media = medias["Photo"]
+        rtype = medias[mtype]
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
+    info = await event.reply_message.save()
+    client.DB.set_key("FILE_COVER", info)
+    await event.edit(STRINGS["save"])  
+
+@client.Command(command="AddCover")
 async def addcover(event):
-    await event.edit(client.get_string("Wait"))
-    mtype = client.mediatype(event.reply_message)
+    await event.edit(client.STRINGS["wait"])
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["File", "Music"]:
-        medias = client.get_string("ReplyMedia")
+        medias = client.STRINGS["replyMedia"]
         media = medias["File"] + " - " + medias["Music"]
-        if mtype == "Empty":
-            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
-        return await event.edit(client.get_string("ReplyMedia_Main").format(medias[mtype], media))
+        rtype = medias[mtype]
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cover = client.DB.get_key("FILE_COVER") or {}
     if not cover:
-        return await event.edit(client.get_string("CoverFile_2"))
+        return await event.edit(STRINGS["notsave"])
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
-    await event.edit(client.get_string("CoverFile_3"))
+    await event.edit(STRINGS["adding"])
     message = await client.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
     thumb = await message.download_media()
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, file, thumb=thumb, caption=client.get_string("CoverFile_4"), progress_callback=callback)
+    await client.send_file(event.chat_id, file, thumb=thumb, caption=STRINGS["added"], progress_callback=callback)
     os.remove(file)
     os.remove(thumb)
     await event.delete()
