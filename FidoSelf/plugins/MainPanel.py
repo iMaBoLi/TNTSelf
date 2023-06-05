@@ -17,6 +17,7 @@ STRINGS = {
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
         "TIMER_MODE": "Timer Save",
+        "SIGN_MODE": "Sign",
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
         "ANTISPAM_PV": "AntiSpam Pv",
