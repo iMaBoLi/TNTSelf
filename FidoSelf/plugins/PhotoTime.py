@@ -64,7 +64,7 @@ async def getphoto(event):
     fphoto = await get.download_media()
     caption = STRINGS["get"].format(phname, photo["where"], photo["size"].title(), photo["color"].title(), photo["font"].title(), photo["align"].title())
     await event.respond(caption=caption, file=fphoto)
-        await event.delete()
+    await event.delete()
     os.remove(fphoto)
 
 @client.Command(command="PhotoList")
