@@ -33,6 +33,7 @@ async def spconverter(event):
         os.remove(newfile)
         await event.delete()
     else:
+        medias = client.STRINGS["replyMedia"]
         media = medias["Sticker"] if mode == "Photo" else medias["Photo"]
         rtype = medias[mtype]
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
