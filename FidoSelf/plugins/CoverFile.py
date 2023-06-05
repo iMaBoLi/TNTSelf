@@ -45,5 +45,5 @@ async def addcover(event):
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, thumb=cover, caption=STRINGS["added"], progress_callback=callback)
     os.remove(file)
-    os.remove(thumb)
+    os.remove(cover)
     await event.delete()
