@@ -28,7 +28,7 @@ async def editmodes(event):
         await event.edit("~~" + lasttext + "~~")
     elif allmode == "Spoiler" or (event.chat_id in chats and chats[event.chat_id] == "Spoiler"):
         await event.edit("||" + lasttext + "||")
-    elif allmode == "Hashtag" or  or (event.chat_id in chats and chats[event.chat_id] == "Hashtag"):
+    elif allmode == "Hashtag" or (event.chat_id in chats and chats[event.chat_id] == "Hashtag"):
         lasttext = lasttext.replace(" ", "_")
         lasttext = lasttext.replace("\n", "_")
         await event.edit("#" + lasttext)
