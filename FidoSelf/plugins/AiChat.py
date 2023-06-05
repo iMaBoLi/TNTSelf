@@ -1,43 +1,68 @@
 from FidoSelf import client
-from somnium import Somnium
-from fake_useragent import UserAgent
+import openai
 import requests
-import json
 
 STRINGS = {
-    "get": "**Geeting Ai Chat Result For Query** ( `{}` ) **...**",
-    "notres": "**Not Ai Chat Result For Query** ( `{}` )",
-    "result": "**Query** ( `{}` ):\n\n**Result:** ( `{}` )",
+    "setapi": "**The OpenAi ApiKey** ( `{}` ) **Has Been Saved!**",
+    "getch": "**Geeting OpenAi Result For Question** ( `{}` ) **...**",
+    "erch": "**Ai Result Not Received!**\n\n`{}`",
+    "result": "**Question** ( `{}` ):\n\n**ChatGPT:** ( `{}` )",
+    "getim": "**Geeting Ai Photo For Query** ( `{}` ) **...**",
+    "erim": "**Ai Photo Not Created!**\n\n`{}`",
+    "caption": "**The AiImages For Query** ( `{}` ) **Created!**",
 }
 
-def generate_gpt_response(input_text, chat_id):
-    openai.api_key = client.DB.get_key("OPENAI_APIKEY")
-    global conversations
-    model = "gpt-3.5-turbo"
-    messages = conversations.get(chat_id, [])
-    messages.append({"role": "user", "content": input_text})
-    try:
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages,
-        )
-        generated_text = response.choices[0].message.content.strip()
-        messages.append({"role": "assistant", "content": generated_text})
-        conversations[chat_id] = messages
-    except Exception as e:
-        generated_text = f"`Error generating GPT response: {str(e)}`"
-    return generated_text
+@client.Command(command="SetAiKey (.*)")
+async def saveaiapi(event):
+    await event.edit(client.STRINGS["wait"])
+    api = event.pattern_match.group(1)
+    client.DB.set_key("OPENAI_APIKEY", api)
+    await event.edit(STRINGS["setapi"].format(api))
 
+CONVERSATIONS = {}
+
+async def gpt_response(query, chat_id):
+    if not openai.api_key:
+        openai.api_key = client.DB.get_key("OPENAI_APIKEY")
+    global CONVERSATIONS
+    messages = CONVERSATIONS.get(chat_id, [])
+    messages.append({"role": "user", "content": query})
+    response = await openai.ChatCompletion.acreate(
+        model="gpt-3.5-turbo",
+        messages=messages,
+    )
+    result = response.choices[0].message.content.strip()
+    messages.append({"role": "assistant", "content": result})
+    CONVERSATIONS[chat_id] = messages
+    return result
+    
 @client.Command(command="GText (.*)")
 async def aichat(event):
     await event.edit(client.STRINGS["wait"])
-    client.loop.create_task(generate(event))
-    
-async def generate(event):
     query = event.pattern_match.group(1)
     await event.edit(STRINGS["get"].format(query))
-    result = AiClient.get_response(query)
-    if not result:
-        return await event.edit(STRINGS["notres"].format(query))
+    try:
+        result = await gpt_response(query, event.chat_id)
+    except Exception as error:
+        return await event.edit(STRINGS["erch"].format(error))
     text = STRINGS["result"].format(query, result)
-    await event.edit(text)
+    await event.respond(text, file=file)
+    await event.delete()
+    
+@client.Command(command="GPhoto (.*)")
+async def aiphoto(event):
+    await event.edit(client.STRINGS["wait"])
+    query = event.pattern_match.group(1)
+    try:
+        result = await openai.Image.acreate(prompt=query, n=3, size="1024x1024")
+    except Exception as error:
+        return await event.edit(STRINGS["erim"].format(error))
+    files = []
+    for i, media in enumerate(result["data"], 1):
+        filename = query + "-" + str(i) + ".jpg"
+        with open(filename, "wb") as f:
+            f.write(requests.get(media["url"]).content)
+        files.append(filename)
+    caption = STRINGS["caption"].format(query)
+    await client.send_file(event.chat_id, files, caption=caption)
+    await event.delete()
