@@ -1,7 +1,7 @@
 from . import client
 from telethon import __version__ as telever
 from FidoSelf import functions
-from FidoSelf.functions import AddVarsToClient, load_plugins, runcmd 
+from FidoSelf.functions import AddVarsToClient, load_plugins, DownloadFiles, runcmd
 import platform
 
 async def setup():
@@ -12,6 +12,8 @@ async def setup():
     plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
+    client.LOGS.info("• DownLoading Files To Server ...")
+    await DownloadFiles()
     update = client.DB.get_key("UPDATE") or True
     if update:
         try:
