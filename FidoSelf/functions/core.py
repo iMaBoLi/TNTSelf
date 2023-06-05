@@ -14,6 +14,8 @@ def check_cmd(event):
 setattr(Message, "checkCmd", check_cmd)
 
 async def DownloadFiles():
+    os.mkdir("downloads")
+    
     foshs = client.DB.get_key("FOSHS_FILE")
     if foshs:
         try:
