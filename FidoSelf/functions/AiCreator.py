@@ -3,7 +3,7 @@ def AiCreate(Chats, filename):
     LAST = """</body></html>"""
     MATN = """<section  class="q"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/121px-Telegram_2019_Logo.svg.png" type="image/x-icon"><span class="name">User: </span><div>{YOURINPUT}</div></section><section class="a"><img src="https://chat.openai.com/apple-touch-icon.png" type="image/x-icon"><span class="name">ChatGPT: </span><div>{CHATGPTRESULT}</div></section>"""
     LASTMATN = ""
-    for caht in Chats:
+    for chat in Chats:
         NEWMATN = MATN
         NEWMATN = NEWMATN.replace("{YOURINPUT}", chat["me"])
         NEWMATN = NEWMATN.replace("{CHATGPTRESULT}", chat["gpt"])
