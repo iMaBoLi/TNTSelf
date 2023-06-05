@@ -181,6 +181,8 @@ async def seteditmodechat(event):
     page = int(event.data_match.group(2).decode('utf-8'))
     edit = event.data_match.group(3).decode('utf-8')
     last = client.DB.get_key("EDITCHATS_MODE") or {}
+    if chatid not in last:
+        last.update({chatid: edit})
     last[chatid] = edit
     client.DB.set_key("EDITALL_MODE", last)
     buttons = get_edit_buttons(chatid, page)
