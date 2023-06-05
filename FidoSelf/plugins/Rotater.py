@@ -1,11 +1,10 @@
 from FidoSelf import client
 from PIL import Image
 import os
-import time
 
 STRINGS = {
     "proted": "**The Photo Was Rotated To** ( `{}°` )",
-    "vrot": "**Rotating Video To** ( `{}°` ) **...*",
+    "vrot": "**Rotating Video To** ( `{}°` ) **...**",
     "vroted": "**The Video Was Rotated To** ( `{}°` )",
 }
 
@@ -35,8 +34,7 @@ async def rotate(event):
         await event.edit(STRINGS["vrot"].format(str(darge)))
         newfile = f"RotatedVideo-{str(darge)}.mp4"
         cmd = f'ffmpeg -i {file} -vf "rotate={darge}" {newfile}'
-        await client.utils.runcmd(cmd)
-        newtime = time.time()
+        await client.functions.runcmd(cmd)
         callback = event.progress(upload=True)
         caption = STRINGS["vroted"].format(str(darge))
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
