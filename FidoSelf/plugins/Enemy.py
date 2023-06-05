@@ -115,7 +115,7 @@ async def addenemies(event):
     if where in Enemies[userid]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
-    Enemies[userid].append(where)
+    Enemies[userid].append(evel(where))
     client.DB.set_key("ENEMIES", Enemies)
     text = STRINGS["add"].format(client.mention(userinfo), where)
     await event.edit(text=text)
