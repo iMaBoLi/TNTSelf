@@ -26,7 +26,7 @@ async def savefontfile(event):
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
     if (fname + ".ttf") in fonts:
-        return await event.edit(STRINGS["newnot"].format(fname + ".ttf")
+        return await event.edit(STRINGS["newnot"].format(fname + ".ttf"))
     if len(fonts) > 10:
         return await event.edit(STRINGS["more"])
     format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
@@ -35,7 +35,7 @@ async def savefontfile(event):
     info = await event.reply_message.save()
     fonts.update({fname + ".ttf": info})
     client.DB.set_key("FONTS", fonts)
-    await event.edit(STRINGS["newadd"].format(fname + ".ttf")  
+    await event.edit(STRINGS["newadd"].format(fname + ".ttf"))
 
 @client.Command(command="DelFont (.*)")
 async def delfontfile(event):
