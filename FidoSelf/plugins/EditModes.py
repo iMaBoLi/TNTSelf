@@ -14,7 +14,7 @@ EDITS ={
 
 @client.Command(alowedits=False)
 async def editmodes(event):
-    if event.is_cmd or not event.text: return
+    if not event.text: return
     if event.checkCmd(): return
     mode = client.DB.get_key("EDIT_MODE") or ""
     lasttext = str(event.text)
