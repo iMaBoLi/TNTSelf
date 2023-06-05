@@ -4,11 +4,12 @@ import requests
 
 STRINGS = {
     "setapi": "**The OpenAi ApiKey** ( `{}` ) **Has Been Saved!**",
+    "noapi": "**The OpenAi ApiKey Is Not Saved!**",
     "getch": "**Geeting OpenAi Result For Question** ( `{}` ) **...**",
-    "erch": "**Ai Result Not Received!**\n\n`{}`",
+    "erch": "**The Ai Result Not Received!**\n\n`{}`",
     "result": "**Question** ( `{}` ):\n\n**ChatGPT:** ( `{}` )",
     "getim": "**Geeting Ai Photo For Query** ( `{}` ) **...**",
-    "erim": "**Ai Photo Not Created!**\n\n`{}`",
+    "erim": "**The Ai Photo Not Created!**\n\n`{}`",
     "caption": "**The AiImages For Query** ( `{}` ) **Created!**",
 }
 
@@ -40,6 +41,8 @@ async def gpt_response(query, chat_id):
 async def aichat(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
+    if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
+        return await event.edit(STRINGS["noapi"])
     await event.edit(STRINGS["get"].format(query))
     try:
         result = await gpt_response(query, event.chat_id)
@@ -53,6 +56,8 @@ async def aichat(event):
 async def aiphoto(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
+    if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
+        return await event.edit(STRINGS["noapi"])
     try:
         result = await openai.Image.acreate(prompt=query, n=3, size="1024x1024")
     except Exception as error:
