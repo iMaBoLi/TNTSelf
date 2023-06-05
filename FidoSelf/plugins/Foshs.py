@@ -23,7 +23,7 @@ async def savefoshfile(event):
         return await event.edit(STRINGS["txt"])
     info = await event.reply_message.save()
     client.DB.set_key("FOSHS_FILE", info)
-     await event.edit(STRINGS["save"])
+    await event.edit(STRINGS["save"])
 
 @client.Command(command="DelFosh")
 async def delfoshfile(event):
