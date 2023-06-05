@@ -89,7 +89,7 @@ async def cleanphotos(event):
     client.DB.del_key("PHOTOS")
     await event.edit(STRINGS["clean"])
 
-@client.Inline(command="addphoto\:(.*)")
+@client.Inline(pattern="addphoto\:(.*)")
 async def addphoto(event):
     phname = str(event.pattern_match.group(1))
     text = STRINGS["where"]
