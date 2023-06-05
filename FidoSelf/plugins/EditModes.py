@@ -16,7 +16,7 @@ EDITS ={
 async def editmodes(event):
     if not event.text: return
     if event.checkCmd(): return
-    mode = client.DB.get_key("EDIT_MODE") or ""
+    mode = client.DB.get_key("EDITALL_MODE") or ""
     lasttext = str(event.text)
     if not mode:
         return
