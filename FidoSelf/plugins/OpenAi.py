@@ -49,7 +49,7 @@ async def aichat(event):
     except Exception as error:
         return await event.edit(STRINGS["erch"].format(error))
     text = STRINGS["result"].format(query, result)
-    await event.respond(text, file=file)
+    await event.respond(text)
     await event.delete()
     
 @client.Command(command="GPhoto (.*)")
