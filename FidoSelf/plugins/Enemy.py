@@ -81,7 +81,7 @@ async def enemyfosh(event):
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
     for where in Enemies:
-        if where.startswith("CHAT-") and event.chat_id == int(where.replace("CHAT-", "")):
+        if where.startswith("CHAT") and event.chat_id == int(where.replace("CHAT", "")):
             if not os.path.exists("FOSHS.txt"):
                 get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
                 await get.download_media("FOSHS.txt")
@@ -91,7 +91,7 @@ async def enemyfosh(event):
                 await event.reply(random.choice(FOSHS))
                 return await event.delete()
             return await event.reply(random.choice(FOSHS))
-    if ("All" in Enemies and userid in Enemies["All"]) or ("Groups" in Enemies and userid in Enemies["Groups"] and event.is_group) or ("Pvs" in Enemies and userid in Enemies["Pvs"] and event.is_private):
+    if (hasattr(Enemies, "All") and userid in Enemies["All"]) or (hasattr(Enemies, "Groups") and userid in Enemies["Groups"] and event.is_group) or (hasattr(Enemies, "Pvs") and userid in Enemies["Pvs"] and event.is_private):
         if not os.path.exists("FOSHS.txt"):
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media("FOSHS.txt")
@@ -109,8 +109,8 @@ async def inlineenemy(event):
     text = STRINGS["where"]
     buttons = []
     for where in WHERES:
-        where = where if where != "Here" else "CHAT-" + str(chatid)
-        buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{where}"))
+        swhere = where if where != "Here" else "CHAT" + str(chatid)
+        buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
     await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
@@ -125,6 +125,8 @@ async def addenemies(event):
     if where in Enemies and userid in Enemies[where]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
+    if hasattr(Enemies, where):
+        Enemies.update({where: []})
     Enemies[where].append(userid)
     client.DB.set_key("ENEMIES", Enemies)
     text = STRINGS["add"].format(client.mention(userinfo), where)
