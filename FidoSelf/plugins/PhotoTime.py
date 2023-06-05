@@ -35,7 +35,7 @@ async def addphoto(event):
     if phname in photos:
         return await event.edit(STRINGS["nall"].format(phname))
     info = await event.reply_message.save()
-    photos.update({phname: info)
+    photos.update({phname: info})
     client.DB.set_key("PHOTOS", photos)
     res = await client.inline_query(client.bot.me.username, f"addphoto:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
