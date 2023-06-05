@@ -110,15 +110,16 @@ async def addenemies(event):
     where = event.data_match.group(3).decode('utf-8')
     userinfo = await client.get_entity(userid)
     Enemies = client.DB.get_key("ENEMIES") or {}
-    if not hasattr(Enemies, userid):
+    if userid not in Enemies:
         Enemies.update({userid: []})
-    if where in Enemies[userid]:
-        text = STRINGS["notall"].format(userinfo.first_name, where)
-        return await event.answer(text, alert=True)
     if not hasattr(Enemies[userid], "Chats"):
         Enemies[userid].update({"Chats": []})
+    if where in Enemies[userid] or where.replace("CHAT", "") in Enemies[userid]["Chats"]:
+        text = STRINGS["notall"].format(userinfo.first_name, where)
+        return await event.answer(text, alert=True)
     if where.startswith("CHAT"):
-        Enemies[userid]["Chats"].appendd(where) 
+        chatid = where.replace("CHAT", "")
+        Enemies[userid]["Chats"].appendd(chatid) 
     else:
         Enemies[userid].append(where)
     client.DB.set_key("ENEMIES", Enemies)
