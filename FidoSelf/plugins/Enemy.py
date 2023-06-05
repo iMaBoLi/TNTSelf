@@ -107,7 +107,7 @@ async def inlineenemy(event):
     for where in WHERES:
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
-    buttons = list(client.functions.chunks(buttons, 3))
+    buttons = list(client.functions.chunks(buttons, 4))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
     await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
 
