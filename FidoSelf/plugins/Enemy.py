@@ -82,7 +82,7 @@ async def enemyfosh(event):
     foshs = client.DB.get_key("FOSHS_FILE")
     if not foshs and not os.path.exists("FOSHS.txt"): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
-    delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
+    delete = client.DB.get_key("ENEMY_DELETE") or "off"
     sign = client.DB.get_key("SIGNENEMY_MODE") or "off"
     tsign  = client.DB.get_key("SIGNENEMY_TEXT")
     if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (str(event.chat_id) in Enemies[userid]):
@@ -93,7 +93,7 @@ async def enemyfosh(event):
         await asyncio.sleep(int(sleep))
         fosh = random.choice(FOSHS)
         if sign == "on" and tsign:
-            fosh = fosh + "\n\n" + sign
+            fosh = fosh + "\n\n" + tsign
         await event.reply(fosh)
         if delete == "on" and event.is_private:
             await event.delete()
