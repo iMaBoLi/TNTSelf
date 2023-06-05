@@ -13,6 +13,8 @@ STRINGS = {
     "esleep": "**The Enemy Sleep Was Set To** ( `{}` )",
     "empty": "**The Enemy List Is Empty!**",
     "list": "**The Enemy List:**\n\n",
+    "aempty": "**The Enwmy List Is Already Empty!**",
+    "clean": "**The Enemy List Is Cleaned!**",
     "close": "**The Enemy Panel Successfuly Closed!**",
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
@@ -65,6 +67,15 @@ async def enemylist(event):
         text += f"**{row}-** `{enemy}` \n"
         row += 1
     await event.edit(text)
+    
+@client.Command(command="CleanEnemyList")
+async def cleanenemies(event):
+    await event.edit(client.STRINGS["wait"])
+    enemys = client.DB.get_key("ENEMIES") or []
+    if not enemys:
+        return await event.edit(STRINGS["aempty"])
+    client.DB.del_key("ENEMIES")
+    await event.edit(STRINGS["clean"])
 
 @client.Command(command="SetEnemySleep (\d*)")
 async def setenemysleep(event):
