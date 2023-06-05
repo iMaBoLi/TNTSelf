@@ -109,7 +109,7 @@ def get_action_buttons(chatid, page):
 async def addecho(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"panel:{chatid}:{page}:1")
+    res = await client.inline_query(client.bot.me.username, f"panel:{chatid}:1")
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
