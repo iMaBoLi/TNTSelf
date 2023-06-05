@@ -80,7 +80,7 @@ async def enemyfosh(event):
     if not foshs and not os.path.exists("FOSHS.txt"): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMYPV_DELETE") or "off"
-    if (hasattr(Enemies[userid], "All") or (hasattr(Enemies[userid], "Groups") and event.is_group) or (hasattr(Enemies[userid], "Pvs") and event.is_private) or (hasattr(Enemies[userid] , "Chats") and event.chat_id in Enemies[userid]["Chats"]):
+    if (hasattr(Enemies[userid], "All")) or (hasattr(Enemies[userid], "Groups") and event.is_group) or (hasattr(Enemies[userid], "Pvs") and event.is_private) or (event.chat_id in Enemies[userid]["Chats"]):
         if not os.path.exists("FOSHS.txt"):
             get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media("FOSHS.txt")
