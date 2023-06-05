@@ -38,10 +38,7 @@ async def photochanger():
     TEXTS = client.DB.get_key("TEXT_TIMES")
     phmode = client.DB.get_key("PHOTO_MODE") or "off"
     if phmode == "on" and PHOTOS and TEXTS and FONTS:
-        phname = random.choice(list(PHOTOS.keys()))
-        phinfo = PHOTOS[phname]
-        getphoto = await client.get_messages(int(phinfo["chat_id"]), ids=int(phinfo["msg_id"]))
-        PHOTO = await getphoto.download_media()
+        PHOTO = random.choice(list(PHOTOS.keys()))
         TEXT = await client.AddVars(random.choice(TEXTS))
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
         SIZE = sizes[phinfo["size"]]
@@ -54,9 +51,7 @@ async def photochanger():
         width, height = img.size
         ffont = phinfo["font"]
         if ffont == "random":
-            ffont = random.choice(list(FONTS.keys())) 
-        getfont = await client.get_messages(FONTS[ffont]["chat_id"], ids=int(FONTS[ffont]["msg_id"]))
-        ffont = await getfont.download_media()
+            ffont = random.choice(list(FONTS.keys()))
         FONT = ImageFont.truetype(ffont, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
