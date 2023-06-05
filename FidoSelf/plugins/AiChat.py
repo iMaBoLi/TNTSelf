@@ -10,7 +10,7 @@ STRINGS = {
     "result": "**Query** ( `{}` ):\n\n**Result:** ( `{}` )",
 }
 
-class AiClient:
+class ThabAi:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers = {
@@ -39,6 +39,8 @@ class AiClient:
                 elif "delta" in data:
                     response_data += data["delta"]
         return response_data
+        
+AiClient = ThabAi()
 
 @client.Command(command="GText (.*)")
 async def aichat(event):
@@ -47,7 +49,6 @@ async def aichat(event):
     
 async def generate(event):
     query = event.pattern_match.group(1)
-    AiClient = AiClient()
     await event.edit(STRINGS["get"].format(query))
     result = AiClient.get_response(query)
     if not result:
