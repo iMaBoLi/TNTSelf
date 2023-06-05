@@ -18,7 +18,7 @@ STRINGS = {
         "PHOTO_MODE": "Photo",
         "TIMER_MODE": "Timer Save",
         "SIGN_MODE": "Sign",
-        "SIGNENEMY_MODE": "Sign",
+        "SIGNENEMY_MODE": "Sign Enemy",
         "ENEMY_DELETE": "Delete Enemy Pms",
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
