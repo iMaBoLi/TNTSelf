@@ -148,3 +148,4 @@ async def delenemies(event):
 @client.Callback(data="closeenemy")
 async def closeenemy(event):
     await event.edit(text=STRINGS["close"])
+    
