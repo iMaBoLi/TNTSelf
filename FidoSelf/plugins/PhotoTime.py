@@ -150,7 +150,7 @@ async def photo(event):
         data = client.DB.get_key("PHOTOS")[phname]
         photos.update({phname: {"chat_id": data["chat_id"], "msg_id": data["msg_id"], "where": where,"size": size,"color": color,"font": font,"align": align}})
         client.DB.set_key("PHOTOS", photos)
-        complete = STRINGS["com"].format(phanme, where, size.title(), color.title(), font.title(), align.title())
+        complete = STRINGS["com"].format(phname, where, size.title(), color.title(), font.title(), align.title())
         await event.edit(text=caomplete)
         
 @client.Callback(data="photoclose\:(.*)")
