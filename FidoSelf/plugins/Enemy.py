@@ -3,21 +3,32 @@ from telethon import functions, types, Button
 import asyncio, random
 import os
 
-@client.Command(pattern=f"(?i)^\{client.cmd}AddEnemy ?(.*)?")
+STRINGS = {
+    "where": "**Select You Want This Enemy User To Be Saved For Where:**",
+    "notall": "The User ( {} ) Is Alredy In Enemy List In {} Location!",
+    "add": "**The User** ( {} ) **Is Added To Enemy List For ( `{}` ) Location!**",
+}
+WHERES = ["All", "Groups", "Pvs", "Here"]
+
+@client.Command(command="AddEnemy ?(.*)?")
 async def addenemy(event):
-    await event.edit(client.get_string("Wait"))
-    event = await client.get_ids(event)
-    if not event.userid:
-        return await event.edit(f"**{client.str} Please Enter Userid Or Username Or Send In Private Chats!**")
-    if not event.userid:
-        event.userid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"addenemy:{event.userid}")
-    await res[0].click(event.chat_id, reply_to=event.id)
+    await event.edit(client.STRINGS["wait"])
+    result, userid = await event.userid(event.pattern_match.group(1))
+    if not result and str(userid) == "Invalid":
+        return await event.edit(client.STRINGS["getid"]["IU"])
+    elif not result and not userid:
+        return await event.edit(client.STRINGS["getid"]["UUP"])
+    chatid = event.chat_id
+    res = await client.inline_query(client.bot.me.username, f"addenemy:{chatid}:{userid}")
+    if event.is_reply:
+        await res[0].click(event.chat_id, reply_to=event.reply_message.id)
+    else:
+        await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemy ?(.*)?$")
+@client.Command(command="DelEnemy ?(.*)?")
 async def delenemy(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     event = await client.get_ids(event)
     Enemies = client.DB.get_key("ENEMIES") or {}
     elist = []
@@ -26,98 +37,38 @@ async def delenemy(event):
         if int(event.userid) == Enemies[enemy]["user_id"]:
             elist.append(Enemies[enemy])
     if not elist:
-        return await event.edit(f"**{client.str} The User** ( {client.mention(info)} ) **Not In Enemy Lists!**")    
+        return await event.edit("**The User** ( {client.mention(info)} ) **Not In Enemy Lists!**")    
     res = await client.inline_query(client.bot.me.username, f"delenemy:{event.userid}")
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Command(pattern=f"(?i)^\{client.cmd}EnemyList$")
+@client.Command(command="EnemyList")
 async def enemylist(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     Enemies = client.DB.get_key("ENEMIES") or {}
     if not Enemies:
-        return await event.edit(f"**{client.str} The Bio List Is Empty!**")
-    text = f"**{client.str} The Enemy List:**\n\n"
+        return await event.edit("**The Bio List Is Empty!**")
+    text = "**The Enemy List:**\n\n"
     row = 1
     for enemy in Enemies:
         text += f"""**{row}-** `{Enemies[enemy]["user_id"]}` - ( `{Enemies[enemy]["type"]}` - `{Enemies[enemy]["where"]}` )\n"""
         row += 1
     await event.edit(text)
 
-@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemyPms (On|off)$")
+@client.Command(command="DelEnemyPms (On|off)")
 async def delenemypm(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).lower()
     client.DB.set_key("ORGENEMY_DELETE", mode)
     change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Delete Original Enemy Messages Mode Has Been {change}!**")
+    await event.edit("**The Delete Original Enemy Messages Mode Has Been {change}!**")
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SetEnemySleep (\d*)$")
+@client.Command(command="SetEnemySleep (\d*)")
 async def setenemysleep(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ORGENEMY_SLEEP", str(sleep))
-    await event.edit(f"**{client.str} The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
-
-@client.Command(pattern=f"(?i)^\{client.cmd}DelEnemyFriendPms (On|off)$")
-async def delenemypm(event):
-    await event.edit(client.get_string("Wait"))
-    mode = event.pattern_match.group(1).lower()
-    client.DB.set_key("FRIENDENEMY_DELETE", mode)
-    change = client.get_string("Change_1") if mode == "on" else client.get_string("Change_2")
-    await event.edit(f"**{client.str} The Delete Friend Enemy Messages Mode Has Been {change}!**")
-
-@client.Command(pattern=f"(?i)^\{client.cmd}SetEnemyFriendSleep (\d*)$")
-async def setenemysleep(event):
-    await event.edit(client.get_string("Wait"))
-    sleep = event.pattern_match.group(1)
-    client.DB.set_key("FRIENDENEMY_SLEEP", str(sleep))
-    await event.edit(f"**{client.str} The Friend Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
-
-@client.Command(pattern=f"(?i)^\{client.cmd}AddFosh(F)?$")
-async def savefoshfile(event):
-    await event.edit(client.get_string("Wait"))
-    if not event.reply_message or not event.reply_message.media:
-        return await event.edit(f"**{client.str} Please Reply To Foshs File!**")
-    if not client.backch:
-        return await event.edit(f"**{client.str} The BackUp Channel Is Not Added!**")
-    try:
-        forward = await event.reply_message.forward_to(int(client.backch))
-    except:
-        return await event.edit(f"**{client.str} The BackUp Channel Is Not Available!**")
-    if event.text.endswith("F") or event.text.endswith("f"):
-        client.DB.set_key("FEIENDFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
-        await event.edit(f"**{client.str} The Frind Enemy Foshs File Has Been Saved!**")  
-    else:
-        client.DB.set_key("ORGFOSHS_FILE", {"chat_id": client.backch, "msg_id": forward.id})
-        await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Saved!**")  
-
-@client.Command(pattern=f"(?i)^\{client.cmd}DelFosh(F)?$")
-async def delfoshfile(event):
-    await event.edit(client.get_string("Wait"))
-    if event.text.endswith("F") or event.text.endswith("f"):
-        client.DB.del_key("FEIENDFOSHS_FILE")
-        await event.edit(f"**{client.str} The Frind Enemy Foshs File Has Been Deleted!**")  
-    else:
-        client.DB.del_key("ORGFOSHS_FILE")
-        await event.edit(f"**{client.str} The Original Enemy Foshs File Has Been Deleted!**")  
-
-@client.Command(pattern=f"(?i)^\{client.cmd}GetFosh(F)?$")
-async def getfoshfile(event):
-    await event.edit(client.get_string("Wait"))
-    if event.text.endswith("F") or event.text.endswith("f"):
-        foshs = client.DB.get_key("FRINEDFOSHS_FILE")
-        if not foshs:
-            return await event.edit(f"**{client.str} The Frind Enemy Foshs File Is Not Saved!**")
-        file = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-        await event.respond(f"**{client.str} Friend Foshs File!**", file=file)
-    else:
-        foshs = client.DB.get_key("ORGFOSHS_FILE")
-        if not foshs:
-            return await event.edit(f"**{client.str} The Original Enemy Foshs File Is Not Saved!**")
-        file = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-        await event.respond(f"**{client.str} Original Foshs File!**", file=file)
-    client.loop.create_task(down_foshs())
+    await event.edit("**The Original Enemy Sleep Has Been Set To {client.utils.convert_time(int(sleep))}!**")
 
 @client.Command(sudo=False, edits=False)
 async def quicksupdate(event):
@@ -164,46 +115,44 @@ async def quicksupdate(event):
             await event.reply(str(e))
             continue
 
-@client.Inline(pattern="addenemy\:(.*)")
+@client.Inline(pattern="addenemy\:(.*)\:(.*)")
 async def inlineenemy(event):
-    userid = event.pattern_match.group(1)
-    text = f"**{client.str} Please Select Type Of This Enemy To Be Saved:**"
-    buttons = [[Button.inline("• Orginal Enemy •", data=f"addenemy:{userid}:Original"), Button.inline("• Friend Enemy •", data=f"addenemy:{userid}:Friend")]]
-    buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Enemy", text=text, buttons=buttons)])
+    chatid = int(event.pattern_match.group(1))
+    userid = int(event.pattern_match.group(2))
+    text = STRINGS["where"]
+    buttons = []
+    for where in WHERES:
+        where = where if where != "Here" else "CHAT-" + str(chatid)
+        buttons.append(Button.inline("• All •", data=f"addenemy:{chatid}:{userid}:{where}"))
+    buttons = list(client.functions.chunks(buttons, 3))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
+    await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
 
-@client.Callback(data="addenemy\:(.*)")
+@client.Callback(data="addenemy\:(.*)\:(.*)\:(.*)")
 async def addenemies(event):
-    data = str(event.data_match.group(1).decode('utf-8')).split(":")
-    userid = int(data[0])
+    chatid = int(event.data_match.group(1).decode('utf-8'))
+    userid = int(event.data_match.group(2).decode('utf-8'))
+    where = event.data_match.group(3).decode('utf-8')
     userinfo = await client.get_entity(userid)
-    type = data[1]
     Enemies = client.DB.get_key("ENEMIES") or {}
-    if len(data) == 2:
-        text = f"**{client.str} Please Select You Want This Enemy User To Be Saved For Where:**"
-        buttons = [[Button.inline("• All •", data=f"addenemy:{userid}:{type}:All"), Button.inline("• Groups •", data=f"addenemy:{userid}:{type}:Groups"), Button.inline("• Privates •", data=f"addenemy:{userid}:{type}:Privates"), Button.inline("• Here •", data=f"addenemy:{userid}:{type}:chat{event.chat_id}")]]
-        buttons.append([Button.inline("🚫 Close 🚫", data="closeenemy")])
-        await event.edit(text=text, buttons=buttons)
-    else:
-        where = data[2]
-        for enemy in Enemies:
-            if Enemies[enemy]["user_id"] == userid and Enemies[enemy]["type"] == type and Enemies[enemy]["where"] == where:
-                return await event.answer(f"{client.str} The User ( {userinfo.first_name} ) Is Alredy In {type} Enemy List In {where} Location!", alert=True)
-        rand = random.randint(11111111, 99999999)
-        Enemies.update({f"Enemy-{rand}": {"user_id": userid, "type": type, "where": where}})
-        client.DB.set_key("ENEMIES", Enemies)
-        await event.edit(text=f"**{client.str} The User** ( {client.mention(userinfo)} ) **Is Added To {type} Enemy List For {where} Location!**")
+    if userid in Enemies[where]:
+        text = STRINGS["notall"].format(userinfo.first_name, where)
+        return await event.answer(text, alert=True)
+    Enemies[where].append(userid)
+    client.DB.set_key("ENEMIES", Enemies)
+    text = STRINGS["add"].format(client.mention(userinfo), where)
+    await event.edit(text=text)
 
 @client.Inline(pattern="delenemy\:(.*)")
 async def delenemyinline(event):
     cmd = str(event.pattern_match.group(1))
-    text = f"**{client.str} Please Choose From Which List You Want This Enemy User To Be Deleted:**"
+    text = "**Please Choose From Which List You Want This Enemy User To Be Deleted:**"
     Enemies = client.DB.get_key("ENEMIES") or {}
     buttons = []
     for enemy in Enemies:
         info = Enemies[enemy]
         buttons.append([Button.inline(f"""( {info["where"].replace("chat", "")} ) - ( {info["type"]} )""", data=f"delenemydel:{enemy}")])
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Del Enemy", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - Del Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="delenemydel\:(.*)")
 async def delenemies(event):
@@ -216,4 +165,4 @@ async def delenemies(event):
 
 @client.Callback(data="closeenemy")
 async def closeenemy(event):
-    await event.edit(text=f"**{client.str} The Enemy Panel Successfuly Closed!**")
+    await event.edit(text="**The Enemy Panel Successfuly Closed!**")
