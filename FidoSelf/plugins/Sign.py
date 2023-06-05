@@ -1,6 +1,18 @@
 SIGN_MODE
 from FidoSelf import client
 
+STRINGS = {
+    "set": "**The Sign Text Was Set To** ( `{}` )",
+}
+
+@client.Command(command="SetSign ([\s\S]*)")
+async def setsign(event):
+    await event.edit(client.STRINGS["wait"])
+    stext = event.pattern_match.group(1)
+    client.DB.set_key("SIGN_TEXT", stext)
+    text = STRINGS["set"].format(stext)
+    await event.edit(text)
+
 @client.Command(alowedits=False)
 async def sign(event):
     if event.checkCmd(): return
