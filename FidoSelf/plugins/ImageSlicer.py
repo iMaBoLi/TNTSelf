@@ -17,7 +17,7 @@ async def sliceimage(event):
         rtype = medias[mtype]
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
-    photo = await event.reply_message.download_media("SliceImage.jpg")
+    photo = await event.reply_message.download_media(client.PATH)
     tiles = image_slicer.slice(photo, int(tile))
     photos = [str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
     text = STRINGS["slice"].format(len(photos))
