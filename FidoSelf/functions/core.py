@@ -37,7 +37,7 @@ async def DownloadFiles():
     if photos:
         for photo in photos:
             try:
-                get = await client.get_messages(int(photos[photo]["chat_id"]), ids=int(PHOTOS[photo]["msg_id"]))
+                get = await client.get_messages(int(photo["chat_id"]), ids=int(photo["msg_id"]))
                 await get.download_media(client.PATH + photo)
             except:
                 pass
