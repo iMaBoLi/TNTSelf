@@ -26,7 +26,7 @@ async def videoshot(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(progress_callback=callback)
+    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     duration = event.reply_message.file.duration
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
@@ -38,7 +38,7 @@ async def videoshot(event):
         lastdur = 0
         await event.edit(STRINGS["taking"].format(count))
         for con in range(count):
-            out = f"Shot-{con}.jpg"
+            out = client.PATH + f"Shot-{con}.jpg"
             cmd = f"ffmpeg -i {file} -ss {lastdur} -vframes 1 {out}"
             await client.functions.runcmd(cmd)
             files.append(out)
@@ -57,7 +57,7 @@ async def videoshot(event):
         if int(data) > duration:
             data = duration - 1
         await event.edit(STRINGS["takingdur"].format(data))
-        out = f"Shot-{data}.jpg"
+        out = client.PATH + f"Shot-{data}.jpg"
         cmd = f"ffmpeg -i {file} -ss {int(data)} -vframes 1 {out}"
         await client.functions.runcmd(cmd)
         caption = STRINGS["takeddur"].format(str(data))
