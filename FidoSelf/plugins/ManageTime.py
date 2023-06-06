@@ -39,6 +39,7 @@ async def photochanger():
     phmode = client.DB.get_key("PHOTO_MODE") or "off"
     if phmode == "on" and PHOTOS and TEXTS and FONTS:
         PHOTO = random.choice(list(PHOTOS.keys()))
+        FPHOTO = client.PATH + PHOTO
         phinfo = PHOTOS[PHOTO]
         TEXT = await client.AddVars(random.choice(TEXTS))
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
@@ -47,7 +48,7 @@ async def photochanger():
         if COLOR == "random":
             COLOR = random.choice(COLORS)
         COLOR = ImageColor.getrgb(COLOR)
-        img = Image.open(PHOTO)
+        img = Image.open(FPHOTO)
         img = img.resize((640, 640))
         width, height = img.size
         ffont = phinfo["font"]
@@ -74,14 +75,14 @@ async def photochanger():
         elif phinfo["where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
         draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["align"]))
-        img.save("NEWPROFILE.jpg")
+        img.save(client.PATH + "NEWPROFILE.jpg")
         try:
-            phfile = await client.upload_file("NEWPROFILE.jpg")
+            phfile = await client.upload_file(client.PATH + "NEWPROFILE.jpg")
             await client(functions.photos.UploadProfilePhotoRequest(file=phfile))
             pphoto = (await client.get_profile_photos("me"))[1]
             await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
         except:
             pass
-        os.remove("NEWPROFILE.jpg")
-        os.remove(PHOTO)
+        os.remove(client.PATH + "NEWPROFILE.jpg")
+        os.remove(FPHOTO)
         os.remove(ffont)
