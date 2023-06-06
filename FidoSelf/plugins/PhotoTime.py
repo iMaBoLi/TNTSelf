@@ -37,6 +37,8 @@ async def addphoto(event):
         return await event.edit(STRINGS["nall"].format(phname))
     info = await event.reply_message.save()
     photos.update({phname: info})
+    get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
+    fphoto = await get.download_media(client.PATH)
     client.DB.set_key("PHOTOS", photos)
     res = await client.inline_query(client.bot.me.username, f"addphoto:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
@@ -61,8 +63,7 @@ async def getphoto(event):
     if phname not in photos:
         return await event.edit(STRINGS["nin"].format(phname))
     photo = photos[phname]
-    get = await client.get_messages(photo["chat_id"], ids=int(photo["msg_id"]))
-    fphoto = await get.download_media()
+    fphoto = client.PATH + phname
     caption = STRINGS["get"].format(phname, photo["where"], photo["size"].title(), photo["color"].title(), photo["font"].title(), photo["align"].title())
     await event.respond(caption=caption, file=fphoto)
     await event.delete()
