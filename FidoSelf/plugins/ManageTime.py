@@ -54,6 +54,7 @@ async def photochanger():
         ffont = phinfo["font"]
         if ffont == "random":
             ffont = random.choice(list(FONTS.keys()))
+        ffont = client.PATH + ffont
         FONT = ImageFont.truetype(ffont, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
