@@ -34,7 +34,7 @@ async def savefontfile(event):
         return await event.edit(STRINGS["ttf"])
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-    await get.download_media(fname + ".ttf")
+    await get.download_media(client.PATH + fname + ".ttf")
     fonts.update({fname + ".ttf": info})
     client.DB.set_key("FONTS", fonts)
     await event.edit(STRINGS["newadd"].format(fname + ".ttf"))
