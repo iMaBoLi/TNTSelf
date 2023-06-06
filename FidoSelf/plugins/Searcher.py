@@ -1,9 +1,15 @@
 from FidoSelf import client
 from telethon import functions, types
 
-@client.Command(pattern=f"(?i)^\{client.cmd}SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?$")
+STRINGS = {
+    "result": "**Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n",
+    "click": "Click Here!",
+    "not": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
+}
+
+@client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
 async def searcher(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
@@ -16,15 +22,14 @@ async def searcher(event):
         "Url": types.InputMessagesFilterUrl,
     }
     filter = event.pattern_match.group(1).title()
-    infilter = client.get_string("FilterType")[filter]
-    filter = filters[filter]
-    text = client.get_string("Searcher_1").format((query or "---"), infilter)
+    addfilter = filters[filter]
+    text = STRINGS["result"].format((query or "---"), filter)
     count = 1
     async for message in client.iter_messages(event.chat_id, search=query, filter=filter, limit=40):
         link = await client(functions.channels.ExportMessageLinkRequest(channel=event.chat_id, id=message.id, thread=True))
-        name = client.get_string("Searcher_2")
+        name = STRINGS["click"]
         text += f"**{count} -** [{name}]({link.link})\n"
         count += 1
     if count < 2:
-        text = client.get_string("Searcher_3").format((query or "---"), infilter)
+        text = STRINGS["not"].format((query or "---"), filter)
     await event.edit(text)
