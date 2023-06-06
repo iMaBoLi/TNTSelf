@@ -19,9 +19,9 @@ async def exaudio(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    video = await event.reply_message.download_media(progress_callback=callback)
+    video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(STRINGS["exing"])
-    newfile = f"EcAudio-{video}.mp3"
+    newfile = client.PATH + f"ExAudio-{video}.mp3"
     cmd = f"ffmpeg -i {video} -map 0:a {newfile}"
     callback = event.progress(upload=True)
     caption = STRINGS["exed"]
