@@ -22,7 +22,7 @@ async def get_manage_buttons(userid):
     buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"getinfo:{userid}")])
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
-    smode = MANAGES["INFO"]["UNBLOCK"] if info.blocked else MANAGES["INFO"]["BLOCK"]
+    smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{userid}")])
     obuts = []
