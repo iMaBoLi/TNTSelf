@@ -68,7 +68,7 @@ async def ocrapi(event):
         return await event.edit(STRINGS["notsave"])
     if not lang in LANGS:
         return await event.edit(STRINGS["notlang"])
-    photo = await event.reply_message.download_media()
+    photo = await event.reply_message.download_media(client.PATH)
     stat, res = ocr_file(photo, lang)
     if not stat:
         text = STRINGS["notcom"].format(res)
