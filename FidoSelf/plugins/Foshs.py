@@ -39,7 +39,7 @@ async def getfoshfile(event):
     foshs = client.DB.get_key("FOSHS_FILE")
     if not foshs:
         return await event.edit(STRINGS["nsave"])
-    file = client.PATH + foshs
+    file = client.PATH + "FOSHS.txt"
     lines = len(open(file, "r").readlines())
     await event.respond(STRINGS["file"].format(lines), file=file)
     os.remove(file)
