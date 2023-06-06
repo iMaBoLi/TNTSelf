@@ -20,7 +20,7 @@ async def setcover(event):
         return await event.edit(text)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-    await get.download_media("Cover.png")
+    await get.download_media(client.PATH + "Cover.png")
     client.DB.set_key("FILE_COVER", info)
     await event.edit(STRINGS["save"])  
 
@@ -36,11 +36,11 @@ async def addcover(event):
         return await event.edit(text)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
-    cover = "Cover.png"
+    cover = client.PATH + "Cover.png"
     if not os.path.exists(cover):
         return await event.edit(STRINGS["notsave"])
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(progress_callback=callback)
+    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(STRINGS["adding"])
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, thumb=cover, caption=STRINGS["added"], progress_callback=callback)
