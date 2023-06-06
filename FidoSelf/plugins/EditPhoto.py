@@ -32,8 +32,8 @@ async def editphoto(event):
         rtype = medias[mtype]
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
-    photo = await event.reply_message.download_media()
-    newfile = f"EditPhoto-{str(mode)}.jpg"
+    photo = await event.reply_message.download_media(client.PATH)
+    newfile = client.PATH + f"EditPhoto-{str(mode)}.jpg"
     if mode == "Bw":
         img = Image.open(photo)
         newimg = img.convert("1")
