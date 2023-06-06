@@ -65,7 +65,7 @@ async def getphoto(event):
     photo = photos[phname]
     fphoto = client.PATH + phname
     caption = STRINGS["get"].format(phname, photo["where"], photo["size"].title(), photo["color"].title(), photo["font"].title(), photo["align"].title())
-    await event.respond(caption=caption, file=fphoto)
+    await event.respond(caption, file=fphoto)
     await event.delete()
     os.remove(fphoto)
 
