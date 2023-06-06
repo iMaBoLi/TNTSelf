@@ -15,8 +15,8 @@ async def spconverter(event):
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
     if mode == "Photo" and mtype in ["Sticker"]:
-        sticker = await event.reply_message.download_media()
-        newfile = "StickerToPhoto.jpg"
+        sticker = await event.reply_message.download_media(client.PATH)
+        newfile = client.PATH + "StickerToPhoto.jpg"
         img = Image.open(sticker)
         img.save(newfile, format="jpeg")  
         await client.send_file(event.chat_id, newfile)
@@ -24,8 +24,8 @@ async def spconverter(event):
         os.remove(newfile)
         await event.delete()
     elif mode == "Sticker" and mtype in ["Photo"]:
-        photo = await event.reply_message.download_media()
-        newfile = "PhotoToSticker.webp"
+        photo = await event.reply_message.download_media(client.PATH)
+        newfile = client.PATH + "PhotoToSticker.webp"
         img = Image.open(photo)
         img.save(newfile, format="webp")  
         await client.send_file(event.chat_id, newfile)
