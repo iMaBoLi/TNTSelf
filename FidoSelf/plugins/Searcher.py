@@ -4,7 +4,7 @@ from telethon import functions, types
 STRINGS = {
     "result": "**Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n",
     "click": "Click Here!",
-    "not": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
+    "not": "**No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
 }
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
