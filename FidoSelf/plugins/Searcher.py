@@ -2,9 +2,9 @@ from FidoSelf import client
 from telethon import functions, types
 
 STRINGS = {
-    "result": "**Search Result Messages For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )\n\n",
+    "result": "**Search Result Messages For Text:** ( `{}` )\n**Filter:** ( `{}` )\n\n",
     "click": "Click Here!",
-    "not": "**No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )",
+    "not": "**No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )",
 }
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
