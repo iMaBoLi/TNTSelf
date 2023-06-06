@@ -85,5 +85,3 @@ async def photochanger():
         except:
             pass
         os.remove(client.PATH + "NEWPROFILE.jpg")
-        os.remove(FPHOTO)
-        os.remove(ffont)
