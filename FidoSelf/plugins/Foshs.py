@@ -23,7 +23,7 @@ async def savefoshfile(event):
         return await event.edit(STRINGS["txt"])
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-    await get.download_media("FOSHS.txt")
+    await get.download_media(client.PATH + "FOSHS.txt")
     client.DB.set_key("FOSHS_FILE", info)
     await event.edit(STRINGS["save"])
 
@@ -39,8 +39,7 @@ async def getfoshfile(event):
     foshs = client.DB.get_key("FOSHS_FILE")
     if not foshs:
         return await event.edit(STRINGS["nsave"])
-    get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-    file = await get.download_media()
-    lines = len(open(file, "r").read_lines())
+    file = client.PATH + foshs
+    lines = len(open(file, "r").readlines())
     await event.respond(STRINGS["file"].format(lines), file=file)
     os.remove(file)
