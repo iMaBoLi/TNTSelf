@@ -10,4 +10,6 @@ RUN pip3 install -U pip
 RUN pip3 install -U -r requirements.txt
 RUN pip3 install -U -r other-requirements.txt
 
+EXPOSE 5000
+
 CMD ["python3", "-m", "FidoSelf"]
