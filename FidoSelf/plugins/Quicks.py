@@ -366,7 +366,7 @@ async def listquicks(event):
         where = STRINGS["chType"][info["where"]]
     type = STRINGS["inlineQuicks"][info["type"]]
     anss = info["answers"]
-    if anss.startswith("QuickMedia"):
+    if info["type"] == "Media":
         anss = STRINGS["inlineQuicks"]["Media"]
     text = STRINGS["get"].format(info["cmd"], anss, whom, where, type, client.STRINGS["inline"][info["find"]], (client.functions.convert_time(info["sleep"])))
     buttons = [[Button.inline(STRINGS["inlineQuicks"]["Delete"], data=f"dquickdel:{quick}"), Button.inline(STRINGS["inlineQuicks"]["Back"], data=f"quicklistpage:{page}")]]
