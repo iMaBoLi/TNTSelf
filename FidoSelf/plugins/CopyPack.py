@@ -33,18 +33,26 @@ async def copypack(event):
         )
     )
     stickers = stickers.documents
+    anim = True if mtype == "ASticker" else False
     stiks = []
     for sticker in stickers:
-        doc = utils.get_input_document(sticker)
-        stiks.append(
-            types.InputStickerSetItem(
-                document=doc,
-                emoji=event.reply_message.document.attributes[-2].alt,
+        if anim:
+            stiks.append(
+                types.InputStickerSetItem(
+                    document=sticker,
+                    emoji=event.reply_message.document.attributes[-2].alt,
+                )
             )
-        )
+        else:
+            doc = utils.get_input_document(sticker)
+            stiks.append(
+                types.InputStickerSetItem(
+                    document=doc,
+                    emoji=event.reply_message.document.attributes[-2].alt,
+                )
+            )
     short_name = packname.replace(" ", "_")
     short_name = f"{short_name}_by_{client.bot.me.username}"
-    anim = True if mtype == "ASticker" else False
     await event.edit(STRINGS["creating"].format(packtitle))
     try:
         result = await client.bot(
@@ -74,3 +82,4 @@ async def copypack(event):
     link = f"https://t.me/addstickers/{short_name}"
     text = STRINGS["created"].format(packtitle, link, len(stiks))
     await event.edit(text)
+
