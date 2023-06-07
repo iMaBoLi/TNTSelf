@@ -43,7 +43,7 @@ async def copypack(event):
         )
     short_name = packname.replace(" ", "_")
     short_name = f"{short_name}_by_{client.bot.me.username}"
-    anim = True if event.reply_message.document.mime_type in ["image/webp"] else False
+    anim = True if mtype == "Sticker" else False
     await event.edit(STRINGS["creating"].format(packtitle))
     try:
         result = await client.bot(
