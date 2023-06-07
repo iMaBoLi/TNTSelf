@@ -113,9 +113,9 @@ async def quicklist(event):
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
-@client.Command(sudo=False, edits=False)
+@client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
-    if event.is_cmd or not event.text: return
+    if event.checkCmd() or not event.text: return
     mode = client.DB.get_key("QUICKS_MODE") or "off"
     if mode == "off": return
     quicks = client.DB.get_key("QUICKS") or {}
@@ -131,7 +131,7 @@ async def quicksupdate(event):
             if info["where"] == "Privates" and not event.is_private: continue
             if info["where"].startswith("chat") and not event.chat_id == int(info["where"].replace("chat", "")): continue
         try:
-            lastanswers = await client.vars(str(info["answers"]), event)
+            lastanswers = await client.AddVars(str(info["answers"]), event)
             answers = lastanswers.split(",")
             if info["type"] == "Normal":
                 await event.reply(lastanswers)
@@ -159,7 +159,7 @@ async def quicksupdate(event):
                 continue
             elif info["type"] == "Media":
                 msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
-                msg.text = await client.vars(str(msg.text), event)
+                msg.text = await client.AddVars(str(msg.text), event)
                 await event.reply(msg)
                 continue
             elif info["type"] == "Draft":
