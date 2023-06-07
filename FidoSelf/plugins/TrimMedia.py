@@ -1,5 +1,4 @@
 from FidoSelf import client
-from moviepy.editor import VideoFileClip
 import os
 import time
 
@@ -33,8 +32,8 @@ async def trimmedia(event):
     if mtype == "Video":
         await event.edit(STRINGS["trvid"].format(ss, ee))
         newfile = client.PATH + f"TrimedVideo-{ss}-{ee}.mp4"
-        clip = VideoFileClip(file).cutout(ss, ee)
-        clip.write_videofile(newfile)
+        cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -codec copy -map 0 "{newfile}" -y'
+        await client.functions.runcmd(cmd)
         callback = event.progress(upload=True)
         caption = STRINGS["trdvid"].format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
