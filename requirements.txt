@@ -10,6 +10,7 @@ somnium
 aiofiles
 setuptools
 PyGithub
+wikipedia
 yt-dlp
 youtube-search-python
 aiocron
