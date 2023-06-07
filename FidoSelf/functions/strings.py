@@ -33,6 +33,8 @@ STRINGS = {
     "inline": {
         "On": "❲ ✔️ ❳",
         "Off": "❲ ✖️ ❳",
+        "Yes": "Yes ✅",
+        "No": "No ❌",
         "Close": "🚫 Close 🚫",
         "Next": "Next ▶️",
         "Back": "◀️ Back",
