@@ -21,8 +21,8 @@ async def exaudio(event):
     callback = event.progress(download=True)
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(STRINGS["exing"])
-    newfile = client.PATH + f"ExAudio-{video}.mp3"
-    cmd = f"ffmpeg -i '{video}' -map 0:a -codec:a libopus -b:a 100k -vbr on {newfile}"
+    newfile = client.PATH + f"ExAudio-{video}.acc"
+    cmd = f"ffmpeg -i {video} -vn -acodec copy {newfile}"
     callback = event.progress(upload=True)
     caption = STRINGS["exed"]
     await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
