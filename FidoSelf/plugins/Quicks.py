@@ -48,10 +48,8 @@ async def addquick(event):
     cmd = event.pattern_match.group(1)
     answers = event.pattern_match.group(2)
     quicks = client.DB.get_key("INQUICKS") or {}
-    rand = random.randint(11111111, 99999999)
-    replyuser = None
-    if event.is_reply:
-        replyuser = event.reply_message.sender_id
+    rand = random.randint(111111111, 999999999)
+    replyuser = event.reply_message.sender_id if event.is_reply else None
     if not answers:
         if not event.is_reply:
             return await event.edit(STRINGS["notans"])
@@ -158,7 +156,8 @@ async def quicksupdate(event):
                     await asyncio.sleep(int(info["sleep"]))
                 continue
             elif info["type"] == "Media":
-                msg = await client.get_messages(int(info["answers"].split(":")[1]), ids=int(info["answers"].split(":")[2]))
+                media = info["answers"]
+                msg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
                 msg.text = await client.AddVars(str(msg.text), event)
                 await event.reply(msg)
                 continue
