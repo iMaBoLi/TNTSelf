@@ -67,7 +67,7 @@ async def addquick(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Command(command="Quick ([\s\S]*)")
+@client.Command(command="DelQuick ([\s\S]*)")
 async def delquick(event):
     await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)
