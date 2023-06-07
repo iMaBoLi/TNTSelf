@@ -178,7 +178,7 @@ async def inlinequicks(event):
         user = quicks[quick]["reply"]
         buttons.append([Button.inline(f'• {STRINGS["inlineQuicks"]["ReplyUser"]} •', data=f"wherequick:{quick}:user{user}")])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"closequick:{quick}")])
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Add Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - Add Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="(.*)quick\:(.*)")
 async def callbackquicks(event):
@@ -281,7 +281,7 @@ async def inlinequicks(event):
             where = STRINGS["chType"][info["where"]]
         type = STRINGS["inlineQuicks"][info["type"]]
         buttons.append([Button.inline(f"""( {whom} ) - ( {where} ) - ( {type} )""", data=f"dquickdel:{quick}")])
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Del Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - Del Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="dquickdel\:(.*)")
 async def delquicks(event):
@@ -321,7 +321,7 @@ async def inlinequicklist(event):
         buttons.append([Button.inline(f"""•[ {info["cmd"]} ]• ( {whom} ) - ( {where} ) - ( {type} )""", data=f"viwequick:{quick}:1")])
     if len(quicks) > 10:
         buttons.append([Button.inline(client.STRINGS["inline"]["Next"], data=f"quicklistpage:2")])
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - List Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("FidoSelf - List Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="quicklistpage\:(.*)")
 async def listquicks(event):
