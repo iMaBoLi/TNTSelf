@@ -8,7 +8,7 @@ __version__ = "1.5.6"
 
 LOGS = getLogger("FidoSelf")
 basicConfig(
-    format="%(asctime)s | %(name)s [%(levelname)s] : %(message)s",
+    format="%(asctime)s | %(name)s [%(funcName)s] : %(message)s",
     level=INFO,
     datefmt="%H:%M:%S",
     handlers=[FileHandler("Fido.log"), StreamHandler()],
