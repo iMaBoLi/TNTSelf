@@ -14,6 +14,7 @@ async def copypack(event):
     await event.edit(client.STRINGS["wait"])
     packtitle = event.pattern_match.group(1)
     packname = event.pattern_match.group(2)
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Sticker", "ASticker"]:
         medias = client.STRINGS["replyMedia"]
         media = medias["Sticker"] + " - " + medias["ASticker"]
