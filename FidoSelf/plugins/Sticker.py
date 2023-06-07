@@ -22,7 +22,7 @@ async def Spack(event):
         stiks.append(
             types.InputStickerSetItem(
                 document=doc,
-                emoji=sticker.attributes[1]).alt,
+                emoji=reply.document.attributes[-2].alt,
         )
     short_name = packname.replace(" ", "_")
     short_name = f"{short_name}_by_{client.bot.me.username}"
