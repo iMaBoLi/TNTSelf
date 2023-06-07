@@ -57,7 +57,7 @@ async def inlinemanagepanel(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
     text = STRINGS["menu"]
-    buttons = await get_manage_buttons(userid, chatid})
+    buttons = await get_manage_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
 @client.Callback(data="setuser\:(.*)\:(.*)\:(.*)\:(.*)")
