@@ -59,7 +59,7 @@ async def copypack(event):
     except PackShortNameOccupiedError:
         return await event.edit(STRINGS["notall"].format(packname))
     id = result.set.id
-    id = result.set.access_hash
+    access_hash = result.set.access_hash
     await event.edit(STRINGS["adding"].format(packtitle))
     for sticker in stiks[10:]:
         result = await client.bot(
