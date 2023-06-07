@@ -112,7 +112,7 @@ def mediatype(event):
     elif event.sticker:
         if event.file.mime_type == "image/webp":
             type = "Sticker"
-        elif event.file.mime_type == "application/x-tgsticker":
+        elif event.file.mime_type in ["application/x-tgsticker", "video/webm"]:
             type = "ASticker"
     elif event.document:
         type = "File"
