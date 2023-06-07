@@ -1,0 +1,5 @@
+pip3 install --upgrade pip
+pip3 install -U -r requirements.txt
+RUN pip3 install -U -r other-requirements.txt
+
+python3 -m FidoSelf
