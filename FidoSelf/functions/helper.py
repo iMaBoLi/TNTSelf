@@ -103,6 +103,8 @@ def mediatype(event):
             type = "VideoNote"
         elif event.gif or event.file.mime_type == "image/gif":
             type = "Gif"
+        elif event.file.mime_type == "video/webm":
+            type = "ASticker"
         else:
             type = "Video"
     elif event.voice:
@@ -112,7 +114,7 @@ def mediatype(event):
     elif event.sticker:
         if event.file.mime_type == "image/webp":
             type = "Sticker"
-        elif event.file.mime_type in ["application/x-tgsticker", "video/webm"]:
+        elif event.file.mime_type == "application/x-tgsticker":
             type = "ASticker"
     elif event.document:
         type = "File"
