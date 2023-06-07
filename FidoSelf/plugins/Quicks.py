@@ -192,7 +192,7 @@ async def callbackquicks(event):
     if work == "where":
         whom = data[1]
         text = STRINGS["where"]
-        if anstype == "Media:
+        if anstype == "Media":
             buttons = [[Button.inline("• All •", data=f"findquick:{quick}:{whom}:All:Media"), Button.inline("• Groups •", data=f"findquick:{quick}:{whom}:Groups:Media"), Button.inline("• Pv •", data=f"findquick:{quick}:{whom}:Privates:Media"), Button.inline("• Here •", data=f"findquick:{quick}:{whom}:chat{event.chat_id}:Media")]]
             buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"closequick:{quick}")])
         else:
