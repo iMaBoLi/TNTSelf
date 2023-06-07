@@ -9,7 +9,7 @@ async def videoconvert(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
     mtype = client.functions.mediatype(event.reply_message)
-    if mtype in ["Video", "VideoNote", "Gif"]
+    if mtype in ["Video", "VideoNote", "Gif"]:
         if event.reply_message.file.size > client.MAX_SIZE:
             return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     if mode == "Normal" and mtype in ["VideoNote", "Gif"]:
