@@ -3,44 +3,49 @@ from moviepy.editor import VideoFileClip
 import os
 import time
 
-@client.Command(pattern=f"(?i)^\{client.cmd}STrim (\d*)\-(\d*)$")
+STRINGS = {
+    "trvid": "**Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
+    "trdvid": "**The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
+    "traud": "**Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
+    "trdaud": "**The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
+}
+
+@client.Command(command="STrim (\d*)\-(\d*)")
 async def trimmedia(event):
-    await event.edit(client.get_string("Wait"))
+    await event.edit(client.STRINGS["wait"])
     ss = int(event.pattern_match.group(1))
     ee = int(event.pattern_match.group(2))
-    mtype = client.mediatype(event.reply_message)
+    mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Video", "Music"]:
-        medias = client.get_string("ReplyMedia")
+        medias = client.STRINGS["replyMedia"]
         media = medias["Video"] + " - " + medias["Music"]
         rtype = medias[mtype]
-        if mtype == "Empty":
-            return await event.edit(client.get_string("ReplyMedia_Not").format(media))
-        return await event.edit(client.get_string("ReplyMedia_Main").format(rtype, media))
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.get_string("LargeSize").format(client.utils.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(progress_callback=callback)
+    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     if ee > event.reply_message.file.duration:
         ee = event.reply_message.file.duration
     if ss >= ee:
         ss = ee - event.reply_message.file.duration 
     if mtype == "Video":
-        await event.edit(client.get_string("TrimMedia_1").format(ss, ee))
-        newfile = f"TrimedVideo-{ss}-{ee}.mp4"
+        await event.edit(STRINGS["trvid"].format(ss, ee))
+        newfile = client.PATH + f"TrimedVideo-{ss}-{ee}.mp4"
         clip = VideoFileClip(file).cutout(ss, ee)
         clip.write_videofile(newfile)
         callback = event.progress(upload=True)
-        caption = client.get_string("TrimMedia_2").format(ss, ee)
+        caption = STRINGS["trdvid"].format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
-        os.remove(newfile)
     elif mtype == "Music":
-        await event.edit(client.get_string("TrimMedia_3").format(ss, ee))
-        newfile = f"TrimedAudio-{ss}-{ee}.mp3"
+        await event.edit(STRINGS["traud"].format(ss, ee))
+        newfile = client.PATH + f"TrimedAudio-{ss}-{ee}.mp3"
         cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -vn -acodec copy "{newfile}" -y'
-        await client.utils.runcmd(cmd)
+        await client.functions.runcmd(cmd)
         callback = event.progress(upload=True)
-        caption = client.get_string("TrimMedia_4").format(ss, ee)
+        caption = STRINGS["trdaud"].format(ss, ee)
         await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
-        os.remove(newfile)
+    os.remove(newfile)
     os.remove(file)
     await event.delete()
