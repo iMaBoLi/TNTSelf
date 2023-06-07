@@ -1,7 +1,0 @@
-{
-    "name": "Fido Self",
-    "description": "Telegram UserBot",
-    "keywords": ["telegram" "userbot", "Fido", "telethon"],
-    "repository": "https://github.com/iMaBoLi/FidoSelf",
-    "stack": "container",
-}
