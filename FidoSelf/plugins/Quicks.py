@@ -56,9 +56,9 @@ async def addquick(event):
         if not event.is_reply:
             return await event.edit(STRINGS["notans"])
         info = await event.reply_message.save()
-        quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": "QuickMedia:" + str(client.backch) + ":" + str(forward.id), "reply": replyuser}})
+        quicks.update({"quick-" + str(rand): {"cmd": cmd, "anstype": "Media", "answers": info, "reply": replyuser}})
     else:
-        quicks.update({"quick-" + str(rand): {"cmd": cmd, "answers": answers, "reply": replyuser}})
+        quicks.update({"quick-" + str(rand): {"cmd": cmd, "anstype": "Text", "answers": answers, "reply": replyuser}})
     client.DB.set_key("INQUICKS", quicks)
     res = await client.inline_query(client.bot.me.username, f"addquick:quick-{str(rand)}")
     if replyuser:
@@ -187,11 +187,12 @@ async def callbackquicks(event):
     quick = data[0]
     quicks = client.DB.get_key("INQUICKS") or {}
     cmd = quicks[quick]["cmd"]
+    anstype = quicks[quick]["anstype"]
     answers = quicks[quick]["answers"]
     if work == "where":
         whom = data[1]
         text = STRINGS["where"]
-        if answers.startswith("QuickMedia"):
+        if anstype == "Media:
             buttons = [[Button.inline("• All •", data=f"findquick:{quick}:{whom}:All:Media"), Button.inline("• Groups •", data=f"findquick:{quick}:{whom}:Groups:Media"), Button.inline("• Pv •", data=f"findquick:{quick}:{whom}:Privates:Media"), Button.inline("• Here •", data=f"findquick:{quick}:{whom}:chat{event.chat_id}:Media")]]
             buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"closequick:{quick}")])
         else:
@@ -242,7 +243,7 @@ async def callbackquicks(event):
         allquicks.update({quick: {"cmd": gquick["cmd"],"answers": gquick["answers"],"whom": whom,"where": where,"type": type,"find": find,"sleep": sleep}})
         client.DB.set_key("QUICKS", allquicks)
         anss = gquick["answers"]
-        if anss.startswith("QuickMedia"):
+        if anstype == "Media":
             anss = STRINGS["inlineQuicks"]["Media"]
         if whom.startswith("user"):
             whom = whom.replace("user", "")
