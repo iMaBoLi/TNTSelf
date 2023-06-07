@@ -141,8 +141,8 @@ async def quicksupdate(event):
             elif info["type"] == "Draft":
                 await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=lastanswers))
                 continue
-        except:
-            continue
+        except Exception as error:
+            client.LOGS.error(error)
 
 @client.Inline(pattern="addquick\:(.*)")
 async def inlinequicks(event):
