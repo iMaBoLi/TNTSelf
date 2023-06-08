@@ -10,7 +10,7 @@ STRINGS = {
 
 @client.Command(command="CMusic")
 async def circlemusic(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Music"]:
         medias = client.STRINGS["replyMedia"]
