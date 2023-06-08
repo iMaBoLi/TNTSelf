@@ -5,7 +5,8 @@ import os
 
 STRINGS = {
     "notfind": "**The Cover Photo Is Not Finded!**",
-    "coning": "**The Audio Was Converted To Video!**",
+    "coning": "**Converting Music To Video ...**",
+    "coned": "**The Audio Was Converted To Video!**",
 }
 
 @client.Command(command="CMusic")
@@ -37,9 +38,10 @@ async def circlemusic(event):
     cmd = f'ffmpeg -i "{thumb}" -i "{audio}" -preset ultrafast -c:a libmp3lame -ab 64 {outfile} -y'
     await client.functions.runcmd(cmd)
     duration = event.reply_message.file.duration
-    attributes=[DocumentAttributeVideo(duration=duration, w=512, h=512)]
+    attributes=[DocumentAttributeVideo(duration=duration, w=512, h=512, round_message=True)]
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, outfile, thumb=thumb, attributes=attributes, progress_callback=callback)
+    caption = STRINGS["coned"]
+    await client.send_file(event.chat_id, outfile, caption=caption, thumb=thumb, attributes=attributes, progress_callback=callback)
     os.remove(audio)
     os.remove(thumb)
     os.remove(outfile)
