@@ -3,11 +3,11 @@ import os
 
 STRINGS = {
     "coning": "**Converting To** ( `{}` ) **...**",
-    "caption": "**The Filter** ( `{}` ) **iS Added To Gif!**",
+    "caption": "**The Filter** ( `{}` ) **iS Added To Video!**",
 }
 
-@client.Command(command="SGif (Bw|Inv)")
-async def editgif(event):
+@client.Command(command="SVideo (Bw|Inv)")
+async def editvideo(event):
     await event.edit(client.STRINGS["wait"])
     filter = event.pattern_match.group(1).title()
     mtype = client.functions.mediatype(event.reply_message)
@@ -32,6 +32,6 @@ async def editgif(event):
     await client.functions.runcmd(cmd)
     caption = STRINGS["caption"].format(type)
     await client.send_file(event.chat_id, outfile, caption=caption, supports_streaming=True)
-    os.remove(gif)
+    os.remove(file)
     os.remove(outfile)
     await event.delete()
