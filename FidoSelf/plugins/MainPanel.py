@@ -79,7 +79,10 @@ def get_edit_buttons(chatid, page):
     lastchat = client.DB.get_key("EDITCHATS_MODE") or {}
     buttons = []
     for edit in EDITS:
-        gmode = "off" if chatid in lastchat and lastchat[chatid] == edit else "on"
+        if chatid in lastchat and lastchat[chatid] == edit
+            gmode = "off"
+        else:
+            gmode = "on"
         nmode = client.STRINGS["inline"]["On"] if gmode == "off" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{edit} {nmode}", data=f"seteditchat:{chatid}:{page}:{edit}"))
         name = edit + "All"        
@@ -184,7 +187,7 @@ async def seteditmodechat(event):
     if chatid not in last:
         last.update({chatid: edit})
     last[chatid] = edit
-    client.DB.set_key("EDITALL_MODE", last)
+    client.DB.set_key("EDITCHATS_MODE", last)
     buttons = get_edit_buttons(chatid, page)
     await event.edit(buttons=buttons)
     
