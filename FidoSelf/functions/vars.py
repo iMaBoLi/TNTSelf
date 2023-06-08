@@ -75,9 +75,10 @@ async def get_vars(event):
         Vars.update({"MYFIRSTNAME": me.first_name})
         Vars.update({"MYLASTNAME": me.last_name})
         Vars.update({"MYUSERNAME": me.username})
-        chat = await event.get_chat()
-        Vars.update({"CHATTITLE": chat.title})
-        Vars.update({"CHATUSERNAME": chat.username})
+        if event.is_group:
+            chat = await event.get_chat()
+            Vars.update({"CHATTITLE": chat.title})
+            Vars.update({"CHATUSERNAME": chat.username})
     return Vars
 
 async def add_vars(text, event=None):
