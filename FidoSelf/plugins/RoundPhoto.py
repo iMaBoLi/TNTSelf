@@ -24,8 +24,6 @@ async def roundphoto(event):
     npImage = np.dstack((npImage, npAlpha))
     outfile = client.PATH + "RoundPhoto.webp"
     Image.fromarray(npImage).save(outfile)
-    rgimage = PIL.Image.open(path_to_image)
-    newimage = rgimage.convert("RGB")
     await client.send_file(event.chat_id, outfile, force_document=False)
     await event.delete()
     os.remove(photo)
