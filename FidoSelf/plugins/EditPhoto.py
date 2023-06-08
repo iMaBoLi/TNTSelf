@@ -21,7 +21,7 @@ for mode in MODES:
     Pattern += mode + "|"
 Pattern = Pattern[:-1]
 
-@client.Command(command=f"SF({Pattern})")
+@client.Command(command=f"SPhoto ({Pattern})")
 async def editphoto(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
