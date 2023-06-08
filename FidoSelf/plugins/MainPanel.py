@@ -79,7 +79,7 @@ def get_edit_buttons(chatid, page):
     lastchat = client.DB.get_key("EDITCHATS_MODE") or {}
     buttons = []
     for edit in EDITS:
-        if chatid in lastchat and lastchat[chatid] == edit
+        if chatid in lastchat and lastchat[chatid] == edit:
             gmode = "off"
         else:
             gmode = "on"
