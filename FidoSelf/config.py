@@ -12,8 +12,8 @@ REDIS_URL = "redis-12319.c59.eu-west-1-2.ec2.cloud.redislabs.com:12319"
 REDIS_PASSWORD = "HvKZ7FppsNWScMFwdV07Q24EeNZHezPT"
 
 #Expire
-START_TIME = 
-REMAIN_TIME = 
+START_TIME = 0
+REMAIN_TIME = 0
 
 #Other
 COMMANDS_STARTER = "."
