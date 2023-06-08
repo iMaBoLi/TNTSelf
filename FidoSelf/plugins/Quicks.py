@@ -126,7 +126,7 @@ async def quicksupdate(event):
                 if info["whom"] == "Others":
                     event = await event.reply(answers[0])
                     answers = answers[1:]
-                    if not answers: return
+                    if not answers: continue
                     await asyncio.sleep(int(info["sleep"]))
                 for answer in answers:
                     await event.edit(answer)
