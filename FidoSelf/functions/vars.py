@@ -27,19 +27,15 @@ def create_font(newtime, timefont):
     newtime = str(newtime)
     if str(timefont) == "random2":
         for par in newtime:
-            rfont = random.randint(1, len(FONTS))
-            rfont = list(rfont)
-            for num in [2, 13, 14]:
-                rfont = rfont.remove(num)
+            fonts = [1,3,4,5,6,7,8,9,10,11,12]
+            rfont = random.choice(fonts)
             if par not in [":", "/"]:
                 nfont = FONTS[int(rfont)].split(",")[int(par)]
                 newtime = newtime.replace(par, nfont)
     else:
         if str(timefont) == "random":
-            timefont = random.randint(1, len(FONTS))
-            timefont = list(timefont)
-            for num in [2, 13, 14]:
-                timefont = timefont.remove(num)
+            fonts = [1,3,4,5,6,7,8,9,10,11,12]
+            timefont = random.choice(fonts)
         for par in newtime:
             if par not in [":", "/"]:
                 nfont = FONTS[int(timefont)].split(",")[int(par)]
