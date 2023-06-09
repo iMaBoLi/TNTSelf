@@ -1,3 +1,4 @@
+from FidoSelf import client
 from youtubesearchpython import VideosSearch
 import yt_dlp
 import os
@@ -6,10 +7,22 @@ import re
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
 
-SONG = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail -o './temp/%(title)s.%(ext)s' --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
-THUMB = "yt-dlp --force-ipv4 -o './temp/%(title)s.%(ext)s' --write-thumbnail --skip-download {link}"
-VIDEO = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail -o './temp/%(title)s.%(ext)s' -f 'best[height<=480]' {link}"
+VIDEO = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail -o '{outfile}' -f 'best[height=={quality}}]' {link}"
+SONG = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail -o '{outfile}' --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
+THUMB = "yt-dlp --force-ipv4 -o '{outfile}' --write-thumbnail --skip-download {link}"
 
+async def yt_downloader(link, type, quality=None, outfile):
+    if type == "video":
+        quality = quality if quality else "480"
+        cmd = VIDEO.format(link=link, quality=quality, outfile=outfile)
+        await client.functions.runcmd(cmd)
+        return outfile
+    elif type == "music":
+        quality = quality if quality else "320"
+        cmd = SONG.format(link=link, quality=quality, outfile=outfile)
+        await client.functions.runcmd(cmd)
+        return outfile
+        
 def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
