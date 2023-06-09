@@ -11,14 +11,12 @@ VIDEO = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail 
 SONG = "yt-dlp --force-ipv4 --write-thumbnail --add-metadata --embed-thumbnail -o '{outfile}' --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
 THUMB = "yt-dlp --force-ipv4 -o '{outfile}' --write-thumbnail --skip-download {link}"
 
-async def yt_downloader(link, type, quality=None, outfile):
+async def yt_downloader(link, type, quality, outfile):
     if type == "video":
-        quality = quality if quality else "480"
         cmd = VIDEO.format(link=link, quality=quality, outfile=outfile)
         await client.functions.runcmd(cmd)
         return outfile
     elif type == "music":
-        quality = quality if quality else "320"
         cmd = SONG.format(link=link, quality=quality, outfile=outfile)
         await client.functions.runcmd(cmd)
         return outfile
