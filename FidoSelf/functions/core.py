@@ -15,6 +15,14 @@ def check_cmd(event):
 setattr(Message, "checkCmd", check_cmd)
 
 async def DownloadFiles():
+    data = client.DB.get_key("DATABASE")
+    if data:
+        try:
+            get = await client.get_messages(int(data["chat_id"]), ids=int(data["msg_id"]))
+            await get.download_media("DB.json")
+        except:
+            pass
+
     os.mkdir("downloads")
     
     foshs = client.DB.get_key("FOSHS_FILE")
