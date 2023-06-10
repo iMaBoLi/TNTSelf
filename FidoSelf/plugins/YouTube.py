@@ -11,7 +11,7 @@ async def ytdownload(event):
     info = await yt_downloader(link, type, quality)
     attributes = [types.DocumentAttributeVideo(duration=int(info["duration"]), w=720, h=720, supports_streaming=True)]
     media = types.InputMediaUploadedDocument(
-        file=inf["OUTFILE"],
+        file=info["OUTFILE"],
         mime_type="video/mp4",
         attributes=attributes,
     )
