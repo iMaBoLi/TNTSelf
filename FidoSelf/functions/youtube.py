@@ -33,5 +33,6 @@ def get_videoid(url):
     
 def convert_thumb(file):
     img = Image.open(file + ".webp")
-    img.save(file + ".jpg", format="jpeg")  
+    img.save(file + ".jpg", format="jpeg")
+    os.remove(file + ".webp")
     return file + ".jpg"
