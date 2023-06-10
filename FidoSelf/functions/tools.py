@@ -6,8 +6,8 @@ import re
 import json
 
 async def async_searcher(url, post=False, head=False, headers=None, evaluate=None, object=False, re_json=False, re_content=False, *args, **kwargs,):
-    async with ClientSession(headers=headers) as client:
-        method = client.head if head else (client.post if post else client.get)
+    async with ClientSession(headers=headers) as Cclient:
+        method = Cclient.head if head else (Cclient.post if post else Cclient.get)
         data = await method(url, *args, **kwargs)
         if evaluate:
             return await evaluate(data)
@@ -20,7 +20,7 @@ async def async_searcher(url, post=False, head=False, headers=None, evaluate=Non
         return await data.text()
 
 async def get_google_images(query):
-    search = await async_searcher("https://google.com/search", params={"q": query, "tbm": "isch"}, headers={"User-Agent": random.choice(client.functions.HEADERS)})
+    search = await async_searcher("https://google.com/search", params={"q": query, "tbm": "isch"}, headers={"User-Agent": random.choice(Cclient.functions.HEADERS)})
     soup = BeautifulSoup(search, "lxml")
     google_images = []
     all_script_tags = soup.select("script")
