@@ -18,12 +18,12 @@ async def ytdownload(event):
         return await event.edit(client.STRINGS["linkinv"])
     ytinfo = client.functions.yt_info(link)
     if type == "video":
-        await event.edit(client.STRINGS["downingvid"].format(ytinfo["title"]))
+        await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
         info = await client.functions.yt_downloader(link, type, "720")
         duration = int(ytinfo["duration"])
         attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
     else:
-        await event.edit(client.STRINGS["downingaud"].format(ytinfo["title"]))
+        await event.edit(STRINGS["downingaud"].format(ytinfo["title"]))
         info = await client.functions.yt_downloader(link, type, "320k")
         duration = int(ytinfo["duration"])
         title = ytinfo["title"]
