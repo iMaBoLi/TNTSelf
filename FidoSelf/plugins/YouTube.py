@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import types
+from telethon import types, Button
 import os
 
 STRINGS = {
@@ -7,6 +7,7 @@ STRINGS = {
     "downingvid": "**Downloadig Video** ( `{}` ) **...**",
     "downingaud": "**Downloadig Audio** ( `{}` ) **...**",
     "caption": "**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
+    "ytclick": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
 }
 
 @client.Command(command="Yt(Video|Music) (.*)")
@@ -43,3 +44,19 @@ async def ytdownload(event):
     os.remove(info["OUTFILE"])
     os.remove(info["THUMBNAIL"])
     await event.delete()
+    
+@client.Command(command="YtSearch (.*)")
+async def ytsearch(event):
+    await event.edit(client.STRINGS["wait"])
+    query = event.pattern_match.group(1)
+    query = query[:15]
+    res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
+    await res[0].click(event.chat_id)
+    await event.delete()
+
+@client.Inline(pattern="ytclick\:(.*)")
+async def ytsearchclick(event):
+    query = event.pattern_match.group(1)
+    text = STRINGS["ytclick"].format(query)
+    buttons = [[Button.switch.inline("• Click!", "ytsearch:" + str(query), same_peer=True)]]
+    await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
