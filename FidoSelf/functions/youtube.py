@@ -45,3 +45,7 @@ def convert_thumb(file):
     img.save(file + ".jpg", format="jpeg")
     os.remove(file + ".webp")
     return file + ".jpg"
+    
+def yt_search(query, limit=50):
+    results = VideosSearch(query, limit=limit)
+    return results
