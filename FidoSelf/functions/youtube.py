@@ -22,7 +22,7 @@ async def yt_downloader(link, type, quality):
         outfile = client.PATH + "youtube/" + videoid + ".mp3"
         cmd = SONG.format(outfile=outfile, quality=quality, link=link)
         await client.functions.runcmd(cmd)
-    thumb = convert_thumb(client.PATH + "youtube/" + videoid)
+    thumb = convert_thumb(outfile)
     info["OUTFILE"] = outfile
     info["THUMBNAIL"] = thumb
     return info
