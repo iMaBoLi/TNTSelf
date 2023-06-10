@@ -8,6 +8,7 @@ STRINGS = {
     "username": "**Your UserName:** ( `{RES}` )",
     "bio": "**Your Biography:** ( `{RES}` )",
     "phone": "**Your Phone:** ( `{RES}` )",
+    "notprof": "**You Profile Photos iS Empty!**",
     "profile": "**Your Profile Picture!**",
 }
 
@@ -33,11 +34,13 @@ async def myinfo(event):
         "username": username,
         "bio": uinfo.about,
     }
-    result = infos[type]
     text = STRINGS[type]
     if type == "profile":
-        await event.respond(text, file=result)
+        if not prof:
+            await event.edit(STRINGS["notprof"])
+        await event.respond(text, file=prof)
         await event.delete()
     else:
+        result = infos[type]
         text = text.format(RES=result)
         await event.edit(text)
