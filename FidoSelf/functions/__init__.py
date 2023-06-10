@@ -5,7 +5,9 @@ from FidoSelf.functions.helper import *
 from FidoSelf.functions.vars import *
 from FidoSelf.functions.utils import *
 from FidoSelf.functions.core import *
+from FidoSelf.functions.tools import *
 from FidoSelf.functions.loader import *
+from FidoSelf.functions.youtube import *
 from FidoSelf.functions.strings import STRINGS
 
 async def AddVarsToClient():
