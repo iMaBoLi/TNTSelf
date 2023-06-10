@@ -31,7 +31,6 @@ async def create_progress(event, current, total, start, download=False, upload=F
         type = client.STRINGS["progress"]["Up"]
     else:
         type = "-----"
-    now = time.time()
     diff = time.time() - start
     if round(diff % 5.00) == 0 or current == total:
         perc = current * 100 / total
