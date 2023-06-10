@@ -28,8 +28,6 @@ STRINGS = {
         "READGP_MODE": "Read Group",
         "READCH_MODE": "Read Channel",
     },
-    "Random1": "Random",
-    "Random2": "Random V2",
 }
 
 def get_pages_button(chatid, opage):
@@ -59,9 +57,8 @@ def get_time_buttons(chatid, page):
     newtime = datetime.now().strftime("%H:%M")
     last = client.DB.get_key("TIME_FONT") or 1
     buttons = []
-    rname = STRINGS["Random1"]
+    rname, r2name = "Random", "Random V2"
     rmode = client.STRINGS["inline"]["On"] if str(last) == "random" else client.STRINGS["inline"]["Off"]
-    r2name = STRINGS["Random2"]
     r2mode = client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]
     buttons.append(Button.inline(f"{rname} {rmode}", data=f"setfonttime:{chatid}:{page}:random"))
     buttons.append(Button.inline(f"{r2name} {r2mode}", data=f"setfonttime:{chatid}:{page}:random2"))
@@ -79,13 +76,10 @@ def get_edit_buttons(chatid, page):
     lastchat = client.DB.get_key("EDITCHATS_MODE") or {}
     buttons = []
     for edit in EDITS:
-        if chatid in lastchat and lastchat[chatid] == edit:
-            gmode = "off"
-        else:
-            gmode = "on"
+        gmode = "off" if (chatid in lastchat and lastchat[chatid] == edit) else "on"
         nmode = client.STRINGS["inline"]["On"] if gmode == "off" else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{edit} {nmode}", data=f"seteditchat:{chatid}:{page}:{edit}"))
-        name = edit + "All"        
+        name = edit + " All"        
         mode = client.STRINGS["inline"]["On"] if str(lastall) == str(edit) else client.STRINGS["inline"]["Off"]
         buttons.append(Button.inline(f"{name} {mode}", data=f"seteditall:{chatid}:{page}:{edit}"))
     buttons = list(client.functions.chunks(buttons, 2))
