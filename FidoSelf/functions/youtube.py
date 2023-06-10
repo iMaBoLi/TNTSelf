@@ -8,7 +8,7 @@ import re
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
 
-VIDEO = "yt-dlp -o '{outfile}' --write-thumbnail --add-metadata --embed-thumbnail -f 'best[height=={quality}}]' {link}"
+VIDEO = "yt-dlp -o '{outfile}' --write-thumbnail --add-metadata --embed-thumbnail -f 'best[height=={quality}]' {link}"
 SONG = "yt-dlp -o '{outfile}' --write-thumbnail --add-metadata --embed-thumbnail --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
 
 async def yt_downloader(link, type, quality):
