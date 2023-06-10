@@ -19,16 +19,17 @@ async def myinfo(event):
     mypic = await client.get_profile_photos("me")
     name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
     username = f"@{info.username}" if info.username else "---"
+    prof = mypic[0] if mypic else None
     if type == "info":
         text = STRINGS[type]
         text = text.format(info.id, name, username, uinfo.about)
-        await event.respond(text, file=mypic[0])
+        await event.respond(text, file=prof)
         await event.delete()
     infos = {
         "id": info.id,
         "name": name,
         "phone": "+" + info.phone,
-        "profile": mypic[0],
+        "profile": prof,
         "username": username,
         "bio": uinfo.about,
     }
