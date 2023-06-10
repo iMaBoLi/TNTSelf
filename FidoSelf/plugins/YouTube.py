@@ -58,5 +58,12 @@ async def ytsearch(event):
 async def ytsearchclick(event):
     query = event.pattern_match.group(1)
     text = STRINGS["ytclick"].format(query)
+    buttons = [[Button.switch_inline("• Click!", "ytsearch:" + str(query), same_peer=True)]]
+    await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
+
+@client.Inline(pattern="ytsearch\:(.*)")
+async def ytsearch(event):
+    query = event.pattern_match.group(1)
+    text = STRINGS["ytseach"].format(query)
     buttons = [[Button.switch.inline("• Click!", "ytsearch:" + str(query), same_peer=True)]]
     await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
