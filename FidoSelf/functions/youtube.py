@@ -13,9 +13,12 @@ VIDEO = "yt-dlp -o '{outfile}' -f 'best[height>={quality}]' {link}"
 SONG = "yt-dlp -o '{outfile}' --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
-async def yt_downloader(link, type, quality):
+def yt_info(link):
     info = YoutubeDL().extract_info(link, download=False)
-    videoid = info["id"]
+    return info
+
+async def yt_downloader(link, type, quality):
+    videoid = get_videoid(link)
     thumb = client.PATH + "youtube/" + videoid
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
@@ -28,10 +31,11 @@ async def yt_downloader(link, type, quality):
         outfile = client.PATH + "youtube/" + videoid + ".mp3"
         cmd = SONG.format(outfile=outfile, quality=quality, link=link)
         await client.functions.runcmd(cmd)
+    info = {}
     info["OUTFILE"] = outfile
     info["THUMBNAIL"] = thumb
     return info
-        
+
 def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
