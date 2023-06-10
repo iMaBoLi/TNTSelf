@@ -2,6 +2,7 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
+import time
 import sys
 
 __version__ = "1.8.3"
@@ -42,3 +43,4 @@ LOGS.info("• Logins Was Successful!")
 
 client.LOGS = LOGS
 client.__version__ = __version__
+client.START_TIME = time.time()
