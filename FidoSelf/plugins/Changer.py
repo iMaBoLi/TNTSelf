@@ -1,8 +1,8 @@
 from FidoSelf import client
 
 STRINGS = {
-    "Change": "**The {} Has Been {}!**",
-    "Not": "**The {} iS Already {}!**",
+    "change": "**The {} Has Been {}!**",
+    "notall": "**The {} iS Already {}!**",
     "Modes": {
         "Name": ["Name Mode", "NAME_MODE"],
         "Bio": ["Bio Mode", "BIO_MODE"],
@@ -34,10 +34,10 @@ async def changer(event):
     EDMode = STRINGS["Modes"][Mode][0]
     DBMode = STRINGS["Modes"][Mode][1]
     stats = client.DB.get_key(DBMode)
+    SChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
     if stats == Change:
-        text = STRINGS["Not"].format(EDMode, Change)
+        text = STRINGS["notall"].format(EDMode, SChange)
         return await event.edit(text)
     client.DB.set_key(DBMode, Change)
-    Change = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
-    text = STRINGS["Change"].format(EDMode, Change)
+    text = STRINGS["change"].format(EDMode, SChange)
     await event.edit(text)
