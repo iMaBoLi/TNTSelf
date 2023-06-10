@@ -1,3 +1,4 @@
+from FidoSelf import client
 from aiohttp import ClientSession
 from bs4 import BeautifulSoup
 import random
