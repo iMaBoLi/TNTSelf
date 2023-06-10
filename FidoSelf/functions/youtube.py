@@ -2,7 +2,7 @@ from FidoSelf import client
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 from PIL import Image
-import requests
+import random
 import os
 import re
 
@@ -18,7 +18,7 @@ def yt_info(link):
     return info
 
 async def yt_downloader(link, type, quality):
-    videoid = get_videoid(link)
+    videoid = get_videoid(link) + str(random.randint(11111, 99999))
     thumb = client.PATH + "youtube/" + videoid
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
