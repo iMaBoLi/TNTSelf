@@ -6,7 +6,7 @@ STRINGS = {
     "caption": "**The Profile Photos For** ( {} ) **Is Sended!**",
 }
 
-@client.Command(command="GetProfiles ?(.*)?")
+@client.Command(command="GProfiles ?(.*)?")
 async def delprofiles(event):
     await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
