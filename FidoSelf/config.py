@@ -11,6 +11,10 @@ USERID = 5889107490
 REDIS_URL = "redis-12319.c59.eu-west-1-2.ec2.cloud.redislabs.com:12319"
 REDIS_PASSWORD = "HvKZ7FppsNWScMFwdV07Q24EeNZHezPT"
 
+#Github
+GIT_TOKEN = "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"
+REPO = "iMaBoLi/FidoSelf"
+
 #Expire
 START_TIME = 0
 REMAIN_TIME = 0
