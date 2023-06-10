@@ -16,7 +16,7 @@ async def yt_downloader(link, type, quality):
     info = YoutubeDL().extract_info(link, download=False)
     videoid = info["id"]
     thumb = client.PATH + "youtube/" + videoid
-    cmd = THUMB.format(outfile=outfile, link=link)
+    cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
     thumb = convert_thumb(thumb)
     if type == "video":
