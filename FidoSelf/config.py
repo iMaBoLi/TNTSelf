@@ -12,7 +12,7 @@ REDIS_URL = "redis-12319.c59.eu-west-1-2.ec2.cloud.redislabs.com:12319"
 REDIS_PASSWORD = "HvKZ7FppsNWScMFwdV07Q24EeNZHezPT"
 
 #Github
-GIT_TOKEN = "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"
+GIT_TOKEN = "Z2hwX0FBYW8wY3J0QWFYYkxkT0hpbHRySWQzbndpS1NtRTJNcm5WZA=="
 REPO = "iMaBoLi/FidoSelf"
 
 #Expire
