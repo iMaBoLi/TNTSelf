@@ -20,7 +20,7 @@ async def async_searcher(url, post=False, head=False, headers=None, evaluate=Non
         return await data.text()
 
 async def get_google_images(query):
-    search = await async_searcher("https://google.com/search", params={"q": query, "tbm": "isch"}, headers={"User-Agent": random.choice(Cclient.functions.HEADERS)})
+    search = await async_searcher("https://google.com/search", params={"q": query, "tbm": "isch"}, headers={"User-Agent": random.choice(client.functions.HEADERS)})
     soup = BeautifulSoup(search, "lxml")
     google_images = []
     all_script_tags = soup.select("script")
