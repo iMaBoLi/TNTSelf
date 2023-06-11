@@ -37,9 +37,15 @@ async def create_progress(event, current, total, start, download=False, upload=F
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
-        pstrs = "".join("■" for i in range(math.floor(perc / 10)))
-        fstrs = "".join("□" for i in range(10-len(pstrs)))
-        strs = pstrs + fstrs
+        pstrs = "".join("■" for i in range(math.floor(perc / 14)))
+        fstrs = "".join("□" for i in range(14-len(pstrs)))
+        rperc = str(round(perc))
+        rstrs = "■"
+        if int(rperc[1]) > 4:
+            rstrs = "◧"
+        elif len(rperc) == 2:
+            rstrs = "□" 
+        strs = pstrs + rstrs + fstrs
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
