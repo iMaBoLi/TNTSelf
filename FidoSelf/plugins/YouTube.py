@@ -64,6 +64,17 @@ async def ytsearchclick(event):
 @client.Inline(pattern="ytsearch\:(.*)")
 async def ytsearch(event):
     query = event.pattern_match.group(1)
-    text = STRINGS["ytseach"].format(query)
-    buttons = [[Button.switch.inline("• Click!", "ytsearch:" + str(query), same_peer=True)]]
-    await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
+    answers = []
+    searchs = client.functions.yt_search(query, limit=10)
+    for search in searchs:
+        link = search["url"]
+        title = search["title"]
+        description = search["title"]
+        photo = await client.functions.yt_thumb(link)
+        text = STRINGS["ytsearch"].format(title)
+        vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
+        audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
+        buttons = [[Button.url("• Download Video •", url=vidurl), Button.url("• Download Audio •", url=audurl)]]
+        answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
+        answers.append(answer)
+    await event.answer(answers)
