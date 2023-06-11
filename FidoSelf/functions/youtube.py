@@ -9,48 +9,28 @@ import re
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
 
-VIDEO = "yt-dlp -o '{outfile}' -f 'best[height>={quality}]' {link}"
-SONG = "yt-dlp -o '{outfile}' --extract-audio --audio-format mp3 --audio-quality {quality} {link}"
+MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
     info = YoutubeDL().extract_info(link, download=False)
     return info
 
-async def yt_downloader(link, type, quality):
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    thumb = await yt_thumb(link)
-    if type == "video":
-        outfile = client.PATH + "youtube/" + filename + ".mp4"
-        cmd = VIDEO.format(outfile=outfile, quality=quality, link=link)
-        await client.functions.runcmd(cmd)
-    elif type == "music":
-        outfile = client.PATH + "youtube/" + filename + ".mp3"
-        cmd = SONG.format(outfile=outfile, quality=quality, link=link)
-        await client.functions.runcmd(cmd)
-    info = {}
-    info["OUTFILE"] = outfile
-    info["THUMBNAIL"] = thumb
-    return info
-
-async def yt_thumb(link):
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    thumb = client.PATH + "youtube/" + filename
-    cmd = THUMB.format(outfile=thumb, link=link)
-    await client.functions.runcmd(cmd)
-    thumb = convert_thumb(thumb)
-    return thumb
-
 def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
-    
-def convert_thumb(file):
-    img = Image.open(file + ".webp")
-    img.save(file + ".jpg", format="jpeg")
-    os.remove(file + ".webp")
-    return file + ".jpg"
-    
+
+async def yt_downloader(link, format, ext):
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + filename + "." + ext
+    cmd = MAIN.format(outfile=outfile, format=format, link=link)
+    await client.functions.runcmd(cmd)
+    info = {}
+    info["OUTFILE"] = outfile
+    thumb = await yt_thumb(link)
+    info["THUMBNAIL"] = thumb
+    return info
+
 def yt_search(query, limit=50):
     results = VideosSearch(query, limit=limit)
     return results.result()["result"]
@@ -67,3 +47,17 @@ def get_formats(link):
             if format["filesize"]:
                 audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
     return videoformats, audioformats
+
+async def yt_thumb(link):
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    thumb = client.PATH + "youtube/" + filename
+    cmd = THUMB.format(outfile=thumb, link=link)
+    await client.functions.runcmd(cmd)
+    thumb = convert_thumb(thumb)
+    return thumb
+    
+def convert_thumb(file):
+    img = Image.open(file + ".webp")
+    img.save(file + ".jpg", format="jpeg")
+    os.remove(file + ".webp")
+    return file + ".jpg"
