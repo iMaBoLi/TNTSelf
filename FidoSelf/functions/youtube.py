@@ -61,9 +61,9 @@ def get_formats(link):
     audioformats = {}
     for format in info["formats"]:
         if format["ext"] in ["mp4", "webp"] or (format["ext"] in ["webm"] and str(format["video_ext"]) in ["webm"]):
-            formatname = format["format"].split(" - ")[1]
-            videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": formatname, "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
+            if format["filesize"]:
+                videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
         if format["ext"] in ["m4a"]:
-            formatname = format["format"].split(" - ")[1]
-            audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": formatname, "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
+            if format["filesize"]:
+                audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
     return videoformats, audioformats
