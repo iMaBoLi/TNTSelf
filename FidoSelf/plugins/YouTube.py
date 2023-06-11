@@ -57,7 +57,7 @@ async def ytdown(event):
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="ytdow \:(.*)")
+@client.Inline(pattern="ytdown\:(.*)")
 async def ytdowninline(event):
     videoid = event.pattern_match.group(1)
     link = client.functions.YOUTUBE_URL + videoid
