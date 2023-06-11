@@ -10,7 +10,8 @@ async def updater():
     start = client.START_TIME
     end = time.time()
     timer = round(end - start)
-    if timer > 14100:
+    if timer > 14000:
+        if os.path.exists(file):
+            return git.delete(file)
         content = "#Fido-Self"
         git.create(file, content)
-        git.delete(file)
