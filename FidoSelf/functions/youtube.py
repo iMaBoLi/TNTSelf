@@ -54,3 +54,15 @@ def convert_thumb(file):
 def yt_search(query, limit=50):
     results = VideosSearch(query, limit=limit)
     return results.result()["result"]
+    
+def get_formats(link):
+    info = yt_info(link)
+    videoformats = {}
+    audioformats = {}
+    for format in info["formats"]:
+        filesize = format["filesize"] if hasattr(format, "filesize") else "---"
+        if format["ext"] in ["mp4", "webp"] or (format["ext"] in ["webm"] and str(format["video_ext"]) in ["webm"]):
+            videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": filesize, "format": format["format"], "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
+        if format["ext"] in ["m4a"]:
+            audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": filesize, "format": format["format"], "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
+    return videiformats, audioformats
