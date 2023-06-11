@@ -38,16 +38,16 @@ async def ytdowninline(event):
         vid = videos[video]
         size = client.functions.convert_bytes(vid["filesize"])
         name = "🎬 " + vid["format"] + " - " + size
-        ext = vid["ext"]
-        vidbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}"))
+        vidext = vid["ext"]
+        vidbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{vidext}"))
     vidbuttons = list(client.functions.chunks(vidbuttons, 2))
     audbuttons = []
     for audio in audios:
         aud = audios[audio]
         size = client.functions.convert_bytes(aud["filesize"])
         name = "🎤 " + aud["format"] + " - " + size
-        ext = vid["ext"]
-        audbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}"))
+        audext = vid["ext"]
+        audbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{audio}:{audext}"))
     audbuttons = list(client.functions.chunks(audbuttons, 2))
     buttons = vidbuttons + audbuttons
     await event.answer([event.builder.article("FidoSelf - YouTube Downloader", text=text, buttons=buttons)])
