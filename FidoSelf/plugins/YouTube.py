@@ -8,6 +8,7 @@ STRINGS = {
     "downingaud": "**Downloadig Audio** ( `{}` ) **...**",
     "caption": "**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
     "ytclick": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
+    "ytsearch": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
 }
 
 @client.Command(command="Yt(Video|Music) (.*)")
@@ -67,7 +68,7 @@ async def ytsearch(event):
     answers = []
     searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
-        link = search["url"]
+        link = search["link"]
         title = search["title"]
         description = search["title"]
         photo = await client.functions.yt_thumb(link)
