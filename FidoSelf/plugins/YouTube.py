@@ -64,7 +64,7 @@ async def ytdownload(event):
         await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
-    elif ext == "m4a":
+    elif ext == "mp3":
         await event.edit(STRINGS["downingaud"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         title = ytinfo["title"]
