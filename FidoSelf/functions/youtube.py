@@ -65,4 +65,4 @@ def get_formats(link):
             videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": filesize, "format": format["format"], "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
         if format["ext"] in ["m4a"]:
             audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": filesize, "format": format["format"], "format_note": format["format_note"], "resolution": format["resolution"], "width": format["width"], "height": format["height"]}})
-    return videiformats, audioformats
+    return videoformats, audioformats
