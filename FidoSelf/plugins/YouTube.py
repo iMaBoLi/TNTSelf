@@ -17,7 +17,7 @@ async def ytdown(event):
     await event.edit(client.STRINGS["wait"])
     link = event.pattern_match.group(1)
     if not client.functions.YOUTUBE_REGEX.search(link):
-        return await event.edit(client.STRINGS["linkinv"])
+        return await event.edit(STRINGS["linkinv"])
     videoid = client.functions.get_videoid(link)
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"ytdown:{chatid}:{videoid}")
