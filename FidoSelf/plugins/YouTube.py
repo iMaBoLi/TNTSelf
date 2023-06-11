@@ -76,6 +76,15 @@ async def ytsearch(event):
         vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
         audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
         buttons = [[Button.url("• Download Video •", url=vidurl), Button.url("• Download Audio •", url=audurl)]]
-        answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
+        answer = event.builder.article(
+            type="photo",
+            text=text,
+            include_media=True,
+            buttons=buttons,
+            title=title,
+            description=description,
+            thumb=photo,
+        )
+        #answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
         answers.append(answer)
     await event.answer(answers)
