@@ -37,7 +37,7 @@ async def ytdowninline(event):
     for video in videos:
         vid = videos[video]
         size = client.functions.convert_bytes(vid["filesize"])
-        name = "🎞️" + vid["format"] + " - " + size
+        name = "🎬 " + vid["format"] + " - " + size
         ext = vid["ext"]
         vidbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}"))
     vidbuttons = list(client.functions.chunks(vidbuttons, 2))
@@ -45,7 +45,7 @@ async def ytdowninline(event):
     for audio in audios:
         aud = audios[audio]
         size = client.functions.convert_bytes(aud["filesize"])
-        name = "🎤" + aud["format"] + " - " + size
+        name = "🎤 " + aud["format"] + " - " + size
         ext = vid["ext"]
         audbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}"))
     audbuttons = list(client.functions.chunks(audbuttons, 2))
@@ -59,7 +59,6 @@ async def ytdownload(event):
     format = event.data_match.group(3).decode('utf-8')
     ext = event.data_match.group(4).decode('utf-8')
     link = client.functions.YOUTUBE_URL + videoid
-    down = await client.functions.yt_downloader(link, format, ext)
     ytinfo = client.functions.yt_info(link)
     if ext == "mp4":
         await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
@@ -71,6 +70,7 @@ async def ytdownload(event):
         title = ytinfo["title"]
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
+    down = await client.functions.yt_downloader(link, format, ext)
     description = str(ytinfo["description"])[:100] + " ..."
     caption = STRINGS["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
