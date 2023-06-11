@@ -46,7 +46,7 @@ async def ytdowninline(event):
         aud = audios[audio]
         size = client.functions.convert_bytes(aud["filesize"])
         name = "🎤 " + aud["format"] + " - " + size
-        audext = vid["ext"]
+        audext = aud["ext"]
         audbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{audio}:{audext}"))
     audbuttons = list(client.functions.chunks(audbuttons, 2))
     buttons = vidbuttons + audbuttons
