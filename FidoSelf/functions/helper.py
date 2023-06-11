@@ -23,6 +23,7 @@ def progress(event, download=False, upload=False):
     return callback
 
 setattr(Message, "progress", progress)
+setattr(client, "progress", progress)
 
 async def create_progress(event, current, total, start, download=False, upload=False):
     if download:
