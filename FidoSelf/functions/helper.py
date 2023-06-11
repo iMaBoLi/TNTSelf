@@ -42,7 +42,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
         rperc = str(round(perc))
         if len(rperc) < 3 and int(rperc[-1]) > 4:
             rstrs = "◧"
-        elif len(rperc) < 3 and int(rperc[-1]) < 4
+        elif len(rperc) < 3 and int(rperc[-1]) < 4:
             rstrs = "□"
         else:
             rstrs = "■" 
