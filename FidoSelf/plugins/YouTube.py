@@ -8,7 +8,6 @@ STRINGS = {
     "downingaud": "**Downloadig Audio** ( `{}` ) **...**",
     "caption": "**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
     "ytclick": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
-    "ytsearch": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
 }
 
 @client.Command(command="Yt(Video|Music) (.*)")
@@ -70,7 +69,7 @@ async def ytsearch(event):
     for search in searchs:
         link = search["link"]
         description = search["descriptionSnippet"]["text"][:100] + " ..."
-        text = STRINGS["ytsearch"].format(search["title"], search["viewCount"]["text"], search["duration"], description)
+        text = STRINGS["caption"].format(search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
         audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
         buttons = [[Button.url("• Download Video •", url=vidurl), Button.url("• Download Audio •", url=audurl)]]
