@@ -54,32 +54,71 @@ async def ytdown(event):
     if not client.functions.YOUTUBE_REGEX.search(link):
         return await event.edit(client.STRINGS["linkinv"])
     videoid = client.functions.get_videoid(link)
-    res = await client.inline_query(client.bot.me.username, f"ytdown:{videoid}")
+    chatid = event.chat_id
+    res = await client.inline_query(client.bot.me.username, f"ytdown:{chatid}:{videoid}")
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="ytdown\:(.*)")
+@client.Inline(pattern="ytdown\:(.*)\:(.*)")
 async def ytdowninline(event):
-    videoid = event.pattern_match.group(1)
+    chatid = event.pattern_match.group(1)
+    videoid = event.pattern_match.group(2)
     link = client.functions.YOUTUBE_URL + videoid
     videos, audios = client.functions.get_formats(link)
     vidbuttons = []
     for video in videos:
         vid = videos[video]
-        size = client.functions.convert_bytes(vid["filesize"]) if vid["filesize"] else "---"
+        size = client.functions.convert_bytes(vid["filesize"])
         name = vid["format"] + " - " + size
-        vidbuttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
+        ext = vid["ext"]
+        vidbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}:video"))
     vidbuttons = list(client.functions.chunks(vidbuttons, 2))
     audbuttons = []
     for audio in audios:
         aud = audios[audio]
-        size = client.functions.convert_bytes(aud["filesize"]) if aud["filesize"] else aud["filesize"]
+        size = client.functions.convert_bytes(aud["filesize"])
         name = aud["format"] + " - " + size
-        audbuttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
+        ext = vid["ext"]
+        audbuttons.append(Button.inline(name, data=f"ytdownload:{chatid}:{videoid}:{video}:{ext}:music"))
     audbuttons = list(client.functions.chunks(audbuttons, 2))
     buttons = vidbuttons + audbuttons
     await event.answer([event.builder.article("FidoSelf - YtSearch", text=link, buttons=buttons)])
 
+@client.Callback(data="ytdownload\:(.*)\:(.*)\:(.*)\:(.*)\:(.*)")
+async def ytdownload(event):
+    chatid = event.data_match.group(1).decode('utf-8')
+    videoid = event.data_match.group(2).decode('utf-8')
+    format = event.data_match.group(3).decode('utf-8')
+    ext = event.data_match.group(4).decode('utf-8')
+    type = event.data_match.group(5).decode('utf-8')
+    link = client.functions.YOUTUBE_URL + videoid
+    down = await client.functions.yt_downloader(link, format, ext)
+    ytinfo = client.functions.yt_info(link)
+    if type == "video":
+        await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
+        duration = int(ytinfo["duration"])
+        attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
+    else:
+        await event.edit(STRINGS["downingaud"].format(ytinfo["title"]))
+        duration = int(ytinfo["duration"])
+        title = ytinfo["title"]
+        performer = ytinfo["uploader"]
+        attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
+    description = str(ytinfo["description"])[:100] + " ..."
+    caption = STRINGS["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
+    callback = client.progress(event, upload=True)
+    await client.send_file(
+        int(chatid),
+        file=down["OUTFILE"],
+        thumb=down["THUMBNAIL"],
+        attributes=attributes,
+        caption=caption,
+        progress_callback=callback,
+    )
+    os.remove(down["OUTFILE"])
+    os.remove(down["THUMBNAIL"])
+    await event.delete()
+    
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
     await event.edit(client.STRINGS["wait"])
