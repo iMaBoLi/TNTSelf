@@ -68,7 +68,7 @@ async def ytsearch(event):
     searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
         link = search["link"]
-        description = str(search["descriptionSnippet"]["text"])[:100] + " ..."
+        description = str(search["descriptionSnippet"][0]["text"])[:100] + " ..."
         text = STRINGS["caption"].format(search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
         audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
