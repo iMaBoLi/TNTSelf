@@ -46,6 +46,35 @@ async def ytdownload(event):
     os.remove(info["THUMBNAIL"])
     await event.delete()
     
+@client.Command(command="YtDown (.*)")
+async def ytdown(event):
+    await event.edit(client.STRINGS["wait"])
+    link = event.pattern_match.group(1)
+    if not client.functions.YOUTUBE_REGEX.search(link):
+        return await event.edit(client.STRINGS["linkinv"])
+    videoid = client.functions.get_videoid(link)
+    res = await client.inline_query(client.bot.me.username, f"ytdown:{videoid}")
+    await res[0].click(event.chat_id)
+    await event.delete()
+
+@client.Inline(pattern="ytdow \:(.*)")
+async def ytdowninline(event):
+    videoid = event.pattern_match.group(1)
+    link = client.functions.YOUTUBE_URL + videoid
+    videos, audios = client.functions.get_formats(link)
+    vidbuttons = []
+    for video in videos:
+        name = video["format"] + " - " + video["filesize"]
+        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}")
+    vidbuttons = list(client.functions.chunks(vidbuttons, 2)
+    audbuttons = []
+    for audio in audios:
+        name = audio["format"] + " - " + audio["filesize"]
+        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}")
+    audbuttons = list(client.functions.chunks(audbuttons, 2)
+    buttons = vidbuttons + audbuttons
+    await event.answer([event.builder.article("FidoSelf - YtSearch", text=link, buttons=buttons)])
+
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
     await event.edit(client.STRINGS["wait"])
