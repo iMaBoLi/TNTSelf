@@ -71,18 +71,17 @@ async def ytsearch(event):
         link = search["link"]
         title = search["title"]
         description = search["title"]
-        photo = await client.functions.yt_thumb(link)
         text = STRINGS["ytsearch"].format(title)
         vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
         audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
         buttons = [[Button.url("• Download Video •", url=vidurl), Button.url("• Download Audio •", url=audurl)]]
+        thumblink = search["thumbnails"][-1]["url"]
+        thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
         answer = event.builder.article(
-            type="photo",
-            text=text,
-            include_media=True,
-            buttons=buttons,
             title=title,
             description=description,
+            text=text,
+            buttons=buttons,
             thumb=photo,
         )
         #answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
