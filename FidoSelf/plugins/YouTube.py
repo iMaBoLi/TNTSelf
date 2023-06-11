@@ -65,12 +65,12 @@ async def ytdowninline(event):
     vidbuttons = []
     for video in videos:
         name = video["format"] + " - " + video["filesize"]
-        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}")
+        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
     vidbuttons = list(client.functions.chunks(vidbuttons, 2)
     audbuttons = []
     for audio in audios:
         name = audio["format"] + " - " + audio["filesize"]
-        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}")
+        buttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
     audbuttons = list(client.functions.chunks(audbuttons, 2)
     buttons = vidbuttons + audbuttons
     await event.answer([event.builder.article("FidoSelf - YtSearch", text=link, buttons=buttons)])
