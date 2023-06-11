@@ -53,4 +53,4 @@ def convert_thumb(file):
     
 def yt_search(query, limit=50):
     results = VideosSearch(query, limit=limit)
-    return results["results"]
+    return results.result()
