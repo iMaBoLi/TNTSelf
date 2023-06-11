@@ -60,7 +60,7 @@ async def ytdownload(event):
     ext = event.data_match.group(4).decode('utf-8')
     link = client.functions.YOUTUBE_URL + videoid
     ytinfo = client.functions.yt_info(link)
-    if ext == "webm":
+    if ext == "mp4":
         await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
