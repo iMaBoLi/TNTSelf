@@ -41,9 +41,9 @@ async def create_progress(event, current, total, start, download=False, upload=F
         fstrs = "".join("□" for i in range(14-len(pstrs)))
         rperc = str(round(perc))
         rstrs = "■"
-        if int(rperc[1]) > 4:
+        if int(rperc[-1]) > 4:
             rstrs = "◧"
-        elif len(rperc) == 2:
+        elif len(rperc) < 3:
             rstrs = "□" 
         strs = pstrs + rstrs + fstrs
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
