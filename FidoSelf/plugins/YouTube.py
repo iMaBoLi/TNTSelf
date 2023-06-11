@@ -82,7 +82,7 @@ async def ytsearch(event):
             description=description,
             text=text,
             buttons=buttons,
-            thumb=photo,
+            thumb=thumb,
         )
         #answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
         answers.append(answer)
