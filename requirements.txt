@@ -19,3 +19,4 @@ jdatetime
 
 git+https://github.com/alexmercerind/youtube-search-python
 git+https://github.com/yt-dlp/yt-dlp
+git+https://github.com/ssut/py-googletrans
