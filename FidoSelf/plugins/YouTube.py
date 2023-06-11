@@ -31,7 +31,7 @@ async def ytdownload(event):
         title = ytinfo["title"]
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
-    description = str(ytinfo["description"])[:100]
+    description = str(ytinfo["description"])[:100] + " ..."
     caption = STRINGS["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = event.progress(upload=True)
     await client.send_file(
@@ -69,21 +69,20 @@ async def ytsearch(event):
     searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
         link = search["link"]
-        title = search["title"]
-        description = search["title"]
-        text = STRINGS["ytsearch"].format(title)
+        description = search["descriptionSnippet"]["text"][:100] + " ..."
+        text = STRINGS["ytsearch"].format(search["title"], search["viewCount"]["text"], search["duration"], description)
         vidurl = f"http://t.me/share/text?text=.ytvideo+{link}"
         audurl = f"http://t.me/share/text?text=.ytmusic+{link}"
         buttons = [[Button.url("• Download Video •", url=vidurl), Button.url("• Download Audio •", url=audurl)]]
         thumblink = search["thumbnails"][-1]["url"]
         thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
         answer = event.builder.article(
-            title=title,
-            description=description,
+            title=search["title"],
+            description=search["viewCount"]["text"],
             text=text,
             buttons=buttons,
             thumb=thumb,
+            content=thumb,
         )
-        #answer = event.builder.document(photo, title=title, description=description, text=text, buttons=buttons)
         answers.append(answer)
     await event.answer(answers)
