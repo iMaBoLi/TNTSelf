@@ -11,11 +11,12 @@ aiofiles
 setuptools
 PyGithub
 wikipedia
-yt-dlp
-youtube-search-python
 aiocron
 bs4
 fake_useragent
 googletrans==3.1.0a0
 image_slicer
 jdatetime
+
+git+https://github.com/alexmercerind/youtube-search-python
+git+https://github.com/yt-dlp/yt-dlp
