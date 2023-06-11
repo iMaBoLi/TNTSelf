@@ -44,9 +44,9 @@ def get_formats(link):
             videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
         if format["ext"] in ["m4a"] and format["filesize"]:
             if format["format_note"] == "low":
-                audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": "128K"}})
+                audioformats.update({format["format_id"]: {"ext": "mp3", "filesize": format["filesize"], "format": "128K"}})
             elif format["format_note"] == "medium":
-                audioformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": "320K"}})
+                audioformats.update({format["format_id"]: {"ext": "mp3", "filesize": format["filesize"], "format": "320K"}})
     return videoformats, audioformats
 
 async def yt_thumb(link):
