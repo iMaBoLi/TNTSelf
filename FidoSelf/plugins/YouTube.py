@@ -66,14 +66,14 @@ async def ytdowninline(event):
     vidbuttons = []
     for video in videos:
         vid = videos[video]
-        size = client.functions.convert_bytes(int(vid["filesize"])) if vid["filesize"] else "---"
+        size = client.functions.convert_bytes(vid["filesize"]) if vid["filesize"] else "---"
         name = vid["format"] + " - " + size
         vidbuttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
     vidbuttons = list(client.functions.chunks(vidbuttons, 2))
     audbuttons = []
     for audio in audios:
         aud = audios[audio]
-        size = client.functions.convert_bytes(int(aud["filesize"])) if aud["filesize"] else aud["filesize"]
+        size = client.functions.convert_bytes(aud["filesize"]) if aud["filesize"] else aud["filesize"]
         name = aud["format"] + " - " + size
         audbuttons.append(Button.inline(name, data=f"ytdownload:{videoid}:{video}"))
     audbuttons = list(client.functions.chunks(audbuttons, 2))
