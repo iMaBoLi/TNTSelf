@@ -14,8 +14,6 @@ wikipedia
 aiocron
 bs4
 fake_useragent
-httpx>=0.14.2
-googletrans==3.1.0a0
 image_slicer
 jdatetime
 
