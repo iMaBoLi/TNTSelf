@@ -30,7 +30,7 @@ async def ytdowninline(event):
     videoid = event.pattern_match.group(2)
     link = client.functions.YOUTUBE_URL + videoid
     ytinfo = client.functions.yt_info(link)
-    description = str(ytinfo["description"])[:100] + " ..."
+    description = str(ytinfo["description"])[:100] + "---"
     text = STRINGS["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     videos, audios = client.functions.get_formats(link)
     vidbuttons = []
@@ -71,7 +71,7 @@ async def ytdownload(event):
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
     down = await client.functions.yt_downloader(link, format, ext)
-    description = str(ytinfo["description"])[:100] + " ..."
+    description = str(ytinfo["description"])[:100] + "---"
     caption = STRINGS["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
     await client.send_file(
@@ -109,7 +109,7 @@ async def ytsearch(event):
     searchs = client.functions.yt_search(query, limit=20)
     for search in searchs:
         link = search["link"]
-        description = str(search["descriptionSnippet"][0]["text"])[:100] + " ..."
+        description = str(search["descriptionSnippet"][0]["text"])[:100] + "---" if search["descriptionSnippet"] else "---"
         text = STRINGS["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         url = f"http://t.me/share/text?text=.ytdown+{link}"
         buttons = [[Button.url("• Download •", url=url)]]
