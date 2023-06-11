@@ -18,23 +18,28 @@ def yt_info(link):
     return info
 
 async def yt_downloader(link, type, quality):
-    videoid = get_videoid(link) + str(random.randint(11111, 99999))
-    thumb = client.PATH + "youtube/" + videoid
-    cmd = THUMB.format(outfile=thumb, link=link)
-    await client.functions.runcmd(cmd)
-    thumb = convert_thumb(thumb)
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    thumb = await yt_thumb(link)
     if type == "video":
-        outfile = client.PATH + "youtube/" + videoid + ".mp4"
+        outfile = client.PATH + "youtube/" + filename + ".mp4"
         cmd = VIDEO.format(outfile=outfile, quality=quality, link=link)
         await client.functions.runcmd(cmd)
     elif type == "music":
-        outfile = client.PATH + "youtube/" + videoid + ".mp3"
+        outfile = client.PATH + "youtube/" + filename + ".mp3"
         cmd = SONG.format(outfile=outfile, quality=quality, link=link)
         await client.functions.runcmd(cmd)
     info = {}
     info["OUTFILE"] = outfile
     info["THUMBNAIL"] = thumb
     return info
+
+async def yt_thumb(link):
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    thumb = client.PATH + "youtube/" + filename
+    cmd = THUMB.format(outfile=thumb, link=link)
+    await client.functions.runcmd(cmd)
+    thumb = convert_thumb(thumb)
+    return thumb
 
 def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
