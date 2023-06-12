@@ -13,13 +13,13 @@ async def searcher(event):
     query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
-        "Photo": types.InputMessagesFilterPhotos,
-        "Video": types.InputMessagesFilterVideo,
-        "Gif": types.InputMessagesFilterGif,
-        "Voice": types.InputMessagesFilterVoice,
-        "Music": types.InputMessagesFilterMusic,
-        "File": types.InputMessagesFilterDocument,
-        "Url": types.InputMessagesFilterUrl,
+        "Photo": types.InputMessagesFilterPhotos(),
+        "Video": types.InputMessagesFilterVideo(),
+        "Gif": types.InputMessagesFilterGif(),
+        "Voice": types.InputMessagesFilterVoice(),
+        "Music": types.InputMessagesFilterMusic(),
+        "File": types.InputMessagesFilterDocument(),
+        "Url": types.InputMessagesFilterUrl(),
     }
     filter = event.pattern_match.group(1).title()
     addfilter = filters[filter]
