@@ -2,6 +2,7 @@ from FidoSelf import client
 from FidoSelf.functions.github import Git
 import aiocron
 import time
+import os
 
 @aiocron.crontab("*/1 * * * *")
 async def updater():
