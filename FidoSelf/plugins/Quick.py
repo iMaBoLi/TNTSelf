@@ -3,10 +3,10 @@ from telethon import functions, types, Button
 import asyncio, random
 
 STRINGS = {
-    "quickpage": "**Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
-    "setquick": "**The {} Setting Was Set To** ( `{}` )",
-    "savequick": "**The New Quick Answer Was Saved!**\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )\n\n**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )",
-    "closequick": "**The Quick Panel Successfully Closed!**",
+    "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
+    "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
+    "savequick": "**𑁍 The New Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):* ( `{}` )",
+    "closequick": "**☻︎ The Quick Panel Successfully Closed!**",
 }
 
 def get_buttons(quick):
