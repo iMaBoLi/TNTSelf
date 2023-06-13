@@ -73,7 +73,7 @@ async def addquick(event):
     answers = event.pattern_match.group(2)
     quicks = client.DB.get_key("QUICKS") or {}
     rand = random.randint(111111111, 999999999)
-    QName = f"Quick-{str(rand)}"
+    QName = f"Quick{str(rand)}"
     replyuser = event.reply_message.sender_id if event.is_reply else None
     if not answers:
         if not event.is_reply:
@@ -101,7 +101,7 @@ async def quickpage(event):
     await event.answer([event.builder.article("FidoSelf - Quick Page", text=text, buttons=buttons)])
 
 @client.Callback(data="SetQucik\:(.*)\:(.*)\:(.*)")
-async def SetQucik(event):
+async def setqucik(event):
     Mode = event.data_match.group(1).decode('utf-8')
     quick = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
