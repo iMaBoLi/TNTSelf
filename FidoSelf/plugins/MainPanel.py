@@ -203,8 +203,9 @@ async def Changer(event):
     if page in MODES.keys():
         client.DB.set_key(ChangeMode, Change)
         pagetext = TEXTS[1]
-        schange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
-        settext = STRINGS["changemode"].format(ChangeMode.title(), schange)
+        ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
+        ShowMode = MODES[page][ChangeMode]
+        settext = STRINGS["changemode"].format(ShowMode, ShowChange)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 1):
         client.DB.set_key(ChangeMode, Change)
