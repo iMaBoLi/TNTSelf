@@ -6,6 +6,7 @@ from .EditModes import EDITS
 
 STRINGS = {
     "change": "**The {} Has Been {}!**",
+    "changefont": "**The Time Font Has Been Set To:** ( `{}` )",
     "modepage": "**Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
@@ -69,7 +70,8 @@ async def inlinepanel(event):
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
-    await event.edit(text=TEXTS[page], buttons=get_buttons(chatid, page))
+    text = TEXTS[1] if page in MODES.keys() else TEXTS[page]
+    await event.edit(text=text, buttons=get_buttons(chatid, page))
 
 def get_pages_button(chatid, opage):
     buttons = []
@@ -89,17 +91,18 @@ def get_buttons(chatid, page):
             getMode = client.DB.get_key(Mode) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{Modes[mode]} {ShowMode}", data=f"Turn:{ChangeMode}:{Mode}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{Modes[mode]} {ShowMode}", data=f"Change:{Mode}:{ChangeMode}:{chatid}:{page}"))
     elif page == (ModePages + 1):
         newtime = datetime.now().strftime("%H:%M")
         lastFont = client.DB.get_key("TIME_FONT") or 1
+        Mode = "TIME_FONT"
         for randfont in ["random", "random2"]:
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == randfont else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"SetFontTime:{chatid}:{page}:{randfont}}"))
+            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"Change:{Mode}:{randfont}:{chatid}:{page}"))
        for font in client.functions.FONTS:
             ShowName = client.functions.create_font(newtime, font)
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetFontTime:{chatid}:{page}:{font}"))
+            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Change:{Mode}:{font}:{chatid}:{page}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
@@ -168,15 +171,6 @@ async def setmode(event):
     buttons = get_mode_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="SetFontTime\:(.*)\:(.*)\:(.*)")
-async def SetFontTime(event):
-    chatid = int(event.data_match.group(1).decode('utf-8'))
-    page = int(event.data_match.group(2).decode('utf-8'))
-    font = event.data_match.group(3).decode('utf-8')
-    client.DB.set_key("TIME_FONT", str(font))
-    buttons = get_time_buttons(chatid, page)
-    await event.edit(buttons=buttons)
-
 @client.Callback(data="seteditall\:(.*)\:(.*)\:(.*)")
 async def seteditmodeall(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
@@ -241,16 +235,22 @@ async def closepanel(event):
     text = STRINGS["close"]
     await event.edit(text=text)
     
-@client.Callback(data="Turn\:(on|off)\:(.*)\:(.*)\:(.*)")
-async def turner(event):
-    Change = event.data_match.group(1).decode('utf-8')
-    ChangeMode = event.data_match.group(2).decode('utf-8')
+@client.Callback(data="Change\:(.*)\:(.*)\:(.*)\:(.*)")
+async def Changer(event):
+    ChangeMode = event.data_match.group(1).decode('utf-8')
+    Change = event.data_match.group(2).decode('utf-8')
     chatid = int(event.data_match.group(3).decode('utf-8'))
     page = int(event.data_match.group(4).decode('utf-8'))
     client.DB.set_key(Change, ChangeMode)
-    pagetext = TEXTS[page]
-    schange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
-    settext = STRINGS["change"].format(ChangeMode.title(), schange)
-    text = settext + pagetext
+    ModePages = len(MODES)
+    if page in MODES.keys():
+        pagetext = TEXTS[1]
+        schange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
+        settext = STRINGS["change"].format(ChangeMode.title(), schange)
+        text = settext + "\n" + pagetext
+    elif page == (ModePages + 1):
+        pagetext = TEXTS[page]
+        settext = STRINGS["changefont"].format(Change)
+        text = settext + "\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
