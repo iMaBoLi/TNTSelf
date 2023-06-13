@@ -17,22 +17,23 @@ ACTIONS = [
     "record-round",
 ]
 
-@client.Command(onlysudo=False)
+@client.Command(onlysudo=False, alowedits=False)
 async def action(event):
+    if event.is_sudo or event.is_bot: return
     for action in ACTIONS:
-        mode = client.DB.get_key(action.upper() + "_ALL") or "off"
-        chats = client.DB.get_key(action.upper() + "_CHATS") or []
-        if mode == "on" or event.chat_id in chats:
+        acMode = client.DB.get_key(action.upper() + "_ALL") or "off"
+        acChats = client.DB.get_key(action.upper() + "_CHATS") or []
+        if acMode == "on" or event.chat_id in acChats:
             if action == "bandari":
-                for action in ACTIONS[1:]:
-                    client.loop.create_task(sendaction(event.chat_id, action))
-                return
+                client.loop.create_task(sendrandomaction(event.chat_id))
             else:
                 client.loop.create_task(sendaction(event.chat_id, action))
                 
 async def sendaction(chat_id, action):
-    try:
+    async with client.action(chat_id, action):
+        await asyncio.sleep(3)
+
+async def sendrandomaction(chat_id):
+    for action in ACTIONS[1:]:
         async with client.action(chat_id, action):
-            await asyncio.sleep(5)
-    except:
-        client.LOGS.error(f"Chat Error: {chat_id}")
+            await asyncio.sleep(1)
