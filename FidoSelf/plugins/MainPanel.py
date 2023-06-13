@@ -41,7 +41,7 @@ TEXTS = {
 def get_buttons(chatid, page):
     BUTTONS = {
         1: get_mode_buttons(chatid, page),
-        2: get_tine_buttons(chatid, page),
+        2: get_time_buttons(chatid, page),
         3: get_edit_buttons(chatid, page),
         4: get_action_buttons(chatid, page),
     }
