@@ -92,7 +92,7 @@ def get_buttons(chatid, page):
             getMode = client.DB.get_key(Mode) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{Modes[Mode]} {ShowMode}", data=f"SetPanel{Mode}:{ChangeMode}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{Modes[Mode]} {ShowMode}", data=f"SetPanel:{Mode}:{ChangeMode}:{chatid}:{page}"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == (ModePages + 1):
         newtime = datetime.now().strftime("%H:%M")
@@ -100,11 +100,11 @@ def get_buttons(chatid, page):
         Mode = "TIME_FONT"
         for randfont in ["random", "random2"]:
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == randfont else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"SetPanel{Mode}:{randfont}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"SetPanel:{Mode}:{randfont}:{chatid}:{page}"))
         for font in client.functions.FONTS:
             ShowName = client.functions.create_font(newtime, font)
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{Mode}:{font}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{Mode}:{font}:{chatid}:{page}"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == (ModePages + 2):
         EditMode = client.DB.get_key("EDITALL_MODE")
@@ -115,12 +115,12 @@ def get_buttons(chatid, page):
             ChangeMode = "EDITCHATS_MODE"
             getMode = "off" if (chatid in EditChats and EditChats[chatid] == Edit) else "on"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "off" else client.STRINGS["inline"]["Off"]
-            Chbuttons.append(Button.inline(f"{Edit} {ShowMode}", data=f"SetPanel{ChangeMode}:{Edit}:{chatid}:{page}"))
+            Chbuttons.append(Button.inline(f"{Edit} {ShowMode}", data=f"SetPanel:{ChangeMode}:{Edit}:{chatid}:{page}"))
         for Edit in EDITS:
             ChangeMode = "EDITALL_MODE"
             ShowName = Edit + " All"
             ShowMode = client.STRINGS["inline"]["On"] if str(EditMode) == str(Edit) else client.STRINGS["inline"]["Off"]
-            Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{ChangeMode}:{Edit}:{chatid}:{page}"))
+            Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{ChangeMode}:{Edit}:{chatid}:{page}"))
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
     elif page == (ModePages + 3):
@@ -132,14 +132,14 @@ def get_buttons(chatid, page):
             getMode = "del" if int(chatid) in acChats else "add"
             ShowName = action.replace("-", " ").title()
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "del" else client.STRINGS["inline"]["Off"]
-            Chbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{acName}:{getMode}:{chatid}:{page}"))
+            Chbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{getMode}:{chatid}:{page}"))
         for action in ACTIONS:
             acName = action.upper() + "_CHATS"
             getMode = client.DB.get_key(acName) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowName = action.replace("-", " ").title() + " All"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{acName}:{ChangeMode}:{chatid}:{page}"))
+            Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{ChangeMode}:{chatid}:{page}"))
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
     buttons.append(get_pages_button(chatid, page))
@@ -147,7 +147,7 @@ def get_buttons(chatid, page):
     return buttons
     
 @client.Callback(data="SetPanel\:(.*)\:(.*)\:(.*)\:(.*)")
-async def SetPanel(event):
+async def SetPanel:(event):
     ChangeMode = event.data_match.group(1).decode('utf-8')
     Change = event.data_match.group(2).decode('utf-8')
     chatid = int(event.data_match.group(3).decode('utf-8'))
