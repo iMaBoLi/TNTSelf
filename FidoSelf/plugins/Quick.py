@@ -7,11 +7,11 @@ STRINGS = {
     "notin": "**The Command** ( `{}` ) **Not In Quicks Command Lists!**",
     "get": "**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )",
     "empty": "**The Quicks List Is Empty!**",
-    "person": "**Select You Want This Quick Answer To Be Saved For Person:**",
-    "where": "**Choose Where You Want This Quick Answer To Be Saved:**",
-    "type": "**Select The Type Of This Quick Answer:**",
+    "Person": "**Select You Want This Quick Answer To Be Saved For Person:**",
+    "Where": "**Choose Where You Want This Quick Answer To Be Saved:**",
+    "Type": "**Select The Type Of This Quick Answer:**",
     "search": "**Select Whether To Search For This Quick Answer Command In Messages:**",
-    "sleep": "**Choose A Sleep Time Between Each Answer:**",
+    "Sleep": "**Choose A Sleep Time Between Each Answer:**",
     "save": "**The New Quick Answer Was Saved!**\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )\n\n**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )",
     "close": "**The Quick Panel Successfuly Closed!**",
     "lidel": "**Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
@@ -28,10 +28,10 @@ def get_buttons(quick):
     persons = ["Sudo", "Others", "Replyed User"] if info["reply"] else ["Sudo", "Others"] 
     for person in persons:
         ShowMode = client.STRINGS["Off"]
-        if (person == "Replyed User" and info["person"].startswith("USER")) or info["person"] == person:
+        if (person == "Replyed User" and info["Person"].startswith("USER")) or info["Person"] == person:
             ShowMode = client.STRINGS["On"]
         sperson = person if person != "Replyed User" else f"USER{info['reply']}"
-        operbts.append(Button.inline(f"• {person} {ShowMode} •", data=f"SetQuick:person:{quick}:{sperson}"))
+        operbts.append(Button.inline(f"• {person} {ShowMode} •", data=f"SetQuick:Person:{quick}:{sperson}"))
     perbts += [operbts]
     buttons.append(perbts)
     wherebts = [[Button.inline("• Place :", data="Empty")]]
@@ -39,19 +39,19 @@ def get_buttons(quick):
     wheres = ["All", "Pv", "Groups", "Here"] 
     for where in wheres:
         ShowMode = client.STRINGS["Off"]
-        if (where == "Here" and info["where"].startswith("CHAT")) or info["where"] == where:
+        if (where == "Here" and info["Where"].startswith("CHAT")) or info["Where"] == where:
             ShowMode = client.STRINGS["On"]
         swhere = where if where != "Here" else f"CHAT{info['chatid']}"
-        owherebts.append(Button.inline(f"• {where} {ShowMode} •", data=f"SetQuick:where:{quick}:{swhere}"))
+        owherebts.append(Button.inline(f"• {where} {ShowMode} •", data=f"SetQuick:Where:{quick}:{swhere}"))
     wherebts += [owherebts]
     buttons.append(wherebts)
-    if info["anstype"] != "Media":
+    if info["Type"] != "Media":
         typebts = [[Button.inline("• Type :", data="Empty")]]
         otypebts = []
-        types = ["Normal", "Multi", "Edit", "Random", "Draft"] if len(info["answers"].split(",")) > 1 else ["Normal", "Draft"]
+        types = ["Normal", "Multi", "Edit", "Random", "Draft"] if len(info["Answers"].split(",")) > 1 else ["Normal", "Draft"]
         for type in types:
-            ShowMode = client.STRINGS["On"] if info["type"] == type else client.STRINGS["Off"]
-            otypebts.append(Button.inline(f"• {type} {ShowMode} •", data=f"SetQuick:type:{quick}:{type}"))
+            ShowMode = client.STRINGS["On"] if info["Type"] == type else client.STRINGS["Off"]
+            otypebts.append(Button.inline(f"• {type} {ShowMode} •", data=f"SetQuick:Type:{quick}:{type}"))
         typebts += list(client.functions.chunks(otypebts, 3))
         buttons.append(typebts)
     client.STRINGS["inline"]["Yes"]
@@ -59,17 +59,17 @@ def get_buttons(quick):
     ofindbts = []
     findes = ["Yes", "No"] 
     for find in findes:
-        ShowMode = client.STRINGS["On"] if info["find"] == find else client.STRINGS["Off"]
-        ofindbts.append(Button.inline(f"• {find} {ShowMode} •", data=f"SetQuick:find:{quick}:{find}"))
+        ShowMode = client.STRINGS["On"] if info["Finder"] == find else client.STRINGS["Off"]
+        ofindbts.append(Button.inline(f"• {find} {ShowMode} •", data=f"SetQuick:Finder:{quick}:{find}"))
     findbts += [ofindbts]
     buttons.append(findbts)
-    if info["anstype"] != "Media" and len(info["answers"].split(",")) > 1:
+    if info["Type"] != "Media" and len(info["Answers"].split(",")) > 1:
         sleepbts = [[Button.inline("• Sleep :", data="Empty")]]
         osleepbts = []
         sleeps = [0.2, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 10]
         for sleep in sleeps:
-            ShowMode = client.STRINGS["On"] if info["sleep"] == sleep else client.STRINGS["Off"]
-            osleepbts.append(Button.inline(f"• {sleep} {ShowMode} •", data=f"SetQuick:sleep:{quick}:{sleep}"))
+            ShowMode = client.STRINGS["On"] if info["Sleep"] == sleep else client.STRINGS["Off"]
+            osleepbts.append(Button.inline(f"• {sleep} {ShowMode} •", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 4))
         buttons.append(sleepbts)
     buttons.append([Button.inline("• Save •", data=f"SaveQuick:{quick}")])
@@ -89,9 +89,9 @@ async def addquick(event):
         if not event.is_reply:
             return await event.edit(STRINGS["notans"])
         info = await event.reply_message.save()
-        quicks.update({QName: {"cmd": cmd, "anstype": "Media", "answers": info, "chatid": event.chat_id, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Media", "find": "Yes", "sleep": 1, "DO": False}})
+        quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 1, "DO": False}})
     else:
-        quicks.update({QName: {"cmd": cmd, "anstype": "Text", "answers": answers, "chatid": event.chat_id, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Normal", "find": "Yes", "sleep": 1, "DO": False}})
+        quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 1, "DO": False}})
     client.DB.set_key("QUICKS", quicks)
     res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
@@ -105,4 +105,6 @@ async def quickpage(event):
     quick = str(event.pattern_match.group(1))
     text = "Hi"
     buttons = get_buttons(quick)
+    open("Bt.txt", "w").write(str(buttons))
+    await client.send_file("me", "Bt.txt")
     await event.answer([event.builder.article("FidoSelf - Quick Page", text=text, buttons=buttons)])
