@@ -106,7 +106,7 @@ async def setqucik(event):
     quick = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
-    info = quicks[qucik]
+    info = quicks[quick]
     quicks[quick][Mode] = change 
     client.DB.get_key("QUICKS", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
@@ -120,7 +120,7 @@ async def setqucik(event):
 async def savequcik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
-    info = quicks[qucik]
+    info = quicks[quick]
     quicks[quick]["DO"] = True 
     client.DB.get_key("QUICKS", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
@@ -131,6 +131,6 @@ async def savequcik(event):
 async def closequcik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
-    del quicks[qucik]
+    del quicks[quick]
     client.DB.get_key("QUICKS", quicks)
     await event.edit(text=STRINGS["closequick"])
