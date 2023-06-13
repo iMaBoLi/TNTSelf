@@ -98,7 +98,7 @@ def get_buttons(chatid, page):
         for randfont in ["random", "random2"]:
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == randfont else client.STRINGS["inline"]["Off"]
             buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"Change:{Mode}:{randfont}:{chatid}:{page}"))
-       for font in client.functions.FONTS:
+        for font in client.functions.FONTS:
             ShowName = client.functions.create_font(newtime, font)
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
             buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Change:{Mode}:{font}:{chatid}:{page}"))
