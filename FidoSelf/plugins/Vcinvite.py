@@ -33,5 +33,5 @@ async def ginfo(event):
     except errors.FloodWaitError:
         return await event.edit(STRINGS["notflood"])
     except:
-        continue
+        pass
     await event.edit(STRINGS["invited"])
