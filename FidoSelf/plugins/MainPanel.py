@@ -230,7 +230,7 @@ async def closepanel(event):
     text = STRINGS["close"]
     await event.edit(text=text)
     
-@client.Callback(data="Turn\:(on:off)\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="Turn\:(on|off)\:(.*)\:(.*)\:(.*)")
 async def turner(event):
     Change = event.data_match.group(1).decode('utf-8')
     ChangeMode = event.data_match.group(2).decode('utf-8')
