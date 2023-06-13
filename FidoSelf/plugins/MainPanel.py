@@ -134,7 +134,7 @@ def get_buttons(chatid, page):
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "del" else client.STRINGS["inline"]["Off"]
             Chbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{getMode}:{chatid}:{page}"))
         for action in ACTIONS:
-            acName = action.upper() + "_CHATS"
+            acName = action.upper() + "_ALL"
             getMode = client.DB.get_key(acName) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowName = action.replace("-", " ").title() + " All"
