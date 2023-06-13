@@ -14,9 +14,10 @@ async def password(event):
     if type == "Easy":
         characters = string.ascii_letters
     elif type == "Mediuam":
-        characters = string.ascii_letters + string.digits
+        characters = str(string.ascii_letters) + str(string.digits)
     elif type == "Hard":
         characters = string.printable
+    characters = characters.replace("`", "")
     password = ""
     for i in range(count):
         password += random.choice(characters)
