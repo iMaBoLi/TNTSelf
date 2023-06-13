@@ -88,9 +88,9 @@ async def addquick(event):
         if not event.is_reply:
             return await event.edit(STRINGS["notans"])
         info = await event.reply_message.save()
-        quicks.update({QName: {"cmd": cmd, "anstype": "Media", "answers": info, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Media", "find": "Yes", "sleep": 1, "DO": False}})
+        quicks.update({QName: {"cmd": cmd, "anstype": "Media", "answers": info, "chatid": event.chat_id, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Media", "find": "Yes", "sleep": 1, "DO": False}})
     else:
-        quicks.update({QName: {"cmd": cmd, "anstype": "Text", "answers": answers, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Normal", "find": "Yes", "sleep": 1, "DO": False}})
+        quicks.update({QName: {"cmd": cmd, "anstype": "Text", "answers": answers, "chatid": event.chat_id, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Normal", "find": "Yes", "sleep": 1, "DO": False}})
     client.DB.set_key("QUICKS", quicks)
     res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
