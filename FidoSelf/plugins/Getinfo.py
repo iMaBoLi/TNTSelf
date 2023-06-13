@@ -37,9 +37,9 @@ async def ginfo(event):
     elif not result and not chatid:
         return await event.edit(client.STRINGS["getid"]["UC"])
     cinfo = await client.get_entity(chatid)
-    try:
+    if cinfo.megagroup or cinfo.broadcast:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
-    except:
+    else:
         info = (await client(functions.messages.GetFullChatRequest(chatid))).full_chat
     history = await client(functions.messages.GetHistoryRequest(peer=chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
     members = getattr(info, "participants_count", None) or "---"
