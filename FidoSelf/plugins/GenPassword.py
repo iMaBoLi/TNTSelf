@@ -13,7 +13,7 @@ async def password(event):
     count = int(event.pattern_match.group(2) or 8)
     if type == "Easy":
         characters = string.ascii_letters
-    elif type == "Mediuam":
+    elif type == "Medium":
         characters = str(string.ascii_letters) + str(string.digits)
     elif type == "Hard":
         characters = string.printable
