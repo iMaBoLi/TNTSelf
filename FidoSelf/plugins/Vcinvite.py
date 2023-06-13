@@ -23,7 +23,7 @@ async def ginfo(event):
         usernames = users.replace("@", "").split(",")[:50]
     else:
         usernames = []
-        async for user in client.iter_participants(event.chat_id, filter=ChannelParticipantsRecent, limit=50):
+        async for user in client.iter_participants(event.chat_id, filter=types.ChannelParticipantsRecent, limit=50):
             usernames.append(user.id)
     if not usernames:
         return await event.edit(STRINGS["notuser"])
