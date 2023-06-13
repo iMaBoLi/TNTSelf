@@ -39,7 +39,7 @@ TEXTS = {
 }
 
 def get_buttons(chatid, page):
-    TEXTS = {
+    BUTTONS = {
         1: get_mode_buttons(chatid, page),
         2: get_tine_buttons(chatid, page),
         3: get_edit_buttons(chatid, page),
@@ -49,7 +49,7 @@ def get_buttons(chatid, page):
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = 7 + 1
+    PAGES_COUNT = len(TEXTS)
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
