@@ -33,3 +33,13 @@ async def editmodes(event):
         lasttext = lasttext.replace(" ", "_")
         lasttext = lasttext.replace("\n", "_")
         await event.edit("#" + lasttext)
+    elif allmode == "Mention" or (event.chat_id in chats and chats[event.chat_id] == "Mention"):
+        if event.is_reply:
+            userid = event.reply_message.sender_id
+        elif event.is_private:
+            userid = event.chat_id
+        else:
+            userid = event.sender_id
+        text = f"[{event.text}](tg://user?id={userid})"
+        await event.edit(text)
+        
