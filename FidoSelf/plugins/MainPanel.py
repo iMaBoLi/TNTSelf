@@ -17,8 +17,8 @@ STRINGS = {
     "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**❃ Select Which Edit Mode You Want Turn On-Off:**",
     "actionpage": "**❃ Select Which Action Mode You Want Turn On-Off:**",
+    "sleeppage": "**❃ Select Which Mode You Want Setting Sleep-Limit:**",
     "closepanel":  "**☻︎ The Panel Successfuly Closed!**",
-    "empty": "**☻︎ This Is Only For Show!**",
 }
 
 MODES ={
@@ -72,11 +72,13 @@ def get_text(page):
         text = STRINGS["editpage"]
     elif page == (ModePages + 3):
         text = STRINGS["actionpage"]
+    elif page == (ModePages + 4):
+        text = STRINGS["sleeppage"]
     return text + f" **(** `Page {page}` **)**"
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = len(MODES) + 3 + 1
+    PAGES_COUNT = len(MODES) + 4 + 1
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
@@ -210,4 +212,4 @@ async def closepanel(event):
     
 @client.Callback(data="Empty")
 async def empty(event):
-    await event.answer(STRINGS["empty"], alert=True)
+    await event.answer(client.STRINGS["inline"]["Show"], alert=True)
