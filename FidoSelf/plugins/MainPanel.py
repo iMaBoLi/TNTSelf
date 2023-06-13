@@ -74,7 +74,7 @@ async def panelpages(event):
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = len(TEXTS) + 1
+    PAGES_COUNT = len(MODES) + len(TEXTS)
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
