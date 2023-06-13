@@ -3,7 +3,7 @@ from countryinfo import CountryInfo
 
 STRINGS = {
     "notcon": "**The Country Name** ( `{}` ) **Is Not Finded!**",
-    "country": "**Country Info:** ( `{}` )\n\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**TimeZones:** ( `{}` )\n**Borders:** ( `{}` )",
+    "country": "**Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**TimeZones:** ( `{}` )\n**Borders:** ( `{}` )",
 }
 
 @client.Command(command="SCountry (.*)")
@@ -17,6 +17,14 @@ async def chatcounts(event):
         return await event.edit(STRINGS["notcon"].format(country))
     name = info["name"] + " - " + info["nativeName"]
     region = info["region"] + " - " + info["subregion"]
+    spellings = ""
+    for spelling in info["altSpellings"]:
+        spellings += spelling + " - "
+    spellings = spellings[:-3]
+    currencies = ""
+    for currency in info["callingCodes"]:
+        currencies += currency + " - "
+    currencies = currencies[:-3]
     ccodes = ""
     for ccode in info["callingCodes"]:
         ccodes += ccode + " - "
@@ -29,5 +37,5 @@ async def chatcounts(event):
     for border in info["borders"]:
         borders += border + " - "
     borders = borders[:-3]
-    text = STRINGS["country"].format(name, info["capital"], info["population"], info["area"], region, ccodes, tzones, borders)
+    text = STRINGS["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders)
     await event.edit(text)
