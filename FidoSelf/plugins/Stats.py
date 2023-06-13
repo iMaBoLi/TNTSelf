@@ -1,14 +1,15 @@
 from FidoSelf import client
 
 STRINGS = {
-    "count": "**Account Chats Count:**\n\n  **Privates:** ( `{}` )\n  **SuperGroups:** ( `{}` )\n  **Groups:** ( `{}` )\n  **Channels:** ( `{}` )\n  **Bots:** ( `{}` )",
+    "count": "**Account Chats Count:**\n\n  **All:** ( `{}` )\n  **Privates:** ( `{}` )\n  **SuperGroups:** ( `{}` )\n  **Groups:** ( `{}` )\n  **Channels:** ( `{}` )\n  **Bots:** ( `{}` )",
 }
 
-@client.Command(command="CCount")
+@client.Command(command="Stats")
 async def chatcounts(event):
     await event.edit(client.STRINGS["wait"])
-    users, groups, sgroups, channels, bots = 0,0,0,0,0
+    all, users, groups, sgroups, channels, bots = 0,0,0,0,0,0
     async for dialog in client.iter_dialogs():
+        all += 1
         entity = dialog.entity
         type = entity.to_dict()["_"]
         if type == "User":
@@ -25,5 +26,5 @@ async def chatcounts(event):
                 groups += 1
         elif type == "Chat":
             groups += 1
-    text = STRINGS["count"].format(users, sgroups, groups, channels, bots)
+    text = STRINGS["count"].format(all, users, sgroups, groups, channels, bots)
     await event.edit(text)
