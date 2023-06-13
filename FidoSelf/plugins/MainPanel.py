@@ -12,7 +12,10 @@ STRINGS = {
     "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
     "readpage": "**Select Which Reader Mode You Want Turn On-Off:**",
     "close": "**The Panel Successfuly Closed!**",
-    "Modes": {
+}
+
+MODES ={
+    1: {
         "ONLINE_MODE": "Online",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
@@ -24,6 +27,8 @@ STRINGS = {
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
         "ANTISPAM_PV": "AntiSpam Pv",
+    },
+    2: {
         "READALL_MODE": "Read All",
         "READPV_MODE": "Read Pv",
         "READGP_MODE": "Read Group",
@@ -47,24 +52,54 @@ def get_buttons(chatid, page):
     }
     return BUTTONS[page]
 
+@client.Command(command="Panel")
+async def panel(event):
+    await event.edit(client.STRINGS["wait"])
+    res = await client.inline_query(client.bot.me.username, f"Panel:{event.chat_id}:1")
+    await res[0].click(event.chat_id)
+    await event.delete()
+
+@client.Inline(pattern="Panel\:(.*)\:(.*)")
+async def inlinepanel(event):
+    chatid = event.pattern_match.group(1)
+    page = int(event.pattern_match.group(2))
+    await event.answer([event.builder.article("FidoSelf - Panel", text=TEXTS[page], buttons=get_buttons(chatid, page))])
+
+@client.Callback(data="Page\:(.*)\:(.*)")
+async def panelpages(event):
+    chatid = event.data_match.group(1).decode('utf-8')
+    page = int(event.data_match.group(2).decode('utf-8'))
+    await event.edit(text=TEXTS[page], buttons=get_buttons(chatid, page))
+
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = len(TEXTS)
+    PAGES_COUNT = len(TEXTS) + 1
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
-        buttons.append(Button.inline(f"( {name} )", data=f"page:{chatid}:{page}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{page}"))
     return buttons
 
-def get_mode_buttons(chatid, page):
+def get_buttons(chatid, page):
     buttons = []
-    MODES = STRINGS["Modes"]
-    for mode in MODES:
-        gmode = client.DB.get_key(mode) or "off"
-        cmode = "on" if gmode == "off" else "off"
-        name = MODES[mode]
-        nmode = client.STRINGS["inline"]["On"] if gmode == "on" else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{name} {nmode}", data=f"Turn:{cmode}:{mode}:{chatid}:{page}"))
+    ModePages = len(MODES)
+    if page in MODES.keys():
+        for Mode in MODES[page]:
+            Modes = MODES[page]
+            getMode = client.DB.get_key(Mode) or "off"
+            ChangeMode = "on" if getMode == "off" else "off"
+            ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
+            buttons.append(Button.inline(f"{Modes[mode]} {ShowMode}", data=f"Turn:{ChangeMode}:{Mode}:{chatid}:{page}"))
+    elif page == (ModePages + 1):
+        newtime = datetime.now().strftime("%H:%M")
+        lastFont = client.DB.get_key("TIME_FONT") or 1
+        for randfont in ["random", "random2"]:
+            ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == randfont else client.STRINGS["inline"]["Off"]
+            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"SetFontTime:{chatid}:{page}:{randfont}}"))
+       for font in client.functions.FONTS:
+            ShowName = client.functions.create_font(newtime, font)
+            ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
+            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetFontTime:{chatid}:{page}:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
@@ -77,12 +112,12 @@ def get_time_buttons(chatid, page):
     rname, r2name = "Random", "Random V2"
     rmode = client.STRINGS["inline"]["On"] if str(last) == "random" else client.STRINGS["inline"]["Off"]
     r2mode = client.STRINGS["inline"]["On"] if str(last) == "random2" else client.STRINGS["inline"]["Off"]
-    buttons.append(Button.inline(f"{rname} {rmode}", data=f"setfonttime:{chatid}:{page}:random"))
-    buttons.append(Button.inline(f"{r2name} {r2mode}", data=f"setfonttime:{chatid}:{page}:random2"))
+    buttons.append(Button.inline(f"{rname} {rmode}", data=f"SetFontTime:{chatid}:{page}:random"))
+    buttons.append(Button.inline(f"{r2name} {r2mode}", data=f"SetFontTime:{chatid}:{page}:random2"))
     for font in client.functions.FONTS:
         name = client.functions.create_font(newtime, font)
         mode = client.STRINGS["inline"]["On"] if str(last) == str(font) else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{name} {mode}", data=f"setfonttime:{chatid}:{page}:{font}"))
+        buttons.append(Button.inline(f"{name} {mode}", data=f"SetFontTime:{chatid}:{page}:{font}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
@@ -122,30 +157,6 @@ def get_action_buttons(chatid, page):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closepanel")])
     return buttons
 
-@client.Command(command="Panel")
-async def addecho(event):
-    await event.edit(client.STRINGS["wait"])
-    chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"panel:{chatid}:1")
-    await res[0].click(event.chat_id, reply_to=event.id)
-    await event.delete()
-
-@client.Inline(pattern="panel\:(.*)\:(.*)")
-async def inlinepanel(event):
-    chatid = event.pattern_match.group(1)
-    page = int(event.pattern_match.group(2))
-    text = STRINGS["modepage"]
-    buttons = get_mode_buttons(chatid, page)
-    await event.answer([event.builder.article("FidoSelf - Panel", text=text, buttons=buttons)])
-
-@client.Callback(data="page\:(.*)\:(.*)")
-async def panelpages(event):
-    chatid = event.data_match.group(1).decode('utf-8')
-    page = int(event.data_match.group(2).decode('utf-8'))
-    text = TEXTS[page]
-    buttons = get_buttons(chatid, page)
-    await event.edit(text=text, buttons=buttons)
-
 @client.Callback(data="setmode\:(.*)\:(.*)\:(.*)\:(.*)")
 async def setmode(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
@@ -157,8 +168,8 @@ async def setmode(event):
     buttons = get_mode_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="setfonttime\:(.*)\:(.*)\:(.*)")
-async def setfonttime(event):
+@client.Callback(data="SetFontTime\:(.*)\:(.*)\:(.*)")
+async def SetFontTime(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     page = int(event.data_match.group(2).decode('utf-8'))
     font = event.data_match.group(3).decode('utf-8')
