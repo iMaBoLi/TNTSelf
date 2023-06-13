@@ -147,7 +147,7 @@ def get_buttons(chatid, page):
     return buttons
     
 @client.Callback(data="SetPanel\:(.*)\:(.*)\:(.*)\:(.*)")
-async def SetPanel:(event):
+async def SetPanel(event):
     ChangeMode = event.data_match.group(1).decode('utf-8')
     Change = event.data_match.group(2).decode('utf-8')
     chatid = int(event.data_match.group(3).decode('utf-8'))
