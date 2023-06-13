@@ -14,9 +14,9 @@ async def password(event):
     if type == "Easy":
         characters = string.ascii_letters
     elif type == "Medium":
-        characters = str(string.ascii_letters) + str(string.digits)
+        characters = string.ascii_letters + string.digits
     elif type == "Hard":
-        characters = string.printable
+        characters = string.ascii_letters + string.digits + ".,*:;!?@#$_&-+()/~|÷×={}[]\%"
     characters = characters.replace("`", "")
     characters = characters.replace(" ", "")
     password = ""
