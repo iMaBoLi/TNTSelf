@@ -8,6 +8,7 @@ EDITS ={
     "Strike",
     "Spoiler",
     "Hashtag",
+    "Mention",
 }
 
 @client.Command(alowedits=False)
