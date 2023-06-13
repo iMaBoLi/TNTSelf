@@ -14,9 +14,9 @@ async def ginfo(event):
     await event.edit(client.STRINGS["wait"])
     users = str(event.pattern_match.group(1) or "")
     if event.chat.megagroup or event.chat.broadcast:
-        info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
+        info = (await client(functions.channels.GetFullChannelRequest(event.chat_id))).full_chat
     else:
-        info = (await client(functions.messages.GetFullChatRequest(chatid))).full_chat
+        info = (await client(functions.messages.GetFullChatRequest(event.chat_id))).full_chat
     if not info.call:
         return await event.edit(STRINGS["notcall"])
     if users:
