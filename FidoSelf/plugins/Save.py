@@ -26,7 +26,7 @@ async def savesaves(event):
     client.DB.set_key("SAVES", saves)
     await event.edit(STRINGS["save"].format(name))
 
-@client.Command(command="Del (.*)$")
+@client.Command(command="Delete (.*)$")
 async def delsaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
