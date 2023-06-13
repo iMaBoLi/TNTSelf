@@ -18,6 +18,7 @@ async def password(event):
     elif type == "Hard":
         characters = string.printable
     characters = characters.replace("`", "")
+    characters = characters.replace(" ", "")
     password = ""
     for i in range(count):
         password += random.choice(characters)
