@@ -33,7 +33,7 @@ def get_buttons(quick):
         sperson = person if person != "Replyed User" else f"USER{info['reply']}"
         operbts.append(Button.inline(f"• {person} {ShowMode} •", data=f"SetQuick:Person:{quick}:{sperson}"))
     perbts += [operbts]
-    buttons.append(perbts)
+    buttons += perbts
     wherebts = [[Button.inline("• Place :", data="Empty")]]
     owherebts = []
     wheres = ["All", "Pv", "Groups", "Here"] 
@@ -44,7 +44,7 @@ def get_buttons(quick):
         swhere = where if where != "Here" else f"CHAT{info['chatid']}"
         owherebts.append(Button.inline(f"• {where} {ShowMode} •", data=f"SetQuick:Where:{quick}:{swhere}"))
     wherebts += [owherebts]
-    buttons.append(wherebts)
+    buttons += wherebts
     if info["Type"] != "Media":
         typebts = [[Button.inline("• Type :", data="Empty")]]
         otypebts = []
@@ -53,7 +53,7 @@ def get_buttons(quick):
             ShowMode = client.STRINGS["On"] if info["Type"] == type else client.STRINGS["Off"]
             otypebts.append(Button.inline(f"• {type} {ShowMode} •", data=f"SetQuick:Type:{quick}:{type}"))
         typebts += list(client.functions.chunks(otypebts, 3))
-        buttons.append(typebts)
+        buttons += typebts
     client.STRINGS["inline"]["Yes"]
     findbts = [[Button.inline("• Find :", data="Empty")]]
     ofindbts = []
@@ -62,7 +62,7 @@ def get_buttons(quick):
         ShowMode = client.STRINGS["On"] if info["Finder"] == find else client.STRINGS["Off"]
         ofindbts.append(Button.inline(f"• {find} {ShowMode} •", data=f"SetQuick:Finder:{quick}:{find}"))
     findbts += [ofindbts]
-    buttons.append(findbts)
+    buttons += findbts
     if info["Type"] != "Media" and len(info["Answers"].split(",")) > 1:
         sleepbts = [[Button.inline("• Sleep :", data="Empty")]]
         osleepbts = []
@@ -71,7 +71,7 @@ def get_buttons(quick):
             ShowMode = client.STRINGS["On"] if info["Sleep"] == sleep else client.STRINGS["Off"]
             osleepbts.append(Button.inline(f"• {sleep} {ShowMode} •", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 4))
-        buttons.append(sleepbts)
+        buttons += sleepbts
     buttons.append([Button.inline("• Save •", data=f"SaveQuick:{quick}")])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseQuick:{quick}")])
     return buttons
