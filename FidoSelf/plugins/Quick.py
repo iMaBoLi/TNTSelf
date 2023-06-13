@@ -74,6 +74,7 @@ def get_buttons(quick):
         buttons.append(sleepbts)
     buttons.append([Button.inline("• Save •", data=f"SaveQuick:{quick}")])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseQuick:{quick}")])
+    return buttons
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
 async def addquick(event):
