@@ -17,7 +17,13 @@ async def chatcounts(event):
         return await event.edit(STRINGS["notcon"].format(country))
     name = info["name"] + " - " + info["nativeName"]
     region = info["region"] + " - " + info["subregion"]
-    ccodes = ("".join((tzone + " - " for tzone in info["callingCodes"]))[:-2]
-    tzones = ("".join((tzone + " - " for tzone in info["timezones"]))[:-2]
+    ccodes = ""
+    for ccode in info["callingCodes"]:
+        ccodes += ccode + " - "
+    ccodes = ccodes[:-2]
+    tzones = ""
+    for tzone in info["timezones"]:
+        tzones += tzone + " - "
+    tzones = tzones[:-2]
     text = STRINGS["country"].format(name, info["capital"], info["population"], info["area"], region, ccodes, tzones)
     await event.edit(text)
