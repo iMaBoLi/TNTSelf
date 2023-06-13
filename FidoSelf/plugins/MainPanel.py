@@ -43,14 +43,6 @@ MODES ={
     },
 }
 
-TEXTS = {
-    1: STRINGS["modepage"],
-    2: STRINGS["modepage"],
-    3: STRINGS["fontpage"],
-    4: STRINGS["editpage"],
-    5: STRINGS["actionpage"],
-}
-
 @client.Command(command="Panel")
 async def panel(event):
     await event.edit(client.STRINGS["wait"])
@@ -62,18 +54,29 @@ async def panel(event):
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
     page = int(event.pattern_match.group(2))
-    await event.answer([event.builder.article("FidoSelf - Panel", text=TEXTS[page], buttons=get_buttons(chatid, page))])
+    await event.answer([event.builder.article("FidoSelf - Panel", text=get_text(page), buttons=get_buttons(chatid, page))])
 
 @client.Callback(data="Page\:(.*)\:(.*)")
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
-    text = TEXTS[1] if page in MODES.keys() else TEXTS[page]
-    await event.edit(text=text, buttons=get_buttons(chatid, page))
+    await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
+
+def get_text(page):
+    ModePages = len(MODES)
+    if page in MODES.keys()
+        text = STRINGS["modepage"]
+    elif page == (ModePages + 1):
+        text = STRINGS["fontpage"]
+    elif page == (ModePages + 2):
+        text = STRINGS["editpage"]
+    elif page == (ModePages + 3):
+        text = STRINGS["actionpage"]
+    return text + f" **(** `Page {page}` **)**"
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = len(TEXTS) + 1
+    PAGES_COUNT = 7 + 1
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
@@ -152,18 +155,18 @@ async def SetPanel(event):
     ModePages = len(MODES)
     if page in MODES.keys():
         client.DB.set_key(ChangeMode, Change)
-        pagetext = TEXTS[1]
+        pagetext = get_text(page)
         ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
         ShowMode = MODES[page][ChangeMode]
         settext = STRINGS["changemode"].format(ShowMode, ShowChange)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 1):
         client.DB.set_key(ChangeMode, Change)
-        pagetext = TEXTS[page]
+        pagetext = get_text(page)
         settext = STRINGS["changefont"].format(Change)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 2):
-        pagetext = TEXTS[page]
+        pagetext = get_text(page)
         if ChangeMode == "EDITCHATS_MODE":
             EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
             if chatid not in EditChats:
@@ -181,7 +184,7 @@ async def SetPanel(event):
                 settext = STRINGS["changeeditall"].format(Change) 
         text = settext + "\n" + pagetext
     elif page == (ModePages + 3):
-        pagetext = TEXTS[page]
+        pagetext = get_text(page)
         if ChangeMode.endswith("CHATS"):
             acChats = client.DB.get_key(ChangeMode) or []
             ShowMode = ChangeMode.split("_")[0].title()
