@@ -38,19 +38,11 @@ MODES ={
 
 TEXTS = {
     1: STRINGS["modepage"],
-    2: STRINGS["fontpage"],
-    3: STRINGS["editpage"],
-    4: STRINGS["actionpage"],
+    2: STRINGS["modepage"],
+    3: STRINGS["fontpage"],
+    4: STRINGS["editpage"],
+    5: STRINGS["actionpage"],
 }
-
-def get_buttons(chatid, page):
-    BUTTONS = {
-        1: get_mode_buttons(chatid, page),
-        2: get_time_buttons(chatid, page),
-        3: get_edit_buttons(chatid, page),
-        4: get_action_buttons(chatid, page),
-    }
-    return BUTTONS[page]
 
 @client.Command(command="Panel")
 async def panel(event):
@@ -74,7 +66,7 @@ async def panelpages(event):
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = len(MODES) + len(TEXTS)
+    PAGES_COUNT = len(TEXTS) + 1
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
         name = client.functions.create_font(page, font)
@@ -90,7 +82,7 @@ def get_buttons(chatid, page):
             getMode = client.DB.get_key(Mode) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{Modes[mode]} {ShowMode}", data=f"Change:{Mode}:{ChangeMode}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{Modes[Mode]} {ShowMode}", data=f"Change:{Mode}:{ChangeMode}:{chatid}:{page}"))
     elif page == (ModePages + 1):
         newtime = datetime.now().strftime("%H:%M")
         lastFont = client.DB.get_key("TIME_FONT") or 1
@@ -102,22 +94,19 @@ def get_buttons(chatid, page):
             ShowName = client.functions.create_font(newtime, font)
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
             buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Change:{Mode}:{font}:{chatid}:{page}"))
-    buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append(get_pages_button(chatid, page))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
-    return buttons
-
-def get_edit_buttons(chatid, page):
-    lastall = client.DB.get_key("EDITALL_MODE")
-    lastchat = client.DB.get_key("EDITCHATS_MODE") or {}
-    buttons = []
-    for edit in EDITS:
-        gmode = "off" if (chatid in lastchat and lastchat[chatid] == edit) else "on"
-        nmode = client.STRINGS["inline"]["On"] if gmode == "off" else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{edit} {nmode}", data=f"seteditchat:{chatid}:{page}:{edit}"))
-        name = edit + " All"        
-        mode = client.STRINGS["inline"]["On"] if str(lastall) == str(edit) else client.STRINGS["inline"]["Off"]
-        buttons.append(Button.inline(f"{name} {mode}", data=f"seteditall:{chatid}:{page}:{edit}"))
+    elif page == (ModePages + 2):
+        EditMode = client.DB.get_key("EDITALL_MODE")
+        EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
+        for Edit in EDITS:
+            ChangeMode = "EDITCHATS_MODE"
+            getMode = "off" if (chatid in EditChats and EditChats[chatid] == Edit) else "on"
+            ShowMode = client.STRINGS["inline"]["On"] if getMode == "off" else client.STRINGS["inline"]["Off"]
+            buttons.append(Button.inline(f"{Edit} {ShowMode}", data=f"Change:{ChangeMode}:{Edit}:{chatid}:{page}"))
+        for Edit in EDITS:
+            ChangeMode = "EDITALL_MODE"
+            ShowName = Edit + " All"
+            ShowMode = client.STRINGS["inline"]["On"] if str(EditMode) == str(Edit) else client.STRINGS["inline"]["Off"]
+            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Change:{ChangeMode}:{Edit}:{chatid}:{page}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
@@ -214,6 +203,10 @@ async def Changer(event):
         settext = STRINGS["change"].format(ChangeMode.title(), schange)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 1):
+        pagetext = TEXTS[page]
+        settext = STRINGS["changefont"].format(Change)
+        text = settext + "\n" + pagetext
+    elif page == (ModePages + 2):
         pagetext = TEXTS[page]
         settext = STRINGS["changefont"].format(Change)
         text = settext + "\n" + pagetext
