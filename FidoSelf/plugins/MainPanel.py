@@ -122,7 +122,7 @@ def get_buttons(chatid, page):
             ShowMode = client.STRINGS["inline"]["On"] if str(EditMode) == str(Edit) else client.STRINGS["inline"]["Off"]
             Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{ChangeMode}:{Edit}:{chatid}:{page}"))
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
-        buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
+        buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     elif page == (ModePages + 3):
         Chbuttons = []
         Allbuttons = []
@@ -141,7 +141,7 @@ def get_buttons(chatid, page):
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
             Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{ChangeMode}:{chatid}:{page}"))
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
-        buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
+        buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
