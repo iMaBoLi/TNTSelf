@@ -3,7 +3,7 @@ from countryinfo import CountryInfo
 
 STRINGS = {
     "notcon": "**The Country Name** ( `{}` ) **Is Not Finded!**",
-    "country": "**Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**TimeZones:** ( `{}` )\n**Borders:** ( `{}` )",
+    "country": "**Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**TimeZones:** ( `{}` )\n**Borders:** ( `{}` )\n\n**Provinces:** ( `{}` )",
 }
 
 @client.Command(command="SCountry (.*)")
@@ -37,5 +37,9 @@ async def chatcounts(event):
     for border in info["borders"]:
         borders += border + " - "
     borders = borders[:-3]
-    text = STRINGS["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders)
+    provinces = ""
+    for province in info["borders"]:
+        provinces += province + " - "
+    provinces = provinces[:-3]
+    text = STRINGS["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
     await event.edit(text)
