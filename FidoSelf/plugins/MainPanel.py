@@ -5,8 +5,12 @@ from .Action import ACTIONS
 from .EditModes import EDITS
 
 STRINGS = {
-    "change": "**The {} Has Been {}!**",
+    "changemode": "**The {} Has Been {}!**",
     "changefont": "**The Time Font Has Been Set To:** ( `{}` )",
+    "changeeditchat": "**The Edit Mode For This Chat Has Been Set To:** ( `{}` )",
+    "closeeditchat": "**The Edit Mode For This Chat Has Been Disabled!**",
+    "changeeditall": "**The Edit Mode Has Been Set To:** ( `{}` )",
+    "closeeditall": "**The Edit Mode Has Been Disabled!**",
     "modepage": "**Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
@@ -195,20 +199,35 @@ async def Changer(event):
     Change = event.data_match.group(2).decode('utf-8')
     chatid = int(event.data_match.group(3).decode('utf-8'))
     page = int(event.data_match.group(4).decode('utf-8'))
-    client.DB.set_key(Change, ChangeMode)
     ModePages = len(MODES)
     if page in MODES.keys():
+        client.DB.set_key(ChangeMode, Change)
         pagetext = TEXTS[1]
         schange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
-        settext = STRINGS["change"].format(ChangeMode.title(), schange)
+        settext = STRINGS["changemode"].format(ChangeMode.title(), schange)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 1):
+        client.DB.set_key(ChangeMode, Change)
         pagetext = TEXTS[page]
         settext = STRINGS["changefont"].format(Change)
         text = settext + "\n" + pagetext
     elif page == (ModePages + 2):
         pagetext = TEXTS[page]
-        settext = STRINGS["changefont"].format(Change)
+        if ChangeMode == "EDITCHATS_MODE":
+            EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
+            if chatid not in EditChats:
+                EditChats.update({chatid: ""})
+            EditChats[chatid] = Change if EditChats[chatid] != Change else ""
+            client.DB.set_key("EDITCHATS_MODE", EditChats)
+            settext = STRINGS["changeeditchat"].format(Change) if EditChats[chatid] != Change else STRINGS["closeeditchat"]
+        else:
+            EditMode = client.DB.get_key("EDITALL_MODE")
+            if str(EditMode) == str(Change):
+                client.DB.set_key("EDITALL_MODE", False)
+                settext = STRINGS["closeeditall"]
+            else:
+                client.DB.set_key("EDITALL_MODE", str(Change))
+                settext = STRINGS["changeeditall"].format(Change) 
         text = settext + "\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
