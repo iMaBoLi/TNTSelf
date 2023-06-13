@@ -210,4 +210,4 @@ async def closepanel(event):
     
 @client.Callback(data="Empty")
 async def empty(event):
-    await event.answer(text=STRINGS["empty"], alert=True)
+    await event.answer(STRINGS["empty"], alert=True)
