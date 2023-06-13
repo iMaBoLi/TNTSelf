@@ -5,8 +5,8 @@ STRINGS = {
     "notcall": "**The Voice Chat Is Not Founded For This Chat!**",
     "notuser": "**The Users To Invite In To Voice Chat Is Not Founded!**",
     "notflood": "**The Flood Wait Error Is Coming Please Wait And Try Again!**",
-    "inviting": "**Inviting** ( `{}` ) **User To Voice Call In This Chat ...**",
-    "invited": "**Invited** ( `{}` ) **User To Voice Call In This Chat!**",
+    "inviting": "**Inviting** ( `{}` ) **User To Chat Call In This Chat ...**",
+    "invited": "**Invite Users To Voice Chat Completed!**",
 }
 
 @client.Command(command="InvVc ?(.*)?")
@@ -32,4 +32,6 @@ async def ginfo(event):
         result = await client(functions.phone.InviteToGroupCallRequest(call=info.call, users=usernames))
     except errors.FloodWaitError:
         return await event.edit(STRINGS["notflood"])
-    await event.edit(STRINGS["invited"].format(len(result.users)))
+    except:
+        continue
+    await event.edit(STRINGS["invited"])
