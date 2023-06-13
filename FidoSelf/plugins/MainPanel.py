@@ -5,20 +5,20 @@ from .Action import ACTIONS
 from .EditModes import EDITS
 
 STRINGS = {
-    "changemode": "**The {} Has Been {}!**",
-    "changefont": "**The Time Font Has Been Set To:** ( `{}` )",
-    "changeeditchat": "**The Edit Mode For This Chat Has Been Set To:** ( `{}` )",
-    "closeeditchat": "**The Edit Mode For This Chat Has Been Disabled!**",
-    "changeeditall": "**The Edit Mode Has Been Set To:** ( `{}` )",
-    "closeeditall": "**The Edit Mode Has Been Disabled!**",
-    "changeactionchat": "**The Action Chat** ( `{}` ) **For This Chat Has Been {}!**",
-    "changeactionall": "**The Action Chat** ( `{}` ) **Has Been {}!**",
-    "modepage": "**Select Which Mode You Want Turn On-Off:**",
-    "fontpage": "**Select Which Time Font You Want Turn On-Off:**",
-    "editpage": "**Select Which Edit Mode You Want Turn On-Off:**",
-    "actionpage": "**Select Which Action Mode You Want Turn On-Off:**",
-    "closepanel": "**The Panel Successfuly Closed!**",
-    "empty": "**This Is Only For Show!**",
+    "changemode":  "**➜ The {} Has Been {}!**",
+    "changefont":  "**➜ The Time Font Has Been Set To:** ( `{}` )",
+    "changeeditchat":  "**➜ The Edit Mode For This Chat Has Been Set To:** ( `{}` )",
+    "closeeditchat":  "**➜ The Edit Mode For This Chat Has Been Disabled!**",
+    "changeeditall":  "**➜ The Edit Mode Has Been Set To:** ( `{}` )",
+    "closeeditall":  "**➜ The Edit Mode Has Been Disabled!**",
+    "changeactionchat":  "**➜ The Action Chat** ( `{}` ) **For This Chat Has Been {}!**",
+    "changeactionall":  "**➜ The Action Chat** ( `{}` ) **Has Been {}!**",
+    "modepage": "**❃ Select Which Mode You Want Turn On-Off:**",
+    "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
+    "editpage": "**❃ Select Which Edit Mode You Want Turn On-Off:**",
+    "actionpage": "**❃ Select Which Action Mode You Want Turn On-Off:**",
+    "closepanel":  "**☻︎ The Panel Successfuly Closed!**",
+    "empty": "**☻︎ This Is Only For Show!**",
 }
 
 MODES ={
@@ -121,7 +121,7 @@ def get_buttons(chatid, page):
             ShowName = Edit + " All"
             ShowMode = client.STRINGS["inline"]["On"] if str(EditMode) == str(Edit) else client.STRINGS["inline"]["Off"]
             Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{ChangeMode}:{Edit}:{chatid}:{page}"))
-        OthButton = [Button.inline(" --------------- ", data="Empty")]
+        OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
     elif page == (ModePages + 3):
         Chbuttons = []
@@ -140,7 +140,7 @@ def get_buttons(chatid, page):
             ShowName = action.replace("-", " ").title() + " All"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
             Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel{acName}:{ChangeMode}:{chatid}:{page}"))
-        OthButton = [Button.inline(" --------------- ", data="Empty")]
+        OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 2)) + OthButton + list(client.functions.chunks(Allbuttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
@@ -159,12 +159,12 @@ async def SetPanel(event):
         ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
         ShowMode = MODES[page][ChangeMode]
         settext = STRINGS["changemode"].format(ShowMode, ShowChange)
-        text = settext + "\n" + pagetext
+        text = settext + "\n\n" + pagetext
     elif page == (ModePages + 1):
         client.DB.set_key(ChangeMode, Change)
         pagetext = get_text(page)
         settext = STRINGS["changefont"].format(Change)
-        text = settext + "\n" + pagetext
+        text = settext + "\n\n" + pagetext
     elif page == (ModePages + 2):
         pagetext = get_text(page)
         if ChangeMode == "EDITCHATS_MODE":
@@ -182,7 +182,7 @@ async def SetPanel(event):
             else:
                 client.DB.set_key("EDITALL_MODE", str(Change))
                 settext = STRINGS["changeeditall"].format(Change) 
-        text = settext + "\n" + pagetext
+        text = settext + "\n\n" + pagetext
     elif page == (ModePages + 3):
         pagetext = get_text(page)
         if ChangeMode.endswith("CHATS"):
@@ -200,7 +200,7 @@ async def SetPanel(event):
             ShowMode = ChangeMode.split("_")[0].title()
             ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
             settext = STRINGS["changeactionall"].format(ShowMode, ShowChange) 
-        text = settext + "\n" + pagetext
+        text = settext + "\n\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
     
