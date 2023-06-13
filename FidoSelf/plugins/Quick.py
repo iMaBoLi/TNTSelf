@@ -92,7 +92,7 @@ async def addquick(event):
     else:
         quicks.update({QName: {"cmd": cmd, "anstype": "Text", "answers": answers, "reply": replyuser, "person": "Sudo", "where": "All", "type": "Normal", "find": "Yes", "sleep": 1, "DO": False}})
     client.DB.set_key("QUICKS", quicks)
-    res = await client.inline_query(client.bot.me.username, f"QuicPage:{QName}")
+    res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
