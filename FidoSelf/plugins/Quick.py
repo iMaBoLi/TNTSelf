@@ -108,7 +108,7 @@ async def setqucik(event):
     quicks = client.DB.get_key("QUICKS") or {}
     info = quicks[quick]
     quicks[quick][Mode] = change 
-    client.DB.get_key("QUICKS", quicks)
+    client.DB.set_key("QUICKS", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     lasttext = STRINGS["quickpage"].format(info["Command"], answer)
     settext = STRINGS["setquick"].format(Mode, change)
@@ -122,7 +122,7 @@ async def savequcik(event):
     quicks = client.DB.get_key("QUICKS") or {}
     info = quicks[quick]
     quicks[quick]["DO"] = True 
-    client.DB.get_key("QUICKS", quicks)
+    client.DB.set_key("QUICKS", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Find"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
@@ -132,5 +132,5 @@ async def closequcik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
     del quicks[quick]
-    client.DB.get_key("QUICKS", quicks)
+    client.DB.set_key("QUICKS", quicks)
     await event.edit(text=STRINGS["closequick"])
