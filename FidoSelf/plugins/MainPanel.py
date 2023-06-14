@@ -173,7 +173,7 @@ async def SetPanel(event):
                 EditChats.update({chatid: ""})
             EditChats[chatid] = Change if EditChats[chatid] != Change else ""
             client.DB.set_key("EDITCHATS_MODE", EditChats)
-            settext = STRINGS["changeeditchat"].format(Change) if EditChats[chatid] != Change else STRINGS["closeeditchat"]
+            settext = STRINGS["changeeditchat"].format(Change) if EditChats[chatid] == Change else STRINGS["closeeditchat"]
         else:
             EditMode = client.DB.get_key("EDITALL_MODE")
             if str(EditMode) == str(Change):
