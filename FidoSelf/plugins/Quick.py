@@ -6,8 +6,8 @@ STRINGS = {
     "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
     "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
     "savequick": "**𑁍 The Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )",
-    "closequick": "**☻︎ The Quick Panel Successfully Closed!**",
-}
+    "delquick": "**The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
+ }
 
 @client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
@@ -115,12 +115,12 @@ def get_buttons(quick):
         osleepbts = []
         sleeps = [0, 0.2, 0.5, 1, 1.5, 2, 3, 4, 5]
         for sleep in sleeps:
-            ShowMode = client.STRINGS["inline"]["On"] if eval(info["Sleep"]) == eval(sleep) else client.STRINGS["inline"]["Off"]
+            ShowMode = client.STRINGS["inline"]["On"] if str(info["Sleep"]) == str(sleep) else client.STRINGS["inline"]["Off"]
             osleepbts.append(Button.inline(f"{sleep} {ShowMode}", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 3))
         buttons += sleepbts
     buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}")])
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseQuick:{quick}")])
+    buttons.append([Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}")])
     return buttons
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
@@ -184,10 +184,11 @@ async def savequcik(event):
     text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
 
-@client.Callback(data="CloseQuick\:(.*)")
-async def closequcik(event):
+@client.Callback(data="DelQuick\:(.*)")
+async def delqucik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
+    text = STRINGS["delquick"].format(info["Command"], info["Person"], info["Where"], info["Type"])
+    await event.edit(text=text)
     del quicks[quick]
     client.DB.set_key("QUICKS", quicks)
-    await event.edit(text=STRINGS["closequick"])
