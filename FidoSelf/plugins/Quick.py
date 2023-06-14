@@ -115,7 +115,7 @@ def get_buttons(quick):
         osleepbts = []
         sleeps = [0, 0.2, 0.5, 1, 1.5, 2, 3, 4, 5]
         for sleep in sleeps:
-            ShowMode = client.STRINGS["inline"]["On"] if int(info["Sleep"]) == int(sleep) else client.STRINGS["inline"]["Off"]
+            ShowMode = client.STRINGS["inline"]["On"] if eval(info["Sleep"]) == eval(sleep) else client.STRINGS["inline"]["Off"]
             osleepbts.append(Button.inline(f"{sleep} {ShowMode}", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 3))
         buttons += sleepbts
