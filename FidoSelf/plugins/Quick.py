@@ -3,11 +3,13 @@ from telethon import functions, types, Button
 import asyncio, random
 
 STRINGS = {
+    "notin": "**𑁍 The Command** ( `{}` ) **Not In Quicks Command Lists!**",
     "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
     "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
     "savequick": "**𑁍 The Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )",
     "delquick": "**The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
- }
+    "getquick": "**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )",
+}
 
 @client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
@@ -145,7 +147,28 @@ async def addquick(event):
     else:
         await res[0].click(event.chat_id)
     await event.delete()
-    
+
+@client.Command(command="GetQuick (.*)")
+async def getquick(event):
+    await event.edit(client.STRINGS["wait"])
+    cmd = event.pattern_match.group(1)
+    quicks = client.DB.get_key("QUICKS") or {}
+    quicklist = []
+    for quick in quicks:
+        if cmd == quicks[quick]["Command"]:
+            quicklist.append(quick)
+    if not quicklist:
+        return await event.edit(STRINGS["notin"].format(cmd))    
+    for squick in quicklist:
+        info = quicks[squick]
+        if info["Type"] == "Media":
+            msg = await client.get_messages(int(info["Answers"]["chat_id"]), ids=int(info["Answers"]["msg_id"]))
+            send = await event.respond(msg)
+            await send.reply(STRINGS["getquick"].format(info["Command"], "Repleyed Message", info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"]))
+        else:
+            await event.respond(STRINGS["getquick"].format(info["Command"], info["Answers"], info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"]))
+    await event.delete()
+
 @client.Inline(pattern="QuickPage\:(.*)")
 async def quickpage(event):
     quick = str(event.pattern_match.group(1))
