@@ -119,8 +119,7 @@ def get_buttons(quick):
             osleepbts.append(Button.inline(f"{sleep} {ShowMode}", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 3))
         buttons += sleepbts
-    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}")])
-    buttons.append([Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}")])
+    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}")])
     return buttons
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
@@ -136,9 +135,9 @@ async def addquick(event):
         if not event.is_reply:
             return await event.edit(STRINGS["notans"])
         info = await event.reply_message.save()
-        quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 1, "DO": False}})
+        quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 0, "DO": False}})
     else:
-        quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 1, "DO": False}})
+        quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 0, "DO": False}})
     client.DB.set_key("QUICKS", quicks)
     res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
