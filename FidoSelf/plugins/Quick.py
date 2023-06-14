@@ -124,7 +124,7 @@ async def savequcik(event):
     quicks[quick]["DO"] = True 
     client.DB.set_key("QUICKS", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
-    text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Find"], info["Sleep"], info["Command"], answer)
+    text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
 
 @client.Callback(data="CloseQuick\:(.*)")
