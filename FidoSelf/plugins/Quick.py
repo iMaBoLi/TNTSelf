@@ -9,6 +9,63 @@ STRINGS = {
     "closequick": "**☻︎ The Quick Panel Successfully Closed!**",
 }
 
+@client.Command(onlysudo=False, alowedits=False)
+async def quicksupdate(event):
+    if event.checkCmd() or not event.text: return
+    QMode = client.DB.get_key("QUICKS_MODE") or "off"
+    if QMode == "off": return
+    quicks = client.DB.get_key("QUICKS") or {}
+    if not quicks: return
+    for quick in quicks:
+        info = quicks[quick]
+        if not info["DO"]: continue
+        if info["Finder"] == "Yes" and not info["Command"] in event.text or info["Finder"] == "No" and not info["Command"] == event.text: continue
+        if info["Person"] == "Sudo" and not event.is_sudo and not event.is_ch: continue
+        if info["Person"] == "Others" and event.is_sudo: continue
+        if info["Person"].startswith("USER") and not event.sender_id == int(info["Person"].replace("USER", "")): continue
+        if not info["Where"] == "All":
+            if info["Where"] == "Groups" and not event.is_group: continue
+            if info["Where"] == "Privates" and not event.is_private: continue
+            if info["Where"].startswith("CHAT") and not event.chat_id == int(info["Where"].replace("CHAT", "")): continue
+        try:
+            lastanswers = await client.AddVars(str(info["Answers"]), event)
+            answers = lastanswers.split(",")
+            if info["Type"] == "Normal":
+                await event.reply(lastanswers)
+                continue
+            elif info["Type"] == "Random":
+                if info["Person"] == "Sudo":
+                    await event.edit(random.choice(answers))
+                else:
+                    await event.reply(random.choice(answers))
+                continue
+            elif info["Type"] == "Multi":
+                for answer in answers:
+                    await event.reply(answer)
+                    await asyncio.sleep(int(info["Sleep"]))
+                continue
+            elif info["Type"] == "Edit":
+                if info["Person"] == "Others":
+                    event = await event.reply(answers[0])
+                    answers = answers[1:]
+                    if not answers: continue
+                    await asyncio.sleep(int(info["Sleep"]))
+                for answer in answers:
+                    await event.edit(answer)
+                    await asyncio.sleep(int(info["Sleep"]))
+                continue
+            elif info["Type"] == "Media":
+                media = info["Answers"]
+                msg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
+                msg.text = await client.AddVars(str(msg.text), event)
+                await event.reply(msg)
+                continue
+            elif info["Type"] == "Draft":
+                await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=lastanswers))
+                continue
+        except Exception as error:
+            client.LOGS.error(error)
+
 def get_buttons(quick):
     buttons = []
     Quicks = client.DB.get_key("QUICKS") or {}
