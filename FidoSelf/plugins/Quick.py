@@ -27,7 +27,7 @@ async def quicksupdate(event):
         if info["Person"].startswith("USER") and not event.sender_id == int(info["Person"].replace("USER", "")): continue
         if not info["Where"] == "All":
             if info["Where"] == "Groups" and not event.is_group: continue
-            if info["Where"] == "Privates" and not event.is_private: continue
+            if info["Where"] == "Pv" and not event.is_private: continue
             if info["Where"].startswith("CHAT") and not event.chat_id == int(info["Where"].replace("CHAT", "")): continue
         try:
             lastanswers = await client.AddVars(str(info["Answers"]), event)
