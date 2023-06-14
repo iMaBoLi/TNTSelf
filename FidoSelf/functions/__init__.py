@@ -9,6 +9,7 @@ from FidoSelf.functions.tools import *
 from FidoSelf.functions.loader import *
 from FidoSelf.functions.youtube import *
 from FidoSelf.functions.strings import STRINGS
+from FidoSelf.functions.data import *
 
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
