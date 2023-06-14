@@ -1,8 +1,6 @@
 from FidoSelf import client
 from telethon import Button
 from datetime import datetime
-from .Action import ACTIONS
-from .EditModes import EDITS
 
 STRINGS = {
     "changemode":  "**➜ The {} Has Been {}!**",
@@ -113,12 +111,12 @@ def get_buttons(chatid, page):
         EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
         Chbuttons = []
         Allbuttons = []
-        for Edit in EDITS:
+        for Edit in client.functions.EDITS:
             ChangeMode = "EDITCHATS_MODE"
             getMode = "off" if (chatid in EditChats and EditChats[chatid] == Edit) else "on"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "off" else client.STRINGS["inline"]["Off"]
             Chbuttons.append(Button.inline(f"{Edit} {ShowMode}", data=f"SetPanel:{ChangeMode}:{Edit}:{chatid}:{page}"))
-        for Edit in EDITS:
+        for Edit in client.functions.EDITS:
             ChangeMode = "EDITALL_MODE"
             ShowName = Edit + " All"
             ShowMode = client.STRINGS["inline"]["On"] if str(EditMode) == str(Edit) else client.STRINGS["inline"]["Off"]
@@ -128,14 +126,14 @@ def get_buttons(chatid, page):
     elif page == (ModePages + 3):
         Chbuttons = []
         Allbuttons = []
-        for action in ACTIONS:
+        for action in client.functions.ACTIONS:
             acName = action.upper() + "_CHATS"
             acChats = client.DB.get_key(acName) or []
             getMode = "del" if int(chatid) in acChats else "add"
             ShowName = action.replace("-", " ").title()
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "del" else client.STRINGS["inline"]["Off"]
             Chbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{getMode}:{chatid}:{page}"))
-        for action in ACTIONS:
+        for action in client.functions.ACTIONS:
             acName = action.upper() + "_ALL"
             getMode = client.DB.get_key(acName) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
