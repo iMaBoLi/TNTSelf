@@ -2,6 +2,23 @@ from FidoSelf import client
 from telethon import Button
 import os
 
+__INFO__ = {
+    "Category": "Time",
+    "Plugname": "Photo Time",
+    "Pluginfo": {
+        "Help": "To Save Your Photo For Profile Time And Turn On-Off!",
+        "Commands": {
+            "{CMD}Photo <On-Off>": None,
+            "{CMD}NewPhoto <Name><Reply(Photo)>": "Save Photo White Name!",
+            "{CMD}DelPhoto <Name>": "Delete Photo White Name!",
+            "{CMD}GetPhoto <Name>": "Get Photo White Name!",
+            "{CMD}PhotoList": None,
+            "{CMD}CleanPhotoList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "nall": "**The Photo Name** ( `{}` ) **Already In Photo List!**",
     "nin": "**The Photo** ( `{}` ) **Not In Photo List!**",
