@@ -1,11 +1,24 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Manage",
+    "Plugname": "Delete Msg",
+    "Pluginfo": {
+        "Help": "To Delete Message In Chats!",
+        "Commands": {
+            "{CMD}Del <Count>": None,
+            "{CMD}Del <Count><Reply>": "Delete Messages Of User!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "chatdel": "**The** ( `{}` ) **Message In This Chat Was Deleted!**",
     "userdel": "**The** ( `{}` ) **Message From User** ( {} ) **In This Chat Was Deleted!**",
 }
 
-@client.Command(command="Del ?(\d*)?")
+@client.Command(command="Del (\d*)")
 async def deletemsg(event):
     await event.edit(client.STRINGS["wait"])
     limit = event.pattern_match.group(1)
