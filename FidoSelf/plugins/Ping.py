@@ -11,6 +11,7 @@ __INFO__ = {
         },
     },
 }
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "bping": "**!!!**",
