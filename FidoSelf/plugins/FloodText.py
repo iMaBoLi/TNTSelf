@@ -1,6 +1,19 @@
 from FidoSelf import client
 import random
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Flood",
+    "Pluginfo": {
+        "Help": "To Flood Message In Chats!",
+        "Commands": {
+            "{CMD}Flood '<Count>'<Reply>": None,
+            "{CMD}Flood '<Count>' <Text>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(command="Flood \'(\d*)\' ?([\s\S]*)?")
 async def flood(event):
     count = int(event.pattern_match.group(1))
