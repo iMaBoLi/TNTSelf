@@ -1,5 +1,17 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Len",
+    "Pluginfo": {
+        "Help": "To Get Len Of Characters In Message!",
+        "Commands": {
+            "{CMD}SLen <Reply(Text)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "num": "**The Number Of Characters:** ( `{}` )",
 }
