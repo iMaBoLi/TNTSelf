@@ -21,14 +21,14 @@ STRINGS = {
 }
 
 CATS = {
-    "Setting": "⚙️ Settings ( {} )",
-    "Manage": "👮 Manage ( {} )",
-    "Tools": "🔧 Tools ( {} )",
-    "Practical": "🧪 Practical ( {} )",
-    "Account": "💎 Account ( {} )",
-    "Group": "👥 Group ( {} )",
-    "Private": "🔒 Private ( {} )",
-    "Funs": "🎨 Funs ( {} )",
+    "Setting": "⚙️ Settings ({})",
+    "Manage": "👮 Manage ({})",
+    "Tools": "🔧 Tools ({})",
+    "Practical": "🧪 Practical ({})",
+    "Account": "💎 Account ({})",
+    "Group": "👥 Group ({})",
+    "Private": "🔒 Private ({})",
+    "Funs": "🎨 Funs ({})",
 }
 
 @client.Command(command="Help")
