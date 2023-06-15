@@ -7,7 +7,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "Return Ping Of Your Self!",
         "Commands": {
-            "{CMD}ping": None,
+            "{CMD}Ping": None,
         },
     },
 }
