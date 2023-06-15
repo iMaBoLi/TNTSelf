@@ -3,6 +3,25 @@ from PIL import Image
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Edit Photo",
+    "Pluginfo": {
+        "Help": "To Edit Photos And Add Filters To Photo!",
+        "Commands": {
+            "{CMD}SPhoto Bw": "Add Black White Filter To Photo!",
+            "{CMD}SPhoto Blur": "Add Blur Filter To Photo!",
+            "{CMD}SPhoto Contour": "Add Contour Filter To Photo!",
+            "{CMD}SPhoto Detail": "Add Detail Filter To Photo!",
+            "{CMD}SPhoto Emboss": "Add Emboss Filter To Photo!",
+            "{CMD}SPhoto Edge": "Add Edge Filter To Photo!",
+            "{CMD}SPhoto Smooth": "Add Smooth Filter To Photo!",
+            "{CMD}SPhoto Sharpen": "Add Sharpen Filter To Photo!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "add": "**Filter** ( `{}` ) **Successfully Added To Your Photo!**",
 }
