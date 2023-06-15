@@ -5,7 +5,7 @@ import os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "VideoShot",
+    "Plugname": "Video Shot",
     "Pluginfo": {
         "Help": "To Get Screen Shot From Your Videos!",
         "Commands": {
