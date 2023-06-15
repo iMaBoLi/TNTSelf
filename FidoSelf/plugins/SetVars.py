@@ -1,5 +1,18 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Maange",
+    "Plugname": "Set Chats",
+    "Pluginfo": {
+        "Help": "To Set Your Realm And BackUp Channel!",
+        "Commands": {
+            "{CMD}SetRealm ": None,
+            "{CMD}SetBackch": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "norealm": "**Please Send In Group For Added Realm Chat!**",
     "setrealm": "**This Chat Is Saved For Realm Chat!**",
