@@ -1,12 +1,25 @@
 from FidoSelf import client
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Edit Video",
+    "Pluginfo": {
+        "Help": "To Edit Video And Add Filters To Video!",
+        "Commands": {
+            "{CMD}SVideo Bw": "Add Black White Filter To Video!",
+            "{CMD}SVideo Negative": "Add Negative Filter To Video!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "coning": "**Converting To** ( `{}` ) **...**",
     "caption": "**The Filter** ( `{}` ) **iS Added To Video!**",
 }
 
-@client.Command(command="SVideo (Bw|Inv)")
+@client.Command(command="SVideo (Bw|Negative)")
 async def editvideo(event):
     await event.edit(client.STRINGS["wait"])
     filter = event.pattern_match.group(1).title()
@@ -27,7 +40,7 @@ async def editvideo(event):
         outfile = client.PATH + "EditGif.gif"
     if filter == "Bw":
         cmd = f'ffmpeg -i "{file}" -vf format=gray {outfile} -y'
-    elif filter == "Inv":
+    elif filter == "Negative":
         cmd = f'ffmpeg -i "{file}" -vf lutyuv="y=negval:u=negval:v=negval" {outfile} -y'
     await client.functions.runcmd(cmd)
     caption = STRINGS["caption"].format(type)
