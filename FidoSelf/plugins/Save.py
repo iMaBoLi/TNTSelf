@@ -1,5 +1,21 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Save",
+    "Pluginfo": {
+        "Help": "To Save Your Contents In Backup Channel!",
+        "Commands": {
+            "{CMD}Save <Name>": "Save Your Content White Name!**",
+            "{CMD}Delete <Name>": "Delete Your Content White Name!**",
+            "{CMD}Get <Name>": "Get Your Content White Name!**",
+            "{CMD}SaveList": None,
+            "{CMD}CleanSaveList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notall": "**The Name** ( `{}` ) **Already In Saveds List!**",
     "save": "**The Message White Name** ( `{}` ) **Is Saved!**",
