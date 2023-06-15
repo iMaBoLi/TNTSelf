@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Private",
+    "Plugname": "Filter Pv",
+    "Pluginfo": {
+        "Help": "To Filter Words In Pv And Delete!",
+        "Commands": {
+            "{CMD}AddFilterPv <Text>": None,
+            "{CMD}DelFilterPv <Text>": None,
+            "{CMD}FilterPvList": None,
+            "{CMD}CleanFilterPvList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
         "notall": "**The Word** ( `{}` ) **Already In Words Filter Pv List!**",
         "add": "**The Word** ( `{}` ) **Is Added To Words Filter Pv List!**",
