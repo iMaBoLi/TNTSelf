@@ -1,6 +1,24 @@
 from FidoSelf import client
 from telethon import functions
 
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "My Info",
+    "Pluginfo": {
+        "Help": "To Get Account Information!",
+        "Commands": {
+            "{CMD}MyInfo": None,
+            "{CMD}MyId": None,
+            "{CMD}MyName": None,
+            "{CMD}MyBio": None,
+            "{CMD}MyUsername": None,
+            "{CMD}MyPhone": None,
+            "{CMD}MyProfile": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "info": "**Your Profile Info:**\n\n   **ID:** ( `{}` )\n   **Name:** ( `{}` )\n   **UserName:** ( `{}` )\n   **Biography:** ( `{}` )",
     "id": "**Your ID:** ( `{RES}` )",
