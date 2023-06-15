@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Time",
+    "Category": "Account",
     "Plugname": "Bio Time",
     "Pluginfo": {
         "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",
