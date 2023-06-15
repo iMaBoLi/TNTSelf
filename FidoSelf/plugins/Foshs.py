@@ -1,6 +1,20 @@
 from FidoSelf import client
 import os
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Foshs",
+    "Pluginfo": {
+        "Help": "To Manage Fosh File For Enemies!",
+        "Commands": {
+            "{CMD}AddFosh <Reply(File)>": None,
+            "{CMD}DelFosh": None,
+            "{CMD}GetFosh": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "save": "**The Enemy Foshs File Has Been Saved!**",
     "del": "**The Enemy Foshs File Has Been Deleted!**",
