@@ -6,7 +6,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Your Texts For Time In Photo!",
         "Commands": {
-            "{CMD}AddTextTime <Text>": None,
+            "{CMD}NewTextTime <Text>": None,
             "{CMD}DelTextTime <Text>": None,
             "{CMD}TextTimeList": None,
             "{CMD}CleanTextTimeList": None,
