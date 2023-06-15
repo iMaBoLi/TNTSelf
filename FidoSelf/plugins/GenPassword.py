@@ -2,15 +2,29 @@ from FidoSelf import client
 import string
 import random
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Password",
+    "Pluginfo": {
+        "Help": "To Generate Random Passwords!",
+        "Commands": {
+            "{CMD}SPEasy <Count>": None,
+            "{CMD}SPMedium <Count>": None,
+            "{CMD}SPHard <Count>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "pass": "**Your Password:** ( `{}` )\n\n`{}`",
 }
 
-@client.Command(command="SP(Easy|Medium|Hard) ?(\d*)?")
+@client.Command(command="SP(Easy|Medium|Hard) (\d*)")
 async def password(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
-    count = int(event.pattern_match.group(2) or 8)
+    count = int(event.pattern_match.group(2))
     if type == "Easy":
         characters = string.ascii_letters
     elif type == "Medium":
