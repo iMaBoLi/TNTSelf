@@ -1,10 +1,10 @@
 from FidoSelf import client
 from telethon import Button
-import math
 
 STRINGS = {
+    "category": "**» Welcome To Fido Self Help!**\n**• Please Select The Category You Want:**",
     "Categorys": {
-        "Settings": "Settings ⚙️",
+        "Setting": "Settings ⚙️",
         "Manager": "Manager 👮",
         "Tools": "Tools 🔧",
         "Account": "Account 💎",
@@ -12,111 +12,65 @@ STRINGS = {
         "Time": "Time ⏰",
     },
 }
-def get_help_buttons():
+def get_helpbuttons():
     buttons = []
     CATS = STRINGS["Categorys"]
-    for cat in CATS:
-        buttons.append(Button.inline(f"• {CATS[cat]} •", data=f"gethelp:{cat}:1"))
+    for Category in CATS:
+        buttons.append(Button.inline(f"• {CATS[Category]} •", data=f"GetCategory:{Category}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")])
-    buttons = client.functions.get_buttons(buttons)
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     return buttons
 
-def get_plugins(cat):
+def get_plugins(Category):
     plugins = []
-    for plugin in client.HELP:
-        if client.HELP[plugin]["category"] == cat:
-            plugins.append(plugin)
+    for plugin in client.HELP[Category]:
+        plugins.append(plugin)
     return plugins
 
-def get_cmds_count(cat=None):
-    plugins = client.HELP if not cat else get_plugins(cat)
-    count = 0
+def get_catbuttons(Category):
+    buttons = []
+    plugins = get_plugins(Category)
     for plugin in plugins:
-        for command in client.HELP[plugin]["commands"]:
-            count += 1
-    return count
-
-def get_pages_button(cat, page):
-    buttons = []
-    plugins = get_plugins(cat)
-    pcount = math.ceil(len(plugins) / 10)
-    start = (page - 1) * 10
-    end = start + 10
-    if end < len(plugins):
-        buttons.append(Button.inline(client.STRINGS["inline"]["Next"], data=f"gethelp:{cat}:{page+1}"))
-    if page > 1:
-        buttons.append(Button.inline(client.STRINGS["inline"]["Back"], data=f"gethelp:{cat}:{page-1}"))
-    buttons.append([Button.inline(client.get_string("InQuicks_Back"), data="selfmainhelp"), Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")])
-    return buttons
-
-def get_cat_buttons(cat, page):
-    buttons = []
-    plugins = get_plugins(cat)
-    plugins 
-    start = (page - 1) * 10
-    end = start + 10
-    if end > len(plugins):
-        end = len(plugins)
-    for plugin in plugins[start:end]:
         emoji = client.DB.get_key("HELP_EMOJI") or "•"
         name = emoji + " " + plugin + " " + emoji
-        buttons.append(Button.inline(name, data=f"gethelpplugin:{plugin}:{page}"))
+        buttons.append(Button.inline(name, data=f"GetHelp:{plugin}:{Category}"))
     buttons = list(client.utils.chunks(buttons, 2))
-    pgbts = get_pages_button(cat, page)
-    buttons += pgbts
-    client.LOGS.info(str(buttons))
-    buttons = client.get_buttons(buttons)
     return buttons
 
-@client.Command(pattern=f"(?i)^\{client.cmd}Help$")
+@client.Command(command="Help")
 async def help(event):
-    await event.edit(client.get_string("Wait"))
-    res = await client.inline_query(client.bot.me.username, "selfmainhelp")
+    await event.edit(client.STRINGS["wait"])
+    res = await client.inline_query(client.bot.me.username, "Help")
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="selfmainhelp")
+@client.Inline(pattern="Help")
 async def inlinehelp(event):
-    CATS = client.get_string("Categorys")
-    text = client.get_string("Help_1").format(len(CATS), get_cmds_count())
-    buttons = get_help_buttons()
-    await event.answer([event.builder.article(f"{client.str} FidoSelf - Help", text=text, buttons=buttons)])
+    text = STRINGS["category"]
+    buttons = get_helpbuttons()
+    await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
-@client.Callback(data="selfmainhelp")
+@client.Callback(data="Help")
 async def callhelp(event):
-    CATS = client.get_string("Categorys")
-    text = client.get_string("Help_1").format(len(CATS), get_cmds_count())
-    buttons = get_help_buttons()
+    text = STRINGS["category"]
+    buttons = get_helpbuttons()
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="gethelp\:(.*)\:(.*)")
-async def gethelp(event):
-    cat = str(event.data_match.group(1).decode('utf-8'))
-    page = int(event.data_match.group(2).decode('utf-8'))
-    buttons = get_cat_buttons(cat, page)
-    text = client.get_string("Help_2").format(get_cmds_count(cat))
+@client.Callback(data="GetCategory\:(.*)")
+async def getcategory(event):
+    Category = str(event.data_match.group(1).decode('utf-8'))
+    buttons = get_catbuttons(Category)
+    text = STRINGS["category"]
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="gethelpplugin\:(.*)\:(.*)")
+@client.Callback(data="GetHelp\:(.*)\:(.*)")
 async def getplugin(event):
     plugin = str(event.data_match.group(1).decode('utf-8'))
-    page = int(event.data_match.group(2).decode('utf-8'))
-    text = client.get_string("Help_3").format(plugin)
-    CATS = client.get_string("Categorys")
-    info = client.HELP[plugin]
-    text += client.get_string("Help_4").format(CATS[info["category"]])
-    text += client.get_string("Help_5").format(translate(info["note"]))
-    text += client.get_string("Help_6").format(len(info["commands"]))
-    for com in info["commands"]:
-        ncom = com.replace("{CMD}", client.cmd)
-        cominfo = translate(info["commands"][com])
-        text += f'`{ncom}`\n'
-        text += f'     __• {cominfo}__\n'
-    buttons = [[Button.inline(client.get_string("InQuicks_Back"), data=f'gethelp:{info["category"]}:{page}'), Button.inline(client.STRINGS["inline"]["Close"], data="closehelp")]] 
-    await event.edit(text=text, buttons=buttons) 
+    Category = int(event.data_match.group(2).decode('utf-8'))
+    text = client.HELP[Category][plugin]
+    await event.edit(text=text) 
 
-@client.Callback(data="closehelp")
-async def closehelp(event):
+@client.Callback(data="CloseHelp")
+async def CloseHelp(event):
     text = client.get_string("Help_7")
     await event.edit(text=text)
