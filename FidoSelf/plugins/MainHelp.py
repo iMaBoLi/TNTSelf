@@ -72,15 +72,15 @@ async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
     info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n\n"
+    text = "**꥟ " + info["Help"] + "**\n"
     text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
     addline = False
     for command in info["Commands"]:
         if addline:
             text += "\n" + "─────── ⋆ ───────" + "\n\n"
         addline = True
-        ComName = command.format(CMD=".").replace(" ", "+")
-        share = f"http://t.me/share/text?text={ComName}"
+        ComName = command.format(CMD=".")
+        share = f"http://t.me/share/text?text={ComName.split(' ')[0]}"
         text += f"◎ [{plugin}]({share})" + ": " + f"`{ComName}`" + "\n"
         if info["Commands"][command]:
             text += "    **› " + info["Commands"][command] + "**\n"
