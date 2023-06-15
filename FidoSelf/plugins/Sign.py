@@ -1,21 +1,30 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Sign",
+    "Pluginfo": {
+        "Help": "To Sign A Text On Your Messages!",
+        "Commands": {
+            "{CMD}Sign <On-Off>": None,
+            "{CMD}SetSign <Text>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "set": "**The Sign Text Was Set To** ( `{}` )",
     "sete": "**The Enemy Sign Text Was Set To** ( `{}` )",
 }
 
-@client.Command(command="Set(Sign|EnemySign) ([\s\S]*)")
+@client.Command(command="SetSign ([\s\S]*)")
 async def setsign(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).lower()
     stext = event.pattern_match.group(2)
-    if type == "sign":
-        client.DB.set_key("SIGN_TEXT", stext)
-        text = STRINGS["set"].format(stext)
-    else:
-        client.DB.set_key("SIGNENEMY_TEXT", stext)
-        text = STRINGS["sete"].format(stext)
+    client.DB.set_key("SIGN_TEXT", stext)
+    text = STRINGS["set"].format(stext)
     await event.edit(text)
 
 @client.Command(alowedits=False)
