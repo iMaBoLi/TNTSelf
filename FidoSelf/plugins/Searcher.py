@@ -1,16 +1,35 @@
 from FidoSelf import client
 from telethon import functions, types
 
+__INFO__ = {
+    "Category": "Groups",
+    "Plugname": "Searcher",
+    "Pluginfo": {
+        "Help": "To Search On Messages In The Chat!",
+        "Commands": {
+            "{CMD}SRAll <Text>": "Search On All Messages!",
+            "{CMD}SRPhoto <Text>": "Search On Photo Messages!",
+            "{CMD}SRVideo <Text>": "Search On Video Messages!",
+            "{CMD}SRGif <Text>": "Search On Gif Messages!",
+            "{CMD}SRVoice <Text>": "Search On Voice Messages!",
+            "{CMD}SRMusic <Text>": "Search On Music Messages!",
+            "{CMD}SRFile <Text>": "Search On File Messages!",
+            "{CMD}SRUrl <Text>": "Search On Url Messages!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "result": "**Search Result Messages For Text:** ( `{}` )\n**Filter:** ( `{}` )\n\n",
     "click": "Click Here!",
     "not": "**No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )",
 }
 
-@client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
+@client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) (.*)")
 async def searcher(event):
     await event.edit(client.STRINGS["wait"])
-    query = str(event.pattern_match.group(2) or "")
+    query = str(event.pattern_match.group(2))
     filters = {
         "All": None,
         "Photo": types.InputMessagesFilterPhotos(),
