@@ -1,6 +1,18 @@
 from FidoSelf import client
 from telethon import functions
 
+__INFO__ = {
+    "Category": "Manage",
+    "Plugname": "Del Contacts",
+    "Pluginfo": {
+        "Help": "To Delete Your Contacts!",
+        "Commands": {
+            "{CMD}DelC <Name>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notdel": "**The Contact With Name** ( `{}` ) **Is Not Founded!**",
     "delcon": "**The** ( `{}` ) **Contact By Name** ( `{}` ) **From Contacts Was Deleted!**",
