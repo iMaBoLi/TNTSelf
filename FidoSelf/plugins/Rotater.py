@@ -2,6 +2,18 @@ from FidoSelf import client
 from PIL import Image
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Rotater",
+    "Pluginfo": {
+        "Help": "To Rotate Your Photo And Videos!",
+        "Commands": {
+            "{CMD}SRotate <Num><Reply(Photo|Video)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "proted": "**The Photo Was Rotated To** ( `{}°` )",
     "vrot": "**Rotating Video To** ( `{}°` ) **...**",
