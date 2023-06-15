@@ -1,6 +1,18 @@
 from FidoSelf import client
 from telethon import Button
 
+__INFO__ = {
+    "Category": "Private",
+    "Plugname": "Filter Media",
+    "Pluginfo": {
+        "Help": "To Filter Medias In Pv And Delete!",
+        "Commands": {
+            "{CMD}AddPvFilter": "Get Panel For Set Filters!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "menu": "**Please Use The Buttons Below To Control The Filter Medias In Pv:**",
     "types": {
