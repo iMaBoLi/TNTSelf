@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "Font File",
+    "Pluginfo": {
+        "Help": "To Save Font File For Profile Time!",
+        "Commands": {
+            "{CMD}NewFont <Name>": "Save Font File White Name!",
+            "{CMD}DeleteFont <Name>": "Delete Font File White Name!",
+            "{CMD}FontList": None,
+            "{CMD}CleanFontList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "more": "**Sorry, You Cannot Save More Than 10 Fonts!**",
     "ttf": "**Please Reply To Font File With .TTF Format!**",
