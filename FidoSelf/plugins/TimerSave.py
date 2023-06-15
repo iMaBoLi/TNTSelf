@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Private",
     "Plugname": "Timer Save",
     "Pluginfo": {
         "Help": "To Save Timer Medias For You!",
