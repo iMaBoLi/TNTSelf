@@ -1,12 +1,22 @@
 from FidoSelf import client
 from datetime import datetime
 
+PlugInfo = """
+• .ping
+> To Get Ping!
+"""
+__INFO__ = {
+    "Category": "Setting",
+    "Plugname": "Ping",
+    "Pluginfo": PlugInfo,
+}
+
 STRINGS = {
     "bping": "**!!!**",
     "ping": "**PonG!** [ `{ping}` ]",
 }
 
-@client.Command(command="Ping")
+@client.Command(command="Ping", info=__INFO__)
 async def ping(event):
     start = datetime.now()
     await event.edit(STRINGS["bping"])
