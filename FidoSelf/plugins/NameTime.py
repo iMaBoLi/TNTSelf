@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Time",
+    "Category": "Account",
     "Plugname": "Name Time",
     "Pluginfo": {
         "Help": "To Save Your Names For Time In Name And Turn On-Off!",
