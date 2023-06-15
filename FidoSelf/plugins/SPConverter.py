@@ -3,6 +3,19 @@ from PIL import Image
 import time
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "SP Convert",
+    "Pluginfo": {
+        "Help": "To Convert Your Photos And Stickers!",
+        "Commands": {
+            "{CMD}SPhoto <Reply(Sticker)>": "To Convert To Photo!",
+            "{CMD}SSticker <Reply(Photo)>": "To Convert To Sticker!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(command="S(Photo|Sticker)")
 async def spconverter(event):
     await event.edit(client.STRINGS["wait"])
