@@ -1,6 +1,18 @@
 from FidoSelf import client
 from googletrans import Translator
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Translate",
+    "Pluginfo": {
+        "Help": "To Translate Your Texts!",
+        "Commands": {
+            "{CMD}STr <Lang><Reply(Text)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "not": "**The Entered Language Is Not Available!**",
     "trans": "**Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
