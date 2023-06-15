@@ -7,7 +7,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Get Profile Photos Of Users!",
         "Commands": {
-            "{CMD}GProfiles <Reply|UserID|Username>": None,
+            "{CMD}GProfiles <Pv|Reply|UserID|Username>": None,
         },
     },
 }
