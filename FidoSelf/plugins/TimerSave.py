@@ -1,6 +1,18 @@
 from FidoSelf import client
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Timer Save",
+    "Pluginfo": {
+        "Help": "To Save Timer Medias For You!",
+        "Commands": {
+            "{CMD}TSave <On-Off>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "caption": "**The Timer Media Was Saved!**\n\n**User:** ( `{}` )\n**Timer:** ( `{}` )",
 }
