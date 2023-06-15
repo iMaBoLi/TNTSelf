@@ -5,12 +5,22 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "SP Convert",
+    "Plugname": "To Photo",
     "Pluginfo": {
-        "Help": "To Convert Your Photos And Stickers!",
+        "Help": "To Convert Stickers To Photo!",
         "Commands": {
-            "{CMD}SPhoto <Reply(Sticker)>": "To Convert To Photo!",
-            "{CMD}SSticker <Reply(Photo)>": "To Convert To Sticker!",
+            "{CMD}SPhoto <Reply(Sticker)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "To Sticker",
+    "Pluginfo": {
+        "Help": "To Convert Your Photos To Sticker!",
+        "Commands": {
+            "{CMD}SSticker <Reply(Photo)>": None,
         },
     },
 }
