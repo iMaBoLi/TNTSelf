@@ -1,5 +1,17 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "Stats",
+    "Pluginfo": {
+        "Help": "To Get Stats Of Your Chats!",
+        "Commands": {
+            "{CMD}Stats": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "count": "**Account Chats Count:**\n\n  **All:** ( `{}` )\n  **Privates:** ( `{}` )\n  **SuperGroups:** ( `{}` )\n  **Groups:** ( `{}` )\n  **Channels:** ( `{}` )\n  **Bots:** ( `{}` )",
 }
