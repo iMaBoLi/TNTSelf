@@ -1,5 +1,21 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Time",
+    "Plugname": "Name Time",
+    "Pluginfo": {
+        "Help": "To Save Your Names For Time In Name And Turn On-Off!",
+        "Commands": {
+            "{CMD}Name <On-Off>": None,
+            "{CMD}NewName <Text>": None,
+            "{CMD}DelName <Text>": None,
+            "{CMD}NameList": None,
+            "{CMD}CleanNameList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "newnot": "**The Name** ( `{}` ) **Already In Name List!**",
     "newadd": "**The Name** ( `{}` ) **Added To Name List!**",
