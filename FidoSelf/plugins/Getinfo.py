@@ -1,12 +1,25 @@
 from FidoSelf import client
 from telethon import functions
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Get Info",
+    "Pluginfo": {
+        "Help": "To Get Information Of Users!",
+        "Commands": {
+            "{CMD}UInfo <Pv|Reply|UserId|Username>": None,
+            "{CMD}CInfo <Chat|ChatId>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "user": "**User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
     "chat": "**Chat Info:**\n\n**ID:** ( `{}` )\n**Title:** ( `{}` )\n**Username :** ( `{}` )\n\n**Messages Count:** ( `{}` )\n\n**Members Count:** ( `{}` )\n**Administrators Count:** ( `{}` )\n**Bots Count:** ( `{}` )\n**Onlines Count:** ( `{}` )\n**Banned Count:** ( `{}` )\n**Kicked Count:** ( `{}` )\n**Description:** ( `{}` )",
 }
 
-@client.Command(command="Info ?(.*)?")
+@client.Command(command="UInfo ?(.*)?")
 async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
