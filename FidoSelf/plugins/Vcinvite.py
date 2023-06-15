@@ -1,6 +1,19 @@
 from FidoSelf import client
 from telethon import functions, types, errors
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Invite Vc",
+    "Pluginfo": {
+        "Help": "To Invite Users To Voice Chat!",
+        "Commands": {
+            "{CMD}InvVc": None,
+            "{CMD}InvVc <Users>": "To Invite Inputed Users!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notcall": "**The Voice Chat Is Not Founded For This Chat!**",
     "notuser": "**The Users To Invite In To Voice Chat Is Not Founded!**",
