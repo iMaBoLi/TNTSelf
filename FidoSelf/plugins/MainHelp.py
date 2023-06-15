@@ -60,11 +60,13 @@ async def getplugin(event):
     category = event.data_match.group(2).decode('utf-8')
     info = client.HELP[category][plugin]
     text = info["Help"] + "\n\n"
+    text += "-"*10 + "\n"
     for command in info["Commands"]:
         ComName = command.format(CMD=".")
         share = f"http://t.me/share/text?text={ComName}"
-        text += f"[Share]({share})" + " " + f"`{ComName}`"
-        text += "\n" + info["Commands"][command] + "\n\n"
+        text += f"[Share]({share})" + ": " + f"`{ComName}`" + "\n"
+        text += info["Commands"][command] + "\n"
+        text += "•"*10 + "\n"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
