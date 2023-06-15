@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions, types
 
 __INFO__ = {
-    "Category": "Groups",
+    "Category": "Group",
     "Plugname": "Searcher",
     "Pluginfo": {
         "Help": "To Search On Messages In The Chat!",
