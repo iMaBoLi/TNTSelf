@@ -2,6 +2,18 @@ from FidoSelf import client
 from telethon import functions, Button
 import asyncio
 
+__INFO__ = {
+    "Category": "Setting",
+    "Plugname": "Manage",
+    "Pluginfo": {
+        "Help": "To Get Inline Manage Panel For User!",
+        "Commands": {
+            "{CMD}Manage <UserId|Username|Pv>": None,,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "Manages": {
         "INFO": "User Info",
