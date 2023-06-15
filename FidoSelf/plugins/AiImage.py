@@ -3,7 +3,7 @@ from somnium import Somnium
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "AiImage",
+    "Plugname": "Ai Image",
     "Pluginfo": {
         "Help": "Create Image For Your Text White Beautiful Styles!",
         "Commands": {
