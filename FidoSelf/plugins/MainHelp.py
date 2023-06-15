@@ -2,17 +2,17 @@ from FidoSelf import client
 from telethon import Button
 
 STRINGS = {
-    "main": "**» Welcome To Fido Self Help!**\n**• Please Select The Category You Want:**",
-    "category": "**» Welcome To** ( `{}` ) **Help!**\n**Please Choose Plugin To Get Info:**",
+    "main": "**» Dear** ( {} )\n  **✾ Welcome To Fido Self Help!**\n  **✾ Please Select The Category You Want:**",
+    "category": "**» Dear** ( {} )\n  **✾ Welcome To** ( `{}` ) **Category Help!**\n  **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**The Help Panel Successfully Closed!**",
 }
 
 CATS = {
     "Setting": "Settings ⚙️",
-    "Manager": "Manager 👮",
+    "Manag": "Manage 👮",
     "Tools": "Tools 🔧",
-    "Account": "Account 💎",
-    "Groups": "Groups 👥",
+    "Profile": "Profile 💎",
+    "Group": "Group 👥",
     "Time": "Time ⏰",
 }
 
@@ -25,7 +25,7 @@ async def help(event):
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):
-    text = STRINGS["main"]
+    text = STRINGS["main"].format(client.mention(client.me))
     buttons = []
     for category in CATS:
         buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
@@ -35,7 +35,7 @@ async def inlinehelp(event):
 
 @client.Callback(data="Help")
 async def callhelp(event):
-    text = STRINGS["main"]
+    text = STRINGS["main"].format(client.mention(client.me))
     buttons = []
     for category in CATS:
         buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
@@ -51,7 +51,7 @@ async def getcategory(event):
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    text = STRINGS["category"].format(category)
+    text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
@@ -59,14 +59,15 @@ async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
     info = client.HELP[category][plugin]
-    text = info["Help"] + "\n\n"
-    text += "-"*10 + "\n"
+    text = "**꥟ " + info["Help"] + "**\n\n"
+    text += "⊰᯽⊱┈──╌❊ - ❊╌──┈⊰᯽⊱" + "\n\n"
     for command in info["Commands"]:
         ComName = command.format(CMD=".")
         share = f"http://t.me/share/text?text={ComName}"
-        text += f"[Share]({share})" + ": " + f"`{ComName}`" + "\n"
-        text += info["Commands"][command] + "\n"
-        text += "•"*10 + "\n"
+        text += f"◎ [{plugin}]({share})" + ": " + f"`{ComName}`" + "\n"
+        if info["Commands"][command]:
+            text += "  **› " info["Commands"][command] + "**\n"
+        text += "─────── ⋆ ───────"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
