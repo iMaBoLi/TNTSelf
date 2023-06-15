@@ -2,6 +2,18 @@ from FidoSelf import client
 from telethon import functions, types, utils
 from telethon.errors.rpcerrorlist import PackShortNameOccupiedError
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Copy Pack",
+    "Pluginfo": {
+        "Help": "To Copy Sticker Packs To New Pack!",
+        "Commands": {
+            "{CMD}CPack <Name>:<UName> <Reply(Sticker)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notall": "**The Short Name** ( `{}` ) **iS Already Used in Other Packs!**",
     "creating": "**The Pack** ( `{}` ) **iS Creating ...**",
