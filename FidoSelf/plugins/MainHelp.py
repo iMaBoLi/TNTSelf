@@ -3,6 +3,7 @@ from telethon import Button
 
 STRINGS = {
     "category": "**» Welcome To Fido Self Help!**\n**• Please Select The Category You Want:**",
+    "closehelp": "**The Help Panel Successfully Closed!**",
     "Categorys": {
         "Setting": "Settings ⚙️",
         "Manager": "Manager 👮",
@@ -34,7 +35,7 @@ def get_catbuttons(Category):
         emoji = client.DB.get_key("HELP_EMOJI") or "•"
         name = emoji + " " + plugin + " " + emoji
         buttons.append(Button.inline(name, data=f"GetHelp:{plugin}:{Category}"))
-    buttons = list(client.utils.chunks(buttons, 2))
+    buttons = list(client.functions.chunks(buttons, 2))
     return buttons
 
 @client.Command(command="Help")
@@ -71,6 +72,6 @@ async def getplugin(event):
     await event.edit(text=text) 
 
 @client.Callback(data="CloseHelp")
-async def CloseHelp(event):
-    text = client.get_string("Help_7")
+async def closehelp(event):
+    text = STRINGS["closehelp"]
     await event.edit(text=text)
