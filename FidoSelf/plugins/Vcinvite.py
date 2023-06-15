@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions, types, errors
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Groups",
     "Plugname": "Invite Vc",
     "Pluginfo": {
         "Help": "To Invite Users To Voice Chat!",
