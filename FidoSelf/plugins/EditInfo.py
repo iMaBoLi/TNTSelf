@@ -5,12 +5,22 @@ import time
 
 __INFO__ = {
     "Category": "Tools",
+    "Plugname": "Edit Duration",
+    "Pluginfo": {
+        "Help": "To Edit Duration Of Music And Videos!",
+        "Commands": {
+            "{CMD}SDur <Sec> <Reply(Music|Vide)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Tools",
     "Plugname": "Edit Info",
     "Pluginfo": {
-        "Help": "To Edit Infos For Video And Musics!",
+        "Help": "To Edit Title And Performer For Music!",
         "Commands": {
-            "{CMD}SDur <Sec><Reply(Music|Vide)>": "Change Video or Music Duration!",
-            "{CMD}SAudio <Title>:<Name>": "Change Title And Performer Of Music!",
+            "{CMD}SAudio <Title>:<Name>": None,
         },
     },
 }
