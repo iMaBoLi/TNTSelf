@@ -1,16 +1,15 @@
 from FidoSelf import client
 from datetime import datetime
 
-PlugInfo = {
-    "Help": "Return Ping Of Self",
-    "Commands": {
-        "{CMD}ping": "Get Ping!",
-    },
-}
 __INFO__ = {
     "Category": "Setting",
     "Plugname": "Ping",
-    "Pluginfo": PlugInfo,
+    "Pluginfo": {
+        "Help": "Return Ping Of Self",
+        "Commands": {
+            "{CMD}ping": "Get Ping!",
+        },
+    },
 }
 
 STRINGS = {
