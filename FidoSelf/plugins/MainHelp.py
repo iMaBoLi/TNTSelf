@@ -26,6 +26,7 @@ CATS = {
     "Tools": "Tools 🔧",
     "Practical": "Practical 🧪",
     "Profile": "Profile 💎",
+    "Users": "Users ⭐",
     "Group": "Group 👥",
     "Private": "Private 🔒",
 }
