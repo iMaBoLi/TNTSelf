@@ -8,7 +8,6 @@ def Command(
     command=None,
     onlysudo=True,
     alowedits=True,
-    info=None,
     **kwargs,
 ):
     if command and not pattern:
@@ -19,9 +18,6 @@ def Command(
         if pattern not in COMMANDS:
             COMMANDS += [pattern]
             client.DB.set_key("SELFCOMMANDS", COMMANDS)
-
-    if info:
-        client.functions.AddInfo(info)
 
     def decorator(func):
         async def wrapper(event):
