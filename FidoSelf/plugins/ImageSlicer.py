@@ -2,6 +2,18 @@ from FidoSelf import client
 import image_slicer
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Image Slicer",
+    "Pluginfo": {
+        "Help": "To Get Slices Images To Tiles!",
+        "Commands": {
+            "{CMD}Slice <Count>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "slice": "**The Photo Was Sliced To** ( `{}` ) **Tiles!**",
 }
