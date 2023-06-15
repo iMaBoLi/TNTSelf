@@ -21,14 +21,14 @@ STRINGS = {
 }
 
 CATS = {
-    "Setting": "Settings ⚙️",
-    "Manage": "Manage 👮",
-    "Tools": "Tools 🔧",
-    "Practical": "Practical 🧪",
-    "Account": "Account 💎",
-    "Group": "Group 👥",
-    "Private": "Private 🔒",
-    "Funs": "Funs 🎨",
+    "Setting": "⚙️ Settings ( {} )",
+    "Manage": "👮 Manage ( {} )",
+    "Tools": "🔧 Tools ( {} )",
+    "Practical": "🧪 Practical ( {} )",
+    "Account": "💎 Account ( {} )",
+    "Group": "👥 Group ( {} )",
+    "Private": "🔒 Private ( {} )",
+    "Funs": "🎨 Funs ( {} )",
 }
 
 @client.Command(command="Help")
@@ -43,7 +43,9 @@ async def inlinehelp(event):
     text = STRINGS["main"].format(client.mention(client.me))
     buttons = []
     for category in CATS:
-        buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
+        plugcount = len(client.HELP[category])
+        ShowName = CATS[category].format(plugcount)
+        buttons.append(Button.inline(ShowName, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
@@ -53,7 +55,9 @@ async def callhelp(event):
     text = STRINGS["main"].format(client.mention(client.me))
     buttons = []
     for category in CATS:
-        buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
+        plugcount = len(client.HELP[category])
+        ShowName = CATS[category].format(plugcount)
+        buttons.append(Button.inline(ShowName, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
