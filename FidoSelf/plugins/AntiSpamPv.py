@@ -7,7 +7,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Setting Anti Spam For Pv!",
         "Commands": {
-            "{CMD}AntiSpamPv <On-Off>": None,,
+            "{CMD}AntiSpamPv <On-Off>": None,
         },
     },
 }
