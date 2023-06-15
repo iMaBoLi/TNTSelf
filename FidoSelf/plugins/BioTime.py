@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Time",
+    "Plugname": "Bio Time",
+    "Pluginfo": {
+        "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",
+        "Commands": {
+            "{CMD}NewBio <Text>": None,
+            "{CMD}DelBio <Text>": None,
+            "{CMD}BioList": None,
+            "{CMD}CleanBioList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "newnot": "**The Bio** ( `{}` ) **Already In Bio List!**",
     "newadd": "**The Bio** ( `{}` ) **Added To Bio List!**",
