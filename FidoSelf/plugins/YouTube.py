@@ -2,6 +2,20 @@ from FidoSelf import client
 from telethon import types, Button
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Youtube",
+    "Pluginfo": {
+        "Help": "To Download From Youtube And Search On Youtube!",
+        "Commands": {
+            "{CMD}YtDown <Link>": None,
+            "{CMD}YtSearch <Text>": None,
+        },
+    },
+}
+
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "linkinv": "**The Entered Youtube Link Is Invalid!**",
     "downingvid": "**Downloadig Video** ( `{}` ) **...**",
