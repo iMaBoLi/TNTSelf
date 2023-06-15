@@ -1,6 +1,19 @@
 from FidoSelf import client
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Cover File",
+    "Pluginfo": {
+        "Help": "To Set And Add Cover To Files!",
+        "Commands": {
+            "{CMD}SetCover <Reply(Photo)>": "Set Cover Photo!",
+            "{CMD}AddCover <Reply(Music|File)>": "Add Cover Photo To File!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "save": "**The Cover Photo For Files Has Been Saved!**",
     "notsave": "**The Cover Photo Is Not Saved!**",
