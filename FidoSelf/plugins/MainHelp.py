@@ -1,6 +1,19 @@
 from FidoSelf import client
 from telethon import Button
 
+__INFO__ = {
+    "Category": "Setting",
+    "Plugname": "Help",
+    "Pluginfo": {
+        "Help": "To Get Help About Self Commands!",
+        "Commands": {
+            "{CMD}Help": None,
+        },
+    },
+}
+
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "main": "**» Dear** ( {} )\n  **✾ Welcome To Fido Self Help!**\n  **✾ Please Select The Category You Want:**",
     "category": "**» Dear** ( {} )\n  **✾ Welcome To** ( `{}` ) **Category Help!**\n  **✾ Please Choose Plugin To Get Info:**",
