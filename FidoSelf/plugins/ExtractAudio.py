@@ -1,6 +1,18 @@
 from FidoSelf import client
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Extract Audio",
+    "Pluginfo": {
+        "Help": "To Extraxt Audio From Video!",
+        "Commands": {
+            "{CMD}ExAudio <Reply(Video)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "exing": "**Extracting Audio From Video ...**",
     "exed": "**The Audio Was Extracted From Video!**",
