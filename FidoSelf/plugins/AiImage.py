@@ -1,6 +1,19 @@
 from FidoSelf import client
 from somnium import Somnium
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "ai Image",
+    "Pluginfo": {
+        "Help": "Create Image For Your Text White Beautiful Styles!",
+        "Commands": {
+            "{CMD}CPhoto '<StyleID>' <Text>": None,
+            "{CMD}GStyles": "To Get StylesID For Create Images!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "gen": "**Creating Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **...**",
     "caption": "**The Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **Created!**",
