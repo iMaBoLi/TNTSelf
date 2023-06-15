@@ -4,7 +4,7 @@ import asyncio, random
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Manage",
     "Plugname": "Youtube",
     "Pluginfo": {
         "Help": "To Setting Echo Users And Send User Messages!",
