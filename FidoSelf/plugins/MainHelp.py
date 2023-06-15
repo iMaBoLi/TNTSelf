@@ -83,7 +83,7 @@ async def getplugin(event):
         addline = True
         ComName = command.format(CMD=".")
         share = f"http://t.me/share/text?text={ComName.split(' ')[0]}"
-        text += f"◎ [{plugin}]({share})" + ": " + f"`{ComName}`" + "\n"
+        text += f"◎ [🔗]({share})" + ": " + f"`{ComName}`" + "\n"
         if info["Commands"][command]:
             text += "    **› " + info["Commands"][command] + "**\n"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
