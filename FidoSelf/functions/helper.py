@@ -91,13 +91,9 @@ setattr(Message, "userid", getuserid)
 setattr(Message, "chatid", getchatid)
 
 def mention(info, coustom=None):
-    if coustom:
-        name = coustom
-    else:
-        name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
-    if info.username:
-        return f"[{name}](@{info.username})"
-    return f"[{name}](tg://user?id={info.id})"
+    if not coustom:
+        coustom = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
+    return f"[{coustom}](tg://user?id={info.id})"
 
 def mediatype(event):
     type = "Empty"
