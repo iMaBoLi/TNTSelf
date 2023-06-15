@@ -9,11 +9,11 @@ STRINGS = {
 
 CATS = {
     "Setting": "Settings ⚙️",
-    "Manag": "Manage 👮",
+    "Manage": "Manage 👮",
     "Tools": "Tools 🔧",
     "Profile": "Profile 💎",
     "Group": "Group 👥",
-    "Time": "Time ⏰",
+    "Private": "Private 🔒",
 }
 
 @client.Command(command="Help")
@@ -60,14 +60,17 @@ async def getplugin(event):
     category = event.data_match.group(2).decode('utf-8')
     info = client.HELP[category][plugin]
     text = "**꥟ " + info["Help"] + "**\n\n"
-    text += "⊰᯽⊱┈──╌❊ - ❊╌──┈⊰᯽⊱" + "\n\n"
+    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
+    addline = False
     for command in info["Commands"]:
+        if addline:
+            text += "─────── ⋆ ───────" + "\n"
+        addline = True
         ComName = command.format(CMD=".")
         share = f"http://t.me/share/text?text={ComName}"
         text += f"◎ [{plugin}]({share})" + ": " + f"`{ComName}`" + "\n"
         if info["Commands"][command]:
             text += "  **› " + info["Commands"][command] + "**\n"
-        text += "─────── ⋆ ───────"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
