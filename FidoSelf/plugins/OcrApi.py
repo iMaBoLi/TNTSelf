@@ -1,6 +1,20 @@
 from FidoSelf import client
 import requests, os
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Ocr",
+    "Pluginfo": {
+        "Help": "To Extract Text From Your Photos!",
+        "Commands": {
+            "{CMD}SetOcrKey <Key>": "Set Ocr Api Key!",
+            "{CMD}Ocr <Lang>": "Get Ocr Result White Language!",
+            "{CMD}OcrLangs": "Get Ocr Languages!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "setapi": "**The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
     "notsave": "**The Ocr ApiKey Is Not Saved!**",
