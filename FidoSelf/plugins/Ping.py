@@ -18,7 +18,7 @@ STRINGS = {
     "ping": "**PonG!** [ `{ping}` ]",
 }
 
-@client.Command(command="Ping", info=__INFO__)
+@client.Command(command="Ping")
 async def ping(event):
     start = datetime.now()
     await event.edit(STRINGS["bping"])
