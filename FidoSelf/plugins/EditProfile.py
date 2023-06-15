@@ -2,6 +2,22 @@ from FidoSelf import client
 from telethon import functions
 from telethon.errors import UsernameInvalidError, UsernameOccupiedError
 
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "Edit Profile",
+    "Pluginfo": {
+        "Help": "To setting Your Profile Info!",
+        "Commands": {
+            "{CMD}SetName <Text>": "Set First Name!",
+            "{CMD}SetLName <Text>": "Set Last Name!",
+            "{CMD}SetBio <Text>": None,
+            "{CMD}SetUsername <Text>": None,
+            "{CMD}SetProfile <Reply(Photo)>": "To Set Photo On Profile!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "lenname": "**The Number Of Characters Entered For Name Exceeds The Limit!**",
     "setname": "**The Profile Name Was Set To** ( `{}` )",
