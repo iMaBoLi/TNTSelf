@@ -2,6 +2,20 @@ from FidoSelf import client
 from telethon import Button
 from datetime import datetime
 
+__INFO__ = {
+    "Category": "Setting",
+    "Plugname": "Panel",
+    "Pluginfo": {
+        "Help": "To Get Inline Panel To Setting Self!",
+        "Commands": {
+            "{CMD}Panel": None,
+            "{CMD}Panel <ChatID>": "To Get Panel For Other Chat!",
+            "{CMD}PanelPv": "To Send Panel For This Chat In Saved Messages!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "changemode":  "**➜ The {} Has Been {}!**",
     "changefont":  "**➜ The Time Font Has Been Set To:** ( `{}` )",
