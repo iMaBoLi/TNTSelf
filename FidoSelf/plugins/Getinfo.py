@@ -3,11 +3,21 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Get Info",
+    "Plugname": "User Info",
     "Pluginfo": {
         "Help": "To Get Information Of Users!",
         "Commands": {
             "{CMD}UInfo <Pv|Reply|UserId|Username>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Chat Info",
+    "Pluginfo": {
+        "Help": "To Get Information Of Chats!",
+        "Commands": {
             "{CMD}CInfo <Chat|ChatId>": None,
         },
     },
