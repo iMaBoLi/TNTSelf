@@ -2,6 +2,18 @@ from FidoSelf import client
 import os
 import time
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Trim Media",
+    "Pluginfo": {
+        "Help": "To Trim Your Video And Musics!",
+        "Commands": {
+            "{CMD}STrim <Sec>-<Sec>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "trvid": "**Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
     "trdvid": "**The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
