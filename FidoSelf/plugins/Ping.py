@@ -1,7 +1,7 @@
 from FidoSelf import client
 from datetime import datetime
 
-PluginInfo = {
+PlugInfo = {
     "Help": "Return Ping Of Self",
     "Commands": {
         "{CMD}ping": "Get Ping!",
