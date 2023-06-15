@@ -24,6 +24,7 @@ CATS = {
     "Setting": "Settings ⚙️",
     "Manage": "Manage 👮",
     "Tools": "Tools 🔧",
+    "Practical": "Practical 🧪",
     "Profile": "Profile 💎",
     "Group": "Group 👥",
     "Private": "Private 🔒",
