@@ -2,6 +2,17 @@ from FidoSelf import client
 from telethon import Button
 import wikipedia
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Wikipedia",
+    "Pluginfo": {
+        "Help": "To Search A Note On Wikipedia!",
+        "Commands": {
+            "{CMD}SWiki <Text>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "not": "**No Results Found For Query:** ( `{}` ) **In Wikipedia!**",
@@ -39,5 +50,7 @@ async def getwikipedia(event):
     count = int(event.data_match.group(2).decode('utf-8'))
     search = wikipedia.search(query)[count]
     result = wikipedia.summary(search)
+    if len(result) > 3000:
+        result = result[:3000]
     text = STRINGS["info"].format(search, result)
     await event.edit(text=text)
