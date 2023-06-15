@@ -1,5 +1,18 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Manage",
+    "Plugname": "Edit Modes",
+    "Pluginfo": {
+        "Help": "To Download From Youtube And Search On Youtube!",
+        "Commands": {
+            "{CMD}YtDown <Link>": None,
+            "{CMD}YtSearch <Text>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(alowedits=False)
 async def editmodes(event):
     if not event.text or event.checkCmd(): return
