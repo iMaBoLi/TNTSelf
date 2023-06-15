@@ -3,6 +3,18 @@ from PIL import Image, ImageDraw
 import numpy as np
 import os
 
+__INFO__ = {
+    "Category": "Funs",
+    "Plugname": "Round Photo",
+    "Pluginfo": {
+        "Help": "To Create Round Sticker For Photo!",
+        "Commands": {
+            "{CMD}RPhoto <Reply(Photo)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(command="RPhoto")
 async def roundphoto(event):
     await event.edit(client.STRINGS["wait"])
