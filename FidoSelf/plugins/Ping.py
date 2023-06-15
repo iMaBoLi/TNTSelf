@@ -5,9 +5,9 @@ __INFO__ = {
     "Category": "Setting",
     "Plugname": "Ping",
     "Pluginfo": {
-        "Help": "Return Ping Of Self",
+        "Help": "Return Ping Of Your Self!",
         "Commands": {
-            "{CMD}ping": "Get Ping!",
+            "{CMD}ping": None,
         },
     },
 }
