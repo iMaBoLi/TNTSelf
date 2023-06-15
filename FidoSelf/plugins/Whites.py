@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Users",
+    "Plugname": "White",
+    "Pluginfo": {
+        "Help": "To Manage Users On White List!",
+        "Commands": {
+            "{CMD}AddWhite <Reply|Userid|Username>": None,
+            "{CMD}DelWhite <Reply|Userid|Username>": None,
+            "{CMD}WhiteList": None,
+            "{CMD}CleanWhiteList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notall": "**The User** ( {} ) **Already In White List!**",
     "add": "**The User** ( {} ) **Is Added To White List!**",
