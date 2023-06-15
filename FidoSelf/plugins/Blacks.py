@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Users",
+    "Plugname": "Black",
+    "Pluginfo": {
+        "Help": "To Manage Users On Black List!",
+        "Commands": {
+            "{CMD}AddBlack <Reply|Userid|Username>": None,
+            "{CMD}DelBlack <Reply|Userid|Username>": None,
+            "{CMD}BlackList": None,
+            "{CMD}CleanBlackList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notall": "**The User** ( {} ) **Already In Black List!**",
     "add": "**The User** ( {} ) **Is Added To Black List!**",
