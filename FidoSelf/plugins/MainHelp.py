@@ -2,7 +2,8 @@ from FidoSelf import client
 from telethon import Button
 
 STRINGS = {
-    "category": "**» Welcome To Fido Self Help!**\n**• Please Select The Category You Want:**",
+    "main": "**» Welcome To Fido Self Help!**\n**• Please Select The Category You Want:**",
+    "category": "**» Welcome To** ( `{}` ) **Help!**\n**Please Choose Plugin To Get Info:**",
     "closehelp": "**The Help Panel Successfully Closed!**",
 }
 
@@ -14,24 +15,6 @@ CATS = {
     "Groups": "Groups 👥",
     "Time": "Time ⏰",
 }
-def get_helpbuttons():
-    buttons = []
-    for category in CATS:
-        buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    return buttons
-
-def get_catbuttons(Category):
-    buttons = []
-    for plugin in client.HELP[Category]:
-        emoji = client.DB.get_key("HELP_EMOJI") or "•"
-        name = emoji + " " + plugin + " " + emoji
-        buttons.append(Button.inline(name, data=f"GetHelp:{plugin}:{Category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data=f"Help")])
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    return buttons
 
 @client.Command(command="Help")
 async def help(event):
@@ -42,29 +25,47 @@ async def help(event):
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):
-    text = STRINGS["category"]
-    buttons = get_helpbuttons()
+    text = STRINGS["main"]
+    buttons = []
+    for category in CATS:
+        buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
 @client.Callback(data="Help")
 async def callhelp(event):
-    text = STRINGS["category"]
-    buttons = get_helpbuttons()
+    text = STRINGS["main"]
+    buttons = []
+    for category in CATS:
+        buttons.append(Button.inline(f"• {CATS[category]} •", data=f"GetCategory:{category}"))
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetCategory\:(.*)")
 async def getcategory(event):
-    Category = str(event.data_match.group(1).decode('utf-8'))
-    buttons = get_catbuttons(Category)
-    text = STRINGS["category"]
+    category = str(event.data_match.group(1).decode('utf-8'))
+    buttons = []
+    for plugin in client.HELP[category]:
+        buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
+    buttons = list(client.functions.chunks(buttons, 2))
+    buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
+    text = STRINGS["category"].format(category)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
-    Category = event.data_match.group(2).decode('utf-8')
-    text = client.HELP[Category][plugin]
-    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{Category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
+    category = event.data_match.group(2).decode('utf-8')
+    info = client.HELP[category][plugin]
+    text = info["Help"] + "\n\n"
+    for command in info["Commands"]:
+        ComName = command.format(CMD=".")
+        share = f"http://t.me/share/text?text={ComName}"
+        text += f"[Share]({share})" + " " + f"`{ComName}`"
+        text += "\n" + info["Commands"][command] + "\n\n"
+    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="CloseHelp")
