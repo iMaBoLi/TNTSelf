@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Time",
+    "Plugname": "Text Time",
+    "Pluginfo": {
+        "Help": "To Save Your Texts For Time In Photo!",
+        "Commands": {
+            "{CMD}AddTextTime <Text>": None,
+            "{CMD}DelTextTime <Text>": None,
+            "{CMD}TextTimeList": None,
+            "{CMD}CleanTextTimeList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "newnot": "**The Text Time** ( `{}` ) **Already In TextTime List!**",
     "newadd": "**The Text Time** ( `{}` ) **Added To TextTime List!**",
