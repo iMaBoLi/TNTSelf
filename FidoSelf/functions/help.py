@@ -4,6 +4,6 @@ def AddInfo(info):
     category = info["Category"]
     pluginname = info["Plugname"]
     plugininfo = info["Pluginfo"]
-    if not client.HELP[category]:
+    if category not in client.HELP:
         client.HELP.update({category: {}})
     client.HELP[category][pluginname] = plugininfo
