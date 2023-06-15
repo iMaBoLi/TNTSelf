@@ -1,6 +1,18 @@
 from FidoSelf import client
 from telethon import functions, types
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Get Profiles",
+    "Pluginfo": {
+        "Help": "To Get Profile Photos Of Users!",
+        "Commands": {
+            "{CMD}GProfiles <Reply|UserID|Username>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "not": "**The Profile Photos For** ( {} ) **Is Not Found!**",
     "caption": "**The Profile Photos For** ( {} ) **Is Sended!**",
