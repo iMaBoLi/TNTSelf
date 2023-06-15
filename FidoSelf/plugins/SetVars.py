@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Setting",
     "Plugname": "Set Chats",
     "Pluginfo": {
         "Help": "To Set Your Realm And BackUp Channel!",
