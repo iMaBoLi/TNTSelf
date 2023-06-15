@@ -29,7 +29,6 @@ CATS = {
     "Group": "Group 👥",
     "Private": "Private 🔒",
     "Funs": "Funs 🎨",
-    "Time": "Time ⏰",
 }
 
 @client.Command(command="Help")
