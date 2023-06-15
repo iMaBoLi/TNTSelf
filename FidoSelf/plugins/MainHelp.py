@@ -66,7 +66,7 @@ async def getplugin(event):
         share = f"http://t.me/share/text?text={ComName}"
         text += f"◎ [{plugin}]({share})" + ": " + f"`{ComName}`" + "\n"
         if info["Commands"][command]:
-            text += "  **› " info["Commands"][command] + "**\n"
+            text += "  **› " + info["Commands"][command] + "**\n"
         text += "─────── ⋆ ───────"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
