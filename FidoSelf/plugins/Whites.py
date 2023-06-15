@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Users",
+    "Category": "Manage",
     "Plugname": "White",
     "Pluginfo": {
         "Help": "To Manage Users On White List!",
