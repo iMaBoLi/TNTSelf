@@ -1,6 +1,20 @@
 from FidoSelf import client
 from telethon import functions, types
 
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "Del Profiles",
+    "Pluginfo": {
+        "Help": "To Delete Profile Phots!",
+        "Commands": {
+            "{CMD}DelProfile": "Delete First Profile!",
+            "{CMD}DelProfile <Num>": "Delete Inputed Number Profile!",
+            "{CMD}DelProfile -<Count>": "Delete Profiles As Required!","
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "not": "**The Profile Photos Is Not Found!**",
     "last": "**The Last Profile Photo Has Been Deleted!**",
