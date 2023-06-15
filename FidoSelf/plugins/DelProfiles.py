@@ -9,7 +9,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}DelProfile": "Delete First Profile!",
             "{CMD}DelProfile <Num>": "Delete Inputed Number Profile!",
-            "{CMD}DelProfile -<Count>": "Delete Profiles As Required!","
+            "{CMD}DelProfile -<Count>": "Delete Profiles As Required!",
         },
     },
 }
