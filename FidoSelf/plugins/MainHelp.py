@@ -36,7 +36,7 @@ def get_catbuttons(Category):
         name = emoji + " " + plugin + " " + emoji
         buttons.append(Button.inline(name, data=f"GetHelp:{plugin}:{Category}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline("• Back •", data=f"Help")])
+    buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data=f"Help")])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     return buttons
 
@@ -68,10 +68,10 @@ async def getcategory(event):
 
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
 async def getplugin(event):
-    plugin = str(event.data_match.group(1).decode('utf-8'))
-    Category = int(event.data_match.group(2).decode('utf-8'))
+    plugin = event.data_match.group(1).decode('utf-8')
+    Category = event.data_match.group(2).decode('utf-8')
     text = client.HELP[Category][plugin]
-    buttons = [[Button.inline("• Back •", data=f"GetCategory:{Category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
+    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{Category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="CloseHelp")
