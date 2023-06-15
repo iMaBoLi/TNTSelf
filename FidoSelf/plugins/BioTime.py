@@ -6,6 +6,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",
         "Commands": {
+            "{CMD}Bio <On-Off>": None,
             "{CMD}NewBio <Text>": None,
             "{CMD}DelBio <Text>": None,
             "{CMD}BioList": None,
