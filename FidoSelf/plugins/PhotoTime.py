@@ -3,7 +3,7 @@ from telethon import Button
 import os
 
 __INFO__ = {
-    "Category": "Time",
+    "Category": "Account",
     "Plugname": "Photo Time",
     "Pluginfo": {
         "Help": "To Save Your Photo For Profile Time And Turn On-Off!",
