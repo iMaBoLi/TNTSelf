@@ -20,6 +20,17 @@ def chunks(elements, size):
     n = max(1, size)
     return (elements[i:i + n] for i in range(0, len(elements), n))
 
+def chunker(elements, sizes=[3, 2]):
+    newlist = []
+    number = sizes[0]
+    while elements:
+        newels = elements[:number]
+        newlist += [newels]
+        for elem in newels:
+            elements.remove(elem)
+        number = sizes[0] if number != sizes[0] else sizes[1]
+    return newlist
+
 def reverse(mylist):
     result = []
     for element in mylist:
