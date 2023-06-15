@@ -36,8 +36,9 @@ STRINGS = {
         "Yes": "Yes ✅",
         "No": "No ❌",
         "Close": "🚫 Close 🚫",
-        "Next": "Next ▶️",
-        "Back": "◀️ Back",
+        "NextPage": "Next ▶️",
+        "BackPage": "◀️ Back",
+        "Back": "🔙 Back",
         "Show": "💡 This Button Is Only For Show!",
     },
     "progress": {
