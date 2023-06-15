@@ -1,6 +1,18 @@
 from FidoSelf import client
 from telethon import functions
 
+__INFO__ = {
+    "Category": "Private",
+    "Plugname": "Anti Spam",
+    "Pluginfo": {
+        "Help": "To Setting Anti Spam For Pv!",
+        "Commands": {
+            "{CMD}AntiSpamPv <On-Off>": None,,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(command="SetSpamPvLimit (\d*)")
 async def setautodeletesleep(event):
     await event.edit(STRINGS["wait"])
