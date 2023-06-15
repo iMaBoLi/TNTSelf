@@ -2,6 +2,20 @@ from FidoSelf import client
 import openai
 import requests
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Open Ai",
+    "Pluginfo": {
+        "Help": "To Use From OpenAi For Chat And Create Photo!",
+        "Commands": {
+            "{CMD}SetAiKey <Key>": "Set OpenAi Api Key!",
+            "{CMD}GText <Text>": "To Get Response For Text!",
+            "{CMD}GPhoto <Text>": "To Create Photo For Text!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "setapi": "**The OpenAi ApiKey** ( `{}` ) **Has Been Saved!**",
     "noapi": "**The OpenAi ApiKey Is Not Saved!**",
