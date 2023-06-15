@@ -6,13 +6,23 @@ __INFO__ = {
     "Category": "Account",
     "Plugname": "Edit Profile",
     "Pluginfo": {
-        "Help": "To setting Your Profile Info!",
+        "Help": "To Setting Your Profile Info!",
         "Commands": {
             "{CMD}SetName <Text>": "Set First Name!",
             "{CMD}SetLName <Text>": "Set Last Name!",
             "{CMD}SetBio <Text>": None,
             "{CMD}SetUsername <Text>": None,
-            "{CMD}SetProfile <Reply(Photo)>": "To Set Photo On Profile!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Account",
+    "Plugname": "Set Profile",
+    "Pluginfo": {
+        "Help": "To Set Your Profile Photo!",
+        "Commands": {
+            "{CMD}SetProfile <Reply(Photo)>": None,
         },
     },
 }
