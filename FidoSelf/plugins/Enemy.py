@@ -3,6 +3,23 @@ from telethon import functions, types, Button
 import asyncio, random
 import os
 
+__INFO__ = {
+    "Category": "Manage",
+    "Plugname": "Enemy",
+    "Pluginfo": {
+        "Help": "To Seeting Enemy List And Send Foshs!",
+        "Commands": {
+            "{CMD}AddEnemy <Pv|Reply|UserId|Username>": None,
+            "{CMD}DelEnemy <Pv|Reply|UserId|Username>": None,
+            "{CMD}EnemyList": None,
+            "{CMD}CleanEnemyList": None,
+            "{CMD}SetEnemySleep <Time>": "Set Sleep For Send Fosh To Enemy!",
+            "{CMD}DelEnemyPms <On-Off>": "Delete Pv Messages Of Enemies!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "where": "**Select You Want This Enemy User To Be Saved For Where:**",
     "notall": "The User ( {} ) Is Alredy In Enemy List In {} Location!",
@@ -93,14 +110,10 @@ async def enemyfosh(event):
     if not os.path.exists(client.PATH + "FOSHS.txt"): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMY_DELETE") or "off"
-    sign = client.DB.get_key("SIGNENEMY_MODE") or "off"
-    tsign  = client.DB.get_key("SIGNENEMY_TEXT")
     if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (str(event.chat_id) in Enemies[userid]):
         FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
         await asyncio.sleep(int(sleep))
         fosh = random.choice(FOSHS)
-        if sign == "on" and tsign:
-            fosh = fosh + "\n\n" + tsign
         await event.reply(fosh)
         if delete == "on" and event.is_private:
             await event.delete()
