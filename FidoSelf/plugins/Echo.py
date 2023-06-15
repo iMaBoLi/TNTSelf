@@ -3,6 +3,21 @@ from telethon import functions, types, Button
 import asyncio, random
 import os
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Youtube",
+    "Pluginfo": {
+        "Help": "To Setting Echo Users And Send User Messages!",
+        "Commands": {
+            "{CMD}AddEcho <Pv|Reply|UserId|Username>": None,
+            "{CMD}DelEcho <Pv|Reply|UserId|Username>": None,
+            "{CMD}EchoList": None,
+            "{CMD}CleanEchoList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "where": "**Select You Want This Echo User To Be Saved For Where:**",
     "notall": "The User ( {} ) Is Alredy In Echo List In {} Location!",
