@@ -3,6 +3,19 @@ from telethon import functions, types
 import time
 import os
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "VideoShot",
+    "Pluginfo": {
+        "Help": "To Get Screen Shot From Your Videos!",
+        "Commands": {
+            "{CMD}VShot <Time>": "To Get Shot From a Time!",
+            "{CMD}VShot -<Count>": "To Get Shots From Times As Required!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "taking": "**Taking** ( `{}` ) **Screen Shot From Your Video ...**",
     "taked": "**Taked** ( `{}` ) **Screen Shot From Your Video ...**",
