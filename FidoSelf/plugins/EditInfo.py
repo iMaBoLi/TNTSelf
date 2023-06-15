@@ -3,6 +3,19 @@ from telethon import types
 import os
 import time
 
+__INFO__ = {
+    "Category": "Tools",
+    "Plugname": "Edit Info",
+    "Pluginfo": {
+        "Help": "To Edit Infos For Video And Musics!",
+        "Commands": {
+            "{CMD}SDur <Sec><Reply(Music|Vide)>": "Change Video or Music Duration!",
+            "{CMD}SAudio <Title>:<Name>": "Change Title And Performer Of Music!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "adur": "**The Duration Of This Audio Was Changed To** ( `{}` )",
     "vdur": "**The Duration Of This Video Was Changed To** ( `{}` )",
@@ -36,7 +49,7 @@ async def setduration(event):
     os.remove(file)
     await event.delete()
 
-@client.Command(command="SEAudio (.*)\:(.*)")
+@client.Command(command="SAudio (.*)\:(.*)")
 async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     title = str(event.pattern_match.group(1))
