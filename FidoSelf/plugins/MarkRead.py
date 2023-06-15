@@ -1,5 +1,20 @@
 from FidoSelf import client
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "MarkRead",
+    "Pluginfo": {
+        "Help": "To Mark Read Messages In Chats!",
+        "Commands": {
+            "{CMD}ReadAll <On-Off>": None,
+            "{CMD}ReadPv <On-Off>": None,
+            "{CMD}ReadGp <On-Off>": None,
+            "{CMD}ReadCh <On-Off>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(onlysudo=False)
 async def mark(event):
     all = client.DB.get_key("READALL_MODE") or "off"
