@@ -4,6 +4,20 @@ from moviepy.editor import VideoFileClip
 import time
 import os
 
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Video Convert",
+    "Pluginfo": {
+        "Help": "To Convert Your Videos And Gifs!",
+        "Commands": {
+            "{CMD}SVNormal <Reply(Gif|VNote)>": "Convert To Normal Video!",
+            "{CMD}SVGif <Reply(Video|VNote)>": "Convert To Gif!",
+            "{CMD}SVNote <Reply(Video|Gif)>": "Convert To Video Note!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 @client.Command(command="SV(Note|Normal|Gif)")
 async def videoconvert(event):
     await event.edit(client.STRINGS["wait"])
