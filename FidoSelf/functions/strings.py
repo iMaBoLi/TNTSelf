@@ -39,6 +39,7 @@ STRINGS = {
         "NextPage": "Next ▶️",
         "BackPage": "◀️ Back",
         "Back": "🔙 Back",
+        "Delete": "🗑️ Delete 🗑️",
         "Show": "💡 This Button Is Only For Show!",
     },
     "progress": {
