@@ -49,7 +49,7 @@ async def editchanger(event):
         EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
         if chatid not in EditChats:
             EditChats.update({chatid: ""})
-         if change == "on":
+        if change == "on":
             EditChats[chatid] = type
             client.DB.set_key("EDITCHATS_MODE", EditChats)
             settext = STRINGS["editchat"].format(type, ShowChange)
