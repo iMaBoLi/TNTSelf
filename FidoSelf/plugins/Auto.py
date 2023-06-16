@@ -1,6 +1,7 @@
 from FidoSelf import client
 import aiocron
 import time
+import asyncio
 
 @client.Command(command="AddChat")
 async def addauto(event):
@@ -28,7 +29,8 @@ async def autosender():
     for chatid in CHATS:
         ltime = CHATS[chatid]
         ntime = time.time()
-        if ntime > (ltime + 60):
+        if ntime > (ltime + 1200):
             await client.send_message(chatid, Baner)
             CHATS[chatid] = ntime
             client.DB.set_key("AUTO_CHATS", CHATS)
+            await asyncio.sleep(2)
