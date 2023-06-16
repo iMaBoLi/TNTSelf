@@ -223,7 +223,7 @@ async def SetPanel(event):
             elif Change == "del":
                 if chatid in acChats:
                     acChats.remove(chatid)
-                    client.DB.set_key("ACTION_CHATS", acChats))
+                    client.DB.set_key("ACTION_CHATS", acChats)
             ShowChange = client.STRINGS["On"] if Change == "add" else client.STRINGS["Off"]
             settext = STRINGS["actionchat"].format(ShowChange) 
         text = settext + "\n\n" + pagetext
