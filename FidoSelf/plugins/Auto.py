@@ -14,7 +14,8 @@ async def addauto(event):
     
 @aiocron.crontab("*/1 * * * *")
 async def autosender():
-    CHATS = client.DB.get_key("AUTO_CHATS")
+    CHATS = client.DB.get_key("AUTO_CHATS") or []
+    if not CHATS: return
     Baner = """
     🩵 سلف با امکانات فوق العاده خفن!
 
