@@ -15,15 +15,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "changemode":  "**➜ The {} Has Been {}!**",
-    "changefont":  "**➜ The Time Font Has Been Set To:** ( `{}` )",
-    "changeeditchat":  "**➜ The Edit Mode For This Chat Has Been Set To:** ( `{}` )",
-    "closeeditchat":  "**➜ The Edit Mode For This Chat Has Been Disabled!**",
-    "changeeditall":  "**➜ The Edit Mode Has Been Set To:** ( `{}` )",
-    "closeeditall":  "**➜ The Edit Mode Has Been Disabled!**",
-    "actionall": "**➜ The Send Chat Action Has Been {}!**",
-    "actionchat": "**➜ The Send Chat Action For This Chat Has Been {}!**",
-    "setaction":  "**➜ The Send Action Mode Was Set To** ( `{}` )",
+    "changeturn":  "**➜ The {} Has Been {}!**",
+    "changemode":  "**➜ The {} Has Been Set To:** ( `{}` )",
+    "disablemode":  "**➜ The {} Has Been Disabled!**",
+    "changeall":  "**➜ The {} For All Chats Has Been {}!**",
+    "changechat":  "**➜ The {} For This Chat Has Been {}!**",
+    "changechatmode":  "**➜ The {} For This Chat Has Been Set To:** ( `{}` )",
+    "disablechatmode":  "**➜ The {} For This Chat Has Been Disabled!**",
     "modepage": "**❃ Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**❃ Select Which Edit Mode You Want Turn On-Off:**",
@@ -258,6 +256,10 @@ async def SetPanel(event):
             settext = STRINGS["disablemode"].format(skey)
         else:
             settext = STRINGS["changemode"].format(skey, value)
+    elif type == "ModeAll":
+        client.DB.set_key(key, value)
+        cshow = client.STRINGS["On"] if value == "on" else client.STRINGS["Off"]
+        settext = STRINGS["changeall"].format(skey, cshow)
     elif type == "Chat":
         chats = client.DB.get_key(key) or []
         if value == "add":
@@ -266,7 +268,7 @@ async def SetPanel(event):
             chats.remove(chatid)
         client.DB.set_key(key, chats)
         cshow = client.STRINGS["On"] if value == "add" else client.STRINGS["Off"]
-        settext = STRINGS["changeaddchat"].format(skey, cshow)
+        settext = STRINGS["changechat"].format(skey, cshow)
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or {}
         if chatid not in chats:
@@ -281,7 +283,10 @@ async def SetPanel(event):
         value = value if chats[chatid] != value else None
         chats[chatid] = value
         client.DB.set_key(key, chats)
-        settext = STRINGS["disablechatmode"].format(skey)
+        if not value:
+            settext = STRINGS["disablechatmode"].format(skey)
+        else:
+            settext = STRINGS["changechatmode"].format(skey, value)
     text = settext + "\n\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
