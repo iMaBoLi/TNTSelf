@@ -17,6 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**The Name Mode Has Been {}!**",
     "newnot": "**The Name** ( `{}` ) **Already In Name List!**",
     "newadd": "**The Name** ( `{}` ) **Added To Name List!**",
     "delnot": "**The Name** ( `{}` ) **Not In Name List!**",
@@ -26,6 +27,14 @@ STRINGS = {
     "aempty": "**The Name List Is Already Empty!**",
     "clean": "**The Name List Is Cleaned!**",
 }
+
+@client.Command(command="Name (On|Off)")
+async def namemode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("NAME_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(command="NewName (.*)")
 async def addname(event):
