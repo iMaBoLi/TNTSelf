@@ -1,17 +1,63 @@
 from FidoSelf import client
 
+Commands = {}
+for Mode in client.functions.MODES:
+    Cmd += "{CMD}" + Mode + " <On-Off>"
+    AllCmd += "{CMD}" + Mode + "All" + " <On-Off>"
+    Commands.update({Cmd: None})
+    Commands.update({AllCmd: None})
+
 __INFO__ = {
     "Category": "Manage",
     "Plugname": "Edit Modes",
     "Pluginfo": {
-        "Help": "To Download From Youtube And Search On Youtube!",
-        "Commands": {
-            "{CMD}YtDown <Link>": None,
-            "{CMD}YtSearch <Text>": None,
-        },
+        "Help": "To Setting Edit Modes For Your Texts!",
+        "Commands": Commands,
     },
 }
 client.functions.AddInfo(__INFO__)
+
+STRINGS = {
+    "editchat": "**The Edit Mode** ( `{}` ) **For This Chat Has Been {}!**",
+    "editall": "**The Edit Mode** ( `{}` ) **Has Been {}!**",
+}
+
+PATTERN = ""
+for mode in client.functions.MODES:
+    PATTERN += mode + "|"
+    PATTERN += mode + "All" + "|"
+PATTERN = PATTERN[:-1]
+
+@client.Command(command=f"({PATTERN}) (On|Off)")
+async def editchanger(event):
+    await event.edit(client.STRINGS["wait"])
+    type = event.pattern_match.group(1).title()
+    change = event.pattern_match.group(2).lower()
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    if type.endswith("all"):
+        gteMode = client.DB.get_key("EDITALL_MODE")
+        if change == "on":
+            type = type.replace("all", "")
+            client.DB.set_key("EDITALL_MODE", str(type))
+            settext = STRINGS["editall"].format(type, ShowChange)
+        else:
+            type = type.replace("all", "")
+            if getMode == type:
+                client.DB.set_key("EDITALL_MODE", None)
+            settext = STRINGS["editall"].format(type, ShowChange)
+    else:
+        EditChats = client.DB.get_key("EDITCHATS_MODE") or {}
+        if chatid not in EditChats:
+            EditChats.update({chatid: ""})
+         if change == "on":
+            EditChats[chatid] = type
+            client.DB.set_key("EDITCHATS_MODE", EditChats)
+            settext = STRINGS["editchat"].format(type, ShowChange)
+        else:
+            if echats[chatid] == type:
+                EditChats[chatid] = ""
+            settext = STRINGS["editchat"].format(type, ShowChange)
+    await event.edit(settext)
 
 @client.Command(alowedits=False)
 async def editmodes(event):
@@ -44,4 +90,3 @@ async def editmodes(event):
             userid = event.sender_id
         text = f"[{event.text}](tg://user?id={userid})"
         await event.edit(text)
-        
