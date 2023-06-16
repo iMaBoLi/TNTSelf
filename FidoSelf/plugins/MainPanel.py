@@ -146,24 +146,22 @@ def get_buttons(chatid, page):
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     elif page == (ModePages + 3):
-        Chbuttons = []
-        Allbuttons = []
+        acMode = client.DB.get_key("ACTION_ALL") or "off"
+        acChats = client.DB.get_key("ACTION_CHATS") or []
+        Mact = client.STRINGS["inline"]["On"] if int(chatid) in acChats else client.STRINGS["inline"]["Off"]
+        Cact = "del" if int(chatid) in acChats else "add"
+        Mactall = client.STRINGS["inline"]["On"] if acMode == "on" else client.STRINGS["inline"]["Off"]
+        Cactall = "on" if acMode == "off" else "off"
+        buttons = [[Button.inline(f"Action {Mact}", data=f"SetPanel:ACTION_CHATS:{Cact}:{chatid}:{page}"), Button.inline(f"Action All {Mactall}", data=f"SetPanel:ACTION_ALL:{Cactall}:{chatid}:{page}")]]
+        actbts = []
         for action in client.functions.ACTIONS:
-            acName = action.upper() + "_CHATS"
-            acChats = client.DB.get_key(acName) or []
-            getMode = "del" if (int(chatid) in acChats or str(chatid) in acChats) else "add"
+            acType = client.DB.get_key("ACTION_TYPE") or "bold"
+            getMode = "on" if action == acType else "off"
             ShowName = action.replace("-", " ").title()
-            ShowMode = client.STRINGS["inline"]["On"] if getMode == "del" else client.STRINGS["inline"]["Off"]
-            Chbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{getMode}:{chatid}:{page}"))
-        for action in client.functions.ACTIONS:
-            acName = action.upper() + "_ALL"
-            getMode = client.DB.get_key(acName) or "off"
-            ChangeMode = "on" if getMode == "off" else "off"
-            ShowName = action.replace("-", " ").title() + " All"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            Allbuttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{acName}:{ChangeMode}:{chatid}:{page}"))
-        OthButton = [[Button.inline(" --------------- ", data="Empty")]]
-        buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
+            actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:ACTION_TYPE:{action}:{chatid}:{page}"))
+        actbts = list(client.functions.chunks(acbts, 3))
+        buttons.append(actbts)
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
