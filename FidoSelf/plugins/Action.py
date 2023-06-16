@@ -33,7 +33,7 @@ async def actionchat(event):
         if chatid not in acChats:
             acChats.append(chatid)
             client.DB.set_key("ACTION_CHATS", acChats)
-    else
+    else:
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("ACTION_CHATS", acChats)
