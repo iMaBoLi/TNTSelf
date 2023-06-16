@@ -29,7 +29,7 @@ async def autosender():
     for chatid in CHATS:
         ltime = CHATS[chatid]
         ntime = time.time()
-        if ntime > (ltime + 1200):
+        if ntime > (ltime + 800):
             await client.send_message(chatid, Baner)
             CHATS[chatid] = ntime
             client.DB.set_key("AUTO_CHATS", CHATS)
