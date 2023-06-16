@@ -22,8 +22,9 @@ STRINGS = {
     "closeeditchat":  "**➜ The Edit Mode For This Chat Has Been Disabled!**",
     "changeeditall":  "**➜ The Edit Mode Has Been Set To:** ( `{}` )",
     "closeeditall":  "**➜ The Edit Mode Has Been Disabled!**",
-    "changeactionchat":  "**➜ The Action Chat** ( `{}` ) **For This Chat Has Been {}!**",
-    "changeactionall":  "**➜ The Action Chat** ( `{}` ) **Has Been {}!**",
+    "actionall": "**➜ The Send Chat Action Has Been {}!**",
+    "actionchat": "**➜ The Send Chat Action For This Chat Has Been {}!**",
+    "setaction":  "**➜ The Send Action Mode Was Set To** ( `{}` )",
     "modepage": "**❃ Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**❃ Select Which Edit Mode You Want Turn On-Off:**",
@@ -160,7 +161,7 @@ def get_buttons(chatid, page):
             ShowName = action.replace("-", " ").title()
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
             actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:ACTION_TYPE:{action}:{chatid}:{page}"))
-        actbts = list(client.functions.chunks(acbts, 3))
+        actbts = list(client.functions.chunks(actbts, 3))
         buttons.append(actbts)
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
@@ -205,21 +206,26 @@ async def SetPanel(event):
         text = settext + "\n\n" + pagetext
     elif page == (ModePages + 3):
         pagetext = get_text(page)
-        if ChangeMode.endswith("CHATS"):
-            acChats = client.DB.get_key(ChangeMode) or []
-            ShowMode = ChangeMode.split("_")[0].title()
-            if Change == "add":
-                NewChats = acChats + [chatid]
-                settext = STRINGS["changeactionchat"].format(ShowMode, client.STRINGS["On"]) 
-            elif Change == "del":
-                NewChats = acChats.remove(chatid)
-                settext = STRINGS["changeactionchat"].format(ShowMode, client.STRINGS["Off"]) 
-            client.DB.set_key(ChangeMode, NewChats)
-        else:
+        if ChangeMode.endswith("TYPE"):
+            ShowName = Change.replace("-", " ").title())
+            settext = STRINGS["setaction"].format(ShowName) 
+            client.DB.set_key("ACTION_TYPE", Change)
+        elif ChangeMode.endswith("ALL"):
             client.DB.set_key(ChangeMode, Change)
-            ShowMode = ChangeMode.split("_")[0].title()
             ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
-            settext = STRINGS["changeactionall"].format(ShowMode, ShowChange) 
+            settext = STRINGS["actionall"].format(ShowChange)
+       else:
+            acChats = client.DB.get_key("ACTION_CHATS") or []
+            if Change == "add":
+                if chatid not in acChats:
+                    acChats.append(chatid)
+                    client.DB.set_key("ACTION_CHATS", acChats)
+            elif Change == "del":
+                if chatid in acChats:
+                    acChats.remove(chatid)
+                    client.DB.set_key("ACTION_CHATS", acChats))
+            ShowChange = client.STRINGS["On"] if Change == "add" else client.STRINGS["Off"]
+            settext = STRINGS["actionchat"].format(ShowChange) 
         text = settext + "\n\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
