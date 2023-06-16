@@ -50,6 +50,9 @@ def get_modename(mode):
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit Mode",
         "EDITCHATS_MODE": "Edit Chats Mode",
+        "ACTION_ALL": "Send Action Mode"
+        "ACTION_CHATS": "Send Action Mode",
+        "ACTION_TYPE": "Action Type",
     }
     return MODES[mode]
 
@@ -158,7 +161,7 @@ def get_buttons(chatid, page):
             getMode = "on" if action == acType else "off"
             ShowName = action.replace("-", " ").title()
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:ACTION_TYPE:{action}:{chatid}:{page}"))
+            actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Set:ACTION_TYPE:{action}:Mode:{chatid}:{page}"))
         actbts = list(client.functions.chunks(actbts, 3))
         buttons += actbts
     buttons.append(get_pages_button(chatid, page))
