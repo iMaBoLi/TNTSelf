@@ -15,8 +15,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Sign Mode Has Been {}!**",
-    "set": "**The Sign Text Was Set To** ( `{}` )",
-    "sete": "**The Enemy Sign Text Was Set To** ( `{}` )",
+    "setsign": "**The Sign Text Was Set To** ( `{}` )",
 }
 
 @client.Command(command="Sign (On|Off)")
@@ -33,7 +32,7 @@ async def setsign(event):
     type = event.pattern_match.group(1).lower()
     stext = event.pattern_match.group(2)
     client.DB.set_key("SIGN_TEXT", stext)
-    text = STRINGS["set"].format(stext)
+    text = STRINGS["setsign"].format(stext)
     await event.edit(text)
 
 @client.Command(alowedits=False)
