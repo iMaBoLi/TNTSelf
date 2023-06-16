@@ -13,6 +13,18 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 
+STRINGS = {
+    "change": "**The Anti Spam Pv Mode Has Been {}!**",
+}
+
+@client.Command(command="AntiSpamPv (On|Off)")
+async def antipvmode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("ANTISPAM_PV", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
+
 @client.Command(command="SetSpamPvLimit (\d*)")
 async def setautodeletesleep(event):
     await event.edit(STRINGS["wait"])
