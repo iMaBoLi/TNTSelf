@@ -9,6 +9,9 @@ STRINGS = {
     "savequick": "**𑁍 The Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )",
     "delquick": "**The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
     "getquick": "**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )",
+    "listdel": "**Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
+    "quicklist":  "**Select Each Quick Answer To View Its Information:**\n\n**Quicks Count:** ( `{}` )",
+    "empty": "**The Quicks List Is Empty!**",
 }
 
 @client.Command(onlysudo=False, alowedits=False)
@@ -148,6 +151,21 @@ async def addquick(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
+@client.Command(command="DelQuick ([\s\S]*)")
+async def delquick(event):
+    await event.edit(client.STRINGS["wait"])
+    command = event.pattern_match.group(1)
+    quicks = client.DB.get_key("QUICKS") or {}
+    quicklist = []
+    for quick in quicks:
+        if command == quicks[quick]["Command"]:
+            quicklist.append(quicks[quick])
+    if not quicklist:
+        return await event.edit(STRINGS["notin"].format(command))
+    res = await client.inline_query(client.bot.me.username, f"QuickDel:{command}")
+    await res[0].click(event.chat_id)
+    await event.delete()
+
 @client.Command(command="GetQuick (.*)")
 async def getquick(event):
     await event.edit(client.STRINGS["wait"])
@@ -167,6 +185,16 @@ async def getquick(event):
             await send.reply(STRINGS["getquick"].format(info["Command"], "Repleyed Message", info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"]))
         else:
             await event.respond(STRINGS["getquick"].format(info["Command"], info["Answers"], info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"]))
+    await event.delete()
+
+@client.Command(command="QuickList")
+async def quicklist(event):
+    await event.edit(client.STRINGS["wait"])
+    quicks = client.DB.get_key("QUICKS") or {}
+    if not quicks:
+        return await event.edit(STRINGS["empty"])    
+    res = await client.inline_query(client.bot.me.username, "QuickList")
+    await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
 
 @client.Inline(pattern="QuickPage\:(.*)")
@@ -206,11 +234,71 @@ async def savequcik(event):
     text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
 
+@client.Inline(pattern="QuickDel\:(.*)")
+async def inlinedelquick(event):
+    command = str(event.pattern_match.group(1))
+    text = STRINGS["listdel"].format(command)
+    quicks = client.DB.get_key("QUICKS") or {}
+    quicklist = []
+    for quick in quicks:
+        if command == quicks[quick]["Command"] and quicks[quick]["DO"]:
+            quicklist.append(quick)
+    buttons = []
+    for quick in quicklist:
+        info = quicks[quick]
+        ShowName = f'( {info["Person"]} ) - ( {info["Where"]} ) - ( {info["Type"]} )'
+        buttons.append([Button.inline(ShowName, data=f"DelQuick:{quick}")])
+    await event.answer([event.builder.article("FidoSelf - Del Quick", text=text, buttons=buttons)])
+
 @client.Callback(data="DelQuick\:(.*)")
 async def delqucik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICKS") or {}
+    info = quicks[quick]
     text = STRINGS["delquick"].format(info["Command"], info["Person"], info["Where"], info["Type"])
     await event.edit(text=text)
     del quicks[quick]
     client.DB.set_key("QUICKS", quicks)
+    
+@client.Inline(pattern="QuickList")
+async def inlinequicklist(event):
+    quicks = client.DB.get_key("QUICKS") or {}
+    text = STRINGS["quicklist"].format(len(quicks))
+    buttons = []
+    for quick in list(quicks)[:10]:
+        info = quicks[quick]
+        ShowName = f'[ {info["Command"]} ] ( {info["Person"]} ) - ( {info["Where"]} ) - ( {info["Type"]} )'
+        buttons.append([Button.inline(ShowName, data=f"ViweQuick:{quick}:1")])
+    if len(quicks) > 10:
+        buttons.append([Button.inline(client.STRINGS["inline"]["Next"], data=f"QuickListPage:2")])
+    await event.answer([event.builder.article("FidoSelf - List Quick", text=text, buttons=buttons)])
+
+@client.Callback(data="QuickListPage\:(.*)")
+async def listquickspage(event):
+    page = str(event.data_match.group(1).decode('utf-8'))
+    quicks = client.DB.get_key("QUICKS") or {}
+    text = STRINGS["quicklist"].format(len(quicks))
+    buttons = []
+    qcount = (int(page) * 10)
+    for quick in list(quicks)[(qcount-10):qcount]:
+        info = quicks[quick]
+        ShowName = f'[ {info["Command"]} ] ( {info["Person"]} ) - ( {info["Where"]} ) - ( {info["Type"]} )'
+        buttons.append([Button.inline(ShowName, data=f"ViweQuick:{quick}:{page}")])
+    pbts = []
+    if int(page) != 1:
+        pbts.append(Button.inline(client.STRINGS["inline"]["Back"], data=f"QuickListPage:{int(page)-1}"))
+    if len(quicks) > qcount:
+        pbts.append(Button.inline(client.STRINGS["inline"]["Next"], data=f"QuickListPage:{int(page)+1}"))
+    buttons.append(pbts)
+    await event.edit(text=text, buttons=buttons)
+
+@client.Callback(data="ViweQuick\:(.*)\:(.*)")
+async def viewquicks(event):
+    quick = str(event.data_match.group(1).decode('utf-8'))
+    page = str(event.data_match.group(2).decode('utf-8'))
+    quicks = client.DB.get_key("QUICKS") or {}
+    info = quicks[quick]
+    answers = info["answers"] if info["type"] != "Media" else "Media"
+    text = STRINGS["getquick"].format(info["Command"], answers, info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"])
+    buttons = [[Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}"), Button.inline("↩️ Back", data=f"QuickListPage:{page}")]]
+    await event.edit(text=text, buttons=buttons)))
