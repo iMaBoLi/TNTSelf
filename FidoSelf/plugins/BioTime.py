@@ -17,6 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**The Bio Mode Has Been {}!**",
     "newnot": "**The Bio** ( `{}` ) **Already In Bio List!**",
     "newadd": "**The Bio** ( `{}` ) **Added To Bio List!**",
     "delnot": "**The Bio** ( `{}` ) **Not In Bio List!**",
@@ -26,6 +27,14 @@ STRINGS = {
     "aempty": "**The Bio List Is Already Empty!**",
     "clean": "**The Bio List Is Cleaned!**",
 }
+
+@client.Command(command="Bio (On|Off)")
+async def biomode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("BIO_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(command="NewBio (.*)")
 async def addbio(event):
