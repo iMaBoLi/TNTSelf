@@ -39,7 +39,7 @@ async def reactionchat(event):
             acChats.remove(chatid)
             client.DB.set_key("REACTION_CHATS", acChats)
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
-    await event.edit(STRINGS["reactionchat"].format(ShowChange))
+    await event.edit(STRINGS["reactchat"].format(ShowChange))
 
 @client.Command(command="ReactionAll (On|Off)")
 async def reactionall(event):
@@ -47,7 +47,7 @@ async def reactionall(event):
     change = event.pattern_match.group(1).lower()
     client.DB.set_key("REACTION_ALL", change)
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
-    await event.edit(STRINGS["reactionall"].format(ShowChange))
+    await event.edit(STRINGS["reactall"].format(ShowChange))
 
 @client.Command(command="SetReaction (.*)")
 async def setreaction(event):
