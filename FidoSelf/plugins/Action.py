@@ -19,7 +19,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "actionall": "**The Send Chat Action Has Been {}!**",
     "actionchat": "**The Send Chat Action For This Chat Has Been {}!**",
-    "notact": "**The Action** ( `{}` ) **Is Not Available!**,
+    "notact": "**The Action** ( `{}` ) **Is Not Available!**",
     "setact": "**The Send Action Mode Was Set To** ( `{}` )",
 }
 
