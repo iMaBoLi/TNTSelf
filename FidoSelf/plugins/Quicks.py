@@ -32,44 +32,41 @@ async def quicksupdate(event):
             if info["Where"] == "Groups" and not event.is_group: continue
             if info["Where"] == "Pv" and not event.is_private: continue
             if info["Where"].startswith("CHAT") and not event.chat_id == int(info["Where"].replace("CHAT", "")): continue
-        try:
-            lastanswers = await client.AddVars(str(info["Answers"]), event)
-            answers = lastanswers.split(",")
-            if info["Type"] == "Normal":
-                await event.reply(lastanswers)
-                continue
-            elif info["Type"] == "Random":
-                if info["Person"] == "Sudo":
-                    await event.edit(random.choice(answers))
-                else:
-                    await event.reply(random.choice(answers))
-                continue
-            elif info["Type"] == "Multi":
-                for answer in answers:
-                    await event.reply(answer)
-                    await asyncio.sleep(int(info["Sleep"]))
-                continue
-            elif info["Type"] == "Edit":
-                if info["Person"] == "Others":
-                    event = await event.reply(answers[0])
-                    answers = answers[1:]
-                    if not answers: continue
-                    await asyncio.sleep(int(info["Sleep"]))
-                for answer in answers:
-                    await event.edit(answer)
-                    await asyncio.sleep(int(info["Sleep"]))
-                continue
-            elif info["Type"] == "Media":
-                media = info["Answers"]
-                msg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
-                msg.text = await client.AddVars(str(msg.text), event)
-                await event.reply(msg)
-                continue
-            elif info["Type"] == "Draft":
-                await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=lastanswers))
-                continue
-        except Exception as error:
-            client.LOGS.error(error)
+        MainAnswers = await client.AddVars(str(info["Answers"]), event)
+        SplitAnswers = MainAnswers.split(",")
+        if info["Type"] == "Normal":
+            await event.reply(MainAnswers)
+            continue
+        elif info["Type"] == "Random":
+            if info["Person"] == "Sudo":
+                await event.edit(random.choice(SplitAnswers))
+            else:
+                await event.reply(random.choice(SplitAnswers))
+            continue
+        elif info["Type"] == "Multi":
+            for answer in SplitAnswers:
+                await event.reply(answer)
+                await asyncio.sleep(eval(info["Sleep"]))
+            continue
+        elif info["Type"] == "Edit":
+            if info["Person"] == "Others":
+                event = await event.reply(SplitAnswers[0])
+                SplitAnswers = SplitAnswers[1:]
+                if not SplitAnswers: continue
+                await asyncio.sleep(eval(info["Sleep"]))
+            for answer in SplitAnswers:
+                await event.edit(answer)
+                await asyncio.sleep(eval(info["Sleep"]))
+            continue
+        elif info["Type"] == "Media":
+            media = info["Answers"]
+            msg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
+            msg.text = await client.AddVars(str(msg.text), event)
+            await event.reply(msg)
+            continue
+        elif info["Type"] == "Draft":
+            await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=MainAnswers))
+            continue
 
 def get_buttons(quick):
     buttons = []
