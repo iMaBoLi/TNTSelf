@@ -1,5 +1,6 @@
 ACTIONS = [
     "bandari",
+    "random",
     "typing",
     "game",
     "photo",
