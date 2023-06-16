@@ -2,8 +2,8 @@ from FidoSelf import client
 
 Commands = {}
 for Mode in client.functions.EDITS:
-    Cmd += "{CMD}" + Mode + " <On-Off>"
-    AllCmd += "{CMD}" + Mode + "All" + " <On-Off>"
+    Cmd = "{CMD}" + Mode + " <On-Off>"
+    AllCmd = "{CMD}" + Mode + "All" + " <On-Off>"
     Commands.update({Cmd: None})
     Commands.update({AllCmd: None})
 
