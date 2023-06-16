@@ -43,6 +43,7 @@ def get_modename(mode):
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
         "ANTIFORWARD_MODE": "Anti Forward",
+        "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
         "READALL_MODE": "Read All",
         "READPV_MODE": "Read Pv",
@@ -114,7 +115,7 @@ def get_buttons(chatid, page):
             buttons.append(Button.inline(f"{smode} {svalue}", data=f"Set:{Mode}:{value}:Turn:{chatid}:{page}"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
-        MODES = ["ANTIFORWARD_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
+        MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
         for Mode in MODES:
             getMode = client.DB.get_key(Mode) or "off"
             value = "on" if getMode == "off" else "off"
