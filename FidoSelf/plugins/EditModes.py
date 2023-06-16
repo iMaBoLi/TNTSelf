@@ -56,7 +56,7 @@ async def editchanger(event):
             settext = STRINGS["editchat"].format(type, ShowChange)
         else:
             if echats[chatid] == type:
-                EditChats[chatid] = ""
+                echats[chatid] = ""
             settext = STRINGS["editchat"].format(type, ShowChange)
     await event.edit(settext)
 
