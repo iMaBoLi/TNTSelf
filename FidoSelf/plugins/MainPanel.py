@@ -77,6 +77,8 @@ async def inlinepanel(event):
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
+    if page == 0:
+        return await event.answer(STRINGS["allpage"], alert=True)
     await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
 
 def get_text(page):
@@ -98,8 +100,9 @@ def get_pages_button(chatid, opage):
     PAGES_COUNT = len(MODES) + 4 + 1
     for page in range(1, PAGES_COUNT):
         font = 4 if page != opage else 5
+        data = page if page != opage else 0
         name = client.functions.create_font(page, font)
-        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{page}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{data}"))
     return buttons
 
 def get_buttons(chatid, page):
