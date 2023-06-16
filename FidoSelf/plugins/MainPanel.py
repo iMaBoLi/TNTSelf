@@ -154,7 +154,7 @@ def get_buttons(chatid, page):
         Cact = "del" if int(chatid) in acChats else "add"
         Mactall = client.STRINGS["inline"]["On"] if acMode == "on" else client.STRINGS["inline"]["Off"]
         Cactall = "on" if acMode == "off" else "off"
-        buttons = [[Button.inline(f"Action {Mact}", data=f"Set:ACTION_CHATS:{Cact}:Chat:{chatid}:{page}"), Button.inline(f"Action All {Mactall}", data=f"Set:ACTION_ALL:{Cactall}:Mode:{chatid}:{page}")]]
+        buttons = [[Button.inline(f"Action {Mact}", data=f"Set:ACTION_CHATS:{Cact}:Chat:{chatid}:{page}"), Button.inline(f"Action All {Mactall}", data=f"Set:ACTION_ALL:{Cactall}:Turn:{chatid}:{page}")]]
         actbts = []
         for action in client.functions.ACTIONS:
             acType = client.DB.get_key("ACTION_TYPE") or "random"
