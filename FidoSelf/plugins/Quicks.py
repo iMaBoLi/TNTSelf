@@ -17,7 +17,7 @@ STRINGS = {
 @client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
     if event.checkCmd() or not event.text: return
-    QMode = client.DB.get_key("QUICKS_MODE") or "off"
+    QMode = client.DB.get_key("QUICKS_MODE") or "on"
     if QMode == "off": return
     quicks = client.DB.get_key("QUICKS") or {}
     if not quicks: return
@@ -298,7 +298,7 @@ async def viewquicks(event):
     page = str(event.data_match.group(2).decode('utf-8'))
     quicks = client.DB.get_key("QUICKS") or {}
     info = quicks[quick]
-    answers = info["answers"] if info["type"] != "Media" else "Media"
+    answers = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["getquick"].format(info["Command"], answers, info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"])
     buttons = [[Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}"), Button.inline("↩️ Back", data=f"QuickListPage:{page}")]]
     await event.edit(text=text, buttons=buttons)
