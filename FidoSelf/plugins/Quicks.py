@@ -2,6 +2,22 @@ from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random
 
+__INFO__ = {
+    "Category": "Setting",
+    "Plugname": "Quick",
+    "Pluginfo": {
+        "Help": "To Setting Your Quicks Answers White Inline Panel!",
+        "Commands": {
+            "{CMD}AddQuick '<CMD>' <Answers>": "To Add Quick To Quicks List! ( Use , To Split Answers )",
+            "{CMD}DelQuick <CMD>": "To Del Quick From Quicks List!",
+            "{CMD}GetQuick <CMD>": "To Get Quick From Quicks List!",
+            "{CMD}QuickList": "To Get Quicks List!",
+            "{CMD}CleanQuickList": "To Clean Quicks List!",
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "notin": "**𑁍 The Command** ( `{}` ) **Not In Quicks Command Lists!**",
     "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
@@ -122,7 +138,7 @@ def get_buttons(quick):
             osleepbts.append(Button.inline(f"{sleep} {ShowMode}", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 3))
         buttons += sleepbts
-    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}")])
+    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}")])
     return buttons
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
