@@ -26,13 +26,13 @@ async def setanti(event):
 
 @client.Command()
 async def getUodate(event):
+    if event.original_update.to_dict()["_"] not in ["UpdateEditMessage", "UpdateEditChannelMessage"]: return
     if event.checkCmd(): return
     antimode = client.DB.get_key("ANTIEDIT_MODE") or "off"
     if antimode == "on":
-        if event.to_dict()["original_update"]["_"] in ["UpdateEditMessage", "UpdateEditChannelMessage"]:
-            getmsg = await client.get_messages(event.chat_id, ids=event.id)
-            if getmsg.reply_to:
-                await event.respond(getmsg, reply_to=getmsg.reply_to.reply_to_msg_id)
-            else:
-                await event.respond(getmsg)
-            await event.delete()
+        getmsg = await client.get_messages(event.chat_id, ids=event.id)
+        if getmsg.reply_to:
+            await event.respond(getmsg, reply_to=getmsg.reply_to.reply_to_msg_id)
+        else:
+            await event.respond(getmsg)
+        await event.delete()
