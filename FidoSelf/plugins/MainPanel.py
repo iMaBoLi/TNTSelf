@@ -156,7 +156,7 @@ def get_buttons(chatid, page):
         buttons = [[Button.inline(f"Action {Mact}", data=f"SetPanel:ACTION_CHATS:{Cact}:{chatid}:{page}"), Button.inline(f"Action All {Mactall}", data=f"SetPanel:ACTION_ALL:{Cactall}:{chatid}:{page}")]]
         actbts = []
         for action in client.functions.ACTIONS:
-            acType = client.DB.get_key("ACTION_TYPE") or "bold"
+            acType = client.DB.get_key("ACTION_TYPE") or "random"
             getMode = "on" if action == acType else "off"
             ShowName = action.replace("-", " ").title()
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
