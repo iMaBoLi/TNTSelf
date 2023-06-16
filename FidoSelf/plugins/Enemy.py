@@ -28,6 +28,7 @@ STRINGS = {
     "wheredel": "**Select You Want This Enemy User To Be Deleted From Where:**",
     "del": "**The User** ( {} ) **From Enemy List For Location** ( `{}` ) **Has Been Deleted!**",
     "esleep": "**The Enemy Sleep Was Set To** ( `{}` )",
+    "edelete": "**The Delete Enemy Pms Mode Has Been {}!**",
     "empty": "**The Enemy List Is Empty!**",
     "list": "**The Enemy List:**\n\n",
     "aempty": "**The Enwmy List Is Already Empty!**",
@@ -100,6 +101,14 @@ async def setenemysleep(event):
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ENEMY_SLEEP", sleep)
     await event.edit(STRINGS["esleep"].format(client.functions.convert_time(int(sleep))))
+
+@client.Command(command="DelEnemyPms (On|Off)")
+async def delpms(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("ENEMY_DELETE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["edelete"].format(ShowChange))
 
 @client.Command(onlysudo=False, alowedits=False)
 async def enemyfosh(event):
