@@ -67,7 +67,7 @@ async def action(event):
     if acMode == "on" or event.chat_id in acChats:
         if acType == "bandari":
             client.loop.create_task(sendrandomaction(event.chat_id))
-        elif acType == "random:
+        elif acType == "random":
             RType = random.choice(client.functions.ACTIONS[2:])
             client.loop.create_task(sendaction(event.chat_id, RType))
         else:
