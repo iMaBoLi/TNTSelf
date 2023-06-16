@@ -20,6 +20,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**The Photo Mode Has Been {}!**",
     "nall": "**The Photo Name** ( `{}` ) **Already In Photo List!**",
     "nin": "**The Photo** ( `{}` ) **Not In Photo List!**",
     "del": "**The Photo** ( `{}` ) **Deleted From Photo List!**",
@@ -36,6 +37,14 @@ STRINGS = {
     "align": "**Please Specify How To Align The Time Text On This Image:**",
     "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )",
 }
+
+@client.Command(command="Photo (On|Off)")
+async def photomode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("PHOTO_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(command="NewPhoto (.*)")
 async def addphoto(event):
