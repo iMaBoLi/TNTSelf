@@ -7,7 +7,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Timer Medias For You!",
         "Commands": {
-            "{CMD}TSave <On-Off>": None,
+            "{CMD}DTimer <On-Off>": None,
         },
     },
 }
