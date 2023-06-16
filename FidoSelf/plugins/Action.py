@@ -62,7 +62,7 @@ async def action(event):
     if event.is_sudo or event.is_bot: return
     acMode = client.DB.get_key("ACTION_ALL") or "off"
     acChats = client.DB.get_key("ACTION_CHATS") or []
-    acType = client.DB.get_key("ACTION_TYPE")
+    acType = client.DB.get_key("ACTION_TYPE") or "bold"
     if not acType: return
     if acMode == "on" or event.chat_id in acChats:
         if acType == "bandari":
