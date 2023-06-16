@@ -9,7 +9,6 @@ __INFO__ = {
         "Help": "To Get Inline Panel To Setting Self!",
         "Commands": {
             "{CMD}Panel": None,
-            "{CMD}Panel <ChatID>": "To Get Panel For Other Chat!",
         },
     },
 }
@@ -56,14 +55,10 @@ MODES ={
     },
 }
 
-@client.Command(command="Panel ?(.*)?")
+@client.Command(command="Panel")
 async def panel(event):
     await event.edit(client.STRINGS["wait"])
-    result, chatid = await event.chatid(event.pattern_match.group(1))
-    if not result and str(chatid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not chatid:
-        return await event.edit(client.STRINGS["getid"]["UC"])
+    chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(event.chat_id)
     await event.delete()
