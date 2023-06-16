@@ -15,6 +15,26 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 
+STRINGS = {
+    "change": "**The MarkRead {} Messages Mode Has Been {}!**",
+}
+
+@client.Command(command="Read(All|Pv|Gp|Ch) (On|Off)")
+async def readmode(event):
+    await event.edit(client.STRINGS["wait"])
+    type = event.pattern_match.group(1)
+    change = event.pattern_match.group(2).lower()
+    setmode = "READ" + type.upper() + "_MODE"
+    client.DB.set_key(setmode, change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    Types = {
+        "All": "All",
+        "Pv": "Pvs",
+        "Gp": "Groups",
+        "Ch": "Channels",
+    }
+    await event.edit(STRINGS["change"].format(Types[type.title()], ShowChange))
+
 @client.Command(onlysudo=False)
 async def mark(event):
     all = client.DB.get_key("READALL_MODE") or "off"
