@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 Commands = {}
-for Mode in client.functions.MODES:
+for Mode in client.functions.EDITS:
     Cmd += "{CMD}" + Mode + " <On-Off>"
     AllCmd += "{CMD}" + Mode + "All" + " <On-Off>"
     Commands.update({Cmd: None})
@@ -23,7 +23,7 @@ STRINGS = {
 }
 
 PATTERN = ""
-for mode in client.functions.MODES:
+for mode in client.functions.EDITS:
     PATTERN += mode + "|"
     PATTERN += mode + "All" + "|"
 PATTERN = PATTERN[:-1]
