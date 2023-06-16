@@ -162,7 +162,7 @@ def get_buttons(chatid, page):
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
             actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:ACTION_TYPE:{action}:{chatid}:{page}"))
         actbts = list(client.functions.chunks(actbts, 3))
-        buttons.append(actbts)
+        buttons += actbts
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
