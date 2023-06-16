@@ -14,8 +14,17 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**The Downlaod Timer Medias Has Been {}!**",
     "caption": "**The Timer Media Was Saved!**\n\n**User:** ( `{}` )\n**Timer:** ( `{}` )",
 }
+
+@client.Command(command="DTimer (On|Off)")
+async def dtimermode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("TIMER_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(onlysudo=False)
 async def dtimermedias(event):
