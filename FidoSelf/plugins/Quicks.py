@@ -7,11 +7,12 @@ STRINGS = {
     "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
     "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
     "savequick": "**𑁍 The Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )",
-    "delquick": "**The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
-    "getquick": "**Command:** ( `{}` )\n\n**Answer(s):** ( `{}` )\n\n**Person:** ( `{}` )\n**Where:** ( `{}` )\n**Type:** ( `{}` )\n**Find:** ( `{}` )\n**Sleep:** ( `{}` )",
-    "listdel": "**Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
-    "quicklist":  "**Select Each Quick Answer To View Its Information:**\n\n**Quicks Count:** ( `{}` )",
-    "empty": "**The Quicks List Is Empty!**",
+    "delquick": "**𑁍 The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
+    "getquick": "**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )",
+    "listdel": "**𑁍 Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
+    "quicklist":  "**𑁍 Select Each Quick Answer To View Its Information:**\n\n**✯ Quicks Count:** ( `{}` )",
+    "allempty": "**𑁍 The Quicks List Is Already Empty!**",
+    "empty": "**𑁍 The Quicks List Is Empty!**",
 }
 
 @client.Command(onlysudo=False, alowedits=False)
@@ -193,6 +194,15 @@ async def quicklist(event):
     res = await client.inline_query(client.bot.me.username, "QuickList")
     await res[0].click(event.chat_id, reply_to=event.id)
     await event.delete()
+    
+@client.Command(command="CleanQuickList")
+async def cleanquicklist(event):
+    await event.edit(client.STRINGS["wait"])
+    quicks = client.DB.get_key("QUICKS") or {}
+    if not quicks:
+        return await event.edit(STRINGS["allempty"])
+    client.DB.del_key("QUICKS")
+    await event.edit(STRINGS["cleanquick"])
 
 @client.Inline(pattern="QuickPage\:(.*)")
 async def quickpage(event):
@@ -297,5 +307,5 @@ async def viewquicks(event):
     info = quicks[quick]
     answers = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["getquick"].format(info["Command"], answers, info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"])
-    buttons = [[Button.inline("❌ Delete ❌", data=f"DelQuick:{quick}"), Button.inline("↩️ Back", data=f"QuickListPage:{page}")]]
+    buttons = [[Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Back"], data=f"QuickListPage:{page}")]]
     await event.edit(text=text, buttons=buttons)
