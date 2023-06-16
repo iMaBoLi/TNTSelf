@@ -28,7 +28,7 @@ async def emojimode(event):
 
 @client.Command(command="SetEmoji (.*)\-(.*)")
 async def setemoji(event):
-    await event.edit(client.STRINGS["wait"]))
+    await event.edit(client.STRINGS["wait"])
     emoji1 = event.pattern_match.group(1)
     emoji2 = event.pattern_match.group(2)
     emojis = emoji1 + "-" + emoji2
