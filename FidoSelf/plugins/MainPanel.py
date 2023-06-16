@@ -110,7 +110,7 @@ def get_buttons(chatid, page):
             getMode = client.DB.get_key(Mode) or "off"
             ChangeMode = "on" if getMode == "off" else "off"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{Modes[Mode]} {ShowMode}", data=f"SetPanel:{Mode}:{ChangeMode}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{Modes[Mode]} {ShowMode}", data=f"Set:{Mode}:{ChangeMode}:Turn:{chatid}:{page}"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == (ModePages + 1):
         newtime = datetime.now().strftime("%H:%M")
@@ -118,11 +118,11 @@ def get_buttons(chatid, page):
         Mode = "TIME_FONT"
         for randfont in ["random", "random2"]:
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == randfont else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"SetPanel:{Mode}:{randfont}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{randfont.title()} {ShowMode}", data=f"Set:{Mode}:{randfont}:Mode:{chatid}:{page}"))
         for font in client.functions.FONTS:
             ShowName = client.functions.create_font(newtime, font)
             ShowMode = client.STRINGS["inline"]["On"] if str(lastFont) == str(font) else client.STRINGS["inline"]["Off"]
-            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"SetPanel:{Mode}:{font}:{chatid}:{page}"))
+            buttons.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Set:{Mode}:{font}:Mode:{chatid}:{page}"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == (ModePages + 2):
         EditMode = client.DB.get_key("EDITALL_MODE")
@@ -232,3 +232,56 @@ async def closepanel(event):
 @client.Callback(data="Empty")
 async def empty(event):
     await event.answer(client.STRINGS["inline"]["Show"], alert=True)
+    
+
+@client.Callback(data="Set\:(.*)\:(.*)\:(.*)\:(.*)\:(.*)")
+async def SetPanel(event):
+    key = event.data_match.group(1).decode('utf-8')
+    value = event.data_match.group(2).decode('utf-8')
+    type = event.data_match.group(3).decode('utf-8')
+    chatid = int(event.data_match.group(4).decode('utf-8'))
+    page = int(event.data_match.group(5).decode('utf-8'))
+    skey = key.replace("_", " ").title()
+    pagetext = get_text(page)
+    if type == "Turn":
+        client.DB.set_key(key, value)
+        cshow = client.STRINGS["On"] if value == "on" else client.STRINGS["Off"]
+        settext = STRINGS["changeturn"].format(skey, cshow)
+    elif type == "Mode":
+        client.DB.set_key(key, value)
+        settext = STRINGS["changemode"].format(skey, value)
+    elif type == "ModeDel":
+        gvalue = client.DB.get_key(key)
+        value = value if value != gvalue else None
+        client.DB.set_key(key, value)
+        if not value:
+            settext = STRINGS["disablemode"].format(skey)
+        else:
+            settext = STRINGS["changemode"].format(skey, value)
+    elif type == "Chat":
+        chats = client.DB.get_key(key) or []
+        if value == "add":
+            chats.append(chatid)
+        elif value == "del":
+            chats.remove(chatid)
+        client.DB.set_key(key, chats)
+        cshow = client.STRINGS["On"] if value == "add" else client.STRINGS["Off"]
+        settext = STRINGS["changeaddchat"].format(skey, cshow)
+    elif type == "ChatMode":
+        chats = client.DB.get_key(key) or {}
+        if chatid not in chats:
+            chats.update({chatid: None})
+        chats[chatid] = value
+        client.DB.set_key(key, chats)
+        settext = STRINGS["changechatmode"].format(skey, value)
+    elif type == "ChatModeDel":
+        chats = client.DB.get_key(key) or {}
+        if chatid not in chats:
+            chats.update({chatid: None})
+        value = value if chats[chatid] != value else None
+        chats[chatid] = value
+        client.DB.set_key(key, chats)
+        settext = STRINGS["disablechatmode"].format(skey)
+    text = settext + "\n\n" + pagetext
+    buttons = get_buttons(chatid, page)
+    await event.edit(text=text, buttons=buttons)
