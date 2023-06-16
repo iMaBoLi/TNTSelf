@@ -26,5 +26,5 @@ async def len(event):
         rtype = medias[mtype]
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
-    lens = len(event.reply_message.text)
-    await event.edit(STRINGS["num"].format(lens))
+    text = event.reply_message.text
+    await event.edit(STRINGS["num"].format(len(text)))
