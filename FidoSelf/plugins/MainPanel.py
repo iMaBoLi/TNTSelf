@@ -214,7 +214,7 @@ async def SetPanel(event):
             client.DB.set_key(ChangeMode, Change)
             ShowChange = client.STRINGS["On"] if Change == "on" else client.STRINGS["Off"]
             settext = STRINGS["actionall"].format(ShowChange)
-       else:
+        else:
             acChats = client.DB.get_key("ACTION_CHATS") or []
             if Change == "add":
                 if chatid not in acChats:
