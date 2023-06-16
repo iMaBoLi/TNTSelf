@@ -5,7 +5,7 @@ import os
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Youtube",
+    "Plugname": "Echo",
     "Pluginfo": {
         "Help": "To Setting Echo Users And Send User Messages!",
         "Commands": {
