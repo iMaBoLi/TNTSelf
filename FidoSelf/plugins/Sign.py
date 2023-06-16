@@ -14,9 +14,18 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**The Sign Mode Has Been {}!**",
     "set": "**The Sign Text Was Set To** ( `{}` )",
     "sete": "**The Enemy Sign Text Was Set To** ( `{}` )",
 }
+
+@client.Command(command="Sign (On|Off)")
+async def signmode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("SIGN_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(command="SetSign ([\s\S]*)")
 async def setsign(event):
