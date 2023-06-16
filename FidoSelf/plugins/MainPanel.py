@@ -207,7 +207,7 @@ async def SetPanel(event):
     elif page == (ModePages + 3):
         pagetext = get_text(page)
         if ChangeMode.endswith("TYPE"):
-            ShowName = Change.replace("-", " ").title())
+            ShowName = Change.replace("-", " ").title()
             settext = STRINGS["setaction"].format(ShowName) 
             client.DB.set_key("ACTION_TYPE", Change)
         elif ChangeMode.endswith("ALL"):
