@@ -28,6 +28,7 @@ STRINGS = {
     "listdel": "**𑁍 Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
     "quicklist":  "**𑁍 Select Each Quick Answer To View Its Information:**\n\n**✯ Quicks Count:** ( `{}` )",
     "allempty": "**𑁍 The Quicks List Is Already Empty!**",
+    "cleanquick":  "**𑁍 The Quicks List Was Cleaned!**",
     "empty": "**𑁍 The Quicks List Is Empty!**",
 }
 
