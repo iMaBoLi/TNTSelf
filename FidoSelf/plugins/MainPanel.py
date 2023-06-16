@@ -50,7 +50,7 @@ def get_modename(mode):
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit Mode",
         "EDITCHATS_MODE": "Edit Chats Mode",
-        "ACTION_ALL": "Send Action Mode"
+        "ACTION_ALL": "Send Action Mode",
         "ACTION_CHATS": "Send Action Mode",
         "ACTION_TYPE": "Action Type",
     }
