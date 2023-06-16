@@ -135,7 +135,7 @@ def get_buttons(chatid, page):
         Allbuttons = []
         for Edit in client.functions.EDITS:
             ChangeMode = "EDITCHATS_MODE"
-            getMode = "off" if (chatid in EditChats and EditChats[chatid] == Edit) else "on"
+            getMode = "off" if (int(chatid) in EditChats and EditChats[int(chatid)] == Edit) else "on"
             ShowMode = client.STRINGS["inline"]["On"] if getMode == "off" else client.STRINGS["inline"]["Off"]
             Chbuttons.append(Button.inline(f"{Edit} {ShowMode}", data=f"SetPanel:{ChangeMode}:{Edit}:{chatid}:{page}"))
         for Edit in client.functions.EDITS:
