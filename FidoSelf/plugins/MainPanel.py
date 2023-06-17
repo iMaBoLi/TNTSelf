@@ -34,6 +34,7 @@ def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
         "QUICKS_MODE": "Quicks",
+        "ANTI_SPAM": "Anti Spam",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
@@ -141,6 +142,7 @@ def get_buttons(chatid, page):
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons.insert(1, create_button("QUICKS_MODE", None, "Turn", "Turn", chatid, page, "on"))
+        buttons.insert(5, create_button("ANTI_SPAM", None, "Turn", "Turn", chatid, page, "on"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
         buttons = []
