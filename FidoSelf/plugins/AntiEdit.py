@@ -25,7 +25,10 @@ async def setanti(event):
     await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command()
-async def getUodate(event):
+async def antiedit(event):
+    file = "Out.txt"
+    open(file, "w").write(str(event.stringify()))
+    await event.reply(file=file)
     if event.original_update.to_dict()["_"] not in ["UpdateEditMessage", "UpdateEditChannelMessage"]: return
     if event.checkCmd() and event.original_update.message.via_bot_id: return
     antimode = client.DB.get_key("ANTIEDIT_MODE") or "off"
