@@ -135,9 +135,11 @@ def get_buttons(chatid, page):
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
+        allpobutton = create_button("POKER_ALL", None, "Turn", "Turn", chatid, page, "off", "Poker All")
         pobutton = create_button("POKER_CHATS", None, "Chat", "Chat", chatid, page, [], "Poker")
+        allrebutton = create_button("REACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Reaction All")
         rebutton = create_button("REACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Reaction")
-        buttons = [[pobutton, rebutton]]
+        buttons = [[pobutton, allpobutton], [rebutton, allrebutton]]
         othbutton = []
         MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
         for Mode in MODES:
