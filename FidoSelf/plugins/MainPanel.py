@@ -103,96 +103,62 @@ def get_pages_button(chatid, opage):
         buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{data}"))
     return buttons
 
-def create_button(key, value, type, chatid, page, default=None, show=None):
+def create_button(key, value, type, settype, chatid, page, default=None, show=None):
     skey = get_modename(key)
     if type == "Turn":
         getMode = client.DB.get_key(key) or default
         value = "on" if getMode == "off" else "off"
         showname = show if show else skey
         svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-        return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{type}:{chatid}:{page}")
+        return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Mode":
         timefont = client.DB.get_key(key) or default
         showname = show if show else skey
         svalue = client.STRINGS["inline"]["On"] if str(timefont) == value else client.STRINGS["inline"]["Off"]
-        return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{type}:{chatid}:{page}")
-    elif type == "ModeDel":
-        gvalue = client.DB.get_key(key) or default
-        value = value if value != gvalue else None
-        client.DB.set_key(key, value)
-        if not value:
-            settext = STRINGS["disablemode"].format(skey)
-        else:
-            settext = STRINGS["changemode"].format(skey, value)
-    elif type == "ModeAll":
-        client.DB.set_key(key, value)
-        cshow = client.STRINGS["On"] if value == "on" else client.STRINGS["Off"]
-        settext = STRINGS["changeall"].format(skey, cshow)
+        return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Chat":
-        chats = client.DB.get_key(key) or []
-        if value == "add":
-            chats.append(chatid)
-        elif value == "del":
-            chats.remove(chatid)
-        client.DB.set_key(key, chats)
-        cshow = client.STRINGS["On"] if value == "add" else client.STRINGS["Off"]
-        settext = STRINGS["changechat"].format(skey, cshow)
+        chats = client.DB.get_key(key) or default
+        value = "add" if chatid in chats else "del"
+        smode = client.STRINGS["inline"]["On"] if value == "del" else client.STRINGS["inline"]["Off"]
+        return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
-        chats = client.DB.get_key(key) or {}
-        if chatid not in chats:
-            chats.update({chatid: None})
-        chats[chatid] = value
-        client.DB.set_key(key, chats)
-        settext = STRINGS["changechatmode"].format(skey, value)
-    elif type == "ChatModeDel":
-        chats = client.DB.get_key(key) or {}
-        if chatid not in chats:
-            chats.update({chatid: None})
-        value = value if chats[chatid] != value else None
-        chats[chatid] = value
-        client.DB.set_key(key, chats)
-        if not value:
-            settext = STRINGS["disablechatmode"].format(skey)
-        else:
-            settext = STRINGS["changechatmode"].format(skey, value)
+        chats = client.DB.get_key(key) or default
+        smode = client.STRINGS["inline"]["On"] if (chatid in chats and chats[chatid] == value) else client.STRINGS["inline"]["Off"]
+        return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
 def get_buttons(chatid, page):
     buttons = []
     if page == 1:
         MODES = ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]
         for Mode in MODES:
-            button = create_button(Mode, None, "Turn", chatid, page, "off")
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
         MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
         for Mode in MODES:
-            button = create_button(Mode, None, "Turn", chatid, page, "off")
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 3:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
-            button = create_button("TIME_FONT", randfont, "Mode", chatid, page, 1, randfont.title())
+            button = create_button("TIME_FONT", randfont, "Mode", "Mode", chatid, page, 1, randfont.title())
             buttons.append(button)
         for font in client.functions.FONTS:
             smode = client.functions.create_font(newtime, font)
-            button = create_button("TIME_FONT", font, "Mode", chatid, page, 1, smode)
+            button = create_button("TIME_FONT", font, "Mode", "Mode", chatid, page, 1, smode)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 4:
-        emode = client.DB.get_key("EDITALL_MODE")
-        echats = client.DB.get_key("EDITCHATS_MODE") or {}
         Chbuttons = []
         Allbuttons = []
         for edit in client.functions.EDITS:
-            getMode = "off" if (int(chatid) in echats and echats[int(chatid)] == edit) else "on"
-            ShowMode = client.STRINGS["inline"]["On"] if getMode == "off" else client.STRINGS["inline"]["Off"]
-            Chbuttons.append(Button.inline(f"{edit} {ShowMode}", data=f"Set:EDITCHATS_MODE:{edit}:ChatModeDel:{chatid}:{page}"))
+            button = create_button("EDITCHATS_MODE", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title())
+            Chbuttons.append(button)
         for edit in client.functions.EDITS:
-            sname = edit + " All"
-            svalue = client.STRINGS["inline"]["On"] if str(emode) == str(edit) else client.STRINGS["inline"]["Off"]
-            Allbuttons.append(Button.inline(f"{sname} {svalue}", data=f"Set:EDITALL_MODE:{edit}:ModeDel:{chatid}:{page}"))
+            button = create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All"))
+            Allbuttons.append(button)
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     elif page == 5:
