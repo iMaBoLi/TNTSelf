@@ -81,7 +81,7 @@ async def editaudio(event):
     load["albumartist"] = performer
     load["tracktitle"] = title
     load["album"] = title
-    newfile = client.PATH + performer + "-" title + ".mp3"
+    newfile = client.PATH + performer + "-" + title + ".mp3"
     load.save(newfile)
     caption = STRINGS["atilper"].format(performer, title)
     callback = event.progress(upload=True)
