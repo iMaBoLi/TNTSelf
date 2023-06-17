@@ -164,7 +164,7 @@ def get_buttons(chatid, page):
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     elif page == 5:
-        allbutton = create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off")
+        allbutton = create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All")
         chbutton = create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")
         buttons = [[chbutton, allbutton]]
         actbts = []
