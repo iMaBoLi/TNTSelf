@@ -108,5 +108,5 @@ async def repeat(event):
     if not repeats: return
     if remode == "on" or event.chat_id in rechats:
         for repeat in repeats:
-            if repeat in even.text:
+            if repeat in event.text:
                 await event.respond(repeat)
