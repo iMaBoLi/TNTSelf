@@ -17,12 +17,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "reactall": "**The Poker Mode Has Been {}!**",
-    "reactchat": "**The Poker Mode For This Chat Has Been {}!**",
+    "pokerall": "**The Poker Mode Has Been {}!**",
+    "pokerchat": "**The Poker Mode For This Chat Has Been {}!**",
 }
 
 @client.Command(command="Poker (On|Off)")
-async def Pokerchat(event):
+async def pokerchat(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).lower()
     acChats = client.DB.get_key("POKER_CHATS") or []
@@ -36,18 +36,18 @@ async def Pokerchat(event):
             acChats.remove(chatid)
             client.DB.set_key("POKER_CHATS", acChats)
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
-    await event.edit(STRINGS["reactchat"].format(ShowChange))
+    await event.edit(STRINGS["pokerchat"].format(ShowChange))
 
 @client.Command(command="PokerAll (On|Off)")
-async def Pokerall(event):
+async def pokerall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).lower()
     client.DB.set_key("POKER_ALL", change)
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
-    await event.edit(STRINGS["reactall"].format(ShowChange))
+    await event.edit(STRINGS["pokerall"].format(ShowChange))
  
 @client.Command(onlysudo=False, alowedits=False)
-async def Poker(event):
+async def poker(event):
     if event.is_sudo or event.is_bot or not event.text or "😐" not in event.text: return
     pomode = client.DB.get_key("POKER_ALL") or "off"
     pochats = client.DB.get_key("POKER_CHATS") or []
