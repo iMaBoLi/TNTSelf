@@ -55,7 +55,7 @@ async def repeatall(event):
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
     await event.edit(STRINGS["repeatall"].format(ShowChange))
  
- @client.Command(command="NewRepeat (.*)")
+@client.Command(command="NewRepeat (.*)")
 async def addrepeat(event):
     await event.edit(client.STRINGS["wait"])
     repeats = client.DB.get_key("REPEATS") or []
