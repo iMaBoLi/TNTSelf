@@ -92,18 +92,15 @@ async def panelpages(event):
     await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
 
 def get_text(page):
-    if page == 1:
-        text = STRINGS["modepage"]
-    elif page == 2:
-        text = STRINGS["modepage"]
-    elif page == 3:
-        text = STRINGS["modepage"]
-    elif page == 4:
-        text = STRINGS["fontpage"]
-    elif page == 5:
-        text = STRINGS["editpage"]
-    elif page == 6:
-        text = STRINGS["actionpage"]
+    TEXTS = {
+        1: STRINGS["modepage"],
+        2: STRINGS["modepage"],
+        3: STRINGS["modepage"],
+        4: STRINGS["fontpage"],
+        5: STRINGS["editpage"],
+        6: STRINGS["actionpage"]
+    }
+    text = TEXTS[page]
     return text + f" **(** `Page {page}` **)**"
 
 def get_pages_button(chatid, opage):
