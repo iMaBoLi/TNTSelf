@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import types
+import music_tag
 import os
 import time
 
@@ -62,8 +63,8 @@ async def setduration(event):
 @client.Command(command="SAudio (.*)\:(.*)")
 async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
-    title = str(event.pattern_match.group(1))
-    performer = str(event.pattern_match.group(2))
+    performer = str(event.pattern_match.group(1))
+    title = str(event.pattern_match.group(2))
     mtype = client.functions.mediatype(event.reply_message)
     if not event.is_reply or mtype not in ["Music"]:
         medias = client.STRINGS["replyMedia"]
@@ -74,10 +75,17 @@ async def editaudio(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    audio = await event.reply_message.download_media(progress_callback=callback)
-    attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
-    caption = STRINGS["atilper"].format(title, performer)
+    audio = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    load = music_tag.load_file(audio)
+    load["artist"] = performer
+    load["albumartist"] = performer
+    load["tracktitle"] = title
+    load["album"] = title
+    newfile = client.PATH + performer + "-" title + ".mp3"
+    load.save(newfile)
+    caption = STRINGS["atilper"].format(performer, title)
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, audio, caption=caption, progress_callback=callback, attributes=attributes)        
+    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
     os.remove(audio)
+    os.remove(newfile)
     await event.delete()
