@@ -86,6 +86,7 @@ async def editaudio(event):
     thumb = None
     if event.reply_message.document.thumbs:
         thumb = await event.reply_message.download_media(thumb=-1)
+        load["artwork"] == open(thumb, "rb").read()
     attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
     caption = STRINGS["atilper"].format(performer, title)
     callback = event.progress(upload=True)
@@ -93,5 +94,5 @@ async def editaudio(event):
     os.remove(audio)
     os.remove(newfile)
     if thumb:
-        os.remove(newfile)
+        os.remove(thumb)
     await event.delete()
