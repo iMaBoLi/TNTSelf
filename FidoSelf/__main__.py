@@ -22,7 +22,7 @@ async def setup():
                 text = "**✅ Loaded Plugins :**\n\n"
                 for plug in plugs:
                     text += f"`{plug}`\n"
-                await send.reply(text)
+                #await send.reply(text)
             if notplugs:
                 text = "**❌ Unloaded Plugins :**\n\n"
                 ftext = ""
@@ -33,7 +33,7 @@ async def setup():
                 file = "NotPlugs.txt"
                 open(file, "w").write(ftext)
                 await send.reply(file=file)
-            res = await runcmd('git log --pretty=format:"[%an]: %s" -20')
+            res = await runcmd('git log --pretty=format:"[%an]: %s" -3')
             await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
         except:
             pass
