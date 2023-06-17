@@ -158,7 +158,7 @@ def get_buttons(chatid, page):
     if page == 1:
         MODES = ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]
         for Mode in MODES:
-            button = create_button(Mode, "Turn", chatid, page):
+            button = create_button(Mode, "Turn", chatid, page)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
