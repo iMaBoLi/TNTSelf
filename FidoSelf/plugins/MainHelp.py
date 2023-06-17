@@ -68,7 +68,7 @@ async def getcategory(event):
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
-    buttons = client.functions.chunker(buttons, sizes=[2,1])
+    buttons = client.functions.chunker(buttons, sizes=[3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
@@ -83,10 +83,10 @@ async def getplugin(event):
     for command in info["Commands"]:
         ComName = command.format(CMD=".")
         share = f"http://t.me/share/text?text={ComName.split(' ')[0]}"
-        text += f"◎ [🔗]({share})" + ": " + f"`{ComName}`" + "\n"
+        text += f"[🔗]({share})" + ": " + f"`{ComName}`" + "\n"
         if info["Commands"][command]:
             text += "    **› " + info["Commands"][command] + "**\n"
-        text += "─────── ⋆ ───────" + "\n"
+        text += "\n" + "─────── ⋆ ───────" + "\n\n"
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
