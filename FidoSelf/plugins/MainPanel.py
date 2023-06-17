@@ -103,16 +103,63 @@ def get_pages_button(chatid, opage):
         buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{data}"))
     return buttons
 
+def create_button(key, type, chatid, page):
+    skey = get_modename(key)
+    if type == "Turn":
+        getMode = client.DB.get_key(Mode) or "off"
+        value = "on" if getMode == "off" else "off"
+        svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
+        return Button.inline(f"{skey} {svalue}", data=f"Set:{key}:{value}:{type}:{chatid}:{page}")
+    elif type == "Mode":
+        client.DB.set_key(key, value)
+        settext = STRINGS["changemode"].format(skey, value)
+    elif type == "ModeDel":
+        gvalue = client.DB.get_key(key)
+        value = value if value != gvalue else None
+        client.DB.set_key(key, value)
+        if not value:
+            settext = STRINGS["disablemode"].format(skey)
+        else:
+            settext = STRINGS["changemode"].format(skey, value)
+    elif type == "ModeAll":
+        client.DB.set_key(key, value)
+        cshow = client.STRINGS["On"] if value == "on" else client.STRINGS["Off"]
+        settext = STRINGS["changeall"].format(skey, cshow)
+    elif type == "Chat":
+        chats = client.DB.get_key(key) or []
+        if value == "add":
+            chats.append(chatid)
+        elif value == "del":
+            chats.remove(chatid)
+        client.DB.set_key(key, chats)
+        cshow = client.STRINGS["On"] if value == "add" else client.STRINGS["Off"]
+        settext = STRINGS["changechat"].format(skey, cshow)
+    elif type == "ChatMode":
+        chats = client.DB.get_key(key) or {}
+        if chatid not in chats:
+            chats.update({chatid: None})
+        chats[chatid] = value
+        client.DB.set_key(key, chats)
+        settext = STRINGS["changechatmode"].format(skey, value)
+    elif type == "ChatModeDel":
+        chats = client.DB.get_key(key) or {}
+        if chatid not in chats:
+            chats.update({chatid: None})
+        value = value if chats[chatid] != value else None
+        chats[chatid] = value
+        client.DB.set_key(key, chats)
+        if not value:
+            settext = STRINGS["disablechatmode"].format(skey)
+        else:
+            settext = STRINGS["changechatmode"].format(skey, value)
+
 def get_buttons(chatid, page):
     buttons = []
     if page == 1:
         MODES = ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]
         for Mode in MODES:
-            getMode = client.DB.get_key(Mode) or "off"
-            value = "on" if getMode == "off" else "off"
-            svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            smode = get_modename(Mode)
-            buttons.append(Button.inline(f"{smode} {svalue}", data=f"Set:{Mode}:{value}:Turn:{chatid}:{page}"))
+            button = create_button(Mode, "Turn", chatid, page):
+            buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
         MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
