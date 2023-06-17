@@ -7,7 +7,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Timer Medias For You!",
         "Commands": {
-            "{CMD}DTimer <On-Off>": None,
+            "{CMD}TSave <On-Off>": None,
         },
     },
 }
@@ -15,11 +15,11 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Downlaod Timer Medias Has Been {}!**",
-    "caption": "**The Timer Media Was Saved!**\n\n**User:** ( `{}` )\n**Timer:** ( `{}` )",
+    "caption": "**The Timer Media Was Saved!**\n\n**User:** ( {} )\n**Timer:** ( `{}` )",
 }
 
-@client.Command(command="DTimer (On|Off)")
-async def dtimermode(event):
+@client.Command(command="TSave (On|Off)")
+async def tsave(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).lower()
     client.DB.set_key("TIMER_MODE", change)
@@ -27,7 +27,7 @@ async def dtimermode(event):
     await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(onlysudo=False)
-async def dtimermedias(event):
+async def savemedias(event):
     mode = client.DB.get_key("TIMER_MODE")
     mtype = client.functions.mediatype(event)
     if event.is_private and mode == "on" and mtype in ["Photo", "Video"] and event.media.ttl_seconds:
