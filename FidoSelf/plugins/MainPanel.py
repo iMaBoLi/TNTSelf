@@ -42,10 +42,12 @@ def get_modename(mode):
         "ANTISPAM_PV": "AntiSpam Pv",
         "MUTE_PV": "MutePv",
         "LOCK_PV": "LockPv",
-        "POKER_ALL": "Poker",
-        "POKER_CHATS": "Poker",
+        "REPEAT_ALL": "Repeat",
+        "REPEAT_CHATS": "Repeat",
         "REACTION_ALL": "Reaction",
         "REACTION_CHATS": "Reaction",
+        "POKER_ALL": "Poker",
+        "POKER_CHATS": "Poker",
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
@@ -140,11 +142,11 @@ def get_buttons(chatid, page):
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
-        allpobutton = create_button("POKER_ALL", None, "Turn", "Turn", chatid, page, "off", "Poker All")
-        pobutton = create_button("POKER_CHATS", None, "Chat", "Chat", chatid, page, [], "Poker")
-        allrebutton = create_button("REACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Reaction All")
-        rebutton = create_button("REACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Reaction")
-        buttons = [[pobutton, allpobutton], [rebutton, allrebutton]]
+        buttons = []
+        for Mode in ["REPEAT", "REACTION", "POKER"]:
+            chbutton = create_button(Mode + "_CHATS", None, "Chat", "Chat", chatid, page, [], Mode.title())
+            allbutton = create_button(Mode + "_ALL", None, "Turn", "Turn", chatid, page, "off", (Mode.title() + " All"))
+            buttons.append([chbutton, allbutton])
         othbutton = []
         for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
