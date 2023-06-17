@@ -81,6 +81,7 @@ async def reaction(event):
                 info = (await client(functions.channels.GetFullChannelRequest(event.chat_id))).full_chat
             else:
                 info = (await client(functions.messages.GetFullChatRequest(event.chat_id))).full_chat
-            avreacts = info.available_reactions.reactions
-            emoji = random.choice(avreacts)
-            await client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji.emoticon)]))
+            if info.available_reactions:
+                avreacts = info.available_reactions.reactions
+                emoji = random.choice(avreacts)
+                await client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji.emoticon)]))
