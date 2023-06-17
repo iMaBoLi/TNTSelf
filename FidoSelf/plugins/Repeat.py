@@ -103,7 +103,7 @@ async def cleanrepeats(event):
 async def repeat(event):
     if event.is_sudo or event.is_bot or not event.text: return
     remode = client.DB.get_key("REPEAT_ALL") or "off"
-    rexhats = client.DB.get_key("REPEAT_CHATS") or []
+    rechats = client.DB.get_key("REPEAT_CHATS") or []
     repeats = client.DB.get_key("REPEATS") or []
     if not repeats: return
     if remode == "on" or event.chat_id in rechats:
