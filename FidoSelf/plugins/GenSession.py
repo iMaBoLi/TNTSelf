@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import TelegramClient, Button
+from telethon import TelegramClient, Button, events
 from telethon.sessions import StringSession
 from telethon.errors import (
     PhoneNumberInvalidError,
