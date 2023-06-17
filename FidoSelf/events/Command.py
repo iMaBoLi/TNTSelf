@@ -20,12 +20,12 @@ def checkspam(userid):
     else:
         if uspam["next_time"] >= time.time():
             if uspam["messages"] >= 10:
-                SPAMS[userid]["banned"] = time.time() + (SPAMS[userid]["bans_count"] * bantime)
-                SPAMS[userid]["bans_count"] += 1
+                uspam["banned"] = time.time() + (uspam["bans_count"] * bantime)
+                uspam["bans_count"] += 1
                 return True
         else:
-            SPAMS[userid]["messages"] = 1
-            SPAMS[userid]["next_time"] = time.time() + maxtime
+            uspam["messages"] = 1
+            uspam["next_time"] = time.time() + maxtime
             return False
 
 def Command(
