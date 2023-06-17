@@ -33,6 +33,7 @@ STRINGS = {
 def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
+        "QUICKS_MODE": "Quicks",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
@@ -142,6 +143,7 @@ def get_buttons(chatid, page):
         for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
+        buttons.insert(1, create_button("QUICKS_MODE", None, "Turn", "Turn", chatid, page, "on"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
         buttons = []
