@@ -26,7 +26,7 @@ CATS = {
     "Tools": "🔧 Tools ({})",
     "Practical": "🧪 Practical ({})",
     "Account": "💎 Account ({})",
-    "Group": "👥 Group ({})",
+    "Group": "👥 Groups ({})",
     "Private": "🔒 Private ({})",
     "Funs": "🎨 Funs ({})",
 }
