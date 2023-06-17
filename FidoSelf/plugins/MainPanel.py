@@ -49,15 +49,16 @@ def get_modename(mode):
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
-        "READALL_MODE": "Read All",
-        "READPV_MODE": "Read Pv",
-        "READGP_MODE": "Read Group",
-        "READCH_MODE": "Read Channel",
+        "READ_CHATS": "MarkRead",
+        "READALL_MODE": "MarkRead All",
+        "READPV_MODE": "MarkRead Pv",
+        "READGP_MODE": "MarkRead Group",
+        "READCH_MODE": "MarkRead Channel",
         "TIME_FONT": "Time Font",
-        "EDITALL_MODE": "Edit Mode",
-        "EDITCHATS_MODE": "Edit Chats Mode",
-        "ACTION_ALL": "Send Action Mode",
-        "ACTION_CHATS": "Send Action Mode",
+        "EDITALL_MODE": "Edit",
+        "EDITCHATS_MODE": "Edit",
+        "ACTION_ALL": "Send Action",
+        "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
     }
     if mode in MODES:
@@ -133,9 +134,8 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 
 def get_buttons(chatid, page):
     buttons = []
-    if page == 1:
-        MODES = ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]
-        for Mode in MODES:
+    if page == 1: 
+        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
@@ -146,8 +146,11 @@ def get_buttons(chatid, page):
         rebutton = create_button("REACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Reaction")
         buttons = [[pobutton, allpobutton], [rebutton, allrebutton]]
         othbutton = []
-        MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE", "ENEMY_DELETE"]
-        for Mode in MODES:
+        for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE"]:
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
+            othbutton.append(button)
+        othbutton.append(create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
+        for Mode in ["READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             othbutton.append(button)
         othbutton = list(client.functions.chunks(othbutton, 2))
