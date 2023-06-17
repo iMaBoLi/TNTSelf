@@ -6,8 +6,8 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Setting Send Poker Sticker To Pokers!",
         "Commands": {
-            "{CMD}Poker <On-Off>": "Send Poker For This Chat!",
-            "{CMD}PokerAll <On-Off>": "Send Poker For All Chats!",
+            "{CMD}Poker <On-Off>": None,
+            "{CMD}PokerAll <On-Off>": None,
         },
     },
 }
