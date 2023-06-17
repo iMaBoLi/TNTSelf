@@ -44,6 +44,8 @@ async def savefoshfile(event):
 @client.Command(command="DelFosh")
 async def delfoshfile(event):
     await event.edit(client.STRINGS["wait"])
+    if os.path.exists(client.PATH + "FOSHS.txt"):
+        os.remove(client.PATH + "FOSHS.txt")
     client.DB.del_key("FOSHS_FILE")
     await event.edit(STRINGS["del"])
 
