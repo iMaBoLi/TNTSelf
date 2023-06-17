@@ -56,4 +56,3 @@ async def getfoshfile(event):
     file = client.PATH + "FOSHS.txt"
     lines = len(open(file, "r").readlines())
     await event.respond(STRINGS["file"].format(lines), file=file)
-    os.remove(file)
