@@ -83,9 +83,15 @@ async def editaudio(event):
     load["album"] = title
     newfile = client.PATH + performer + "-" + title + ".mp3"
     load.save(newfile)
+    thumb = None
+    if event.reply_message.document.thumbs:
+        thumb = await event.reply_message.download_media(thumb=-1)
+    attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
     caption = STRINGS["atilper"].format(performer, title)
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    await client.send_file(event.chat_id, newfile, caption=caption, thumb=thumb, progress_callback=callback, attributes=attributes)        
     os.remove(audio)
     os.remove(newfile)
+    if thumb:
+        os.remove(newfile)
     await event.delete()
