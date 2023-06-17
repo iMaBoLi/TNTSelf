@@ -137,11 +137,16 @@ def get_buttons(chatid, page):
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
+        pobutton = create_button("POKER_CHATS", None, "Chat", "Chat", chatid, page, [], "Poker")
+        rebutton = create_button("REACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Reaction")
+        buttons = [[pobutton, rebutton]]
+        othbutton = []
         MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
         for Mode in MODES:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
-            buttons.append(button)
-        buttons = list(client.functions.chunks(buttons, 2))
+            othbutton.append(button)
+        othbutton = list(client.functions.chunks(othbutton, 2))
+        buttons += othbutton
     elif page == 3:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
