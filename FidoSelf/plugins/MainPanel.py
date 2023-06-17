@@ -32,18 +32,20 @@ STRINGS = {
 
 def get_modename(mode):
     MODES ={
-        "ONLINE_MODE": "Online Mode",
-        "NAME_MODE": "Name Mode",
-        "BIO_MODE": "Bio Mode",
-        "PHOTO_MODE": "Photo Mode",
-        "SIGN_MODE": "Sign Mode",
-        "EMOJI_MODE": "Emoji Mode",
+        "ONLINE_MODE": "Online",
+        "NAME_MODE": "Name",
+        "BIO_MODE": "Bio",
+        "PHOTO_MODE": "Photo",
+        "SIGN_MODE": "Sign",
+        "EMOJI_MODE": "Emoji",
         "TIMER_MODE": "Timer Save",
         "ANTISPAM_PV": "AntiSpam Pv",
-        "MUTE_PV": "Mute Pv",
-        "LOCK_PV": "Lock Pv",
-        "POKER_CHATS": "Poker Mode",
-        "REACTION_CHATS": "Reaction Mode",
+        "MUTE_PV": "Mute",
+        "LOCK_PV": "Lock",
+        "POKER_ALL": "Poker",
+        "POKER_CHATS": "Poker",
+        "REACTION_ALL": "Reaction",
+        "REACTION_CHATS": "Reaction",
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
@@ -141,7 +143,7 @@ def get_buttons(chatid, page):
         rebutton = create_button("REACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Reaction")
         buttons = [[pobutton, allpobutton], [rebutton, allrebutton]]
         othbutton = []
-        MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
+        MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE", "ENEMY_DELETE"]
         for Mode in MODES:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             othbutton.append(button)
