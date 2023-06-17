@@ -1,7 +1,4 @@
 from FidoSelf import client
-from telethon import functions, types
-import asyncio
-import random
 
 __INFO__ = {
     "Category": "Manage",
