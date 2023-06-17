@@ -96,16 +96,18 @@ def get_text(page):
     elif page == 2:
         text = STRINGS["modepage"]
     elif page == 3:
-        text = STRINGS["fontpage"]
+        text = STRINGS["modepage"]
     elif page == 4:
-        text = STRINGS["editpage"]
+        text = STRINGS["fontpage"]
     elif page == 5:
+        text = STRINGS["editpage"]
+    elif page == 6:
         text = STRINGS["actionpage"]
     return text + f" **(** `Page {page}` **)**"
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = 5
+    PAGES_COUNT = 6
     for page in range(1, PAGES_COUNT + 1):
         font = 4 if page != opage else 5
         data = page if page != opage else 0
@@ -154,7 +156,7 @@ def get_buttons(chatid, page):
         othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         othbutton = list(client.functions.chunks(othbutton, 2))
         buttons += othbutton
-    elif page == 3:
+    elif page == 4:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
             button = create_button("TIME_FONT", randfont, "Mode", "Mode", chatid, page, 1, randfont.title())
@@ -164,7 +166,7 @@ def get_buttons(chatid, page):
             button = create_button("TIME_FONT", font, "Mode", "Mode", chatid, page, 1, smode)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
-    elif page == 4:
+    elif page == 5:
         Chbuttons = []
         Allbuttons = []
         for edit in client.functions.EDITS:
@@ -175,7 +177,7 @@ def get_buttons(chatid, page):
             Allbuttons.append(button)
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
-    elif page == 5:
+    elif page == 6:
         allbutton = create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All")
         chbutton = create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")
         buttons = [[chbutton, allbutton]]
