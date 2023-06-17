@@ -16,6 +16,7 @@ bs4
 fake_useragent
 image_slicer
 jdatetime
+httpx[http2]
 countryinfo
 instagrapi
 music_tag
