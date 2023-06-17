@@ -60,7 +60,10 @@ def get_modename(mode):
         "ACTION_CHATS": "Send Action Mode",
         "ACTION_TYPE": "Action Type",
     }
-    return MODES[mode]
+    if mode in MODES:
+        return MODES[mode]
+    else:
+        return mode.split("_")[0].title()
 
 @client.Command(command="Panel")
 async def panel(event):
