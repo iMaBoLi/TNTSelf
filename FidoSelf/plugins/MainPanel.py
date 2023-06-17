@@ -29,7 +29,7 @@ STRINGS = {
     "allpage": "☻︎ You Are Already In This Page!",
     "closepanel":  "**☻︎ The Panel Successfuly Closed!**",
 }
-
+q
 def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
@@ -112,9 +112,9 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
         svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Mode":
-        timefont = client.DB.get_key(key) or default
+        getMode = client.DB.get_key(key) or default
         showname = show if show else skey
-        svalue = client.STRINGS["inline"]["On"] if str(timefont) == value else client.STRINGS["inline"]["Off"]
+        svalue = client.STRINGS["inline"]["On"] if str(getMode) == str(value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Chat":
         chats = client.DB.get_key(key) or default
