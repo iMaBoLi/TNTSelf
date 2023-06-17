@@ -17,10 +17,12 @@ import time
 import requests
 import glob
 
-@client.bot.on(events.NewMessage(pattern="(?i)\/GenerateSession", incoming=True, from_users=[client.me.id]))
+bot = client.bot
+
+@bot.on(events.NewMessage(pattern="(?i)\/GenerateSession", incoming=True, from_users=[client.me.id]))
 async def createsession(event):
     edit = await event.reply("`♻️ Please Wait . . .`")
-    async with client.bot.conversation(event.chat_id) as conv:
+    async with bot.conversation(event.chat_id) as conv:
         await edit.edit("**📱 Ok, Send Your Phone Number:**\n\n__• Ex: +19307777777 __")
         response = await conv.get_response(send.id)
         phone = response.text
@@ -30,7 +32,7 @@ async def createsession(event):
     try:
         scode = await client.send_code_request(phone, force_sms=False)
         await event.reply(str(scode))
-        async with client.bot.conversation(event.chat_id) as conv:
+        async with bot.conversation(event.chat_id) as conv:
             send = await edit.edit(f"**💠 Ok, Send Your Telegram Code For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             phone_code = response.text
@@ -51,7 +53,7 @@ async def createsession(event):
     except PhoneCodeExpiredError:
         return await edit.edit("**🚫 Your Code Is Expired, Try Again!**")
     except SessionPasswordNeededError:
-        async with client.bot.conversation(event.chat_id) as conv:
+        async with bot.conversation(event.chat_id) as conv:
             send = await edit.edit(f"**🔐 Ok, Send Your Account 2Fa Password For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             password = response.text
