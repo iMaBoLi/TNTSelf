@@ -122,12 +122,12 @@ async def enemyfosh(event):
         if os.path.exists(client.PATH + "FOSHS.txt"):
             FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
         else:
-            FOSHS = client.functions.FOSHS
-        await asyncio.sleep(int(sleep))
+            FOSHS = client.functions.FOSH
         fosh = random.choice(FOSHS)
         await event.reply(fosh)
         if delete == "on" and event.is_private:
             await event.delete()
+        await asyncio.sleep(int(sleep))
 
 @client.Inline(pattern="addenemy\:(.*)\:(.*)")
 async def inlineenemy(event):
