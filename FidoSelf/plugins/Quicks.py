@@ -8,6 +8,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Setting Your Quicks Answers White Inline Panel!",
         "Commands": {
+            "{CMD}Quicks <On-Off>": None,
             "{CMD}AddQuick '<CMD>' <Answers>": "To Add Quick To Quicks List! ( Use , To Split Answers )",
             "{CMD}DelQuick <CMD>": "To Del Quick From Quicks List!",
             "{CMD}GetQuick <CMD>": "To Get Quick From Quicks List!",
@@ -19,6 +20,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "change": "**𑁍 The Quicks Mode Has Been {}!**",
     "notin": "**𑁍 The Command** ( `{}` ) **Not In Quicks Command Lists!**",
     "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
     "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
@@ -31,6 +33,14 @@ STRINGS = {
     "cleanquick":  "**𑁍 The Quicks List Was Cleaned!**",
     "empty": "**𑁍 The Quicks List Is Empty!**",
 }
+
+@client.Command(command="Quick (On|Off)")
+async def quickmode(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).lower()
+    client.DB.set_key("QUICKS_MODE", change)
+    ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
+    await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(onlysudo=False, alowedits=False)
 async def quicksupdate(event):
