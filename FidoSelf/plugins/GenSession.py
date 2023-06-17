@@ -19,8 +19,9 @@ import glob
 
 @client.bot.on(events.NewMessage(pattern="(?i)\/GenerateSession", incoming=True, from_users=[client.me.id]))
 async def createsession(event):
+    edit = await event.reply("`♻️ Please Wait . . .`")
     async with client.bot.conversation(event.chat_id) as conv:
-        send = await event.reply("**📱 Ok, Send Your Phone Number:**\n\n__• Ex: +19307777777 __")
+        await edit.edit("**📱 Ok, Send Your Phone Number:**\n\n__• Ex: +19307777777 __")
         response = await conv.get_response(send.id)
         phone = response.text
     edit = await event.reply("`♻️ Please Wait . . .`")
