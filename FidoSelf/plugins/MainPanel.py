@@ -118,7 +118,7 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Chat":
         chats = client.DB.get_key(key) or default
-        value = "add" if int(chatid) in chats else "del"
+        value = "del" if int(chatid) in chats else "add"
         showname = show if show else skey
         smode = client.STRINGS["inline"]["On"] if value == "del" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
