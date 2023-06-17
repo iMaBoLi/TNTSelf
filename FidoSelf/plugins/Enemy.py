@@ -116,11 +116,13 @@ async def enemyfosh(event):
     userid = event.sender_id
     Enemies = client.DB.get_key("ENEMIES") or {}
     if userid not in Enemies: return
-    if not os.path.exists(client.PATH + "FOSHS.txt"): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMY_DELETE") or "off"
     if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (str(event.chat_id) in Enemies[userid]):
-        FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
+        if os.path.exists(client.PATH + "FOSHS.txt"):
+            FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
+        else:
+            FOSHS = client.functions.FOSHS
         await asyncio.sleep(int(sleep))
         fosh = random.choice(FOSHS)
         await event.reply(fosh)
