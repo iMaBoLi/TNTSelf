@@ -32,16 +32,18 @@ STRINGS = {
 
 def get_modename(mode):
     MODES ={
-        "ONLINE_MODE": "Online",
-        "NAME_MODE": "Name",
-        "BIO_MODE": "Bio",
-        "PHOTO_MODE": "Photo",
-        "SIGN_MODE": "Sign",
-        "EMOJI_MODE": "Emoji",
+        "ONLINE_MODE": "Online Mode",
+        "NAME_MODE": "Name Mode",
+        "BIO_MODE": "Bio Mode",
+        "PHOTO_MODE": "Photo Mode",
+        "SIGN_MODE": "Sign Mode",
+        "EMOJI_MODE": "Emoji Mode",
         "TIMER_MODE": "Timer Save",
         "ANTISPAM_PV": "AntiSpam Pv",
         "MUTE_PV": "Mute Pv",
         "LOCK_PV": "Lock Pv",
+        "POKER_CHATS": "Poker Mode",
+        "REACTION_CHATS": "Reaction Mode",
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
@@ -104,27 +106,23 @@ def get_pages_button(chatid, opage):
     return buttons
 
 def create_button(key, value, type, settype, chatid, page, default=None, show=None):
-    skey = get_modename(key)
+    showname = show if show else get_modename(key)
     if type == "Turn":
         getMode = client.DB.get_key(key) or default
         value = "on" if getMode == "off" else "off"
-        showname = show if show else skey
         svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Mode":
         getMode = client.DB.get_key(key) or default
-        showname = show if show else skey
         svalue = client.STRINGS["inline"]["On"] if str(getMode) == str(value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Chat":
         chats = client.DB.get_key(key) or default
         value = "del" if int(chatid) in chats else "add"
-        showname = show if show else skey
         smode = client.STRINGS["inline"]["On"] if value == "del" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or default
-        showname = show if show else skey
         smode = client.STRINGS["inline"]["On"] if (chatid in chats and chats[chatid] == value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
