@@ -119,10 +119,12 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
     elif type == "Chat":
         chats = client.DB.get_key(key) or default
         value = "add" if chatid in chats else "del"
+        showname = show if show else skey
         smode = client.STRINGS["inline"]["On"] if value == "del" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or default
+        showname = show if show else skey
         smode = client.STRINGS["inline"]["On"] if (chatid in chats and chats[chatid] == value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
@@ -162,20 +164,13 @@ def get_buttons(chatid, page):
         OthButton = [[Button.inline(" --------------- ", data="Empty")]]
         buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
     elif page == 5:
-        acMode = client.DB.get_key("ACTION_ALL") or "off"
-        acChats = client.DB.get_key("ACTION_CHATS") or []
-        Mact = client.STRINGS["inline"]["On"] if int(chatid) in acChats else client.STRINGS["inline"]["Off"]
-        Cact = "del" if int(chatid) in acChats else "add"
-        Mactall = client.STRINGS["inline"]["On"] if acMode == "on" else client.STRINGS["inline"]["Off"]
-        Cactall = "on" if acMode == "off" else "off"
-        buttons = [[Button.inline(f"Action {Mact}", data=f"Set:ACTION_CHATS:{Cact}:Chat:{chatid}:{page}"), Button.inline(f"Action All {Mactall}", data=f"Set:ACTION_ALL:{Cactall}:Turn:{chatid}:{page}")]]
+        allbutton = create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off")
+        chbutton = create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")
+        buttons = [[chbutton, allbutton]]
         actbts = []
         for action in client.functions.ACTIONS:
-            acType = client.DB.get_key("ACTION_TYPE") or "random"
-            getMode = "on" if action == acType else "off"
-            ShowName = action.replace("-", " ").title()
-            ShowMode = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            actbts.append(Button.inline(f"{ShowName} {ShowMode}", data=f"Set:ACTION_TYPE:{action}:Mode:{chatid}:{page}"))
+            button = create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", action.title())
+            actbts.append(button)
         actbts = list(client.functions.chunks(actbts, 3))
         buttons += actbts
     buttons.append(get_pages_button(chatid, page))
