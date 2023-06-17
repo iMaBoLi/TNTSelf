@@ -83,7 +83,7 @@ async def editaudio(event):
     load["album"] = title
     newfile = client.PATH + performer + "-" + title + ".mp3"
     load.save(newfile)
-    thumb = None
+    thumb = load["artwork"].first
     if event.reply_message.document.thumbs:
         thumb = await event.reply_message.download_media(thumb=-1)
     attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
