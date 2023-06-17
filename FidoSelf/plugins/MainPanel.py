@@ -106,7 +106,7 @@ def get_pages_button(chatid, opage):
 def create_button(key, type, chatid, page):
     skey = get_modename(key)
     if type == "Turn":
-        getMode = client.DB.get_key(Mode) or "off"
+        getMode = client.DB.get_key(key) or "off"
         value = "on" if getMode == "off" else "off"
         svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{skey} {svalue}", data=f"Set:{key}:{value}:{type}:{chatid}:{page}")
@@ -164,11 +164,8 @@ def get_buttons(chatid, page):
     elif page == 2:
         MODES = ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]
         for Mode in MODES:
-            getMode = client.DB.get_key(Mode) or "off"
-            value = "on" if getMode == "off" else "off"
-            svalue = client.STRINGS["inline"]["On"] if getMode == "on" else client.STRINGS["inline"]["Off"]
-            smode = get_modename(Mode)
-            buttons.append(Button.inline(f"{smode} {svalue}", data=f"Set:{Mode}:{value}:Turn:{chatid}:{page}"))
+            button = create_button(Mode, "Turn", chatid, page)
+            buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 3:
         newtime = datetime.now().strftime("%H:%M")
