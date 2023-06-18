@@ -96,7 +96,7 @@ async def antispam(event):
         else:
             await client(functions.contacts.BlockRequest(event.sender_id))
     else:
-        wanti = client.DB.get_key("ANTISPAM_MEDIA")
+        wanti = client.DB.get_key("ANTIWARN_MEDIA")
         if wanti:
             getmsg = await client.get_messages(int(wanti["chat_id"]), ids=int(wanti["msg_id"]))
             getmsg.text = await client.AddVars(getmsg.text, event)
