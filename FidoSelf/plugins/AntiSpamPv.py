@@ -82,9 +82,10 @@ async def antispam(event):
     WARNS.update({event.sender_id: nwarns})
     limit = client.DB.get_key("ANTISPAM_LIMIT") or 5
     WARNSTEXT = f"{nwarns}/{limit}"
+    swarn = client.DB.get_key("ANTISPAM_WARN") or "off"
     if nwarns >= limit:
         manti = client.DB.get_key("ANTISPAM_MEDIA")
-        if manti:
+        if swarn == "on" and manti:
             getmsg = await client.get_messages(int(manti["chat_id"]), ids=int(manti["msg_id"]))
             getmsg.text = await client.AddVars(getmsg.text, event)
             getmsg.text = getmsg.text.replace("{WARNS}", WARNSTEXT)
@@ -99,7 +100,7 @@ async def antispam(event):
             await client(functions.contacts.BlockRequest(event.sender_id))
     else:
         wanti = client.DB.get_key("ANTIWARN_MEDIA")
-        if wanti:
+        if swarn == "on" and wanti:
             getmsg = await client.get_messages(int(wanti["chat_id"]), ids=int(wanti["msg_id"]))
             getmsg.text = await client.AddVars(getmsg.text, event)
             getmsg.text = getmsg.text.replace("{WARNS}", WARNSTEXT)
