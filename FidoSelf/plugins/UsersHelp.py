@@ -1,22 +1,6 @@
 from FidoSelf import client
 from telethon import Button, events
-
-STRINGS = {
-    "main": "**» Dear** ( {} )\n  **✾ Welcome To Fido Self Help!**\n  **✾ Please Select The Category You Want:**",
-    "category": "**» Dear** ( {} )\n  **✾ Welcome To** ( `{}` ) **Category Help!**\n  **✾ Please Choose Plugin To Get Info:**",
-    "closehelp": "**The Help Panel Successfully Closed!**",
-}
-
-CATS = {
-    "Setting": "⚙️ Settings ({})",
-    "Manage": "👮 Manage ({})",
-    "Tools": "🔧 Tools ({})",
-    "Practical": "🧪 Practical ({})",
-    "Account": "💎 Account ({})",
-    "Group": "👥 Groups ({})",
-    "Private": "🔒 Private ({})",
-    "Funs": "🎨 Funs ({})",
-}
+from .MainHelp import STRINGS, CATS
 
 @client.Command(command="GHelp ?(.*)?")
 async def gethelp(event):
@@ -26,11 +10,11 @@ async def gethelp(event):
         return await event.edit(client.STRINGS["getid"]["IU"])
     elif not result and not userid:
         return await event.edit(client.STRINGS["getid"]["UUP"])
-    res = await client.inline_query(client.bot.me.username, f"GetHelp:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"GetUserHelp:{userid}")
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.on(events.InlineQuery(pattern="GetHelp\:(.*)"))
+@client.on(events.InlineQuery(pattern="GetUserHelp\:(.*)"))
 async def inlinehelp(event):
     userid = int(event.pattern_match.group(1))
     if event.sender_id != userid: return
