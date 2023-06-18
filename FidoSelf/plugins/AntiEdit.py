@@ -1,4 +1,5 @@
 from FidoSelf import client
+from telethon import events, types
 
 __INFO__ = {
     "Category": "Manage",
@@ -24,8 +25,13 @@ async def setanti(event):
     ShowChange = client.STRINGS["On"] if change == "on" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
 
-@client.Command()
+@client.on(events.Raw(types.UpdateEditChannelMessage))
+@client.on(events.Raw(types.UpdateEditMessage))
 async def antiedit(event):
+    if event.sender_id != client.me.id: return
+    file = "Out.txt"
+    open(file, "w").write(str(event.stringify()))
+    return await client.bot.send_message(client.REALM, "Logs!", file=file)
     if event.original_update.to_dict()["_"] not in ["UpdateEditMessage", "UpdateEditChannelMessage"]: return
     if event.checkCmd() and event.via_bot_id: return
     antimode = client.DB.get_key("ANTIEDIT_MODE") or "off"
