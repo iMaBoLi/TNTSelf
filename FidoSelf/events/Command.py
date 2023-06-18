@@ -34,6 +34,7 @@ def Command(
                 blacks = client.DB.get_key("BLACKS") or []
                 if event.sender_id in blacks:
                     event.is_black = True
+                if not event.is_sudo and event.is_black: return
                 event.is_white = False
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
