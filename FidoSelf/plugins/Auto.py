@@ -121,7 +121,7 @@ async def getauto(event):
     
 @client.Command(command="SetAutoSleep (\d*)")
 async def setautosleep(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     if 1 > sleep > 60:
         return await event.edit(STRINGS["nosleep"].format(1, 60))
