@@ -80,7 +80,7 @@ async def antispam(event):
     WARNS.update({event.sender_id: nwarns})
     limit = client.DB.get_key("ANTISPAM_LIMIT") or 5
     WARNSTEXT = f"{nwarns}/{limit}"
-    if limit >= nwarns:
+    if nwarns >= limit:
         manti = client.DB.get_key("ANTISPAM_MEDIA")
         if manti:
             getmsg = await client.get_messages(int(manti["chat_id"]), ids=int(manti["msg_id"]))
