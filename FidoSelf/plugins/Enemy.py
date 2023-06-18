@@ -125,10 +125,10 @@ async def enemyfosh(event):
         else:
             FOSHS = client.functions.FOSH
         fosh = random.choice(FOSHS)
+        await asyncio.sleep(int(sleep))
         await event.reply(fosh)
         if delete == "on" and event.is_private:
             await event.delete()
-        await asyncio.sleep(int(sleep))
 
 @client.Inline(pattern="addenemy\:(.*)\:(.*)")
 async def inlineenemy(event):
