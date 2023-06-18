@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Private",
     "Plugname": "PvMuter",
     "Pluginfo": {
         "Help": "To Manage Users On MutePv List!",
