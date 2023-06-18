@@ -14,6 +14,32 @@ def check_cmd(event):
 
 setattr(Message, "checkCmd", check_cmd)
 
+SPAMS = {}
+
+def checkspam(event):
+    bantime = 30
+    maxtime = 6
+    if userid not in SPAMS:
+        SPAMS[event.sender_id] = {"next_time": time.time() + maxtime, "messages": 1, "banned": 0}
+        uspam = SPAMS[event.sender_id]
+    else:
+        uspam = SPAMS[event.sender_id]
+        uspam["messages"] += 1
+    if uspam["banned"] >= time.time():
+        return True
+    else:
+        if uspam["next_time"] >= time.time():
+            if uspam["messages"] >= 10:
+                uspam["banned"] = time.time() + bantime
+                uspam["bans_count"] += 1
+                return True
+        else:
+            uspam["messages"] = 1
+            uspam["next_time"] = time.time() + maxtime
+            return False
+
+setattr(Message, "checkSpam", checkspam)
+
 async def DownloadFiles():
     data = client.DB.get_key("DATABASE")
     if data:
