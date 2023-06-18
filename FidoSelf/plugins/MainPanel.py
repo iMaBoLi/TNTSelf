@@ -169,7 +169,7 @@ def get_buttons(chatid, page):
             allbts.append(create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
         buttons = client.functions.chunker(chbts, sizes=[3,2]) + client.functions.chunker(allbts, sizes=[3,2])
     elif page == 6:
-        buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")]])
+        buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")])
         actbts = []
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", action.title()))
