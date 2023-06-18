@@ -19,9 +19,9 @@ SPAMS = {}
 
 def checkspam(event):
     bantime = 30
-    maxtime = 3
+    maxtime = 4
     if event.sender_id not in SPAMS:
-        SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 1, "banned": 0}
+        SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0}
         uspam = SPAMS[event.sender_id]
     else:
         uspam = SPAMS[event.sender_id]
@@ -30,25 +30,17 @@ def checkspam(event):
         return True
     else:
         if uspam["next_time"] >= int(time.time()):
-            if uspam["messages"] >= 5:
+            if uspam["messages"] >= 8:
                 SPAMS[event.sender_id]["banned"] = int(time.time()) + bantime
                 return True
         else:
-            SPAMS[event.sender_id]["messages"] = 1
+            SPAMS[event.sender_id]["messages"] = 0
             SPAMS[event.sender_id]["next_time"] = int(time.time()) + maxtime
             return False
 
 setattr(Message, "checkSpam", checkspam)
 
 async def DownloadFiles():
-    data = client.DB.get_key("DATABASE")
-    if data:
-        try:
-            get = await client.get_messages(int(data["chat_id"]), ids=int(data["msg_id"]))
-            await get.download_media("DB.json")
-        except:
-            pass
-
     os.mkdir("downloads")
     
     foshs = client.DB.get_key("FOSHS_FILE")
