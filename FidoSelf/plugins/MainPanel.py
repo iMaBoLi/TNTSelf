@@ -41,7 +41,6 @@ def get_modename(mode):
         "SIGN_MODE": "Sign",
         "EMOJI_MODE": "Emoji",
         "TIMER_MODE": "Timer Save",
-        "ANTISPAM_PV": "AntiSpam Pv",
         "MUTE_PV": "MutePv",
         "LOCK_PV": "LockPv",
         "REPEAT_ALL": "Repeat",
@@ -51,13 +50,16 @@ def get_modename(mode):
         "POKER_ALL": "Poker",
         "POKER_CHATS": "Poker",
         "ANTIFORWARD_MODE": "Anti Forward",
-        "ANTIEDIT_MODE": "Anti Edit",
+        "ANTIEDIT_MODE": "Anti Edit"
         "ENEMY_DELETE": "Delete Enemy Pms",
         "READ_CHATS": "MarkRead",
         "READALL_MODE": "MarkRead All",
         "READPV_MODE": "MarkRead Pv",
         "READGP_MODE": "MarkRead Group",
         "READCH_MODE": "MarkRead Channel",
+        "ANTISPAM_PV": "AntiSpam Pv",
+        "ANTISPAM_WARN": "AntiSpam Warn",
+        "ANTISPAM_TYPE": "AntiSpam Type"
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit",
         "EDITCHATS_MODE": "Edit",
@@ -138,7 +140,7 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 def get_buttons(chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "ANTISPAM_PV", "MUTE_PV", "LOCK_PV"]:
+        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons.insert(1, create_button("QUICKS_MODE", None, "Turn", "Turn", chatid, page, "on"))
@@ -154,6 +156,15 @@ def get_buttons(chatid, page):
             othbutton.append(create_button(Mode, None, "Turn", "Turn", chatid, page, "off"))
         othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
+    elif page == 3:
+        for Mode in ["ANTISPAM_PV", "ANTISPAM_WARN"]:
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
+            buttons.append(button)
+        buttons = list(client.functions.chunks(buttons, 2))
+        typebts = [Button.inline("• Spam Type :", data="Empty")]
+        for type in ["Mute", "Block"]:
+            typebts.append(create_button("ANTISPAM_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
+        buttons.insert(1, typebts)
     elif page == 4:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
