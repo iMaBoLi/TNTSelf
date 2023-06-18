@@ -5,7 +5,7 @@ import random
 import re
 import json
 
-async def async_searcher(url, post=False, head=False, headers=None, evaluate=None, object=False, re_json=False, re_content=False, *args, **kwargs,):
+async def search(url, post=False, head=False, headers=None, evaluate=None, object=False, re_json=False, re_content=False, *args, **kwargs,):
     async with ClientSession(headers=headers) as Cclient:
         method = Cclient.head if head else (Cclient.post if post else Cclient.get)
         data = await method(url, *args, **kwargs)
