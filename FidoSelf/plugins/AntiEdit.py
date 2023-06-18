@@ -28,11 +28,7 @@ async def setanti(event):
 @client.on(events.Raw(types.UpdateEditChannelMessage))
 @client.on(events.Raw(types.UpdateEditMessage))
 async def antiedit(event):
-    file = "Out.txt"
-    open(file, "w").write(str(event.stringify()))
-    return await client.bot.send_message(client.REALM, "Logs!", file=file)
-    if event.original_update.to_dict()["_"] not in ["UpdateEditMessage", "UpdateEditChannelMessage"]: return
-    if event.checkCmd() and event.via_bot_id: return
+    if event.checkCmd() and event.message.via_bot_id: return
     antimode = client.DB.get_key("ANTIEDIT_MODE") or "off"
     if antimode == "on":
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
