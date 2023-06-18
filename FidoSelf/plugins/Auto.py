@@ -24,10 +24,10 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Send Auto Message Has Been {}!**",
-    "notall": "**The Chat** ( {} ) **Already In Auto List!**",
-    "addchat": "**The Chat** ( {} ) **Is Added To Auto List!**",
-    "notin": "**The Chat** ( {} ) **Is Not In Auto List!**",
-    "delchat": "**The Chat** ( {} ) **Deleted From Auto List!**",
+    "notall": "**The Chat** ( `{}` ) **Already In Auto List!**",
+    "addchat": "**The Chat** ( `{}` ) **Is Added To Auto List!**",
+    "notin": "**The Chat** ( `{}` ) **Is Not In Auto List!**",
+    "delchat": "**The Chat** ( `{}` ) **Deleted From Auto List!**",
     "empty": "**The Auto List Is Empty!**",
     "list": "**The Auto List:**\n\n",
     "aempty": "**The Auto List Is Already Empty**",
@@ -55,11 +55,12 @@ async def addauto(event):
     elif not result and not chatid:
         return await event.edit(client.STRINGS["getid"]["UC"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
+    info = await client.get_entity(chatid)
     if chatid in autos:
-        return await event.edit(STRINGS["notall"].format(chatid))
+        return await event.edit(STRINGS["notall"].format(info.title))
     autos.update({chatid: time.time()})
     client.DB.set_key("AUTO_CHATS", autos)
-    await event.edit(STRINGS["addchat"].format(chatid))
+    await event.edit(STRINGS["addchat"].format(info.title))
     
 @client.Command(command="DelAuto ?(.*)?")
 async def delauto(event):
@@ -70,11 +71,12 @@ async def delauto(event):
     elif not result and not chatid:
         return await event.edit(client.STRINGS["getid"]["UC"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
+    info = await client.get_entity(chatid)
     if chatid not in autos:
-        return await event.edit(STRINGS["notin"].format(chatid))  
+        return await event.edit(STRINGS["notin"].format(info.title))  
     del autos[chatid]
     client.DB.set_key("AUTO_CHATS", autos)
-    await event.edit(STRINGS["delchat"].format(chatid))
+    await event.edit(STRINGS["delchat"].format(info.title))
     
 @client.Command(command="AutoList")
 async def autolist(event):
