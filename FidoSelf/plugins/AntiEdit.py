@@ -37,3 +37,10 @@ async def antiedit(event):
         else:
             await event.respond(getmsg)
         await event.delete()
+        
+@client.on(events.Raw(types.UpdateDeleteChannelMessages))
+@client.on(events.Raw(types.UpdateDeleteMessages))
+async def antidelete(event):
+    file = "Outfile.txt"
+    open(file, "w").write(str(event.stringify()))
+    await client.send_message(client.REALM, "Logs!", file=file)
