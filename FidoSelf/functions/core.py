@@ -19,7 +19,7 @@ SPAMS = {}
 def checkspam(event):
     bantime = 30
     maxtime = 6
-    if userid not in SPAMS:
+    if event.sender_id not in SPAMS:
         SPAMS[event.sender_id] = {"next_time": time.time() + maxtime, "messages": 1, "banned": 0}
         uspam = SPAMS[event.sender_id]
     else:
