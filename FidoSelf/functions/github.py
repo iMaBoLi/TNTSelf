@@ -20,7 +20,7 @@ class Git:
     def update(self, file, content, branch=BRANCH):
         try:
             contents = self.repo.get_contents(file, ref=branch)
-            self.repo.update_file(contents.path,  f"Update {file.split('/')[-1]}", content, contents.sha, branch=branch)
+            self.repo.update_file(contents.path,  f"Update {file.split('/')[-1]}", contents.sha, content, branch=branch)
             return True
         except Exception as error:
             return error
