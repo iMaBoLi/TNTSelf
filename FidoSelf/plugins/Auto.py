@@ -117,7 +117,7 @@ async def getauto(event):
     await event.respond(getmsg)
     await event.delete()
     
-client.Command(command="SetAutoSleep (\d*)")
+@client.Command(command="SetAutoSleep (\d*)")
 async def setautosleep(event):
     await event.edit(STRINGS["wait"])
     sleep = event.pattern_match.group(1)
@@ -140,10 +140,7 @@ async def autosender():
             if time.time() >= (ltime + int(sleep)):
                 getmsg = await client.get_messages(int(amessage["chat_id"]), ids=int(amessage["msg_id"]))
                 getmsg.text = await client.AddVars(getmsg.text)
-                try:
-                    await client.send_message(chatid, getmsg)
-                    achats[chatid] = time.time()
-                    client.DB.set_key("AUTO_CHATS", achats)
-                    await asyncio.sleep(2)
-                except:
-                    pass
+                await client.send_message(chatid, getmsg)
+                achats[chatid] = time.time()
+                client.DB.set_key("AUTO_CHATS", achats)
+                await asyncio.sleep(2)
