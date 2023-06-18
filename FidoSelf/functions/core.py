@@ -4,20 +4,21 @@ import re
 import time
 import os
 
-def check_cmd(event):
-    if not event.text: return False
+def checkCmd(event, text=None):
+    if not event.text and not text: return False
+    text = text if text else event.text
     commands = client.DB.get_key("SELFCOMMANDS") or []
     for command in commands:
-        search = re.search(command, event.text)
+        search = re.search(command, text)
         if search:
             return True
     return False
 
-setattr(Message, "checkCmd", check_cmd)
+setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
 
-def checkspam(event):
+def checkSpam(event):
     bantime = 30
     maxtime = 4
     if event.sender_id not in SPAMS:
@@ -38,7 +39,7 @@ def checkspam(event):
             SPAMS[event.sender_id]["next_time"] = int(time.time()) + maxtime
             return False
 
-setattr(Message, "checkSpam", checkspam)
+setattr(Message, "checkSpam", checkSpam)
 
 async def DownloadFiles():
     os.mkdir("downloads")
