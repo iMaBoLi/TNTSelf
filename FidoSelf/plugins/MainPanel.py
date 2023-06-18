@@ -59,7 +59,7 @@ def get_modename(mode):
         "READCH_MODE": "MarkRead Channel",
         "ANTISPAM_PV": "AntiSpam Pv",
         "ANTISPAM_WARN": "AntiSpam Warn",
-        "ANTISPAM_TYPE": "AntiSpam Type"
+        "ANTISPAM_TYPE": "AntiSpam Type",
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit",
         "EDITCHATS_MODE": "Edit",
