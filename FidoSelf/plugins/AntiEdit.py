@@ -28,7 +28,7 @@ async def setanti(event):
 @client.on(events.Raw(types.UpdateEditChannelMessage))
 @client.on(events.Raw(types.UpdateEditMessage))
 async def antiedit(event):
-    if event.checkCmd() and event.message.via_bot_id: return
+    if not event.message.out or event.checkCmd() or event.message.via_bot_id: return
     antimode = client.DB.get_key("ANTIEDIT_MODE") or "off"
     if antimode == "on":
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
