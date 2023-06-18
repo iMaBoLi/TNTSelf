@@ -33,7 +33,7 @@ async def inlinehelp(event):
 async def callhelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
-        return await event.answer("• Not For You!", alert=True)
+        return await event.answer("• This Is Not For You!", alert=True)
     info = await client.get_entity(event.sender_id)
     text = STRINGS["main"].format(client.mention(info))
     buttons = []
@@ -50,7 +50,7 @@ async def getcategory(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     category = str(event.data_match.group(2).decode('utf-8'))
     if event.sender_id != userid:
-        return await event.answer("• Not For You!", alert=True)
+        return await event.answer("• This Is Not For You!", alert=True)
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{userid}:{plugin}:{category}"))
@@ -65,7 +65,7 @@ async def getplugin(event):
     plugin = event.data_match.group(2).decode('utf-8')
     category = event.data_match.group(3).decode('utf-8')
     if event.sender_id != userid:
-        return await event.answer("• Not For You!", alert=True)
+        return await event.answer("• This Is Not For You!", alert=True)
     info = client.HELP[category][plugin]
     text = "**꥟ " + info["Help"] + "**\n"
     text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
@@ -83,6 +83,6 @@ async def getplugin(event):
 async def closehelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
-        return await event.answer("• Not For You!", alert=True)
+        return await event.answer("• This Is Not For You!", alert=True)
     text = STRINGS["closehelp"]
     await event.edit(text=text)
