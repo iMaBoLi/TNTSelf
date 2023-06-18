@@ -10,8 +10,12 @@ __INFO__ = {
         "Help": "To Setting Send Auto Messages To Chats!",
         "Commands": {
             "{CMD}Auto <On-Off>": None,
-            "{CMD}AutoAll <On-Off>": None,
-            "{CMD}SetAuto <Mode>": None,
+            "{CMD}AddAuto <Chat|ChatId>": None,
+            "{CMD}DelAuto <Chat|ChatId>": None,
+            "{CMD}AutoList": None,
+            "{CMD}CleanAutoList": None,
+            "{CMD}SetAuto <Reply>": None,
+            "{CMD}GetAuto": None,
             "{CMD}SetAutoSleep <1-60min>"
         },
     },
