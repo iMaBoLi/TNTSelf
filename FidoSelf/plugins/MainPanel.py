@@ -50,7 +50,7 @@ def get_modename(mode):
         "POKER_ALL": "Poker",
         "POKER_CHATS": "Poker",
         "ANTIFORWARD_MODE": "Anti Forward",
-        "ANTIEDIT_MODE": "Anti Edit"
+        "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete Enemy Pms",
         "READ_CHATS": "MarkRead",
         "READALL_MODE": "MarkRead All",
