@@ -1,6 +1,7 @@
 from FidoSelf import client
 from telethon.types import Message
 import re
+import time
 import os
 
 def check_cmd(event):
