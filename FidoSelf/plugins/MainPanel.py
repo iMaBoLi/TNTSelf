@@ -38,6 +38,7 @@ def get_modename(mode):
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
+        "AUTO_MODE": "Auto",
         "SIGN_MODE": "Sign",
         "EMOJI_MODE": "Emoji",
         "TIMER_MODE": "Timer Save",
@@ -140,7 +141,7 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 def get_buttons(chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV"]:
+        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
             buttons.append(button)
         buttons.insert(1, create_button("QUICKS_MODE", None, "Turn", "Turn", chatid, page, "on"))
