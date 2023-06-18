@@ -129,7 +129,7 @@ async def setautosleep(event):
     client.DB.set_key("AUTO_SLEEP", sleep)
     await event.edit(STRINGS["setsleep"].format(sleep))
 
-@aiocron.crontab("*/1 * * * *")
+@aiocron.crontab("*/10 * * * * *")
 async def autosender():
     amode = client.DB.get_key("AUTO_MODE") or "off"
     achats = client.DB.get_key("AUTO_CHATS") or []
