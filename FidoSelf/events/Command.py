@@ -48,9 +48,6 @@ def Command(
         async def wrapper(event):
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
-                cspam = checkspam(event.sender_id)
-                antispam = client.DB.get_key("ANTI_SPAM") or "off"
-                if not event.is_sudo and antispam == "on" and cspam: return
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 if onlysudo and not event.is_sudo and not event.is_ch: return
                 event.reply_message = await event.get_reply_message()
@@ -65,6 +62,9 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
+                antispam = client.DB.get_key("ANTI_SPAM") or "off"
+                if not event.is_sudo and antispam == "on" and not event.is_white and checkspam(event.sender_id):
+                    return client.LOGS.error(f"• #NewSpam : {event.sender_id}")
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
