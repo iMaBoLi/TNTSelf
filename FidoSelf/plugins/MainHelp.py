@@ -44,8 +44,8 @@ async def inlinehelp(event):
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
-        ShowName = CATS[category].format(plugcount)
-        buttons.append(Button.inline(ShowName, data=f"GetCategory:{category}"))
+        sname = CATS[category].format(plugcount)
+        buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
@@ -56,8 +56,8 @@ async def callhelp(event):
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
-        ShowName = CATS[category].format(plugcount)
-        buttons.append(Button.inline(ShowName, data=f"GetCategory:{category}"))
+        sname = CATS[category].format(plugcount)
+        buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
