@@ -92,7 +92,7 @@ async def antispam(event):
         WARNS.update({event.sender_id: 0})
         umode = client.DB.get_key("ANTISPAM_TYPE") or "Mute"
         if umode == "Mute":
-            mutes = client.DB.get_key("MUTEPV_USERS")
+            mutes = client.DB.get_key("MUTEPV_USERS") or []
             mutes.append(event.sender_id)
             client.DB.set_key("MUTEPV_USERS", mutes)
         else:
