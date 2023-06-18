@@ -73,6 +73,8 @@ async def antispam(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     antimode = client.DB.get_key("ANTISPAM_PV") or "off"
     if antimode == "off": return
+    mutes = client.DB.get_key("MUTEPV_USERS") or []
+    if event.sender_id in mutes: return
     if not event.sender_id in WARNS:
         WARNS.update({event.sender_id: 0})
     lwarns = WARNS[event.sender_id]
