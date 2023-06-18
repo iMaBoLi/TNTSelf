@@ -1,6 +1,21 @@
 from FidoSelf import client
 from telethon import Button, events
 from .MainHelp import STRINGS, CATS
+from traceback import format_exc
+import re
+
+def Callback(data):
+    data = re.compile(data)
+    def decorator(func):
+        async def wrapper(event):
+            try:
+                await func(event)
+            except:
+                client.LOGS.error(format_exc())
+        client.bot.add_event_handler(wrapper, events.CallbackQuery(data=data))
+        return wrapper
+    return decorator
+
 
 @client.bot.on(events.NewMessage(pattern="(?i)^\/Gethelp$", incoming=True))
 async def gethelp(event):
@@ -18,7 +33,7 @@ async def gethelp(event):
     await event.reply(text, buttons=buttons)
     await reply.delete()
     
-@client.bot.on(events.CallbackQuery(data="OtherHelp"))
+@Callback(data="OtherHelp")
 async def callhelp(event):
     info = await client.get_entity(event.sender_id)
     text = STRINGS["main"].format(client.mention(info))
@@ -31,7 +46,7 @@ async def callhelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="OtherCloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
-@client.bot.on(events.CallbackQuery(data="OtherGetCategory\:(.*)"))
+@Callback(data="OtherGetCategory\:(.*)")
 async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
@@ -42,7 +57,7 @@ async def getcategory(event):
     text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.bot.on(events.CallbackQuery(data="OtherGetHelp\:(.*)\:(.*)"))
+@Callback(data="OtherGetHelp\:(.*)\:(.*)")
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
@@ -59,7 +74,7 @@ async def getplugin(event):
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"OtherGetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="OtherCloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
-@client.bot.on(events.CallbackQuery(data="OtherCloseHelp"))
+@Callback(data="OtherCloseHelp")
 async def closehelp(event):
     text = STRINGS["closehelp"]
     await event.edit(text=text)
