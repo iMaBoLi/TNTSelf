@@ -123,7 +123,7 @@ async def enemyfosh(event):
         if os.path.exists(client.PATH + "FOSHS.txt"):
             FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
         else:
-            FOSHS = client.functions.FOSH
+            FOSHS = client.functions.FOSHS
         fosh = random.choice(FOSHS)
         await asyncio.sleep(int(sleep))
         await event.reply(fosh)
