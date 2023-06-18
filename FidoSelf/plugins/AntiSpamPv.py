@@ -5,10 +5,13 @@ __INFO__ = {
     "Category": "Private",
     "Plugname": "Anti Spam",
     "Pluginfo": {
-        "Help": "To Setting Anti Spam For Pv!",
+        "Help": "To Setting Anti Spam For Pv And Protection!",
         "Commands": {
             "{CMD}AntiSpamPv <On-Off>": None,
             "{CMD}AntiSpamWarn <On-Off>": None,
+            "{CMD}SetSpamPvLimit <3-20>": None,
+            "{CMD}SetAntiSpam <Reply>": None,
+            "{CMD}SetAntiSpamWarn <Reply>": None,
         },
     },
 }
