@@ -14,11 +14,8 @@ def Command(
     if command and not pattern:
         pattern = f"(?i)^\.{command}$"
         
-    if pattern:
-        COMMANDS = client.DB.get_key("SELFCOMMANDS") or []
-        if pattern not in COMMANDS:
-            COMMANDS += [pattern]
-            client.DB.set_key("SELFCOMMANDS", COMMANDS)
+    if pattern and pattern not in client.COMMANDS:
+        client.COMMANDS.append(pattern)
 
     def decorator(func):
         async def wrapper(event):
