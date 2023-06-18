@@ -167,13 +167,13 @@ def get_buttons(chatid, page):
         for edit in client.functions.EDITS:
             chbts.append(create_button("EDITCHATS_MODE", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title()))
             allbts.append(create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
-        buttons = client.functions.chunker(chbts, sizes=[3,2,1]) + client.functions.chunker(allbts, sizes=[3,2,1])
+        buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
     elif page == 6:
         buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")])
         actbts = []
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", (action.replace("record-", "Rec ").title())))
-        buttons = buttons + client.functions.chunker(actbts, sizes=[3,2,2])
+        buttons = buttons + list(client.functions.chunks(actbts, 3))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
