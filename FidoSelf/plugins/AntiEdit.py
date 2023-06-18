@@ -28,7 +28,6 @@ async def setanti(event):
 @client.on(events.Raw(types.UpdateEditChannelMessage))
 @client.on(events.Raw(types.UpdateEditMessage))
 async def antiedit(event):
-    if event.sender_id != client.me.id: return
     file = "Out.txt"
     open(file, "w").write(str(event.stringify()))
     return await client.bot.send_message(client.REALM, "Logs!", file=file)
