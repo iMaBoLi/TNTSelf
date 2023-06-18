@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import Button, events
 from .MainHelp import STRINGS, CATS
 
-@client.Command(command="GHelp ?(.*)?")
+@client.Command(command="GetHelp ?(.*)?")
 async def gethelp(event):
     await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
@@ -14,7 +14,7 @@ async def gethelp(event):
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.on(events.InlineQuery(pattern="GetUserHelp\:(.*)"))
+@client.bot.on(events.InlineQuery(pattern="GetUserHelp\:(.*)"))
 async def inlinehelp(event):
     userid = int(event.pattern_match.group(1))
     if event.sender_id != userid: return
@@ -29,7 +29,7 @@ async def inlinehelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseHelp:{userid}")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
-@client.on(events.CallbackQuery(data="Help\:(.*)"))
+@client.bot.on(events.CallbackQuery(data="Help\:(.*)"))
 async def callhelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
@@ -45,7 +45,7 @@ async def callhelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseHelp:{userid}")])
     await event.edit(text=text, buttons=buttons)
 
-@client.on(events.CallbackQuery(data="GetCategory\:(.*)\:(.*)"))
+@client.bot.on(events.CallbackQuery(data="GetCategory\:(.*)\:(.*)"))
 async def getcategory(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     category = str(event.data_match.group(2).decode('utf-8'))
@@ -59,7 +59,7 @@ async def getcategory(event):
     text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.on(events.CallbackQuery(data="GetHelp\:(.*)\:(.*)\:(.*)"))
+@client.bot.on(events.CallbackQuery(data="GetHelp\:(.*)\:(.*)\:(.*)"))
 async def getplugin(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     plugin = event.data_match.group(2).decode('utf-8')
@@ -79,7 +79,7 @@ async def getplugin(event):
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{userid}:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseHelp:{userid}")]]
     await event.edit(text=text, buttons=buttons) 
 
-@client.on(events.CallbackQuery(data=f"CloseHelp\:(.*)"))
+@client.bot.on(events.CallbackQuery(data=f"CloseHelp\:(.*)"))
 async def closehelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
