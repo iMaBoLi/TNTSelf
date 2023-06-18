@@ -36,6 +36,7 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
+                if event.via_bot_id: return
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
