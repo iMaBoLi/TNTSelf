@@ -2,19 +2,7 @@ from FidoSelf import client
 from telethon import Button, events
 from .MainHelp import STRINGS, CATS
 
-@client.Command(command="GetHelp ?(.*)?")
-async def gethelp(event):
-    await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
-    res = await client.inline_query(client.bot.me.username, f"GetUserHelp:{userid}")
-    await res[0].click(event.chat_id)
-    await event.delete()
-
-@client.bot.on(events.InlineQuery(pattern="GetUserHelp\:(.*)"))
+@client.bot.on(events.InlineQuery(pattern="GetHelp\:(.*)"))
 async def inlinehelp(event):
     userid = int(event.pattern_match.group(1))
     if event.sender_id != userid: return
