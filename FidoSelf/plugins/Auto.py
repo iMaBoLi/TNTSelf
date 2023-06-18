@@ -122,14 +122,14 @@ async def getauto(event):
 @client.Command(command="SetAutoSleep (\d*)")
 async def setautosleep(event):
     await event.edit(client.STRINGS["wait"])
-    sleep = event.pattern_match.group(1)
-    if 1 > sleep > 60:
+    sleep = int(event.pattern_match.group(1))
+    if 1 > sleep > 120:
         return await event.edit(STRINGS["nosleep"].format(1, 60))
     sleep = sleep * 60
     client.DB.set_key("AUTO_SLEEP", sleep)
     await event.edit(STRINGS["setsleep"].format(sleep))
 
-@aiocron.crontab("*/10 * * * * *")
+@aiocron.crontab("*/30 * * * * *")
 async def autosender():
     amode = client.DB.get_key("AUTO_MODE") or "off"
     achats = client.DB.get_key("AUTO_CHATS") or []
@@ -145,4 +145,4 @@ async def autosender():
                 await client.send_message(chatid, getmsg)
                 achats[chatid] = time.time()
                 client.DB.set_key("AUTO_CHATS", achats)
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
