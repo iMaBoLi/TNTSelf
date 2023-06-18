@@ -145,49 +145,35 @@ def get_buttons(chatid, page):
         buttons.insert(5, create_button("ANTI_SPAM", None, "Turn", "Turn", chatid, page, "on"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
-        buttons = []
         for Mode in ["REPEAT", "REACTION", "POKER"]:
             chbutton = create_button(Mode + "_CHATS", None, "Chat", "Chat", chatid, page, [], Mode.title())
             allbutton = create_button(Mode + "_ALL", None, "Turn", "Turn", chatid, page, "off", (Mode.title() + " All"))
             buttons.append([chbutton, allbutton])
         othbutton = []
         for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
-            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "off")
-            othbutton.append(button)
+            othbutton.append(create_button(Mode, None, "Turn", "Turn", chatid, page, "off"))
         othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
-        othbutton = list(client.functions.chunks(othbutton, 2))
-        buttons += othbutton
+        buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 4:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
-            button = create_button("TIME_FONT", randfont, "Mode", "Mode", chatid, page, 1, randfont.title())
-            buttons.append(button)
+            buttons.append(create_button("TIME_FONT", randfont, "Mode", "Mode", chatid, page, 1, randfont.title()))
         for font in client.functions.FONTS:
             smode = client.functions.create_font(newtime, font)
-            button = create_button("TIME_FONT", font, "Mode", "Mode", chatid, page, 1, smode)
-            buttons.append(button)
+            buttons.append(create_button("TIME_FONT", font, "Mode", "Mode", chatid, page, 1, smode))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 5:
-        Chbuttons = []
-        Allbuttons = []
+        chbts, allbts = [], []
         for edit in client.functions.EDITS:
-            button = create_button("EDITCHATS_MODE", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title())
-            Chbuttons.append(button)
-        for edit in client.functions.EDITS:
-            button = create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All"))
-            Allbuttons.append(button)
-        OthButton = [[Button.inline(" --------------- ", data="Empty")]]
-        buttons = list(client.functions.chunks(Chbuttons, 3)) + OthButton + list(client.functions.chunks(Allbuttons, 3))
+            chbts.append(create_button("EDITCHATS_MODE", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title()))
+            allbts.append(create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
+        buttons = client.functions.chunker(chbts, sizes=[3,2]) + client.functions.chunker(allbts, sizes=[3,2])
     elif page == 6:
-        allbutton = create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All")
-        chbutton = create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")
-        buttons = [[chbutton, allbutton]]
+        buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "off", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")]])
         actbts = []
         for action in client.functions.ACTIONS:
-            button = create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", action.title())
-            actbts.append(button)
-        actbts = list(client.functions.chunks(actbts, 3))
-        buttons += actbts
+            actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", action.title()))
+        buttons = buttons + client.functions.chunker(actbts, sizes=[3,2])
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
