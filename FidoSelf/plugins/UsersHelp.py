@@ -79,7 +79,7 @@ async def getplugin(event):
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{userid}:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data=f"CloseHelp:{userid}")]]
     await event.edit(text=text, buttons=buttons) 
 
-@client.on(events.CallbackQuery(data=f"CloseHelp:{userid}"))
+@client.on(events.CallbackQuery(data=f"CloseHelp\:(.*)"))
 async def closehelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
