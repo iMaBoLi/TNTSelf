@@ -19,6 +19,7 @@ def Callback(data):
 @client.bot.on(events.NewMessage(pattern="(?i)^\/(Start|GetHelp)$", incoming=True))
 async def gethelp(event):
     if not event.is_private: return
+    await client.bot.send_message(client.REALM, f"#NewUser : `{event.sender_id}`")
     reply = await event.reply(client.STRINGS["wait"])
     userid = event.sender_id
     info = await client.get_entity(event.sender_id)
