@@ -21,12 +21,12 @@ def checkspam(event):
     bantime = 30
     maxtime = 3
     if event.sender_id not in SPAMS:
-        SPAMS[event.sender_id] = {"next_time": time.time() + maxtime, "messages": 1, "banned": 0}
+        SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 1, "banned": 0}
         uspam = SPAMS[event.sender_id]
     else:
         uspam = SPAMS[event.sender_id]
         uspam["messages"] += 1
-    if uspam["banned"] >= time.time():
+    if uspam["banned"] >= int(time.time()):
         return True
     else:
         if uspam["next_time"] >= int(time.time()):
