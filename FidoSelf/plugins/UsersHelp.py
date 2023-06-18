@@ -17,7 +17,7 @@ async def inlinehelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"OTHERCloseHelp:{userid}")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
-@client.bot.on(events.CallbackQuery(data="OTHERHelp\:(.*)"))
+@client.bot.on(events.CallbackQuery(data=b"OTHERHelp\:(.*)"))
 async def callhelp(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     if event.sender_id != userid:
@@ -33,7 +33,7 @@ async def callhelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data=f"OTHERCloseHelp:{userid}")])
     await event.edit(text=text, buttons=buttons)
 
-@client.bot.on(events.CallbackQuery(data="OTHERGetCategory\:(.*)\:(.*)"))
+@client.bot.on(events.CallbackQuery(data=b"OTHERGetCategory\:(.*)\:(.*)"))
 async def getcategory(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     category = str(event.data_match.group(2).decode('utf-8'))
@@ -47,7 +47,7 @@ async def getcategory(event):
     text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.bot.on(events.CallbackQuery(data="OTHERGetHelp\:(.*)\:(.*)\:(.*)"))
+@client.bot.on(events.CallbackQuery(data=b"OTHERGetHelp\:(.*)\:(.*)\:(.*)"))
 async def getplugin(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     plugin = event.data_match.group(2).decode('utf-8')
