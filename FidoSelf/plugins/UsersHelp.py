@@ -5,13 +5,14 @@ from .MainHelp import STRINGS, CATS
 @client.bot.on(events.NewMessage(pattern="(?i)^\/Gethelp$", incoming=True))
 async def gethelp(event):
     reply = await event.reply(client.STRINGS["wait"])
-    text = STRINGS["main"].format(client.mention(info))
     userid = event.sender_id
+    info = await client.get_entity(event.sender_id)
+    text = STRINGS["main"].format(client.mention(info))
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
-        ShowName = CATS[category].format(plugcount)
-        buttons.append(Button.inline(ShowName, data=f"OtherGetCategory:{category}"))
+        sname = CATS[category].format(plugcount)
+        buttons.append(Button.inline(sname, data=f"OtherGetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="OtherCloseHelp")])
     await event.reply(text, buttons=buttons)
@@ -24,8 +25,8 @@ async def callhelp(event):
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
-        ShowName = CATS[category].format(plugcount)
-        buttons.append(Button.inline(ShowName, data=f"OtherGetCategory:{category}"))
+        sname = CATS[category].format(plugcount)
+        buttons.append(Button.inline(sname, data=f"OtherGetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="OtherCloseHelp")])
     await event.edit(text=text, buttons=buttons)
