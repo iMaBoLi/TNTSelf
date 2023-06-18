@@ -7,8 +7,7 @@ import os
 def checkCmd(event, text=None):
     if not event.text and not text: return False
     text = text if text else event.text
-    commands = client.DB.get_key("SELFCOMMANDS") or []
-    for command in commands:
+    for command in client.COMMANDS:
         search = re.search(command, text)
         if search:
             return True
