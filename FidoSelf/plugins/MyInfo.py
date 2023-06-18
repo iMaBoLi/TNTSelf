@@ -43,7 +43,7 @@ async def myinfo(event):
         text = STRINGS[type]
         text = text.format(info.id, name, username, uinfo.about)
         await event.respond(text, file=prof)
-        await event.delete()
+        return await event.delete()
     infos = {
         "id": info.id,
         "name": name,
