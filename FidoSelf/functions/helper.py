@@ -82,7 +82,7 @@ async def getchatid(event, inputid=None):
             userid = "Invalid"
         except:
             userid = None
-    elif not event.is_private:
+    else:
         chatid = event.chat_id
         result = True
     return result, chatid
