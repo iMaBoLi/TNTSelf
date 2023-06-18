@@ -117,6 +117,7 @@ async def enemyfosh(event):
     Enemies = client.DB.get_key("ENEMIES") or {}
     if userid not in Enemies: return
     if event.checkSpam(): return
+    client.LOGS.error(str(event.checkSpam()))
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("ENEMY_DELETE") or "off"
     if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (str(event.chat_id) in Enemies[userid]):
