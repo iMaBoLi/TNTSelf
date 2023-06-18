@@ -4,30 +4,6 @@ from traceback import format_exc
 import re
 import time
 
-SPAMS = {}
-
-def checkspam(userid):
-    bantime = 30
-    maxtime = 6
-    if userid not in SPAMS:
-        SPAMS[userid] = {"next_time": time.time() + maxtime, "messages": 1, "banned": 0, "bans_count": 0}
-        uspam = SPAMS[userid]
-    else:
-        uspam = SPAMS[userid]
-        uspam["messages"] += 1
-    if uspam["banned"] >= time.time():
-        return True
-    else:
-        if uspam["next_time"] >= time.time():
-            if uspam["messages"] >= 10:
-                uspam["banned"] = time.time() + (uspam["bans_count"] * bantime)
-                uspam["bans_count"] += 1
-                return True
-        else:
-            uspam["messages"] = 1
-            uspam["next_time"] = time.time() + maxtime
-            return False
-
 def Command(
     pattern=None,
     command=None,
@@ -62,9 +38,6 @@ def Command(
                 whites = client.DB.get_key("WHITES") or []
                 if event.sender_id in whites:
                     event.is_white = True
-                antispam = client.DB.get_key("ANTI_SPAM") or "off"
-                if not event.is_sudo and antispam == "on" and not event.is_white and checkspam(event.sender_id):
-                    return client.LOGS.error(f"• #NewSpam : {event.sender_id}")
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
