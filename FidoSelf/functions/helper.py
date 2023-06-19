@@ -54,7 +54,9 @@ async def getuserid(event, match):
     if match:
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            userid = await client.get_peer_id(inputid)
+            userinfo = await client.get_entity(inputid)
+            if userinfo.to_dict()["_"] == "User":
+                userid = userinfo.id
         except:
             pass
     elif event.reply_message:
@@ -66,13 +68,17 @@ async def getuserid(event, match):
 setattr(Message, "userid", getuserid)
 
 async def getchatid(event, match=None):
-    chatid = event.chat_id
+    chatid = None
     if match:
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            chatid =  await client.get_peer_id(inputid)
+            chatinfo = await client.get_entity(inputid)
+            if chatinfo.to_dict()["_"] in ["Channel", "Group"]:
+                chatid = chatinfo.id
         except:
             pass
+    elif not event.is_private:
+        chatid = event.chat_id
     return chatid
 
 setattr(Message, "chatid", getchatid)
