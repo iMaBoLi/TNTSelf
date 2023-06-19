@@ -96,9 +96,7 @@ def mention(info, coustom=None):
     return f"[{coustom}](tg://user?id={info.id})"
 
 def mediatype(event):
-    type = "Empty"
-    if not event:
-        return type
+    type = None
     elif event.photo:
         type = "Photo"
     elif event.video:
@@ -121,8 +119,6 @@ def mediatype(event):
             type = "ASticker"
     elif event.document:
         type = "File"
-    elif event.text:
-        type = "Text"
     return type
 
 setattr(Message, "mediatype", mediatype)
