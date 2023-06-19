@@ -80,11 +80,11 @@ async def DownloadFiles():
                 pass
 
 async def Send_Update():
-    zipfile = zipfile.ZipFile("FidoSelf.zip", "w")
+    zipf = zipfile.ZipFile("FidoSelf.zip", "w")
     for dirname, subdirs, files in os.walk("/app"):
-        zipfile.write(dirname)
+        zipf.write(dirname)
         for filename in files:
-            zipfile.write(os.path.join(dirname, filename))
-    zipfile.close()
+            zipf.write(os.path.join(dirname, filename))
+    zipf.close()
     caption = f"**• New Update!**\n\n**• Version:** ( `{client.__version__}` )"
     await client.bot.send_file((client.BACKUP or client.me.id), "FidoSelf.zip", caption=caption)
