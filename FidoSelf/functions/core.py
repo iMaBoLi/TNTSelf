@@ -40,6 +40,21 @@ def checkSpam(event):
 
 setattr(Message, "checkSpam", checkSpam)
 
+async def checkReply(event, medias):
+    result = False
+    message = None
+    mediatype = client.functions.mediatype(event.reply_message)
+    if not event.is_reply and mediatype not in medias:
+        message = ""
+        for media in medias:
+            message += media + " Or "
+        message = message[:-3]
+        message = client.STRINGS["reply"].format(message)
+        result = True
+    return result, message
+
+setattr(Message, "checkReply", checkReply)
+
 async def DownloadFiles():
     os.mkdir("downloads")
 
