@@ -74,7 +74,7 @@ async def getcover(event):
         text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
         return await event.edit(text)
     if not event.reply_message.document.thumbs:
-        return await event.edit(STRINGS["nnotcover"])
+        return await event.edit(STRINGS["notcover"])
     cover = await event.reply_message.download_media(client.PATH, thumb=-1)
     await event.respond(STRINGS["getcover"], file=cover)
     os.remove(cover)
