@@ -29,7 +29,7 @@ STRINGS = {
 @client.Command(command="AntiSpamPv (On|Off)")
 async def antipvmode(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).upper()
+    change = event.pattern_match.group(1).lower()
     client.DB.set_key("ANTISPAM_PV", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["antimode"].format(ShowChange))
@@ -37,7 +37,7 @@ async def antipvmode(event):
 @client.Command(command="AntiSpamWarn (On|Off)")
 async def antipvwarn(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).upper()
+    change = event.pattern_match.group(1).lower()
     client.DB.set_key("ANTISPAM_WARN", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["warnmode"].format(ShowChange))
