@@ -27,13 +27,9 @@ STRINGS = {
 @client.Command(command="SetCover")
 async def setcover(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply = event.checkReply(["Photo"])
+    if reply:
+        return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Cover.png")
@@ -43,13 +39,9 @@ async def setcover(event):
 @client.Command(command="AddCover")
 async def addcover(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["File", "Music"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["File"] + " - " + medias["Music"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply = event.checkReply(["File", "Music"])
+    if reply:
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cover = client.PATH + "Cover.png"
@@ -66,13 +58,9 @@ async def addcover(event):
 @client.Command(command="GetCover")
 async def getcover(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["File", "Music"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["File"] + " - " + medias["Music"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply = event.checkReply(["File", "Music"])
+    if reply:
+        return await event.edit(reply)
     if not event.reply_message.document.thumbs:
         return await event.edit(STRINGS["notcover"])
     cover = await event.reply_message.download_media(client.PATH, thumb=-1)
