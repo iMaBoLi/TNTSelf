@@ -4,11 +4,22 @@ import time
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Trim Media",
+    "Plugname": "Trim Video",
     "Pluginfo": {
-        "Help": "To Trim Your Video And Musics!",
+        "Help": "To Trim Your Video Files!",
         "Commands": {
-            "{CMD}STrim <Sec>-<Sec>": None,
+            "{CMD}VTrim <Sec>-<Sec>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Trim Audio",
+    "Pluginfo": {
+        "Help": "To Trim Your Music Files!",
+        "Commands": {
+            "{CMD}ATrim <Sec>-<Sec>": None,
         },
     },
 }
@@ -21,37 +32,54 @@ STRINGS = {
     "trdaud": "**The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
 }
 
-@client.Command(command="STrim (\d*)\-(\d*)")
+@client.Command(command="VTrim (\d*)\-(\d*)")
 async def trimmedia(event):
     await event.edit(client.STRINGS["wait"])
-    ss = int(event.pattern_match.group(1))
-    ee = int(event.pattern_match.group(2))
-    reply, mtype = event.checkReply(["Video", "Music"])
+    start = int(event.pattern_match.group(1))
+    end = int(event.pattern_match.group(2))
+    reply, mtype = event.checkReply(["Video"])
     if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-    if ee > event.reply_message.file.duration:
-        ee = event.reply_message.file.duration
-    if ss >= ee:
-        ss = ee - event.reply_message.file.duration 
-    if mtype == "Video":
-        await event.edit(STRINGS["trvid"].format(ss, ee))
-        newfile = client.PATH + f"TrimedVideo-{ss}-{ee}.mp4"
-        cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -codec copy -map 0 "{newfile}" -y'
-        await client.functions.runcmd(cmd)
-        callback = event.progress(upload=True)
-        caption = STRINGS["trdvid"].format(ss, ee)
-        await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
-    elif mtype == "Music":
-        await event.edit(STRINGS["traud"].format(ss, ee))
-        newfile = client.PATH + f"TrimedAudio-{ss}-{ee}.mp3"
-        cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {ss} -to {ee} -vn -acodec copy "{newfile}" -y'
-        await client.functions.runcmd(cmd)
-        callback = event.progress(upload=True)
-        caption = STRINGS["trdaud"].format(ss, ee)
-        await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    if end > event.reply_message.file.duration:
+        end = event.reply_message.file.duration
+    if start >= start:
+        start = end - event.reply_message.file.duration 
+    await event.edit(STRINGS["trvid"].format(start, end))
+    newfile = client.PATH + f"TrimedVideo-{start}-{end}.mp4"
+    cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {start} -to {end} -codec copy -map 0 "{newfile}" -y'
+    await client.functions.runcmd(cmd)
+    callback = event.progress(upload=True)
+    caption = STRINGS["trdvid"].format(start, end)
+    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    os.remove(newfile)
+    os.remove(file)
+    await event.delete()
+    
+@client.Command(command="ATrim (\d*)\-(\d*)")
+async def trimmedia(event):
+    await event.edit(client.STRINGS["wait"])
+    start = int(event.pattern_match.group(1))
+    end = int(event.pattern_match.group(2))
+    reply, mtype = event.checkReply(["Music"])
+    if reply: return await event.edit(reply)
+    if event.reply_message.file.size > client.MAX_SIZE:
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+    callback = event.progress(download=True)
+    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    if end > event.reply_message.file.duration:
+        end = event.reply_message.file.duration
+    if start >= start:
+        start = end - event.reply_message.file.duration 
+    await event.edit(STRINGS["trvid"].format(start, end))
+    newfile = client.PATH + f"TrimedAudio-{start}-{end}.mp3"
+    cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {start} -to {end} -vn -acodec copy "{newfile}" -y'
+    await client.functions.runcmd(cmd))
+    callback = event.progress(upload=True)
+    caption = STRINGS["trdvid"].format(start, end)
+    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
     os.remove(newfile)
     os.remove(file)
     await event.delete()
