@@ -44,8 +44,8 @@ async def setcomment(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
-    if not event.is_reply:
-        return await event.edit(client.STRINGS["reply"]["Message"])
+    reply = event.checkReply()
+    if reply: return await event.edit(reply)
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     info = await event.reply_message.save()
     comments.update({event.chat_id: info})
