@@ -25,7 +25,7 @@ def Command(
                 if onlysudo and not event.is_sudo and not event.is_ch: return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = False
-                if event.is_private:
+                if event.is_private and event.chat:
                     event.is_bot = event.chat.bot
                 elif not event.is_ch:
                     event.is_bot = event.sender.bot
