@@ -13,7 +13,7 @@ __INFO__ = {
             "{CMD}LoveList": None,
             "{CMD}CleanLoveList": None,
             "{CMD}SetLove <Reply>": None,
-            "{CMD}DelLove": None,
+            "{CMD}DeleteLove": None,
             "{CMD}GetLove": None,
         },
     },
@@ -108,7 +108,7 @@ async def savelove(event):
     client.DB.set_key("LOVE_MESSAGE", info)
     await event.edit(STRINGS["setlove"])
 
-@client.Command(command="DelLove")
+@client.Command(command="DeleteLove")
 async def dellove(event):
     await event.edit(client.STRINGS["wait"])
     mlove = client.DB.get_key("LOVE_MESSAGE") or {}
