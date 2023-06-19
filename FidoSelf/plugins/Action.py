@@ -26,7 +26,7 @@ STRINGS = {
 @client.Command(command="Action (On|Off)")
 async def actionchat(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("ACTION_CHATS") or []
     chatid = event.chat_id
     if change == "ON":
@@ -43,7 +43,7 @@ async def actionchat(event):
 @client.Command(command="ActionAll (On|Off)")
 async def actionall(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     client.DB.set_key("ACTION_ALL", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["actionall"].format(ShowChange))
