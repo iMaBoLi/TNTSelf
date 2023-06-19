@@ -84,6 +84,8 @@ def mention(info, coustom=None):
 
 def mediatype(event):
     type = None
+    if not event:
+        return type
     if event.photo:
         type = "Photo"
     elif event.video:
