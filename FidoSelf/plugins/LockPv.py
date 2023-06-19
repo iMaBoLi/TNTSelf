@@ -19,7 +19,7 @@ STRINGS = {
 @client.Command(command="LockPv (On|Off)")
 async def lockpvmode(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     client.DB.set_key("LOCK_PV", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
