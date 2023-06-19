@@ -9,6 +9,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}SetCover <Reply(Photo)>": "Set Cover Photo!",
             "{CMD}AddCover <Reply(Music|File)>": "Add Cover Photo To File!",
+            "{CMD}GetCover <Reply(Music|File)>": "Get Cover Photo From File!",
         },
     },
 }
@@ -19,6 +20,8 @@ STRINGS = {
     "notsave": "**The Cover Photo Is Not Saved!**",
     "adding": "**Adding Cover To Your File ...**",
     "added": "**The Cover Photo Is Added To Your File!**",
+    "notcover": "**The File Has No Cover Photo!**",
+    "getcover": "**The Cover Photo For File!**",
 }
 
 @client.Command(command="SetCover")
@@ -58,4 +61,21 @@ async def addcover(event):
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, thumb=cover, caption=STRINGS["added"], progress_callback=callback)
     os.remove(file)
+    await event.delete()
+    
+@client.Command(command="GetCover")
+async def getcover(event):
+    await event.edit(client.STRINGS["wait"])
+    mtype = client.functions.mediatype(event.reply_message)
+    if not event.is_reply or mtype not in ["File", "Music"]:
+        medias = client.STRINGS["replyMedia"]
+        media = medias["File"] + " - " + medias["Music"]
+        rtype = medias[mtype]
+        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
+        return await event.edit(text)
+    if not event.reply_message.document.thumbs:
+        return await event.edit(STRINGS["nnotcover"])
+    cover = await event.reply_message.download_media(client.PATH, thumb=-1)
+    await event.respond(STRINGS["getcover"], file=cover)
+    os.remove(cover)
     await event.delete()
