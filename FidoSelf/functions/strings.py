@@ -5,6 +5,11 @@ STRINGS = {
     "LargeSize": "**✘ The File Size Must Be Less Than From:** ( `{}` )",
     "OtherCallback": "🚫 This Is Not Created For You!",
     "OtherInline": "**🚫 This Is Not Created For You!**\n\n**• Don't Use From Bot!**",
+    "only": {
+        "Pv": "**❉ Please Use This Command Only In The Private Chats!",
+        "Group": "**❉ Please Use This Command Only In The Groups!",
+        "Group": "**❉ Please Use This Command Only In The Channels!",
+    },
     "replyMedia": {
         "Main": "**❉ The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Not": "**❉ You Have Not Replied Please Reply To** ( `{}` )",
