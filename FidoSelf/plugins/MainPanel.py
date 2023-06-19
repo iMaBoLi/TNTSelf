@@ -161,14 +161,14 @@ def get_buttons(chatid, page):
         othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GODBY_MODE", "ANTISPAM_PV", "ANTISPAM_WARN", "AUTOJOIN_MODE", "AUTOLEAVE_MODE"]:
+        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
         typebts = [Button.inline("• AntiSapm Mode :", data="Empty")]
         for type in ["Mute", "Block"]:
             typebts.append(create_button("ANTISPAM_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
-        buttons.insert(2, typebts)
+        buttons.append(typebts)
     elif page == 4:
         newtime = datetime.now().strftime("%H:%M")
         for randfont in ["random", "random2"]:
