@@ -27,7 +27,7 @@ def Command(
                 event.is_bot = False
                 if event.is_private and event.chat:
                     event.is_bot = event.chat.bot
-                elif not event.is_ch:
+                elif not event.is_ch and event.sender:
                     event.is_bot = event.sender.bot
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
