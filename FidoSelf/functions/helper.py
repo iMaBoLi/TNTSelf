@@ -50,6 +50,21 @@ async def create_progress(event, current, total, start, download=False, upload=F
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
+async def checkReply(event, medias):
+    result = False
+    message = None
+    mediatype = mediatype(event)
+    if not event.is_reply and mediatype not in medias:
+        message = ""
+        for media in medias:
+            message += media + " Or "
+        message = message[:-3]
+        message = client.STRINGS["reply"].format(message)
+        result = True
+    return result, message
+
+setattr(Message, "checkReply", checkReply)
+
 async def getuserid(event, inputid=None):
     userid = None
     result = False
