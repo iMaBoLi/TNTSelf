@@ -52,7 +52,7 @@ async def reactionall(event):
 @client.Command(command="SetReaction (.*)")
 async def setreaction(event):
     await event.edit(client.STRINGS["wait"])
-    emoji = event.pattern_match.group(1).lower()
+    emoji = event.pattern_match.group(1)
     if emoji not in (await getemojis()) and emoji != "random":
         return await event.edit(STRINGS["notreact"].format(emoji))
     client.DB.set_key("REACTION_EMOJI", emoji)
