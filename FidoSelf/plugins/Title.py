@@ -114,7 +114,7 @@ async def autotitle():
                 title = random.choice(titles)
                 title = await client.AddVars(title)
                 try:
-                    await client(functions.channels.EditTitleRequest(chat_id=chatid, title=title))
+                    await client(functions.channels.EditTitleRequest(channel=int(chatid), title=title))
                 except:
                     try:
                         await client(functions.messages.EditChatTitleRequest(chat_id=int(chatid), title=title))
