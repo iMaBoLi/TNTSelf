@@ -49,7 +49,7 @@ async def autodelete(event):
         MSGS.update({msginfo: time.time()})
         client.DB.set_key("AUTODELETE_MSGS", MSGS)
 
-@aiocron.crontab("*/30 * * * * *")
+@aiocron.crontab("*/1 * * * * *")
 async def autosender():
     MSGS = client.DB.get_key("AUTODELETE_MSGS") or {}
     if not MSGS: return
@@ -58,7 +58,10 @@ async def autosender():
         sleep = client.DB.get_key("AUTODELETE_SLEEP") or 600
         if time.time() >= (ltime + int(sleep)):
             info = msg.split(":")
-            getmsg = await client.get_messages(int(info[0]), ids=int(info[1]))
-            await getmsg.delete()
+            try:
+                getmsg = await client.get_messages(int(info[0]), ids=int(info[1]))
+                await getmsg.delete()
+            except:
+                pass
             del MSGS[msg]
             client.DB.set_key("AUTODELETE_MSGS", MSGS)
