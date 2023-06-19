@@ -76,7 +76,7 @@ async def trimmedia(event):
     await event.edit(STRINGS["trvid"].format(start, end))
     newfile = client.PATH + f"TrimedAudio-{start}-{end}.mp3"
     cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {start} -to {end} -vn -acodec copy "{newfile}" -y'
-    await client.functions.runcmd(cmd))
+    await client.functions.runcmd(cmd)
     callback = event.progress(upload=True)
     caption = STRINGS["trdvid"].format(start, end)
     await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
