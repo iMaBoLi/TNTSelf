@@ -42,7 +42,7 @@ async def readchat(event):
 async def readmode(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1)
-    change = event.pattern_match.group(2).lower()
+    change = event.pattern_match.group(2).upper()
     setmode = "READ" + type.upper() + "_MODE"
     client.DB.set_key(setmode, change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
