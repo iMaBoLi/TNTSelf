@@ -26,13 +26,8 @@ async def trimmedia(event):
     await event.edit(client.STRINGS["wait"])
     ss = int(event.pattern_match.group(1))
     ee = int(event.pattern_match.group(2))
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Video", "Music"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Video"] + " - " + medias["Music"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["Video", "Music"])
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
