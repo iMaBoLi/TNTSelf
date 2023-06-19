@@ -21,7 +21,7 @@ STRINGS = {
 @client.Command(command="Sign (On|Off)")
 async def signmode(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     client.DB.set_key("SIGN_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
