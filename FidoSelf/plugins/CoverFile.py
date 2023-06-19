@@ -28,8 +28,7 @@ STRINGS = {
 async def setcover(event):
     await event.edit(client.STRINGS["wait"])
     reply = event.checkReply(["Photo"])
-    if reply:
-        return await event.edit(reply)
+    if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Cover.png")
@@ -40,8 +39,7 @@ async def setcover(event):
 async def addcover(event):
     await event.edit(client.STRINGS["wait"])
     reply = event.checkReply(["File", "Music"])
-    if reply:
-        return await event.edit(reply)
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cover = client.PATH + "Cover.png"
@@ -59,8 +57,7 @@ async def addcover(event):
 async def getcover(event):
     await event.edit(client.STRINGS["wait"])
     reply = event.checkReply(["File", "Music"])
-    if reply:
-        return await event.edit(reply)
+    if reply: return await event.edit(reply)
     if not event.reply_message.document.thumbs:
         return await event.edit(STRINGS["notcover"])
     cover = await event.reply_message.download_media(client.PATH, thumb=-1)
