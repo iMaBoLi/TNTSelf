@@ -60,7 +60,7 @@ async def addlove(event):
     client.DB.set_key("LOVES", loves)
     await event.edit(STRINGS["add"].format(mention))
     
-@client.Command(command="DelLove ?(.*)?"))
+@client.Command(command="DelLove ?(.*)?")
 async def dellove(event):
     await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
