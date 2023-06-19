@@ -25,8 +25,9 @@ def Command(
                 if onlysudo and not event.is_sudo and not event.is_ch: return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = False
-                if not event.is_ch and event.sender:
+                if not event.is_ch:
                     event.is_bot = event.sender.bot
+                client.LOGS.error(event.is_bot)
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
                 if event.sender_id in blacks:
