@@ -1,7 +1,6 @@
 from FidoSelf import client
 from traceback import format_exc
 from telethon.types import Message
-from telethon.errors.rpcerrorlist import UsernameInvalidError
 from jdatetime import datetime
 from jdatetime import date as jdate
 import asyncio
@@ -50,44 +49,32 @@ async def create_progress(event, current, total, start, download=False, upload=F
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
-async def getuserid(event, inputid=None):
+async def getuserid(event, match):
     userid = None
-    result = False
-    if inputid:
-        inputid = int(inputid) if inputid.isdigit() else str(inputid)
+    if match:
+        inputid = int(match) if match.isdigit() else str(match)
         try:
-            userid =  await client.get_peer_id(inputid)
-            result = True
-        except (UsernameInvalidError, ValueError):
-            userid = "Invalid"
+            userid = await client.get_peer_id(inputid)
         except:
-            userid = None
+            pass
     elif event.reply_message:
         userid = event.reply_message.sender_id
-        result = True
     elif event.is_private:
         userid = event.chat_id
-        result = True
-    return result, userid
-
-async def getchatid(event, inputid=None):
-    chatid = None
-    result = False
-    if inputid:
-        inputid = int(inputid) if inputid.isdigit() else str(inputid)
-        try:
-            chatid =  await client.get_peer_id(inputid)
-            result = True
-        except (UsernameInvalidError, ValueError):
-            userid = "Invalid"
-        except:
-            userid = None
-    else:
-        chatid = event.chat_id
-        result = True
-    return result, chatid
+    return userid
 
 setattr(Message, "userid", getuserid)
+
+async def getchatid(event, match=None):
+    chatid = event.chat_id
+    if match:
+        inputid = int(match) if match.isdigit() else str(match)
+        try:
+            chatid =  await client.get_peer_id(inputid)
+        except:
+            pass
+    return chatid
+
 setattr(Message, "chatid", getchatid)
 
 def mention(info, coustom=None):
