@@ -127,7 +127,7 @@ async def getlove(event):
     await event.respond(getmsg)
     await event.delete()
 
-@aiocron.crontab("*/24 * * * * *")
+@aiocron.crontab("*/24 * * *")
 async def autolove():
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
