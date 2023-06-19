@@ -12,6 +12,9 @@ __INFO__ = {
             "{CMD}DelLove <Reply|Userid|Username>": None,
             "{CMD}LoveList": None,
             "{CMD}CleanLoveList": None,
+            "{CMD}SetLove <Reply>": None,
+            "{CMD}DelLove": None,
+            "{CMD}GetLove": None,
         },
     },
 }
@@ -29,6 +32,7 @@ STRINGS = {
     "clean": "**The Love List Has Been Cleaned!**",
     "setlove": "**The Love Message Has Been Saved!**",
     "notlove": "**The Love Message Is Not Saved!**",
+    "dellove": "**The Love Message Has Been Removed!**",
 }
 
 @client.Command(command="Love (On|Off)")
@@ -104,6 +108,15 @@ async def savelove(event):
     client.DB.set_key("LOVE_MESSAGE", info)
     await event.edit(STRINGS["setlove"])
 
+@client.Command(command="DelLove")
+async def dellove(event):
+    await event.edit(client.STRINGS["wait"])
+    mlove = client.DB.get_key("LOVE_MESSAGE") or {}
+    if not mlove:
+        return await event.edit(STRINGS["notlove"])
+    client.DB.del_key("LOVE_MESSAGE")
+    await event.edit(STRINGS["dellove"])
+
 @client.Command(command="GetLove")
 async def getlove(event):
     await event.edit(client.STRINGS["wait"])
@@ -113,7 +126,7 @@ async def getlove(event):
     getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
     await event.respond(getmsg)
     await event.delete()
-    
+
 @aiocron.crontab("*/24 * * * * *")
 async def autolove():
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
