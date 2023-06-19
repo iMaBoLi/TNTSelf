@@ -56,7 +56,7 @@ async def addlove(event):
     client.DB.set_key("LOVES", loves)
     await event.edit(STRINGS["add"].format(mention))
     
-@client.Command(command="DelLove ?(.*)?")
+@client.Command(command="DelLove ?(.*)?"))
 async def dellove(event):
     await event.edit(client.STRINGS["wait"])
     result, userid = await event.userid(event.pattern_match.group(1))
@@ -114,7 +114,7 @@ async def getlove(event):
     await event.respond(getmsg)
     await event.delete()
     
-@aiocron.crontab("*/1 * * * *")
+@aiocron.crontab("*/24 * * * * *")
 async def autolove():
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
@@ -123,6 +123,7 @@ async def autolove():
         for love in loves:
             if mlove:
                 getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
+                getmsg.text = await client.AddVars(getmsg.text)
                 await client.send_message(int(love), getmsg)
             else:
                 await client.send_message(int(love), "**- 00:00 ❤️**")
