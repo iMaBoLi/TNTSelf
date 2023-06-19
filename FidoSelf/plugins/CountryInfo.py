@@ -21,12 +21,12 @@ STRINGS = {
 @client.Command(command="SCountry (.*)")
 async def chatcounts(event):
     await event.edit(client.STRINGS["wait"])
-    country = event.pattern_match.group(1).title()
+    coname = event.pattern_match.group(1).title()
     try:
-        country = CountryInfo(country)
+        country = CountryInfo(coname)
         info = country.info()
     except:
-        return await event.edit(STRINGS["notcon"].format(country))
+        return await event.edit(STRINGS["notcon"].format(coname))
     name = info["name"] + " - " + info["nativeName"]
     region = info["region"] + " - " + info["subregion"]
     spellings = ""
@@ -34,7 +34,7 @@ async def chatcounts(event):
         spellings += spelling + " - "
     spellings = spellings[:-3]
     currencies = ""
-    for currency in info["callingCodes"]:
+    for currency in info["currencies"]:
         currencies += currency + " - "
     currencies = currencies[:-3]
     ccodes = ""
@@ -50,7 +50,7 @@ async def chatcounts(event):
         borders += border + " - "
     borders = borders[:-3]
     provinces = ""
-    for province in info["borders"]:
+    for province in info["provinces"]:
         provinces += province + " - "
     provinces = provinces[:-3]
     text = STRINGS["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
