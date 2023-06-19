@@ -32,7 +32,7 @@ PATTERN = PATTERN[:-1]
 async def editchanger(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
-    change = event.pattern_match.group(2).lower()
+    change = event.pattern_match.group(2).upper()
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     if type.endswith("all"):
         getMode = client.DB.get_key("EDITALL_MODE")
