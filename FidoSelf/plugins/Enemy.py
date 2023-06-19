@@ -105,7 +105,7 @@ async def setenemysleep(event):
 @client.Command(command="DelEnemyPms (On|Off)")
 async def delpms(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     client.DB.set_key("ENEMY_DELETE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["edelete"].format(ShowChange))
