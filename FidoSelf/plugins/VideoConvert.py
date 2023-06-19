@@ -62,4 +62,4 @@ async def videoconvert(event):
             await event.edit(reply)
         elif mode == "Gif":
             reply = event.checkReply(["Video", "VideoNote"])
-            await event.edit(reply))
+            await event.edit(reply)
