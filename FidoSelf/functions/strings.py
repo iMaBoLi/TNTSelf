@@ -10,10 +10,7 @@ STRINGS = {
         "Group": "**❉ Please Use This Command Only In The Groups!",
         "Group": "**❉ Please Use This Command Only In The Channels!",
     },
-    "reply": {
-        "Message": "**❉ Please Reply To A Message!",
-        "Media": "**❉ Please Reply To A Media!",
-    },
+    "reply": "**❉ Please Reply To {}!**",
     "replyMedia": {
         "Main": "**❉ The Replyed Media Is** ( `{}` ) **Please Reply To** ( `{}` )",
         "Not": "**❉ You Have Not Replied Please Reply To** ( `{}` )",
