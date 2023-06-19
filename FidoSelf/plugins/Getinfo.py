@@ -32,11 +32,9 @@ STRINGS = {
 @client.Command(command="UInfo ?(.*)?")
 async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
@@ -54,11 +52,9 @@ async def userinfo(event):
 @client.Command(command="Cinfo ?(.*)?")
 async def ginfo(event):
     await event.edit(client.STRINGS["wait"])
-    result, chatid = await event.chatid(event.pattern_match.group(1))
-    if not result and str(chatid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not chatid:
-        return await event.edit(client.STRINGS["getid"]["UC"])
+    chatid = await event.chatid(event.pattern_match.group(1))
+    if not chatid:
+        return await event.edit(client.STRINGS["getchatID"])
     cinfo = await client.get_entity(chatid)
     if cinfo.megagroup or cinfo.broadcast:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
