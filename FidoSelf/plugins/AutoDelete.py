@@ -3,7 +3,7 @@ import aiocron
 import time
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Plugname": "Auto Delete",
     "Pluginfo": {
         "Help": "To Setting Auto Delete Messages In Chats!",
