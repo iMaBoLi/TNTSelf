@@ -3,6 +3,7 @@ from telethon.types import Message
 import re
 import time
 import os
+import zipfile
 
 def checkCmd(event, text=None):
     if not event.text and not text: return False
@@ -42,7 +43,8 @@ setattr(Message, "checkSpam", checkSpam)
 
 async def DownloadFiles():
     os.mkdir("downloads")
-    
+    await Send_Update()
+
     foshs = client.DB.get_key("FOSHS_FILE")
     if foshs:
         try:
@@ -76,3 +78,13 @@ async def DownloadFiles():
                 await get.download_media(client.PATH + font)
             except:
                 pass
+
+async def Send_Update():
+    zipfile = zipfile.ZipFile("FidoSelf.zip", "w")
+    for dirname, subdirs, files in os.walk("/app"):
+        zipfile.write(dirname)
+        for filename in files:
+            zipfile.write(os.path.join(dirname, filename))
+    zipfile.close()
+    caption = f"**• New Update!**\n\n**• Version:** ( `{client.__version__}` )"
+    await client.bot.send_file((client.BACKUP or client.me.id), "FidoSelf.zip", caption=caption)
