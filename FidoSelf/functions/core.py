@@ -46,8 +46,8 @@ def checkReply(event, medias):
     if not event.is_reply and mediatype not in medias:
         message = ""
         for media in medias:
-            message += media + " Or "
-        message = message[:-3]
+            message += media + " or "
+        message = message[:-4]
         message = client.STRINGS["reply"].format(message)
         result = True
     return message
