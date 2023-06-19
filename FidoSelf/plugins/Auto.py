@@ -39,7 +39,7 @@ STRINGS = {
 }
 
 @client.Command(command="Auto (On|Off)")
-async def autoall(event):
+async def automode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).lower()
     client.DB.set_key("AUTO_MODE", change)
