@@ -53,17 +53,23 @@ def get_modename(mode):
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
         "ENEMY_DELETE": "Delete EnemyPm",
+        "AUTODELETE_MODE": "Auto Delete",
         "READ_CHATS": "MarkRead",
         "READALL_MODE": "MarkRead All",
         "READPV_MODE": "MarkRead Pv",
         "READGP_MODE": "MarkRead Group",
         "READCH_MODE": "MarkRead Channel",
+        "TITLE_MODE": "Title",
+        "COMMENT_MODE": "Comment",
         "LOVE_MODE": "Love",
         "ALARM_MODE": "Alarm",
+        "WELCOME_MODE": "WelCome",
+        "GOODBY_MODE": "GoodBy",
+        "AUTOJOIN_MODE": "Auto Join",
+        "AUTOLEAVE_MODE": "Auto Leave",
         "ANTISPAM_PV": "AntiSpam Pv",
         "ANTISPAM_WARN": "AntiSpam Warn",
         "ANTISPAM_TYPE": "AntiSpam Type",
-        "AUTODELETE_MODE": "Auto Delete",
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit",
         "EDITCHATS_MODE": "Edit",
@@ -158,10 +164,10 @@ def get_buttons(chatid, page):
         othbutton = []
         for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "AUTODELETE_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
             othbutton.append(create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF"))
-        othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
+        othbutton.insert(4, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
+        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
