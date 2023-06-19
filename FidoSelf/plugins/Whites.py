@@ -29,11 +29,9 @@ STRINGS = {
 @client.Command(command="AddWhite ?(.*)?")
 async def addwhite(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     whites = client.DB.get_key("WHITES") or []
     info = await client.get_entity(userid)
     mention = client.mention(info)
@@ -50,11 +48,9 @@ async def addwhite(event):
 @client.Command(command="DelWhite ?(.*)?")
 async def delwhite(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     whites = client.DB.get_key("WHITES") or []
     info = await client.get_entity(userid)
     mention = client.mention(info)
