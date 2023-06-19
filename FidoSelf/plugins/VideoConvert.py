@@ -22,10 +22,10 @@ client.functions.AddInfo(__INFO__)
 async def videoconvert(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    mtype = client.functions.mediatype(event.reply_message)
-    if mtype in ["Video", "VideoNote", "Gif"]:
-        if event.reply_message.file.size > client.MAX_SIZE:
-            return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+    reply, mtype = event.checkReply(["Video", "Gif", "VideoNote"])
+    if reply: return await event.edit(reply)
+    if event.reply_message.file.size > client.MAX_SIZE:
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     if mode == "Normal" and mtype in ["VideoNote", "Gif"]:
         callback = event.progress(download=True)
         video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
@@ -42,7 +42,7 @@ async def videoconvert(event):
         await client.send_file(event.chat_id, video, attributes=attributes, progress_callback=callback)
         os.remove(video)
         await event.delete()
-    elif mode == "Gif" and mtype in ["VideoNote", "Video"]:
+    elif mode == "Gif" and mtype in ["Video", "VideoNote"]:
         callback = event.progress(download=True)
         video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
         newfile = client.PATH + video + ".gif"
@@ -54,13 +54,12 @@ async def videoconvert(event):
         os.remove(video)
         await event.delete()
     else:
-        medias = client.STRINGS["replyMedia"]
-        rtype = medias[mtype]
         if mode == "Normal":
-            media = medias["Gif"] + " - " + medias["VideoNote"]
+            reply = event.checkReply(["Gif", "VideoNote"])
+            await event.edit(reply)
         elif mode == "Note":
-            media = medias["Video"] + " - " + medias["Gif"]
+            reply = event.checkReply(["Video", "Gif"])
+            await event.edit(reply)
         elif mode == "Gif":
-            media = medias["Video"] + " - " + medias["VideoNote"]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+            reply = event.checkReply(["Video", "VideoNote"])
+            await event.edit(reply))
