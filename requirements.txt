@@ -18,7 +18,6 @@ image_slicer
 jdatetime
 httpx[http2]
 countryinfo
-instagrapi
 music_tag
 
 git+https://github.com/sandy1709/py-googletrans
