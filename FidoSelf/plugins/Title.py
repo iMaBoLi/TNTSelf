@@ -22,14 +22,14 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "change": "**The Title Mode Has Been {}!**",
     "onlychat": "**Please Send In Group Or Channel!**",
-    "notall": "**The Title** ( `{}` ) **Already In Title List!**",
-    "addtitle": "**The Title** ( `{}` ) **Is Added To Title List!**",
-    "notin": "**The Title** ( `{}` ) **Is Not In Title List!**",
-    "deltitle": "**The Title** ( `{}` ) **Deleted From Title List!**",
-    "empty": "**The Title List Is Empty!**",
-    "list": "**The Title List:**\n\n",
-    "aempty": "**The Title List Is Already Empty**",
-    "clean": "**The Title List Has Been Cleaned!**",
+    "notall": "**The Title** ( `{}` ) **Already In Title List For This Chat!**",
+    "addtitle": "**The Title** ( `{}` ) **Is Added To Title List For This Chat!**",
+    "notin": "**The Title** ( `{}` ) **Is Not In Title List For This Chat!**",
+    "deltitle": "**The Title** ( `{}` ) **Deleted From Title List For This Chat!**",
+    "empty": "**The Title List For This Chat Is Empty!**",
+    "list": "**The Title List For This Chat:**\n\n",
+    "aempty": "**The Title List For This Chat Is Already Empty**",
+    "clean": "**The Title List For This Chat Has Been Cleaned!**",
 }
 
 @client.Command(command="Title (On|Off)")
@@ -107,10 +107,16 @@ async def cleantitlelist(event):
 async def autotitle():
     lmode = client.DB.get_key("TITLE_MODE") or "OFF"
     if lmode == "ON":
-        tichats = client.DB.get_key("TITLE_CHATS") or {}
-        for chat in tichats:
-            titles = tichats[chat]
+        chats = client.DB.get_key("TITLE_CHATS") or {}
+        for chatid in chats:
+            titles = chats[chatid]
             if titles:
                 title = random.choice(titles)
                 title = await client.AddVars(title)
-                await client(functions.messages.EditChatTitleRequest(chat_id=int(chat), title=title))
+                try:
+                    await client(functions.channels.EditTitleRequest(chat_id=chatid, title=title))
+                except:
+                    try:
+                        await client(functions.messages.EditChatTitleRequest(chat_id=int(chatid), title=title))
+                    except:
+                        pass
