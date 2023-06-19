@@ -33,7 +33,7 @@ STRINGS = {
 @client.Command(command="Repeat (On|Off)")
 async def repeatchat(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("REPEAT_CHATS") or []
     chatid = event.chat_id
     if change == "ON":
@@ -50,7 +50,7 @@ async def repeatchat(event):
 @client.Command(command="RepeatAll (On|Off)")
 async def repeatall(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     client.DB.set_key("REPEAT_ALL", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["repeatall"].format(ShowChange))
