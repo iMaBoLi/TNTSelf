@@ -56,7 +56,7 @@ def checkReply(event, medias=None):
                 message += media + " or "
             message = message[:-4]
             message = client.STRINGS["reply"].format(message)
-    return message
+    return message, mediatype
 
 setattr(Message, "checkReply", checkReply)
 
