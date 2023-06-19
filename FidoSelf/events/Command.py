@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import events
+from telethon import events, types
 from traceback import format_exc
 import re
 import time
@@ -25,10 +25,9 @@ def Command(
                 if onlysudo and not event.is_sudo and not event.is_ch: return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = False
-                if event.is_private and event.chat:
-                    event.is_bot = event.chat.bot
-                elif not event.is_ch and event.sender:
-                    event.is_bot = event.sender.bot
+                sender = await event.get_sender()
+                if not isinstance(sender, types.User) or sender.bot:
+                    event.is_bot = True
                 event.is_black = False
                 blacks = client.DB.get_key("BLACKS") or []
                 if event.sender_id in blacks:
