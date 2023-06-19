@@ -156,16 +156,16 @@ def get_buttons(chatid, page):
             allbutton = create_button(Mode + "_ALL", None, "Turn", "Turn", chatid, page, "OFF", (Mode.title() + " All"))
             buttons.append([chbutton, allbutton])
         othbutton = []
-        for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
+        for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "AUTODELETE_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
             othbutton.append(create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF"))
         othbutton.insert(3, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["LOVE_MODE", "ALARM_MODE", "ANTISPAM_PV", "ANTISPAM_WARN", "AUTODELETE_MODE"]:
+        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GODBY_MODE", "ANTISPAM_PV", "ANTISPAM_WARN", "AUTOJOIN_MODE", "AUTOLEAVE_MODE"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
-        typebts = [Button.inline("• AntiSapm Mode:", data="Empty")]
+        typebts = [Button.inline("• AntiSapm Mode :", data="Empty")]
         for type in ["Mute", "Block"]:
             typebts.append(create_button("ANTISPAM_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
         buttons.insert(2, typebts)
