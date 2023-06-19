@@ -16,7 +16,7 @@ __INFO__ = {
             "{CMD}CleanAutoList": None,
             "{CMD}SetAuto <Reply>": None,
             "{CMD}GetAuto": None,
-            "{CMD}SetAutoSleep <1-60min>": None,
+            "{CMD}SetAutoSleep <1-120min>": None,
         },
     },
 }
