@@ -28,6 +28,8 @@ STRINGS = {
         "File": "File",
         "Empty": "Empty",
     },
+    "getuserID": "**❉ Please Reply To User Or Enter UserID Or Send In Pv!**", 
+    "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**", 
     "getid": {
         "IU": "**❉ The Entered UserID Is Not Valid!**",
         "U": "**❉ Reply To Message From User!**",
