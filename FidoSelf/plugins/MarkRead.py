@@ -24,7 +24,7 @@ STRINGS = {
 @client.Command(command="Read (On|Off)")
 async def readchat(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).lower()
+    change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("READ_CHATS") or []
     chatid = event.chat_id
     if change == "ON":
