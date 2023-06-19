@@ -29,8 +29,7 @@ async def signmode(event):
 @client.Command(command="SetSign ([\s\S]*)")
 async def setsign(event):
     await event.edit(client.STRINGS["wait"])
-    type = event.pattern_match.group(1).lower()
-    stext = event.pattern_match.group(2)
+    stext = event.pattern_match.group(1)
     client.DB.set_key("SIGN_TEXT", stext)
     text = STRINGS["setsign"].format(stext)
     await event.edit(text)
