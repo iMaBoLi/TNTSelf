@@ -59,7 +59,7 @@ def get_modename(mode):
         "READPV_MODE": "MarkRead Pv",
         "READGP_MODE": "MarkRead Group",
         "READCH_MODE": "MarkRead Channel",
-        "TITLE_MODE": "Title",
+        "AUTOTR_MODE": "Translate",
         "COMMENT_MODE": "Comment",
         "LOVE_MODE": "Love",
         "ALARM_MODE": "Alarm",
@@ -167,7 +167,7 @@ def get_buttons(chatid, page):
         othbutton.insert(4, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["TITLE_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
+        for Mode in ["AUTOTR_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
