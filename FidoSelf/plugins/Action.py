@@ -51,11 +51,11 @@ async def actionall(event):
 @client.Command(command="SetAction (.*)")
 async def setaction(event):
     await event.edit(client.STRINGS["wait"])
-    mode = event.pattern_match.group(1).lower()
-    if mode not in client.functions.ACTIONS:
-        return await event.edit(STRINGS["notact"].format(mode))
-    client.DB.set_key("ACTION_TYPE", mode)
-    await event.edit(STRINGS["setact"].format(mode.title()))
+    acmode = event.pattern_match.group(1).lower()
+    if acmode not in client.functions.ACTIONS:
+        return await event.edit(STRINGS["notact"].format(acmode))
+    client.DB.set_key("ACTION_TYPE", acmode)
+    await event.edit(STRINGS["setact"].format(acmode.title()))
 
 @client.Command(onlysudo=False, alowedits=False)
 async def action(event):
