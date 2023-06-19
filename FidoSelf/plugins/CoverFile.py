@@ -27,7 +27,7 @@ STRINGS = {
 @client.Command(command="SetCover")
 async def setcover(event):
     await event.edit(client.STRINGS["wait"])
-    reply = event.checkReply(["Photo"])
+    reply, _ = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
@@ -38,7 +38,7 @@ async def setcover(event):
 @client.Command(command="AddCover")
 async def addcover(event):
     await event.edit(client.STRINGS["wait"])
-    reply = event.checkReply(["File", "Music"])
+    reply, _ = event.checkReply(["File", "Music"])
     if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -56,7 +56,7 @@ async def addcover(event):
 @client.Command(command="GetCover")
 async def getcover(event):
     await event.edit(client.STRINGS["wait"])
-    reply = event.checkReply(["File", "Music"])
+    reply, _ = event.checkReply(["File", "Music"])
     if reply: return await event.edit(reply)
     if not event.reply_message.document.thumbs:
         return await event.edit(STRINGS["notcover"])
