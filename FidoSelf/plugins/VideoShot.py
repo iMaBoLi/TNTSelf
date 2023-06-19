@@ -29,7 +29,7 @@ STRINGS = {
 async def videoshot(event):
     await event.edit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
-    reply = event.checkReply(["Video"])
+    rdata, _ = event.checkReply(["Video"])
     if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
