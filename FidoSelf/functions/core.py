@@ -53,9 +53,6 @@ def checkReply(event, medias=None):
                 message += media + " or "
             message = message[:-4]
             message = client.STRINGS["reply"].format(message)
-        else:
-            message = "A Media"
-            message = client.STRINGS["reply"].format(message)
     else:
         message = "A Message"
         message = client.STRINGS["reply"].format(message)
