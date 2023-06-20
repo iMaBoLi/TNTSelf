@@ -2,6 +2,7 @@ Telethon
 Tgcrypto
 requests
 redis
+localdb.json
 opencv-python
 pillow
 moviepy
