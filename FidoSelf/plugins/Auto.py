@@ -49,11 +49,9 @@ async def automode(event):
 @client.Command(command="AddAuto ?(.*)?")
 async def addauto(event):
     await event.edit(client.STRINGS["wait"])
-    result, chatid = await event.chatid(event.pattern_match.group(1))
-    if not result and str(chatid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not chatid:
-        return await event.edit(client.STRINGS["getid"]["UC"])
+    chatid = await event.chatid(event.pattern_match.group(1))
+    if not chatid:
+        return await event.edit(client.STRINGS["getchatID"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid in autos:
@@ -65,11 +63,9 @@ async def addauto(event):
 @client.Command(command="DelAuto ?(.*)?")
 async def delauto(event):
     await event.edit(client.STRINGS["wait"])
-    result, chatid = await event.chatid(event.pattern_match.group(1))
-    if not result and str(chatid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not chatid:
-        return await event.edit(client.STRINGS["getid"]["UC"])
+    chatid = await event.chatid(event.pattern_match.group(1))
+    if not chatid:
+        return await event.edit(client.STRINGS["getchatID"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid not in autos:
