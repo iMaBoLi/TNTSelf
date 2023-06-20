@@ -88,7 +88,7 @@ async def cleancommentlist(event):
     
 @client.Command(onlysudo=False, alowedits=False)
 async def autocomment(event):
-    if not event.is_group or not event.fwd_from or not event.saved_from_peer: return
+    if not event.is_group or not event.fwd_from or not event.fwd_from.saved_from_peer: return
     cmode = client.DB.get_key("COMMENT_MODE") or "OFF"
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if event.chat_id not in comments: return
