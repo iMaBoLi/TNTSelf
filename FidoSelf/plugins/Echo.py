@@ -37,11 +37,9 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 @client.Command(command="AddEcho ?(.*)?")
 async def addecho(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{userid}")
     if event.is_reply:
@@ -53,11 +51,9 @@ async def addecho(event):
 @client.Command(command="DelEcho ?(.*)?")
 async def delecho(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     Echos = client.DB.get_key("ECHOS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)
