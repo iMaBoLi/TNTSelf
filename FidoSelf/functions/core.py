@@ -44,10 +44,10 @@ def checkReply(event, medias=None):
     message = None
     mediatype = client.functions.mediatype(event.reply_message)
     if event.is_reply:
-        if medias == "Text" and not event.reply_message.text:
+        if type(medias) == str and medias == "Text" and not event.reply_message.text:
             message = "A Text Message"
             message = client.STRINGS["reply"].format(message)
-        elif mediatype not in medias:
+        elif type(medias) == list and mediatype not in medias:
             message = ""
             for media in medias:
                 message += media + " or "
