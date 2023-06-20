@@ -24,13 +24,8 @@ STRINGS = {
 async def rotate(event):
     await event.edit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo", "Video"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"] + " - " + medias["Video"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["Video", "Photo")
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     if mtype == "Photo":
