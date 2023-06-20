@@ -16,6 +16,10 @@ __INFO__ = {
             "{CMD}SetLove <Reply>": None,
             "{CMD}DeleteLove": None,
             "{CMD}GetLove": None,
+            "{CMD}AddLoveTime <Time>": None,
+            "{CMD}DelLoveTime <Time>": None,
+            "{CMD}LoveTimeList": None,
+            "{CMD}CleanLoveTimeList": None,
         },
     },
 }
@@ -34,6 +38,14 @@ STRINGS = {
     "setlove": "**The Love Message Has Been Saved!**",
     "notlove": "**The Love Message Is Not Saved!**",
     "dellove": "**The Love Message Has Been Removed!**",
+    "newnot": "**The Time** ( `{}` ) **Already In Love Time List!**",
+    "newadd": "**The Time** ( `{}` ) **Added To Love Time List!**",
+    "delnot": "**The Time** ( `{}` ) **Not In Love Time List!**",
+    "deltime": "**The Time** ( `{}` ) **Deleted From Love Time List!**",
+    "emptytime": "**The Love Time List Is Empty!**",
+    "listtime": "**The Love Time List:**\n\n",
+    "aemptytime": "**The Love Time List Is Already Empty!**",
+    "cleantime": "**The Love Time List Is Cleaned!**",
 }
 
 @client.Command(command="Love (On|Off)")
@@ -124,10 +136,59 @@ async def getlove(event):
     await event.respond(getmsg)
     await event.delete()
 
-@aiocron.crontab("*/60 * * * *")
+@client.Command(command="AddLoveTime (.*)")
+async def addrepeat(event):
+    await event.edit(client.STRINGS["wait"])
+    times = client.DB.get_key("LOVE_TIMES") or []
+    newtime = str(event.pattern_match.group(1))
+    if newtime in times:
+        return await event.edit(STRINGS["newnot"].format(newtime))  
+    times.append(newtime)
+    client.DB.set_key("LOVE_TIMES", times)
+    await event.edit(STRINGS["newadd"].format(newtime))
+    
+@client.Command(command="DelLoveTime (.*)")
+async def delrepeat(event):
+    await event.edit(client.STRINGS["wait"])
+    times = client.DB.get_key("LOVE_TIMES") or []
+    newtime = str(event.pattern_match.group(1))
+    if newtime not in times:
+        return await event.edit(STRINGS["delnot"].format(newtime))  
+    times.remove(newtime)
+    client.DB.set_key("LOVE_TIMES", times)
+    await event.edit(STRINGS["deltime"].format(newtime))
+
+@client.Command(command="LoveTimeList")
+async def repeatlist(event):
+    await event.edit(client.STRINGS["wait"])
+    times = client.DB.get_key("LOVE_TIMES") or []
+    if not times:
+        return await event.edit(STRINGS["emptytime"])
+    text = STRINGS["listtime"]
+    row = 1
+    for repeat in times:
+        text += f"**{row} -** `{repeat}`\n"
+        row += 1
+    await event.edit(text)
+
+@client.Command(command="CleanLoveTimeList")
+async def cleantimes(event):
+    await event.edit(client.STRINGS["wait"])
+    times = client.DB.get_key("LOVE_TIMES") or []
+    if not times:
+        return await event.edit(STRINGS["aemptytime"])
+    client.DB.del_key("LOVE_TIMES")
+    await event.edit(STRINGS["cleantime"])
+
+@aiocron.crontab("*/1 * * * *")
 async def autolove():
     newtime = datetime.now().strftime("%H:%M")
-    if str(newtime) != "00:00": return
+    times = client.DB.get_key("LOVE_TIMES") or []
+    if "00:00" not in times:
+        times.append("00:00")
+        client.DB.set_key("LOVE_TIMES", times)
+    times.append()
+    if str(newtime) not in times: return
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
         mlove = client.DB.get_key("LOVE_MESSAGE") or {}
@@ -138,4 +199,4 @@ async def autolove():
                 getmsg.text = await client.AddVars(getmsg.text)
                 await client.send_message(int(love), getmsg)
             else:
-                await client.send_message(int(love), "**- 00:00 ❤️**")
+                await client.send_message(int(love), f"**- {newtime} ❤️**")
