@@ -21,13 +21,8 @@ STRINGS = {
 @client.Command(command="ExAudio")
 async def exaudio(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Video"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Video"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, _ = event.checkReply(["Video"])
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
