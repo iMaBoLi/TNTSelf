@@ -95,5 +95,5 @@ async def autocomment(event):
     if cmode == "ON":
         info = comments[event.chat_id]
         getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-        getmsg.text = await client.AddVars(getmsg, event)
+        getmsg.text = await client.AddVars(getmsg.text, event)
         await event.reply(getmsg)
