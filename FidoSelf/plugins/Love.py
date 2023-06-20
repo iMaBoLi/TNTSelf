@@ -187,7 +187,6 @@ async def autolove():
     if "00:00" not in times:
         times.append("00:00")
         client.DB.set_key("LOVE_TIMES", times)
-    times.append()
     if str(newtime) not in times: return
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
