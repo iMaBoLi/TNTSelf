@@ -29,11 +29,9 @@ STRINGS = {
 @client.Command(command="AddBlack ?(.*)?")
 async def addblack(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     blacks = client.DB.get_key("BLACKS") or []
     info = await client.get_entity(userid)
     mention = client.mention(info)
@@ -50,11 +48,9 @@ async def addblack(event):
 @client.Command(command="DelBlack ?(.*)?")
 async def delblack(event):
     await event.edit(client.STRINGS["wait"])
-    result, userid = await event.userid(event.pattern_match.group(1))
-    if not result and str(userid) == "Invalid":
-        return await event.edit(client.STRINGS["getid"]["IU"])
-    elif not result and not userid:
-        return await event.edit(client.STRINGS["getid"]["UUP"])
+    userid = await event.userid(event.pattern_match.group(1))
+    if not userid:
+        return await event.edit(client.STRINGS["getuserID"])
     blacks = client.DB.get_key("BLACKS") or []
     info = await client.get_entity(userid)
     mention = client.mention(info)
