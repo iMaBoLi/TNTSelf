@@ -15,7 +15,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "bping": "**!!!**",
-    "ping": "**PonG!!** [ `{ping}` ]",
+    "ping": "**PonG!!!** [ `{ping}` ]",
 }
 
 @client.Command(command="Ping")
