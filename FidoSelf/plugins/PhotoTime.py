@@ -49,13 +49,8 @@ async def photomode(event):
 @client.Command(command="NewPhoto (.*)")
 async def addphoto(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, _ = event.checkReply(["Photo"])
+    if reply: return await event.edit(reply)
     phname = str(event.pattern_match.group(1))
     phname = phname + ".png"
     photos = client.DB.get_key("PHOTOS") or {}
