@@ -1,5 +1,6 @@
 from FidoSelf import client
-from FidoSelf.functions import convert_date, AddInfo
+from FidoSelf.functions import convert_date
+from FidoSelf.functions.help import AddInfo
 from datetime import datetime
 import random
 
