@@ -3,7 +3,7 @@ from FidoSelf.functions import *
 from telethon import events, functions, types, Button
 from datetime import datetime
 import traceback
-import requests
+#import requests
 import asyncio
 import os
 import sys
