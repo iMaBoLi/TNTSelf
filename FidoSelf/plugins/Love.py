@@ -1,4 +1,5 @@
 from FidoSelf import client
+from datetime import datetime
 import aiocron
 
 __INFO__ = {
@@ -127,8 +128,10 @@ async def getlove(event):
     await event.respond(getmsg)
     await event.delete()
 
-@aiocron.crontab("*/24 * * *")
+@aiocron.crontab("*/60 * * * *")
 async def autolove():
+    newtime = datetime.now().strftime("%H:%M")
+    if str(newtime) != "00:00": return
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
         mlove = client.DB.get_key("LOVE_MESSAGE") or {}
