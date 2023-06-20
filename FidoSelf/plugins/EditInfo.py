@@ -38,13 +38,8 @@ async def setduration(event):
     await event.edit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
     if dur > 2147483647: dur = 2147483647
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Video", "Music"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Video"] + " - " + medias["Music"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["Video", "Music"])
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -65,13 +60,8 @@ async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
     title = str(event.pattern_match.group(2))
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Music"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Music"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, _ = event.checkReply(["Music"])
+    if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -86,7 +76,7 @@ async def editaudio(event):
     thumb = None
     if event.reply_message.document.thumbs:
         thumb = await event.reply_message.download_media(thumb=-1)
-        load["artwork"] == open(thumb, "rb").read()
+        #load["artwork"] == open(thumb, "rb").read()
     attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
     caption = STRINGS["atilper"].format(performer, title)
     callback = event.progress(upload=True)
