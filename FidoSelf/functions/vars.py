@@ -46,12 +46,13 @@ def create_font(newtime, timefont):
 async def get_vars(event):
     time = datetime.now()
     cdate = convert_date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
+    scdate = cdate.split("/")
     Vars = {
         "TIME": time.strftime("%H:%M"),
-        "DATE": str(cdate[0]) + "/" + str(cdate[1]) + "/" + str(cdate[2]),
-        "DAY": cdate[2],
-        "MONTH": cdate[1],
-        "YEAR": cdate[0],
+        "DATE": cdate,
+        "DAY": scdate[2],
+        "MONTH": scdate[1],
+        "YEAR": scdate[0],
         "HOUR": time.strftime("%H"),
         "MIN": time.strftime("%M"),
         "SEC": time.strftime("%S"),
