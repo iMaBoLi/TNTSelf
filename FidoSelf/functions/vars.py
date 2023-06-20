@@ -1,6 +1,5 @@
 from FidoSelf import client
 from FidoSelf.functions import convert_date
-from FidoSelf.functions.help import AddInfo
 from datetime import datetime
 import random
 
@@ -92,41 +91,3 @@ async def add_vars(text, event=None):
     for Var in Vars:
         text = text.replace("{" + str(Var) + "}", str(Vars[Var]))
     return text
-
-__INFO__ = {
-    "Category": "Setting",
-    "Plugname": "Variebels",
-    "Pluginfo": {
-        "Help": "To Use From This Variebels In Messages And Medias!",
-        "Commands": {
-            "{TIME}": None,
-            "{DATE}": None,
-            "{DAY}": None,
-            "{MONTH}": None,
-            "{YEAR}": None,
-            "{HOUR}": None,
-            "{MIN}": None,
-            "{SEC}": None,
-            "{FTIME}": None,
-            "{FDATE}": None,
-            "{FDAY}": None,
-            "{FMONTH}": None,
-            "{FYEAR}": None,
-            "{FHOUR}": None,
-            "{FMIN}": None,
-            "{FSEC}": None,
-            "{STRDAY}": None,
-            "{STRMONTH}": None,
-            "{HEART}": None,
-            "{FIRSTNAME}": None,
-            "{LASTNAME}": None,
-            "{USERNAME}": None,
-            "{MYFIRSTNAME}": None,
-            "{MYLASTNAME}": None,
-            "{MYUSERNAME}": None,
-            "{CHATTITLE}": None,
-            "{CHATUSERNAME}": None
-        },
-    },
-}
-AddInfo(__INFO__)
