@@ -30,13 +30,8 @@ client.functions.AddInfo(__INFO__)
 async def spconverter(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo", "Sticker"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"] + " - " + medias["Sticker"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["Sticker", "Photo"])
+    if reply: return await event.edit(reply)
     if mode == "Photo" and mtype in ["Sticker"]:
         sticker = await event.reply_message.download_media(client.PATH)
         newfile = client.PATH + "StickerToPhoto.jpg"
@@ -56,8 +51,9 @@ async def spconverter(event):
         os.remove(newfile)
         await event.delete()
     else:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Sticker"] if mode == "Photo" else medias["Photo"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+        if mode == "Sticker":
+            reply, _ = event.checkReply(["Photo"])
+            await event.edit(reply)
+        elif mode == "Photo":
+            reply, _ = event.checkReply(["Sticker"])
+            await event.edit(reply)
