@@ -24,7 +24,7 @@ STRINGS = {
 async def rotate(event):
     await event.edit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
-    reply, mtype = event.checkReply(["Video", "Photo")
+    reply, mtype = event.checkReply(["Video", "PPhoto])
     if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
