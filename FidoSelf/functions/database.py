@@ -1,5 +1,4 @@
 from redis import Redis
-from localdb import Database
 from FidoSelf import config
 import json
 
@@ -68,51 +67,4 @@ class RedisDB:
             self.del_key(x)
         return True
 
-class LocalDB:
-    def __init__(self):
-        self.db = Database("FidoDB")
-        self.get = self.db.get
-        self.set = self.db.set
-        self.delete = self.db.delete
-        self.cache = {}
-        self.recache()
-
-    def get_key(self, key):
-        if key in self.cache:
-            return self.cache[key]
-        value = get_data(self, key)
-        self.cache.update({key: value})
-        return value
-
-    def recache(self):
-        self.cache.clear()
-        for key in self.keys():
-            self.cache.update({key: self.get_key(key)})
-
-    def keys(self):
-        return []
-
-    def del_key(self, key):
-        if key in self.cache:
-            del self.cache[key]
-        self.delete(key)
-        return True
-
-    def _get_data(self, key=None, data=None):
-        if key:
-            data = self.get(str(key))
-        if data and isinstance(data, str):
-            try:
-                data = ast.literal_eval(data)
-            except BaseException:
-                pass
-        return data
-
-    def set_key(self, key, value, cache_only=False):
-        value = get_data(self, value)
-        self.cache[key] = value
-        if cache_only:
-            return
-        return self.set(str(key), str(value))
-
-DB = LocalDB()
+DB = RedisDB()
