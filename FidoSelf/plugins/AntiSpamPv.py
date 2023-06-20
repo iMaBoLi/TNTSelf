@@ -54,8 +54,8 @@ async def setautodeletesleep(event):
 @client.Command(command="SetAntiSpam")
 async def setanti(event):
     await event.edit(client.STRINGS["wait"])
-    if not event.is_reply:
-        return await event.edit(client.STRINGS["replyMedia"]["NotAll"])
+    reply, _ = event.checkReply()
+    if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("ANTISPAM_MEDIA", info)
     await event.edit(STRINGS["saveanti"])
@@ -63,8 +63,8 @@ async def setanti(event):
 @client.Command(command="SetAntiSpamWarn")
 async def setantiwarn(event):
     await event.edit(client.STRINGS["wait"])
-    if not event.is_reply:
-        return await event.edit(client.STRINGS["replyMedia"]["NotAll"])
+    reply, _ = event.checkReply()
+    if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("ANTIWARN_MEDIA", info)
     await event.edit(STRINGS["saveantiwarn"])
