@@ -32,8 +32,8 @@ STRINGS = {
 async def savesaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
-    if not event.is_reply:
-        return await event.edit(client.STRINGS["replyMedia"]["NotAll"])
+    reply, _ = event.checkReply()
+    if reply: return await event.edit(reply)
     saves = client.DB.get_key("SAVES") or {}
     if name in saves:
         return await event.edit(STRINGS["notall"].format(name))
@@ -49,12 +49,6 @@ async def delsaves(event):
     saves = client.DB.get_key("SAVES") or {}
     if name not in saves:
         return await event.edit(STRINGS["notin"].format(name))
-    info = saves[name]
-    try:
-        message = await client.get_messages(info["chat_id"], ids=info["msg_id"])
-        await message.delete()
-    except:
-        pass
     del saves[name]
     client.DB.set_key("SAVES", saves)
     await event.edit(STRINGS["del"].format(name))
