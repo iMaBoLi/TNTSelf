@@ -31,10 +31,10 @@ except Exception as error:
 LOGS.info("• Login Bot ...")
 try:
     client.bot = TelegramClient(
-        session=StringSession(str(config.BOT_SESSION)),
+        session="FidoSelf/Bot.session",
         api_id=config.API_ID,
         api_hash=config.API_HASH,
-    ).start()
+    ).start(bot_token=config.BOT_TOKEN)
 except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
     LOGS.error(error)
