@@ -22,13 +22,8 @@ STRINGS = {
 async def sliceimage(event):
     await event.edit(client.STRINGS["wait"])
     tile = event.pattern_match.group(1)
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["Photo"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["Photo"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["Photo"])
+    if reply: return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     tiles = image_slicer.slice(photo, int(tile))
     photos = [str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
