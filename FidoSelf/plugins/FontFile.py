@@ -31,15 +31,10 @@ STRINGS = {
 @client.Command(command="NewFont (.*)")
 async def savefontfile(event):
     await event.edit(client.STRINGS["wait"])
+    reply, _ = event.checkReply(["File"])
+    if reply: return await event.edit(reply)
     fname = str(event.pattern_match.group(1))
     fonts = client.DB.get_key("FONTS") or {}
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["File"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["File"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
     if (fname + ".ttf") in fonts:
         return await event.edit(STRINGS["newnot"].format(fname + ".ttf"))
     if len(fonts) > 10:
