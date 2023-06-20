@@ -9,7 +9,7 @@ __INFO__ = {
         "Help": "To Manage Users On Love List And Send Love Message!",
         "Commands": {
             "{CMD}Love <On-Off>": None,
-            "{CMD}AddLove <Reply|Userid|Username>": None,
+            "{CMD}NewLove <Reply|Userid|Username>": None,
             "{CMD}DelLove <Reply|Userid|Username>": None,
             "{CMD}LoveList": None,
             "{CMD}CleanLoveList": None,
@@ -56,7 +56,7 @@ async def lovemode(event):
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
 
-@client.Command(command="AddLove ?(.*)?")
+@client.Command(command="NewLove ?(.*)?")
 async def addlove(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
