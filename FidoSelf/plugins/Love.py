@@ -184,10 +184,7 @@ async def cleantimes(event):
 async def autolove():
     newtime = datetime.now().strftime("%H:%M")
     times = client.DB.get_key("LOVE_TIMES") or []
-    if "00:00" not in times:
-        times.append("00:00")
-        client.DB.set_key("LOVE_TIMES", times)
-    if str(newtime) not in times: return
+    if newtime not in times: return
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
         mlove = client.DB.get_key("LOVE_MESSAGE") or {}
