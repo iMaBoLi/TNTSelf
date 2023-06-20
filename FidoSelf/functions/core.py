@@ -61,8 +61,9 @@ def checkReply(event, medias=None):
 setattr(Message, "checkReply", checkReply)
 
 async def DownloadFiles():
-    os.mkdir("downloads")
-
+    if not os.path.exists("downloads"):
+        os.mkdir("downloads")
+        
     foshs = client.DB.get_key("FOSHS_FILE")
     if foshs:
         try:
