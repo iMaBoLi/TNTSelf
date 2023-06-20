@@ -1,5 +1,5 @@
 from FidoSelf import client
-from FidoSelf.functions import convert_date
+from FidoSelf.functions import convert_date, AddInfo
 from datetime import datetime
 import random
 
@@ -128,4 +128,4 @@ __INFO__ = {
         },
     },
 }
-client.functions.AddInfo(__INFO__)
+AddInfo(__INFO__)
