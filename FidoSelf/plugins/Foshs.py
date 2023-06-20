@@ -16,6 +16,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "txt": "**The File Foramt Is Not Available!**",
     "save": "**The Enemy Foshs File Has Been Saved!**",
     "del": "**The Enemy Foshs File Has Been Deleted!**",
     "nsave": "**The Enemy Foshs File Is Not Saved!**",
@@ -25,13 +26,8 @@ STRINGS = {
 @client.Command(command="AddFosh")
 async def savefoshfile(event):
     await event.edit(client.STRINGS["wait"])
-    mtype = client.functions.mediatype(event.reply_message)
-    if not event.is_reply or mtype not in ["File"]:
-        medias = client.STRINGS["replyMedia"]
-        media = medias["File"]
-        rtype = medias[mtype]
-        text = client.STRINGS["replyMedia"]["Main"].format(rtype, media)
-        return await event.edit(text)
+    reply, mtype = event.checkReply(["File"])
+    if reply: return await event.edit(reply)
     format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
     if format != "txt":
         return await event.edit(STRINGS["txt"])
