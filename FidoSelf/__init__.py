@@ -5,7 +5,7 @@ from FidoSelf import config
 import time
 import sys
 
-__version__ = "1.8.3"
+__version__ = "1.9.3 (Beta)"
 
 LOGS = getLogger("FidoSelf")
 basicConfig(
@@ -31,10 +31,10 @@ except Exception as error:
 LOGS.info("• Login Bot ...")
 try:
     client.bot = TelegramClient(
-        session="FidoSelf/Bot.session",
+        session=StringSession(str(config.BOT_SESSION)),
         api_id=config.API_ID,
         api_hash=config.API_HASH,
-    ).start(bot_token=config.BOT_TOKEN)
+    ).start()
 except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
     LOGS.error(error)
