@@ -66,14 +66,15 @@ async def get_vars(event):
         "STRMONTH": time.strftime("%B"),
         })
     Vars.update({"HEART": random.choice(HEARTS)})
-    emojies = client.DB.get_key("EMOJIES") or []
-    if emojies:
-        Vars.update({"EMOJI": random.choice(emojies)})
     if event:
-        user = await event.get_sender()
-        Vars.update({"FIRSTNAME": user.first_name})
-        Vars.update({"LASTNAME": user.last_name})
-        Vars.update({"USERNAME": user.username})
+        sender = await event.get_sender()
+        if sender.to_dict()["_"] == "User":
+            Vars.update({"FIRSTNAME": sender.first_name})
+            Vars.update({"LASTNAME": sender.last_name})
+            Vars.update({"USERNAME": sender.username})
+        elif sender.to_dict()["_"] in ["Channel", "Group"]:
+            Vars.update({"FIRSTNAME": sender.title})
+            Vars.update({"USERNAME": sender.username})
         me = await event.client.get_me()
         Vars.update({"MYFIRSTNAME": me.first_name})
         Vars.update({"MYLASTNAME": me.last_name})
