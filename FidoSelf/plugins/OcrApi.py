@@ -71,7 +71,7 @@ async def saveocrapi(event):
 async def ocrapi(event):
     await event.edit(client.STRINGS["wait"])
     lang = event.pattern_match.group(1) or "eng"
-    reply, _ = event.checkReply(["PPhoto])
+    reply, _ = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
     if not client.DB.get_key("OCR_API_KEY"):
         return await event.edit(STRINGS["notsave"])
