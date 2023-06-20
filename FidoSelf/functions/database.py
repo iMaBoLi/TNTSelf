@@ -80,7 +80,7 @@ class LocalDB:
     def get_key(self, key):
         if key in self.cache:
             return self.cache[key]
-        value = self.get_data(key)
+        value = get_data(key)
         self.cache.update({key: value})
         return value
 
@@ -109,7 +109,7 @@ class LocalDB:
         return data
 
     def set_key(self, key, value, cache_only=False):
-        value = self._get_data(data=value)
+        value = get_data(value)
         self.cache[key] = value
         if cache_only:
             return
