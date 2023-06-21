@@ -91,7 +91,7 @@ async def autogoodby(event):
     if not event.user_left and not event.user_kicked: return
     goodbymode = client.DB.get_key("GOODBY_MODE") or "OFF"
     chats = client.DB.get_key("GOODBY_CHATS") or {}
-    if event.chat_id in chats: return
+    if event.chat_id not in chats: return
     if goodbymode == "ON":
         info = chats[event.chat_id]
         getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
