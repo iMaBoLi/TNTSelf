@@ -88,7 +88,7 @@ async def cleanwelcomelist(event):
     
 @client.on(events.ChatAction())
 async def autowelcome(event):
-    if not event.user_joined or not event.added_by: return
+    if not event.user_joined and not event.added_by: return
     welcomemode = client.DB.get_key("WELCOME_MODE") or "OFF"
     chats = client.DB.get_key("WELCOME_CHATS") or {}
     if event.chat_id in chats: return
