@@ -15,6 +15,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Auto Join Mode Has Been {}!**",
+    "autojoin": "**The Auto Join Joined You To Leaved Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )",
 }
 
 @client.Command(command="AutoJoin (On|Off)")
@@ -34,3 +35,5 @@ async def autojoin(event):
     if ajoinmode == "ON":
         chat = await event.get_chat()
         await client(functions.channels.JoinChannelRequest(channel=chat.id))
+        text = STRINGS["autojoin"].format(chat.id, (chat.username or chat.title))
+        await client.send_message(client.REALM, text)
