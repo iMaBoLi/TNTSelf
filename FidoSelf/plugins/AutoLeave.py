@@ -15,6 +15,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Auto Leave Mode Has Been {}!**",
+    "autoleave": "**The Auto Leave Leaved You From New Joined Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )",
 }
 
 @client.Command(command="AutoLeave (On|Off)")
@@ -34,3 +35,5 @@ async def autoleave(event):
     if aleavemode == "ON":
         chat = await event.get_chat()
         await client(functions.channels.LeaveChannelRequest(channel=chat.id))
+        text = STRINGS["autoleave"].format(chat.id, (chat.username or chat.title))
+        await client.send_message(client.REALM, text)
