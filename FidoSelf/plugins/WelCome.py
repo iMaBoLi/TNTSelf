@@ -88,12 +88,13 @@ async def cleanwelcomelist(event):
     
 @client.on(events.ChatAction())
 async def autowelcome(event):
-    if not event.user_joined and not event.added_by: return
-    welcomemode = client.DB.get_key("WELCOME_MODE") or "OFF"
-    chats = client.DB.get_key("WELCOME_CHATS") or {}
-    if event.chat_id not in chats: return
-    if welcomemode == "ON":
-        info = chats[event.chat_id]
-        getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-        getmsg.text = await client.AddVars(getmsg.text, event)
-        await event.reply(getmsg)
+    client.LOGS.error(str(event))
+    if event.user_joined or event.added_by:
+        welcomemode = client.DB.get_key("WELCOME_MODE") or "OFF"
+        chats = client.DB.get_key("WELCOME_CHATS") or {}
+        if event.chat_id not in chats: return
+        if welcomemode == "ON":
+            info = chats[event.chat_id]
+            getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+            getmsg.text = await client.AddVars(getmsg.text, event)
+            await event.reply(getmsg)
