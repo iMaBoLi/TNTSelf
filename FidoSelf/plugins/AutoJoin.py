@@ -29,7 +29,7 @@ async def autojoinmode(event):
 @client.on(events.ChatAction())
 async def autojoin(event):
     if not event.user_left and not event.user_kicked: return
-    user = await event.get_user()
+    user = await event.get_sender()
     if user.id != client.me.id: return
     ajoinmode = client.DB.get_key("AUTOJOIN_MODE") or "OFF"
     if ajoinmode == "ON":
