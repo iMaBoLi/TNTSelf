@@ -28,12 +28,16 @@ async def autojoinmode(event):
     
 @client.on(events.ChatAction())
 async def autojoin(event):
-    if not event.user_left and not event.user_kicked: return
-    user = await event.get_sender()
-    if user.id != client.me.id: return
-    ajoinmode = client.DB.get_key("AUTOJOIN_MODE") or "OFF"
-    if ajoinmode == "ON":
-        chat = await event.get_chat()
-        await client(functions.channels.JoinChannelRequest(channel=chat.id))
-        text = STRINGS["autojoin"].format(chat.id, (chat.username or chat.title))
-        await client.send_message(client.REALM, text)
+    if event.user_left or event.user_kicked:
+        client.LOGS.error(str(1))
+        user = await event.get_user()
+        if user.id != client.me.id: return
+        client.LOGS.error(str(2))
+        ajoinmode = client.DB.get_key("AUTOJOIN_MODE") or "OFF"
+        if ajoinmode == "ON":
+            client.LOGS.error(str(3))
+            chat = await event.get_chat()
+            await client(functions.channels.JoinChannelRequest(channel=chat.id))
+            text = STRINGS["autojoin"].format(chat.id, (chat.username or chat.title))
+            await client.send_message(client.REALM, text)
+            client.LOGS.error(str(4))
