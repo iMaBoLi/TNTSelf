@@ -68,7 +68,10 @@ async def get_vars(event):
         })
     Vars.update({"HEART": random.choice(HEARTS)})
     if event:
-        sender = await event.get_sender()
+        if event.to_dict()["_"] == "MessageService":
+            sender = await event.get_user()
+        else:
+            sender = await event.get_sender()
         if sender.to_dict()["_"] == "User":
             Vars.update({"FIRSTNAME": sender.first_name})
             Vars.update({"LASTNAME": sender.last_name})
