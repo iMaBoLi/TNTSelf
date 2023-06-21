@@ -28,9 +28,7 @@ async def autoleavemode(event):
     
 @client.on(events.ChatAction())
 async def autoleave(event):
-    if event.user_joined or event.added_by:
-        user = await event.get_user()
-        if user.id != client.me.id: return
+    if (event.user_joined or event.added_by) and event.out:
         aleavemode = client.DB.get_key("AUTOLEAVE_MODE") or "OFF"
         if aleavemode == "ON":
             chat = await event.get_chat()
