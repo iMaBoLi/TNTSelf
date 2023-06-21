@@ -46,5 +46,5 @@ async def autotr(event):
         autolang = client.DB.get_key("AUTOTR_LANG") or "fa"
         translator = Translator()
         trjome = translator.translate(event.text, dest=autolang.lower())
-        if trjome.src != autolang:
+        if trjome.src != autolang and trjome.text != event.text:
             await event.edit(trjome.text)
