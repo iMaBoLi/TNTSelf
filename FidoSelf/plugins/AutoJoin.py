@@ -28,9 +28,10 @@ async def autojoinmode(event):
     
 @client.on(events.ChatAction())
 async def autojoin(event):
-    if (event.user_left or event.user_kicked) and event.out:
+    if event.user_left or event.user_kicked:
+        user = await event.get_user()
         ajoinmode = client.DB.get_key("AUTOJOIN_MODE") or "OFF"
-        if ajoinmode == "ON":
+        if ajoinmode == "ON" and user.id == client.me.idN
             try:
                 chat = await event.get_chat()
                 await client(functions.channels.JoinChannelRequest(channel=chat.id))
