@@ -14,7 +14,7 @@ __INFO__ = {
             "{CMD}DelWelcome": None,
             "{CMD}GetWelcome": None,
             "{CMD}WelcomeList": None,
-            "{CCMDCleanWelcomeList": None,
+            "{CMD}CleanWelcomeList": None,
         },
     },
 }
@@ -63,6 +63,19 @@ async def delwelcome(event):
     del welcomes[event.chat_id]
     client.DB.set_key("WELCOME_CHATS", welcomes)
     await event.edit(STRINGS["delwelcome"])
+
+@client.Command(command="GetWelcome")
+async def getwelcome(event):
+    await event.edit(client.STRINGS["wait"])
+    if not event.is_group:
+        return await event.edit(client.STRINGS["only"]["Group"])
+    comments = client.DB.get_key("WELCOME_CHATS") or {}
+    if event.chat_id not in comments:
+        return await event.edit(STRINGS["notsave"])
+    info = comments[event.chat_id]
+    getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    await event.respond(getmsg)
+    await event.delete()
     
 @client.Command(command="WelcomeList")
 async def welcomelist(event):
