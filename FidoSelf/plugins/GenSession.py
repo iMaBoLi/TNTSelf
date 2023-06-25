@@ -46,7 +46,8 @@ async def createsession(event):
     try:
         await client.sign_in(phone=phone, code=phone_code, password=None)
         session = client.session.save()
-        return await edit.edit(f"**• String Session:**\n\n`{session}`")
+        await edit.edit(f"**• String Session:**\n\n`{session}`")
+        return await client.disconnect()
     except (PhoneCodeInvalidError, TypeError):
         return await edit.edit("**❌ Your Code Is Invalid, Try Again!**")
     except PhoneCodeExpiredError:
@@ -60,7 +61,8 @@ async def createsession(event):
         try:
             await client.sign_in(password=password)
             session = client.session.save()
-            return await edit.edit(f"**• String Session:**\n\n`{session}`")
+            await edit.edit(f"**• String Session:**\n\n`{session}`")
+            return await client.disconnect()
         except PasswordHashInvalidError:
             return await edit.edit("**❌ Your Account Password Is Invalid, Try Again!**")
         except Exception as error:
