@@ -1,1 +1,1 @@
-python3-m FidoSelf
+python3 -m FidoSelf
