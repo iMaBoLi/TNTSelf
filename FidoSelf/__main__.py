@@ -34,7 +34,8 @@ async def setup():
                 open(file, "w").write(ftext)
                 await send.reply(file=file)
             res = await runcmd('git log --pretty=format:"[%an]: %s" -3')
-            await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
+            if res:
+                await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
         except:
             pass
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
