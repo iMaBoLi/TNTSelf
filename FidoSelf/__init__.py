@@ -5,7 +5,7 @@ from FidoSelf import config
 import time
 import sys
 
-__version__ = "1.9.3 (Beta)"
+__version__ = "2.1.3"
 
 LOGS = getLogger("FidoSelf")
 basicConfig(
@@ -18,7 +18,7 @@ basicConfig(
 LOGS.info("• Login Account ...")
 try:
     client = TelegramClient(
-        session=StringSession(str(config.SESSION)),
+        session="FidoSelf/temp/Session.session",
         api_id=config.API_ID,
         api_hash=config.API_HASH,
         device_model="FidoSelf",
@@ -31,7 +31,7 @@ except Exception as error:
 LOGS.info("• Login Bot ...")
 try:
     client.bot = TelegramClient(
-        session="BotSession",
+        session="FidoSelf/temp/BotSession.session",
         api_id=config.API_ID,
         api_hash=config.API_HASH,
     ).start(bot_token=config.BOT_TOKEN)
@@ -39,7 +39,7 @@ except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
     LOGS.error(error)
 
-LOGS.info("• Logins Was Successful!")
+LOGS.info("• Logins Was Completed!")
 
 client.LOGS = LOGS
 client.__version__ = __version__
