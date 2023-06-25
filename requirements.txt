@@ -20,6 +20,8 @@ jdatetime
 httpx[http2]
 countryinfo
 music_tag
+flask
+flask_restful
 
 git+https://github.com/sandy1709/py-googletrans
 git+https://github.com/alexmercerind/youtube-search-python
