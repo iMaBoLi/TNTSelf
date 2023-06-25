@@ -59,7 +59,7 @@ async def deltimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMERS") or {}
-    if userid not in timers:
+    if ntimer not in timers:
         return await event.edit(STRINGS["notin"].format(ntimer))  
     del timers[ntimer]
     client.DB.set_key("TIMERS", timers)
@@ -70,7 +70,7 @@ async def gettimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMERS") or {}
-    if userid not in timers:
+    if ntimer not in timers:
         return await event.edit(STRINGS["notin"].format(ntimer))  
     start = timers[ntimer]
     end = time.time()
