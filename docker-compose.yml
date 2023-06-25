@@ -1,6 +1,0 @@
-version: "3"
-services:
-  web:
-    build: .
-    working_dir: /app
-    command: "python3 -m FidoSelf"
