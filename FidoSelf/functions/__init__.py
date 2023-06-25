@@ -7,7 +7,7 @@ from FidoSelf.functions.utils import *
 from FidoSelf.functions.core import *
 from FidoSelf.functions.tools import *
 from FidoSelf.functions.loader import *
-from FidoSelf.functions.youtube import *
+#from FidoSelf.functions.youtube import *
 from FidoSelf.functions.help import *
 from FidoSelf.functions.strings import STRINGS
 from FidoSelf.functions.data import *
