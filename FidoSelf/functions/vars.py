@@ -18,7 +18,6 @@ FONTS = {
     12: "𝟶,𝟷,𝟸,𝟹,𝟺,𝟻,𝟼,𝟽,𝟾,𝟿",
     13: "⒪,⑴,⑵,⑶,⑷,⑸,⑹,⑺,⑻,⑼",
     14: "0҉,1҉,2҉,3҉,4҉,5҉,6҉,7҉,8҉,9҉",
-    15: "0⃣,1⃣,2⃣,3⃣,4⃣,5⃣,6⃣,7⃣,8⃣,9⃣",
 }
 
 HEARTS = ["❤️", "🩷", "🩵", "🩶", "💙", "💛", "💚", "🧡", "💜", "🖤", "🤍"]
@@ -71,17 +70,16 @@ async def get_vars(event):
     if event:
         if event.to_dict()["_"] == "Message":
             sender = await event.get_sender()
-        if sender and sender.to_dict()["_"] == "User":
-            Vars.update({"FIRSTNAME": sender.first_name})
-            Vars.update({"LASTNAME": sender.last_name})
-            Vars.update({"USERNAME": sender.username})
-        elif sender and sender.to_dict()["_"] in ["Channel", "Group"]:
-            Vars.update({"FIRSTNAME": sender.title})
-            Vars.update({"USERNAME": sender.username})
-        me = await event.client.get_me()
-        Vars.update({"MYFIRSTNAME": me.first_name})
-        Vars.update({"MYLASTNAME": me.last_name})
-        Vars.update({"MYUSERNAME": me.username})
+            if sender.to_dict()["_"] == "User":
+                Vars.update({"FIRSTNAME": sender.first_name})
+                Vars.update({"LASTNAME": sender.last_name})
+                Vars.update({"USERNAME": sender.username})
+            elif sender.to_dict()["_"] in ["Channel", "Group"]:
+                Vars.update({"FIRSTNAME": sender.title})
+                Vars.update({"USERNAME": sender.username})
+        Vars.update({"MYFIRSTNAME": client.me.first_name})
+        Vars.update({"MYLASTNAME": client.me.last_name})
+        Vars.update({"MYUSERNAME": client.me.username})
         if event.is_group:
             chat = await event.get_chat()
             Vars.update({"CHATTITLE": chat.title})
