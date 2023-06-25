@@ -1,5 +1,5 @@
 from traceback import format_exc
-from importlib import import_module, reload
+from importlib import import_module
 import glob
 import os
 
@@ -13,10 +13,7 @@ def load_plugins(files, reload=False):
     for file in files:
         try:
             filename = file.replace("/", ".").replace(".py" , "")
-            if not reload:
-                import_module(filename)
-            else:
-                reload(filename)
+            import_module(filename)
             plugs.append(os.path.basename(file))
         except:
             notplugs.update({os.path.basename(file): format_exc()})
