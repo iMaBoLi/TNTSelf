@@ -18,7 +18,7 @@ basicConfig(
 LOGS.info("• Login Account ...")
 try:
     client = TelegramClient(
-        session="FidoSelf/temp/Session.session",
+        session=StringSession(config.SESSION),
         api_id=config.API_ID,
         api_hash=config.API_HASH,
         device_model="FidoSelf",
@@ -31,10 +31,10 @@ except Exception as error:
 LOGS.info("• Login Bot ...")
 try:
     client.bot = TelegramClient(
-        session="FidoSelf/temp/BotSession.session",
+        session=StringSession(config.BOT_SESSION),
         api_id=config.API_ID,
         api_hash=config.API_HASH,
-    ).start(bot_token=config.BOT_TOKEN)
+    ).start()
 except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
     LOGS.error(error)
