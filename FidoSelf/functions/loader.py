@@ -7,7 +7,7 @@ def get_plugins():
     files = sorted(glob.glob(f"FidoSelf/plugins/*.py"))
     return files
 
-def load_plugins(files, reload=False):
+def load_plugins(files):
     plugs = []
     notplugs = {}
     for file in files:
