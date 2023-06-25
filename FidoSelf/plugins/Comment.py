@@ -14,7 +14,7 @@ __INFO__ = {
             "{CMD}DelComment": None,
             "{CMD}GetComment": None,
             "{CMD}CommentList": None,
-            "{CCMDCleanCommentList": None,
+            "{CMD}CleanCommentList": None,
         },
     },
 }
@@ -52,18 +52,31 @@ async def setcomment(event):
     client.DB.set_key("COMMENT_CHATS", comments)
     await event.edit(STRINGS["setcomment"])
     
-@client.Command(command="DelComment (.*)")
+@client.Command(command="DelComment")
 async def delcomment(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if event.chat_id not in comments:
-        return await event.edit(STRINGS["notsave"])  
+        return await event.edit(STRINGS["notsave"])
     del comments[event.chat_id]
     client.DB.set_key("COMMENT_CHATS", comments)
     await event.edit(STRINGS["delcomment"])
-    
+
+@client.Command(command="GetComment")
+async def getcomment(event):
+    await event.edit(client.STRINGS["wait"])
+    if not event.is_group:
+        return await event.edit(client.STRINGS["only"]["Group"])
+    comments = client.DB.get_key("COMMENT_CHATS") or {}
+    if event.chat_id not in comments:
+        return await event.edit(STRINGS["notsave"])
+    info = comments[event.chat_id]
+    getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    await event.respond(getmsg)
+    await event.delete()
+
 @client.Command(command="CommentList")
 async def commentlist(event):
     await event.edit(client.STRINGS["wait"])
