@@ -14,7 +14,7 @@ __INFO__ = {
             "{CMD}DelGoodBy": None,
             "{CMD}GetGoodBy": None,
             "{CMD}GoodByList": None,
-            "{CCMDCleanGoodByList": None,
+            "{CMD}CleanGoodByList": None,
         },
     },
 }
@@ -52,7 +52,7 @@ async def setgoodby(event):
     client.DB.set_key("GOODBY_CHATS", goodbys)
     await event.edit(STRINGS["setgoodby"])
     
-@client.Command(command="DelGoodBy (.*)")
+@client.Command(command="DelGoodBy")
 async def delgoodby(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
@@ -63,6 +63,19 @@ async def delgoodby(event):
     del goodbys[event.chat_id]
     client.DB.set_key("GOODBY_CHATS", goodbys)
     await event.edit(STRINGS["delgoodby"])
+ 
+@client.Command(command="GetGoodby")
+async def getgoodby(event):
+    await event.edit(client.STRINGS["wait"])
+    if not event.is_group:
+        return await event.edit(client.STRINGS["only"]["Group"])
+    comments = client.DB.get_key("GOODBY_CHATS") or {}
+    if event.chat_id not in comments:
+        return await event.edit(STRINGS["notsave"])
+    info = comments[event.chat_id]
+    getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    await event.respond(getmsg)
+    await event.delete()
     
 @client.Command(command="GoodByList")
 async def goodbylist(event):
