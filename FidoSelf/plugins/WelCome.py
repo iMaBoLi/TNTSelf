@@ -52,7 +52,7 @@ async def setwelcome(event):
     client.DB.set_key("WELCOME_CHATS", welcomes)
     await event.edit(STRINGS["setwelcome"])
     
-@client.Command(command="DelWelcome (.*)")
+@client.Command(command="DelWelcome")
 async def delwelcome(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
