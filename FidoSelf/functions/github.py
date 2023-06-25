@@ -2,7 +2,7 @@ from github import Github
 from FidoSelf import config
 import base64
 
-BRANCH = "main"
+BRANCH = "master"
 
 class Git:
     def __init__(self, token=config.GIT_TOKEN, repo=config.REPO):
