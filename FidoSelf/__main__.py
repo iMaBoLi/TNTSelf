@@ -34,7 +34,7 @@ async def setup():
                 open(file, "w").write(ftext)
                 await send.reply(file=file)
             res = await runcmd('git log --pretty=format:"[%an]: %s" -3')
-            if res:
+            if res[0]:
                 await send.reply(f"**• Github Commits:**\n\n`{res[0]}`")
         except:
             pass
