@@ -84,10 +84,8 @@ async def timerlist(event):
     if not timers:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
-    row = 1
-    for timer in timers:
-        text += f"**{row} -** `{timer}`\n"
-        row += 1
+    for row, timer in enumerate(timers):
+        text += f"**{row + 1} -** ( `{timer}` )\n"
     await event.edit(text)
 
 @client.Command(command="CleanTimerList")
