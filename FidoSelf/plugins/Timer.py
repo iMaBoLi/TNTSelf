@@ -74,7 +74,7 @@ async def gettimer(event):
         return await event.edit(STRINGS["notin"].format(ntimer))  
     start = timers[ntimer]
     end = time.time()
-    newtimer = convert_time(start - end)
+    newtimer = convert_time(end - start)
     await event.edit(STRINGS["get"].format(ntimer, newtimer))
 
 @client.Command(command="TimerList")
