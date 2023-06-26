@@ -26,7 +26,7 @@ async def setanti(event):
 
 @client.Command(alowedits=False)
 async def antiforward(event):
-    if event.checkCmd() or not event.fwd_from: return
+    if event.checkCmd() or not event.fwd_from or event.is_ch: return
     antimode = client.DB.get_key("ANTIFORWARD_MODE") or "OFF"
     if antimode == "ON":
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
