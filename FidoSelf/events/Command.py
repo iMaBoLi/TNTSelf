@@ -8,7 +8,7 @@ def Command(
     pattern=None,
     command=None,
     onlysudo=True,
-    alowedits=True,
+    allowedits=True,
     **kwargs,
 ):
     if command and not pattern:
@@ -21,10 +21,7 @@ def Command(
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 event.reply_message = await event.get_reply_message()
-                chat = await event.get_chat()
-                sender = await event.get_sender()
                 if onlysudo and not event.is_sudo and not event.is_ch: return
-                event.is_bot = True if (not isinstance(sender, types.User) or sender.bot) else False
                 blacks = client.DB.get_key("BLACKS") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = client.DB.get_key("WHITES") or []
@@ -35,7 +32,7 @@ def Command(
             except:
                 client.LOGS.error(format_exc())
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
-        if alowedits:
+        if allowedits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
