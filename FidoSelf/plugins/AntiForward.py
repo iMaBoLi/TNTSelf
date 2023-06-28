@@ -24,7 +24,7 @@ async def setanti(event):
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
 
-@client.Command(alowedits=False)
+@client.Command(allowedits=False)
 async def antiforward(event):
     if event.checkCmd() or not event.fwd_from or event.is_ch: return
     antimode = client.DB.get_key("ANTIFORWARD_MODE") or "OFF"
