@@ -57,7 +57,7 @@ async def setaction(event):
     client.DB.set_key("ACTION_TYPE", acmode)
     await event.edit(STRINGS["setact"].format(acmode.title()))
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def action(event):
     if event.is_sudo or event.is_bot: return
     acMode = client.DB.get_key("ACTION_ALL") or "OFF"
