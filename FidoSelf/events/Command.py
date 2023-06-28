@@ -22,6 +22,7 @@ def Command(
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 event.reply_message = await event.get_reply_message()
                 if onlysudo and not event.is_sudo and not event.is_ch: return
+                event.is_bot = True if (not isinstance(event.sender, types.User) or event.sender.bot) else False
                 blacks = client.DB.get_key("BLACKS") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = client.DB.get_key("WHITES") or []
