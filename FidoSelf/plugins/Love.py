@@ -196,7 +196,7 @@ async def autolove():
             getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
             VARS = {
                 "TIME": jtime.strftime("%H:%M"),
-                "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
+                "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
                 "HEART": random.choice(client.functions.HEARTS),
                 "NAME": info.first_name,
                 "MENTION": client.mention(info),
