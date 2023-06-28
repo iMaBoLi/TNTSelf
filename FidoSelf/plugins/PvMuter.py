@@ -82,7 +82,7 @@ async def cleanmutepvlist(event):
     client.DB.del_key("MUTEPV_USERS")
     await event.edit(STRINGS["clean"])
     
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
