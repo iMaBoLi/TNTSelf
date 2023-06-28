@@ -118,10 +118,10 @@ async def autowelcome(event):
                 "HEART": random.choice(client.functions.HEARTS),
                 "FIRSTNAME": user.first_name,
                 "MENTION": client.mention(user),
-                "USERNAME": user.username,
+                "USERNAME": user.username or "---",
                 "TITLE": chat.title,
-                "CHATUSERNAME": chat.username,
-                "COUNT": chat.participants_count,
+                "CHATUSERNAME": chat.username or "---",
+                "COUNT": chat.participants_count or "---",
             }
             for VAR in VARS:
                 getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
