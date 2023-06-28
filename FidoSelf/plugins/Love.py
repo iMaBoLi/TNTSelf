@@ -1,5 +1,5 @@
 from FidoSelf import client
-from datetime import datetime
+from jdatetime import datetime
 import aiocron
 import random
 
@@ -183,9 +183,9 @@ async def cleantimes(event):
 
 @aiocron.crontab("*/1 * * * *")
 async def autolove():
-    newtime = datetime.now().strftime("%H:%M")
+    jtime = datetime.now()
     times = client.DB.get_key("LOVE_TIMES") or []
-    if newtime not in times: return
+    if jtime.strftime("%H:%M") not in times: return
     lmode = client.DB.get_key("LOVE_MODE") or "OFF"
     if lmode == "ON":
         mlove = client.DB.get_key("LOVE_MESSAGE") or {}
