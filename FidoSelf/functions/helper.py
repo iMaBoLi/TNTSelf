@@ -142,7 +142,7 @@ def create_font(newtime, timefont):
         for par in newtime:
             fonts = [1,3,4,5,6,7,8,9,10,11,12]
             rfont = random.choice(fonts)
-            if par not in [":", "/"]:
+            if par.isdigit():
                 nfont = client.functions.FONTS[int(rfont)].split(",")[int(par)]
                 newtime = newtime.replace(par, nfont)
             fonts.remove(rfont)
@@ -151,7 +151,7 @@ def create_font(newtime, timefont):
             fonts = list(range(1, len(client.functions.FONTS)+2))
             timefont = random.choice(fonts)
         for par in newtime:
-            if par not in [":", "/"]:
+            if par.isdigit():
                 nfont = client.functions.FONTS[int(timefont)].split(",")[int(par)]
                 newtime = newtime.replace(par, nfont)
     return newtime
