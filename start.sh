@@ -1,1 +1,1 @@
-#Nothing
+python3 -m FidoSelf
