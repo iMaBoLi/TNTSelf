@@ -95,7 +95,7 @@ async def setechosleep(event):
     client.DB.set_key("ECHO_SLEEP", sleep)
     await event.edit(STRINGS["esleep"].format(client.functions.convert_time(int(sleep))))
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def echofosh(event):
     if event.is_ch: return
     userid = event.sender_id
