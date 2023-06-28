@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import functions
+from jdatetime import datetime
 import aiocron
 import random
 
@@ -108,7 +109,10 @@ async def autocomment(event):
     if cmode == "ON":
         info = comments[event.chat_id]
         getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+        jtime = datetime.now()
         VARS = {
+            "TIME": jtime.strftime("%H:%M"),
+            "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
             "HEART": random.choice(client.functions.HEARTS),
         }
         for VAR in VARS:
