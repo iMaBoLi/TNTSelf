@@ -115,7 +115,7 @@ async def antispam(event):
                 "HEART": random.choice(client.functions.HEARTS),
                 "NAME": info.first_name,
                 "MENTION": client.mention(info),
-                "USERNAME": info.username,
+                "USERNAME": info.username or "---",
                 "WARNS": WARNSTEXT,
             }
             for VAR in VARS:
