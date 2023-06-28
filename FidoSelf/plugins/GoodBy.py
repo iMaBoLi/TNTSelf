@@ -108,5 +108,20 @@ async def autogoodby(event):
         if goodbymode == "ON":
             info = chats[event.chat_id]
             getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-            getmsg.text = await client.AddVars(getmsg.text, event)
+            chat = await event.get_chat()
+            user = await event.get_user()
+            jtime = datetime.now()
+            VARS = {
+                "TIME": jtime.strftime("%H:%M"),
+                "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
+                "HEART": random.choice(client.functions.HEARTS),
+                "FIRSTNAME": user.first_name,
+                "MENTION": client.mention(user),
+                "USERNAME": user.username,
+                "TITLE": chat.title,
+                "CHATUSERNAME": chat.username,
+                "COUNT": chat.participants_count,
+            }
+            for VAR in VARS:
+                getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
             await event.reply(getmsg)
