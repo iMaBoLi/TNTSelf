@@ -1,11 +1,10 @@
 from FidoSelf import client
 from traceback import format_exc
 from telethon.types import Message
-from jdatetime import datetime
-from jdatetime import date as jdate
 import asyncio
 import time
 import math
+import random
 
 def progress(event, download=False, upload=False):
     newtime = time.time()
@@ -129,8 +128,30 @@ async def save(event):
 
 setattr(Message, "save", save)
 
-def convert_date(year, month, day):
-    gregorian_date = datetime(year, month, day)
-    shamsi_date = jdate.fromgregorian(date=gregorian_date)
-    shamsi = f"{shamsi_date.year}/{shamsi_date.month}/{shamsi_date.day}"
-    return shamsi
+def AddInfo(info):
+    category = info["Category"]
+    pluginname = info["Plugname"]
+    plugininfo = info["Pluginfo"]
+    if category not in client.HELP:
+        client.HELP.update({category: {}})
+    client.HELP[category][pluginname] = plugininfo
+
+def create_font(newtime, timefont):
+    newtime = str(newtime)
+    if str(timefont) == "random2":
+        for par in newtime:
+            fonts = [1,3,4,5,6,7,8,9,10,11,12]
+            rfont = random.choice(fonts)
+            if par not in [":", "/"]:
+                nfont = client.functions.FONTS[int(rfont)].split(",")[int(par)]
+                newtime = newtime.replace(par, nfont)
+            fonts.remove(rfont)
+    else:
+        if str(timefont) == "random":
+            fonts = list(range(1, len(client.functions.FONTS)+2))
+            timefont = random.choice(fonts)
+        for par in newtime:
+            if par not in [":", "/"]:
+                nfont = client.functions.FONTS[int(timefont)].split(",")[int(par)]
+                newtime = newtime.replace(par, nfont)
+    return newtime

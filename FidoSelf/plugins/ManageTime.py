@@ -1,31 +1,46 @@
 from FidoSelf import client
 from telethon import functions, types
 from PIL import Image, ImageDraw, ImageFont, ImageColor
-from FidoSelf.functions.vars import COLORS
+from jdatetime import datetime
 import aiocron
 import random
 import os
+
+def AddVars(text, font=True):
+    jtime = datetime.now()
+    VARS = {
+        "TIME": jtime.strftime("%H:%M"),
+        "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
+        "DAY": jtime.strftime("%A"),
+        "MONTH": jtime.strftime("%B"),
+        "HEART": random.choice(client.functions.HEARTS),
+    }
+    tfont = client.DB.get_key("TIME_FONT") or 1
+    for VAR in VARS:
+        if font:
+            nVAR = client.functions.create_font(VARS[VAR], tfont)
+        else:
+            nVAR = VARS[VAR]
+        text = text.replace(VAR, nVAR)
+    return text
 
 @aiocron.crontab("*/1 * * * *")
 async def namechanger():
     NAMES = client.DB.get_key("NAMES")
     nmode = client.DB.get_key("NAME_MODE") or "OFF"
     if nmode == "ON" and NAMES:
-        chname = await client.AddVars(random.choice(NAMES))
+        chname = AddVars(random.choice(NAMES))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
-            try:
-                await client(functions.account.UpdateProfileRequest(first_name=".", last_name=str(chname)))
-            except:
-                pass
+            pass
 
 @aiocron.crontab("*/1 * * * *")
 async def biochanger():
     BIOS = client.DB.get_key("BIOS")
     bmode = client.DB.get_key("BIO_MODE") or "OFF"
     if bmode == "ON" and BIOS:
-        chbio = await client.AddVars(random.choice(BIOS))
+        chbio = AddVars(random.choice(BIOS))
         try:
             await client(functions.account.UpdateProfileRequest(about=str(chbio)))
         except:
@@ -41,12 +56,12 @@ async def photochanger():
         PHOTO = random.choice(list(PHOTOS.keys()))
         FPHOTO = client.PATH + PHOTO
         phinfo = PHOTOS[PHOTO]
-        TEXT = await client.AddVars(random.choice(TEXTS))
+        TEXT = AddVars(random.choice(TEXTS), font=False)
         sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
         SIZE = sizes[phinfo["size"]]
         COLOR = phinfo["color"]
         if COLOR == "random":
-            COLOR = random.choice(COLORS)
+            COLOR = random.choice(client.functions.COLORS)
         COLOR = ImageColor.getrgb(COLOR)
         img = Image.open(FPHOTO)
         img = img.resize((640, 640))
