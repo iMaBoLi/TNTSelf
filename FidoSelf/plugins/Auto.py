@@ -1,4 +1,6 @@
 from FidoSelf import client
+from jdatetime import datetime
+import random
 import aiocron
 import time
 import asyncio
@@ -137,8 +139,15 @@ async def autosender():
             sleep = client.DB.get_key("AUTO_SLEEP") or 600
             if time.time() >= (ltime + int(sleep)):
                 getmsg = await client.get_messages(int(amessage["chat_id"]), ids=int(amessage["msg_id"]))
-                getmsg.text = await client.AddVars(getmsg.text)
+                jtime = datetime.now()
+                VARS = {
+                    "TIME": jtime.strftime("%H:%M"),
+                    "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
+                    "HEART": random.choice(client.functions.HEARTS),
+                }
+                for VAR in VARS:
+                    getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
                 await client.send_message(chatid, getmsg)
                 achats[chatid] = time.time()
                 client.DB.set_key("AUTO_CHATS", achats)
-                await asyncio.sleep(1)
+                await asyncio.sleep(0.5)
