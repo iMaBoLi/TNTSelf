@@ -39,7 +39,7 @@ async def setautosleep(event):
     client.DB.set_key("AUTODELETE_SLEEP", sleep)
     await event.edit(STRINGS["setsleep"].format(sleep))
 
-@client.Command(alowedits=False)
+@client.Command(allowedits=False)
 async def autodelete(event):
     if event.checkCmd(): return
     automode = client.DB.get_key("AUTODELETE_MODE") or "OFF"
