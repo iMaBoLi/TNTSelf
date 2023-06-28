@@ -1,9 +1,10 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
+import os
+os.system("pip install git+https://github.com/yt-dlp/yt-dlp")
 from yt_dlp import YoutubeDL
 from PIL import Image
 import random
-import os
 import re
 
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
