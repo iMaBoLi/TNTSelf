@@ -38,9 +38,10 @@ def AddHandlersToClient():
     setattr(client, "Inline", Inline)
     
 def SetTimeZone():
-    import os, time
+    import os, time, jdatetime
     os.environ['TZ'] = "Asia/Tehran"
     time.tzset()
+    jdatetime.set_locale("fa_IR")
     
 HEADERS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0",
