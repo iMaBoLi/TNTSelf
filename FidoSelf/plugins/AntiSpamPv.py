@@ -1,5 +1,7 @@
 from FidoSelf import client
 from telethon import functions
+from jdatetime import datetime
+import random
 
 __INFO__ = {
     "Category": "Private",
@@ -105,6 +107,17 @@ async def antispam(event):
         wanti = client.DB.get_key("ANTIWARN_MEDIA")
         if swarn == "ON" and wanti:
             getmsg = await client.get_messages(int(wanti["chat_id"]), ids=int(wanti["msg_id"]))
-            getmsg.text = await client.AddVars(getmsg.text, event)
-            getmsg.text = getmsg.text.replace("{WARNS}", WARNSTEXT)
+            info = await client.get_entity(event.chat_id)
+            jtime = datetime.now()
+            VARS = {
+                "TIME": jtime.strftime("%H:%M"),
+                "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
+                "HEART": random.choice(client.functions.HEARTS),
+                "NAME": info.first_name,
+                "MENTION": client.mention(info),
+                "USERNAME": info.username,
+                "WARNS": WARNSTEXT,
+            }
+            for VAR in VARS:
+                getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
             await event.reply(getmsg)
