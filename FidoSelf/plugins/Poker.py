@@ -43,7 +43,7 @@ async def pokerall(event):
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["pokerall"].format(ShowChange))
  
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def poker(event):
     if event.is_sudo or event.is_bot or not event.text or "😐" not in event.text: return
     pomode = client.DB.get_key("POKER_ALL") or "OFF"
