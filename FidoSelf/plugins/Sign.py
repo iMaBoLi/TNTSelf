@@ -34,7 +34,7 @@ async def setsign(event):
     text = STRINGS["setsign"].format(stext)
     await event.edit(text)
 
-@client.Command(alowedits=False)
+@client.Command(allowedits=False)
 async def sign(event):
     if event.checkCmd(): return
     mode = client.DB.get_key("SIGN_MODE") or "OFF"
