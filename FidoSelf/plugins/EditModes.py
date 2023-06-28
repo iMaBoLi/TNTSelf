@@ -60,7 +60,7 @@ async def editchanger(event):
             settext = STRINGS["editchat"].format(type, ShowChange)
     await event.edit(settext)
 
-@client.Command(alowedits=False)
+@client.Command(allowedits=False)
 async def editmodes(event):
     if not event.text or event.checkCmd(): return
     allmode = client.DB.get_key("EDITALL_MODE") or ""

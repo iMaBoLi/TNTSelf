@@ -7,14 +7,14 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Flood Message In Chats!",
         "Commands": {
-            "{CMD}Flood '<Count>'<Reply>": None,
-            "{CMD}Flood '<Count>' <Text>": None,
+            "{CMD}Flood <Count> <Reply>": None,
+            "{CMD}Flood <Count> <Text>": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
-@client.Command(command="Flood \'(\d*)\' ?([\s\S]*)?")
+@client.Command(command="Flood (\d*) ?([\s\S]*)?")
 async def flood(event):
     count = int(event.pattern_match.group(1))
     texts = event.pattern_match.group(2)
@@ -27,5 +27,4 @@ async def flood(event):
             await event.respond(rand)
     elif event.is_reply:
         for i in range(count):
-            message = await client.get_messages(event.chat_id, ids=event.reply_message.id)
-            await event.respond(message)
+            await event.respond(event.reply_message)

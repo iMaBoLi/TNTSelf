@@ -95,7 +95,7 @@ async def setechosleep(event):
     client.DB.set_key("ECHO_SLEEP", sleep)
     await event.edit(STRINGS["esleep"].format(client.functions.convert_time(int(sleep))))
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def echofosh(event):
     if event.is_ch: return
     userid = event.sender_id
@@ -104,8 +104,7 @@ async def echofosh(event):
     sleep = client.DB.get_key("ECHO_SLEEP") or 0
     if ("All" in Echos[userid]) or ("Groups" in Echos[userid] and event.is_group) or ("Pvs" in Echos[userid] and event.is_private) or (str(event.chat_id) in Echos[userid]):
         await asyncio.sleep(int(sleep))
-        message = await client.get_messages(event.chat_id, ids=event.id)
-        await event.respond(message)
+        await event.respond(event)
 
 @client.Inline(pattern="addecho\:(.*)\:(.*)")
 async def inlineecho(event):

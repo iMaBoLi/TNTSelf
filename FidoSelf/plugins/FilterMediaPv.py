@@ -62,7 +62,7 @@ async def setfilterpvs(event):
     buttons = get_filter_buttons()
     await event.edit(text=text, buttons=buttons)
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def mediafilter(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     TYPES = STRINGS["types"]

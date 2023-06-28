@@ -73,7 +73,7 @@ async def setantiwarn(event):
 
 WARNS = {}
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     antimode = client.DB.get_key("ANTISPAM_PV") or "OFF"

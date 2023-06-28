@@ -106,7 +106,7 @@ async def delpms(event):
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["edelete"].format(ShowChange))
 
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def enemyfosh(event):
     if event.is_white or event.is_ch: return
     userid = event.sender_id
