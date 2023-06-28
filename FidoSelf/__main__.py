@@ -5,8 +5,6 @@ from FidoSelf.functions import AddVarsToClient, load_plugins, DownloadFiles, run
 import platform
 
 async def setup():
-    client.LOGS.info("• Installing Youtube Downloader ...")
-    await runcmd("pip install git+https://github.com/yt-dlp/yt-dlp")
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await AddVarsToClient()
     client.functions = functions
