@@ -1,6 +1,7 @@
 from FidoSelf import client
 from datetime import datetime
 import aiocron
+import random
 
 __INFO__ = {
     "Category": "Practical",
@@ -189,10 +190,14 @@ async def autolove():
     if lmode == "ON":
         mlove = client.DB.get_key("LOVE_MESSAGE") or {}
         loves = client.DB.get_key("LOVES") or []
+        if not mlove: return
         for love in loves:
-            if mlove:
-                getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
-                getmsg.text = await client.AddVars(getmsg.text)
-                await client.send_message(int(love), getmsg)
-            else:
-                await client.send_message(int(love), f"**- {newtime} ❤️**")
+            getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
+            VARS = {
+                "TIME": jtime.strftime("%H:%M"),
+                "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
+                "HEART": random.choice(client.functions.HEARTS),
+            }
+            for VAR in VARS:
+                getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
+            await client.send_message(int(love), getmsg)
