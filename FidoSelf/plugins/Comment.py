@@ -100,7 +100,7 @@ async def cleancommentlist(event):
     client.DB.del_key("COMMENT_CHATS")
     await event.edit(STRINGS["clean"])
     
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def autocomment(event):
     if not event.is_group or not event.fwd_from or not event.fwd_from.saved_from_peer: return
     cmode = client.DB.get_key("COMMENT_MODE") or "OFF"
