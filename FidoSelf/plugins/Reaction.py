@@ -65,7 +65,7 @@ async def getemojis():
         reactlist.append(react.reaction)
     return reactlist
  
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def reaction(event):
     if event.is_sudo or event.is_bot: return
     reacMode = client.DB.get_key("REACTION_ALL") or "OFF"
