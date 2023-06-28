@@ -192,11 +192,15 @@ async def autolove():
         loves = client.DB.get_key("LOVES") or []
         if not mlove: return
         for love in loves:
+            info = await client.get_entity(int(love))
             getmsg = await client.get_messages(int(mlove["chat_id"]), ids=int(mlove["msg_id"]))
             VARS = {
                 "TIME": jtime.strftime("%H:%M"),
                 "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
                 "HEART": random.choice(client.functions.HEARTS),
+                "NAME": info.first_name,
+                "MENTION": client.mention(info),
+                "USERNAME": info.username,
             }
             for VAR in VARS:
                 getmsg.text = getmsg.text.replace(VAR, VARS[VAR])
