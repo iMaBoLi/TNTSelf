@@ -104,7 +104,8 @@ async def echofosh(event):
     sleep = client.DB.get_key("ECHO_SLEEP") or 0
     if ("All" in Echos[userid]) or ("Groups" in Echos[userid] and event.is_group) or ("Pvs" in Echos[userid] and event.is_private) or (str(event.chat_id) in Echos[userid]):
         await asyncio.sleep(int(sleep))
-        await event.respond(event)
+        getmsg = await client.get_messages(event.chat_id, ids=event.id)
+        await event.respond(getmsg)
 
 @client.Inline(pattern="addecho\:(.*)\:(.*)")
 async def inlineecho(event):
