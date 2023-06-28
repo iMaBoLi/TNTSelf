@@ -142,7 +142,7 @@ async def autosender():
                 jtime = datetime.now()
                 VARS = {
                     "TIME": jtime.strftime("%H:%M"),
-                    "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
+                    "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
                     "HEART": random.choice(client.functions.HEARTS),
                 }
                 for VAR in VARS:
