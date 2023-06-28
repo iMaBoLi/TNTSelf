@@ -70,7 +70,7 @@ async def cleanfilterpv(event):
     client.DB.del_key("FILTER_PVS")
     await event.edit(STRINGS["clean"])
     
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def filterpv(event):
     if not event.text or not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     words = client.DB.get_key("FILTER_PVS") or []
