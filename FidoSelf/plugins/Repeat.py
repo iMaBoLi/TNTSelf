@@ -99,7 +99,7 @@ async def cleanrepeats(event):
     client.DB.del_key("REPEATS")
     await event.edit(STRINGS["clean"])
  
-@client.Command(onlysudo=False, alowedits=False)
+@client.Command(onlysudo=False, allowedits=False)
 async def repeat(event):
     if event.is_sudo or event.is_bot or not event.text: return
     remode = client.DB.get_key("REPEAT_ALL") or "OFF"
