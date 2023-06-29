@@ -1,5 +1,5 @@
 from FidoSelf import client
-from datetime import datetime as date
+from datetime import datetime
 from jdatetime import datetime as jdate
 
 __INFO__ = {
@@ -26,12 +26,10 @@ async def time(event):
     date = jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
     day = jtime.strftime("%A")
     month = jtime.strftime("%B")
-    
-    time = date.now()
+    time = datetime.now()
     ltime = time.strftime("%H:%M")
     ldate = time.strftime("%Y") + "/" + time.strftime("%m") + "/" + time.strftime("%d")
     lday = time.strftime("%A")
     lmonth = time.strftime("%B")
-    
     text = STRINGS["time"].format(time, date, day, month, ltime, ldate, lday, lmonth)
     await event.edit(text)
