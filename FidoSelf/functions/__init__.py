@@ -13,8 +13,6 @@ async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
-    setattr(client, "checkCmd", checkCmd)
-    setattr(client, "mention", mention)
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
