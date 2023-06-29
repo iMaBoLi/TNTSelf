@@ -113,7 +113,7 @@ async def cleanphotos(event):
     await event.edit(STRINGS["clean"])
 
 @client.Inline(pattern="addphoto\:(.*)")
-async def addphoto(event):
+async def addphotoinline(event):
     phname = str(event.pattern_match.group(1))
     text = STRINGS["where"]
     buttons = []
@@ -124,7 +124,7 @@ async def addphoto(event):
     await event.answer([event.builder.article("FidoSelf - Photo", text=text, buttons=buttons)])
 
 @client.Callback(data="(.*)photo\:(.*)")
-async def photo(event):
+async def savephoto(event):
     work = str(event.data_match.group(1).decode('utf-8'))
     data = (str(event.data_match.group(2).decode('utf-8'))).split(":")
     photos = client.DB.get_key("PHOTOS") or {}
