@@ -17,7 +17,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
-    "plinfo": "**The Plugin Info:** ( `{}` )\n\n",
+    "plinfo": "**» The Plugin Info:** ( `{}` )\n\n",
     "main": "**» Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**» Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
@@ -36,7 +36,7 @@ CATS = {
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n"
+    text = "**" + info["Help"] + "**\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
