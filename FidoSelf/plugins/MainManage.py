@@ -89,7 +89,7 @@ async def setusermanage(event):
     await event.edit(buttons=buttons)
 
 @client.Callback(data="(block|unblock)\:(.*)\:(.*)")
-async def closemanagepanel(event):
+async def blockunblock(event):
     change = str(event.data_match.group(1).decode('utf-8'))
     chatid = int(event.data_match.group(2).decode('utf-8'))
     userid = int(event.data_match.group(3).decode('utf-8'))
