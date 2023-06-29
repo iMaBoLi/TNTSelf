@@ -20,6 +20,5 @@ def Callback(
             except:
                 client.LOGS.error(format_exc())
         client.bot.add_event_handler(wrapper, events.CallbackQuery(data=data, **kwargs))
-        client.HANDLERS.update({func.__name__: wrapper})
         return wrapper
     return decorator

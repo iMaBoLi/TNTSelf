@@ -6,6 +6,7 @@ from FidoSelf.functions.utils import *
 from FidoSelf.functions.core import *
 from FidoSelf.functions.loader import *
 from FidoSelf.functions.youtube import *
+from FidoSelf.functions.github import *
 from FidoSelf.functions.strings import STRINGS
 from FidoSelf.functions.data import *
 
@@ -15,7 +16,6 @@ async def AddVarsToClient():
     setattr(client, "Config", config)
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "COMMANDS", [])
-    setattr(client, "HANDLERS", {})
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
     setattr(client, "PATH", "downloads/")

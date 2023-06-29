@@ -18,6 +18,5 @@ def Inline(
             except:
                 client.LOGS.error(format_exc())
         client.bot.add_event_handler(wrapper, events.InlineQuery(pattern=pattern, **kwargs))
-        client.HANDLERS.update({func.__name__: wrapper})
         return wrapper
     return decorator

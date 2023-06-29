@@ -17,6 +17,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
+    "plinfo": "**» The Plugin Info:** ( `{}` )\n\n",
     "main": "**» Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**» Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
@@ -35,13 +36,13 @@ CATS = {
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n\n"
+    text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "  __› " + info["Commands"][command] + "__\n"
+            text += "  **› " + info["Commands"][command] + "**\n"
     return text
 
 def search_plugin(pluginname):
@@ -61,7 +62,8 @@ async def help(event):
         category, plugin = search_plugin(pname)
         if not (category or plugin):
             return await event.edit(STRINGS["notfound"].format(pname))
-        text = gethelp(category, plugin)
+        text = STRINGS["plinfo"].format(plugin)
+        text += gethelp(category, plugin)
         return await event.edit(text)
     else:
         res = await client.inline_query(client.bot.me.username, "Help")
@@ -98,7 +100,7 @@ async def getcategory(event):
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)

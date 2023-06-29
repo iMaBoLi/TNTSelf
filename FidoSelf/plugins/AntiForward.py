@@ -17,7 +17,7 @@ STRINGS = {
 }
 
 @client.Command(command="AntiForward (On|Off)")
-async def setanti(event):
+async def setantiforward(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTIFORWARD_MODE", change)
