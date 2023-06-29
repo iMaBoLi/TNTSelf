@@ -28,3 +28,9 @@ async def ping(event):
     text = STRINGS["ping"]
     text = text.format(ping=ping)
     await event.edit(text)
+    
+@client.Command(command="Res")
+async def restart(event):
+    await event.edit(client.STRINGS["wait"])
+    await event.edit("**• Bot Restarted!**")
+    client.functions.runcmd("python3 -m FidoSelf")
