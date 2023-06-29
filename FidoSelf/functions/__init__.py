@@ -32,7 +32,5 @@ def AddHandlersToClient():
     setattr(client, "Inline", Inline)
     
 def SetTimeZone():
-    import os, time, jdatetime
-    os.environ['TZ'] = "Asia/Tehran"
-    time.tzset()
+    import jdatetime
     jdatetime.set_locale("fa_IR")
