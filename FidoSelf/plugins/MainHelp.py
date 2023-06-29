@@ -35,15 +35,15 @@ CATS = {
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n"
+    text = "**꥟ " + info["Help"] + "**\n"
+    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
         text += f"[🔗]({share})" + ": " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "  __› " + info["Commands"][command] + "__\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱"
+            text += "    **› " + info["Commands"][command] + "**\n"
+    text += "─────── ⋆ ───────" + "\n"
     return text
 
 def search_plugin(pluginname):
@@ -72,7 +72,7 @@ async def help(event):
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):
-    text = STRINGS["main"].format(client.mention(client.me))
+    text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
@@ -84,7 +84,7 @@ async def inlinehelp(event):
 
 @client.Callback(data="Help")
 async def callhelp(event):
-    text = STRINGS["main"].format(client.mention(client.me))
+    text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
@@ -100,9 +100,9 @@ async def getcategory(event):
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, sizes=[2,1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    text = STRINGS["category"].format(client.mention(client.me), category)
+    text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
