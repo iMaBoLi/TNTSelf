@@ -45,7 +45,7 @@ async def antipvwarn(event):
     await event.edit(STRINGS["warnmode"].format(ShowChange))
 
 @client.Command(command="SetSpamPvLimit (\d*)")
-async def setautodeletesleep(event):
+async def setspamlimit(event):
     await event.edit(STRINGS["wait"])
     limit = event.pattern_match.group(1)
     if 3 > limit > 20:
