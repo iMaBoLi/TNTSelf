@@ -15,7 +15,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "time": "**Time:** ( `{}` )\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n\n**Local Time:**\n**Time:** ( `{}` )\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n",
+    "time": "**Time:** ( `{}` )\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n\n**Local Time:**\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n",
 }
 
 @client.Command(command="Time")
@@ -28,7 +28,6 @@ async def time(event):
         irtime.strftime("%Y") + "/" + irtime.strftime("%m") + "/" + irtime.strftime("%d"),
         irtime.strftime("%A"),
         irtime.strftime("%B"),
-        localtime.strftime("%H:%M"),
         localtime.strftime("%Y") + "/" + localtime.strftime("%m") + "/" + localtime.strftime("%d"),
         localtime.strftime("%A"),
         localtime.strftime("%B"),
