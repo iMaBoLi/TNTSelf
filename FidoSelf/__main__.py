@@ -17,7 +17,7 @@ async def setup():
     update = client.DB.get_key("UPDATE") or True
     if update:
         try:
-            send = await client.bot.send_message(client.REALM, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.mention(client.me)}\n**🤖 Manager :** {client.mention(client.bot.me)}")
+            send = await client.bot.send_message(client.REALM, f"**👋 Fido Self Has Been Start Now !**\n\n**🧒 UserMode :** {client.functions.mention(client.me)}\n**🤖 Manager :** {client.functions.mention(client.bot.me)}")
             if plugs:
                 text = "**✅ Loaded Plugins :**\n\n"
                 for plug in plugs:
