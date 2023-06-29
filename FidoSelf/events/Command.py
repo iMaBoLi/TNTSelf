@@ -32,9 +32,8 @@ def Command(
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
-        addhandler = client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
-        client.HANDLERS.append(func)
-        client.HANDLERS.append(wrapper)
+        client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
+        client.HANDLERS.update({func.__name__: wrapper})
         if allowedits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
