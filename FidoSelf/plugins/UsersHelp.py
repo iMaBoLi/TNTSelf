@@ -23,7 +23,7 @@ async def gethelp(event):
     reply = await event.reply(client.STRINGS["wait"])
     userid = event.sender_id
     info = await client.get_entity(event.sender_id)
-    text = STRINGS["main"].format(client.mention(info))
+    text = STRINGS["main"].format(client.functions.mention(info))
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
@@ -37,7 +37,7 @@ async def gethelp(event):
 @Callback(data="OtherHelp")
 async def callhelp(event):
     info = await client.get_entity(event.sender_id)
-    text = STRINGS["main"].format(client.mention(info))
+    text = STRINGS["main"].format(client.functions.mention(info))
     buttons = []
     for category in CATS:
         plugcount = len(client.HELP[category])
@@ -55,7 +55,7 @@ async def getcategory(event):
         buttons.append(Button.inline(f"• {plugin} •", data=f"OtherGetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, sizes=[3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="OtherHelp"), Button.inline(client.STRINGS["inline"]["Close"], data="OtherCloseHelp")])
-    text = STRINGS["category"].format(client.mention(client.me), category)
+    text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
 @Callback(data="OtherGetHelp\:(.*)\:(.*)")
