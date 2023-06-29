@@ -1,6 +1,6 @@
 from FidoSelf import client
 from traceback import format_exc
-from importlib import import_module
+import importlib
 import glob
 import os
 import re
@@ -9,13 +9,15 @@ def get_plugins():
     files = sorted(glob.glob(f"FidoSelf/plugins/*.py"))
     return files
 
-def load_plugins(files):
+def load_plugins(files, reload=False):
     plugs = []
     notplugs = {}
     for file in files:
         try:
             filename = file.replace("/", ".").replace(".py" , "")
-            import_module(filename)
+            module = importlib.import_module(filename)
+            if reload:
+                importlib.reload(module)
             plugs.append(os.path.basename(file))
         except:
             notplugs.update({os.path.basename(file): format_exc()})
