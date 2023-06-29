@@ -57,7 +57,7 @@ async def delecho(event):
     Echos = client.DB.get_key("ECHOS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)
-        mention = client.mention(uinfo)
+        mention = client.functions.mention(uinfo)
         return await event.edit(STRINGS["notin"].format(mention))
     res = await client.inline_query(client.bot.me.username, f"delecho:{userid}")
     if event.is_reply:
@@ -134,7 +134,7 @@ async def addechos(event):
         return await event.answer(text, alert=True)
     Echos[userid].append(where)
     client.DB.set_key("ECHOS", Echos)
-    text = STRINGS["add"].format(client.mention(userinfo), where)
+    text = STRINGS["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
 @client.Inline(pattern="delecho\:(.*)")
@@ -153,7 +153,7 @@ async def delechos(event):
     where = str(event.data_match.group(2).decode('utf-8'))
     Echos = client.DB.get_key("ECHOS") or {}
     uinfo = await client.get_entity(userid)
-    mention = client.mention(uinfo)
+    mention = client.functions.mention(uinfo)
     Echos[userid].remove(where)
     if not Echos[userid]:
         del Echos[userid]
