@@ -12,7 +12,8 @@ STRINGS = {
 async def update(event):
     await event.edit(client.STRINGS["wait"])
     filename = event.pattern_match.group(1)
-    filename = "FidoSelf/plugins/" + filename + ".py"
+    if "/" not in filename:
+        filename = "FidoSelf/plugins/" + filename + ".py"
     if not os.path.exists(filename):
         return await event.edit(STRINGS["notfile"].format(filename))
     content = Git().repo.get_contents(filename, ref="DEV")
