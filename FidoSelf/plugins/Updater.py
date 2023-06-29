@@ -7,7 +7,7 @@ STRINGS = {
     "update": "**The Plugin With Name** ( `{}` ) **Has Been Updated!**",
 }
 
-@client.Command(command="Update (.*)")
+@client.Command(command="Up (.*)")
 async def update(event):
     await event.edit(client.STRINGS["wait"])
     filename = event.pattern_match.group(1)
