@@ -50,7 +50,7 @@ async def autodelete(event):
         client.DB.set_key("AUTODELETE_MSGS", MSGS)
 
 @aiocron.crontab("*/1 * * * * *")
-async def autosender():
+async def autodeleter():
     MSGS = client.DB.get_key("AUTODELETE_MSGS") or {}
     if not MSGS: return
     for msg in MSGS:
