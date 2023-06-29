@@ -29,4 +29,3 @@ def remove_handlers(file):
     for find in finds:
         if find in client.HANDLERS:
             client.remove_event_handler(client.HANDLERS[find])
-            del client.HANDLERS[find]
