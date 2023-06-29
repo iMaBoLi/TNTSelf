@@ -15,17 +15,8 @@ def load_plugins(files, reload=False):
     for file in files:
         try:
             filename = file.replace("/", ".").replace(".py" , "")
-            module = importlib.import_module(filename)
-            if reload:
-                importlib.reload(module)
+            importlib.import_module(filename)
             plugs.append(os.path.basename(file))
         except:
             notplugs.update({os.path.basename(file): format_exc()})
     return plugs, notplugs
-
-def remove_handlers(file):
-    data = open(file, "r").read()
-    finds = re.findall("def (.*)\(", data)
-    for find in finds:
-        if find in client.HANDLERS:
-            client.remove_event_handler(client.HANDLERS[find])
