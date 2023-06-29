@@ -1,8 +1,8 @@
 from FidoSelf import client
-import shutil
+import shutil, glob, os
 
 STRINGS = {
-    "update": "**The Plugin With Name** ( `{}` ) **Has Been Updated!**",
+    "complete": "**Successfuly Updated And Restarting ...**",
 }
 
 @client.Command(command="Update")
@@ -13,5 +13,10 @@ async def update(event):
     await client.functions.runcmd(f"curl {link} -o Fido.zip")
     await client.functions.runcmd("unzip Fido.zip")
     shutil.rmtree("/app/FidoSelf/")
-    shutil.copytree("/app/", "/app/FidoSelf/")
-    await event.edit(STRINGS["update"].format(filename))
+    path = glob.glob("iMaBoLi*")[0]
+    newpath = "/app/" + path + "/FidoSelf/"
+    shutil.copytree(newpath, "/app/FidoSelf/")
+    await event.edit(STRINGS["complete"])
+    shutil.rmtree(path)
+    os.remove("Fido.zip")
+    await client.functions.runcmd("python3 -m FidoSelf")
