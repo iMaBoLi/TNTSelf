@@ -119,7 +119,7 @@ async def savelove(event):
     await event.edit(STRINGS["setlove"])
 
 @client.Command(command="DeleteLove")
-async def dellove(event):
+async def deletelove(event):
     await event.edit(client.STRINGS["wait"])
     mlove = client.DB.get_key("LOVE_MESSAGE") or {}
     if not mlove:
