@@ -4,6 +4,7 @@ import base64
 import os
 
 STRINGS = {
+    "notfile": "**The Plugin With Name** ( `{}` ) **Is Not Available!**",
     "update": "**The Plugin With Name** ( `{}` ) **Has Been Updated!**",
 }
 
@@ -13,7 +14,10 @@ async def update(event):
     filename = event.pattern_match.group(1)
     if "/" not in filename:
         filename = "FidoSelf/plugins/" + filename + ".py"
-    content = Git().repo.get_contents(filename, ref="DEV")
+    try:
+        content = Git().repo.get_contents(filename, ref="DEV")
+    except:
+        return await event.edit(STRINGS["notfile"].format(filename))
     content = base64.b64decode(content.content).decode('utf-8')
     open(filename, "w").write(content)
     client.functions.remove_handlers(filename)
