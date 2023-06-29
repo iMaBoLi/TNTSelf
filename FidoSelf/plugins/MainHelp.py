@@ -43,7 +43,7 @@ def gethelp(category, plugin):
         text += f"[🔗]({share})" + ": " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
             text += "    **› " + info["Commands"][command] + "**\n"
-    text = "⊰ ┈───╌ ❊ ╌───┈ ⊱"
+    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱"
     return text
 
 def search_plugin(pluginname):
