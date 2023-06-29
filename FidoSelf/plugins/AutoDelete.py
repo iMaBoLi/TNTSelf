@@ -30,7 +30,7 @@ async def delautomode(event):
     await event.edit(STRINGS["change"].format(ShowChange))
     
 @client.Command(command="SetDeleteSleep (\d*)")
-async def setautosleep(event):
+async def setautodeletesleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = int(event.pattern_match.group(1))
     if 1 > sleep > 120:
