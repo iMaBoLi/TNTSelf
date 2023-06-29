@@ -1,6 +1,6 @@
 from FidoSelf import client
-from datetime import datetime
-from jdatetime import datetime as jdate
+import datetime
+import jdatetime
 
 __INFO__ = {
     "Category": "Setting",
@@ -21,15 +21,16 @@ STRINGS = {
 @client.Command(command="Time")
 async def time(event):
     await event.edit(client.STRINGS["wait"])
-    jtime = jdate.now()
-    time = jtime.strftime("%H:%M")
-    date = jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d")
-    day = jtime.strftime("%A")
-    month = jtime.strftime("%B")
-    time = datetime.now()
-    ltime = time.strftime("%H:%M")
-    ldate = time.strftime("%Y") + "/" + time.strftime("%m") + "/" + time.strftime("%d")
-    lday = time.strftime("%A")
-    lmonth = time.strftime("%B")
-    text = STRINGS["time"].format(time, date, day, month, ltime, ldate, lday, lmonth)
+    irtime = jdatetime.datetime.now()
+    localtime = datetime.datetime.now()
+    text = STRINGS["time"].format(
+        irtime.strftime("%H:%M"),
+        irtime.strftime("%Y") + "/" + irtime.strftime("%m") + "/" + irtime.strftime("%d"),
+        irtime.strftime("%A"),
+        irtime.strftime("%B"),
+        localtime.strftime("%H:%M"),
+        localtime.strftime("%Y") + "/" + localtime.strftime("%m") + "/" + localtime.strftime("%d"),
+        localtime.strftime("%A"),
+        localtime.strftime("%B"),
+    )
     await event.edit(text)
