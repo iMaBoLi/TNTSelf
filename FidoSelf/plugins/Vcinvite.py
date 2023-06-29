@@ -23,7 +23,7 @@ STRINGS = {
 }
 
 @client.Command(command="InvVc ?(.*)?")
-async def ginfo(event):
+async def invitevc(event):
     await event.edit(client.STRINGS["wait"])
     users = str(event.pattern_match.group(1) or "")
     if event.chat.megagroup or event.chat.broadcast:

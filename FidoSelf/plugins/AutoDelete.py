@@ -30,7 +30,7 @@ async def delautomode(event):
     await event.edit(STRINGS["change"].format(ShowChange))
     
 @client.Command(command="SetDeleteSleep (\d*)")
-async def setautosleep(event):
+async def setautodeletesleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = int(event.pattern_match.group(1))
     if 1 > sleep > 120:
@@ -50,7 +50,7 @@ async def autodelete(event):
         client.DB.set_key("AUTODELETE_MSGS", MSGS)
 
 @aiocron.crontab("*/1 * * * * *")
-async def autosender():
+async def autodeleter():
     MSGS = client.DB.get_key("AUTODELETE_MSGS") or {}
     if not MSGS: return
     for msg in MSGS:

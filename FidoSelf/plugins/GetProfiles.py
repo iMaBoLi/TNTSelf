@@ -19,7 +19,7 @@ STRINGS = {
 }
 
 @client.Command(command="GProfiles ?(.*)?")
-async def delprofiles(event):
+async def getprofiles(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:

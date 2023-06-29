@@ -18,7 +18,7 @@ STRINGS = {
 }
 
 @client.Command(command="AntiEdit (On|Off)")
-async def setanti(event):
+async def setantiedit(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTIEDIT_MODE", change)

@@ -116,7 +116,7 @@ async def ytsearchclick(event):
     await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
 
 @client.Inline(pattern="ytsearch\:(.*)")
-async def ytsearch(event):
+async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
     searchs = client.functions.yt_search(query, limit=20)

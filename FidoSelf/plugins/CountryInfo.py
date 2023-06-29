@@ -19,7 +19,7 @@ STRINGS = {
 }
 
 @client.Command(command="SCountry (.*)")
-async def chatcounts(event):
+async def countryinfo(event):
     await event.edit(client.STRINGS["wait"])
     coname = event.pattern_match.group(1).title()
     try:
