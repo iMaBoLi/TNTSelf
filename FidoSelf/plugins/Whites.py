@@ -34,7 +34,7 @@ async def addwhite(event):
         return await event.edit(client.STRINGS["getuserID"])
     whites = client.DB.get_key("WHITES") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid in whites:
         return await event.edit(STRINGS["notall"].format(mention))
     whites.append(userid)
@@ -53,7 +53,7 @@ async def delwhite(event):
         return await event.edit(client.STRINGS["getuserID"])
     whites = client.DB.get_key("WHITES") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid not in whites:
         return await event.edit(STRINGS["notin"].format(mention))  
     whites.remove(userid)
