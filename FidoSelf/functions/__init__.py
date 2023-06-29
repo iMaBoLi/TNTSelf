@@ -15,7 +15,7 @@ async def AddVarsToClient():
     setattr(client, "Config", config)
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "COMMANDS", [])
-    setattr(client, "HANDLERS", [])
+    setattr(client, "HANDLERS", {})
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
     setattr(client, "PATH", "downloads/")
