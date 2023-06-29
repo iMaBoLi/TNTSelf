@@ -36,21 +36,19 @@ CATS = {
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
     text = "**꥟ " + info["Help"] + "**\n\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
-        text += f"[🔗]({share})" + ": " + f"`{cname}`" + "\n"
+        text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "    **› " + info["Commands"][command] + "**\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱"
+            text += "  __› " + info["Commands"][command] + "__\n"
     return text
 
 def search_plugin(pluginname):
-    pluginname = pluginname.replace(" ", "").title()
+    pluginname = pluginname.replace(" ", "").lower()
     for category in CATS:
         for plugin in client.HELP[category]:
-            plname = plugin.replace(" ", "").title()
+            plname = plugin.replace(" ", "").lower()
             if pluginname == plname:
                 return category, plugin
     return None, None
@@ -100,7 +98,7 @@ async def getcategory(event):
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
-    buttons = client.functions.chunker(buttons, sizes=[2,1,2])
+    buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
