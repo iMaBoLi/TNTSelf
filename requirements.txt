@@ -2,7 +2,6 @@ Telethon
 Tgcrypto
 requests
 redis
-localdb.json
 opencv-python
 pillow
 moviepy
@@ -14,7 +13,6 @@ PyGithub
 wikipedia
 aiocron
 bs4
-fake_useragent
 image_slicer
 jdatetime
 httpx[http2]
