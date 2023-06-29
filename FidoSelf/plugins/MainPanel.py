@@ -1,6 +1,6 @@
 from FidoSelf import client
 from telethon import Button
-from datetime import datetime
+from jdatetime import datetime
 
 __INFO__ = {
     "Category": "Setting",

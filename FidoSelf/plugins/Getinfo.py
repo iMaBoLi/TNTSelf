@@ -42,7 +42,7 @@ async def userinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = STRINGS["user"].format(client.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = STRINGS["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:

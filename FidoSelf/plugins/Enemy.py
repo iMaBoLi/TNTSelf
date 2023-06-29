@@ -60,7 +60,7 @@ async def delenemy(event):
     Enemies = client.DB.get_key("ENEMIES") or {}
     if userid not in Enemies:
         uinfo = await client.get_entity(userid)
-        mention = client.mention(uinfo)
+        mention = client.functions.mention(uinfo)
         return await event.edit(STRINGS["notin"].format(mention))
     res = await client.inline_query(client.bot.me.username, f"delenemy:{userid}")
     if event.is_reply:
@@ -153,7 +153,7 @@ async def addenemies(event):
         return await event.answer(text, alert=True)
     Enemies[userid].append(where)
     client.DB.set_key("ENEMIES", Enemies)
-    text = STRINGS["add"].format(client.mention(userinfo), where)
+    text = STRINGS["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
 @client.Inline(pattern="delenemy\:(.*)")
@@ -172,7 +172,7 @@ async def delenemies(event):
     where = str(event.data_match.group(2).decode('utf-8'))
     Enemies = client.DB.get_key("ENEMIES") or {}
     uinfo = await client.get_entity(userid)
-    mention = client.mention(uinfo)
+    mention = client.functions.mention(uinfo)
     Enemies[userid].remove(where)
     if not Enemies[userid]:
         del Enemies[userid]

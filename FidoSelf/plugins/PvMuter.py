@@ -34,7 +34,7 @@ async def addmutepv(event):
         return await event.edit(client.STRINGS["getuserID"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid in mutepvs:
         return await event.edit(STRINGS["notall"].format(mention))
     mutepvs.append(userid)
@@ -53,7 +53,7 @@ async def delmutepv(event):
         return await event.edit(client.STRINGS["getuserID"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid not in mutepvs:
         return await event.edit(STRINGS["notin"].format(mention))  
     mutepvs.remove(userid)

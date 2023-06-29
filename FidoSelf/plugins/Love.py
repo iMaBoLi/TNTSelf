@@ -65,7 +65,7 @@ async def addlove(event):
         return await event.edit(client.STRINGS["getuserID"])
     loves = client.DB.get_key("LOVES") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid in loves:
         return await event.edit(STRINGS["notall"].format(mention))
     loves.append(userid)
@@ -80,7 +80,7 @@ async def dellove(event):
         return await event.edit(client.STRINGS["getuserID"])
     loves = client.DB.get_key("LOVES") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid not in loves:
         return await event.edit(STRINGS["notin"].format(mention))  
     loves.remove(userid)
@@ -199,7 +199,7 @@ async def autolove():
                 "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
                 "HEART": random.choice(client.functions.HEARTS),
                 "NAME": info.first_name,
-                "MENTION": client.mention(info),
+                "MENTION": client.functions.mention(info),
                 "USERNAME": info.username,
             }
             for VAR in VARS:

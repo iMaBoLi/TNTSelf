@@ -117,7 +117,7 @@ async def autogoodby(event):
                 "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
                 "HEART": random.choice(client.functions.HEARTS),
                 "FIRSTNAME": user.first_name,
-                "MENTION": client.mention(user),
+                "MENTION": client.functions.mention(user),
                 "USERNAME": user.username or "---",
                 "TITLE": chat.title,
                 "CHATUSERNAME": chat.username or "---",

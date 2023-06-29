@@ -13,8 +13,6 @@ async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
-    setattr(client, "checkCmd", checkCmd)
-    setattr(client, "mention", mention)
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
@@ -34,7 +32,5 @@ def AddHandlersToClient():
     setattr(client, "Inline", Inline)
     
 def SetTimeZone():
-    import os, time, jdatetime
-    os.environ['TZ'] = "Asia/Tehran"
-    time.tzset()
+    import jdatetime
     jdatetime.set_locale("fa_IR")

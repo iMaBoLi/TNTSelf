@@ -34,7 +34,7 @@ async def addblack(event):
         return await event.edit(client.STRINGS["getuserID"])
     blacks = client.DB.get_key("BLACKS") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid in blacks:
         return await event.edit(STRINGS["notall"].format(mention))
     blacks.append(userid)
@@ -53,7 +53,7 @@ async def delblack(event):
         return await event.edit(client.STRINGS["getuserID"])
     blacks = client.DB.get_key("BLACKS") or []
     info = await client.get_entity(userid)
-    mention = client.mention(info)
+    mention = client.functions.mention(info)
     if userid not in blacks:
         return await event.edit(STRINGS["notin"].format(mention))  
     blacks.remove(userid)
