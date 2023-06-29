@@ -3,7 +3,7 @@ from FidoSelf.functions import *
 from telethon import events, functions, types, Button
 from datetime import datetime
 import traceback
-#import requests
+import requests
 import asyncio
 import os
 import sys
@@ -20,7 +20,7 @@ async def runner(code , event):
     exec("async def coderunner(event , local, chat_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, reply)
 
-@client.on(events.NewMessage(pattern=f"(?i)^(\.|\/|\,)Run(?:\s|$)([\s\S]*)$", outgoing=True))
+@client.Command(pattern="Run(?:\s|$)([\s\S]*)")
 async def runcodes(event):
     edit = await event.reply(f"`• Running ...`")
     if event.text[4:]:
@@ -40,7 +40,7 @@ async def runcodes(event):
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-    result = "Success‌!"
+    result = "Success!"
     if exec:
         result = exec
     elif stderr:
