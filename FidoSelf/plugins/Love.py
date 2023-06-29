@@ -138,7 +138,7 @@ async def getlove(event):
     await event.delete()
 
 @client.Command(command="AddLoveTime (.*)")
-async def addrepeat(event):
+async def addlovetime(event):
     await event.edit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVE_TIMES") or []
     newtime = str(event.pattern_match.group(1))
@@ -149,7 +149,7 @@ async def addrepeat(event):
     await event.edit(STRINGS["newadd"].format(newtime))
     
 @client.Command(command="DelLoveTime (.*)")
-async def delrepeat(event):
+async def dellovetime(event):
     await event.edit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVE_TIMES") or []
     newtime = str(event.pattern_match.group(1))
@@ -160,7 +160,7 @@ async def delrepeat(event):
     await event.edit(STRINGS["deltime"].format(newtime))
 
 @client.Command(command="LoveTimeList")
-async def repeatlist(event):
+async def lovetimelist(event):
     await event.edit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVE_TIMES") or []
     if not times:
@@ -173,7 +173,7 @@ async def repeatlist(event):
     await event.edit(text)
 
 @client.Command(command="CleanLoveTimeList")
-async def cleantimes(event):
+async def cleanlovetimes(event):
     await event.edit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVE_TIMES") or []
     if not times:
