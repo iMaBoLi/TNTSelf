@@ -41,7 +41,7 @@ def gethelp(category, plugin):
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "  __› " + info["Commands"][command] + "__\n"
+            text += "  **› " + info["Commands"][command] + "**\n"
     return text
 
 def search_plugin(pluginname):
@@ -98,7 +98,7 @@ async def getcategory(event):
     buttons = []
     for plugin in client.HELP[category]:
         buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
