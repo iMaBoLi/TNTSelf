@@ -35,15 +35,15 @@ CATS = {
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
+    text = "**꥟ " + info["Help"] + "**\n\n"
+    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
         text += f"[🔗]({share})" + ": " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
             text += "    **› " + info["Commands"][command] + "**\n"
-    text += "─────── ⋆ ───────" + "\n"
+    text = "⊰ ┈───╌ ❊ ╌───┈ ⊱"
     return text
 
 def search_plugin(pluginname):
