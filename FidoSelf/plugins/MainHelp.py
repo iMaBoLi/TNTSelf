@@ -36,7 +36,7 @@ CATS = {
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
-    text = "**" + info["Help"] + "**\n"
+    text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
