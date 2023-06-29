@@ -19,5 +19,5 @@ async def update(event):
     content = base64.b64decode(content.content).decode('utf-8')
     client.functions.remove_handlers(filename)
     open(filename, "w").write(content)
-    client.functions.load_plugins([filename])
+    client.functions.load_plugins([filename], reload=True)
     await event.edit(STRINGS["update"].format(filename))
