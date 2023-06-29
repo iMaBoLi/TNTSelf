@@ -114,7 +114,7 @@ async def antispam(event):
                 "DATE": jtime.strftime("%Y") + "/" + jtime.strftime("%m") + "/" + jtime.strftime("%d"),
                 "HEART": random.choice(client.functions.HEARTS),
                 "NAME": info.first_name,
-                "MENTION": client.mention(info),
+                "MENTION": client.functions.mention(info),
                 "USERNAME": info.username or "---",
                 "WARNS": WARNSTEXT,
             }
