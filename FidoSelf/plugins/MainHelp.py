@@ -33,24 +33,38 @@ CATS = {
     "Funs": "🎨 Funs ({})",
 }
 
-def search_plugin(pname):
+def gethelp(category, plugin):
+    info = client.HELP[category][plugin]
+    text = "**꥟ " + info["Help"] + "**\n"
+    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
+    for command in info["Commands"]:
+        cname = command.replace("{CMD}", ".")
+        share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
+        text += f"[🔗]({share})" + ": " + f"`{cname}`" + "\n"
+        if info["Commands"][command]:
+            text += "    **› " + info["Commands"][command] + "**\n"
+    text += "─────── ⋆ ───────" + "\n"
+    return text
+
+def search_plugin(pluginname):
+    pluginname = pluginname.replace(" ", "").title()
     for category in CATS:
-        plugins = client.HELP[category]
-        if pname in plugins:
-            return category
-    return None
+        for plugin in client.HELP[category]:
+            plname = plugin.replace(" ", "").title()
+            if pluginname == plname:
+                return category, plugin
+    return None, None
 
 @client.Command(command="Help ?(.*)?")
 async def help(event):
     await event.edit(client.STRINGS["wait"])
     pname = event.pattern_match.group(1)
     if pname:
-        search = search_plugin(pname)
-        if not search:
+        category, plugin = search_plugin(pname)
+        if not (category or plugin):
             return await event.edit(STRINGS["notfound"].format(pname))
-        res = await client.inline_query(client.bot.me.username, f"GetHelp:{search}:{pname}")
-        await res[0].click(event.chat_id)
-        await event.delete()
+        text = gethelp(category, plugin)
+        return await event.edit(text)
     else:
         res = await client.inline_query(client.bot.me.username, "Help")
         await res[0].click(event.chat_id)
@@ -91,37 +105,11 @@ async def getcategory(event):
     text = STRINGS["category"].format(client.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.Inline(pattern="GetHelp\:(.*)\:(.*)")
-async def getInlineplugin(event):
-    category = event.pattern_match.group(1)
-    plugin = event.pattern_match.group(2)
-    info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
-    for command in info["Commands"]:
-        ComName = command.replace("{CMD}", ".")
-        share = f"http://t.me/share/text?text={ComName.split(' ')[0]}"
-        text += f"[🔗]({share})" + ": " + f"`{ComName}`" + "\n"
-        if info["Commands"][command]:
-            text += "    **› " + info["Commands"][command] + "**\n"
-        text += "─────── ⋆ ───────" + "\n"
-    buttons = [[Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
-    await event.answer([event.builder.article("FidoSelf - Plugin Help", text=text, buttons=buttons)])
-
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
-    info = client.HELP[category][plugin]
-    text = "**꥟ " + info["Help"] + "**\n"
-    text += "⊰ ┈───╌ ❊ ╌───┈ ⊱" + "\n\n"
-    for command in info["Commands"]:
-        ComName = command.replace("{CMD}", ".")
-        share = f"http://t.me/share/text?text={ComName.split(' ')[0]}"
-        text += f"[🔗]({share})" + ": " + f"`{ComName}`" + "\n"
-        if info["Commands"][command]:
-            text += "    **› " + info["Commands"][command] + "**\n"
-        text += "─────── ⋆ ───────" + "\n"
+    text = gethelp(category, plugin)
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
