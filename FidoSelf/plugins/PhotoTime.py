@@ -10,9 +10,9 @@ __INFO__ = {
         "Help": "To Save Your Photo For Profile Time And Turn On-Off!",
         "Commands": {
             "{CMD}Photo <On-Off>": None,
-            "{CMD}NewPhoto <Name><Reply(Photo)>": "Save Photo White Name!",
-            "{CMD}DelPhoto <Name>": "Delete Photo White Name!",
-            "{CMD}GetPhoto <Name>": "Get Photo White Name!",
+            "{CMD}AddPhoto <Name><Reply(Photo)>": None,
+            "{CMD}DelPhoto <Name>": None,
+            "{CMD}GetPhoto <Name>": None,
             "{CMD}PhotoList": None,
             "{CMD}CleanPhotoList": None,
         },
@@ -48,14 +48,14 @@ async def photomode(event):
 
 def get_buttons(phname):
     buttons = []
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = INPHOTOS
     info = photos[phname]
     wherbts = [[Button.inline("• Where : ⤵️", data="Empty")]]
     owherbts = []
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
         ShowMode = client.STRINGS["inline"]["On"] if str(info["Where"]) == str(where) else client.STRINGS["inline"]["Off"]
         owherbts.append(Button.inline(f"{where} {ShowMode}", data=f"SetPhoto:Where:{phname}:{where}"))
-    buttons += perbts + list(client.functions.chunks(owherbts, 3))
+    buttons += wherbts + list(client.functions.chunks(owherbts, 3))
     sizebts = [[Button.inline("• Size : ⤵️", data="Empty")]]
     osizebts = []
     for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
@@ -68,8 +68,8 @@ def get_buttons(phname):
     for color in (["Random ♻️"] + client.functions.COLORS):
         scolor = color if color != "Random ♻️" else "Random"
         ShowMode = client.STRINGS["inline"]["On"] if str(info["Color"]) == str(scolor) else client.STRINGS["inline"]["Off"]
-        ocolorbts.append(Button.inline(f"{color} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
-    buttons += colorbts + list(client.functions.chunks(ocolorbts, 4))
+        ocolorbts.append(Button.inline(f"{color.title()} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
+    buttons += colorbts + list(client.functions.chunks(ocolorbts, 3))
     alignbts = [[Button.inline("• Align : ⤵️", data="Empty")]]
     oalignbts = []
     for align in ["Left", "Center", "Right"]:
@@ -80,7 +80,7 @@ def get_buttons(phname):
     buttons.append([Button.inline("📥 Save ✅", data=f"SavePhoto:{phname}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelPhoto:{phname}")])
     return buttons
 
-@client.Command(command="NewPhoto (.*)")
+@client.Command(command="AddPhoto (.*)")
 async def addphoto(event):
     await event.edit(client.STRINGS["wait"])
     reply, _ = event.checkReply(["Photo"])
@@ -104,6 +104,9 @@ async def delphoto(event):
         return await event.edit(STRINGS["notin"].format(phname))
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
+    phfile = client.PATH + phname
+    if os.path.exists(phfile):
+        os.remove(phfile)
     await event.edit(STRINGS["delphoto"].format(phname))
     await photochanger()
 
@@ -156,7 +159,7 @@ async def setphoto(event):
     info = photos[phname]
     photos[phname][smode] = change 
     lasttext = STRINGS["photopage"].format(phname)
-    settext = STRINGS["setpage"].format(smode, change)
+    settext = STRINGS["setphoto"].format(smode, change)
     text = settext + "\n\n" + lasttext
     buttons = get_buttons(phname)
     await event.edit(text=text, buttons=buttons)
@@ -169,7 +172,7 @@ async def savephoto(event):
     photos.update({phname: info})
     client.DB.set_key("PHOTOS", photos)
     get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
-    await get.download_media(client.PATH)
+    await get.download_media(client.PATH + phname)
     text = STRINGS["savephoto"].format(phname, info["Where"], info["Size"], info["Color"], info["Align"])
     await event.edit(text=text)
     await photochanger()

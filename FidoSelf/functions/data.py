@@ -17,7 +17,7 @@ FONTS = {
 
 HEARTS = ["❤️", "🩷", "🩵", "🩶", "💙", "💛", "💚", "🧡", "💜", "🖤", "🤍"]
 
-COLORS = ["black", "white", "blue", "red", "yellow", "green", "purple", "orange", "brown", "pink", "gold", "fuchsia", "lime", "aqua", "skyblue", "gray"]
+COLORS = ["white", "blue", "red", "yellow", "green", "purple", "orange", "pink", "gold", "skyblue", "gray"]
 
 ACTIONS = [
     "bandari",

@@ -51,44 +51,43 @@ def get_photos():
         phots.append(photo)
     return phots
 
+def get_where(where):
+    WHERES = {
+        "↖️": [20, 20],
+        "⬆️": [(width - twidth) / 2, 20],
+        "↗️": [(width - twidth) - 20, 20],
+        "⬅️": [20, (height - theight) /2],
+        "⏺": [(width - twidth) / 2, (height - theight) / 2],
+        "➡️": [(width - twidth) - 20, (height - theight) / 2],
+        "↙️": [20, (height - theight) - 20],
+        "⬇️": [(width - twidth) / 2, (height - theight) - 20],
+        "↘️": [(width - twidth) - 20, (height - theight) - 20],
+    }
+    return WHERES[where][0], WHERES[where][1]
+
 async def photochanger():
     PHOTOS = get_photos()
     TEXTS = client.DB.get_key("TEXT_TIMES")
     FONT = client.PATH + "FontFile.ttf"
     phmode = client.DB.get_key("PHOTO_MODE") or "OFF"
     if phmode == "ON" and PHOTOS and TEXTS and os.path.exists(FONT):
-        PHOTO = client.PATH + random.choice(PHOTOS)
+        PHOTO = random.choice(PHOTOS)
+        FPHOTO = client.PATH + PHOTO
         phinfo = client.DB.get_key("PHOTOS")[PHOTO]
         TEXT = AddVars(random.choice(TEXTS), font=False)
         sizes = {"verysmall":20, "small":35, "medium":50, "big":70, "verybig":90}
         SIZE = sizes[phinfo["Size"]]
         COLOR = phinfo["Color"]
-        if COLOR == "random":
+        if COLOR == "Random":
             COLOR = random.choice(client.functions.COLORS)
         COLOR = ImageColor.getrgb(COLOR)
-        img = Image.open(PHOTO)
+        img = Image.open(FPHOTO)
         img = img.resize((640, 640))
         width, height = img.size
         FONT = ImageFont.truetype(FONT, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
-        newwidth, newheight = (width - twidth) / 2, (height - theight) / 2
-        if phinfo["Where"] == "↖️":
-            newwidth, newheight = 20, 20
-        elif phinfo["Where"] == "⬆️":
-            newwidth, newheight = (width - twidth) / 2, 20
-        elif phinfo["Where"] == "↗️":
-            newwidth, newheight = (width - twidth) - 20, 20
-        elif phinfo["Where"] == "⬅️":
-            newwidth, newheight = 20, (height - theight) /2
-        elif phinfo["Where"] == "➡️":
-            newwidth, newheight = (width - twidth) - 20, (height - theight) / 2
-        elif phinfo["Where"] == "↙️":
-            newwidth, newheight = 20, (height - theight) - 20
-        elif phinfo["Where"] == "⬇️":
-            newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
-        elif phinfo["Where"] == "↘️":
-            newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
+        newwidth, newheight = get_where(phinfo["Where"])
         draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["Align"]))
         img.save(client.PATH + "NEWPROFILE.jpg")
         try:

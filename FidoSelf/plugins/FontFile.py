@@ -41,6 +41,9 @@ async def setfontfile(event):
 async def delfontfile(event):
     await event.edit(client.STRINGS["wait"])
     client.DB.del_key("FONT_FILE")
+    font = client.PATH + "FontFile.ttf"
+    if os.path.exists(font):
+        os.remove(font)
     await event.edit(STRINGS["delfont"])
     
 @client.Command(command="GetFont")
