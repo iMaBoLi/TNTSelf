@@ -1,4 +1,5 @@
 from FidoSelf import client
+from .ManageTime import namechanger
 
 __INFO__ = {
     "Category": "Account",
@@ -35,6 +36,7 @@ async def namemode(event):
     client.DB.set_key("NAME_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
+    await namechanger()
 
 @client.Command(command="NewName (.*)")
 async def addname(event):
@@ -46,6 +48,7 @@ async def addname(event):
     names.append(newname)
     client.DB.set_key("NAMES", names)
     await event.edit(STRINGS["newadd"].format(newname))
+    await namechanger()
     
 @client.Command(command="DelName (.*)")
 async def delname(event):
@@ -57,6 +60,7 @@ async def delname(event):
     names.remove(newname)
     client.DB.set_key("NAMES", names)
     await event.edit(STRINGS["del"].format(newname))
+    await namechanger()
 
 @client.Command(command="NameList")
 async def namelist(event):
