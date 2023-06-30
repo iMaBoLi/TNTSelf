@@ -51,7 +51,7 @@ def get_photos():
         phots.append(photo)
     return phots
 
-def get_where(where):
+def get_where(where, width, height, twidth, theight):
     WHERES = {
         "↖️": [20, 20],
         "⬆️": [(width - twidth) / 2, 20],
@@ -87,7 +87,7 @@ async def photochanger():
         FONT = ImageFont.truetype(FONT, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
-        newwidth, newheight = get_where(phinfo["Where"])
+        newwidth, newheight = get_where(phinfo["Where"], width, height, twidth, theight)
         draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["Align"]))
         img.save(client.PATH + "NEWPROFILE.jpg")
         try:
