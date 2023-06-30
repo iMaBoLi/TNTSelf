@@ -20,7 +20,8 @@ STRINGS = {
     "notsave": "**The Ocr ApiKey Is Not Saved!**",
     "notlang": "**The Entered Language Is Not Found!**",
     "notcom": "**The Extract Text Not Completed!**\n**Error:** ( `{}` )",
-    "com": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
+    "notresult": "**The Extract Text Completed And Not Text Finded!**",
+    "result": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
     "langs": "**The Available OcrApi Languages:**\n\n",
 }
 LANGS = {
@@ -80,9 +81,10 @@ async def ocrapi(event):
     photo = await event.reply_message.download_media(client.PATH)
     stat, res = ocr_file(photo, lang)
     if not stat:
-        text = STRINGS["notcom"].format(res)
-        return await event.edit(text)
-    await event.edit(STRINGS["com"].format(LANGS[lang], res))   
+        return await event.edit(STRINGS["notcom"].format(res))
+    elif stat and not res:
+        return await event.edit(STRINGS["notresult"].format(res))
+    await event.edit(STRINGS["result"].format(LANGS[lang], res))   
     os.remove(photo)
 
 @client.Command(command="OcrLangs")
