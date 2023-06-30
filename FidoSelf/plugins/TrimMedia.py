@@ -45,7 +45,7 @@ async def trimvideo(event):
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     if end > event.reply_message.file.duration:
         end = event.reply_message.file.duration
-    if start >= start:
+    if start >= end:
         start = end - event.reply_message.file.duration 
     await event.edit(STRINGS["trvid"].format(start, end))
     newfile = client.PATH + f"TrimedVideo-{start}-{end}.mp4"
@@ -71,7 +71,7 @@ async def trimaudio(event):
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     if end > event.reply_message.file.duration:
         end = event.reply_message.file.duration
-    if start >= start:
+    if start >= end:
         start = end - event.reply_message.file.duration 
     await event.edit(STRINGS["trvid"].format(start, end))
     newfile = client.PATH + f"TrimedAudio-{start}-{end}.mp3"

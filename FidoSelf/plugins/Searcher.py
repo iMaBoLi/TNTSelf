@@ -26,10 +26,10 @@ STRINGS = {
     "not": "**No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )",
 }
 
-@client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) (.*)")
+@client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
 async def searcher(event):
     await event.edit(client.STRINGS["wait"])
-    query = str(event.pattern_match.group(2))
+    query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
         "Photo": types.InputMessagesFilterPhotos,

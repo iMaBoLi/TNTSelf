@@ -20,7 +20,7 @@ async def runner(code , event):
     exec("async def coderunner(event , local, chat_id, reply): "+ "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["coderunner"](event , local, chat.id, reply)
 
-@client.Command(pattern="Run(?:\s|$)([\s\S]*)")
+@client.Command(command="Run(?:\s|$)([\s\S]*)")
 async def runcodes(event):
     edit = await event.reply(f"`• Running ...`")
     if event.text[4:]:
