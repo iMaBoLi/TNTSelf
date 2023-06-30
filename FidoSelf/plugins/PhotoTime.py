@@ -48,7 +48,7 @@ async def photomode(event):
 
 def get_buttons(phname):
     buttons = []
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = INPHOTOS
     info = photos[phname]
     wherbts = [[Button.inline("• Where : ⤵️", data="Empty")]]
     owherbts = []
