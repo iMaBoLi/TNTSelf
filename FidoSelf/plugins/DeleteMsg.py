@@ -28,16 +28,20 @@ async def deletemsg(event):
         return await event.delete(revoke=True)
     if event.is_reply:
         mention = client.functions.mention(event.reply_message.sender)
+        messages = []
         count = 0
         async for message in client.iter_messages(event.chat_id, from_user=event.reply_message.sender_id, limit=limit):
             if message.id == event.id: continue
-            await message.delete(revoke=True)
+            messages.append(message.id)
             count += 1
+        await client.delete_messages(event.chat_id, messages)
         await event.edit(STRINGS["userdel"].format(count, mention))
     else:
+        messages = []
         count = 0
         async for message in client.iter_messages(event.chat_id, limit=limit):
             if message.id == event.id: continue
-            await message.delete(revoke=True)
+            messages.append(message.id)
             count += 1
+        await client.delete_messages(event.chat_id, messages)
         await event.edit(STRINGS["chatdel"].format(count))
