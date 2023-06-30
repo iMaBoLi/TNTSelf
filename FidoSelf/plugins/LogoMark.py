@@ -38,8 +38,8 @@ async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
     reply, _ = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
-    width = event.pattern_match.group(1)
-    height = event.pattern_match.group(2)
+    width = int(event.pattern_match.group(1))
+    height = int(event.pattern_match.group(2))
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(STRINGS["notsave"])
