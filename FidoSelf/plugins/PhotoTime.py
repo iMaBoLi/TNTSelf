@@ -55,7 +55,7 @@ def get_buttons(phname):
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
         ShowMode = client.STRINGS["inline"]["On"] if str(info["Where"]) == str(where) else client.STRINGS["inline"]["Off"]
         owherbts.append(Button.inline(f"{where} {ShowMode}", data=f"SetPhoto:Where:{phname}:{where}"))
-    buttons += perbts + list(client.functions.chunks(owherbts, 3))
+    buttons += wherbts + list(client.functions.chunks(owherbts, 3))
     sizebts = [[Button.inline("• Size : ⤵️", data="Empty")]]
     osizebts = []
     for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
