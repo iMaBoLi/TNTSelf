@@ -36,7 +36,8 @@ async def deletemsg(event):
         await event.edit(STRINGS["userdel"].format(count, mention))
     else:
         count = 0
-        async for message in client.iter_messages(event.chat_id, offset_id=(event.id - 1), limit=limit):
+        async for message in client.iter_messages(event.chat_id, limit=limit):
+            if message.id == event.id: pass
             await message.delete(revoke=True)
             count += 1
         await event.edit(STRINGS["chatdel"].format(count))
