@@ -1,4 +1,5 @@
 from FidoSelf import client
+from .ManageTime import photochanger
 from telethon import Button
 import os
 
@@ -36,6 +37,7 @@ STRINGS = {
     "nfont": "Please Save A Font File First!",
     "align": "**Please Specify How To Align The Time Text On This Image:**",
     "com": "**The New Photo Was Saved!**\n\n**Photo Name:** ( `{}` )\n**Where:** ( `{}` )\n**Size:** ( `{}` )\n**Color:** ( `{}` )\n**Font:** ( `{}` )\n**Align:** ( `{}` )",
+    "closephoto": "**The Photo Panel Successfuly Closed!**",
 }
 
 @client.Command(command="Photo (On|Off)")
@@ -45,6 +47,7 @@ async def photomode(event):
     client.DB.set_key("PHOTO_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
+    await photochanger()
 
 @client.Command(command="NewPhoto (.*)")
 async def addphoto(event):
@@ -75,6 +78,7 @@ async def delphoto(event):
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
     await event.edit(STRINGS["del"].format(phname))
+    await photochanger()
 
 @client.Command(command="GetPhoto (.*)")
 async def getphoto(event):
@@ -175,6 +179,7 @@ async def savephoto(event):
         client.DB.set_key("PHOTOS", photos)
         complete = STRINGS["com"].format(phname, where, size.title(), color.title(), font.title(), align.title())
         await event.edit(text=caomplete)
+        await photochanger()
         
 @client.Callback(data="photoclose\:(.*)")
 async def closephoto(event):
@@ -182,4 +187,5 @@ async def closephoto(event):
     photos = client.DB.get_key("PHOTOS") or {}
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
-    await event.edit(text=f"**The Photo Panel Successfuly Closed!**")
+    text = STRINGS["closephoto"]
+    await event.edit(text=text)

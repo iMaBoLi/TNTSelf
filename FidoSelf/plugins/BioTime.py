@@ -1,4 +1,5 @@
 from FidoSelf import client
+from .ManageTime import biochanger
 
 __INFO__ = {
     "Category": "Account",
@@ -35,6 +36,7 @@ async def biomode(event):
     client.DB.set_key("BIO_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
+    await biochanger()
 
 @client.Command(command="NewBio (.*)")
 async def addbio(event):
@@ -46,6 +48,7 @@ async def addbio(event):
     bios.append(newbio)
     client.DB.set_key("BIOS", bios)
     await event.edit(STRINGS["newadd"].format(newbio))
+    await biochanger()
     
 @client.Command(command="DelBio (.*)")
 async def delbio(event):
@@ -57,6 +60,7 @@ async def delbio(event):
     bios.remove(newbio)
     client.DB.set_key("BIOS", bios)
     await event.edit(STRINGS["del"].format(newbio))
+    await biochanger()
 
 @client.Command(command="BioList")
 async def biolist(event):

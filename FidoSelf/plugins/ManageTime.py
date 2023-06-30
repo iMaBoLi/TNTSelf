@@ -24,7 +24,6 @@ def AddVars(text, font=True):
         text = text.replace(VAR, nVAR)
     return text
 
-@aiocron.crontab("*/1 * * * *")
 async def namechanger():
     NAMES = client.DB.get_key("NAMES")
     nmode = client.DB.get_key("NAME_MODE") or "OFF"
@@ -35,7 +34,6 @@ async def namechanger():
         except:
             pass
 
-@aiocron.crontab("*/1 * * * *")
 async def biochanger():
     BIOS = client.DB.get_key("BIOS")
     bmode = client.DB.get_key("BIO_MODE") or "OFF"
@@ -46,7 +44,6 @@ async def biochanger():
         except:
             pass
 
-@aiocron.crontab("*/1 * * * *")
 async def photochanger():
     PHOTOS = client.DB.get_key("PHOTOS")
     FONTS = client.DB.get_key("FONTS")
@@ -100,3 +97,7 @@ async def photochanger():
         except:
             pass
         os.remove(client.PATH + "NEWPROFILE.jpg")
+
+aiocron.crontab("*/1 * * * *", func=namechanger)
+aiocron.crontab("*/1 * * * *", func=biochanger)
+aiocron.crontab("*/1 * * * *", func=photochanger)
