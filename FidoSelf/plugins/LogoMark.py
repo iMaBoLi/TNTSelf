@@ -46,10 +46,10 @@ async def addlogo(event):
         return await event.edit(STRINGS["notsave"])
     photo = await event.reply_message.download_media(client.PATH)
     await event.edit(STRINGS["adding"])
-    image = Image.open(photo)
-    logimg = Image.open(logo)
+    image = Image.open(photo).convert("RGBA")
+    logimg = Image.open(logo).convert("RGBA")
     logimg.thumbnail((size, size))
-    image.paste(logimg, (width, height))
+    image.paste(logimg, (width, height), logimg)
     newphoto = client.PATH + "AddLogo.jpg"
     image.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["added"])
