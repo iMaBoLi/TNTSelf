@@ -89,11 +89,10 @@ async def DownloadFiles():
             except:
                 pass
             
-    fonts = client.DB.get_key("FONTS")
-    if fonts:
-        for font in fonts:
-            try:
-                get = await client.get_messages(int(fonts[font]["chat_id"]), ids=int(fonts[font]["msg_id"]))
-                await get.download_media(client.PATH + font)
-            except:
-                pass
+    font = client.DB.get_key("FONT_FILE")
+    if font:
+        try:
+            get = await client.get_messages(int(font["chat_id"]), ids=int(font["msg_id"]))
+            await get.download_media(client.PATH + "FontFile.ttf")
+        except:
+            pass
