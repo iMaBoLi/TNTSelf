@@ -156,7 +156,7 @@ async def setphoto(event):
     info = photos[phname]
     photos[phname][smode] = change 
     lasttext = STRINGS["photopage"].format(phname)
-    settext = STRINGS["setpage"].format(smode, change)
+    settext = STRINGS["setphoto"].format(smode, change)
     text = settext + "\n\n" + lasttext
     buttons = get_buttons(phname)
     await event.edit(text=text, buttons=buttons)
