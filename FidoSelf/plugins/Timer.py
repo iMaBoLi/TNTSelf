@@ -35,12 +35,12 @@ def convert_time(seconds):
     days, hours = divmod(hours, 24)
     result = (
             ((str(days) + " Day, ") if days else "")
-            + ((str(hours) + " Hours, ") if hours else "")
-            + ((str(minutes) + " Min, ") if minutes else "")
-            + ((str(seconds) + " Sec") if seconds else "")
+            + ((str(hours) + " Hour, ") if hours else "")
+            + ((str(minutes) + " Minute, ") if minutes else "")
+            + ((str(seconds) + " Seconde") if seconds else "")
         )
-    if result.endswith(":"):
-        return result[:-1]
+    if result.endswith(", "):
+        return result[:-2]
     return result
 
 @client.Command(command="NewTimer (.*)")
@@ -85,7 +85,7 @@ async def timerlist(event):
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
     for row, timer in enumerate(timers):
-        text += f"**{row + 1} -** ( `{timer}` )\n"
+        text += f"**{row + 1} -** `{timer}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanTimerList")
