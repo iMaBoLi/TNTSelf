@@ -64,7 +64,7 @@ async def photochanger():
         sizes = {"verysmall":20, "small":35, "medium":50, "big":70, "verybig":90}
         SIZE = sizes[phinfo["Size"]]
         COLOR = phinfo["Color"]
-        if COLOR == "random":
+        if COLOR == "Random":
             COLOR = random.choice(client.functions.COLORS)
         COLOR = ImageColor.getrgb(COLOR)
         img = Image.open(FPHOTO)
