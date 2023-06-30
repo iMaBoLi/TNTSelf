@@ -51,6 +51,20 @@ def get_photos():
         phots.append(photo)
     return phots
 
+def get_where(where):
+    WHERES = {
+        "↖️": [20, 20],
+        "⬆️": [(width - twidth) / 2, 20],
+        "↗️": [(width - twidth) - 20, 20],
+        "⬅️": [20, (height - theight) /2],
+        "⏺": [(width - twidth) / 2, (height - theight) / 2],
+        "➡️": [(width - twidth) - 20, (height - theight) / 2],
+        "↙️": [20, (height - theight) - 20],
+        "⬇️": [(width - twidth) / 2, (height - theight) - 20],
+        "↘️": [(width - twidth) - 20, (height - theight) - 20],
+    }
+    return WHERES[where][0], WHERES[where][1]
+
 async def photochanger():
     PHOTOS = get_photos()
     TEXTS = client.DB.get_key("TEXT_TIMES")
@@ -73,23 +87,7 @@ async def photochanger():
         FONT = ImageFont.truetype(FONT, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
-        newwidth, newheight = (width - twidth) / 2, (height - theight) / 2
-        if phinfo["Where"] == "↖️":
-            newwidth, newheight = 20, 20
-        elif phinfo["Where"] == "⬆️":
-            newwidth, newheight = (width - twidth) / 2, 20
-        elif phinfo["Where"] == "↗️":
-            newwidth, newheight = (width - twidth) - 20, 20
-        elif phinfo["Where"] == "⬅️":
-            newwidth, newheight = 20, (height - theight) /2
-        elif phinfo["Where"] == "➡️":
-            newwidth, newheight = (width - twidth) - 20, (height - theight) / 2
-        elif phinfo["Where"] == "↙️":
-            newwidth, newheight = 20, (height - theight) - 20
-        elif phinfo["Where"] == "⬇️":
-            newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
-        elif phinfo["Where"] == "↘️":
-            newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
+        newwidth, newheight = get_where(phinfo["Where"])
         draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["Align"]))
         img.save(client.PATH + "NEWPROFILE.jpg")
         try:
