@@ -23,6 +23,7 @@ def get_file_icon(name):
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
+    await event.edit(client.STRINGS["wait"])
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
@@ -52,7 +53,7 @@ async def ls(event):
     else:
         size = os.path.getsize(path)
         output = "**The Details Of File:**\n\n"
-        uptime = convert_time(time.time(), os.path.getmtime(path))
+        uptime = convert_time(time.time() - os.path.getmtime(path))
         output += f"    **Location:** `{path}`\n"
         output += f"    **Size:** `{convert_bytes(size)}`\n"
         output += f"    **Update Time:** `{uptime}`\n"
