@@ -50,7 +50,7 @@ async def addlogo(event):
     logimg = Image.open(logo).convert("RGBA")
     logimg.thumbnail((size, size))
     image.paste(logimg, (width, height), logimg)
-    newphoto = client.PATH + "AddLogo.jpg"
+    newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["added"])
     os.remove(photo)
