@@ -9,7 +9,7 @@ STRINGS = {
 async def update(event):
     await event.edit(client.STRINGS["wait"])
     git = client.functions.Git()
-    link = git.repo.get_archive_link("zipball", "DEV")
+    link = git.repo.get_archive_link("zipball", "dev")
     await client.functions.runcmd(f"curl {link} -o Fido.zip")
     await client.functions.runcmd("unzip Fido.zip")
     shutil.rmtree("/app/FidoSelf/")
