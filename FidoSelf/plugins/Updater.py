@@ -21,4 +21,6 @@ async def update(event):
     os.remove("Fido.zip")
     for callback, _ in client.list_event_handlers():
         client.remove_event_handler(callback)
+    for callback, _ in client.bot.list_event_handlers():
+        client.bot.remove_event_handler(callback)
     await client.functions.runcmd("python3 -m FidoSelf")
