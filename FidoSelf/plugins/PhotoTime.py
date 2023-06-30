@@ -10,9 +10,9 @@ __INFO__ = {
         "Help": "To Save Your Photo For Profile Time And Turn On-Off!",
         "Commands": {
             "{CMD}Photo <On-Off>": None,
-            "{CMD}NewPhoto <Name><Reply(Photo)>": "Save Photo White Name!",
-            "{CMD}DelPhoto <Name>": "Delete Photo White Name!",
-            "{CMD}GetPhoto <Name>": "Get Photo White Name!",
+            "{CMD}AddPhoto <Name><Reply(Photo)>": None,
+            "{CMD}DelPhoto <Name>": None,
+            "{CMD}GetPhoto <Name>": None,
             "{CMD}PhotoList": None,
             "{CMD}CleanPhotoList": None,
         },
@@ -80,7 +80,7 @@ def get_buttons(phname):
     buttons.append([Button.inline("📥 Save ✅", data=f"SavePhoto:{phname}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelPhoto:{phname}")])
     return buttons
 
-@client.Command(command="NewPhoto (.*)")
+@client.Command(command="AddPhoto (.*)")
 async def addphoto(event):
     await event.edit(client.STRINGS["wait"])
     reply, _ = event.checkReply(["Photo"])
