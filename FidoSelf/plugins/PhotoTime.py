@@ -104,6 +104,9 @@ async def delphoto(event):
         return await event.edit(STRINGS["notin"].format(phname))
     del photos[phname]
     client.DB.set_key("PHOTOS", photos)
+    phfile = client.PATH + phname
+    if os.path.exists(phfile):
+        os.remove(phfile)
     await event.edit(STRINGS["delphoto"].format(phname))
     await photochanger()
 
