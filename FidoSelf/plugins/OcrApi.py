@@ -36,7 +36,7 @@ def ocr_file(file, language):
     raw = req.json()
     if type(raw) == str:
         if "API Key is not specified" in str(raw) or "The API key is invalid" in str(raw):
-            return False, "invalid apikey"
+            return False, "Invalid Api Key"
         return False, raw
     elif raw['IsErroredOnProcessing']:
         return False, raw['ErrorMessage'][0]
