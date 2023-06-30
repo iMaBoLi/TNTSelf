@@ -24,25 +24,6 @@ STRINGS = {
     "result": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
     "langs": "**The Available OcrApi Languages:**\n\n",
 }
-LANGS = {
-    "ara": "Arabic",
-    "eng": "English",
-    "fre": "French",
-    "kor": "Korean",
-    "ita": "Italian",
-    "jpn": "Japanese",
-    "chs": "Chinese",
-    "ger": "German",
-    "spa": "Spanish",
-    "swe": "Swedish",
-    "tur": "Turkish",
-    "bul": "Bulgarian",
-    "pol": "Polish",
-    "por": "Portugal",
-    "rus": "Russian",
-    "hrv": "Croatian",
-    "hin": "Hindi",
-}
 
 def ocr_file(file, language):
     payload = {
@@ -76,7 +57,7 @@ async def ocrapi(event):
     if reply: return await event.edit(reply)
     if not client.DB.get_key("OCR_API_KEY"):
         return await event.edit(STRINGS["notsave"])
-    if not lang in LANGS:
+    if not lang in client.functions.OCRLANGS:
         return await event.edit(STRINGS["notlang"])
     photo = await event.reply_message.download_media(client.PATH)
     stat, res = ocr_file(photo, lang)
@@ -84,13 +65,13 @@ async def ocrapi(event):
         return await event.edit(STRINGS["notcom"].format(res))
     elif stat and not res:
         return await event.edit(STRINGS["notresult"].format(res))
-    await event.edit(STRINGS["result"].format(LANGS[lang], res))   
+    await event.edit(STRINGS["result"].format(client.functions.OCRLANGS[lang], res))   
     os.remove(photo)
 
 @client.Command(command="OcrLangs")
 async def ocrlangs(event):
     await event.edit(client.STRINGS["wait"])
     text = STRINGS["langs"]
-    for lang in LANGS:
-        text += f"• `{lang}` - **{LANGS[lang]}**\n"
+    for lang in client.functions.OCRLANGS:
+        text += f"• `{lang}` - **{client.functions.OCRLANGS[lang]}**\n"
     await event.edit(text)
