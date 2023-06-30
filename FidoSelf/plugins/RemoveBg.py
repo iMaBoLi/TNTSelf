@@ -32,8 +32,10 @@ def removebg(photo, newphoto):
         with open(newphoto, "wb") as out:
             out.write(response.content)
         return True, newphoto
+    elif "API Key invalid" in str(response.text):
+        return False, "Api Key Invalid"
     else:
-        return False, response.text["errors"][0]["title"]
+        return False, "Unknown Error"
 
 @client.Command(command="SetRmBgKey (.*)")
 async def savebgapi(event):
