@@ -19,4 +19,6 @@ async def update(event):
     await event.edit(STRINGS["complete"])
     shutil.rmtree(path)
     os.remove("Fido.zip")
+    for callback, _ in client.list_event_handlers():
+        client.remove_event_handler(callback)
     await client.functions.runcmd("python3 -m FidoSelf")
