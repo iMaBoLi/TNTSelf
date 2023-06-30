@@ -20,27 +20,9 @@ STRINGS = {
     "notsave": "**The Ocr ApiKey Is Not Saved!**",
     "notlang": "**The Entered Language Is Not Found!**",
     "notcom": "**The Extract Text Not Completed!**\n**Error:** ( `{}` )",
-    "com": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
+    "notresult": "**The Extract Text Completed And Not Text Finded!**",
+    "result": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
     "langs": "**The Available OcrApi Languages:**\n\n",
-}
-LANGS = {
-    "ara": "Arabic",
-    "eng": "English",
-    "fre": "French",
-    "kor": "Korean",
-    "ita": "Italian",
-    "jpn": "Japanese",
-    "chs": "Chinese",
-    "ger": "German",
-    "spa": "Spanish",
-    "swe": "Swedish",
-    "tur": "Turkish",
-    "bul": "Bulgarian",
-    "pol": "Polish",
-    "por": "Portugal",
-    "rus": "Russian",
-    "hrv": "Croatian",
-    "hin": "Hindi",
 }
 
 def ocr_file(file, language):
@@ -54,7 +36,7 @@ def ocr_file(file, language):
     raw = req.json()
     if type(raw) == str:
         if "API Key is not specified" in str(raw) or "The API key is invalid" in str(raw):
-            return False, "invalid apikey"
+            return False, "Invalid Api Key"
         return False, raw
     elif raw['IsErroredOnProcessing']:
         return False, raw['ErrorMessage'][0]
@@ -75,20 +57,21 @@ async def ocrapi(event):
     if reply: return await event.edit(reply)
     if not client.DB.get_key("OCR_API_KEY"):
         return await event.edit(STRINGS["notsave"])
-    if not lang in LANGS:
+    if not lang in client.functions.OCRLANGS:
         return await event.edit(STRINGS["notlang"])
     photo = await event.reply_message.download_media(client.PATH)
     stat, res = ocr_file(photo, lang)
     if not stat:
-        text = STRINGS["notcom"].format(res)
-        return await event.edit(text)
-    await event.edit(STRINGS["com"].format(LANGS[lang], res))   
+        return await event.edit(STRINGS["notcom"].format(res))
+    elif stat and not res:
+        return await event.edit(STRINGS["notresult"].format(res))
+    await event.edit(STRINGS["result"].format(client.functions.OCRLANGS[lang], res))   
     os.remove(photo)
 
 @client.Command(command="OcrLangs")
 async def ocrlangs(event):
     await event.edit(client.STRINGS["wait"])
     text = STRINGS["langs"]
-    for lang in LANGS:
-        text += f"• `{lang}` - **{LANGS[lang]}**\n"
+    for lang in client.functions.OCRLANGS:
+        text += f"• `{lang}` - **{client.functions.OCRLANGS[lang]}**\n"
     await event.edit(text)

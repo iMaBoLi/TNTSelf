@@ -71,7 +71,14 @@ async def DownloadFiles():
             await get.download_media(client.PATH + "FOSHS.txt")
         except:
             pass
-
+    logo = client.DB.get_key("LOGO_FILE")
+    if logo:
+        try:
+            get = await client.get_messages(int(logo["chat_id"]), ids=int(logo["msg_id"]))
+            await get.download_media(client.PATH + "Logo.png")
+        except:
+            pass
+        
     cover = client.DB.get_key("FILE_COVER")
     if cover:
         try:
