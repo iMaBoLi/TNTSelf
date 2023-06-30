@@ -45,7 +45,7 @@ async def videoconvert(event):
     elif mode == "Gif" and mtype in ["Video", "VideoNote"]:
         callback = event.progress(download=True)
         video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-        newfile = client.PATH + video + ".gif"
+        newfile = video + ".gif"
         videoClip = VideoFileClip(video)
         videoClip.write_gif(newfile)
         callback = event.progress(upload=True)
