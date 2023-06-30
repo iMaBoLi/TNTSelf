@@ -24,6 +24,17 @@ __INFO__ = {
     },
 }
 client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Practical",
+    "Plugname": "Gif",
+    "Pluginfo": {
+        "Help": "To Convert Video And Video Note To Gif!",
+        "Commands": {
+            "{CMD}SGif <Reply(Video|VNote)>": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
 
 @client.Command(command="SVideo")
 async def videoconvert(event):
@@ -55,10 +66,10 @@ async def videonotecon(event):
     os.remove(video)
     await event.delete()
     
-@client.Command(command="SVGif")
-async def videonotecon(event):
+@client.Command(command="SGif")
+async def gifconvert(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["Video"])
+    reply, mtype = event.checkReply(["Video", "VideoNote"])
     if reply: return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
