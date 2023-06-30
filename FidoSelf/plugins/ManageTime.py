@@ -57,7 +57,8 @@ async def photochanger():
     FONT = client.PATH + "FontFile.ttf"
     phmode = client.DB.get_key("PHOTO_MODE") or "OFF"
     if phmode == "ON" and PHOTOS and TEXTS and os.path.exists(FONT):
-        PHOTO = client.PATH + random.choice(PHOTOS)
+        PHOTO = random.choice(PHOTOS)
+        FPHOTO = client.PATH + PHOTO
         phinfo = client.DB.get_key("PHOTOS")[PHOTO]
         TEXT = AddVars(random.choice(TEXTS), font=False)
         sizes = {"verysmall":20, "small":35, "medium":50, "big":70, "verybig":90}
@@ -66,7 +67,7 @@ async def photochanger():
         if COLOR == "random":
             COLOR = random.choice(client.functions.COLORS)
         COLOR = ImageColor.getrgb(COLOR)
-        img = Image.open(PHOTO)
+        img = Image.open(FPHOTO)
         img = img.resize((640, 640))
         width, height = img.size
         FONT = ImageFont.truetype(FONT, SIZE)
