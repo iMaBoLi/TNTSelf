@@ -7,7 +7,7 @@ __INFO__ = {
         "Help": "To Delete Message In Chats!",
         "Commands": {
             "{CMD}Del <Count>": None,
-            "{CMD}Del <Count><Reply>": "Delete Messages Of User!",
+            "{CMD}Del <Count> <Reply>": "Delete Messages Of User!",
         },
     },
 }
@@ -21,7 +21,7 @@ STRINGS = {
 @client.Command(command="Del (\d*)")
 async def deletemsg(event):
     await event.edit(client.STRINGS["wait"])
-    limit = int(event.pattern_match.group(1)) + 1
+    limit = int(event.pattern_match.group(1))
     if not limit:
         if event.is_reply:
             await event.reply_message.delete(revoke=True)
@@ -39,7 +39,7 @@ async def deletemsg(event):
     else:
         messages = []
         count = 0
-        async for message in client.iter_messages(event.chat_id, limit=limit):
+        async for message in client.iter_messages(event.chat_id, limit=limit + 1):
             if message.id == event.id: continue
             messages.append(message.id)
             count += 1
