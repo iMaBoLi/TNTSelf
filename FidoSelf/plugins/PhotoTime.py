@@ -87,9 +87,9 @@ async def addphoto(event):
     photos = client.DB.get_key("PHOTOS") or {}
     if phname in photos:
         return await event.edit(STRINGS["notall"].format(phname))
-    photos.update({phname: {"Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
-    client.DB.set_key("PHOTOS", photos)
     info = await event.reply_message.save()
+    photos.update({phname: {"chat_id": info["chat_id"], "msg_id": info["msg_id"], "Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
+    client.DB.set_key("PHOTOS", photos)
     get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
     await get.download_media(client.PATH)
     res = await client.inline_query(client.bot.me.username, f"PhotoPage:{phname}")
