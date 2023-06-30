@@ -48,8 +48,7 @@ def get_photos():
     PHOTOS = client.DB.get_key("PHOTOS") or {}
     phots = []
     for photo in PHOTOS:
-        if PHOTOS[photo]["DO"]:
-            phots.append(photo)
+        phots.append(photo)
     return phots
 
 async def photochanger():
