@@ -69,7 +69,7 @@ def get_buttons(phname):
         scolor = color if color != "Random ♻️" else "Random"
         ShowMode = client.STRINGS["inline"]["On"] if str(info["Color"]) == str(scolor) else client.STRINGS["inline"]["Off"]
         ocolorbts.append(Button.inline(f"{color} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
-    buttons += colorbts + list(client.functions.chunks(ocolorbts, 4))
+    buttons += colorbts + list(client.functions.chunks(ocolorbts, 3))
     alignbts = [[Button.inline("• Align : ⤵️", data="Empty")]]
     oalignbts = []
     for align in ["Left", "Center", "Right"]:
