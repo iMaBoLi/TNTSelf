@@ -68,7 +68,7 @@ def get_buttons(phname):
     for color in (["Random ♻️"] + client.functions.COLORS):
         scolor = color if color != "Random ♻️" else "Random"
         ShowMode = client.STRINGS["inline"]["On"] if str(info["Color"]) == str(scolor) else client.STRINGS["inline"]["Off"]
-        ocolorbts.append(Button.inline(f"{color} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
+        ocolorbts.append(Button.inline(f"{color.title()} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
     buttons += colorbts + list(client.functions.chunks(ocolorbts, 3))
     alignbts = [[Button.inline("• Align : ⤵️", data="Empty")]]
     oalignbts = []
@@ -169,7 +169,7 @@ async def savephoto(event):
     photos.update({phname: info})
     client.DB.set_key("PHOTOS", photos)
     get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
-    await get.download_media(client.PATH)
+    await get.download_media(client.PATH + phname)
     text = STRINGS["savephoto"].format(phname, info["Where"], info["Size"], info["Color"], info["Align"])
     await event.edit(text=text)
     await photochanger()
