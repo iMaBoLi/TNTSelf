@@ -2,21 +2,21 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Stats",
+    "Plugname": "Chats Count",
     "Pluginfo": {
-        "Help": "To Get Stats Of Your Chats!",
+        "Help": "To Get Chats Count Of Your Account!",
         "Commands": {
-            "{CMD}Stats": None,
+            "{CMD}GChats": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "count": "**Account Chats Count:**\n\n  **All:** ( `{}` )\n  **Privates:** ( `{}` )\n  **SuperGroups:** ( `{}` )\n  **Groups:** ( `{}` )\n  **Channels:** ( `{}` )\n  **Bots:** ( `{}` )",
+    "count": "**✿ Account Chats Count:**\n\n  **๛ All:** ( `{}` )\n  **๛ Privates:** ( `{}` )\n  **๛ SuperGroups:** ( `{}` )\n  **๛ Groups:** ( `{}` )\n  **๛ Channels:** ( `{}` )\n  **๛ Bots:** ( `{}` )",
 }
 
-@client.Command(command="Stats")
+@client.Command(command="GChats")
 async def chatcounts(event):
     await event.edit(client.STRINGS["wait"])
     all, users, groups, sgroups, channels, bots = 0,0,0,0,0,0
