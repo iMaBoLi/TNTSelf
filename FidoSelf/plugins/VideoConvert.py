@@ -64,7 +64,7 @@ async def videonotecon(event):
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-    attributes = [types.DocumentAttributeAnimated()]
+    attributes = [types.DocumentAttributeAnimated]
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, video, attributes=attributes, progress_callback=callback)
     os.remove(video)
