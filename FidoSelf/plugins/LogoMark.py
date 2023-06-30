@@ -49,6 +49,9 @@ async def addlogo(event):
     logimg = Image.open(logo)
     logimg.thumbnail((250, 250))
     image.paste(logimg, (width, height))
-    await client.send_file(event.chat_id, photo, caption=STRINGS["added"])
+    newphoto = client.PATH + "AddLogo.jpg"
+    image.save(newphoto)
+    await client.send_file(event.chat_id, newphoto, caption=STRINGS["added"])
     os.remove(photo)
+    os.remove(newphoto)
     await event.delete()
