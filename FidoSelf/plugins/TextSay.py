@@ -21,7 +21,7 @@ STRINGS = {
 @client.Command(command="TSay ?([\S\s]*)?")
 async def tsay(event):
     inputtext = str(event.pattern_match.group(1) or "")
-    if not inputtext or not event.reply_message and event.reply_message.text:
+    if not inputtext or not event.reply_message and not event.reply_message.text:
         return await event.edit(STRINGS["not"])
     OText = inputtext if inputtext else event.reply_message.text
     Text = ""
