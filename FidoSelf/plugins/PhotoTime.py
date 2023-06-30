@@ -33,6 +33,7 @@ STRINGS = {
     "listphoto": "**𑁍 The Photo List:**\n\n",
     "allempty": "**𑁍 The Photo List Is Already Empty!**",
     "cleanphoto":  "**𑁍 The Photo List Was Cleaned!**",
+    "saveagain":  "**𑁍 The Photo Was Removed Try Again To Save!**",
 }
 
 INPHOTOS = {}
@@ -155,9 +156,9 @@ async def setphoto(event):
     smode = event.data_match.group(1).decode('utf-8')
     phname = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    photos = INPHOTOS
-    info = photos[phname]
-    photos[phname][smode] = change 
+    if phname not in INPHOTOS:
+        return await event.edit(STRINGS["saveagain"])
+    INPHOTOS[phname][smode] = change 
     lasttext = STRINGS["photopage"].format(phname)
     settext = STRINGS["setphoto"].format(smode, change)
     text = settext + "\n\n" + lasttext
@@ -168,6 +169,8 @@ async def setphoto(event):
 async def savephoto(event):
     phname = event.data_match.group(1).decode('utf-8')
     photos = client.DB.get_key("PHOTOS") or {}
+    if phname not in INPHOTOS:
+        return await event.edit(STRINGS["saveagain"])
     info = INPHOTOS[phname]
     photos.update({phname: info})
     client.DB.set_key("PHOTOS", photos)
@@ -180,8 +183,8 @@ async def savephoto(event):
 @client.Callback(data="DelPhoto\:(.*)")
 async def delphoto(event):
     phname = event.data_match.group(1).decode('utf-8')
-    photos = client.DB.get_key("PHOTOS") or {}
-    del photos[phname]
-    client.DB.set_key("PHOTOS", photos)
+    if phname not in INPHOTOS:
+        return await event.edit(STRINGS["saveagain"])
+    del INPHOTOS[phname]
     text = STRINGS["delphoto"].format(phname)
     await event.edit(text=text)
