@@ -98,7 +98,6 @@ async def photochanger():
             pass
         os.remove(client.PATH + "NEWPROFILE.jpg")
 
-
 aiocron.crontab("*/1 * * * *", func=namechanger)
 aiocron.crontab("*/1 * * * *", func=biochanger)
 aiocron.crontab("*/1 * * * *", func=photochanger)
