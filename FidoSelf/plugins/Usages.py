@@ -16,6 +16,7 @@ import time
 
 @client.Command(command="Logs")
 async def logs(event):
+    await event.edit(client.STRINGS["wait"])
     if os.path.exists("Fido.log"):
         await event.respond("**The Console Logs File!**", file="Fido.log")
         await event.delete()
