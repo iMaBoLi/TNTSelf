@@ -22,10 +22,11 @@ STRINGS = {
 async def wikisearch(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
-    result = wikipedia.summary(query)
-    if not result:
-        return await event.edit(STRINGS["not"])
-    if len(result) > 3000:
-        result = result[:3000]
+    try:
+        result = wikipedia.summary(query)
+    except:
+        return await event.edit(STRINGS["not"].format(query))
+    if len(result) > 3900:
+        result = result[:3900]
     text = STRINGS["info"].format(query, result)
     await event.edit(text=text)
