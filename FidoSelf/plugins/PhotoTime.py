@@ -35,6 +35,8 @@ STRINGS = {
     "cleanphoto":  "**𑁍 The Photo List Was Cleaned!**",
 }
 
+INPHOTOS = {}
+
 @client.Command(command="Photo (On|Off)")
 async def photomode(event):
     await event.edit(client.STRINGS["wait"])
@@ -88,10 +90,7 @@ async def addphoto(event):
     if phname in photos:
         return await event.edit(STRINGS["notall"].format(phname))
     info = await event.reply_message.save()
-    photos.update({phname: {"chat_id": info["chat_id"], "msg_id": info["msg_id"], "Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
-    client.DB.set_key("PHOTOS", photos)
-    get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
-    await get.download_media(client.PATH)
+    INPHOTOS.update({phname: {"chat_id": info["chat_id"], "msg_id": info["msg_id"], "Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
     res = await client.inline_query(client.bot.me.username, f"PhotoPage:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
@@ -144,8 +143,6 @@ async def cleanphotos(event):
 @client.Inline(pattern="PhotoPage\:(.*)")
 async def photopage(event):
     phname = str(event.pattern_match.group(1))
-    photos = client.DB.get_key("PHOTOS") or {}
-    info = photos[phname]
     text = STRINGS["photopage"].format(phname)
     buttons = get_buttons(phname)
     await event.answer([event.builder.article("FidoSelf - Photo Page", text=text, buttons=buttons)])
@@ -155,10 +152,9 @@ async def setphoto(event):
     smode = event.data_match.group(1).decode('utf-8')
     phname = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = INPHOTOS
     info = photos[phname]
     photos[phname][smode] = change 
-    client.DB.set_key("PHOTOS", photos)
     lasttext = STRINGS["photopage"].format(phname)
     settext = STRINGS["setpage"].format(smode, change)
     text = settext + "\n\n" + lasttext
@@ -169,9 +165,11 @@ async def setphoto(event):
 async def savephoto(event):
     phname = event.data_match.group(1).decode('utf-8')
     photos = client.DB.get_key("PHOTOS") or {}
-    info = photos[phname]
-    photos[phname]["DO"] = True 
+    info = INPHOTOS[phname]
+    photos.update({phname: info})
     client.DB.set_key("PHOTOS", photos)
+    get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
+    await get.download_media(client.PATH)
     text = STRINGS["savephoto"].format(phname, info["Where"], info["Size"], info["Color"], info["Align"])
     await event.edit(text=text)
     await photochanger()
