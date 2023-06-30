@@ -7,7 +7,7 @@ __INFO__ = {
     "Category": "Account",
     "Plugname": "Photo Time",
     "Pluginfo": {
-        "Help": "To Save Your Photo For Profile Time And Turn On-Off!",
+        "Help": "To Save Your Photo For Profile Time!",
         "Commands": {
             "{CMD}Photo <On-Off>": None,
             "{CMD}AddPhoto <Name><Reply(Photo)>": None,
