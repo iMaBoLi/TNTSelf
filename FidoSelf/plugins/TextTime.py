@@ -6,27 +6,27 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Your Texts For Time In Photo!",
         "Commands": {
-            "{CMD}NewTextTime <Text>": None,
-            "{CMD}DelTextTime <Text>": None,
-            "{CMD}TextTimeList": None,
-            "{CMD}CleanTextTimeList": None,
+            "{CMD}NewTtime <Text>": None,
+            "{CMD}DelTtime <Text>": None,
+            "{CMD}TtimeList": None,
+            "{CMD}CleanTtimeList": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "newnot": "**The Text Time** ( `{}` ) **Already In TextTime List!**",
-    "newadd": "**The Text Time** ( `{}` ) **Added To TextTime List!**",
-    "delnot": "**The Text Time** ( `{}` ) **Not In TextTime List!**",
-    "del": "**The Text Time** ( `{}` ) **Deleted From TextTime List!**",
+    "newnot": "**The Text Time** ( `{}` ) **Already In Text Time List!**",
+    "newadd": "**The Text Time** ( `{}` ) **Added To Text Time List!**",
+    "delnot": "**The Text Time** ( `{}` ) **Not In Text Time List!**",
+    "del": "**The Text Time** ( `{}` ) **Deleted From Text Time List!**",
     "empty": "**The Text Time List Is Empty!**",
     "list": "**The Text Time List:**\n\n",
     "aempty": "**The Text Time List Is Already Empty!**",
     "clean": "**The Text Time List Is Cleaned!**",
 }
 
-@client.Command(command="NewTextTime ([\s\S]*)")
+@client.Command(command="NewTtime ([\s\S]*)")
 async def addttime(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -37,7 +37,7 @@ async def addttime(event):
     client.DB.set_key("TEXT_TIMES", ttimes)
     await event.edit(STRINGS["newadd"].format(newttime))
     
-@client.Command(command="DelTextTime ([\s\S]*)")
+@client.Command(command="DelTtime ([\s\S]*)")
 async def delttime(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXT_TIMES") or []
@@ -48,20 +48,18 @@ async def delttime(event):
     client.DB.set_key("TEXT_TIMES", ttimes)
     await event.edit(STRINGS["del"].format(newttime))
 
-@client.Command(command="TextTimeList")
+@client.Command(command="TtimeList")
 async def ttimelist(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXT_TIMES") or []
     if not ttimes:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
-    row = 1
-    for ttime in ttimes:
-        text += f"**{row} -** `{ttime}`\n"
-        row += 1
+    for row, ttime in enumerate(ttimes):
+        text += f"**{row + 1} -** `{ttime}`\n"
     await event.edit(text)
 
-@client.Command(command="CleanTextTimeList")
+@client.Command(command="CleanTtimeList")
 async def cleanttimes(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXT_TIMES") or []
