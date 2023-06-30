@@ -112,7 +112,10 @@ def mediatype(event):
         elif event.file.mime_type == "application/x-tgsticker":
             type = "ASticker"
     elif event.document:
-        type = "File"
+        if event.document.mime_type == "image/png":
+            type = "Photo"
+        else:
+            type = "File"
     return type
 
 setattr(Message, "mediatype", mediatype)
