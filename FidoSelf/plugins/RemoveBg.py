@@ -26,7 +26,7 @@ def removebg(photo, newphoto):
         "https://api.remove.bg/v1.0/removebg",
         files={"image_file": open(photo, "rb")},
         data={"size": "auto"},
-        headers={"X-Api-Key": client.DB.get_key("RMBG_API_KEY")},
+        headers={"X-Api-Key": str(client.DB.get_key("RMBG_API_KEY"))},
     )
     if response.status_code == requests.codes.ok:
         with open(newphoto, "wb") as out:
@@ -58,3 +58,4 @@ async def rmbg(event):
     await client.send_file(event.chat_id, newphoto, caption=caption)
     os.remove(photo)
     os.remove(newphoto)
+    await event.delete()
