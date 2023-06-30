@@ -33,14 +33,14 @@ async def setlogo(event):
     client.DB.set_key("LOGO_FILE", info)
     await event.edit(STRINGS["save"])  
 
-@client.Command(command="AddLogo (\d*)\-(\d*)\,(\d*)")
+@client.Command(command="AddLogo (\d*)\,(\d*)\-?(\d*)?")
 async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
     reply, _ = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
-    size = int(event.pattern_match.group(1))
-    width = int(event.pattern_match.group(2))
-    height = int(event.pattern_match.group(3))
+    width = int(event.pattern_match.group(1))
+    height = int(event.pattern_match.group(2))
+    size = int(event.pattern_match.group(3) or 80)
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(STRINGS["notsave"])
@@ -48,7 +48,7 @@ async def addlogo(event):
     await event.edit(STRINGS["adding"])
     image = Image.open(photo)
     logimg = Image.open(logo)
-    logimg.thumbnail((size, size))
+    #logimg.thumbnail((size, size))
     image.paste(logimg, (width, height))
     newphoto = client.PATH + "AddLogo.jpg"
     image.save(newphoto)
