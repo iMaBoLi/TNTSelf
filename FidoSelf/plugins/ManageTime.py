@@ -44,50 +44,53 @@ async def biochanger():
         except:
             pass
 
+def get_photos():
+    PHOTOS = client.DB.get_key("PHOTOS") or {}
+    phots = []
+    for photo in PHOTOS:
+        if PHOTOS[photo]["DO"]:
+            phots.append(photo)
+    return phots
+
 async def photochanger():
-    PHOTOS = client.DB.get_key("PHOTOS")
-    FONTS = client.DB.get_key("FONTS")
+    PHOTOS = get_photos()
     TEXTS = client.DB.get_key("TEXT_TIMES")
+    FONT = client.PATH + "FontFile.ttf"
     phmode = client.DB.get_key("PHOTO_MODE") or "OFF"
-    if phmode == "ON" and PHOTOS and TEXTS and FONTS:
-        PHOTO = random.choice(list(PHOTOS.keys()))
-        FPHOTO = client.PATH + PHOTO
-        phinfo = PHOTOS[PHOTO]
+    if phmode == "ON" and PHOTOS and TEXTS and os.path.exists(FONT):
+        PHOTO = client.PATH + random.choice(PHOTOS)
+        phinfo = client.DB.get_key("PHOTOS")[PHOTO]
         TEXT = AddVars(random.choice(TEXTS), font=False)
-        sizes = {"vsmall":20, "small":35, "medium":50, "big":70, "vbig":90}
-        SIZE = sizes[phinfo["size"]]
-        COLOR = phinfo["color"]
+        sizes = {"verysmall":20, "small":35, "medium":50, "big":70, "verybig":90}
+        SIZE = sizes[phinfo["Size"]]
+        COLOR = phinfo["Color"]
         if COLOR == "random":
             COLOR = random.choice(client.functions.COLORS)
         COLOR = ImageColor.getrgb(COLOR)
-        img = Image.open(FPHOTO)
+        img = Image.open(PHOTO)
         img = img.resize((640, 640))
         width, height = img.size
-        ffont = phinfo["font"]
-        if ffont == "random":
-            ffont = random.choice(list(FONTS.keys()))
-        ffont = client.PATH + ffont
-        FONT = ImageFont.truetype(ffont, SIZE)
+        FONT = ImageFont.truetype(FONT, SIZE)
         draw = ImageDraw.Draw(img)
         twidth, theight = draw.textsize(TEXT, font=FONT)
         newwidth, newheight = (width - twidth) / 2, (height - theight) / 2
-        if phinfo["where"] == "↖️":
+        if phinfo["Where"] == "↖️":
             newwidth, newheight = 20, 20
-        elif phinfo["where"] == "⬆️":
+        elif phinfo["Where"] == "⬆️":
             newwidth, newheight = (width - twidth) / 2, 20
-        elif phinfo["where"] == "↗️":
+        elif phinfo["Where"] == "↗️":
             newwidth, newheight = (width - twidth) - 20, 20
-        elif phinfo["where"] == "⬅️":
+        elif phinfo["Where"] == "⬅️":
             newwidth, newheight = 20, (height - theight) /2
-        elif phinfo["where"] == "➡️":
+        elif phinfo["Where"] == "➡️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) / 2
-        elif phinfo["where"] == "↙️":
+        elif phinfo["Where"] == "↙️":
             newwidth, newheight = 20, (height - theight) - 20
-        elif phinfo["where"] == "⬇️":
+        elif phinfo["Where"] == "⬇️":
             newwidth, newheight = (width - twidth) / 2, (height - theight) - 20
-        elif phinfo["where"] == "↘️":
+        elif phinfo["Where"] == "↘️":
             newwidth, newheight = (width - twidth) - 20, (height - theight) - 20
-        draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["align"]))
+        draw.text((newwidth, newheight), TEXT, COLOR, font=FONT, align=str(phinfo["Align"]))
         img.save(client.PATH + "NEWPROFILE.jpg")
         try:
             phfile = await client.upload_file(client.PATH + "NEWPROFILE.jpg")
