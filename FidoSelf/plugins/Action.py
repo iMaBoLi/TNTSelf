@@ -1,4 +1,5 @@
 from FidoSelf import client
+from telethon import events
 import asyncio
 import random
 
@@ -119,7 +120,17 @@ async def action(event):
             client.loop.create_task(sendaction(event.chat_id, RType))
         else:
             client.loop.create_task(sendaction(event.chat_id, acType))
-                
+
+@client.on(events.UserUpdate)
+async def handler(event):
+    if event.user_id == client.me.id: return
+    cacMode = client.DB.get_key("COPYACTION_ALL") or "OFF"
+    cacChats = client.DB.get_key("COPYACTION_CHATS") or []
+    if cacMode == "ON" or event.chat_id in cacChats:
+        if event.typing:
+            client.loop.create_task(sendaction(event.chat_id, "typing"))
+            
+
 async def sendaction(chat_id, action):
     async with client.action(chat_id, action.lower()):
         await asyncio.sleep(3)
