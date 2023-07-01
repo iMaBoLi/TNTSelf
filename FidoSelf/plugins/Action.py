@@ -129,8 +129,6 @@ async def handler(event):
     cacMode = client.DB.get_key("COPYACTION_ALL") or "OFF"
     cacChats = client.DB.get_key("COPYACTION_CHATS") or []
     if cacMode == "ON" or event.chat_id in cacChats:
-        open("Res.txt", "w").write(str(event))
-        await event.respond(file="Res.txt")
         if event.typing:
             client.loop.create_task(sendaction(event.chat_id, "typing"))
 
