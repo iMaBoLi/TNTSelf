@@ -122,13 +122,28 @@ async def action(event):
             client.loop.create_task(sendaction(event.chat_id, acType))
 
 @client.on(events.UserUpdate)
-async def handler(event):
+async def copyaction(event):
     if event.user_id == client.me.id: return
     cacMode = client.DB.get_key("COPYACTION_ALL") or "OFF"
     cacChats = client.DB.get_key("COPYACTION_CHATS") or []
     if cacMode == "ON" or event.chat_id in cacChats:
-        if event.typing:
-            client.loop.create_task(sendaction(event.chat_id, "typing"))
+        ACTIONS = {
+            "typing": event.typing,
+            "game": event.playing,
+            "photo": event.photo,
+            "audio": event.audio,
+            "video": event.video,
+            "file": event.document,
+            "sticker": event.sticker,
+            "contact": event.contact,
+            "location": event.geo,
+            "record-video": event.recording,
+            "record-audio": event.recording,
+            "record-round": event.round,
+        }
+        for action in ACTIONS:
+            if ACTIONS[action]:
+                client.loop.create_task(sendaction(event.chat_id, action))
 
 async def sendaction(chat_id, action):
     async with client.action(chat_id, action.lower()):
