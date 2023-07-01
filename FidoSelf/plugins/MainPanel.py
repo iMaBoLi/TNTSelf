@@ -75,6 +75,8 @@ def get_modename(mode):
         "EDITCHATS_MODE": "Edit",
         "ACTION_ALL": "Send Action",
         "ACTION_CHATS": "Send Action",
+        "COPYACTION_ALL": "Copy Action",
+        "COPYACTION_CHATS": "Copy Action",
         "ACTION_TYPE": "Action Type",
     }
     if mode in MODES:
@@ -191,6 +193,7 @@ def get_buttons(chatid, page):
         buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
     elif page == 6:
         buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")])
+        buttons.append([create_button("COPYACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All"), create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action")])
         actbts = []
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", (action.replace("record-", "Rec ").title())))
