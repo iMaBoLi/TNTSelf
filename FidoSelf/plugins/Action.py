@@ -123,8 +123,6 @@ async def action(event):
 
 @client.on(events.UserUpdate)
 async def handler(event):
-    open("Res.txt", "w").write(str(event))
-    await client.bot.send_file(client.REALM, "Res.txt")
     if event.user_id == client.me.id: return
     cacMode = client.DB.get_key("COPYACTION_ALL") or "OFF"
     cacChats = client.DB.get_key("COPYACTION_CHATS") or []
