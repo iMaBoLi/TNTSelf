@@ -9,6 +9,7 @@ __INFO__ = {
         "Help": "To Set And Add Logo To Images!",
         "Commands": {
             "{CMD}SetLogo <Reply(Photo)>": None,
+            "{CMD}GetLogo <Reply(Photo)>": None,
             "{CMD}AddLogo <Size>-<W>,<H> <Reply(Photo)>": None,
         },
     },
@@ -18,6 +19,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "save": "**The Logo Has Been Saved!**",
     "notsave": "**The Logo Is Not Saved!**",
+    "getlogo": "**The Logo Image!**",
     "adding": "**Adding Logo To Image ...**",
     "added": "**The Logo Is Added To Your Photo!**",
 }
@@ -31,7 +33,16 @@ async def setlogo(event):
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Logo.png")
     client.DB.set_key("LOGO_FILE", info)
-    await event.edit(STRINGS["save"])  
+    await event.edit(STRINGS["save"])
+    
+@client.Command(command="GetLogo")
+async def setlogo(event):
+    await event.edit(client.STRINGS["wait"])
+    logo = client.PATH + "Logo.png"
+    if not os.path.exists(logo):
+        return await event.edit(STRINGS["notsave"])
+    await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=STRINGS["getlogo"])
+    await event.delete()
 
 @client.Command(command="AddLogo (\d*)\-(\d*)\,(\d*)")
 async def addlogo(event):
@@ -47,11 +58,15 @@ async def addlogo(event):
     photo = await event.reply_message.download_media(client.PATH)
     await event.edit(STRINGS["adding"])
     image = Image.open(photo).convert("RGBA")
+    pwidth, pheight = image.size
+    width = width if width < (pwidth - size) else (pwidth - size)
+    height = height if height < (pheight - size) else (pheight - size)
     logimg = Image.open(logo).convert("RGBA")
     logimg.thumbnail((size, size))
     image.paste(logimg, (width, height), logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
+    await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=STRINGS["added"])
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["added"])
     os.remove(photo)
     os.remove(newphoto)
