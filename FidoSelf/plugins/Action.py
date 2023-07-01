@@ -36,6 +36,8 @@ STRINGS = {
     "notact": "**The Action** ( `{}` ) **Is Not Available!**",
     "setact": "**The Send Action Mode Was Set To** ( `{}` )",
     "actions": "**The Action List:**\n\n",
+    "copyactionall": "**The Copy Chat Action Has Been {}!**",
+    "copyactionchat": "**The Copy Chat Action For This Chat Has Been {}!**",
 }
 
 @client.Command(command="Action (On|Off)")
