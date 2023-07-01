@@ -11,6 +11,19 @@ __INFO__ = {
             "{CMD}Action <On-Off>": "Action For This Chat!",
             "{CMD}ActionAll <On-Off>": "Action For All Chats!",
             "{CMD}SetAction <Mode>": "Set Action Mode!",
+            "{CMD}ActionList": None,
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+__INFO__ = {
+    "Category": "Manage",
+    "Plugname": "Copy Action",
+    "Pluginfo": {
+        "Help": "To Setting Copy Chat Actions And Send Action!",
+        "Commands": {
+            "{CMD}CAction <On-Off>": None,
+            "{CMD}CActionAll <On-Off>": None,
         },
     },
 }
@@ -21,6 +34,7 @@ STRINGS = {
     "actionchat": "**The Send Chat Action For This Chat Has Been {}!**",
     "notact": "**The Action** ( `{}` ) **Is Not Available!**",
     "setact": "**The Send Action Mode Was Set To** ( `{}` )",
+    "actions": "**The Action List:**\n\n",
 }
 
 @client.Command(command="Action (On|Off)")
@@ -56,6 +70,39 @@ async def setaction(event):
         return await event.edit(STRINGS["notact"].format(acmode))
     client.DB.set_key("ACTION_TYPE", acmode)
     await event.edit(STRINGS["setact"].format(acmode.title()))
+
+@client.Command(command="ActionList")
+async def actionlist(event):
+    await event.edit(client.STRINGS["wait"])
+    text = STRINGS["actions"]
+    for lang in client.functions.ACTIONS:
+        text += f"• `{lang.title()}`\n"
+    await event.edit(text)
+
+@client.Command(command="CAction (On|Off)")
+async def copyactionchat(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).upper()
+    acChats = client.DB.get_key("COPYACTION_CHATS") or []
+    chatid = event.chat_id
+    if change == "ON":
+        if chatid not in acChats:
+            acChats.append(chatid)
+            client.DB.set_key("COPYACTION_CHATS", acChats)
+    else:
+        if chatid in acChats:
+            acChats.remove(chatid)
+            client.DB.set_key("COPYACTION_CHATS", acChats)
+    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
+    await event.edit(STRINGS["copyactionchat"].format(ShowChange))
+
+@client.Command(command="CActionAll (On|Off)")
+async def copyactionall(event):
+    await event.edit(client.STRINGS["wait"])
+    change = event.pattern_match.group(1).upper()
+    client.DB.set_key("COPYACTION_ALL", change)
+    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
+    await event.edit(STRINGS["copyactionall"].format(ShowChange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def action(event):
