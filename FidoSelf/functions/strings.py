@@ -10,7 +10,7 @@ STRINGS = {
         "Group": "**❉ Please Use This Command Only In The Groups!",
         "Channel": "**❉ Please Use This Command Only In The Channels!",
     },
-    "reply": "**❉ Please Reply To** {}",
+    "replymedia": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
     "getuserID": "**❉ Please Reply To User Or Enter UserID Or Send In Pv!**", 
     "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**", 

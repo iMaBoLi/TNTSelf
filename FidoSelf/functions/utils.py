@@ -31,6 +31,13 @@ def chunker(elements, sizes):
             elements.remove(elem)
         tnum = (tnum + 1) if tnum != (len(sizes) - 1) else 0
         number = sizes[tnum]
+    elem1 = newlist[-1]
+    elem2 = newlist[-2]
+    if len(elem1) == 1 and len(elem2) == 1:
+        newlist.remove(elem1)
+        newlist.remove(elem2)
+        newelem = elem1 + elem2
+        newlist.append(newelem)
     return newlist
 
 def reverse(mylist):
