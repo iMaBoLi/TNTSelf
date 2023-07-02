@@ -53,19 +53,20 @@ def gethelp(category, plugin):
             text += "\n"
             hcom = info["Commands"][command]
             if "Help" in hcom:
-                text += "**› Info:** __" + hcom["Help"] + "__\n"
+                text += "    **› Info:** __" + hcom["Help"] + "__\n"
             if "Input" in hcom:
-                text += "**› Inputes:**\n"
+                text += "    **› Inputes:**\n"
                 for inp in hcom["Input"]:
                     inpinf = hcom["Input"][inp]
-                    text += f"  `{inp}` : __{inpinf}__\n"
+                    text += f"     `{inp}` : __{inpinf}__\n"
             if "Reply" in hcom:
                 replyes = ""
                 for reply in hcom["Reply"]:
                     replyes += f"`{reply}` - "
                 replyes = replyes[:-3]
-                text += "**› Reply:** " + replyes + "\n"
-        text += "\n------------------\n"
+                text += "   **› Reply:** " + replyes + "\n"
+        if command != info["Commands"][-1]:
+            text += "\n------------------\n"
     return text
 
 def search_plugin(pluginname):
