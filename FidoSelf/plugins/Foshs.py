@@ -25,7 +25,7 @@ STRINGS = {
 @client.Command(command="AddFosh")
 async def savefoshfile(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["TXT File"])
+    reply, mtype = event.checkReply(["TXT"])
     if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
