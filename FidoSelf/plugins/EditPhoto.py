@@ -64,8 +64,9 @@ async def blackwhite(event):
     if reply: return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "BwPhoto.jpg"
-    img = Image.open(photo).convert("1")
-    img.save(newphoto)
+    img = Image.open(photo)
+    newimg = ImageOps.grayscale(img)
+    newimg.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["bw"])        
     os.remove(photo)
     os.remove(newphoto)
