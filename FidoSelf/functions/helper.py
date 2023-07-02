@@ -90,8 +90,10 @@ def mention(info, coustom=None):
 def mediatype(event):
     if not (event or event.file): return None
     if event.photo:
+        orgtype = "Photo"
         filetype = "Photo"
     elif event.video:
+        orgtype = "Video"
         if event.video_note:
             filetype = "VideoNote"
         elif event.gif or event.file.mime_type == "image/gif":
@@ -101,25 +103,31 @@ def mediatype(event):
         else:
             filetype = "Video"
     elif event.voice:
+        orgtype = "Audio"
         filetype = "Voice"
     elif event.audio:
+        orgtype = "Audio"
         filetype = "Music"
     elif event.sticker:
+        orgtype = "Sticker"
         if event.file.mime_type == "image/webp":
             filetype = "Sticker"
         elif event.file.mime_type == "application/x-tgsticker":
             filetype = "ASticker"
-    else:
+    elif event.document:
         mimetype = event.file.mime_type
-        TYPES = {
-            "image/jpeg": "Photo",
-            "image/png": "Photo",
-            "font/ttf": "Font",
-            "text/plain": "TXT",
-            "application/vnd.android.package-archive": "APP",
-        }
-        filetype = TYPES[mimetype] if mimetype in TYPES else "File"
-    return filetype
+        if mimetype in ["image/jpeg", "image/png"]:
+            orgtype = "Photo"
+            filetype = "Photo"
+        else:
+            orgtype = "File"
+            TYPES = {
+                "font/ttf": "TTF",
+                "text/plain": "TXT",
+                "application/vnd.android.package-archive": "APP",
+            }
+            filetype = TYPES[mimetype] if mimetype in TYPES else "File"
+    return orgtype, filetype
 
 setattr(Message, "mediatype", mediatype)
 
