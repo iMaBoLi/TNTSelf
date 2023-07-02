@@ -37,14 +37,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
         eta = round((total - current) / speed) * 1000
         pstrs = "".join("■" for i in range(math.floor(perc / 5)))
         fstrs = "".join("□" for i in range(20-len(pstrs)))
-        rperc = str(round(perc))
-        if len(rperc) < 3 and int(rperc[-1]) > 4:
-            rstrs = "◧"
-        elif len(rperc) < 3 and int(rperc[-1]) < 4:
-            rstrs = "□"
-        else:
-            rstrs = "■" 
-        strs = pstrs + rstrs + fstrs
+        strs = pstrs + fstrs
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
@@ -88,7 +81,7 @@ def mention(info, coustom=None):
     return f"[{coustom}](tg://user?id={info.id})"
 
 def mediatype(event):
-    if not (event or event.file): return None
+    if not event or not event.file: return None
     if event.photo:
         orgtype = "Photo"
         filetype = "Photo"
