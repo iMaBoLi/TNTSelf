@@ -38,8 +38,8 @@ async def setduration(event):
     await event.edit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
     if dur > 2147483647: dur = 2147483647
-    reply, mtype = event.checkReply(["Video", "Music"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Video", "Music"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -60,8 +60,8 @@ async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
     title = str(event.pattern_match.group(2))
-    reply, _ = event.checkReply(["Music"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Music"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
