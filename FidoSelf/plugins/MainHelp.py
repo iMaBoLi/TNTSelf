@@ -15,8 +15,8 @@ __INFO__ = {
                 "Help": "To Get Help Of Plugin!",
                 "Input": {
                     "<Name>" : "Name Of Plugin!"
-                }
-            }
+                },
+            },
         },
     },
 }
@@ -50,15 +50,19 @@ def gethelp(category, plugin):
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
             hcom = info["Commands"][command]
-            if hasattr(hcom, "Help"):
+            if "Help" in hcom:
                 text += "**› Info:** __" + hcom["Help"] + "__\n"
-            if hasattr(hcom, "Input"):
+            if "Input" in hcom:
                 text += "**› Inputes:**\n"
                 for inp in hcom["Input"]:
                     inpinf = hcom["Input"][inp]
                     text += f"  `{inp}` : __{inpinf}__\n"
-            if hasattr(hcom, "Reply"):
-                text += "**› Reply:** __" + hcom["Reply"] + "__\n"
+            if "Reply" in hcom:
+                replyes = ""
+                for reply in hcom["Reply"]:
+                    replyes += f"`{reply}` - "
+                replyes = replyes[:-3]
+                text += "**› Reply:** " + replyes + "\n"
     return text
 
 def search_plugin(pluginname):
