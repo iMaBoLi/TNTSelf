@@ -8,7 +8,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Mirror Your Photo!",
         "Commands": {
-            "{CMD}SMirror": None,
+            "{CMD}SMirror <Reply(Photo)>": None,
         },
     },
 }
