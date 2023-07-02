@@ -32,7 +32,7 @@ async def tsave(event):
 async def savemedias(event):
     if not event.is_private or event.is_bot: return
     if not event.file or event.checkReply(["Photo", "Video"]): return
-    tmode = client.DB.get_key("TIMER_MODE")
+    tmode = client.DB.get_key("TIMER_MODE") or "OFF"
     if tmode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
         if event.file.size > client.MAX_SIZE: return
         file = await event.download_media(client.PATH)
