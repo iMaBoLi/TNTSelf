@@ -35,7 +35,7 @@ __INFO__ = {
                 "Help": "To Getting Quicks List!",
             },
             "{CMD}CleanQuickList": {
-                "Help": "To Clean Quicks List!",
+                "Help": "To Cleaning Quicks List!",
             },
         },
     },
