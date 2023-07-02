@@ -16,7 +16,6 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "txt": "**The File Foramt Is Not Available!**",
     "save": "**The Enemy Foshs File Has Been Saved!**",
     "del": "**The Enemy Foshs File Has Been Deleted!**",
     "nsave": "**The Enemy Foshs File Is Not Saved!**",
@@ -26,11 +25,8 @@ STRINGS = {
 @client.Command(command="AddFosh")
 async def savefoshfile(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["File"])
+    reply, mtype = event.checkReply(["TXT File"])
     if reply: return await event.edit(reply)
-    format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
-    if format != "txt":
-        return await event.edit(STRINGS["txt"])
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "FOSHS.txt")
