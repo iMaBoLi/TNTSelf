@@ -44,7 +44,9 @@ def checkReply(event, medias=[]):
     message = None
     mediatype = client.functions.mediatype(event.reply_message)
     if event.is_reply:
-        if ("File" in medias and not mediatype.endswith("File")) or ("Photo" in medias and not mediatype.endswith("Photo")) or mediatype not in medias:
+        if mediatype not in medias:
+            if ("File" in medias and not mediatype.endswith("File")) or ("Photo" in medias and not mediatype.endswith("Photo")):
+                return message
             message = ""
             for media in medias:
                 message += f"**(** `{media}` **) OR **"
