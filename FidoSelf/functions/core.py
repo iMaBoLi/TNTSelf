@@ -40,7 +40,7 @@ def checkSpam(event):
 
 setattr(Message, "checkSpam", checkSpam)
 
-def checkReply(event, medias=None):
+def checkReply(event, medias=[]):
     message = None
     orgtype, mediatype = client.functions.mediatype(event.reply_message)
     if event.is_reply:
