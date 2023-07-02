@@ -14,6 +14,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "notzoom": "**The Zoom On Photo In** ( `{}` ) **Border Was Not Available!**",
     "zoom": "**The Zoom On Photo In** ( `{}` ) **Border Completed!**",
 }
 
@@ -26,8 +27,11 @@ async def zoomphoto(event):
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "ZoomPhoto.jpg"
     img = Image.open(photo)
-    newimg = ImageOps.crop(img, border=zoom)
-    newimg.save(newphoto)
+    try:
+        newimg = ImageOps.crop(img, border=zoom)
+        newimg.save(newphoto)
+    except SystemError:
+        return await event.edit(STRINGS["notzoom"].format(zoom))
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["zoom"].format(zoom))        
     os.remove(photo)
     os.remove(newphoto)
