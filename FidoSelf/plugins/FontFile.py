@@ -25,7 +25,7 @@ STRINGS = {
 @client.Command(command="SetFont")
 async def setfontfile(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["TTF"])
+    reply, _ = event.checkReply(["TTF File"])
     if reply: return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
