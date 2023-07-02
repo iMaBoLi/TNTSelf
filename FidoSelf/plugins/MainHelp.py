@@ -1,18 +1,25 @@
 from FidoSelf import client
 from telethon import Button
 
+CATEGORY = "Setting"
 __INFO__ = {
-    "Category": "Setting",
+    "Category": CATEGORY,
     "Plugname": "Help",
     "Pluginfo": {
         "Help": "To Get Help About Self Commands!",
         "Commands": {
-            "{CMD}Help": None,
-            "{CMD}Help <Name>": "To Get Help Of Plugin!",
+            "{CMD}Help": {
+                "Help": "To Get Help Panel!",
+            },
+            "{CMD}Help <Name>": {
+                "Help": "To Get Help Of Plugin!",
+                "Input": {
+                    "<Name>" : "Name Of Plugin!"
+                }
+            }
         },
     },
 }
-
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
@@ -24,14 +31,14 @@ STRINGS = {
 }
 
 CATS = {
-    "Setting": "⚙️ Settings ({})",
-    "Manage": "👮 Manage ({})",
-    "Tools": "🔧 Tools ({})",
-    "Practical": "🧪 Practical ({})",
-    "Account": "💎 Account ({})",
-    "Group": "👥 Groups ({})",
-    "Private": "🔒 Private ({})",
-    "Funs": "🎨 Funs ({})",
+    "Setting": "⚙️ Settings",
+    "Manage": "👮 Manage",
+    "Tools": "🔧 Tools",
+    "Practical": "🧪 Practical",
+    "Account": "💎 Account",
+    "Group": "👥 Groups",
+    "Private": "🔒 Private",
+    "Funs": "🎨 Funs",
 }
 
 def gethelp(category, plugin):
@@ -42,7 +49,16 @@ def gethelp(category, plugin):
         share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "  **› " + info["Commands"][command] + "**\n"
+            hcom = info["Commands"][command]
+            if hasattr(hcom, "Help"):
+                text += "**› Info:** __" + hcom["Help"] + "__\n"
+            if hasattr(hcom, "Input"):
+                text += "**› Inputes:**\n"
+                for inp in hcom["Input"]:
+                    inpinf = hcom["Input"][inp]
+                    text += f"  `{inp}` : __{inpinf}__\n"
+            if hasattr(hcom, "Reply"):
+                text += "**› Reply:** __" + hcom["Reply"] + "__\n"
     return text
 
 def search_plugin(pluginname):
@@ -75,8 +91,7 @@ async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        plugcount = len(client.HELP[category])
-        sname = CATS[category].format(plugcount)
+        sname = CATS[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -87,8 +102,7 @@ async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        plugcount = len(client.HELP[category])
-        sname = CATS[category].format(plugcount)
+        sname = CATS[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
