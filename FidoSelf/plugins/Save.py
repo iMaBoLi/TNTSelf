@@ -32,8 +32,8 @@ STRINGS = {
 async def savesaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
-    reply, _ = event.checkReply()
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply():
+        return await event.edit(reply)
     saves = client.DB.get_key("SAVES") or {}
     if name in saves:
         return await event.edit(STRINGS["notall"].format(name))
