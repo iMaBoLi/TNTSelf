@@ -20,13 +20,13 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Convert Photo Add Filters To Photo!",
         "Commands": {
-            "{CMD}FPhoto Blur": None,
-            "{CMD}FPhoto Contour": None,
-            "{CMD}FPhoto Detail": None,
-            "{CMD}FPhoto Emboss": None,
-            "{CMD}FPhoto Edge": None,
-            "{CMD}FPhoto Smooth": None,
-            "{CMD}FPhoto Sharpen": None,
+            "{CMD}SPBlur": None,
+            "{CMD}SPContour": None,
+            "{CMD}SPDetail": None,
+            "{CMD}SPEmboss": None,
+            "{CMD}SPEdge": None,
+            "{CMD}SPSmooth": None,
+            "{CMD}SPSharpen": None,
         },
     },
 }
@@ -60,34 +60,18 @@ STRINGS = {
 @client.Command(command="SBw")
 async def blackwhite(event):
     await event.edit(client.STRINGS["wait"])
-    color = event.pattern_match.group(1).title()
     reply, _ = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "BwPhoto.jpg"
-    img = Image.open(photo)
-    newimg = img.convert("1")
-    newimg.save(newphoto)
+    img = Image.open(photo).convert("1")
+    img.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["bw"])        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
 
-MODES = {
-    "Blur": BLUR,
-    "Contour": CONTOUR,
-    "Detail": DETAIL,
-    "Emboss": EMBOSS,
-    "Edge": EDGE_ENHANCE_MORE,
-    "Smooth": SMOOTH_MORE,
-    "Sharpen": SHARPEN,
-}
-Pattern = ""
-for mode in MODES:
-    Pattern += mode + "|"
-Pattern = Pattern[:-1]
-
-@client.Command(command=f"FPhoto ({Pattern})")
+@client.Command(command="SP(Blur|Contour|Detail|Emboss|Edge|Smooth|Sharpen)")
 async def filterphoto(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
@@ -95,6 +79,15 @@ async def filterphoto(event):
     if reply: return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + f"FilterPhoto-{str(mode)}.jpg"
+    MODES = {
+        "Blur": BLUR,
+        "Contour": CONTOUR,
+        "Detail": DETAIL,
+        "Emboss": EMBOSS,
+        "Edge": EDGE_ENHANCE_MORE,
+        "Smooth": SMOOTH_MORE,
+        "Sharpen": SHARPEN,
+    }
     img = Image.open(photo)
     newimg = img.filter(MODES[mode])
     newimg.save(newphoto)
