@@ -24,9 +24,9 @@ async def sliceimage(event):
     tile = event.pattern_match.group(1)
     reply, mtype = event.checkReply(["Photo"])
     if reply: return await event.edit(reply)
-    photo = await event.reply_message.download_media(client.PATH)
+    photo = await event.reply_message.download_media(client.PATH + "PhotoTile.jpg")
     tiles = image_slicer.slice(photo, int(tile))
-    photos = [str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
+    photos = [client.PATH + str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
     text = STRINGS["slice"].format(len(photos))
     for phs in list(client.functions.chunks(photos, 9)):
         await event.respond(text, file=phs)
