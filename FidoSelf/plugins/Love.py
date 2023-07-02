@@ -112,8 +112,8 @@ async def cleanlovelist(event):
 @client.Command(command="SetLove")
 async def savelove(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply()
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply():
+        return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("LOVE_MESSAGE", info)
     await event.edit(STRINGS["setlove"])
