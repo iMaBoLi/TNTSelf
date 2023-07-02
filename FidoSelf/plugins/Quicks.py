@@ -63,7 +63,11 @@ async def quicksupdate(event):
         MainAnswers = info["Answers"]
         SplitAnswers = MainAnswers.split(",")
         if info["Type"] == "Normal":
-            await event.reply(MainAnswers)
+            if info["Person"] == "Sudo":
+                await event.delete()
+                await event.respond(MainAnswers)
+            else:
+                await event.reply(MainAnswers)
             continue
         elif info["Type"] == "Random":
             if info["Person"] == "Sudo":
@@ -72,8 +76,13 @@ async def quicksupdate(event):
                 await event.reply(random.choice(SplitAnswers))
             continue
         elif info["Type"] == "Multi":
+            if info["Person"] == "Sudo":
+                await event.delete()
             for answer in SplitAnswers:
-                await event.reply(answer)
+                if info["Person"] == "Sudo":
+                    await event.respond(answer)
+                else:
+                    await event.reply(answer)
                 await asyncio.sleep(eval(info["Sleep"]))
             continue
         elif info["Type"] == "Edit":
@@ -88,10 +97,17 @@ async def quicksupdate(event):
             continue
         elif info["Type"] == "Media":
             media = info["Answers"]
-            getmsg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
-            await event.reply(getmsg)
+            if info["Person"] == "Sudo":
+                await event.delete()
+                getmsg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
+                await event.respond(getmsg)
+            else:
+                getmsg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
+                await event.reply(getmsg)
             continue
         elif info["Type"] == "Draft":
+            if info["Person"] == "Sudo":
+                await event.delete()
             await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=MainAnswers))
             continue
 
