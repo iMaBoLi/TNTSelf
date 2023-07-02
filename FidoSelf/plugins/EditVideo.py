@@ -3,42 +3,39 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Edit Video",
+    "Plugname": "Filter Video",
     "Pluginfo": {
-        "Help": "To Edit Video And Add Filters To Video!",
+        "Help": "To Convert Video And Add Filters To Video!",
         "Commands": {
-            "{CMD}SVideo Bw": "Add Black White Filter To Video!",
-            "{CMD}SVideo Negative": "Add Negative Filter To Video!",
+            "{CMD}SVBw": None,
+            "{CMD}SVNegative": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "coning": "**Converting To** ( `{}` ) **...**",
+    "coning": "**Adding** ( `{}` ) **Filter To Video ...**",
     "caption": "**The Filter** ( `{}` ) **iS Added To Video!**",
 }
 
-@client.Command(command="SVideo (Bw|Negative)")
+@client.Command(command="SV(Bw|Negative)")
 async def editvideo(event):
     await event.edit(client.STRINGS["wait"])
-    filter = event.pattern_match.group(1).title()
-    reply, mtype = event.checkReply(["Video", "Gif"]):
+    vfilter = event.pattern_match.group(1).title()
+    if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-    type = "BlackWhite" if filter == "Bw" else "Invert(Negative)"
-    await event.edit(STRINGS["coning"].format(type))
-    if mtype == "Video":
-        outfile = client.PATH + "EditVideo.mp4"
-    elif mtype == "Gif":
-        outfile = client.PATH + "EditGif.gif"
-    if filter == "Bw":
+    addfilter = "BlackWhite" if vfilter == "Bw" else "Negative"
+    await event.edit(STRINGS["coning"].format(addfilter))
+    outfile = client.PATH + f"FilterVideo-{str(vfilter)}.mp4"
+    if vfilter == "Bw":
         cmd = f'ffmpeg -i "{file}" -vf format=gray {outfile} -y'
-    elif filter == "Negative":
+    elif vfilter == "Negative":
         cmd = f'ffmpeg -i "{file}" -vf lutyuv="y=negval:u=negval:v=negval" {outfile} -y'
     await client.functions.runcmd(cmd)
-    caption = STRINGS["caption"].format(type)
+    caption = STRINGS["caption"].format(addfilter)
     await client.send_file(event.chat_id, outfile, caption=caption, supports_streaming=True)
     os.remove(file)
     os.remove(outfile)
