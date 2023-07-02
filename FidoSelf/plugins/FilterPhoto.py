@@ -40,8 +40,8 @@ STRINGS = {
 @client.Command(command="SBw")
 async def blackwhite(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "BwPhoto.jpg"
     img = Image.open(photo)
@@ -56,8 +56,8 @@ async def blackwhite(event):
 async def filterphoto(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + f"FilterPhoto-{str(mode)}.jpg"
     MODES = {

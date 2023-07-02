@@ -29,8 +29,8 @@ async def tsave(event):
 @client.Command(onlysudo=False)
 async def savemedias(event):
     mode = client.DB.get_key("TIMER_MODE")
-    reply, _ = event.checkReply(["Photo", "Video"])
-    if reply: return
+    if reply:= event.checkReply(["Photo", "Video"]):
+        return
     if event.is_private and mode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
         file = await event.download_media(client.PATH)
         sender = await event.get_sender()

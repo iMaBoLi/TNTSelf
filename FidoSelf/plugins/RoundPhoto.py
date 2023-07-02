@@ -18,8 +18,8 @@ client.functions.AddInfo(__INFO__)
 @client.Command(command="RPhoto")
 async def roundphoto(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     img = Image.open(photo).convert("RGB")
     npImage = np.array(img)

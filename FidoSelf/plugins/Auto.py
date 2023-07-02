@@ -101,8 +101,8 @@ async def cleanautolist(event):
 @client.Command(command="SetAuto")
 async def setauto(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply()
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply():
+        return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("AUTO_MESSAGE", info)
     await event.edit(STRINGS["saveauto"])

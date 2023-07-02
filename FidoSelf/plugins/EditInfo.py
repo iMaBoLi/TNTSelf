@@ -10,18 +10,18 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Edit Duration Of Music And Videos!",
         "Commands": {
-            "{CMD}SDur <Sec> <Reply(Music|Vide)>": None,
+            "{CMD}SDuration <Sec> <Reply(Music|Video)>": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Edit Info",
+    "Plugname": "Music Info",
     "Pluginfo": {
         "Help": "To Edit Title And Performer For Music!",
         "Commands": {
-            "{CMD}SAudio <Title>:<Name>": None,
+            "{CMD}SMusic <Title>:<Name>": None,
         },
     },
 }
@@ -33,13 +33,14 @@ STRINGS = {
     "atilper": "**The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
 }
 
-@client.Command(command="SDur (\d*)")
+@client.Command(command="SDuration (\d*)")
 async def setduration(event):
     await event.edit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
     if dur > 2147483647: dur = 2147483647
-    reply, mtype = event.checkReply(["Video", "Music"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Video", "Music"]):
+        return await event.edit(reply)
+    mtype = event.reply_message.mediatype()
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -55,13 +56,13 @@ async def setduration(event):
     os.remove(file)
     await event.delete()
 
-@client.Command(command="SAudio (.*)\:(.*)")
+@client.Command(command="SMusic (.*)\:(.*)")
 async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
     title = str(event.pattern_match.group(2))
-    reply, _ = event.checkReply(["Music"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Music"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)

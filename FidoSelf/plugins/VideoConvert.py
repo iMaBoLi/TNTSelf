@@ -39,8 +39,8 @@ client.functions.AddInfo(__INFO__)
 @client.Command(command="SVideo")
 async def videoconvert(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["VideoNote"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["VideoNote"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -54,8 +54,8 @@ async def videoconvert(event):
 @client.Command(command="SVNote")
 async def videonotecon(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["Video"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Video"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -69,8 +69,8 @@ async def videonotecon(event):
 @client.Command(command="SGif")
 async def gifconvert(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["Video", "VideoNote"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Video", "VideoNote"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)

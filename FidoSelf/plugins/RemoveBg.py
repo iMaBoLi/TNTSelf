@@ -47,8 +47,8 @@ async def savebgapi(event):
 @client.Command(command="RmBg")
 async def rmbg(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     if not client.DB.get_key("RMBG_API_KEY"):
         return await event.edit(STRINGS["notsave"])
     photo = await event.reply_message.download_media(client.PATH)

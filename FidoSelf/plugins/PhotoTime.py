@@ -84,8 +84,8 @@ def get_buttons(phname):
 @client.Command(command="AddPhoto (.*)")
 async def addphoto(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     phname = str(event.pattern_match.group(1)) + ".jpg"
     photos = client.DB.get_key("PHOTOS") or {}
     if phname in photos:

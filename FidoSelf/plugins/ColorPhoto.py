@@ -30,8 +30,8 @@ STRINGS = {
 async def colorphoto(event):
     await event.edit(client.STRINGS["wait"])
     color = event.pattern_match.group(1).title()
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + f"ColorPhoto-{str(color)}.jpg"
     img = Image.open(photo).convert("L")
