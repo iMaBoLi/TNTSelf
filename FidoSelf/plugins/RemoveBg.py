@@ -57,7 +57,7 @@ async def rmbg(event):
     if not state:
         return await event.edit(STRINGS["notcom"].format(result))
     caption = STRINGS["caption"]
-    await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=caption)
+    await client.send_file(event.chat_id, newphoto, force_document=True, caption=caption)
     await client.send_file(event.chat_id, newphoto, caption=caption)
     os.remove(photo)
     os.remove(newphoto)

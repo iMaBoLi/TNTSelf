@@ -4,42 +4,27 @@ import os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Video",
+    "Plugname": "Convert Video",
     "Pluginfo": {
-        "Help": "To Convert Video Note To Video!",
+        "Help": "To Convert Video And Gif Formats!",
         "Commands": {
-            "{CMD}SVideo <Reply(VideoNote)>": None,
-        },
-    },
-}
-client.functions.AddInfo(__INFO__)
-__INFO__ = {
-    "Category": "Practical",
-    "Plugname": "VideoNote",
-    "Pluginfo": {
-        "Help": "To Convert Video To Video Note!",
-        "Commands": {
-            "{CMD}SVNote <Reply(Video)>": None,
-        },
-    },
-}
-client.functions.AddInfo(__INFO__)
-__INFO__ = {
-    "Category": "Practical",
-    "Plugname": "Gif",
-    "Pluginfo": {
-        "Help": "To Convert Video And Video Note To Gif!",
-        "Commands": {
-            "{CMD}SGif <Reply(Video|VNote)>": None,
+            "{CMD}ToVideo <Reply(VideoNote)>": None,
+            "{CMD}ToVNote <Reply(Video)>": None,
+            "{CMD}ToGif <Reply(Video)>": None,
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
-@client.Command(command="SVideo")
-async def videoconvert(event):
+STRINGS = {
+    "tovideo": "**The Video Note Converted To Video!**",
+    "togif": "**The Video Converted To Gif!**",
+}
+
+@client.Command(command="ToVideo")
+async def tovideo(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["VideoNote"]):
+    if reply:= event.checkReply(["VideoNote"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -47,14 +32,14 @@ async def videoconvert(event):
     videonote = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     attributes = [types.DocumentAttributeVideo(duration=event.reply_message.file.duration, w=event.reply_message.file.width, h=event.reply_message.file.height, round_message=False, supports_streaming=True)]
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, videonote, attributes=attributes, progress_callback=callback)
+    await client.send_file(event.chat_id, videonote, caption=STRINGS["tovideo"], attributes=attributes, progress_callback=callback)
     os.remove(videonote)
     await event.delete()
 
-@client.Command(command="SVNote")
-async def videonotecon(event):
+@client.Command(command="ToVNote")
+async def tovnote(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["Video"]):
+    if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -66,10 +51,10 @@ async def videonotecon(event):
     os.remove(video)
     await event.delete()
     
-@client.Command(command="SGif")
-async def gifconvert(event):
+@client.Command(command="ToGif")
+async def togif(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply(["Video", "VideoNote"]):
+    if reply:= event.checkReply(["Video", "VideoNote"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -78,6 +63,6 @@ async def gifconvert(event):
     giffile = client.PATH + "VideoGif.gif"
     os.rename(video, giffile)
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, giffile, progress_callback=callback)
+    await client.send_file(event.chat_id, giffile, caption=STRINGS["togif"], progress_callback=callback)
     os.remove(giffile)
     await event.delete()

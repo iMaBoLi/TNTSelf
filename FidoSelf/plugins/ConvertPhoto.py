@@ -17,6 +17,12 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 
+STRINGS = {
+    "tophoto": "**The Sticker Converted To Photo!**",
+    "tojpg": "**The PNG Photo Converted To JPG Photo!**",
+    "topng": "**The JPG Photo Converted To PNG Photo!**","
+}
+
 @client.Command(command="ToPhoto")
 async def tophoto(event):
     await event.edit(client.STRINGS["wait"])
@@ -26,7 +32,7 @@ async def tophoto(event):
     photo = client.PATH + "StickerToPhoto.jpg"
     img = Image.open(sticker)
     img.save(photo, format="jpeg")  
-    await client.send_file(event.chat_id, photo)
+    await client.send_file(event.chat_id, photo, caption=STRINGS["tophoto"])
     os.remove(sticker)
     os.remove(photo)
     await event.delete()
@@ -54,7 +60,7 @@ async def tojpg(event):
     newphoto = client.PATH + "PngToJpg.jpg"
     img = Image.open(photo)
     img.save(newphoto, format="jpeg")  
-    await client.send_file(event.chat_id, newphoto)
+    await client.send_file(event.chat_id, newphoto, caption=STRINGS["tophoto"])
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
@@ -68,7 +74,7 @@ async def topng(event):
     newphoto = client.PATH + "JpgToPng.png"
     img = Image.open(photo)
     img.save(newphoto, format="png")  
-    await client.send_file(event.chat_id, newphoto)
+    await client.send_file(event.chat_id, newphoto, caption=STRINGS["tophoto"], force_document=True)
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
