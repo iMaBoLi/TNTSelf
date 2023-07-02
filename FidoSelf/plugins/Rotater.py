@@ -8,7 +8,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Rotate Your Photo And Videos!",
         "Commands": {
-            "{CMD}SRotate <Num><Reply(Photo|Video)>": None,
+            "{CMD}SRotate <Num> <Reply(Photo|Video)>": None,
         },
     },
 }
@@ -24,8 +24,9 @@ STRINGS = {
 async def rotate(event):
     await event.edit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
-    reply, mtype = event.checkReply(["Video", "Photo"]):
+    if reply:= event.checkReply(["Video", "Photo"]):
         return await event.edit(reply)
+    mtype = event.reply_message.mediatype()
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     if mtype == "Photo":
