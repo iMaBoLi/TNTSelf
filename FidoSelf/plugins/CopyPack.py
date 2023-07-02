@@ -26,8 +26,8 @@ async def copypack(event):
     await event.edit(client.STRINGS["wait"])
     packtitle = event.pattern_match.group(1)
     packname = event.pattern_match.group(2)
-    reply, mtype = event.checkReply(["Sticker", "ASticker"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Sticker", "ASticker"]):
+        return await event.edit(reply)
     id = event.reply_message.media.document.attributes[1].stickerset.id
     hash = event.reply_message.media.document.attributes[1].stickerset.access_hash
     stickers = await client(
