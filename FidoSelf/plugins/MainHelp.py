@@ -50,6 +50,7 @@ def gethelp(category, plugin):
         share = f"http://t.me/share/text?text={ccname}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
+            text += "\n"
             hcom = info["Commands"][command]
             if "Help" in hcom:
                 text += "**› Info:** __" + hcom["Help"] + "__\n"
@@ -64,6 +65,7 @@ def gethelp(category, plugin):
                     replyes += f"`{reply}` - "
                 replyes = replyes[:-3]
                 text += "**› Reply:** " + replyes + "\n"
+        text += "------------------\n\n"
     return text
 
 def search_plugin(pluginname):
