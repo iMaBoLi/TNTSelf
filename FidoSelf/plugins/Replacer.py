@@ -19,15 +19,12 @@ STRINGS = {
 @client.Command(command="SReplace (.*)\,(.*)")
 async def replacer(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply("Text")
-    if reply: return await event.edit(reply)
+    if not (event.reply_message or event.reply_message.text):
+        return await event.edit(client.STRINGS["replytext"])
     fword = str(event.pattern_match.group(1))
     tword = str(event.pattern_match.group(2))
     lasttext = event.reply_message.text
     newtext = event.reply_message.text.replace(fword, tword)
     if newtext != lasttext:
-        if event.reply_message.out:
-            await event.reply_message.edit(newtext)
-        else:
-            await event.reply_message.reply(newtext)
+        await event.reply(newtext)
     await event.edit(STRINGS["replace"].format(fword, tword))
