@@ -1,5 +1,5 @@
 from FidoSelf import client
-from PIL import Image
+from PIL import Image, ImageColor
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
@@ -97,7 +97,7 @@ async def filterphoto(event):
     os.remove(newphoto)
     await event.delete()
 
-@client.Command(command="S(Red|Blue|Green)")
+@client.Command(command="S(Red|Blue|Green|Yellow|White|Black|Gold)")
 async def colorphoto(event):
     await event.edit(client.STRINGS["wait"])
     color = event.pattern_match.group(1).title()
@@ -106,13 +106,7 @@ async def colorphoto(event):
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + f"ColorPhoto-{str(color)}.jpg"
     img = Image.open(photo)
-    data = img.getdata()
-    if color == "Red":
-        newdata = [(d[0], 0, 0) for d in data]
-    elif color == "Blue":
-        newdata = [(0, d[1], 0) for d in data]
-    elif color == "Green":
-        newdata = [(0, 0, d[2]) for d in data]
+    newdata = ImageColor.getrgb(color.lower())
     img.putdata(newdata)
     img.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["color"].format(color))        
