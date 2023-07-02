@@ -22,7 +22,7 @@ async def tophoto(event):
     sticker = await event.reply_message.download_media(client.PATH)
     photo = client.PATH + "StickerToPhoto.jpg"
     img = Image.open(sticker)
-    img.save(newfile, format="jpeg")  
+    img.save(photo, format="jpeg")  
     await client.send_file(event.chat_id, photo)
     os.remove(sticker)
     os.remove(photo)
