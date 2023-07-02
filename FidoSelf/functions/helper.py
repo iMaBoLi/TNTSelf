@@ -122,9 +122,9 @@ def mediatype(event):
         else:
             orgtype = "File"
             TYPES = {
-                "font/ttf": "TTF",
-                "text/plain": "TXT",
-                "application/vnd.android.package-archive": "APP",
+                "font/ttf": "TTF File",
+                "text/plain": "TXT File",
+                "application/vnd.android.package-archive": "APP File",
             }
             filetype = TYPES[mimetype] if mimetype in TYPES else "File"
     return orgtype, filetype
