@@ -31,13 +31,11 @@ async def msave(event):
 @client.Command(onlysudo=False)
 async def savemedias(event):
     if not event.is_private or event.is_bot: return
-    if event.checkReply(["Media"]): return
+    if not event.file: return
     mmode = client.DB.get_key("MEDIAPV_MODE")
     if mmode == "ON":
-        if event.file.size > client.MAX_SIZE: return
-        file = await event.download_media(client.PATH)
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
         caption = STRINGS["caption"].format(mention)
-        await client.send_file(client.REALM, file, caption=caption)
+        await client.send_file(client.REALM, event.file, caption=caption)
         os.remove(file)
