@@ -34,6 +34,7 @@ async def savemedias(event):
     if event.checkReply(["Photo", "Video"]): return
     tmode = client.DB.get_key("TIMER_MODE")
     if tmode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
+        if event.file.size > client.MAX_SIZE: return
         file = await event.download_media(client.PATH)
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
