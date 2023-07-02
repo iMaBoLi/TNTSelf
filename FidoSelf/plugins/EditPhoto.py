@@ -1,5 +1,5 @@
 from FidoSelf import client
-from PIL import Image, ImageColor
+from PIL import Image, ImageOps
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
 
@@ -40,6 +40,12 @@ __INFO__ = {
             "{CMD}SRed": None,
             "{CMD}SBlue": None,
             "{CMD}SGreen": None,
+            "{CMD}SYellow": None,
+            "{CMD}SPurple": None,
+            "{CMD}SOrange": None,
+            "{CMD}SPink": None,
+            "{CMD}SGray": None,
+            "{CMD}SGold": None,
         },
     },
 }
@@ -97,7 +103,7 @@ async def filterphoto(event):
     os.remove(newphoto)
     await event.delete()
 
-@client.Command(command="S(Red|Blue|Green|Yellow|White|Black|Gold)")
+@client.Command(command="S(Red|Blue|Green|Yellow|Purple|Orange|Pink|Gray|Gold)")
 async def colorphoto(event):
     await event.edit(client.STRINGS["wait"])
     color = event.pattern_match.group(1).title()
@@ -105,10 +111,9 @@ async def colorphoto(event):
     if reply: return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + f"ColorPhoto-{str(color)}.jpg"
-    img = Image.open(photo)
-    newdata = ImageColor.getrgb(color.lower())
-    img.putdata([newdata])
-    img.save(newphoto)
+    img = Image.open(photo).convert("L")
+    newimg = ImageOps.colorize(img, black=color.lower(), white="white")
+    newimg.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["color"].format(color))        
     os.remove(photo)
     os.remove(newphoto)
