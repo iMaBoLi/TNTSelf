@@ -26,8 +26,5 @@ async def replacer(event):
     lasttext = event.reply_message.text
     newtext = event.reply_message.text.replace(fword, tword)
     if newtext != lasttext:
-        if event.reply_message.out:
-            await event.reply_message.edit(newtext)
-        else:
-            await event.reply_message.reply(newtext)
+        await event.reply(newtext)
     await event.edit(STRINGS["replace"].format(fword, tword))
