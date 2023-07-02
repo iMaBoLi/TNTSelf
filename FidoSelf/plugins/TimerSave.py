@@ -31,7 +31,7 @@ async def tsave(event):
 @client.Command(onlysudo=False)
 async def savemedias(event):
     if not event.is_private or event.is_bot: return
-    if event.checkReply(["Photo", "Video"]): return
+    if not event.file or event.checkReply(["Photo", "Video"]): return
     tmode = client.DB.get_key("TIMER_MODE")
     if tmode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
         if event.file.size > client.MAX_SIZE: return
