@@ -23,8 +23,8 @@ STRINGS = {
 async def editvideo(event):
     await event.edit(client.STRINGS["wait"])
     filter = event.pattern_match.group(1).title()
-    reply, mtype = event.checkReply(["Video", "Gif"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Video", "Gif"]):
+        return await event.edit(reply)
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     type = "BlackWhite" if filter == "Bw" else "Invert(Negative)"
