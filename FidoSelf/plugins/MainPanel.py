@@ -192,8 +192,8 @@ def get_buttons(chatid, page):
             allbts.append(create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
         buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
     elif page == 6:
-        buttons.append([create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Action All"), create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action")])
-        buttons.append([create_button("COPYACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All"), create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action")])
+        buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
+        buttons.append([create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action"), create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Action All")])
         actbts = []
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", (action.replace("record-", "Rec ").title())))
