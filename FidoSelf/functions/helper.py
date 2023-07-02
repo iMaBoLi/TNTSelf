@@ -83,7 +83,7 @@ def mention(info, coustom=None):
 def mediatype(event):
     if not event or not event.file: return None
     if event.photo:
-        filetype = "Photo"
+        filetype = "JPG Photo"
     elif event.video:
         if event.video_note:
             filetype = "VideoNote"
@@ -105,8 +105,8 @@ def mediatype(event):
     elif event.document:
         mimetype = event.file.mime_type
         TYPES = {
-            "image/jpeg": "Photo",
-            "image/png": "Photo",
+            "image/jpeg": "JPG Photo",
+            "image/png": "PNG Photo",
             "font/ttf": "TTF File",
             "text/plain": "TXT File",
             "application/vnd.android.package-archive": "APP File",
