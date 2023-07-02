@@ -34,7 +34,6 @@ def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
         "QUICKS_MODE": "Quicks",
-        "ANTI_SPAM": "Anti Spam",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
@@ -42,8 +41,10 @@ def get_modename(mode):
         "SIGN_MODE": "Sign",
         "EMOJI_MODE": "Emoji",
         "TIMER_MODE": "Timer Save",
+        "MEDIAPV_MODE": "Media Save",
         "MUTE_PV": "MutePv",
         "LOCK_PV": "LockPv",
+        "ANTI_SPAM": "Anti Spam",
         "REPEAT_ALL": "Repeat",
         "REPEAT_CHATS": "Repeat",
         "REACTION_ALL": "Reaction",
@@ -152,11 +153,10 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 def get_buttons(chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV"]:
-            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
+        for Mode in ["ONLINE_MODE", "QUICKS_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV", "ANTI_SPAM"]:
+            default = "OFF" if Mode not in ["QUICKS_MODE", "ANTI_SPAM"] else "ON"
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, default)
             buttons.append(button)
-        buttons.insert(1, create_button("QUICKS_MODE", None, "Turn", "Turn", chatid, page, "ON"))
-        buttons.insert(5, create_button("ANTI_SPAM", None, "Turn", "Turn", chatid, page, "ON"))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 2:
         for Mode in ["REPEAT", "REACTION", "POKER"]:
