@@ -17,7 +17,6 @@ client.functions.AddInfo(__INFO__)
 @client.Command(command="ToPhoto")
 async def tophoto(event):
     await event.edit(client.STRINGS["wait"])
-    mode = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Sticker"]):
         return await event.edit(reply)
     sticker = await event.reply_message.download_media(client.PATH)
