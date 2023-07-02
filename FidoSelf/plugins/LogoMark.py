@@ -27,8 +27,8 @@ STRINGS = {
 @client.Command(command="SetLogo")
 async def setlogo(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Logo.png")
@@ -47,8 +47,8 @@ async def setlogo(event):
 @client.Command(command="AddLogo (\d*)\-(\d*)\,(\d*)")
 async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["Photo"])
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply(["Photo"]):
+        return await event.edit(reply)
     size = int(event.pattern_match.group(1))
     width = int(event.pattern_match.group(2))
     height = int(event.pattern_match.group(3))
