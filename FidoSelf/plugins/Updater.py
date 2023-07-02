@@ -2,7 +2,6 @@ from FidoSelf import client
 import shutil, glob, os
 
 STRINGS = {
-    "dis": "**Successfuly Disconnected!**",
     "complete": "**Successfuly Updated And Restarting ...**",
 }
 
