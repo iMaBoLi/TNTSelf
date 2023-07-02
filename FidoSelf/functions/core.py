@@ -53,7 +53,7 @@ def checkReply(event, medias=[]):
     else:
         message = "A Message"
         message = client.STRINGS["reply"].format(message)
-    return message, mediatype
+    return message
 
 setattr(Message, "checkReply", checkReply)
 
