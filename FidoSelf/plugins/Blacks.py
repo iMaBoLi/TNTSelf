@@ -6,10 +6,20 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Manage Users On Black List!",
         "Commands": {
-            "{CMD}AddBlack <Reply|Userid|Username>": None,
-            "{CMD}DelBlack <Reply|Userid|Username>": None,
-            "{CMD}BlackList": None,
-            "{CMD}CleanBlackList": None,
+            "{CMD}AddBlack": {
+                "Help": "To Add User On Black List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelBlack": {
+                "Help": "To Delete User From Black List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}BlackList": {
+                "Help": "To Getting Black List",
+           },
+            "{CMD}CleanBlackList": {
+                "Help": "To Cleaning Black List",
+           },
         },
     },
 }
