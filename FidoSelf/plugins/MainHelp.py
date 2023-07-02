@@ -59,12 +59,16 @@ def gethelp(category, plugin):
                 for inp in hcom["Input"]:
                     inpinf = hcom["Input"][inp]
                     text += f"     `{inp}` : __{inpinf}__\n"
+            if "Getid" in hcom:
+                text += "    **› ID:** __" + hcom["Getid"] + "__\n"
             if "Reply" in hcom:
                 replyes = ""
                 for reply in hcom["Reply"]:
                     replyes += f"`{reply}` - "
                 replyes = replyes[:-3]
                 text += "   **› Reply:** " + replyes + "\n"
+            if "Note" in hcom:
+                text += "    **› Note:** __" + hcom["Note"] + "__\n"
         if len(info["Commands"]) != (i + 1):
             text += "\n┈━━═ ☆ ═━━┈\n"
     return text
