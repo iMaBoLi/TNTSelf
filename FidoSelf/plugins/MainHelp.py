@@ -46,7 +46,8 @@ def gethelp(category, plugin):
     text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
     for command in info["Commands"]:
         cname = command.replace("{CMD}", ".")
-        share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
+        ccname = cname.split(" ")[0]
+        share = f"http://t.me/share/text?text={ccname}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
             hcom = info["Commands"][command]
