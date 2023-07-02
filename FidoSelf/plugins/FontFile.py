@@ -16,7 +16,6 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notttf": "**Please Reply To Font File With .TTF Format!**",
     "setfont": "**The Font File Has Been Saved!**",
     "delfont": "**The Font File Has Been Deleted!**",
     "notsave": "**The Font File Is Not Saved!**",
@@ -26,11 +25,8 @@ STRINGS = {
 @client.Command(command="SetFont")
 async def setfontfile(event):
     await event.edit(client.STRINGS["wait"])
-    reply, _ = event.checkReply(["File"])
+    reply, _ = event.checkReply(["TTF File"])
     if reply: return await event.edit(reply)
-    format = str(event.reply_message.media.document.attributes[0].file_name).split(".")[-1]
-    if format != "ttf":
-        return await event.edit(STRINGS["notttf"])
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "FontFile.ttf")
