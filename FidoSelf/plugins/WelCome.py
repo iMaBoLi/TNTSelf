@@ -45,8 +45,8 @@ async def setwelcome(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
-    reply, _ = event.checkReply()
-    if reply: return await event.edit(reply)
+    if reply:= event.checkReply():
+        return await event.edit(reply)
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     info = await event.reply_message.save()
     welcomes.update({event.chat_id: info})
