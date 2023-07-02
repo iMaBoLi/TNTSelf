@@ -44,7 +44,7 @@ CATS = {
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
     text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
-    for command in info["Commands"]:
+    for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
         ccname = cname.split(" ")[0]
         share = f"http://t.me/share/text?text={ccname}"
@@ -65,7 +65,8 @@ def gethelp(category, plugin):
                     replyes += f"`{reply}` - "
                 replyes = replyes[:-3]
                 text += "   **› Reply:** " + replyes + "\n"
-        text += "\n┈━━═ ☆ ═━━┈\n"
+        if len(info["Commands"]) >= (i + 1):
+            text += "\n┈━━═ ☆ ═━━┈\n"
     return text
 
 def search_plugin(pluginname):
