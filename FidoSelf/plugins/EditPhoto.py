@@ -107,7 +107,7 @@ async def colorphoto(event):
     newphoto = client.PATH + f"ColorPhoto-{str(color)}.jpg"
     img = Image.open(photo)
     newdata = ImageColor.getrgb(color.lower())
-    img.putdata(newdata)
+    img.putdata([newdata])
     img.save(newphoto)
     await client.send_file(event.chat_id, newphoto, caption=STRINGS["color"].format(color))        
     os.remove(photo)
