@@ -1,7 +1,7 @@
 STRINGS = {
     "wait": "**⏳ Please Wait ...**",
-    "On": "Actived(✔️)",
-    "Off": "DeActived(✖️)",
+    "On": "Actived (✔️)",
+    "Off": "DeActived (✖️)",
     "LargeSize": "**✘ The File Size Must Be Less Than From:** ( `{}` )",
     "OtherCallback": "🚫 This Is Not Created For You!",
     "OtherInline": "**🚫 This Is Not Created For You!**\n\n**• Don't Use From Bot!**",
@@ -10,7 +10,7 @@ STRINGS = {
         "Group": "**❉ Please Use This Command Only In The Groups!",
         "Channel": "**❉ Please Use This Command Only In The Channels!",
     },
-    "replymedia": "**❉ Please Reply To {}!**",
+    "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
     "getuserID": "**❉ Please Reply To User Or Enter UserID Or Send In Pv!**", 
     "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**", 

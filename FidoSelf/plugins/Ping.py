@@ -1,11 +1,12 @@
 from FidoSelf import client
 from datetime import datetime
 
+CATEGORY = "Setting"
 __INFO__ = {
-    "Category": "Setting",
+    "Category": CATEGORY,
     "Plugname": "Ping",
     "Pluginfo": {
-        "Help": "Return Ping Of Your Self!",
+        "Help": "To Get Ping Of Your Self!",
         "Commands": {
             "{CMD}Ping": None,
         },

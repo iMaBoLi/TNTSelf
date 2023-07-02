@@ -7,11 +7,30 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Manage Saved Timers In Self!",
         "Commands": {
-            "{CMD}NewTimer <Name>": None,
-            "{CMD}DelTimer <Name>": None,
-            "{CMD}GetTimer <Name>": None,
-            "{CMD}TimerList": None,
-            "{CMD}CleanTimerList": None,
+            "{CMD}NewTimer <Name>": {
+                "Help": "To Create New Timer",
+                "Input": {
+                    "<Name>": "Name For Timer",
+                },
+            },
+            "{CMD}DelTimer <Name>": {
+                "Help": "To Delete Saved Timer",
+                "Input": {
+                    "<Name>": "Name For Timer",
+                },
+            },
+            "{CMD}GetTimer <Name>": {
+                "Help": "To Getting Saved Timer",
+                "Input": {
+                    "<Name>": "Name For Timer",
+                },
+            },
+            "{CMD}TimerList": {
+                "Help": "To Getting Timer List",
+            },
+            "{CMD}CleanTimerList": {
+                "Help": "To Cleaning Timer List",
+            },
         },
     },
 }

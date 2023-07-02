@@ -1,18 +1,25 @@
 from FidoSelf import client
 from telethon import Button
 
+CATEGORY = "Setting"
 __INFO__ = {
-    "Category": "Setting",
+    "Category": CATEGORY,
     "Plugname": "Help",
     "Pluginfo": {
         "Help": "To Get Help About Self Commands!",
         "Commands": {
-            "{CMD}Help": None,
-            "{CMD}Help <Name>": "To Get Help Of Plugin!",
+            "{CMD}Help": {
+                "Help": "To Get Help Panel!",
+            },
+            "{CMD}Help <Name>": {
+                "Help": "To Get Help Of Plugin!",
+                "Input": {
+                    "<Name>" : "Name Of Plugin"
+                },
+            },
         },
     },
 }
-
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
@@ -24,25 +31,46 @@ STRINGS = {
 }
 
 CATS = {
-    "Setting": "⚙️ Settings ({})",
-    "Manage": "👮 Manage ({})",
-    "Tools": "🔧 Tools ({})",
-    "Practical": "🧪 Practical ({})",
-    "Account": "💎 Account ({})",
-    "Group": "👥 Groups ({})",
-    "Private": "🔒 Private ({})",
-    "Funs": "🎨 Funs ({})",
+    "Setting": "⚙️ Settings",
+    "Manage": "👮 Manage",
+    "Tools": "🔧 Tools",
+    "Practical": "🧪 Practical",
+    "Account": "💎 Account",
+    "Group": "👥 Groups",
+    "Private": "🔒 Private",
+    "Funs": "🎨 Funs",
 }
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
     text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
-    for command in info["Commands"]:
+    for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
-        share = f"http://t.me/share/text?text={cname.split(' ')[0]}"
+        ccname = cname.split(" ")[0]
+        share = f"http://t.me/share/text?text={ccname}"
         text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
         if info["Commands"][command]:
-            text += "  **› " + info["Commands"][command] + "**\n"
+            text += "\n"
+            hcom = info["Commands"][command]
+            if "Help" in hcom:
+                text += "    **› Info:** __" + hcom["Help"] + "__\n"
+            if "Input" in hcom:
+                text += "    **› Inputes:**\n"
+                for inp in hcom["Input"]:
+                    inpinf = hcom["Input"][inp]
+                    text += f"     `{inp}` : __{inpinf}__\n"
+            if "Getid" in hcom:
+                text += "    **› ID:** __" + hcom["Getid"] + "__\n"
+            if "Reply" in hcom:
+                replyes = ""
+                for reply in hcom["Reply"]:
+                    replyes += f"`{reply}` - "
+                replyes = replyes[:-3]
+                text += "   **› Reply:** " + replyes + "\n"
+            if "Note" in hcom:
+                text += "    **› Note:** __" + hcom["Note"] + "__\n"
+        if len(info["Commands"]) != (i + 1):
+            text += "\n┈━━═ ☆ ═━━┈\n"
     return text
 
 def search_plugin(pluginname):
@@ -75,8 +103,7 @@ async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        plugcount = len(client.HELP[category])
-        sname = CATS[category].format(plugcount)
+        sname = CATS[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -87,8 +114,7 @@ async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        plugcount = len(client.HELP[category])
-        sname = CATS[category].format(plugcount)
+        sname = CATS[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])

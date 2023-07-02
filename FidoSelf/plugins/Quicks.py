@@ -2,18 +2,41 @@ from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random
 
+CATEGORY = "Setting"
 __INFO__ = {
-    "Category": "Setting",
+    "Category": CATEGORY,
     "Plugname": "Quick",
     "Pluginfo": {
-        "Help": "To Setting Your Quicks Answers White Inline Panel!",
+        "Help": "To Setting Your Quicks Answers!",
         "Commands": {
-            "{CMD}Quicks <On-Off>": None,
-            "{CMD}AddQuick '<CMD>' <Answers>": "To Add Quick To Quicks List! ( Use , To Split Answers )",
-            "{CMD}DelQuick <CMD>": "To Del Quick From Quicks List!",
-            "{CMD}GetQuick <CMD>": "To Get Quick From Quicks List!",
-            "{CMD}QuickList": "To Get Quicks List!",
-            "{CMD}CleanQuickList": "To Clean Quicks List!",
+            "{CMD}Quicks <On-Off>": {
+                "Help": "To Turn On-Off Quicks!"
+            },
+            "{CMD}AddQuick '<CMD>' <Answers>": {
+                "Help": "To Add Quick To Quicks! ( Use , To Split Answers )",
+                "Input": {
+                    "<CMD>": "Command For Quick",
+                    "<Answers>": "Answers For Quick",
+                },
+            },
+            "{CMD}DelQuick <CMD>": {
+                "Help": "To Delete Quick From Quicks!",
+                "Input": {
+                    "<CMD>": "Command For Quick",
+                },
+            },
+            "{CMD}GetQuick <CMD>": {
+                "Help": "To Getting Quick From Quicks!",
+                "Input": {
+                    "<CMD>": "Command For Quick",
+                },
+            },
+            "{CMD}QuickList": {
+                "Help": "To Getting Quicks List!",
+            },
+            "{CMD}CleanQuickList": {
+                "Help": "To Cleaning Quicks List!",
+            },
         },
     },
 }
