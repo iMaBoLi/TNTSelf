@@ -22,8 +22,8 @@ STRINGS = {
 @client.Command(command="Str (.*)")
 async def translator(event):
     await event.edit(client.STRINGS["wait"])
-    reply, mtype = event.checkReply("Text")
-    if reply: return await event.edit(reply)
+    if not (event.reply_message or event.reply_message.text):
+        return await event.edit(client.STRINGS["replytext"])
     dest = event.pattern_match.group(1).lower()
     if dest not in googletrans.LANGUAGES:
         return await event.edit(STRINGS["notlang"].format(dest))
