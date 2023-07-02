@@ -65,8 +65,7 @@ def gethelp(category, plugin):
                     replyes += f"`{reply}` - "
                 replyes = replyes[:-3]
                 text += "   **› Reply:** " + replyes + "\n"
-        if command != info["Commands"][-1]:
-            text += "\n------------------\n"
+        text += "\n┈━━═ ☆ ═━━┈\n"
     return text
 
 def search_plugin(pluginname):
