@@ -20,12 +20,4 @@ async def update(event):
     await event.edit(STRINGS["complete"])
     shutil.rmtree(path)
     os.remove("Fido.zip")
-    await client.disconnect()
-    await client.bot.disconnect()
     await client.functions.runcmd("python3 -m FidoSelf")
-    
-@client.Command(command="Dis")
-async def discon(event):
-    await event.edit(STRINGS["dis"])
-    await client.disconnect()
-    await client.bot.disconnect()
