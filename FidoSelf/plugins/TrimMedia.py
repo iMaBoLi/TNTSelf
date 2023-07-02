@@ -37,8 +37,8 @@ async def trimvideo(event):
     await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
-    reply, mtype = event.checkReply(["Video"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Video"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
@@ -63,8 +63,8 @@ async def trimaudio(event):
     await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
-    reply, mtype = event.checkReply(["Music"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Music"]):
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
