@@ -30,8 +30,8 @@ client.functions.AddInfo(__INFO__)
 async def spconverter(event):
     await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
-    reply, mtype = event.checkReply(["Sticker", "Photo"])
-    if reply: return await event.edit(reply)
+    reply, mtype = event.checkReply(["Sticker", "Photo"]):
+        return await event.edit(reply)
     if mode == "Photo" and mtype in ["Sticker"]:
         sticker = await event.reply_message.download_media(client.PATH)
         newfile = client.PATH + "StickerToPhoto.jpg"
@@ -52,8 +52,8 @@ async def spconverter(event):
         await event.delete()
     else:
         if mode == "Sticker":
-            reply, _ = event.checkReply(["Photo"])
+            if reply:= event.checkReply(["Photo"])
             await event.edit(reply)
         elif mode == "Photo":
-            reply, _ = event.checkReply(["Sticker"])
+            if reply:= event.checkReply(["Sticker"])
             await event.edit(reply)
