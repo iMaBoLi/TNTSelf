@@ -73,10 +73,10 @@ def get_modename(mode):
         "TIME_FONT": "Time Font",
         "EDITALL_MODE": "Edit",
         "EDITCHATS_MODE": "Edit",
-        "ACTION_ALL": "Send Action",
-        "ACTION_CHATS": "Send Action",
         "COPYACTION_ALL": "Copy Action",
         "COPYACTION_CHATS": "Copy Action",
+        "ACTION_ALL": "Send Action",
+        "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
     }
     if mode in MODES:
