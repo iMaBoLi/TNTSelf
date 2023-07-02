@@ -9,18 +9,49 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Manage Users On Love List And Send Love Message!",
         "Commands": {
-            "{CMD}Love <On-Off>": None,
-            "{CMD}NewLove <Reply|Userid|Username>": None,
-            "{CMD}DelLove <Reply|Userid|Username>": None,
-            "{CMD}LoveList": None,
-            "{CMD}CleanLoveList": None,
-            "{CMD}SetLove <Reply>": None,
-            "{CMD}DeleteLove": None,
-            "{CMD}GetLove": None,
-            "{CMD}AddLoveTime <Time>": None,
-            "{CMD}DelLoveTime <Time>": None,
-            "{CMD}LoveTimeList": None,
-            "{CMD}CleanLoveTimeList": None,
+            "{CMD}AddLove": {
+                "Help": "To Add User On Love List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelLove": {
+                "Help": "To Delete User From Love List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}LoveList": {
+                "Help": "To Getting Love List",
+            },
+            "{CMD}CleanLoveList": {
+                "Help": "To Cleaning Love List",
+            },
+            "{CMD}SetLove": {
+                "Help": "To Set Love Message",
+                "Reply": ["Message", "Media"],
+                "Note": "You Can Use From Variebels In Love Message!",
+            },
+            "{CMD}DeleteLove": {
+                "Help": "To Delete Love Message",
+            },
+            "{CMD}GetLove": {
+                "Help": "To Getting Love Message",
+            },
+            "{CMD}AddLoveTime <Time>": {
+                "Help": "To Add Time To Love Time List",
+                "Input": {
+                    "<Time>": "Time String Ex -> 23:59",
+                },
+            },
+            "{CMD}DelLoveTime <Time>": {
+                "Help": "To Delete Time From Love Time List",
+                "Input": {
+                    "<Time>": "Time String Ex -> 23:59",
+                },
+            },
+            "{CMD}LoveTimeList": {
+                "Help": "To Getting Love Time List",
+            },
+            "{CMD}CleanLoveTimeList": {
+                "Help": "To Cleaning Love Time List",
+            },
         },
     },
 }
@@ -57,7 +88,7 @@ async def lovemode(event):
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
 
-@client.Command(command="NewLove ?(.*)?")
+@client.Command(command="AddLove ?(.*)?")
 async def addlove(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))

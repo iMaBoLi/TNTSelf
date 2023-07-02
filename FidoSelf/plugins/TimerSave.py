@@ -7,7 +7,9 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Save Timer Medias For You!",
         "Commands": {
-            "{CMD}TSave <On-Off>": None,
+            "{CMD}TSave <On-Off>": {
+                "Help", "To Turn On-Off Timer Save",
+            },
         },
     },
 }
@@ -28,10 +30,11 @@ async def tsave(event):
 
 @client.Command(onlysudo=False)
 async def savemedias(event):
-    mode = client.DB.get_key("TIMER_MODE")
-    if reply:= event.checkReply(["Photo", "Video"]):
-        return
-    if event.is_private and mode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
+    if not event.is_private or event.is_bot: return
+    if not event.file or event.checkReply(["Photo", "Video"]): return
+    tmode = client.DB.get_key("TIMER_MODE") or "OFF"
+    if tmode == "ON" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
+        if event.file.size > client.MAX_SIZE: return
         file = await event.download_media(client.PATH)
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
