@@ -9,7 +9,7 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Convert Photo To Black White!",
         "Commands": {
-            "{CMD}SBw": None,
+            "{CMD}SBw <Reply(Photo)>": None,
         },
     },
 }
@@ -20,13 +20,13 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Convert Photo Add Filters To Photo!",
         "Commands": {
-            "{CMD}SPBlur": None,
-            "{CMD}SPContour": None,
-            "{CMD}SPDetail": None,
-            "{CMD}SPEmboss": None,
-            "{CMD}SPEdge": None,
-            "{CMD}SPSmooth": None,
-            "{CMD}SPSharpen": None,
+            "{CMD}SPBlur <Reply(Photo)>": None,
+            "{CMD}SPContour <Reply(Photo)>": None,
+            "{CMD}SPDetail <Reply(Photo)>": None,
+            "{CMD}SPEmboss <Reply(Photo)>": None,
+            "{CMD}SPEdge <Reply(Photo)>": None,
+            "{CMD}SPSmooth <Reply(Photo)>": None,
+            "{CMD}SPSharpen <Reply(Photo)>": None,
         },
     },
 }
