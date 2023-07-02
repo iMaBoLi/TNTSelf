@@ -32,7 +32,7 @@ async def msave(event):
 async def savemedias(event):
     if not event.is_private or event.is_bot: return
     if not event.file: return
-    mmode = client.DB.get_key("MEDIAPV_MODE")
+    mmode = client.DB.get_key("MEDIAPV_MODE") or "OFF"
     if mmode == "ON":
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
