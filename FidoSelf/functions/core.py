@@ -42,15 +42,12 @@ setattr(Message, "checkSpam", checkSpam)
 
 def checkReply(event, medias=None):
     message = None
-    mediatype = client.functions.mediatype(event.reply_message)
+    orgtype, mediatype = client.functions.mediatype(event.reply_message)
     if event.is_reply:
-        if type(medias) == str and medias == "Text" and not event.reply_message.text:
-            message = "A Text Message"
-            message = client.STRINGS["reply"].format(message)
-        elif type(medias) == list and mediatype not in medias:
+        if (mediatype not in medias) or not ("File" in medias and orgtype == "File"):
             message = ""
             for media in medias:
-                message += media + " or "
+                message += media + " Or "
             message = message[:-4]
             message = client.STRINGS["reply"].format(message)
     else:
