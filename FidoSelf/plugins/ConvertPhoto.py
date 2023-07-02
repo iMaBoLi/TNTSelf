@@ -68,7 +68,7 @@ async def topng(event):
     newphoto = client.PATH + "JpgToPng.png"
     img = Image.open(photo)
     img.save(newphoto, format="png")  
-    await client.send_file(event.chat_id, newphoto)
+    await client.send_file(event.chat_id, newphoto, force_document=True)
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
