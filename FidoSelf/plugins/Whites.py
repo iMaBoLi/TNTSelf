@@ -6,10 +6,20 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Manage Users On White List!",
         "Commands": {
-            "{CMD}AddWhite <Reply|Userid|Username>": None,
-            "{CMD}DelWhite <Reply|Userid|Username>": None,
-            "{CMD}WhiteList": None,
-            "{CMD}CleanWhiteList": None,
+            "{CMD}AddWhite": {
+                "Help": "To Add User On White List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelWhite": {
+                "Help": "To Delete User From White List",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}WhiteList": {
+                "Help": "To Getting White List",
+           },
+            "{CMD}CleanWhiteList": {
+                "Help": "To Cleaning White List",
+           },
         },
     },
 }
