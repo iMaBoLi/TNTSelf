@@ -61,19 +61,22 @@ def checkReply(event, medias=[]):
 
 setattr(Message, "checkReply", checkReply)
 
-def checkAdmin(event, permessions=[]):
+def checkAdmin(event, change_info=False, ban_users=False, invite_users=False, add_admins=False):
     chat = event.chat
     if chat.creator:
         return True
     if chat.left:
         return False
     if chat.admin_rights:
-        if not permessions:
-            return True
-        perms = chat.admin_rights.to_dict()
-        for perm in perms:
-            if perm in permessions and not perms[perm]:
-                return False
+        rights = chat.admin_rights
+        if change_info and not rights.change_info:
+            return False
+        if ban_users and not rights.ban_users:
+            return False
+        if invite_users and not rights.invite_users:
+            return False
+        if add_admins and not rights.add_admins:
+            return False
         return True
     return False
 
