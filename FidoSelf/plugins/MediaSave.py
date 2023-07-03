@@ -38,4 +38,3 @@ async def savemedias(event):
         mention = client.functions.mention(sender)
         caption = STRINGS["caption"].format(mention)
         await client.send_file(client.REALM, event.media, caption=caption)
-        os.remove(file)
