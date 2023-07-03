@@ -8,7 +8,7 @@ __INFO__ = {
         "Help": "To Save Sended Medias In Pv!",
         "Commands": {
             "{CMD}MSave <On-Off>": {
-                "Help", "To Turn On-Off Media Save",
+                "Help": "To Turn On-Off Media Save",
             },
         },
     },
