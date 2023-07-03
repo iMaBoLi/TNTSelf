@@ -8,7 +8,7 @@ __INFO__ = {
         "Help": "To Save Sended Medias In Pv!",
         "Commands": {
             "{CMD}MSave <On-Off>": {
-                "Help", "To Turn On-Off Media Save",
+                "Help": "To Turn On-Off Media Save",
             },
         },
     },
@@ -31,11 +31,10 @@ async def msave(event):
 @client.Command(onlysudo=False)
 async def savemedias(event):
     if not event.is_private or event.is_bot: return
-    if not event.file: return
+    if not event.media: return
     mmode = client.DB.get_key("MEDIAPV_MODE") or "OFF"
     if mmode == "ON":
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
         caption = STRINGS["caption"].format(mention)
-        await client.send_file(client.REALM, event.file, caption=caption)
-        os.remove(file)
+        await client.send_file(client.REALM, event.media, caption=caption)

@@ -44,6 +44,8 @@ def checkReply(event, medias=[]):
     message = None
     mediatype = client.functions.mediatype(event.reply_message)
     if event.is_reply:
+        if not medias:
+            return message
         if mediatype not in medias:
             if ("File" in medias and mediatype and mediatype.endswith("File")) or ("Photo" in medias and mediatype and mediatype.endswith("Photo")):
                 return message
@@ -58,6 +60,27 @@ def checkReply(event, medias=[]):
     return message
 
 setattr(Message, "checkReply", checkReply)
+
+def checkAdmin(event, change_info=False, ban_users=False, invite_users=False, add_admins=False):
+    chat = event.chat
+    if chat.creator:
+        return True
+    if chat.left:
+        return False
+    if chat.admin_rights:
+        rights = chat.admin_rights
+        if change_info and not rights.change_info:
+            return False
+        if ban_users and not rights.ban_users:
+            return False
+        if invite_users and not rights.invite_users:
+            return False
+        if add_admins and not rights.add_admins:
+            return False
+        return True
+    return False
+
+setattr(Message, "checkAdmin", checkAdmin)
 
 async def DownloadFiles():
     if not os.path.exists("downloads"):
