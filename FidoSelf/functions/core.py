@@ -61,6 +61,24 @@ def checkReply(event, medias=[]):
 
 setattr(Message, "checkReply", checkReply)
 
+def checkAdmin(event, permessions=[]):
+    chat = event.chat
+    if chat.creator:
+        return True
+    if chat.left:
+        return False
+    if chat.admin_rights:
+        if not permessions:
+            return True
+        perms = chat.admin_rights.to_dict()
+        for perm in perms:
+            if perm in permessions and not perms[perm]:
+                return False
+        return True
+    return False
+
+setattr(Message, "checkAdmin", checkAdmin)
+
 async def DownloadFiles():
     if not os.path.exists("downloads"):
         os.mkdir("downloads")
