@@ -39,4 +39,3 @@ async def timermedias(event):
         ttl = client.functions.convert_time(event.media.ttl_seconds)
         caption = STRINGS["caption"].format(mention, ttl)
         await client.send_file(client.REALM, event.media, caption=caption)
-        os.remove(file)
