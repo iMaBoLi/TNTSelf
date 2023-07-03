@@ -8,7 +8,7 @@ __INFO__ = {
         "Help": "To Save Timer Medias For You!",
         "Commands": {
             "{CMD}TSave <On-Off>": {
-                "Help", "To Turn On-Off Timer Save",
+                "Help": "To Turn On-Off Timer Save",
             },
         },
     },
