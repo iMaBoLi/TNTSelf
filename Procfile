@@ -1,1 +1,1 @@
-web: gunicorn FidoSelf --log-file -
+web: gunicorn FidoSelf.__main__ --timeout 55
