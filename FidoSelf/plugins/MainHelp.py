@@ -42,21 +42,26 @@ def gethelp(category, plugin):
             text += "\n"
             hcom = info["Commands"][command]
             if "Help" in hcom:
-                text += "    **💡:** __" + hcom["Help"] + "__\n"
+                text += "    **💡 Help:** __" + hcom["Help"] + "__\n"
             if "Input" in hcom:
                 for inp in hcom["Input"]:
                     inpinf = hcom["Input"][inp]
-                    text += f"       **✏️** `{inp}` : __{inpinf}__\n"
+                    text += f"    **✏️** `{inp}` : __{inpinf}__\n"
             if "Getid" in hcom:
-                text += "    **🧬:** __" + hcom["Getid"] + "__\n"
+                text += "    **🆔 Get ID:** __" + hcom["Getid"] + "__\n"
             if "Reply" in hcom:
                 replyes = ""
                 for reply in hcom["Reply"]:
                     replyes += f"__{reply}__ - "
                 replyes = replyes[:-3]
-                text += "    **↩️:** " + replyes + "\n"
+                text += "    **↩️ Reply To:** " + replyes + "\n"
+            if "Vars" in hcom:
+                variebels = ""
+                for var in hcom["Vars"]:
+                    variebels += f"        `{var}`\n"
+                text += "    **📍 Variebels:** " + variebels + "\n"
             if "Note" in hcom:
-                text += "    **📝:** __" + hcom["Note"] + "__\n"
+                text += "    **📝 Note:** __" + hcom["Note"] + "__\n"
         if len(info["Commands"]) != (i + 1):
             text += "\n┈━━═ ☆ ═━━┈\n"
     return text
