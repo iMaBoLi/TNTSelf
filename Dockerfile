@@ -16,4 +16,4 @@ EXPOSE 8000
 
 VOLUME ["/usr/src/app"]
 
-CMD [ "python3", "-m", "FidoSelf", "runserver", "0:8000"]
+CMD [ "bash", "start.sh", "runserver", "0:8000"]
