@@ -1,2 +1,1 @@
-worker: bash start.sh
-web: python3 -m http.server $PORT
+web: gunicorn FidoSelf.__main__ --log-file -
