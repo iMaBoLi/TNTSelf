@@ -7,7 +7,7 @@ STRINGS = {
 }
 
 @client.Command(command="STest")
-async def speedtest(event):
+async def speedt(event):
     await event.edit(client.STRINGS["wait"])
     start = time.time()
     speed = speedtest.Speedtest()
@@ -16,7 +16,6 @@ async def speedtest(event):
     speed.upload()
     end = time.time()
     endtime = client.functions.convert_time(end - start)
-    image = speed.results.share()
     caption = STRINGS["caption"].format(endtime)
-    await client.send_file(event.chat_id, image, caption=caption)
+    await client.send_file(event.chat_id, speed.results.share(), caption=caption)
     await event.delete()
