@@ -14,4 +14,4 @@ COPY . .
 
 VOLUME ["/usr/src/app"]
 
-CMD [ "python3", "-m", "FidoSelf", "runserver", "0:8000"]
+CMD [ "python", "start.py", "runserver", "0:8000"]
