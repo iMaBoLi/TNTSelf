@@ -1,12 +1,17 @@
 FROM python:3
 
-COPY . /app/
-WORKDIR /app/
+RUN pip install --upgrade pip
+
+WORKDIR /usr/src/app
 
 RUN apt-get update
 RUN apt-get install -y ffmpeg
 
-RUN pip3 install -U pip
-RUN pip3 install -r requirements.txt
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python3", "-m", "FidoSelf"]
+COPY . .
+
+VOLUME ["/usr/src/app"]
+
+CMD [ "python3", "-m", "FidoSelf", "runserver", "0:8000" ]
