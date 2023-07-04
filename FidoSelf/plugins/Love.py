@@ -26,7 +26,7 @@ __INFO__ = {
             "{CMD}SetLove": {
                 "Help": "To Set Love Message",
                 "Reply": ["Message", "Media"],
-                "Note": "You Can Use From Variebels In Love Message!",
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME"],
             },
             "{CMD}DeleteLove": {
                 "Help": "To Delete Love Message",
