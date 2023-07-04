@@ -1,1 +1,1 @@
-web: gunicorn FidoSelf.__main__ --timeout 55
+web: gunicorn FidoSelf.__main__ --timeout 10000
