@@ -1,5 +1,3 @@
-gunicorn==20.0.4
-
 Telethon
 tgcrypto
 requests
