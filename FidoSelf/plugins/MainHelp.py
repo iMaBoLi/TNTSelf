@@ -30,17 +30,6 @@ STRINGS = {
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
-CATS = {
-    "Setting": "⚙️ Settings",
-    "Manage": "👮 Manage",
-    "Tools": "🔧 Tools",
-    "Practical": "🧪 Practical",
-    "Account": "💎 Account",
-    "Group": "👥 Groups",
-    "Private": "🔒 Private",
-    "Funs": "🎨 Funs",
-}
-
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
     text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
@@ -74,7 +63,7 @@ def gethelp(category, plugin):
 
 def search_plugin(pluginname):
     pluginname = pluginname.replace(" ", "").lower()
-    for category in CATS:
+    for category in client.HELP:
         for plugin in client.HELP[category]:
             plname = plugin.replace(" ", "").lower()
             if pluginname == plname:
@@ -101,8 +90,8 @@ async def help(event):
 async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in CATS:
-        sname = CATS[category]
+    for category in client.HELP:
+        sname = client.HELP[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -112,8 +101,8 @@ async def inlinehelp(event):
 async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in CATS:
-        sname = CATS[category]
+    for category in client.HELP:
+        sname = client.HELP[category]
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
