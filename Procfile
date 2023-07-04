@@ -1,1 +1,1 @@
-web: python3 -m FidoSelf runserver 0:8000
+web: python3 -m FidoSelf
