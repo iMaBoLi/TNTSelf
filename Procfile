@@ -1,1 +1,1 @@
-web: gunicorn FidoSelf.__main__ --log-file -
+web: gunicorn FidoSelf --log-file -
