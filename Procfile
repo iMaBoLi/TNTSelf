@@ -1,1 +1,1 @@
-worker: python3 -m FidoSelf
+web: python3 -m FidoSelf
