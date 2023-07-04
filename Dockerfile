@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN pip install --upgrade pip
+RUN pip install -U pip
 
 WORKDIR /usr/src/app
 
@@ -12,6 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+EXPOSE 8000
+
 VOLUME ["/usr/src/app"]
 
-CMD [ "python3", "-m", "FidoSelf", "runserver", "0:8000" ]
+CMD [ "python3", "-m", "FidoSelf"]
