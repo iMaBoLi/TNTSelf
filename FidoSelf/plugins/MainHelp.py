@@ -91,7 +91,7 @@ async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in client.HELP:
-        sname = client.HELP[category]
+        sname = "• " + client.HELP[category] + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -102,7 +102,7 @@ async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in client.HELP:
-        sname = client.HELP[category]
+        sname = "• " + client.HELP[category] + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
