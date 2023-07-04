@@ -1,7 +1,6 @@
 FROM python:3
 
 WORKDIR /usr/src/app
-
 RUN chmod 777 /usr/src/app
 
 COPY requirements.txt .
