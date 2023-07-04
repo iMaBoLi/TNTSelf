@@ -1,1 +1,1 @@
-web: python3 -m FidoSelf
+web: bash start.sh
