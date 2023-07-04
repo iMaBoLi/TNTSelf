@@ -98,7 +98,7 @@ async def inlinehelp(event):
     for category in client.HELP:
         sname = "• " + client.HELP[category] + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
@@ -109,7 +109,7 @@ async def callhelp(event):
     for category in client.HELP:
         sname = "• " + client.HELP[category] + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [3,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
