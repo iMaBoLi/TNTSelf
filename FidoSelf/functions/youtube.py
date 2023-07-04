@@ -1,6 +1,6 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
-#from yt_dlp import YoutubeDL
+from yt_dlp import YoutubeDL
 from PIL import Image
 import random
 import re
