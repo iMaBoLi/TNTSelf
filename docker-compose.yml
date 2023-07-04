@@ -1,10 +1,9 @@
-version: '3'
+version: "3.3"
+
 services:
-  web:
+  app:
     build: .
+    command: bash start.sh
+    restart: on-failure
     ports:
-      - 8000:8000
-    working_dir: /usr/src/app
-    volumes:
-      - .:/usr/src/app
-    command: "python manage.py runserver 0:8000"
+      - "80:80"
