@@ -1,1 +1,1 @@
-web: gunicorn mydjango.wsgi --log-file -
+worker: python3 -m FidoSelf
