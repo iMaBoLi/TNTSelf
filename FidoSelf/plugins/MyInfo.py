@@ -9,25 +9,24 @@ __INFO__ = {
         "Commands": {
             "{CMD}MyInfo": {
                 "Help": "To Get Full Info Of Your Account",
-            }
+            },
             "{CMD}MyId": {
                 "Help": "To Get ID Of Your Account",
-                },
+            },
             "{CMD}MyName": {
                 "Help": "To Get Name Of Your Account",
-                },
+            },
             "{CMD}MyBio": {
                 "Help": "To Get Biography Of Your Account",
-                },
+            },
             "{CMD}MyUsername": {
                 "Help": "To Get Username Of Your Account",
-                },
+            },
             "{CMD}MyPhone": {
                 "Help": "To Get Phone Of Your Account",
-                },
+            },
             "{CMD}MyProfile": {
                 "Help": "To Get Profile Picture Of Your Account",
-                },
             },
         },
     },
