@@ -30,10 +30,10 @@ async def screenshot(event):
     sitelink = event.pattern_match.group(1)
     token = "SY1196W-HN84TCJ-G8J41WK-4B17FNK"
     url = f"https://shot.screenshotapi.net/screenshot?token={token}&url={sitelink}&full_page=true"
-    result = requests.get(url).json()
+    result = await client.functions.request(url, re_json=True)
     if "error" in result:
         return await event.edit(STRINGS["invlink"].format(sitelink))
-    content = await client.functions.request(result["screenshot"], content=True)
+    content = await client.functions.request(result["screenshot"], re_content=True)
     screenshot = client.PATH + f"Screen-{sitelink}.png"
     open(screenshot, "wb").write(content)
     caption = STRINGS["taked"].format(sitelink)
