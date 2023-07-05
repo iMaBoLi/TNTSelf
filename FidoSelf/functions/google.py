@@ -13,7 +13,6 @@ class chromeDriver:
     def start_driver():
         try:
             chrome_options = ChromeOptions()
-            chrome_options.binary_location = "/app/.chromedriver/bin"
             chrome_options.add_argument("--ignore-certificate-errors")
             chrome_options.add_argument("--test-type")
             chrome_options.add_argument("--headless=new")
