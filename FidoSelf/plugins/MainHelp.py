@@ -47,6 +47,7 @@ CATS = [
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
     text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
+    text += "\n⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
         ccname = cname.split(" ")[0]
