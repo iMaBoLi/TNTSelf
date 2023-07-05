@@ -1,5 +1,4 @@
 from FidoSelf import client
-import requests
 import os
 
 __INFO__ = {
