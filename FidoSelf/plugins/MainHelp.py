@@ -35,10 +35,12 @@ CATS = [
     "Manage",
     "Tools",
     "Practical",
+    "Usage",
     "Funs",
     "Account",
     "Group",
     "Private",
+    "Variebels"
     "Other",
 ]
 
@@ -70,7 +72,7 @@ def gethelp(category, plugin):
             if "Vars" in hcom:
                 variebels = ""
                 for var in hcom["Vars"]:
-                    variebels += f"\n        `{var}`"
+                    variebels += f"\n          `{var}`"
                 text += "    **📍 Variebels:** " + variebels + "\n"
             if "Note" in hcom:
                 text += "    **📝 Note:** __" + hcom["Note"] + "__\n"
@@ -130,7 +132,7 @@ async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
     for plugin in client.HELP[category]:
-        buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
+        buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
