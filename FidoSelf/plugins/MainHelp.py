@@ -40,7 +40,7 @@ CATS = [
     "Account",
     "Group",
     "Private",
-    "Variebels"
+    "Variebels",
     "Other",
 ]
 
