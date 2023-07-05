@@ -34,7 +34,8 @@ async def screenshot(event):
         return await event.edit(STRINGS["invlink"].format(sitelink))
     content = await client.functions.request(result["screenshot"], re_content=True)
     screenshot = client.PATH + f"Screen-{sitelink}.png"
-    open(screenshot, "wb").write(content)
+    with open(screenshot, "wb") as file:
+        file.write(content)
     caption = STRINGS["taked"].format(sitelink)
     await client.send_file(event.chat_id, screenshot, caption=caption, force_document=True)
     os.remove(screenshot)
