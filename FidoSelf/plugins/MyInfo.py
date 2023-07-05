@@ -7,27 +7,41 @@ __INFO__ = {
     "Pluginfo": {
         "Help": "To Get Account Information!",
         "Commands": {
-            "{CMD}MyInfo": None,
-            "{CMD}MyId": None,
-            "{CMD}MyName": None,
-            "{CMD}MyBio": None,
-            "{CMD}MyUsername": None,
-            "{CMD}MyPhone": None,
-            "{CMD}MyProfile": None,
+            "{CMD}MyInfo": {
+                "Help": "To Get Full Info Of Your Account",
+            }
+            "{CMD}MyId": {
+                "Help": "To Get ID Of Your Account",
+                },
+            "{CMD}MyName": {
+                "Help": "To Get Name Of Your Account",
+                },
+            "{CMD}MyBio": {
+                "Help": "To Get Biography Of Your Account",
+                },
+            "{CMD}MyUsername": {
+                "Help": "To Get Username Of Your Account",
+                },
+            "{CMD}MyPhone": {
+                "Help": "To Get Phone Of Your Account",
+                },
+            "{CMD}MyProfile": {
+                "Help": "To Get Profile Picture Of Your Account",
+                },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "info": "**Your Profile Info:**\n\n   **ID:** ( `{}` )\n   **Name:** ( `{}` )\n   **UserName:** ( `{}` )\n   **Biography:** ( `{}` )",
-    "id": "**Your ID:** ( `{RES}` )",
-    "name": "**Your Name:** ( `{RES}` )",
-    "username": "**Your UserName:** ( `{RES}` )",
-    "bio": "**Your Biography:** ( `{RES}` )",
-    "phone": "**Your Phone:** ( `{RES}` )",
+    "info": "**❆ Your Profile Info:**\n\n   **• ID:** ( `{}` )\n   **• Name:** ( `{}` )\n   **• UserName:** ( `{}` )\n   **• Biography:** ( `{}` )",
+    "id": "**❆ Your ID:** ( `{}` )",
+    "name": "**❆ Your Name:** ( `{}` )",
+    "username": "**❆ Your UserName:** ( `{}` )",
+    "bio": "**❆ Your Biography:** ( `{}` )",
+    "phone": "**❆ Your Phone:** ( `{}` )",
     "notprof": "**You Profile Photos iS Empty!**",
-    "profile": "**Your Profile Picture!**",
+    "profile": "**❆ Your Profile Picture!**",
 }
 
 @client.Command(command="My(iNfo|iD|Name|Bio|Username|Phone|Profile)")
@@ -60,5 +74,5 @@ async def myinfo(event):
         await event.delete()
     else:
         result = infos[type]
-        text = text.format(RES=result)
+        text = text.format(result)
         await event.edit(text)
