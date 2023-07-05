@@ -2,6 +2,7 @@ gunicorn
 Telethon
 tgcrypto
 requests
+selenium
 redis
 opencv-python
 pillow
