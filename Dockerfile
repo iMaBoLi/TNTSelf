@@ -5,9 +5,9 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
   apt-get update -y && \
   apt-get install -y google-chrome-stable xvfb libxi6 libgconf-2-4 default-jdk && \
   chmod +x /usr/bin/google-chrome
-  
 RUN yay -S google-chrome
 RUN dnf install https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+RUN apt-get install -y chromium-browser
 
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
