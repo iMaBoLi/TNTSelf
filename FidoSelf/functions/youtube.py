@@ -1,6 +1,5 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
-#from yt_dlp import YoutubeDL
 from PIL import Image
 import random
 import re
@@ -13,6 +12,7 @@ MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
+    from yt_dlp import YoutubeDL
     info = YoutubeDL().extract_info(link, download=False)
     return info
 

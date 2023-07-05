@@ -1,12 +1,11 @@
 FROM python:3
 
-COPY . /app/
-WORKDIR /app/
+WORKDIR /usr/src/app
+RUN chmod 777 /usr/src/app
 
-RUN apt-get update
-RUN apt-get install -y ffmpeg
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-RUN pip3 install -U pip
-RUN pip3 install -r requirements.txt
+COPY . .
 
-CMD ["python3", "-m", "FidoSelf"]
+CMD [ "bash", "start.sh"]

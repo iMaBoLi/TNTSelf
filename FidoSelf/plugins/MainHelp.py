@@ -25,21 +25,22 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
     "plinfo": "**» The Plugin Info:** ( `{}` - `{}` )\n\n",
-    "main": "**» Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
-    "category": "**» Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
+    "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
+    "category": "**ᯓ Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
-CATS = {
-    "Setting": "⚙️ Settings",
-    "Manage": "👮 Manage",
-    "Tools": "🔧 Tools",
-    "Practical": "🧪 Practical",
-    "Account": "💎 Account",
-    "Group": "👥 Groups",
-    "Private": "🔒 Private",
-    "Funs": "🎨 Funs",
-}
+CATS = [
+    "Setting",
+    "Manage",
+    "Tools",
+    "Practical",
+    "Funs",
+    "Account",
+    "Group",
+    "Private",
+    "Other",
+]
 
 def gethelp(category, plugin):
     info = client.HELP[category][plugin]
@@ -53,29 +54,33 @@ def gethelp(category, plugin):
             text += "\n"
             hcom = info["Commands"][command]
             if "Help" in hcom:
-                text += "    **💡:** __" + hcom["Help"] + "__\n"
+                text += "    **💡 Help:** __" + hcom["Help"] + "__\n"
             if "Input" in hcom:
-                text += "    **✏️:**\n"
                 for inp in hcom["Input"]:
                     inpinf = hcom["Input"][inp]
-                    text += f"       **›** `{inp}` : __{inpinf}__\n"
+                    text += f"    **✏️** `{inp}` : __{inpinf}__\n"
             if "Getid" in hcom:
-                text += "    **🧬:** __" + hcom["Getid"] + "__\n"
+                text += "    **🆔 GetID:** __" + hcom["Getid"] + "__\n"
             if "Reply" in hcom:
                 replyes = ""
                 for reply in hcom["Reply"]:
-                    replyes += f"`{reply}` - "
+                    replyes += f"__{reply}__ - "
                 replyes = replyes[:-3]
-                text += "    **↩️:** " + replyes + "\n"
+                text += "    **↩️ Reply:** " + replyes + "\n"
+            if "Vars" in hcom:
+                variebels = ""
+                for var in hcom["Vars"]:
+                    variebels += f"\n        `{var}`"
+                text += "    **📍 Variebels:** " + variebels + "\n"
             if "Note" in hcom:
-                text += "    **📝:** __" + hcom["Note"] + "__\n"
+                text += "    **📝 Note:** __" + hcom["Note"] + "__\n"
         if len(info["Commands"]) != (i + 1):
             text += "\n┈━━═ ☆ ═━━┈\n"
     return text
 
 def search_plugin(pluginname):
     pluginname = pluginname.replace(" ", "").lower()
-    for category in CATS:
+    for category in client.HELP:
         for plugin in client.HELP[category]:
             plname = plugin.replace(" ", "").lower()
             if pluginname == plname:
@@ -103,9 +108,9 @@ async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        sname = CATS[category]
+        sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
@@ -114,9 +119,9 @@ async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATS:
-        sname = CATS[category]
+        sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
