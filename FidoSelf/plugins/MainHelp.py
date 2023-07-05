@@ -51,8 +51,9 @@ def gethelp(category, plugin):
     for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
         ccname = cname.split(" ")[0]
+        scname = "`" + cname.replace(" ", "` `") + "`"
         share = f"http://t.me/share/text?text={ccname}"
-        text += f"\n[𒆜]({share})" + " : " + f"`{cname}`" + "\n"
+        text += f"\n[𒆜]({share}) : " + scname + "\n"
         if info["Commands"][command]:
             text += "\n"
             hcom = info["Commands"][command]
