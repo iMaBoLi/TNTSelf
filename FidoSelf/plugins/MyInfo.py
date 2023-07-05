@@ -28,6 +28,7 @@ __INFO__ = {
             "{CMD}MyProfile": {
                 "Help": "To Get Profile Picture Of Your Account",
                 },
+            },
         },
     },
 }
