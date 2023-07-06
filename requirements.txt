@@ -22,5 +22,4 @@ countryinfo
 music_tag
 
 git+https://github.com/sandy1709/py-googletrans
-git+https://github.com/yt-dlp/yt-dlp
 git+https://github.com/alexmercerind/youtube-search-python
