@@ -1,5 +1,6 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
+from yt_dlp import YoutubeDL
 from PIL import Image
 import random
 import re
@@ -12,7 +13,6 @@ MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
-    from yt_dlp import YoutubeDL
     info = YoutubeDL().extract_info(link, download=False)
     return info
 
@@ -40,10 +40,10 @@ def get_formats(link):
     videoformats = {}
     audioformats = {}
     for format in info["formats"]:
-        if format["ext"] == "mp4" and format["filesize"]:
+        if format["ext"] == "mp4" and "filesize" in format and format["filesize"]:
             if format["format_note"] in ["144p", "240p", "360p"] and not format["audio_channels"]: continue
             videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
-        if format["ext"] == "m4a" and format["filesize"]:
+        if format["ext"] == "m4a" and "filesize" in format and format["filesize"]:
             if format["format_note"] == "low":
                 audioformats.update({format["format_id"]: {"ext": "mp3", "filesize": format["filesize"], "format": "128K"}})
             elif format["format_note"] == "medium":
