@@ -30,7 +30,7 @@ async def msave(event):
 
 @client.Command(onlysudo=False)
 async def savemedias(event):
-    if not event.is_private or event.is_bot: return
+    if not event.is_private or event.is_sudo or event.is_bot: return
     if not event.media: return
     mmode = client.DB.get_key("MEDIAPV_MODE") or "OFF"
     if mmode == "ON":
