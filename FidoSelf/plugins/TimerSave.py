@@ -3,7 +3,7 @@ import os
 
 PLUGIN = "Timer Save"
 INFO = {
-    "Help": "To Save Timer Medias For You!",
+    "Help": "To Save Timer Medias In Your Pv!",
     "Commands": {
         "{CMD}TSave <On-Off>": {
             "Help": "To Turn On-Off Timer Save",
