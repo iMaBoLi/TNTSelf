@@ -1,33 +1,29 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Setting",
-    "Plugname": "Set Realm",
-    "Pluginfo": {
+    "Realm": {
         "Help": "To Set Your Realm Chat!",
         "Commands": {
             "{CMD}SetRealm ": None,
         },
     },
 }
-client.functions.AddInfo(__INFO__)
+client.HELP.update(__INFO__)
 __INFO__ = {
-    "Category": "Setting",
-    "Plugname": "Set BachUp",
-    "Pluginfo": {
+    "BackUp": {
         "Help": "To Set Your BackUp Channel!",
         "Commands": {
             "{CMD}SetBackch": None,
         },
     },
 }
-client.functions.AddInfo(__INFO__)
+client.HELP.update(__INFO__)
 
 
 STRINGS = {
-    "norealm": "**Please Send In Group For Added Realm Chat!**",
+    "norealm": "**Please Send In Group For Set Realm Chat!**",
     "setrealm": "**This Chat Is Saved For Realm Chat!**",
-    "noback": "**Please Send In Channel For Added BackUp Or Support Channel!**",
+    "noback": "**Please Send In Channel For Set BackUp Channel!**",
     "setback": "**This Channel Is Saved For BackUp Channel!**",
 }
 
