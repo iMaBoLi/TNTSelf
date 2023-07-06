@@ -133,15 +133,16 @@ async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
     for plugin in HELP[category]:
-        buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}"))
+        buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="GetHelp\:(.*)")
+@client.Callback(data="GetHelp\:(.*)\:(.*)")
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
+    category = event.data_match.group(2).decode('utf-8')
     text = gethelp(plugin)
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
