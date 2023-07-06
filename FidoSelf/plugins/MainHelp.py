@@ -1,26 +1,22 @@
 from FidoSelf import client
 from telethon import Button
 
-CATEGORY = "Setting"
-__INFO__ = {
-    "Category": CATEGORY,
-    "Plugname": "Help",
-    "Pluginfo": {
-        "Help": "To Get Help About Self Commands!",
-        "Commands": {
-            "{CMD}Help": {
-                "Help": "To Get Help Panel!",
-            },
-            "{CMD}Help <Name>": {
-                "Help": "To Get Help Of Plugin!",
-                "Input": {
-                    "<Name>" : "Name Of Plugin"
-                },
+PLUGIN = "Help"
+INFO = {
+    "Help": "To Get Help About Self Commands!",
+    "Commands": {
+        "{CMD}Help": {
+            "Help": "To Get Help Panel!",
+        },
+        "{CMD}Help <Name>": {
+            "Help": "To Get Help Of Plugin!",
+            "Input": {
+                "<Name>" : "Name Of Plugin"
             },
         },
     },
 }
-client.functions.AddInfo(__INFO__)
+client.HELP.update({PLUGIN: INFO})
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
@@ -31,17 +27,19 @@ STRINGS = {
 }
 
 HELP = {
-    "Setting": ["Help"],
-    "Manage": [],
-    "Tools": [],
-    "Practical": [],
-    "Usage": [],
-    "Funs": [],
-    "Account": [],
-    "Group": [],
-    "Pv": ["Media Save", "Timer Save"],
+    "Setting": ["Help", "Panel", "Manage", "Quick", "Realm", "BackUp", "Save", "Ping", "Online", "Time"],
+    "Manage": ["User Info", "Auto", "Auto Delete", "White", "Black", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank", "MarkRead"],
+    "Tools": ["Translate", "Auto Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
+    "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
+    "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
+    "Time": ["Name", "Bio", "Photo", "Font", "Text Time"],
+    "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
+    "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
+    "Account": ["Edit Profile", "Set Profile", "Info", "Chats Count", "Get Profiles", "Del Profiles", "Del Contacts"],
+    "Group": ["Caht Info", "Search", "Delete Msg", "Comment", "Welcome", "GoodBy", "Voice Chat", "Auto Join", "Auto Leave"],
+    "Pv": ["AntiSpam", "MutePv", "LockPv", "Pv Mute", "Media Save", "Timer Save", "Filter Pv", "Filter Media"],
+    "Via": [],
     "Variebels": [],
-    "Other": [],
 }
 
 def gethelp(plugin):
