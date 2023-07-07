@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions, types
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Users",
     "Name": "Get Profiles",
     "Info": {
         "Help": "To Get Profile Photos Of Users!",
