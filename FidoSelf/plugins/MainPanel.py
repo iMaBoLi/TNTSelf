@@ -6,9 +6,14 @@ __INFO__ = {
     "Category": "Setting",
     "Name": "Panel",
     "Info": {
-        "Help": "To Get Inline Panel To Setting Self!",
+        "Help": "To Get Panel To Setting Self!",
         "Commands": {
-            "{CMD}Panel": None,
+            "{CMD}Panel": {
+                "Help": "To Get Panel",
+            },
+            "{CMD}PanelPv": {
+                "Help": "To Get Panel In Your Saved Message",
+            },
         },
     },
 }
@@ -93,6 +98,14 @@ async def panel(event):
     await res[0].click(event.chat_id)
     await event.delete()
 
+@client.Command(command="PanelPv")
+async def panelpv(event):
+    await event.edit(client.STRINGS["wait"])
+    chatid = event.chat_id
+    res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
+    await res[0].click(client.me.id)
+    await event.delete()
+
 @client.Inline(pattern="Panel\:(.*)\:(.*)")
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
@@ -117,13 +130,14 @@ def get_text(page):
         6: STRINGS["actionpage"]
     }
     text = TEXTS[page]
-    return text + f" **(** `Page {page}` **)**"
+    text += f" **(** `Page {page}` **)**"
+    return text
 
 def get_pages_button(chatid, opage):
     buttons = []
     PAGES_COUNT = 6
     for page in range(1, PAGES_COUNT + 1):
-        font = 4 if page != opage else 5
+        font = 3 if page != opage else 4
         data = page if page != opage else 0
         name = client.functions.create_font(page, font)
         buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{data}"))
