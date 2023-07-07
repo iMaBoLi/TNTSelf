@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Convert Video",
-    "Pluginfo": {
+    "Name": "Convert Video",
+    "Info": {
         "Help": "To Convert Video And Gif Formats!",
         "Commands": {
             "{CMD}ToVideo <Reply(VideoNote)>": None,
