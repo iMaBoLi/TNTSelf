@@ -3,8 +3,8 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Private",
-    "Plugname": "LockPv",
-    "Pluginfo": {
+    "Name": "LockPv",
+    "Info": {
         "Help": "To Lock Pv And Block Users In Pv!",
         "Commands": {
             "{CMD}LockPv <On-Off>": None,
