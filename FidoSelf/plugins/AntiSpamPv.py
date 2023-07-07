@@ -4,7 +4,7 @@ from jdatetime import datetime
 import random
 
 __INFO__ = {
-    "Category": "Private",
+    "Category": "Pv",
     "Name": "Anti Spam",
     "Info": {
         "Help": "To Setting Anti Spam For Pv And Protection!",
