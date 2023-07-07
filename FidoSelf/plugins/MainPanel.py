@@ -161,7 +161,7 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or default
-        smode = client.STRINGS["inline"]["On"] if (chatid in chats and chats[chatid] == value) else client.STRINGS["inline"]["Off"]
+        smode = client.STRINGS["inline"]["On"] if (int(chatid) in chats and chats[int(chatid)] == value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
 def get_buttons(chatid, page):
