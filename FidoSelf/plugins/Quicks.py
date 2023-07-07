@@ -2,9 +2,8 @@ from FidoSelf import client
 from telethon import functions, types, Button
 import asyncio, random
 
-CATEGORY = "Setting"
 __INFO__ = {
-    "Category": CATEGORY,
+    "Category": "Manage",
     "Name": "Quick",
     "Info": {
         "Help": "To Setting Your Quicks Answers!",
