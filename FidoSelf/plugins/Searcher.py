@@ -3,7 +3,7 @@ from telethon import functions, types
 
 __INFO__ = {
     "Category": "Group",
-    "Name": "Searcher",
+    "Name": "Search",
     "Info": {
         "Help": "To Search On Messages In The Chat!",
         "Commands": {
