@@ -3,8 +3,8 @@ from somnium import Somnium
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Ai Image",
-    "Pluginfo": {
+    "Name": "Ai Image",
+    "Info": {
         "Help": "Create Image For Your Text White Beautiful Styles!",
         "Commands": {
             "{CMD}CPhoto '<StyleID>' <Text>": None,
