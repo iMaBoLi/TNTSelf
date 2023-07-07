@@ -3,7 +3,7 @@ from PIL import Image, ImageOps
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Mirror Photo",
     "Info": {
         "Help": "To Mirror Your Photo!",
