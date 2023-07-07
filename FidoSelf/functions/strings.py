@@ -12,16 +12,8 @@ STRINGS = {
     },
     "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
-    "getuserID": "**❉ Please Reply To User Or Enter UserID Or Send In Pv!**", 
+    "getuserID": "**❉ Please Reply To User Or Enter UserID/Username!**", 
     "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**", 
-    "getid": {
-        "IU": "**❉ The Entered UserID Is Not Valid!**",
-        "U": "**❉ Reply To Message From User!**",
-        "UU": "**❉ Please Reply To User Or Enter Username!**",
-        "UUP": "**❉ Please Reply To User Or Enter UserID Or Send In Pv!**",
-        "UC": "**❉ Please Enter Chat Username Or Send In Chat!**",
-        "UCH": "**❉ Please Enter Channel Username Or Send In Channel!**",
-    },
     "inline": {
         "On": "( ✔️ )",
         "Off": "( ✖️ )",
