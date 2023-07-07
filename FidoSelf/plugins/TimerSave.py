@@ -1,16 +1,19 @@
 from FidoSelf import client
 import os
 
-PLUGIN = "Timer Save"
-INFO = {
-    "Help": "To Save Timer Medias In Your Pv!",
-    "Commands": {
-        "{CMD}TSave <On-Off>": {
-            "Help": "To Turn On-Off Timer Save",
+__INFO__ = {
+    "Category": "Pv",
+    "Name": "Timer Save",
+    "Info": {
+        "Help": "To Save Timer Medias In Your Pv!",
+        "Commands": {
+            "{CMD}TSave <On-Off>": {
+                "Help": "To Turn On-Off Timer Media Save",
+            },
         },
     },
 }
-client.HELP.update({PLUGIN: INFO})
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Downlaod Timer Medias Has Been {}!**",
