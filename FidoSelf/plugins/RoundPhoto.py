@@ -5,8 +5,8 @@ import os
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Round Photo",
-    "Pluginfo": {
+    "Name": "Round Photo",
+    "Info": {
         "Help": "To Create Round Sticker For Photo!",
         "Commands": {
             "{CMD}RPhoto <Reply(Photo)>": None,
