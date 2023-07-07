@@ -5,8 +5,8 @@ import asyncio, random
 CATEGORY = "Setting"
 __INFO__ = {
     "Category": CATEGORY,
-    "Plugname": "Quick",
-    "Pluginfo": {
+    "Name": "Quick",
+    "Info": {
         "Help": "To Setting Your Quicks Answers!",
         "Commands": {
             "{CMD}Quicks <On-Off>": {
