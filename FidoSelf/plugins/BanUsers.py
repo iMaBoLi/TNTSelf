@@ -43,7 +43,7 @@ async def banuser(event):
         return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(STRINGS["notacs"])
     info = await client.get_entity(userid)
@@ -82,7 +82,7 @@ async def unbanuser(event):
         return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(STRINGS["notacs"])
     info = await client.get_entity(userid)

@@ -39,7 +39,7 @@ async def addecho(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{userid}")
     if event.is_reply:
@@ -53,7 +53,7 @@ async def delecho(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)

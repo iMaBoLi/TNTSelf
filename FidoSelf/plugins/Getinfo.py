@@ -34,7 +34,7 @@ async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user

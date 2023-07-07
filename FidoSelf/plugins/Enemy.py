@@ -42,7 +42,7 @@ async def addenemy(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addenemy:{chatid}:{userid}")
     if event.is_reply:
@@ -56,7 +56,7 @@ async def delenemy(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
     if userid not in Enemies:
         uinfo = await client.get_entity(userid)
