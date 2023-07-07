@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Private",
-    "Plugname": "MutePv",
-    "Pluginfo": {
+    "Name": "MutePv",
+    "Info": {
         "Help": "To Mute Users In Pv!",
         "Commands": {
             "{CMD}MutePv <On-Off>": None,
