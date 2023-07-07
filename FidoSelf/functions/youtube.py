@@ -58,4 +58,11 @@ async def yt_thumb(link):
     await client.functions.runcmd(cmd)
     os.rename(thumb + ".webp", thumb + ".jpg")
     thumb = thumb + ".jpg"
+    thumb = convert_thumb(thumb)
     return thumb
+
+def convert_thumb(file):
+    img = Image.open(file)
+    img.save(file + ".jpg", format="jpeg")
+    os.remove(file)
+    return file + ".jpg"
