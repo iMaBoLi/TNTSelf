@@ -1,22 +1,25 @@
 from FidoSelf import client
 from telethon import Button
 
-PLUGIN = "Help"
-INFO = {
-    "Help": "To Get Help About Self Commands!",
-    "Commands": {
-        "{CMD}Help": {
-            "Help": "To Get Help Panel!",
-        },
-        "{CMD}Help <Name>": {
-            "Help": "To Get Help Of Plugin!",
-            "Input": {
-                "<Name>" : "Name Of Plugin"
+__INFO__ = {
+    "Category": "Setting",
+    "Name": "Help",
+    "Info": {
+        "Help": "To Get Help About Self Commands!",
+        "Commands": {
+            "{CMD}Help": {
+                "Help": "To Get Help Panel!",
+            },
+            "{CMD}Help <Name>": {
+               "Help": "To Get Help Of Plugin!",
+                "Input": {
+                    "<Name>" : "Name Of Plugin"
+                },
             },
         },
     },
 }
-client.HELP.update({PLUGIN: INFO})
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
@@ -26,7 +29,7 @@ STRINGS = {
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
-HELP = {
+CATEGORYS = {
     "Setting": ["Help", "Panel", "Manage", "Realm", "BackUp", "Ping", "Online", "Time"],
     "Manage": ["Quick", "Auto", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank"],
     "Tools": ["Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
@@ -44,7 +47,7 @@ HELP = {
 }
 
 def search_category(plugin):
-    for category in HELP:
+    for category in CATEGORYS:
         if plugin in category:
             return category
     if plugin in client.HELP:
@@ -120,7 +123,7 @@ async def help(event):
 async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in HELP:
+    for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [1,2])
@@ -131,7 +134,7 @@ async def inlinehelp(event):
 async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in HELP:
+    for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [1,2])
@@ -142,7 +145,7 @@ async def callhelp(event):
 async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
-    for plugin in HELP[category]:
+    for plugin in CATEGORYS[category]:
         buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
