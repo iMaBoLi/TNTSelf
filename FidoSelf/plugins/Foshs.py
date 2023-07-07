@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Foshs",
-    "Pluginfo": {
+    "Name": "Foshs",
+    "Info": {
         "Help": "To Manage Fosh File For Enemies!",
         "Commands": {
             "{CMD}AddFosh <Reply(File)>": None,
