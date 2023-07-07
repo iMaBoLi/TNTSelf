@@ -1,24 +1,33 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Realm": {
-        "Help": "To Set Your Realm Chat!",
+    "Category": "Setting",
+    "Name": "Realm",
+    "Info": {
+        "Help": "To Setting Your Realm Chat!",
         "Commands": {
-            "{CMD}SetRealm ": None,
+            "{CMD}SetRealm": {
+                "Help": "To Set Realm",
+                "Note": "Send In Groups"
+            },
         },
     },
 }
-client.HELP.update(__INFO__)
+client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "BackUp": {
-        "Help": "To Set Your BackUp Channel!",
+    "Category": "Setting",
+    "Name": "BackUp",
+    "Info": {
+        "Help": "To Setting Your BackUp Channel!",
         "Commands": {
-            "{CMD}SetBackch": None,
+            "{CMD}SetBackUp": {
+                "Help": "To Set BackUp",
+                "Note": "Send In Channels"
+            },
         },
     },
 }
-client.HELP.update(__INFO__)
-
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "norealm": "**Please Send In Group For Set Realm Chat!**",
