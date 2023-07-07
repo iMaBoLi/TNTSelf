@@ -54,7 +54,7 @@ async def ginfo(event):
     await event.edit(client.STRINGS["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["getchatID"])
+        return await event.edit(client.STRINGS["chat"]["all"])
     cinfo = await client.get_entity(chatid)
     if cinfo.megagroup or cinfo.broadcast:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
