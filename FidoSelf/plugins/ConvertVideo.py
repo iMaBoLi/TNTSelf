@@ -3,7 +3,7 @@ from telethon import types
 import os
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Convert",
     "Name": "Convert Video",
     "Info": {
         "Help": "To Convert Video And Gif Formats!",
