@@ -6,73 +6,78 @@ __INFO__ = {
     "Category": "Setting",
     "Name": "Manage",
     "Info": {
-        "Help": "To Get Inline Manage Panel For User!",
+        "Help": "To Get Manage Panel For Users!",
         "Commands": {
-            "{CMD}Manage <UserId|Username|Pv>": None,
+            "{CMD}Manage": {
+                "Help": "To Get Manage Panel",
+                "Getid": "You Can Reply To User Or Input UserID/UserName",
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "Manages": {
-        "INFO": "User Info",
-        "BLOCK": "Block",
-        "UNBLOCK": "UnBlock",
-        "WHITE_LIST": "White",
-        "BLACK_LIST": "Black",
-        "ECHO_USERS": "Echo",
-    },
     "menu": "**Please Use The Options Below To Manage User Modes:**",
-    "close": "**The Manage Panel Successfuly Closed!**",
+    "closemanage": "**The Manage Panel Successfuly Closed!**",
     "infouser": "**User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
+}
+
+MANAGES = {
+    "INFO": "User Info",
+    "BLOCK": "Block",
+    "UNBLOCK": "UnBlock",
+    "WHITE_LIST": "White",
+    "BLACK_LIST": "Black",
+    "ECHO_USERS": "Echo",
+    "LOVE_USERS": "Love",
+    "MUTEPV_USERS": "Mute Pv",
 }
 
 async def get_manage_buttons(userid, chatid):
     buttons = []
-    MANAGES = STRINGS["Manages"]
-    buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"getinfo:{chatid}:{userid}")])
+    buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"GetUserInfo:{chatid}:{userid}")])
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
-    cmode = "unblock" if info.blocked else "block"
-    buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{chatid}:{userid}")])
+    cmode = "UnBlock" if info.blocked else "Block"
+    buttons.append([Button.inline(f"• {smode} •", data=f"User:{cmode}:{chatid}:{userid}")])
     obuts = []
-    for manage in ["BLACK_LIST", "WHITE_LIST", "ECHO_USERS"]:
+    for manage in ["BLACK_LIST", "WHITE_LIST", "ECHO_USERS", "LOVE_USERS", "MUTEPV_USERS"]:
         lists = client.DB.get_key(manage) or []
-        smode = "( ✔️ )" if userid in lists else "( ✖️ )"
+        smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
-        obuts.append(Button.inline(f"• {MANAGES[manage]} - {smode} •", data=f"setuser:{chatid}:{userid}:{manage}:{cmode}"))
+        obuts.append(Button.inline(f"{MANAGES[manage]} {smode}", data=f"SetUser:{chatid}:{userid}:{manage}:{cmode}"))
     obuts = list(client.functions.chunks(obuts, 2))
     for but in obuts:
         buttons.append(but)
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closemanage")])
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseManage")])
     return buttons
 
 @client.Command(command="Manage ?(.*)?")
-async def managepanel(event):
+async def Manage(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["getuserID"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"managepanel:{chatid}:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="managepanel\:(.*)\:(.*)")
-async def inlinemanagepanel(event):
+@client.Inline(pattern="Manage\:(.*)\:(.*)")
+async def inlinemanage(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
     text = STRINGS["menu"]
     buttons = await get_manage_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
-@client.Callback(data="setuser\:(.*)\:(.*)\:(.*)\:(.*)")
-async def setusermanage(event):
+@client.Callback(data="SetUser\:(.*)\:(.*)\:(.*)\:(.*)")
+async def SetUsermanage(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
     mode = event.data_match.group(3).decode('utf-8')
@@ -88,21 +93,21 @@ async def setusermanage(event):
     buttons = await get_manage_buttons(userid, chatid)
     await event.edit(buttons=buttons)
 
-@client.Callback(data="(block|unblock)\:(.*)\:(.*)")
+@client.Callback(data="User\:(Block|UnBlock)\:(.*)\:(.*)")
 async def blockunblock(event):
     change = str(event.data_match.group(1).decode('utf-8'))
     chatid = int(event.data_match.group(2).decode('utf-8'))
     userid = int(event.data_match.group(3).decode('utf-8'))
-    if change == "block":
+    if change == "Block":
         await client(functions.contacts.BlockRequest(userid))
-    elif change == "unblock":
+    elif change == "UnBlock":
         await client(functions.contacts.UnblockRequest(userid))
     await asyncio.sleep(0.3)
     buttons = await get_manage_buttons(userid, chatid)    
     await event.edit(buttons=buttons)
 
-@client.Callback(data="getinfo\:(.*)\:(.*)")
-async def getinfo(event):
+@client.Callback(data="GetUserInfo\:(.*)\:(.*)")
+async def getuserinfo(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
     uinfo = await client.get_entity(userid)
@@ -120,7 +125,7 @@ async def getinfo(event):
     buttons = await get_manage_buttons(userid, chatid)    
     await event.edit(buttons=buttons)
 
-@client.Callback(data="closemanage")
-async def closemanagepanel(event):
-    text = STRINGS["close"]
+@client.Callback(data="CloseManage")
+async def closemanage(event):
+    text = STRINGS["closemanage"]
     await event.edit(text=text)
