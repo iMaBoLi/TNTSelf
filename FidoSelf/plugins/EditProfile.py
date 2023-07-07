@@ -4,8 +4,8 @@ from telethon.errors import UsernameInvalidError, UsernameOccupiedError
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Edit Profile",
-    "Pluginfo": {
+    "Name": "Edit Profile",
+    "Info": {
         "Help": "To Setting Your Profile Info!",
         "Commands": {
             "{CMD}SetName <Text>": "Set First Name!",
@@ -18,8 +18,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Set Profile",
-    "Pluginfo": {
+    "Name": "Set Profile",
+    "Info": {
         "Help": "To Set Your Profile Photo!",
         "Commands": {
             "{CMD}SetProfile <Reply(Photo)>": None,
