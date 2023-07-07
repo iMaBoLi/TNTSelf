@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Manage",
     "Name": "Foshs",
     "Info": {
         "Help": "To Manage Fosh File For Enemies!",

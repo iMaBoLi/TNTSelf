@@ -3,7 +3,7 @@ import os
 import time
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Usage",
     "Name": "Trim Video",
     "Info": {
         "Help": "To Trim Your Video Files!",
@@ -14,7 +14,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Usage",
     "Name": "Trim Audio",
     "Info": {
         "Help": "To Trim Your Music Files!",

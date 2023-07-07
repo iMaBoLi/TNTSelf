@@ -3,7 +3,7 @@ from telethon import types, Button
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Youtube",
     "Info": {
         "Help": "To Download From Youtube And Search On Youtube!",

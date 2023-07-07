@@ -4,7 +4,7 @@ import aiocron
 import random
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Manage",
     "Name": "Love",
     "Info": {
         "Help": "To Manage Users On Love List And Send Love Message!",

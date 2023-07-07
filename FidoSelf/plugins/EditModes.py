@@ -8,7 +8,7 @@ for Mode in client.functions.EDITS:
     Commands.update({AllCmd: None})
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Edit Modes",
     "Info": {
         "Help": "To Setting Edit Modes For Your Texts!",

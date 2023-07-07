@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Anti Forward",
     "Info": {
         "Help": "To Delete Forwarded Messages And Send Whitout Forward!",

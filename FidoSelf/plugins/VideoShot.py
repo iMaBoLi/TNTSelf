@@ -4,7 +4,7 @@ import time
 import os
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Usage",
     "Name": "Video Shot",
     "Info": {
         "Help": "To Get Screen Shot From Your Videos!",

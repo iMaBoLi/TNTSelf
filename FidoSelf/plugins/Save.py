@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Manage",
     "Name": "Save",
     "Info": {
         "Help": "To Save Your Contents In Backup Channel!",

@@ -4,7 +4,7 @@ import asyncio
 import random
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Action",
     "Info": {
         "Help": "To Setting Send Chat Actions And Set Mode!",
@@ -18,7 +18,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Copy Action",
     "Info": {
         "Help": "To Setting Copy Chat Actions And Send Action!",

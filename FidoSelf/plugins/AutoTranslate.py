@@ -3,7 +3,7 @@ from googletrans import Translator
 import googletrans
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Auto Translate",
     "Info": {
         "Help": "To Translate Your Texts And Edit Messages!",

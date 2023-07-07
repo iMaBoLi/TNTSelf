@@ -3,7 +3,7 @@ from PIL import Image
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Rotater",
     "Info": {
         "Help": "To Rotate Your Photo And Videos!",

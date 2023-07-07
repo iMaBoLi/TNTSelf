@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Extract Audio",
     "Info": {
         "Help": "To Extraxt Audio From Video!",

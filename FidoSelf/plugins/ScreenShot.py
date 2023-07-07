@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Usage",
+    "Category": "Tools",
     "Name": "Screen Shot",
     "Info": {
         "Help": "To Take Screen Shot From Sites!",

@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions
 
 __INFO__ = {
-    "Category": "Account",
+    "Category": "Setting",
     "Name": "Online",
     "Info": {
         "Help": "To Set Online Mode For Account!",

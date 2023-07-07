@@ -4,7 +4,7 @@ from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SM
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Bw Photo",
     "Info": {
         "Help": "To Convert Photo To Black White!",
@@ -15,7 +15,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Filter Photo",
     "Info": {
         "Help": "To Convert Photo Add Filters To Photo!",

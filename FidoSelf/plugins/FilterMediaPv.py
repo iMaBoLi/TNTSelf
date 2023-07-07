@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import Button
 
 __INFO__ = {
-    "Category": "Private",
+    "Category": "Pv",
     "Name": "Filter Media",
     "Info": {
         "Help": "To Filter Medias In Pv And Delete!",

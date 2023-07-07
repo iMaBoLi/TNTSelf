@@ -2,7 +2,7 @@ from FidoSelf import client
 import requests, os
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Tools",
     "Name": "RemoveBg",
     "Info": {
         "Help": "To Remove Background From Your Photos!",

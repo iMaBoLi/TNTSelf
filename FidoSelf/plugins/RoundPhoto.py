@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 __INFO__ = {
-    "Category": "Funs",
+    "Category": "Convert",
     "Name": "Round Photo",
     "Info": {
         "Help": "To Create Round Sticker For Photo!",

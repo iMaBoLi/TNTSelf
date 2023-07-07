@@ -2,7 +2,7 @@ from FidoSelf import client
 import requests, os
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Tools",
     "Name": "Ocr",
     "Info": {
         "Help": "To Extract Text From Your Photos!",

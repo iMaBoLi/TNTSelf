@@ -2,7 +2,7 @@ from FidoSelf import client
 from .ManageTime import biochanger
 
 __INFO__ = {
-    "Category": "Account",
+    "Category": "Time",
     "Name": "Bio Time",
     "Info": {
         "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",

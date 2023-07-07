@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Poker",
     "Info": {
         "Help": "To Setting Send Poker Sticker To Pokers!",

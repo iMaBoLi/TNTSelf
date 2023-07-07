@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import events, functions
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Groups",
     "Name": "Auto Leave",
     "Info": {
         "Help": "To Manage Auto Leave To Joined Chats!",

@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Setting",
+    "Category": "Manage",
     "Name": "Rank",
     "Info": {
         "Help": "To Manage Rank Of Users In Self!",

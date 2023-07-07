@@ -5,7 +5,7 @@ import aiocron
 import random
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Groups",
     "Name": "GoodBy",
     "Info": {
         "Help": "To Manage Auto GoodBy In The Chats!",

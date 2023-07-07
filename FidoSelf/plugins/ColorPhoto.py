@@ -3,7 +3,7 @@ from PIL import Image, ImageOps
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Color Photo",
     "Info": {
         "Help": "To Convert Photo And Add Color Filters To Photo!",

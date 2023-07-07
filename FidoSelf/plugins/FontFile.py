@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Account",
+    "Category": "Time",
     "Name": "Font",
     "Info": {
         "Help": "To Save Font File For Profile Time!",

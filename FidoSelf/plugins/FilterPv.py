@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Private",
+    "Category": "Pv",
     "Name": "Filter Pv",
     "Info": {
         "Help": "To Filter Words In Pv And Delete!",

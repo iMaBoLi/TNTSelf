@@ -11,7 +11,7 @@ __INFO__ = {
                 "Help": "To Get Help Panel!",
             },
             "{CMD}Help <Name>": {
-               "Help": "To Get Help Of Plugin!",
+               "Help": "To Get Help Of Plugin",
                 "Input": {
                     "<Name>" : "Name Of Plugin"
                 },
@@ -29,7 +29,7 @@ STRINGS = {
 }
 
 CATEGORYS = {
-    "Setting": ["Help", "Panel", "Manage", "Realm", "BackUp", "Ping", "Online", "Time"],
+    "Setting": ["Help", "Panel", "Lists", "Manage", "Realm", "BackUp", "Ping", "Online", "Time"],
     "Manage": ["Quick", "Save", "Auto", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank"],
     "Tools": ["Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info"],
     "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
@@ -145,7 +145,7 @@ async def getcategory(event):
     buttons = []
     for plugin in CATEGORYS[category]:
         buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
-    buttons = client.functions.chunker(buttons, [1,2])
+    buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = STRINGS["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
