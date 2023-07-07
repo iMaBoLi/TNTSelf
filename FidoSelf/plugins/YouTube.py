@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Youtube",
-    "Pluginfo": {
+    "Name": "Youtube",
+    "Info": {
         "Help": "To Download From Youtube And Search On Youtube!",
         "Commands": {
             "{CMD}YtDown <Link>": None,
