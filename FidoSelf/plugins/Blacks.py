@@ -8,11 +8,11 @@ __INFO__ = {
         "Commands": {
             "{CMD}AddBlack": {
                 "Help": "To Add User On Black List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}DelBlack": {
                 "Help": "To Delete User From Black List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}BlackList": {
                 "Help": "To Getting Black List",

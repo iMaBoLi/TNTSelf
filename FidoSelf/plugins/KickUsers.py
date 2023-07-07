@@ -8,7 +8,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}Kick": {
                 "Help": "To Kick User",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
         },
     },

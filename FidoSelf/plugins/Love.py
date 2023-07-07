@@ -11,11 +11,11 @@ __INFO__ = {
         "Commands": {
             "{CMD}AddLove": {
                 "Help": "To Add User On Love List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}DelLove": {
                 "Help": "To Delete User From Love List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}LoveList": {
                 "Help": "To Getting Love List",
