@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Extract Audio",
-    "Pluginfo": {
+    "Name": "Extract Audio",
+    "Info": {
         "Help": "To Extraxt Audio From Video!",
         "Commands": {
             "{CMD}ExAudio <Reply(Video)>": None,
