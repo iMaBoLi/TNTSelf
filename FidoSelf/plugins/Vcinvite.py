@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions, types, errors
 
 __INFO__ = {
-    "Category": "Group",
+    "Category": "Groups",
     "Name": "Invite VC",
     "Info": {
         "Help": "To Invite Users To Voice Chat!",
