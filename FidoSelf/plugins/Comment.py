@@ -5,7 +5,7 @@ import aiocron
 import random
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Groups",
     "Name": "Comment",
     "Info": {
         "Help": "To Manage Auto Comment In The Channel Messages!",
