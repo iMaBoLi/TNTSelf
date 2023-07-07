@@ -4,7 +4,7 @@ import asyncio
 import random
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Reaction",
     "Info": {
         "Help": "To Setting Send Chat Reactions To Messages!",
