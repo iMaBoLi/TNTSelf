@@ -5,7 +5,7 @@ import os
 import time
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Edit Duration",
     "Info": {
         "Help": "To Edit Duration Of Music And Videos!",
@@ -16,7 +16,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Music Info",
     "Info": {
         "Help": "To Edit Title And Performer For Music!",
