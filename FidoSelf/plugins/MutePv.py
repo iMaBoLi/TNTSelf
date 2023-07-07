@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Private",
+    "Category": "Pv",
     "Name": "MutePv",
     "Info": {
         "Help": "To Mute Users In Pv!",
