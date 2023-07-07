@@ -3,8 +3,8 @@ import asyncio
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Text Say",
-    "Pluginfo": {
+    "Name": "Text Say",
+    "Info": {
         "Help": "To Say Your Message Texts!",
         "Commands": {
             "{CMD}TSay <Text>": None,
