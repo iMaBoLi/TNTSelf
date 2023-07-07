@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions
 
 __INFO__ = {
-    "Category": "Private",
+    "Category": "Pv",
     "Name": "LockPv",
     "Info": {
         "Help": "To Lock Pv And Block Users In Pv!",
