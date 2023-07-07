@@ -24,6 +24,8 @@ STRINGS = {
 @client.Command(command="Kick ?(.*)?")
 async def kickuser(event):
     await event.edit(client.STRINGS["wait"])
+    if not event.is_group:
+        return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["getuserID"])
