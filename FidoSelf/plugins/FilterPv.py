@@ -30,28 +30,28 @@ STRINGS = {
 async def addfilterpv(event):
     await event.edit(client.STRINGS["wait"])
     word = str(event.pattern_match.group(1))
-    filterpvs = client.DB.get_key("FILTER_PVS") or []
+    filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word in filterpvs:
         return await event.edit(STRINGS["notall"].format(word))
     filterpvs.append(word)
-    client.DB.set_key("FILTER_PVS", filterpvs)
+    client.DB.set_key("FILTERPV_WORDS", filterpvs)
     await event.edit(STRINGS["add"].format(word))
     
 @client.Command(command="DelFilterPv (.*)")
 async def delfilterpv(event):
     await event.edit(client.STRINGS["wait"])
     word = str(event.pattern_match.group(1))
-    filterpvs = client.DB.get_key("FILTER_PVS") or []
+    filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word not in filterpvs:
         return await event.edit(STRINGS["notin"].format(word))
     filterpvs.remove(word)
-    client.DB.set_key("FILTER_PVS", filterpvs)
+    client.DB.set_key("FILTERPV_WORDS", filterpvs)
     await event.edit(STRINGS["del"].format(word))
     
 @client.Command(command="FilterPvList")
 async def filterpvlist(event):
     await event.edit(client.STRINGS["wait"])
-    filterpvs = client.DB.get_key("FILTER_PVS") or []
+    filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -64,16 +64,16 @@ async def filterpvlist(event):
 @client.Command(command="CleanFilterPvList")
 async def cleanfilterpv(event):
     await event.edit(client.STRINGS["wait"])
-    filterpvs = client.DB.get_key("FILTER_PVS") or []
+    filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("FILTER_PVS")
+    client.DB.del_key("FILTERPV_WORDS")
     await event.edit(STRINGS["clean"])
     
 @client.Command(onlysudo=False, allowedits=False)
 async def filterpv(event):
     if not event.text or not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
-    words = client.DB.get_key("FILTER_PVS") or []
+    words = client.DB.get_key("FILTERPV_WORDS") or []
     if not words: return
     for word in words:
         if word in event.text:
