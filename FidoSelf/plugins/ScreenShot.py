@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Usage",
-    "Plugname": "Screen Shot",
-    "Pluginfo": {
+    "Name": "Screen Shot",
+    "Info": {
         "Help": "To Take Screen Shot From Sites!",
         "Commands": {
             "{CMD}SShot <URL>": {
