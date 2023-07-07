@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Groups",
     "Name": "User Info",
     "Info": {
         "Help": "To Get Information Of Users!",
@@ -13,7 +13,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Groups",
     "Name": "Chat Info",
     "Info": {
         "Help": "To Get Information Of Chats!",
