@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Rotater",
-    "Pluginfo": {
+    "Name": "Rotater",
+    "Info": {
         "Help": "To Rotate Your Photo And Videos!",
         "Commands": {
             "{CMD}SRotate <Num> <Reply(Photo|Video)>": None,
