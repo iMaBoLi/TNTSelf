@@ -53,7 +53,7 @@ async def addauto(event):
     await event.edit(client.STRINGS["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["getchatID"])
+        return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid in autos:
@@ -67,7 +67,7 @@ async def delauto(event):
     await event.edit(client.STRINGS["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["getchatID"])
+        return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid not in autos:
