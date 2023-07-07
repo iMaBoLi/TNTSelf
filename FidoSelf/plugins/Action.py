@@ -5,8 +5,8 @@ import random
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Action",
-    "Pluginfo": {
+    "Name": "Action",
+    "Info": {
         "Help": "To Setting Send Chat Actions And Set Mode!",
         "Commands": {
             "{CMD}Action <On-Off>": "Action For This Chat!",
@@ -19,8 +19,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Copy Action",
-    "Pluginfo": {
+    "Name": "Copy Action",
+    "Info": {
         "Help": "To Setting Copy Chat Actions And Send Action!",
         "Commands": {
             "{CMD}CAction <On-Off>": None,

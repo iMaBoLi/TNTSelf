@@ -6,8 +6,8 @@ import random
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Comment",
-    "Pluginfo": {
+    "Name": "Comment",
+    "Info": {
         "Help": "To Manage Auto Comment In The Channel Messages!",
         "Commands": {
             "{CMD}Comment <On-Off>": None,

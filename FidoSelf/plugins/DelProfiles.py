@@ -3,8 +3,8 @@ from telethon import functions, types
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Del Profiles",
-    "Pluginfo": {
+    "Name": "Del Profiles",
+    "Info": {
         "Help": "To Delete Profile Phots!",
         "Commands": {
             "{CMD}DelProfile": "Delete First Profile!",

@@ -6,8 +6,8 @@ import time
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Edit Duration",
-    "Pluginfo": {
+    "Name": "Edit Duration",
+    "Info": {
         "Help": "To Edit Duration Of Music And Videos!",
         "Commands": {
             "{CMD}SDuration <Sec> <Reply(Music|Video)>": None,
@@ -17,8 +17,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Music Info",
-    "Pluginfo": {
+    "Name": "Music Info",
+    "Info": {
         "Help": "To Edit Title And Performer For Music!",
         "Commands": {
             "{CMD}SMusic <Title>:<Name>": None,

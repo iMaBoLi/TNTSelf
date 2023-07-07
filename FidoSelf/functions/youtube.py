@@ -42,6 +42,8 @@ def get_formats(link):
     for format in info["formats"]:
         if format["ext"] == "mp4" and "filesize" in format and format["filesize"]:
             if format["format_note"] in ["144p", "240p", "360p"] and not format["audio_channels"]: continue
+            for vfor in videoformats:
+                if format["format_note"] == vfor: continue
             videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
         if format["ext"] == "m4a" and "filesize" in format and format["filesize"]:
             if format["format_note"] == "low":

@@ -3,8 +3,8 @@ from telethon.tl import types
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Emojis",
-    "Pluginfo": {
+    "Name": "Emojis",
+    "Info": {
         "Help": "To Send Emoji Games In Chats!",
         "Commands": {
             "{CMD}SDice": None,

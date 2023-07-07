@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Mirror Photo",
-    "Pluginfo": {
+    "Name": "Mirror Photo",
+    "Info": {
         "Help": "To Mirror Your Photo!",
         "Commands": {
             "{CMD}SMirror <Reply(Photo)>": None,

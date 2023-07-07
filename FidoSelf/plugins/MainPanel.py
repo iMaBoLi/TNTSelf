@@ -4,8 +4,8 @@ from jdatetime import datetime
 
 __INFO__ = {
     "Category": "Setting",
-    "Plugname": "Panel",
-    "Pluginfo": {
+    "Name": "Panel",
+    "Info": {
         "Help": "To Get Inline Panel To Setting Self!",
         "Commands": {
             "{CMD}Panel": None,

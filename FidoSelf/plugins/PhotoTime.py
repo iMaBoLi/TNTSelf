@@ -5,8 +5,8 @@ import os
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Photo Time",
-    "Pluginfo": {
+    "Name": "Photo Time",
+    "Info": {
         "Help": "To Save Your Photo For Profile Time!",
         "Commands": {
             "{CMD}Photo <On-Off>": None,

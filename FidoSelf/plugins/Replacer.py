@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Replace",
-    "Pluginfo": {
+    "Name": "Replace",
+    "Info": {
         "Help": "To Replace Words In Text!",
         "Commands": {
             "{CMD}SReplace <Word>,<Word>": None,

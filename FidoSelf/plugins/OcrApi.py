@@ -3,8 +3,8 @@ import requests, os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Ocr",
-    "Pluginfo": {
+    "Name": "Ocr",
+    "Info": {
         "Help": "To Extract Text From Your Photos!",
         "Commands": {
             "{CMD}SetOcrKey <Key>": "Set Ocr Api Key!",

@@ -5,8 +5,8 @@ import os
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Echo",
-    "Pluginfo": {
+    "Name": "Echo",
+    "Info": {
         "Help": "To Setting Echo Users And Send User Messages!",
         "Commands": {
             "{CMD}AddEcho <Pv|Reply|UserId|Username>": None,

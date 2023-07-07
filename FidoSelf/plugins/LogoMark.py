@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Logo",
-    "Pluginfo": {
+    "Name": "Logo",
+    "Info": {
         "Help": "To Set And Add Logo To Images!",
         "Commands": {
             "{CMD}SetLogo <Reply(Photo)>": None,

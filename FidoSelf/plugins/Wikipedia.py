@@ -3,8 +3,8 @@ import wikipedia
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Wikipedia",
-    "Pluginfo": {
+    "Name": "Wikipedia",
+    "Info": {
         "Help": "To Search A Note On Wikipedia!",
         "Commands": {
             "{CMD}SWiki <Text>": None,

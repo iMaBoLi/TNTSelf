@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Delete Msg",
-    "Pluginfo": {
+    "Name": "Delete Msg",
+    "Info": {
         "Help": "To Delete Message In Chats!",
         "Commands": {
             "{CMD}Del <Count>": None,

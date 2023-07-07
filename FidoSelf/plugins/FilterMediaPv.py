@@ -3,8 +3,8 @@ from telethon import Button
 
 __INFO__ = {
     "Category": "Private",
-    "Plugname": "Filter Media",
-    "Pluginfo": {
+    "Name": "Filter Media",
+    "Info": {
         "Help": "To Filter Medias In Pv And Delete!",
         "Commands": {
             "{CMD}AddPvFilter": "Get Panel For Set Filters!",

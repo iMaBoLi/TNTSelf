@@ -5,8 +5,8 @@ import random
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Love",
-    "Pluginfo": {
+    "Name": "Love",
+    "Info": {
         "Help": "To Manage Users On Love List And Send Love Message!",
         "Commands": {
             "{CMD}AddLove": {

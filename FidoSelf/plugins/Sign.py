@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Sign",
-    "Pluginfo": {
+    "Name": "Sign",
+    "Info": {
         "Help": "To Sign A Text On Your Messages!",
         "Commands": {
             "{CMD}Sign <On-Off>": None,

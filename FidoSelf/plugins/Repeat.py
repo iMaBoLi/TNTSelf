@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Repeat",
-    "Pluginfo": {
+    "Name": "Repeat",
+    "Info": {
         "Help": "To Setting Repeater And Send Messages Again!",
         "Commands": {
             "{CMD}Repeat <On-Off>": None,

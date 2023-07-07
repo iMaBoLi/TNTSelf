@@ -4,8 +4,8 @@ import googletrans
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Auto Translate",
-    "Pluginfo": {
+    "Name": "Auto Translate",
+    "Info": {
         "Help": "To Translate Your Texts And Edit Messages!",
         "Commands": {
             "{CMD}AutoTr <On-Off>": None,

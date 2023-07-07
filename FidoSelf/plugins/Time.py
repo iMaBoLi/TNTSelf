@@ -4,8 +4,8 @@ import jdatetime
 
 __INFO__ = {
     "Category": "Setting",
-    "Plugname": "Time",
-    "Pluginfo": {
+    "Name": "Time",
+    "Info": {
         "Help": "To Get Time And Date!",
         "Commands": {
             "{CMD}Time": None,

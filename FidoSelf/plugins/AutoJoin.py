@@ -3,8 +3,8 @@ from telethon import events, functions
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Auto Join",
-    "Pluginfo": {
+    "Name": "Auto Join",
+    "Info": {
         "Help": "To Manage Auto Join To Leaved Chats!",
         "Commands": {
             "{CMD}AutoJoin <On-Off>": None,

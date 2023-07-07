@@ -4,8 +4,8 @@ import googletrans
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Translate",
-    "Pluginfo": {
+    "Name": "Translate",
+    "Info": {
         "Help": "To Translate Your Texts!",
         "Commands": {
             "{CMD}STr <Lang> <Reply(Text)>": None,

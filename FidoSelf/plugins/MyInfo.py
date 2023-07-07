@@ -3,8 +3,8 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "My Info",
-    "Pluginfo": {
+    "Name": "My Info",
+    "Info": {
         "Help": "To Get Account Information!",
         "Commands": {
             "{CMD}MyInfo": {

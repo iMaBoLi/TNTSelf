@@ -3,8 +3,8 @@ import random
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Flood",
-    "Pluginfo": {
+    "Name": "Flood",
+    "Info": {
         "Help": "To Flood Message In Chats!",
         "Commands": {
             "{CMD}Flood <Count> <Reply>": None,

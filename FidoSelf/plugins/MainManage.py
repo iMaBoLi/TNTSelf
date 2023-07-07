@@ -4,8 +4,8 @@ import asyncio
 
 __INFO__ = {
     "Category": "Setting",
-    "Plugname": "Manage",
-    "Pluginfo": {
+    "Name": "Manage",
+    "Info": {
         "Help": "To Get Inline Manage Panel For User!",
         "Commands": {
             "{CMD}Manage <UserId|Username|Pv>": None,

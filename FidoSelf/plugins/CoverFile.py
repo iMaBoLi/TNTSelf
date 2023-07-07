@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Cover File",
-    "Pluginfo": {
+    "Name": "Cover File",
+    "Info": {
         "Help": "To Set And Add Cover To Files!",
         "Commands": {
             "{CMD}SetCover <Reply(Photo)>": "Set Cover Photo!",

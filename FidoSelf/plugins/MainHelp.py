@@ -1,22 +1,25 @@
 from FidoSelf import client
 from telethon import Button
 
-PLUGIN = "Help"
-INFO = {
-    "Help": "To Get Help About Self Commands!",
-    "Commands": {
-        "{CMD}Help": {
-            "Help": "To Get Help Panel!",
-        },
-        "{CMD}Help <Name>": {
-            "Help": "To Get Help Of Plugin!",
-            "Input": {
-                "<Name>" : "Name Of Plugin"
+__INFO__ = {
+    "Category": "Setting",
+    "Name": "Help",
+    "Info": {
+        "Help": "To Get Help About Self Commands!",
+        "Commands": {
+            "{CMD}Help": {
+                "Help": "To Get Help Panel!",
+            },
+            "{CMD}Help <Name>": {
+               "Help": "To Get Help Of Plugin!",
+                "Input": {
+                    "<Name>" : "Name Of Plugin"
+                },
             },
         },
     },
 }
-client.HELP.update({PLUGIN: INFO})
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
@@ -26,26 +29,38 @@ STRINGS = {
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
-HELP = {
-    "Setting": ["Help", "Panel", "Manage", "Quick", "Realm", "BackUp", "Save", "Ping", "Online", "Time"],
-    "Manage": ["User Info", "Auto", "Auto Delete", "White", "Black", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank", "MarkRead"],
-    "Tools": ["Translate", "Auto Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
-    "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
+CATEGORYS = {
+    "Setting": ["Help", "Panel", "Manage", "Realm", "BackUp", "Ping", "Online", "Time"],
+    "Manage": ["Quick", "Auto", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank"],
+    "Tools": ["Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
+    "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
     "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
-    "Time": ["Name", "Bio", "Photo", "Font", "Text Time"],
+    "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
-    "Account": ["Edit Profile", "Set Profile", "Info", "Chats Count", "Get Profiles", "Del Profiles", "Del Contacts"],
-    "Group": ["Caht Info", "Search", "Delete Msg", "Comment", "Welcome", "GoodBy", "Voice Chat", "Auto Join", "Auto Leave"],
-    "Pv": ["AntiSpam", "MutePv", "LockPv", "Pv Mute", "Media Save", "Timer Save", "Filter Pv", "Filter Media"],
-    "Via": [],
+    "Account": ["Edit Profile", "Set Profile", "My Info", "Chats Count", "Del Profiles", "Del Contacts"],
+    "Groups": ["Caht Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
+    "Pv": ["MutePv", "LockPv", "AntiSpam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv", "Filter Media"],
+    "Users": ["User Info", "Get Profiles"],
     "Variebels": [],
+    "Other": [],
 }
+
+def search_category(plugin):
+    for category in CATEGORYS:
+        if plugin in category:
+            return category
+    if plugin in client.HELP:
+        return client.HELP[plugin]["Category"]
+    return None
 
 def gethelp(plugin):
     info = client.HELP[plugin]
-    text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
-    text += "\n⊱┈───╌ ❊ ╌───┈⊰\n"
+    text = f"**꥟ Plugin:** ( `{plugin}` )\n"
+    category = search_category(plugin)
+    text += f"**꥟ Category:** ( `{category}` )\n"
+    text += f'**꥟ Help:** ( `{info["Help"]}` )\n\n'
+    text += "⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
         ccname = cname.split(" ")[0]
@@ -108,10 +123,10 @@ async def help(event):
 async def inlinehelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in HELP:
+    for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = client.functions.chunker(buttons, [2,1])
+    buttons = client.functions.chunker(buttons, [1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
@@ -119,10 +134,10 @@ async def inlinehelp(event):
 async def callhelp(event):
     text = STRINGS["main"].format(client.functions.mention(client.me))
     buttons = []
-    for category in HELP:
+    for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = client.functions.chunker(buttons, [2,1])
+    buttons = client.functions.chunker(buttons, [1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
@@ -130,7 +145,7 @@ async def callhelp(event):
 async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
-    for plugin in HELP[category]:
+    for plugin in CATEGORYS[category]:
         buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])

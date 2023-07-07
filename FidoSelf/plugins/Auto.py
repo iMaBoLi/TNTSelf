@@ -7,8 +7,8 @@ import asyncio
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Auto",
-    "Pluginfo": {
+    "Name": "Auto",
+    "Info": {
         "Help": "To Setting Send Auto Messages To Chats!",
         "Commands": {
             "{CMD}Auto <On-Off>": None,

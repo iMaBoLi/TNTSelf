@@ -1,16 +1,19 @@
 from FidoSelf import client
 import os
 
-PLUGIN = "Media Save"
-INFO = {
-    "Help": "To Save All Medias In Your Pv!",
-    "Commands": {
-        "{CMD}MSave <On-Off>": {
-            "Help": "To Turn On-Off Media Save",
+__INFO__ = {
+    "Category": "Pv",
+    "Name": "Media Save",
+    "Info": {
+        "Help": "To Save All Medias In Your Pv!",
+        "Commands": {
+            "{CMD}MSave <On-Off>": {
+                "Help": "To Turn On-Off Media Save",
+            },
         },
     },
 }
-client.HELP.update({PLUGIN: INFO})
+client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**The Save Media Has Been {}!**",

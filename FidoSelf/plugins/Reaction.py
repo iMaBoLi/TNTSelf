@@ -5,8 +5,8 @@ import random
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Reaction",
-    "Pluginfo": {
+    "Name": "Reaction",
+    "Info": {
         "Help": "To Setting Send Chat Reactions To Messages!",
         "Commands": {
             "{CMD}Reaction <On-Off>": "Send Reaction For This Chat!",

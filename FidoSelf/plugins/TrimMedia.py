@@ -4,8 +4,8 @@ import time
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Trim Video",
-    "Pluginfo": {
+    "Name": "Trim Video",
+    "Info": {
         "Help": "To Trim Your Video Files!",
         "Commands": {
             "{CMD}VTrim <Sec>-<Sec>": None,
@@ -15,8 +15,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Trim Audio",
-    "Pluginfo": {
+    "Name": "Trim Audio",
+    "Info": {
         "Help": "To Trim Your Music Files!",
         "Commands": {
             "{CMD}ATrim <Sec>-<Sec>": None,

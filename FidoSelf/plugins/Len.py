@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Len",
-    "Pluginfo": {
+    "Name": "Len",
+    "Info": {
         "Help": "To Get Len Of Characters In Message!",
         "Commands": {
             "{CMD}SLen <Reply(Text)>": None,

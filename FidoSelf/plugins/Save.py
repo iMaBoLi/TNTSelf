@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Save",
-    "Pluginfo": {
+    "Name": "Save",
+    "Info": {
         "Help": "To Save Your Contents In Backup Channel!",
         "Commands": {
             "{CMD}Save <Name>": "Save Your Content White Name!**",

@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Convert Photo",
-    "Pluginfo": {
+    "Name": "Convert Photo",
+    "Info": {
         "Help": "To Convert Your Photo Formats!",
         "Commands": {
             "{CMD}ToPhoto <Reply(Sticker)>": None,

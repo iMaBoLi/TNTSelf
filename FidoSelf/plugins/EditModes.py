@@ -9,8 +9,8 @@ for Mode in client.functions.EDITS:
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Edit Modes",
-    "Pluginfo": {
+    "Name": "Edit Modes",
+    "Info": {
         "Help": "To Setting Edit Modes For Your Texts!",
         "Commands": Commands,
     },

@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Chats Count",
-    "Pluginfo": {
+    "Name": "Chats Count",
+    "Info": {
         "Help": "To Get Chats Count Of Your Account!",
         "Commands": {
             "{CMD}GChats": None,

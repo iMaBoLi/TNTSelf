@@ -3,8 +3,8 @@ from countryinfo import CountryInfo
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Country Info",
-    "Pluginfo": {
+    "Name": "Country Info",
+    "Info": {
         "Help": "To Get Information About Country!",
         "Commands": {
             "{CMD}SCountry <Name>": None,

@@ -3,8 +3,8 @@ import time
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Timer",
-    "Pluginfo": {
+    "Name": "Timer",
+    "Info": {
         "Help": "To Manage Saved Timers In Self!",
         "Commands": {
             "{CMD}NewTimer <Name>": {

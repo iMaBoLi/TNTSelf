@@ -3,8 +3,8 @@ from telethon import functions, types
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Get Profiles",
-    "Pluginfo": {
+    "Name": "Get Profiles",
+    "Info": {
         "Help": "To Get Profile Photos Of Users!",
         "Commands": {
             "{CMD}GProfiles <Pv|Reply|UserID|Username>": None,

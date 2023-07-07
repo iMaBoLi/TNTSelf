@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "MarkRead",
-    "Pluginfo": {
+    "Name": "MarkRead",
+    "Info": {
         "Help": "To Mark Read Messages In Chats!",
         "Commands": {
             "{CMD}Read <On-Off>": None,

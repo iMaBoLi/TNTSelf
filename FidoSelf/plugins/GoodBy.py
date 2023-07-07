@@ -6,8 +6,8 @@ import random
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "GoodBy",
-    "Pluginfo": {
+    "Name": "GoodBy",
+    "Info": {
         "Help": "To Manage Auto GoodBy In The Chats!",
         "Commands": {
             "{CMD}GoodBy <On-Off>": None,

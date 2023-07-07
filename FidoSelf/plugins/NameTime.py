@@ -3,8 +3,8 @@ from .ManageTime import namechanger
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Name Time",
-    "Pluginfo": {
+    "Name": "Name Time",
+    "Info": {
         "Help": "To Save Your Names For Time In Name And Turn On-Off!",
         "Commands": {
             "{CMD}Name <On-Off>": None,

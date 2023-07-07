@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Emoji",
-    "Pluginfo": {
+    "Name": "Emoji",
+    "Info": {
         "Help": "To Add Emoji On Your Text Messages!",
         "Commands": {
             "{CMD}Emoji <On-Off>": None,

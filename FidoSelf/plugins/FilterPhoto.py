@@ -5,8 +5,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Bw Photo",
-    "Pluginfo": {
+    "Name": "Bw Photo",
+    "Info": {
         "Help": "To Convert Photo To Black White!",
         "Commands": {
             "{CMD}SBw <Reply(Photo)>": None,
@@ -16,8 +16,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Filter Photo",
-    "Pluginfo": {
+    "Name": "Filter Photo",
+    "Info": {
         "Help": "To Convert Photo Add Filters To Photo!",
         "Commands": {
             "{CMD}SPBlur <Reply(Photo)>": None,

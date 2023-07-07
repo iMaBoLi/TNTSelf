@@ -5,8 +5,8 @@ import os
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Enemy",
-    "Pluginfo": {
+    "Name": "Enemy",
+    "Info": {
         "Help": "To Seeting Enemy List And Send Foshs!",
         "Commands": {
             "{CMD}AddEnemy <Pv|Reply|UserId|Username>": None,

@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Poker",
-    "Pluginfo": {
+    "Name": "Poker",
+    "Info": {
         "Help": "To Setting Send Poker Sticker To Pokers!",
         "Commands": {
             "{CMD}Poker <On-Off>": None,

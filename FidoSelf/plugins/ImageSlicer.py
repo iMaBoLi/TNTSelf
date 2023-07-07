@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Image Slicer",
-    "Pluginfo": {
+    "Name": "Image Slicer",
+    "Info": {
         "Help": "To Get Slices Images To Tiles!",
         "Commands": {
             "{CMD}Slice <Count>": None,

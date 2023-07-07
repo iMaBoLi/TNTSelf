@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Black",
-    "Pluginfo": {
+    "Name": "Black",
+    "Info": {
         "Help": "To Manage Users On Black List!",
         "Commands": {
             "{CMD}AddBlack": {

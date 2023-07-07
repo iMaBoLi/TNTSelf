@@ -3,8 +3,8 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Online",
-    "Pluginfo": {
+    "Name": "Online",
+    "Info": {
         "Help": "To Set Online Mode For Account!",
         "Commands": {
             "{CMD}Online <On-Off>": None,
