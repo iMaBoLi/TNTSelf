@@ -1,5 +1,6 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
+from PIL import Image
 import random
 import re
 import os
