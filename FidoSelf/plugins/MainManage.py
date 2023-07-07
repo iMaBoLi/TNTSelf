@@ -24,9 +24,6 @@ STRINGS = {
 }
 
 MANAGES = {
-    "INFO": "User Info",
-    "BLOCK": "Block",
-    "UNBLOCK": "UnBlock",
     "WHITE_LIST": "White",
     "BLACK_LIST": "Black",
     "ECHO_USERS": "Echo",
@@ -36,14 +33,13 @@ MANAGES = {
 
 async def get_manage_buttons(userid, chatid):
     buttons = []
-    buttons.append([Button.inline(f'• {MANAGES["INFO"]} •', data=f"GetUserInfo:{chatid}:{userid}")])
+    buttons.append([Button.inline(f"• User Info •", data=f"GetUserInfo:{chatid}:{userid}")])
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
-    smode = MANAGES["UNBLOCK"] if info.blocked else MANAGES["BLOCK"]
-    cmode = "UnBlock" if info.blocked else "Block"
-    buttons.append([Button.inline(f"• {smode} •", data=f"User:{cmode}:{chatid}:{userid}")])
+    smode = "UnBlock" if info.blocked else "Block"
+    buttons.append([Button.inline(f"• {smode} •", data=f"User:{smode}:{chatid}:{userid}")])
     obuts = []
-    for manage in ["BLACK_LIST", "WHITE_LIST", "ECHO_USERS", "LOVE_USERS", "MUTEPV_USERS"]:
+    for manage in MANAGES:
         lists = client.DB.get_key(manage) or []
         smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
