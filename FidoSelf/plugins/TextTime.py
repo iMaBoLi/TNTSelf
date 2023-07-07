@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Text Time",
-    "Pluginfo": {
+    "Name": "Text Time",
+    "Info": {
         "Help": "To Save Your Texts For Time In Photo!",
         "Commands": {
             "{CMD}NewTtime <Text>": None,
