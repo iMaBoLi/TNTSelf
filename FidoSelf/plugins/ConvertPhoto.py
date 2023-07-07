@@ -3,7 +3,7 @@ from PIL import Image
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Convert Photo",
     "Info": {
         "Help": "To Convert Your Photo Formats!",
