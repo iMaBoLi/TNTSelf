@@ -45,7 +45,7 @@ async def reactionchat(event):
 async def reactionall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("REACTION_ALL", change)
+    client.DB.set_key("REACTION_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["reactall"].format(ShowChange))
 
@@ -68,7 +68,7 @@ async def getemojis():
 @client.Command(onlysudo=False, allowedits=False)
 async def reaction(event):
     if event.is_sudo or event.is_bot: return
-    reacMode = client.DB.get_key("REACTION_ALL") or "OFF"
+    reacMode = client.DB.get_key("REACTION_MODE") or "OFF"
     reacChats = client.DB.get_key("REACTION_CHATS") or []
     emoji = client.DB.get_key("REACTION_EMOJI")
     if reacMode == "ON" or event.chat_id in reacChats:
