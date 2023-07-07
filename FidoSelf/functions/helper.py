@@ -128,8 +128,10 @@ async def save(event):
 setattr(Message, "save", save)
 
 def AddInfo(info):
-    plugname = info["Plugname"]
-    pluginfo = info["Pluginfo"]
+    plugcat = info["Category"]
+    plugname = info["Name"]
+    pluginfo = info["Info"]
+    pluginfo.update({"Category": plugcat})
     client.HELP.update({plugname: pluginfo})
 
 def create_font(newtime, timefont):
