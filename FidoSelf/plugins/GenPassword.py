@@ -4,8 +4,8 @@ import random
 
 __INFO__ = {
     "Category": "Funs",
-    "Plugname": "Password",
-    "Pluginfo": {
+    "Name": "Password",
+    "Info": {
         "Help": "To Generate Random Passwords!",
         "Commands": {
             "{CMD}SPEasy <Count>": None,
