@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Setting",
-    "Plugname": "Rank",
-    "Pluginfo": {
+    "Name": "Rank",
+    "Info": {
         "Help": "To Manage Rank Of Users In Self!",
         "Commands": {
             "{CMD}SetRank <Rank> <Reply>": None,
