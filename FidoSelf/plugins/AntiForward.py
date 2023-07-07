@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Anti Forward",
-    "Pluginfo": {
+    "Name": "Anti Forward",
+    "Info": {
         "Help": "To Delete Forwarded Messages And Send Whitout Forward!",
         "Commands": {
             "{CMD}AntiForward <On-Off>": None,
