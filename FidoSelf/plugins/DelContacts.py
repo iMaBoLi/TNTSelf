@@ -3,8 +3,8 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Del Contacts",
-    "Pluginfo": {
+    "Name": "Del Contacts",
+    "Info": {
         "Help": "To Delete Your Contacts!",
         "Commands": {
             "{CMD}DelC <Name>": None,
