@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import functions
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Account",
     "Name": "Del Contacts",
     "Info": {
         "Help": "To Delete Your Contacts!",
