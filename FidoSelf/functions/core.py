@@ -110,7 +110,7 @@ async def DownloadFiles():
         except:
             pass
 
-    photos = client.DB.get_key("PHOTOS")
+    photos = client.DB.get_key("PHOTO_LIST")
     if photos:
         for photo in list(photos.keys()):
             try:
