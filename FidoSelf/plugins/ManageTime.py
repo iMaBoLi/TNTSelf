@@ -25,29 +25,29 @@ def AddVars(text, font=True):
     return text
 
 async def namechanger():
-    NAMES = client.DB.get_key("NAMES")
+    NAME_LIST = client.DB.get_key("NAME_LIST")
     nmode = client.DB.get_key("NAME_MODE") or "OFF"
-    if nmode == "ON" and NAMES:
-        chname = AddVars(random.choice(NAMES))
+    if nmode == "ON" and NAME_LIST:
+        chname = AddVars(random.choice(NAME_LIST))
         try:
             await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
             pass
 
 async def biochanger():
-    BIOS = client.DB.get_key("BIOS")
+    BIO_LIST = client.DB.get_key("BIO_LIST")
     bmode = client.DB.get_key("BIO_MODE") or "OFF"
-    if bmode == "ON" and BIOS:
-        chbio = AddVars(random.choice(BIOS))
+    if bmode == "ON" and BIO_LIST:
+        chbio = AddVars(random.choice(BIO_LIST))
         try:
             await client(functions.account.UpdateProfileRequest(about=str(chbio)))
         except:
             pass
 
 def get_photos():
-    PHOTOS = client.DB.get_key("PHOTOS") or {}
+    PHOTO_LIST = client.DB.get_key("PHOTO_LIST") or {}
     phots = []
-    for photo in PHOTOS:
+    for photo in PHOTO_LIST:
         phots.append(photo)
     return phots
 
@@ -66,14 +66,14 @@ def get_where(where, width, height, twidth, theight):
     return WHERES[where][0], WHERES[where][1]
 
 async def photochanger():
-    PHOTOS = get_photos()
-    TEXTS = client.DB.get_key("TEXT_TIMES")
+    PHOTO_LIST = get_photos()
+    TEXTS = client.DB.get_key("TEXTTIME_LIST")
     FONT = client.PATH + "FontFile.ttf"
     phmode = client.DB.get_key("PHOTO_MODE") or "OFF"
-    if phmode == "ON" and PHOTOS and TEXTS and os.path.exists(FONT):
-        PHOTO = random.choice(PHOTOS)
+    if phmode == "ON" and PHOTO_LIST and TEXTS and os.path.exists(FONT):
+        PHOTO = random.choice(PHOTO_LIST)
         FPHOTO = client.PATH + PHOTO
-        phinfo = client.DB.get_key("PHOTOS")[PHOTO]
+        phinfo = client.DB.get_key("PHOTO_LIST")[PHOTO]
         TEXT = AddVars(random.choice(TEXTS), font=False)
         sizes = {"verysmall":20, "small":35, "medium":50, "big":70, "verybig":90}
         SIZE = sizes[phinfo["Size"]]

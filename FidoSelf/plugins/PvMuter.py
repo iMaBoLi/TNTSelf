@@ -39,10 +39,10 @@ async def addmutepv(event):
         return await event.edit(STRINGS["notall"].format(mention))
     mutepvs.append(userid)
     client.DB.set_key("MUTEPV_USERS", mutepvs)
-    whites = client.DB.get_key("WHITES") or []
+    whites = client.DB.get_key("WHITE_LIST") or []
     if userid in whites:
         whites.remove(userid)
-        client.DB.set_key("WHITES", whites)
+        client.DB.set_key("WHITE_LIST", whites)
     await event.edit(STRINGS["add"].format(mention))
     
 @client.Command(command="DelMutePv ?(.*)?")

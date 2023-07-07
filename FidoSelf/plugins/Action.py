@@ -61,7 +61,7 @@ async def actionchat(event):
 async def actionall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ACTION_ALL", change)
+    client.DB.set_key("ACTION_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["actionall"].format(ShowChange))
 
@@ -103,14 +103,14 @@ async def copyactionchat(event):
 async def copyactionall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("COPYACTION_ALL", change)
+    client.DB.set_key("COPYACTION_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["copyactionall"].format(ShowChange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def action(event):
     if event.is_sudo or event.is_bot: return
-    acMode = client.DB.get_key("ACTION_ALL") or "OFF"
+    acMode = client.DB.get_key("ACTION_MODE") or "OFF"
     acChats = client.DB.get_key("ACTION_CHATS") or []
     acType = client.DB.get_key("ACTION_TYPE") or "random"
     if not acType: return
@@ -126,7 +126,7 @@ async def action(event):
 @client.on(events.UserUpdate)
 async def copyaction(event):
     if event.user_id == client.me.id: return
-    cacMode = client.DB.get_key("COPYACTION_ALL") or "OFF"
+    cacMode = client.DB.get_key("COPYACTION_MODE") or "OFF"
     cacChats = client.DB.get_key("COPYACTION_CHATS") or []
     if cacMode == "ON" or event.chat_id in cacChats:
         ACTIONS = {

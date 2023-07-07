@@ -60,16 +60,16 @@ STRINGS = {
 async def quickmode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("QUICKS_MODE", change)
+    client.DB.set_key("QUICK_LIST_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["change"].format(ShowChange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def quicksupdate(event):
     if event.checkCmd() or not event.text: return
-    QMode = client.DB.get_key("QUICKS_MODE") or "ON"
+    QMode = client.DB.get_key("QUICK_LIST_MODE") or "ON"
     if QMode == "OFF": return
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks: return
     for quick in quicks:
         info = quicks[quick]
@@ -136,7 +136,7 @@ async def quicksupdate(event):
 
 def get_buttons(quick):
     buttons = []
-    Quicks = client.DB.get_key("QUICKS") or {}
+    Quicks = client.DB.get_key("QUICK_LIST") or {}
     info = Quicks[quick]
     perbts = [[Button.inline("🙎 Person : ⤵️", data="Empty")]]
     operbts = []
@@ -195,7 +195,7 @@ async def addquick(event):
     await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)[:25]
     answers = event.pattern_match.group(2)[:500]
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     rand = random.randint(111111111, 999999999)
     QName = f"Quick{str(rand)}"
     replyuser = event.reply_message.sender_id if event.is_reply else None
@@ -206,7 +206,7 @@ async def addquick(event):
         quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 0, "DO": False}})
     else:
         quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 0, "DO": False}})
-    client.DB.set_key("QUICKS", quicks)
+    client.DB.set_key("QUICK_LIST", quicks)
     res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
@@ -218,7 +218,7 @@ async def addquick(event):
 async def delquick(event):
     await event.edit(client.STRINGS["wait"])
     command = event.pattern_match.group(1)
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
     for quick in quicks:
         if command == quicks[quick]["Command"]:
@@ -233,7 +233,7 @@ async def delquick(event):
 async def getquick(event):
     await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
     for quick in quicks:
         if cmd == quicks[quick]["Command"]:
@@ -253,7 +253,7 @@ async def getquick(event):
 @client.Command(command="QuickList")
 async def quicklist(event):
     await event.edit(client.STRINGS["wait"])
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(STRINGS["empty"])    
     res = await client.inline_query(client.bot.me.username, "QuickList")
@@ -263,16 +263,16 @@ async def quicklist(event):
 @client.Command(command="CleanQuickList")
 async def cleanquicklist(event):
     await event.edit(client.STRINGS["wait"])
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(STRINGS["allempty"])
-    client.DB.del_key("QUICKS")
+    client.DB.del_key("QUICK_LIST")
     await event.edit(STRINGS["cleanquick"])
 
 @client.Inline(pattern="QuickPage\:(.*)")
 async def quickpage(event):
     quick = str(event.pattern_match.group(1))
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     info = quicks[quick]
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["quickpage"].format(info["Command"], answer)
@@ -284,10 +284,10 @@ async def setqucik(event):
     Mode = event.data_match.group(1).decode('utf-8')
     quick = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     info = quicks[quick]
     quicks[quick][Mode] = change 
-    client.DB.set_key("QUICKS", quicks)
+    client.DB.set_key("QUICK_LIST", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     lasttext = STRINGS["quickpage"].format(info["Command"], answer)
     settext = STRINGS["setquick"].format(Mode, change)
@@ -298,10 +298,10 @@ async def setqucik(event):
 @client.Callback(data="SaveQuick\:(.*)")
 async def savequcik(event):
     quick = event.data_match.group(1).decode('utf-8')
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     info = quicks[quick]
     quicks[quick]["DO"] = True 
-    client.DB.set_key("QUICKS", quicks)
+    client.DB.set_key("QUICK_LIST", quicks)
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["savequick"].format(info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
@@ -310,7 +310,7 @@ async def savequcik(event):
 async def inlinedelquick(event):
     command = str(event.pattern_match.group(1))
     text = STRINGS["listdel"].format(command)
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
     for quick in quicks:
         if command == quicks[quick]["Command"] and quicks[quick]["DO"]:
@@ -325,16 +325,16 @@ async def inlinedelquick(event):
 @client.Callback(data="DelQuick\:(.*)")
 async def delqucik(event):
     quick = event.data_match.group(1).decode('utf-8')
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     info = quicks[quick]
     text = STRINGS["delquick"].format(info["Command"], info["Person"], info["Where"], info["Type"])
     await event.edit(text=text)
     del quicks[quick]
-    client.DB.set_key("QUICKS", quicks)
+    client.DB.set_key("QUICK_LIST", quicks)
     
 @client.Inline(pattern="QuickList")
 async def inlinequicklist(event):
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     text = STRINGS["quicklist"].format(len(quicks))
     buttons = []
     for quick in list(quicks)[:10]:
@@ -348,7 +348,7 @@ async def inlinequicklist(event):
 @client.Callback(data="QuickListPage\:(.*)")
 async def listquickspage(event):
     page = str(event.data_match.group(1).decode('utf-8'))
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     text = STRINGS["quicklist"].format(len(quicks))
     buttons = []
     qcount = (int(page) * 10)
@@ -368,7 +368,7 @@ async def listquickspage(event):
 async def viewquicks(event):
     quick = str(event.data_match.group(1).decode('utf-8'))
     page = str(event.data_match.group(2).decode('utf-8'))
-    quicks = client.DB.get_key("QUICKS") or {}
+    quicks = client.DB.get_key("QUICK_LIST") or {}
     info = quicks[quick]
     answers = info["Answers"] if info["Type"] != "Media" else "Media"
     text = STRINGS["getquick"].format(info["Command"], answers, info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"])

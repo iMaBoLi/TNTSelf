@@ -32,7 +32,7 @@ async def setemoji(event):
     emoji1 = event.pattern_match.group(1)
     emoji2 = event.pattern_match.group(2)
     emojis = emoji1 + "-" + emoji2
-    client.DB.set_key("EMOJI_TEXTS", emojis)
+    client.DB.set_key("EDIT_EMOJIS", emojis)
     text = STRINGS["setemoji"].format(emojis)
     await event.edit(text)
 
@@ -40,7 +40,7 @@ async def setemoji(event):
 async def emoji(event):
     if event.checkCmd() or not event.text: return
     mode = client.DB.get_key("EMOJI_MODE") or "OFF"
-    emojis = client.DB.get_key("EMOJI_TEXTS") or ""
+    emojis = client.DB.get_key("EDIT_EMOJIS") or ""
     if mode == "OFF" or not emojis: return
     emoji1 = emojis.split("-")[0]
     emoji2 = emojis.split("-")[1]

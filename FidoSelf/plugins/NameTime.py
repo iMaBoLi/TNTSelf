@@ -41,31 +41,31 @@ async def namemode(event):
 @client.Command(command="NewName (.*)")
 async def addname(event):
     await event.edit(client.STRINGS["wait"])
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAME_LIST") or []
     newname = str(event.pattern_match.group(1))
     if newname in names:
         return await event.edit(STRINGS["newnot"].format(newname))  
     names.append(newname)
-    client.DB.set_key("NAMES", names)
+    client.DB.set_key("NAME_LIST", names)
     await event.edit(STRINGS["newadd"].format(newname))
     await namechanger()
     
 @client.Command(command="DelName (.*)")
 async def delname(event):
     await event.edit(client.STRINGS["wait"])
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAME_LIST") or []
     newname = str(event.pattern_match.group(1))
     if newname not in names:
         return await event.edit(STRINGS["delnot"].format(newname))  
     names.remove(newname)
-    client.DB.set_key("NAMES", names)
+    client.DB.set_key("NAME_LIST", names)
     await event.edit(STRINGS["del"].format(newname))
     await namechanger()
 
 @client.Command(command="NameList")
 async def namelist(event):
     await event.edit(client.STRINGS["wait"])
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAME_LIST") or []
     if not names:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -78,8 +78,8 @@ async def namelist(event):
 @client.Command(command="CleanNameList")
 async def cleannames(event):
     await event.edit(client.STRINGS["wait"])
-    names = client.DB.get_key("NAMES") or []
+    names = client.DB.get_key("NAME_LIST") or []
     if not names:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("NAMES")
+    client.DB.del_key("NAME_LIST")
     await event.edit(STRINGS["clean"])

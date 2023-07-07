@@ -32,7 +32,7 @@ STRINGS = {
 async def antipvmode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ANTISPAM_PV", change)
+    client.DB.set_key("ANTISPAMPV_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["antimode"].format(ShowChange))
 
@@ -40,7 +40,7 @@ async def antipvmode(event):
 async def antipvwarn(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ANTISPAM_WARN", change)
+    client.DB.set_key("ANTISPAMPVWARN_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["warnmode"].format(ShowChange))
 
@@ -68,7 +68,7 @@ async def setantiwarn(event):
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
-    client.DB.set_key("ANTIWARN_MEDIA", info)
+    client.DB.set_key("ANTISPAMWARN_MEDIA", info)
     await event.edit(STRINGS["saveantiwarn"])
 
 WARNS = {}
@@ -76,7 +76,7 @@ WARNS = {}
 @client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
-    antimode = client.DB.get_key("ANTISPAM_PV") or "OFF"
+    antimode = client.DB.get_key("ANTISPAMPV_MODE") or "OFF"
     if antimode == "OFF": return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
     if event.sender_id in mutes: return
@@ -87,7 +87,7 @@ async def antispam(event):
     WARNS.update({event.sender_id: nwarns})
     limit = client.DB.get_key("ANTISPAM_LIMIT") or 5
     WARNSTEXT = f"{nwarns}/{limit}"
-    swarn = client.DB.get_key("ANTISPAM_WARN") or "OFF"
+    swarn = client.DB.get_key("ANTISPAMPVWARN_MODE") or "OFF"
     if nwarns >= limit:
         manti = client.DB.get_key("ANTISPAM_MEDIA")
         if swarn == "ON" and manti:
@@ -96,7 +96,7 @@ async def antispam(event):
             getmsg.text = getmsg.text.replace("{WARNS}", WARNSTEXT)
             await event.reply(getmsg)
         WARNS.update({event.sender_id: 0})
-        umode = client.DB.get_key("ANTISPAM_TYPE") or "Mute"
+        umode = client.DB.get_key("ANTISPAMPV_TYPE") or "Mute"
         if umode == "Mute":
             mutes = client.DB.get_key("MUTEPV_USERS") or []
             mutes.append(event.sender_id)
@@ -104,7 +104,7 @@ async def antispam(event):
         else:
             await client(functions.contacts.BlockRequest(event.sender_id))
     else:
-        wanti = client.DB.get_key("ANTIWARN_MEDIA")
+        wanti = client.DB.get_key("ANTISPAMWARN_MEDIA")
         if swarn == "ON" and wanti:
             getmsg = await client.get_messages(int(wanti["chat_id"]), ids=int(wanti["msg_id"]))
             info = await client.get_entity(event.chat_id)

@@ -28,7 +28,7 @@ STRINGS = {
 def ocr_file(file, language):
     payload = {
         "isOverlayRequired": True,
-        "apikey": client.DB.get_key("OCR_API_KEY"),
+        "apikey": client.DB.get_key("OCR_APIKEY"),
         "language": language,
     }
     with open(file, "rb") as fget:
@@ -46,7 +46,7 @@ def ocr_file(file, language):
 async def saveocrapi(event):
     await event.edit(client.STRINGS["wait"])
     api = event.pattern_match.group(1)
-    client.DB.set_key("OCR_API_KEY", api)
+    client.DB.set_key("OCR_APIKEY", api)
     await event.edit(STRINGS["setapi"].format(api))
 
 @client.Command(command="Ocr ?(.*)?")
@@ -55,7 +55,7 @@ async def ocrapi(event):
     lang = event.pattern_match.group(1) or "eng"
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
-    if not client.DB.get_key("OCR_API_KEY"):
+    if not client.DB.get_key("OCR_APIKEY"):
         return await event.edit(STRINGS["notsave"])
     if not lang in client.functions.OCRLANGS:
         return await event.edit(STRINGS["notlang"])

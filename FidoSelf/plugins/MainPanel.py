@@ -33,7 +33,7 @@ STRINGS = {
 def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
-        "QUICKS_MODE": "Quicks",
+        "QUICK_LIST_MODE": "Quicks",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
@@ -42,18 +42,18 @@ def get_modename(mode):
         "EMOJI_MODE": "Emoji",
         "TIMER_MODE": "Timer Save",
         "MEDIAPV_MODE": "Media Save",
-        "MUTE_PV": "MutePv",
-        "LOCK_PV": "LockPv",
+        "MUTEPV_MODE": "MutePv",
+        "LOVKPV_MODE": "LockPv",
         "ANTI_SPAM": "Anti Spam",
-        "REPEAT_ALL": "Repeat",
+        "REPEAT_MODE": "Repeat",
         "REPEAT_CHATS": "Repeat",
-        "REACTION_ALL": "Reaction",
+        "REACTION_MODE": "Reaction",
         "REACTION_CHATS": "Reaction",
-        "POKER_ALL": "Poker",
+        "POKER_MODE": "Poker",
         "POKER_CHATS": "Poker",
         "ANTIFORWARD_MODE": "Anti Forward",
         "ANTIEDIT_MODE": "Anti Edit",
-        "ENEMY_DELETE": "Delete EnemyPm",
+        "DELENEMY_MSGS": "Delete EnemyPm",
         "AUTODELETE_MODE": "Auto Delete",
         "READ_CHATS": "MarkRead",
         "READALL_MODE": "MarkRead All",
@@ -68,15 +68,15 @@ def get_modename(mode):
         "GOODBY_MODE": "GoodBy",
         "AUTOJOIN_MODE": "Auto Join",
         "AUTOLEAVE_MODE": "Auto Leave",
-        "ANTISPAM_PV": "AntiSpam Pv",
-        "ANTISPAM_WARN": "AntiSpam Warn",
-        "ANTISPAM_TYPE": "AntiSpam Type",
+        "ANTISPAMPV_MODE": "AntiSpam Pv",
+        "ANTISPAMPVWARN_MODE": "AntiSpam Warn",
+        "ANTISPAMPV_TYPE": "AntiSpam Type",
         "TIME_FONT": "Time Font",
-        "EDITALL_MODE": "Edit",
-        "EDITCHATS_MODE": "Edit",
-        "COPYACTION_ALL": "Copy Action",
+        "EDIT_MODE": "Edit",
+        "EDIT_CHATS": "Edit",
+        "COPYACTION_MODE": "Copy Action",
         "COPYACTION_CHATS": "Copy Action",
-        "ACTION_ALL": "Send Action",
+        "ACTION_MODE": "Send Action",
         "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
     }
@@ -153,8 +153,8 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 def get_buttons(chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "QUICKS_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTE_PV", "LOCK_PV", "ANTI_SPAM"]:
-            default = "OFF" if Mode not in ["QUICKS_MODE", "ANTI_SPAM"] else "ON"
+        for Mode in ["ONLINE_MODE", "QUICK_LIST_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTEPV_MODE", "LOVKPV_MODE", "ANTI_SPAM"]:
+            default = "OFF" if Mode not in ["QUICK_LIST_MODE", "ANTI_SPAM"] else "ON"
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, default)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
@@ -164,18 +164,18 @@ def get_buttons(chatid, page):
             allbutton = create_button(Mode + "_ALL", None, "Turn", "Turn", chatid, page, "OFF", (Mode.title() + " All"))
             buttons.append([chbutton, allbutton])
         othbutton = []
-        for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "ENEMY_DELETE", "AUTODELETE_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
+        for Mode in ["ANTIFORWARD_MODE", "ANTIEDIT_MODE", "DELENEMY_MSGS", "AUTODELETE_MODE", "READALL_MODE", "READPV_MODE", "READGP_MODE", "READCH_MODE"]:
             othbutton.append(create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF"))
         othbutton.insert(4, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["AUTOTR_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAM_PV", "ANTISPAM_WARN"]:
+        for Mode in ["AUTOTR_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAMPV_MODE", "ANTISPAMPVWARN_MODE"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
         typebts = [Button.inline("• AntiSapm Mode :", data="Empty")]
         for type in ["Mute", "Block"]:
-            typebts.append(create_button("ANTISPAM_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
+            typebts.append(create_button("ANTISPAMPV_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
         buttons.append(typebts)
     elif page == 4:
         newtime = datetime.now().strftime("%H:%M")
@@ -188,12 +188,12 @@ def get_buttons(chatid, page):
     elif page == 5:
         chbts, allbts = [], []
         for edit in client.functions.EDITS:
-            chbts.append(create_button("EDITCHATS_MODE", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title()))
-            allbts.append(create_button("EDITALL_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
+            chbts.append(create_button("EDIT_CHATS", edit, "ChatMode", "ChatModeDel", chatid, page, 1, edit.title()))
+            allbts.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, 1, (edit.title() + "All")))
         buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
     elif page == 6:
-        buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
-        buttons.append([create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action"), create_button("ACTION_ALL", None, "Turn", "Turn", chatid, page, "OFF", "Action All")])
+        buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
+        buttons.append([create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action"), create_button("ACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Action All")])
         actbts = []
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", (action.replace("record-", "Rec ").title())))

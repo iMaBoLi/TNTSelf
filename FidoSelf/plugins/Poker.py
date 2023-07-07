@@ -39,14 +39,14 @@ async def pokerchat(event):
 async def pokerall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("POKER_ALL", change)
+    client.DB.set_key("POKER_MODE", change)
     ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(STRINGS["pokerall"].format(ShowChange))
  
 @client.Command(onlysudo=False, allowedits=False)
 async def poker(event):
     if event.is_sudo or event.is_bot or not event.text or "😐" not in event.text: return
-    pomode = client.DB.get_key("POKER_ALL") or "OFF"
+    pomode = client.DB.get_key("POKER_MODE") or "OFF"
     pochats = client.DB.get_key("POKER_CHATS") or []
     if pomode == "ON" or event.chat_id in pochats:
         await event.reply("😐")

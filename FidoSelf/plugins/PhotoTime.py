@@ -36,7 +36,7 @@ STRINGS = {
     "saveagain":  "**𑁍 The Photo Was Removed Try Again To Save!**",
 }
 
-INPHOTOS = {}
+INPHOTO_LIST = {}
 
 @client.Command(command="Photo (On|Off)")
 async def photomode(event):
@@ -49,7 +49,7 @@ async def photomode(event):
 
 def get_buttons(phname):
     buttons = []
-    photos = INPHOTOS
+    photos = INPHOTO_LIST
     info = photos[phname]
     wherbts = [[Button.inline("• Where : ⤵️", data="Empty")]]
     owherbts = []
@@ -87,11 +87,11 @@ async def addphoto(event):
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     phname = str(event.pattern_match.group(1)) + ".jpg"
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = client.DB.get_key("PHOTO_LIST") or {}
     if phname in photos:
         return await event.edit(STRINGS["notall"].format(phname))
     info = await event.reply_message.save()
-    INPHOTOS.update({phname: {"chat_id": info["chat_id"], "msg_id": info["msg_id"], "Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
+    INPHOTO_LIST.update({phname: {"chat_id": info["chat_id"], "msg_id": info["msg_id"], "Where": "⏺", "Size": "small", "Color": "Random", "Align": "center", "DO": False}})
     res = await client.inline_query(client.bot.me.username, f"PhotoPage:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
@@ -99,12 +99,12 @@ async def addphoto(event):
 @client.Command(command="DelPhoto (.*)")
 async def delphoto(event):
     await event.edit(client.STRINGS["wait"])
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
         return await event.edit(STRINGS["notin"].format(phname))
     del photos[phname]
-    client.DB.set_key("PHOTOS", photos)
+    client.DB.set_key("PHOTO_LIST", photos)
     phfile = client.PATH + phname
     if os.path.exists(phfile):
         os.remove(phfile)
@@ -114,7 +114,7 @@ async def delphoto(event):
 @client.Command(command="GetPhoto (.*)")
 async def getphoto(event):
     await event.edit(client.STRINGS["wait"])
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
         return await event.edit(STRINGS["notin"].format(phname))
@@ -127,7 +127,7 @@ async def getphoto(event):
 @client.Command(command="PhotoList")
 async def photolist(event):
     await event.edit(client.STRINGS["wait"])
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["listphoto"]
@@ -138,10 +138,10 @@ async def photolist(event):
 @client.Command(command="CleanPhotoList")
 async def cleanphotos(event):
     await event.edit(client.STRINGS["wait"])
-    photos = client.DB.get_key("PHOTOS") or {}
+    photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(STRINGS["allempty"])
-    client.DB.del_key("PHOTOS")
+    client.DB.del_key("PHOTO_LIST")
     await event.edit(STRINGS["cleanphoto"])
 
 @client.Inline(pattern="PhotoPage\:(.*)")
@@ -156,9 +156,9 @@ async def setphoto(event):
     smode = event.data_match.group(1).decode('utf-8')
     phname = event.data_match.group(2).decode('utf-8')
     change = event.data_match.group(3).decode('utf-8')
-    if phname not in INPHOTOS:
+    if phname not in INPHOTO_LIST:
         return await event.edit(STRINGS["saveagain"])
-    INPHOTOS[phname][smode] = change 
+    INPHOTO_LIST[phname][smode] = change 
     lasttext = STRINGS["photopage"].format(phname)
     settext = STRINGS["setphoto"].format(smode, change)
     text = settext + "\n\n" + lasttext
@@ -168,12 +168,12 @@ async def setphoto(event):
 @client.Callback(data="SavePhoto\:(.*)")
 async def savephoto(event):
     phname = event.data_match.group(1).decode('utf-8')
-    photos = client.DB.get_key("PHOTOS") or {}
-    if phname not in INPHOTOS:
+    photos = client.DB.get_key("PHOTO_LIST") or {}
+    if phname not in INPHOTO_LIST:
         return await event.edit(STRINGS["saveagain"])
-    info = INPHOTOS[phname]
+    info = INPHOTO_LIST[phname]
     photos.update({phname: info})
-    client.DB.set_key("PHOTOS", photos)
+    client.DB.set_key("PHOTO_LIST", photos)
     get = await client.get_messages(info["chat_id"], ids=int(info["msg_id"]))
     await get.download_media(client.PATH + phname)
     text = STRINGS["savephoto"].format(phname, info["Where"], info["Size"], info["Color"], info["Align"])
@@ -183,8 +183,8 @@ async def savephoto(event):
 @client.Callback(data="DelPhoto\:(.*)")
 async def delphoto(event):
     phname = event.data_match.group(1).decode('utf-8')
-    if phname not in INPHOTOS:
+    if phname not in INPHOTO_LIST:
         return await event.edit(STRINGS["saveagain"])
-    del INPHOTOS[phname]
+    del INPHOTO_LIST[phname]
     text = STRINGS["delphoto"].format(phname)
     await event.edit(text=text)

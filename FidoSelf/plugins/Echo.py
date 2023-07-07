@@ -54,7 +54,7 @@ async def delecho(event):
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["getuserID"])
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)
         mention = client.functions.mention(uinfo)
@@ -69,7 +69,7 @@ async def delecho(event):
 @client.Command(command="EchoList")
 async def echolist(event):
     await event.edit(client.STRINGS["wait"])
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     if not Echos:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -82,10 +82,10 @@ async def echolist(event):
 @client.Command(command="CleanEchoList")
 async def cleanechos(event):
     await event.edit(client.STRINGS["wait"])
-    echos = client.DB.get_key("ECHOS") or []
+    echos = client.DB.get_key("ECHO_USERS") or []
     if not echos:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("ECHOS")
+    client.DB.del_key("ECHO_USERS")
     await event.edit(STRINGS["clean"])
 
 @client.Command(command="SetEchoSleep (\d*)")
@@ -99,7 +99,7 @@ async def setechosleep(event):
 async def echofosh(event):
     if event.is_ch: return
     userid = event.sender_id
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos: return
     sleep = client.DB.get_key("ECHO_SLEEP") or 0
     if ("All" in Echos[userid]) or ("Groups" in Echos[userid] and event.is_group) or ("Pvs" in Echos[userid] and event.is_private) or (str(event.chat_id) in Echos[userid]):
@@ -126,14 +126,14 @@ async def addechos(event):
     userid = int(event.data_match.group(2).decode('utf-8'))
     where = event.data_match.group(3).decode('utf-8')
     userinfo = await client.get_entity(userid)
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos:
         Echos.update({userid: []})
     if where in Echos[userid]:
         text = STRINGS["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
     Echos[userid].append(where)
-    client.DB.set_key("ECHOS", Echos)
+    client.DB.set_key("ECHO_USERS", Echos)
     text = STRINGS["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
@@ -141,7 +141,7 @@ async def addechos(event):
 async def delechoinline(event):
     userid = int(event.pattern_match.group(1))
     text = STRINGS["wheredel"]
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     buttons = []
     for where in Echos[userid]:
         buttons.append(Button.inline(f"• {where} •", data=f"delechodel:{userid}:{where}"))
@@ -151,13 +151,13 @@ async def delechoinline(event):
 async def delechos(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     where = str(event.data_match.group(2).decode('utf-8'))
-    Echos = client.DB.get_key("ECHOS") or {}
+    Echos = client.DB.get_key("ECHO_USERS") or {}
     uinfo = await client.get_entity(userid)
     mention = client.functions.mention(uinfo)
     Echos[userid].remove(where)
     if not Echos[userid]:
         del Echos[userid]
-    client.DB.set_key("ECHOS", Echos)
+    client.DB.set_key("ECHO_USERS", Echos)
     text = STRINGS["del"].format(mention, where)
     await event.edit(text=text)
 
