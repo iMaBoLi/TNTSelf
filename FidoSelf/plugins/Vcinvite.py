@@ -3,8 +3,8 @@ from telethon import functions, types, errors
 
 __INFO__ = {
     "Category": "Group",
-    "Plugname": "Voice Chat",
-    "Pluginfo": {
+    "Name": "Voice Chat",
+    "Info": {
         "Help": "To Invite Users To Voice Chat!",
         "Commands": {
             "{CMD}InvVc": None,
