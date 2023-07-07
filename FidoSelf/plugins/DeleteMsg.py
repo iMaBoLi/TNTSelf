@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Groups",
     "Name": "Delete Msg",
     "Info": {
         "Help": "To Delete Message In Chats!",
