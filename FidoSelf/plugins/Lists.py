@@ -19,14 +19,15 @@ STRINGS = {
     "main": "**ᯓ Dear** ( {} )\n\n    **✾ Please Select The List You Want:**",
     "emptylist": "✾ The List Of Your {} Was Empty!",
     "getlist": "**✾ The List Of Your {}:**\n\n",
+    "cleanlist": "**✾ The List Of Your {} Has Been Cleaned!**",
     "closelists": "**☻ The Lists Panel Successfully Closed!**",
 }
 
 LISTS = {
     "Saves": "SAVED_LIST",
-    "Enemys": "ENEMY_LIST",
-    "Whites": "WHITE_LIST",
-    "Blacks": "BLACK_LIST",
+    "Enemy Users": "ENEMY_LIST",
+    "White Users": "WHITE_LIST",
+    "Black Users": "BLACK_LIST",
     "Names": "NAME_LIST",
     "Bios": "BIO_LIST",
     "Photos": "PHOTO_LIST",
@@ -34,15 +35,14 @@ LISTS = {
     "Auto Chats": "AUTO_CHATS",
     "Action Chats": "ACTION_CHATS",
     "Reaction Chats": "REACTION_CHATS",
-    "Echos": "ECHO_USERS",
-    "Ranks": "RANK_LIST",
-    "Loves": "LOVE_LIST",
+    "Echo Users": "ECHO_USERS",
+    "Love Users": "LOVE_LIST",
     "Love Times": "LOVETIME_LIST",
-    "Comments": "COMMENT_CHATS",
-    "WelComes": "WELCOME_CHATS",
-    "GoodBys": "GOODBY_CHATS",
-    "Pv Mutes": "MUTEPV_USERS",
-    "Filter Pvs": "FILTERPV_WORDS",
+    "Comment Chats": "COMMENT_CHATS",
+    "WelCome Chats": "WELCOME_CHATS",
+    "GoodBy Chats": "GOODBY_CHATS",
+    "MutePv Users": "MUTEPV_USERS",
+    "FilterPv Words": "FILTERPV_WORDS",
 }
 
 @client.Command(command="Lists")
@@ -84,8 +84,16 @@ async def getlistitems(event):
     text = STRINGS["getlist"].format(listname)
     for row, item in enumerate(lists):
         text += f"**{row + 1} -** `{item}`\n"
-    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data="Lists"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")]]
+    buttons = [[Button.inline(client.STRINGS["inline"]["Clean"], data=f"CleanList:{listname}")], [Button.inline(client.STRINGS["inline"]["Back"], data="Lists"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")]]
     await event.edit(text=text, buttons=buttons)
+
+@client.Callback(data="CleanList\:(.*)")
+async def cleanlist(event):
+    listname = str(event.data_match.group(1).decode('utf-8'))
+    getdb = LISTS[listname]
+    client.DB.del_key(getdb)
+    text = STRINGS["cleanlist"].format(listname)
+    await event.edit(text=text)
 
 @client.Callback(data="CloseLists")
 async def closelists(event):
