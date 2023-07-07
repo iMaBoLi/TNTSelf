@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Filter Video",
-    "Pluginfo": {
+    "Name": "Filter Video",
+    "Info": {
         "Help": "To Convert Video And Add Filters To Video!",
         "Commands": {
             "{CMD}SVBw": None,
