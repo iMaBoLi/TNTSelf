@@ -69,10 +69,11 @@ async def timermuteuser(event):
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
-        await client.edit_permissions(event.chat_id, info.id, timedelta(minutes=timer), send_messages=False)
+        await client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), send_messages=False)
     except Exception as error:
         return await event.edit(STRINGS["errormute"].format(mention, error))
-    text = STRINGS["tmuteuser"].format(mention, timer)
+    stimer = client.functions.convert_time(timer)
+    text = STRINGS["tmuteuser"].format(mention, stimer)
     await event.edit(text)
     
 @client.Command(command="UnMute ?(.*)?")
