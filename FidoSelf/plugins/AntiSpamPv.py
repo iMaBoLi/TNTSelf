@@ -5,8 +5,8 @@ import random
 
 __INFO__ = {
     "Category": "Private",
-    "Plugname": "Anti Spam",
-    "Pluginfo": {
+    "Name": "Anti Spam",
+    "Info": {
         "Help": "To Setting Anti Spam For Pv And Protection!",
         "Commands": {
             "{CMD}AntiSpamPv <On-Off>": None,
