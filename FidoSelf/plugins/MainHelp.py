@@ -38,7 +38,7 @@ CATEGORYS = {
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
     "Account": ["Edit Profile", "Set Profile", "My Info", "Chats Count", "Del Profiles", "Del Contacts"],
-    "Groups": ["Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
+    "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv", "Filter Media"],
     "Users": ["User Info", "Get Profiles"],
     "Variebels": [],

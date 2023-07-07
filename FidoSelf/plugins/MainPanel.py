@@ -116,9 +116,10 @@ async def inlinepanel(event):
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
-    if page == 0:
-        return await event.answer(STRINGS["allpage"], alert=True)
-    await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
+    try:
+        await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
+    except:
+        await event.answer(STRINGS["allpage"], alert=True)
 
 def get_text(page):
     TEXTS = {
@@ -129,8 +130,10 @@ def get_text(page):
         5: STRINGS["editpage"],
         6: STRINGS["actionpage"]
     }
-    text = TEXTS[page]
-    text += f" **(** `Page {page}` **)**"
+    mention = client.functions.mention(client.me)
+    text = f"**ᯓ Dear** ( {mention} )\n\n"
+    text += "  " + TEXTS[page] + "\n"
+    text += f"    **❃ Page:** ( `{page}` )"
     return text
 
 def get_pages_button(chatid, opage):
@@ -138,9 +141,8 @@ def get_pages_button(chatid, opage):
     PAGES_COUNT = 6
     for page in range(1, PAGES_COUNT + 1):
         font = 3 if page != opage else 4
-        data = page if page != opage else 0
         name = client.functions.create_font(page, font)
-        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{data}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{page}"))
     return buttons
 
 def create_button(key, value, type, settype, chatid, page, default=None, show=None):
@@ -161,7 +163,7 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or default
-        smode = client.STRINGS["inline"]["On"] if (chatid in chats and chats[chatid] == value) else client.STRINGS["inline"]["Off"]
+        smode = client.STRINGS["inline"]["On"] if (int(chatid) in chats and chats[int(chatid)] == value) else client.STRINGS["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
 def get_buttons(chatid, page):
