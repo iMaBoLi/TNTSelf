@@ -1,4 +1,5 @@
 from FidoSelf import client
+import moviepy.editor as mp
 import os
 
 __INFO__ = {
@@ -31,11 +32,11 @@ async def exaudio(event):
     callback = event.progress(download=True)
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(STRINGS["exing"])
-    newfile = client.PATH + f"ExAudio-{video}.acc"
-    cmd = f"ffmpeg -i {video} -ab 160k -ac 2 -ar 44100 -vn {newfile}"
+    audiofile = client.PATH + f"ExAudio-{video}.mp3"
+    clip = mp.VideoFileClip(video)
+    clip.audio.write_audiofile(audiofile)
     callback = event.progress(upload=True)
-    caption = STRINGS["exed"]
-    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    await client.send_file(event.chat_id, audiofile, caption=STRINGS["exed"], progress_callback=callback)        
     os.remove(video)
-    os.remove(newfile)
+    os.remove(audiofile)
     await event.delete()
