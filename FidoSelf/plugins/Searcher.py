@@ -3,8 +3,8 @@ from telethon import functions, types
 
 __INFO__ = {
     "Category": "Group",
-    "Plugname": "Searcher",
-    "Pluginfo": {
+    "Name": "Searcher",
+    "Info": {
         "Help": "To Search On Messages In The Chat!",
         "Commands": {
             "{CMD}SRAll <Text>": "Search On All Messages!",
