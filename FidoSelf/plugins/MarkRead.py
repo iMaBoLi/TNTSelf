@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Manage",
     "Name": "MarkRead",
     "Info": {
         "Help": "To Mark Read Messages In Chats!",
