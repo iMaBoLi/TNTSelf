@@ -4,8 +4,8 @@ import time
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Auto Delete",
-    "Pluginfo": {
+    "Name": "Auto Delete",
+    "Info": {
         "Help": "To Setting Auto Delete Messages In Chats!",
         "Commands": {
             "{CMD}AutoDelete <On-Off>": None,
