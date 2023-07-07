@@ -9,11 +9,11 @@ __INFO__ = {
         "Commands": {
             "{CMD}Mute": {
                 "Help": "To Mute User",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}UnMute": {
                 "Help": "To UnMute User",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}TMute <Time>": {
                 "Help": "To Mute User For Minutes",
