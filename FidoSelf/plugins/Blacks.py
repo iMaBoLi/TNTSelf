@@ -42,17 +42,17 @@ async def addblack(event):
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["getuserID"])
-    blacks = client.DB.get_key("BLACKS") or []
+    blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid in blacks:
         return await event.edit(STRINGS["notall"].format(mention))
     blacks.append(userid)
-    client.DB.set_key("BLACKS", blacks)
-    whites = client.DB.get_key("WHITES") or []
+    client.DB.set_key("BLACK_LIST", blacks)
+    whites = client.DB.get_key("WHITE_LIST") or []
     if userid in whites:
         whites.remove(userid)
-        client.DB.set_key("WHITES", whites)
+        client.DB.set_key("WHITE_LIST", whites)
     await event.edit(STRINGS["add"].format(mention))
     
 @client.Command(command="DelBlack ?(.*)?")
@@ -61,19 +61,19 @@ async def delblack(event):
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["getuserID"])
-    blacks = client.DB.get_key("BLACKS") or []
+    blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid not in blacks:
         return await event.edit(STRINGS["notin"].format(mention))  
     blacks.remove(userid)
-    client.DB.set_key("BLACKS", blacks)
+    client.DB.set_key("BLACK_LIST", blacks)
     await event.edit(STRINGS["del"].format(mention))
     
 @client.Command(command="BlackList")
 async def blacklist(event):
     await event.edit(client.STRINGS["wait"])
-    blacks = client.DB.get_key("BLACKS") or []
+    blacks = client.DB.get_key("BLACK_LIST") or []
     if not blacks:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -86,8 +86,8 @@ async def blacklist(event):
 @client.Command(command="CleanBlackList")
 async def cleanblacklist(event):
     await event.edit(client.STRINGS["wait"])
-    blacks = client.DB.get_key("BLACKS") or []
+    blacks = client.DB.get_key("BLACK_LIST") or []
     if not blacks:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("BLACKS")
+    client.DB.del_key("BLACK_LIST")
     await event.edit(STRINGS["clean"])
