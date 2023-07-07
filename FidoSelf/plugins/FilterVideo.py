@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Convert",
     "Name": "Filter Video",
     "Info": {
         "Help": "To Convert Video And Add Filters To Video!",
