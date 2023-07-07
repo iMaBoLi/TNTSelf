@@ -129,8 +129,10 @@ def get_text(page):
         5: STRINGS["editpage"],
         6: STRINGS["actionpage"]
     }
-    text = TEXTS[page]
-    text += f" **(** `Page {page}` **)**"
+    mention = client.functions.mention(client.me)
+    text = f"**ᯓ Dear** ( {mention} )\n\n"
+    text += "  " + TEXTS[page] + "\n"
+    text += f"    **❃ Page:** ( `{page}` )"
     return text
 
 def get_pages_button(chatid, opage):
