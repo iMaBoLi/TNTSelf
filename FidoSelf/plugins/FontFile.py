@@ -3,8 +3,8 @@ import os
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Font",
-    "Pluginfo": {
+    "Name": "Font",
+    "Info": {
         "Help": "To Save Font File For Profile Time!",
         "Commands": {
             "{CMD}SetFont <Reply(File)>": None,
