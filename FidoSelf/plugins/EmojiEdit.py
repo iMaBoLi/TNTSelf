@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Funs",
+    "Category": "Practical",
     "Name": "Emoji",
     "Info": {
         "Help": "To Add Emoji On Your Text Messages!",
