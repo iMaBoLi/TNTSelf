@@ -6,14 +6,21 @@ STRINGS = {
     "OtherCallback": "🚫 This Is Not Created For You!",
     "OtherInline": "**🚫 This Is Not Created For You!**\n\n**• Don't Use From Bot!**",
     "only": {
-        "Pv": "**❉ Please Use This Command Only In The Private Chats!",
-        "Group": "**❉ Please Use This Command Only In The Groups!",
-        "Channel": "**❉ Please Use This Command Only In The Channels!",
+        "Pv": "**❉ Please Use This Command Only In The Private Chats!**",
+        "Group": "**❉ Please Use This Command Only In The Groups!**",
+        "Channel": "**❉ Please Use This Command Only In The Channels!**",
     },
     "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
-    "getuserID": "**❉ Please Reply To User Or Enter UserID/Username!**", 
-    "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**", 
+    "user": {
+        "all": "**❉ Please Reply To User Or Enter UserID - Username Or Send In Pv!**",
+        "reply": "**❉ Please Reply To User!**",
+        "replyid": "**❉ Please Reply To User Or Enter UserID - Username!**",
+    },
+    "chat": {
+        "all": "**❉ Please Enter ChatID - ChatUsername Or Send In The Chat!**",
+        "id": "**❉ Please Enter ChatID - ChatUsername!**",
+    },
     "inline": {
         "On": "( ✔️ )",
         "Off": "( ✖️ )",
