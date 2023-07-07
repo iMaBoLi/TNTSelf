@@ -1,9 +1,8 @@
 from FidoSelf import client
 from datetime import datetime
 
-CATEGORY = "Setting"
 __INFO__ = {
-    "Category": CATEGORY,
+    "Category": "Setting",
     "Name": "Ping",
     "Info": {
         "Help": "To Get Ping Of Your Self!",
