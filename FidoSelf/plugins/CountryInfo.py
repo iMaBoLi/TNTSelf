@@ -2,7 +2,7 @@ from FidoSelf import client
 from countryinfo import CountryInfo
 
 __INFO__ = {
-    "Category": "Practical",
+    "Category": "Tools",
     "Name": "Country Info",
     "Info": {
         "Help": "To Get Information About Country!",
