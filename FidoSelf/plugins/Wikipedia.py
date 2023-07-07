@@ -2,7 +2,7 @@ from FidoSelf import client
 import wikipedia
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Funs",
     "Name": "Wikipedia",
     "Info": {
         "Help": "To Search A Note On Wikipedia!",
