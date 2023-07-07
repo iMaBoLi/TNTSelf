@@ -1,7 +1,7 @@
 from FidoSelf import client
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Practical",
     "Name": "Replace",
     "Info": {
         "Help": "To Replace Words In Text!",
