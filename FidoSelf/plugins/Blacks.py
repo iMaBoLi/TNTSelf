@@ -41,7 +41,7 @@ async def addblack(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -60,7 +60,7 @@ async def delblack(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
