@@ -4,8 +4,8 @@ import os
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Color Photo",
-    "Pluginfo": {
+    "Name": "Color Photo",
+    "Info": {
         "Help": "To Convert Photo And Add Color Filters To Photo!",
         "Commands": {
             "{CMD}SRed <Reply(Photo)>": None,
