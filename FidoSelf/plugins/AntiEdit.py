@@ -3,8 +3,8 @@ from telethon import events, types
 
 __INFO__ = {
     "Category": "Manage",
-    "Plugname": "Anti Edit",
-    "Pluginfo": {
+    "Name": "Anti Edit",
+    "Info": {
         "Help": "To Delete Edited Messages And Send Whitout Edit!",
         "Commands": {
             "{CMD}AntiEdit <On-Off>": None,
