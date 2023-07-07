@@ -34,30 +34,30 @@ async def savesaves(event):
     name = event.pattern_match.group(1)
     if reply:= event.checkReply():
         return await event.edit(reply)
-    saves = client.DB.get_key("SAVES") or {}
+    saves = client.DB.get_key("SAVED_LIST") or {}
     if name in saves:
         return await event.edit(STRINGS["notall"].format(name))
     info = await event.reply_message.save()
     saves.update({name: info})
-    client.DB.set_key("SAVES", saves)
+    client.DB.set_key("SAVED_LIST", saves)
     await event.edit(STRINGS["save"].format(name))
 
 @client.Command(command="Delete (.*)$")
 async def delsaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
-    saves = client.DB.get_key("SAVES") or {}
+    saves = client.DB.get_key("SAVED_LIST") or {}
     if name not in saves:
         return await event.edit(STRINGS["notin"].format(name))
     del saves[name]
-    client.DB.set_key("SAVES", saves)
+    client.DB.set_key("SAVED_LIST", saves)
     await event.edit(STRINGS["del"].format(name))
 
 @client.Command(command="Get (.*)$")
 async def getsaves(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
-    saves = client.DB.get_key("SAVES") or {}
+    saves = client.DB.get_key("SAVED_LIST") or {}
     if name not in saves:
         return await event.edit(STRINGS["notin"].format(name))
     info = saves[name]
@@ -71,7 +71,7 @@ async def getsaves(event):
 @client.Command(command="SaveList")
 async def savelist(event):
     await event.edit(client.STRINGS["wait"])
-    saves = client.DB.get_key("SAVES") or {}
+    saves = client.DB.get_key("SAVED_LIST") or {}
     if not saves:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -84,8 +84,8 @@ async def savelist(event):
 @client.Command(command="CleanSaveList")
 async def cleansaves(event):
     await event.edit(client.STRINGS["wait"])
-    saves = client.DB.get_key("SAVES") or {}
+    saves = client.DB.get_key("SAVED_LIST") or {}
     if not saves:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("SAVES")
+    client.DB.del_key("SAVED_LIST")
     await event.edit(STRINGS["clean"])
