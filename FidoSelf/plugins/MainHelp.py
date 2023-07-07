@@ -27,25 +27,37 @@ STRINGS = {
 }
 
 HELP = {
-    "Setting": ["Help", "Panel", "Manage", "Quick", "Realm", "BackUp", "Save", "Ping", "Online", "Time"],
-    "Manage": ["User Info", "Auto", "Auto Delete", "White", "Black", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank", "MarkRead"],
-    "Tools": ["Translate", "Auto Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
-    "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
+    "Setting": ["Help", "Panel", "Manage", "Realm", "BackUp", "Ping", "Online", "Time"],
+    "Manage": ["Quick", "Auto", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Love", "Rank"],
+    "Tools": ["Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "OpenAi", "Ai Image", "Country Info"],
+    "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
     "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
-    "Time": ["Name", "Bio", "Photo", "Font", "Text Time"],
+    "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
-    "Account": ["Edit Profile", "Set Profile", "Info", "Chats Count", "Get Profiles", "Del Profiles", "Del Contacts"],
-    "Group": ["Caht Info", "Search", "Delete Msg", "Comment", "Welcome", "GoodBy", "Voice Chat", "Auto Join", "Auto Leave"],
-    "Pv": ["AntiSpam", "MutePv", "LockPv", "Pv Mute", "Media Save", "Timer Save", "Filter Pv", "Filter Media"],
-    "Via": [],
+    "Account": ["Edit Profile", "Set Profile", "My Info", "Chats Count", "Del Profiles", "Del Contacts"],
+    "Groups": ["Caht Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
+    "Pv": ["MutePv", "LockPv", "AntiSpam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv", "Filter Media"],
+    "Users": ["User Info", "Get Profiles"],
     "Variebels": [],
+    "Other": [],
 }
+
+def search_category(plugin):
+    for category in HELP:
+        if plugin in category:
+            return category
+    if plugin in client.HELP:
+        return client.HELP[plugin]["Category"]
+    return None
 
 def gethelp(plugin):
     info = client.HELP[plugin]
-    text = "**꥟ Note:** ( `" + info["Help"] + "` )\n"
-    text += "\n⊱┈───╌ ❊ ╌───┈⊰\n"
+    text = f"**꥟ Plugin:** ( `{plugin}` )\n"
+    category = search_category(plugin)
+    text += f"**꥟ Category:** ( `{category}` )\n"
+    text += f'**꥟ Help:** ( `{info["Help"]}` )\n\n'
+    text += "⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
         cname = command.replace("{CMD}", ".")
         ccname = cname.split(" ")[0]
@@ -111,7 +123,7 @@ async def inlinehelp(event):
     for category in HELP:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = client.functions.chunker(buttons, [2,1])
+    buttons = client.functions.chunker(buttons, [1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
@@ -122,7 +134,7 @@ async def callhelp(event):
     for category in HELP:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
-    buttons = client.functions.chunker(buttons, [2,1])
+    buttons = client.functions.chunker(buttons, [1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
