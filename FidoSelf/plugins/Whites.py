@@ -41,7 +41,7 @@ async def addwhite(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -60,7 +60,7 @@ async def delwhite(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
