@@ -16,10 +16,10 @@ __INFO__ = {
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}TBan <Time>": {
-                "Help": "To Ban User For Minutes",
+                "Help": "To Ban User For Seconds",
                 "Getid": "You Must Reply To User",
                 "Input": {
-                    "<Time>": "Time For Ban (Minutes)",
+                    "<Time>": "Time For Ban (Seconds)",
                 },
             },
         },
@@ -69,10 +69,11 @@ async def timerbanuser(event):
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
-        await client.edit_permissions(event.chat_id, info.id, timedelta(minutes=timer), view_messages=False)
+        await client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), view_messages=False)
     except Exception as error:
         return await event.edit(STRINGS["errorban"].format(mention, error))
-    text = STRINGS["tbanuser"].format(mention, timer)
+    stimer = client.functions.convert_time(timer)
+    text = STRINGS["tbanuser"].format(mention, stimer)
     await event.edit(text)
     
 @client.Command(command="UnBan ?(.*)?")
