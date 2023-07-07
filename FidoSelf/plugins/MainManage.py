@@ -10,7 +10,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}Manage": {
                 "Help": "To Get Manage Panel",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
         },
     },
