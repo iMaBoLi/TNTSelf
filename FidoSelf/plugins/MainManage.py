@@ -19,9 +19,9 @@ STRINGS = {
         "INFO": "User Info",
         "BLOCK": "Block",
         "UNBLOCK": "UnBlock",
-        "WHITES": "White",
-        "BLACKS": "Black",
-        "ECHOS": "Echo",
+        "WHITE_LIST": "White",
+        "BLACK_LIST": "Black",
+        "ECHO_USERS": "Echo",
     },
     "menu": "**Please Use The Options Below To Manage User Modes:**",
     "close": "**The Manage Panel Successfuly Closed!**",
@@ -38,7 +38,7 @@ async def get_manage_buttons(userid, chatid):
     cmode = "unblock" if info.blocked else "block"
     buttons.append([Button.inline(f"• {smode} •", data=f"{cmode}:{chatid}:{userid}")])
     obuts = []
-    for manage in ["BLACKS", "WHITES", "ECHOS"]:
+    for manage in ["BLACK_LIST", "WHITE_LIST", "ECHO_USERS"]:
         lists = client.DB.get_key(manage) or []
         smode = "( ✔️ )" if userid in lists else "( ✖️ )"
         cmode = "del" if userid in lists else "add"
