@@ -3,8 +3,8 @@ from .ManageTime import biochanger
 
 __INFO__ = {
     "Category": "Account",
-    "Plugname": "Bio Time",
-    "Pluginfo": {
+    "Name": "Bio Time",
+    "Info": {
         "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",
         "Commands": {
             "{CMD}Bio <On-Off>": None,
