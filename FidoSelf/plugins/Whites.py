@@ -8,11 +8,11 @@ __INFO__ = {
         "Commands": {
             "{CMD}AddWhite": {
                 "Help": "To Add User On White List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}DelWhite": {
                 "Help": "To Delete User From White List",
-                "Getid": "You Can Reply To User Or Input UserID/UserName",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
             "{CMD}WhiteList": {
                 "Help": "To Getting White List",
