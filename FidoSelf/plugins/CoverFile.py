@@ -2,7 +2,7 @@ from FidoSelf import client
 import os
 
 __INFO__ = {
-    "Category": "Tools",
+    "Category": "Usage",
     "Name": "Cover File",
     "Info": {
         "Help": "To Set And Add Cover To Files!",
