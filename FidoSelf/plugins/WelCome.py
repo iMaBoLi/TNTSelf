@@ -6,8 +6,8 @@ import random
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Welcome",
-    "Pluginfo": {
+    "Name": "Welcome",
+    "Info": {
         "Help": "To Manage Auto Welcome In The Chats!",
         "Commands": {
             "{CMD}Welcome <On-Off>": None,
