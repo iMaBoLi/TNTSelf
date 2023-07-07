@@ -11,7 +11,7 @@ __INFO__ = {
                 "Help": "To Get Help Panel!",
             },
             "{CMD}Help <Name>": {
-               "Help": "To Get Help Of Plugin!",
+               "Help": "To Get Help Of Plugin",
                 "Input": {
                     "<Name>" : "Name Of Plugin"
                 },
