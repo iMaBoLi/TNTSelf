@@ -4,7 +4,7 @@ from telethon import Button
 import os
 
 __INFO__ = {
-    "Category": "Account",
+    "Category": "Time",
     "Name": "Photo Time",
     "Info": {
         "Help": "To Save Your Photo For Profile Time!",
