@@ -21,9 +21,9 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notacs": "**✶ You Do Not Have Access To Ban/UnBan Users!**",
-    "banuser": "**The User** ( {} ) **Was Benned In This Chat!**",
+    "banuser": "**The User** ( {} ) **Was Banned In This Chat!**",
     "errorban": "**The User** ( {} ) **Is Not Banned!**\n**Error:** ( `{}` )",
-    "unbanuser": "**The User** ( {} ) **Was UnBenned In This Chat!**",
+    "unbanuser": "**The User** ( {} ) **Was UnBanned In This Chat!**",
     "errorunabn": "**The User** ( {} ) **Is Not UnBanned!**\n**Error:** ( `{}` )",
 }
 
