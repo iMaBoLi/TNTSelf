@@ -2,7 +2,7 @@ from FidoSelf import client
 from telethon import events, types
 
 __INFO__ = {
-    "Category": "Manage",
+    "Category": "Practical",
     "Name": "Anti Edit",
     "Info": {
         "Help": "To Delete Edited Messages And Send Whitout Edit!",
