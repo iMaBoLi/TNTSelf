@@ -7,7 +7,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Extraxt Audio From Video!",
         "Commands": {
-            "{CMD}ExAudio <Reply(Video)>": None,
+            "{CMD}ExAudio": {
+                "Help": "To Exctract Audio",
+                "Reply": ["Video"],
+            },
         },
     },
 }
@@ -29,7 +32,7 @@ async def exaudio(event):
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(STRINGS["exing"])
     newfile = client.PATH + f"ExAudio-{video}.acc"
-    cmd = f"ffmpeg -i {video} -vn -acodec copy {newfile}"
+    cmd = f"ffmpeg -i {video} -ab 160k -ac 2 -ar 44100 -vn {newfile}"
     callback = event.progress(upload=True)
     caption = STRINGS["exed"]
     await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
