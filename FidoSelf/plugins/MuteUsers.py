@@ -65,6 +65,7 @@ async def timermuteuser(event):
         return await event.edit(client.STRINGS["user"]["reply"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(STRINGS["notacs"])
+    userid = event.reply_message.sender_id
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
