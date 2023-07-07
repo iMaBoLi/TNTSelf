@@ -3,7 +3,7 @@ import asyncio
 
 __INFO__ = {
     "Category": "Funs",
-    "Name": "Text Say",
+    "Name": "Say",
     "Info": {
         "Help": "To Say Your Message Texts!",
         "Commands": {

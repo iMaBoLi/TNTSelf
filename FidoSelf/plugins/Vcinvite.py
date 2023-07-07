@@ -3,7 +3,7 @@ from telethon import functions, types, errors
 
 __INFO__ = {
     "Category": "Group",
-    "Name": "Voice Chat",
+    "Name": "Invite VC",
     "Info": {
         "Help": "To Invite Users To Voice Chat!",
         "Commands": {
