@@ -31,7 +31,7 @@ STRINGS = {
     "notacs": "**✶ You Do Not Have Access To Ban/UnBan Users!**",
     "banuser": "**The User** ( {} ) **Was Banned In This Chat!**",
     "errorban": "**The User** ( {} ) **Is Not Banned!**\n**Error:** ( `{}` )",
-    "tbanuser": "**The User** ( {} ) **Was Banned For** ( `{}Minutes` ) **In This Chat!**",
+    "tbanuser": "**The User** ( {} ) **Was Banned For** ( `{}` ) **In This Chat!**",
     "unbanuser": "**The User** ( {} ) **Was UnBanned In This Chat!**",
     "errorunabn": "**The User** ( {} ) **Is Not UnBanned!**\n**Error:** ( `{}` )",
 }
