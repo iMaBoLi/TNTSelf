@@ -2,8 +2,8 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Private",
-    "Plugname": "Filter Pv",
-    "Pluginfo": {
+    "Name": "Filter Pv",
+    "Info": {
         "Help": "To Filter Words In Pv And Delete!",
         "Commands": {
             "{CMD}AddFilterPv <Text>": None,
