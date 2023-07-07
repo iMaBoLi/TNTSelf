@@ -4,8 +4,8 @@ import requests
 
 __INFO__ = {
     "Category": "Tools",
-    "Plugname": "Open Ai",
-    "Pluginfo": {
+    "Name": "Open Ai",
+    "Info": {
         "Help": "To Use From OpenAi For Chat And Create Photo!",
         "Commands": {
             "{CMD}SetAiKey <Key>": "Set OpenAi Api Key!",
