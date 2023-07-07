@@ -93,7 +93,7 @@ async def addlove(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -108,7 +108,7 @@ async def dellove(event):
     await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["getuserID"])
+        return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
