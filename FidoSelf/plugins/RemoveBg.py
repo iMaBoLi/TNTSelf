@@ -3,8 +3,8 @@ import requests, os
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "RemoveBg",
-    "Pluginfo": {
+    "Name": "RemoveBg",
+    "Info": {
         "Help": "To Remove Background From Your Photos!",
         "Commands": {
             "{CMD}SetRmBgKey <Key>": None,
