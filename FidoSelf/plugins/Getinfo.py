@@ -3,8 +3,8 @@ from telethon import functions
 
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "User Info",
-    "Pluginfo": {
+    "Name": "User Info",
+    "Info": {
         "Help": "To Get Information Of Users!",
         "Commands": {
             "{CMD}UInfo <Pv|Reply|UserId|Username>": None,
@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Practical",
-    "Plugname": "Chat Info",
-    "Pluginfo": {
+    "Name": "Chat Info",
+    "Info": {
         "Help": "To Get Information Of Chats!",
         "Commands": {
             "{CMD}CInfo <Chat|ChatId>": None,
