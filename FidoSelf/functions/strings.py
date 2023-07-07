@@ -13,12 +13,16 @@ STRINGS = {
     "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
     "getuserID": "**❉ Please Reply To User Or Enter UserID/Username!**", 
-    "getchatID": "**❉ Please Enter ChatID Or Send In The Chat!**",
+    "getchatID":
     "user": {
-        "all": "**❉ Please Reply To User Or Enter UserID/Username Or Send In Pv!**",
+        "all": "**❉ Please Reply To User Or Enter UserID - Username Or Send In Pv!**",
         "reply": "**❉ Please Reply To User!**",
-        "replyid": "**❉ Please Reply To User Or Enter UserID/Username!**",
-    }
+        "replyid": "**❉ Please Reply To User Or Enter UserID - Username!**",
+    },
+    "chat": {
+        "all": "**❉ Please Enter ChatID - ChatUsername Or Send In The Chat!**",
+        "id": "**❉ Please Enter ChatID - ChatUsername!**",
+    },
     "inline": {
         "On": "( ✔️ )",
         "Off": "( ✖️ )",
