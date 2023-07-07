@@ -1,6 +1,5 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
-from PIL import Image
 import random
 import re
 import os
@@ -57,11 +56,6 @@ async def yt_thumb(link):
     thumb = client.PATH + "youtube/" + filename
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
-    thumb = convert_thumb(thumb)
+    os.rename(thumb + ".webp", thumb + ".jpg")
+    thumb = thumb + ".jpg"
     return thumb
-    
-def convert_thumb(file):
-    img = Image.open(file + ".webp")
-    img.save(file + ".jpg", format="jpeg")
-    os.remove(file + ".webp")
-    return file + ".jpg"
