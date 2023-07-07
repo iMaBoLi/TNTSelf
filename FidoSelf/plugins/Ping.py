@@ -4,8 +4,8 @@ from datetime import datetime
 CATEGORY = "Setting"
 __INFO__ = {
     "Category": CATEGORY,
-    "Plugname": "Ping",
-    "Pluginfo": {
+    "Name": "Ping",
+    "Info": {
         "Help": "To Get Ping Of Your Self!",
         "Commands": {
             "{CMD}Ping": None,
