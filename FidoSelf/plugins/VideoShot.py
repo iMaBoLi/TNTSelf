@@ -27,12 +27,12 @@ STRINGS = {
 
 @client.Command(command="VShot ((\-)?\d*)")
 async def videoshot(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     data = event.pattern_match.group(1)
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     duration = event.reply_message.file.duration
@@ -44,7 +44,7 @@ async def videoshot(event):
             count = duration
         files = []
         lastdur = 0
-        await event.edit(STRINGS["taking"].format(count))
+        await event.edit(client.getstrings(STRINGS)["taking"].format(count))
         for con in range(count):
             out = client.PATH + f"Shot-{con}.jpg"
             cmd = f"ffmpeg -i {file} -ss {lastdur} -vframes 1 {out}"
@@ -52,9 +52,9 @@ async def videoshot(event):
             files.append(out)
             lastdur += newdur
             if con == 0 or ((con + 1) % 3) == 0:
-                await event.edit(STRINGS["taked"].format(con + 1))
-        await event.edit(STRINGS["sending"].format(count))
-        caption = STRINGS["sended"].format(count)
+                await event.edit(client.getstrings(STRINGS)["taked"].format(con + 1))
+        await event.edit(client.getstrings(STRINGS)["sending"].format(count))
+        caption = client.getstrings(STRINGS)["sended"].format(count)
         for shots in list(client.functions.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=caption)
         os.remove(file)
@@ -64,11 +64,11 @@ async def videoshot(event):
     else:
         if int(data) > duration:
             data = duration - 1
-        await event.edit(STRINGS["takingdur"].format(data))
+        await event.edit(client.getstrings(STRINGS)["takingdur"].format(data))
         out = client.PATH + f"Shot-{data}.jpg"
         cmd = f"ffmpeg -i {file} -ss {int(data)} -vframes 1 {out}"
         await client.functions.runcmd(cmd)
-        caption = STRINGS["takeddur"].format(str(data))
+        caption = client.getstrings(STRINGS)["takeddur"].format(str(data))
         await client.send_file(event.chat_id, out, caption=caption)
         os.remove(file)
         os.remove(out)
