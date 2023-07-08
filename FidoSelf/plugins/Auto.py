@@ -11,33 +11,56 @@ __INFO__ = {
     "Info": {
         "Help": "To Setting Send Auto Messages To Chats!",
         "Commands": {
-            "{CMD}Auto <On-Off>": None,
-            "{CMD}AddAuto <Chat|ChatId>": None,
-            "{CMD}DelAuto <Chat|ChatId>": None,
-            "{CMD}AutoList": None,
-            "{CMD}CleanAutoList": None,
-            "{CMD}SetAuto <Reply>": None,
-            "{CMD}GetAuto": None,
-            "{CMD}SetAutoSleep <1-120min>": None,
+            "{CMD}Auto <On-Off>": {
+                "Help": "To Turn On-Off Auto Message",
+            },
+            "{CMD}AddAuto": {
+                "Help": "To Add Chat On Auto List",
+                "Getid": "You Must Send In Chat Or Input ChatID/UserName",
+            },
+            "{CMD}DelAuto": {
+                "Help": "To Add Chat On Auto List",
+                "Getid": "You Must Send In Chat Or Input ChatID/UserName",
+            },
+            "{CMD}AutoList": {
+                "Help": "To Getting Auto List",
+            },
+            "{CMD}CleanAutoList": {
+                "Help": "To Clean Auto List",
+            },
+            "{CMD}SetAuto": {
+                "Help": "To Set Auto Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART"],
+            },
+            "{CMD}GetAuto": {
+                "Help": "To Getting Saved Auto Message",
+            },
+            "{CMD}SetAutoSleep <Time>": {
+                "Help": "To Set Sleep For Auto Message",
+                "Input": {
+                    "<Time>": "Sleep Time ( 1-120 Minutes )",
+                },
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Send Auto Message Has Been {}!**",
-    "notall": "**The Chat** ( `{}` ) **Already In Auto List!**",
-    "addchat": "**The Chat** ( `{}` ) **Is Added To Auto List!**",
-    "notin": "**The Chat** ( `{}` ) **Is Not In Auto List!**",
-    "delchat": "**The Chat** ( `{}` ) **Deleted From Auto List!**",
-    "empty": "**The Auto List Is Empty!**",
-    "list": "**The Auto List:**\n\n",
-    "aempty": "**The Auto List Is Already Empty**",
-    "clean": "**The Auto List Has Been Cleaned!**",
-    "nosleep": "**The Auto Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
-    "setsleep": "**The Auto Sleep Was Set To** ( `{}` )",
-    "saveauto": "**The Auto Message Was Saved!**",
-    "notauto": "**The Auto Message Is Not Saved!**",
+    "change": "**᪥ The Send Auto Message Has Been {}!**",
+    "notall": "**᪥ The Chat** ( `{}` ) **Already In Auto List!**",
+    "addchat": "**᪥ The Chat** ( `{}` ) **Is Added To Auto List!**",
+    "notin": "**᪥ The Chat** ( `{}` ) **Is Not In Auto List!**",
+    "delchat": "**᪥ The Chat** ( `{}` ) **Deleted From Auto List!**",
+    "empty": "**᪥ The Auto List Is Empty!**",
+    "list": "**᪥ The Auto List:**\n\n",
+    "aempty": "**᪥ The Auto List Is Already Empty**",
+    "clean": "**᪥ The Auto List Has Been Cleaned!**",
+    "nosleep": "**᪥ The Auto Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
+    "setsleep": "**᪥ The Auto Sleep Was Set To** ( `{}` )",
+    "saveauto": "**᪥ The Auto Message Was Saved!**",
+    "notauto": "**᪥ The Auto Message Is Not Saved!**",
 }
 
 @client.Command(command="Auto (On|Off)")
