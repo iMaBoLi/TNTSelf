@@ -15,9 +15,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "proted": "**The Photo Was Rotated To** ( `{}°` )",
-    "vrot": "**Rotating Video To** ( `{}°` ) **...**",
-    "vroted": "**The Video Was Rotated To** ( `{}°` )",
+    "proted": "**{STR} The Photo Was Rotated To** ( `{}\u00b0` )",
+    "vrot": "**{STR} Rotating Video To** ( `{}\u00b0` ) **...**",
+    "vroted": "**{STR} The Video Was Rotated To** ( `{}\u00b0` )"
 }
 
 @client.Command(command="SRotate (\d*)")
