@@ -13,7 +13,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "count": "**❈ Account Chats Count:**\n\n  **๛ All:** ( `{}` )\n  **๛ Privates:** ( `{}` )\n  **๛ SuperGroups:** ( `{}` )\n  **๛ Groups:** ( `{}` )\n  **๛ Channels:** ( `{}` )\n  **๛ Bots:** ( `{}` )",
+    "count": "**{STR} \u2748 Account Chats Count:**\n\n  **\u0e5b All:** ( `{}` )\n  **\u0e5b Privates:** ( `{}` )\n  **\u0e5b SuperGroups:** ( `{}` )\n  **\u0e5b Groups:** ( `{}` )\n  **\u0e5b Channels:** ( `{}` )\n  **\u0e5b Bots:** ( `{}` )"
 }
 
 @client.Command(command="GChats")
