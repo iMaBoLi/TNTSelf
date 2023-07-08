@@ -45,8 +45,8 @@ async def realm(event):
     client.realm = event.chat_id
     await event.edit(STRINGS["setrealm"])
 
-@client.Command(command="SetBackCh")
-async def backch(event):
+@client.Command(command="SetBackUp")
+async def backup(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_ch:
         return await event.edit(STRINGS["noback"])
