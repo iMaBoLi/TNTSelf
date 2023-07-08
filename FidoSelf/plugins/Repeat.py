@@ -32,7 +32,7 @@ STRINGS = {
 
 @client.Command(command="Repeat (On|Off)")
 async def repeatchat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("REPEAT_CHATS") or []
     chatid = event.chat_id
@@ -44,46 +44,46 @@ async def repeatchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("REPEAT_CHATS", acChats)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["repeatchat"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["repeatchat"].format(showchange))
 
 @client.Command(command="RepeatAll (On|Off)")
 async def repeatall(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("REPEAT_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["repeatall"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["repeatall"].format(showchange))
  
 @client.Command(command="NewRepeat (.*)")
 async def addrepeat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     repeats = client.DB.get_key("REPEAT_LIST") or []
     newrepeat = str(event.pattern_match.group(1))
     if newrepeat in repeats:
-        return await event.edit(STRINGS["newnot"].format(newrepeat))  
+        return await event.edit(client.getstrings(STRINGS)["newnot"].format(newrepeat))  
     repeats.append(newrepeat)
     client.DB.set_key("REPEAT_LIST", repeats)
-    await event.edit(STRINGS["newadd"].format(newrepeat))
+    await event.edit(client.getstrings(STRINGS)["newadd"].format(newrepeat))
     
 @client.Command(command="DelRepeat (.*)")
 async def delrepeat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     repeats = client.DB.get_key("REPEAT_LIST") or []
     newrepeat = str(event.pattern_match.group(1))
     if newrepeat not in repeats:
-        return await event.edit(STRINGS["delnot"].format(newrepeat))  
+        return await event.edit(client.getstrings(STRINGS)["delnot"].format(newrepeat))  
     repeats.remove(newrepeat)
     client.DB.set_key("REPEAT_LIST", repeats)
-    await event.edit(STRINGS["del"].format(newrepeat))
+    await event.edit(client.getstrings(STRINGS)["del"].format(newrepeat))
 
 @client.Command(command="RepeatList")
 async def repeatlist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     repeats = client.DB.get_key("REPEAT_LIST") or []
     if not repeats:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for repeat in repeats:
         text += f"**{row} -** `{repeat}`\n"
@@ -92,12 +92,12 @@ async def repeatlist(event):
 
 @client.Command(command="CleanRepeatList")
 async def cleanrepeats(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     repeats = client.DB.get_key("REPEAT_LIST") or []
     if not repeats:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("REPEAT_LIST")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
  
 @client.Command(onlysudo=False, allowedits=False)
 async def repeat(event):
