@@ -24,29 +24,29 @@ STRINGS = {
 
 @client.Command(command="AddFosh")
 async def savefoshfile(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["TXT File"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "FOSHS.txt")
     client.DB.set_key("FOSHS_FILE", info)
-    await event.edit(STRINGS["save"])
+    await event.edit(client.getstrings(STRINGS)["save"])
 
 @client.Command(command="DelFosh")
 async def delfoshfile(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if os.path.exists(client.PATH + "FOSHS.txt"):
         os.remove(client.PATH + "FOSHS.txt")
     client.DB.del_key("FOSHS_FILE")
-    await event.edit(STRINGS["del"])
+    await event.edit(client.getstrings(STRINGS)["del"])
 
 @client.Command(command="GetFosh")
 async def getfoshfile(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     foshs = client.DB.get_key("FOSHS_FILE")
     if not foshs:
-        return await event.edit(STRINGS["nsave"])
+        return await event.edit(client.getstrings(STRINGS)["nsave"])
     file = client.PATH + "FOSHS.txt"
     lines = len(open(file, "r").readlines())
-    await event.respond(STRINGS["file"].format(lines), file=file)
+    await event.respond(client.getstrings(STRINGS)["file"].format(lines), file=file)
