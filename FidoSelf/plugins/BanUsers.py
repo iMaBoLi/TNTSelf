@@ -38,59 +38,59 @@ STRINGS = {
 
 @client.Command(command="Ban ?(.*)?")
 async def banuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id, view_messages=False)
     except Exception as error:
-        return await event.edit(STRINGS["errorban"].format(mention, error))
-    text = STRINGS["banuser"].format(mention)
+        return await event.edit(client.getstrings(STRINGS)["errorban"].format(mention, error))
+    text = client.getstrings(STRINGS)["banuser"].format(mention)
     await event.edit(text)
     
 @client.Command(command="TBan (\d*)")
 async def timerbanuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     timer = int(event.pattern_match.group(1))
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     if not event.is_reply:
-        return await event.edit(client.STRINGS["user"]["reply"])
+        return await event.edit(client.getstrings()["user"]["reply"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     userid = event.reply_message.sender_id
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), view_messages=False)
     except Exception as error:
-        return await event.edit(STRINGS["errorban"].format(mention, error))
+        return await event.edit(client.getstrings(STRINGS)["errorban"].format(mention, error))
     stimer = client.functions.convert_time(timer)
-    text = STRINGS["tbanuser"].format(mention, stimer)
+    text = client.getstrings(STRINGS)["tbanuser"].format(mention, stimer)
     await event.edit(text)
     
 @client.Command(command="UnBan ?(.*)?")
 async def unbanuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id)
     except Exception as error:
-        return await event.edit(STRINGS["errorunban"].format(mention, error))
-    text = STRINGS["unbanuser"].format(mention)
+        return await event.edit(client.getstrings(STRINGS)["errorunban"].format(mention, error))
+    text = client.getstrings(STRINGS)["unbanuser"].format(mention)
     await event.edit(text)
