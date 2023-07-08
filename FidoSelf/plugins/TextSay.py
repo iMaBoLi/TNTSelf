@@ -22,7 +22,7 @@ STRINGS = {
 async def tsay(event):
     inputtext = str(event.pattern_match.group(1) or "")
     if not inputtext and not (event.reply_message or event.reply_message.text):
-        return await event.edit(STRINGS["not"])
+        return await event.edit(client.getstrings(STRINGS)["not"])
     OText = inputtext if inputtext else event.reply_message.text
     Text = ""
     for Part in OText:
