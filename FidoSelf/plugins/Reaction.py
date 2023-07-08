@@ -26,7 +26,7 @@ STRINGS = {
 
 @client.Command(command="Reaction (On|Off)")
 async def reactionchat(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("REACTION_CHATS") or []
     chatid = event.chat_id
@@ -38,20 +38,20 @@ async def reactionchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("REACTION_CHATS", acChats)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["reactchat"].format(showchange))
 
 @client.Command(command="ReactionAll (On|Off)")
 async def reactionall(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("REACTION_MODE", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["reactall"].format(showchange))
 
 @client.Command(command="SetReaction (.*)")
 async def setreaction(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     emoji = event.pattern_match.group(1)
     if emoji not in (await getemojis()) and emoji != "random":
         return await event.edit(client.getstrings(STRINGS)["notreact"].format(emoji))
