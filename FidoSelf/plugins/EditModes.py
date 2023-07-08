@@ -4,8 +4,14 @@ Commands = {}
 for Mode in client.functions.EDITS:
     Cmd = "{CMD}" + Mode + " <On-Off>"
     AllCmd = "{CMD}" + Mode + "All" + " <On-Off>"
-    Commands.update({Cmd: None})
-    Commands.update({AllCmd: None})
+    infoCmd = {
+        "Help": f"To Turn On-Off {Mode} Edit Mode",
+    }
+    infoAllCmd = {
+        "Help": f"To Turn On-Off {Mode} All Edit Mode",
+    }
+    Commands.update({Cmd: infoCmd})
+    Commands.update({AllCmd: infoAllCmd})
 
 __INFO__ = {
     "Category": "Practical",
