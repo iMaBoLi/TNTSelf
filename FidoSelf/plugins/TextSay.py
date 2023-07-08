@@ -15,7 +15,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**Please Reply To Text Or Enter Text!**",
+    "not": "**{STR} Please Reply To Text Or Enter Text!**"
 }
 
 @client.Command(command="TSay ?([\S\s]*)?")
