@@ -16,10 +16,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setfont": "**The Font File Has Been Saved!**",
-    "delfont": "**The Font File Has Been Deleted!**",
-    "notsave": "**The Font File Is Not Saved!**",
-    "getfont": "**The Font File For Profile Time!**",
+    "setfont": "**{STR} The Font File Has Been Saved!**",
+    "delfont": "**{STR} The Font File Has Been Deleted!**",
+    "notsave": "**{STR} The Font File Is Not Saved!**",
+    "getfont": "**{STR} The Font File For Profile Time!**"
 }
 
 @client.Command(command="SetFont")
