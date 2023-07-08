@@ -21,19 +21,19 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "where": "**Select You Want This Enemy User To Be Saved For Where:**",
-    "notall": "The User ( {} ) Is Alredy In Enemy List In {} Location!",
-    "add": "**The User** ( {} ) **Is Added To Enemy List For ( `{}` ) Location!**",
-    "notin": "**The User** ( {} ) **Not In Enemy Lis!**",
-    "wheredel": "**Select You Want This Enemy User To Be Deleted From Where:**",
-    "del": "**The User** ( {} ) **From Enemy List For Location** ( `{}` ) **Has Been Deleted!**",
-    "esleep": "**The Enemy Sleep Was Set To** ( `{}` )",
-    "edelete": "**The Delete Enemy Pms Mode Has Been {}!**",
-    "empty": "**The Enemy List Is Empty!**",
-    "list": "**The Enemy List:**\n\n",
-    "aempty": "**The Enwmy List Is Already Empty!**",
-    "clean": "**The Enemy List Is Cleaned!**",
-    "close": "**The Enemy Panel Successfuly Closed!**",
+    "where": "**{STR} Select You Want This Enemy User To Be Saved For Where:**",
+    "notall": "**{STR} e User ( {} ) Is Alredy In Enemy List In {} Location!",
+    "add": "**{STR} The User** ( {} ) **Is Added To Enemy List For ( `{}` ) Location!**",
+    "notin": "**{STR} The User** ( {} ) **Not In Enemy Lis!**",
+    "wheredel": "**{STR} Select You Want This Enemy User To Be Deleted From Where:**",
+    "del": "**{STR} The User** ( {} ) **From Enemy List For Location** ( `{}` ) **Has Been Deleted!**",
+    "esleep": "**{STR} The Enemy Sleep Was Set To** ( `{}` )",
+    "edelete": "**{STR} The Delete Enemy Pms Mode Has Been {}!**",
+    "empty": "**{STR} The Enemy List Is Empty!**",
+    "list": "**{STR} The Enemy List:**\n\n",
+    "aempty": "**{STR} The Enwmy List Is Already Empty!**",
+    "clean": "**{STR} The Enemy List Is Cleaned!**",
+    "close": "**{STR} The Enemy Panel Successfuly Closed!**"
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
 
