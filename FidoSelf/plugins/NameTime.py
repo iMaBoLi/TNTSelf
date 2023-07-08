@@ -18,15 +18,15 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Name Mode Has Been {}!**",
-    "newnot": "**The Name** ( `{}` ) **Already In Name List!**",
-    "newadd": "**The Name** ( `{}` ) **Added To Name List!**",
-    "delnot": "**The Name** ( `{}` ) **Not In Name List!**",
-    "del": "**The Name** ( `{}` ) **Deleted From Name List!**",
-    "empty": "**The Name List Is Empty!**",
-    "list": "**The Name List:**\n\n",
-    "aempty": "**The Name List Is Already Empty!**",
-    "clean": "**The Name List Is Cleaned!**",
+    "change": "**{STR} The Name Mode Has Been {}!**",
+    "newnot": "**{STR} The Name** ( `{}` ) **Already In Name List!**",
+    "newadd": "**{STR} The Name** ( `{}` ) **Added To Name List!**",
+    "delnot": "**{STR} The Name** ( `{}` ) **Not In Name List!**",
+    "del": "**{STR} The Name** ( `{}` ) **Deleted From Name List!**",
+    "empty": "**{STR} The Name List Is Empty!**",
+    "list": "**{STR} The Name List:**\n\n",
+    "aempty": "**{STR} The Name List Is Already Empty!**",
+    "clean": "**{STR} The Name List Is Cleaned!**"
 }
 
 @client.Command(command="Name (On|Off)")
