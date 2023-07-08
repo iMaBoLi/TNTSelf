@@ -17,8 +17,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "markchat": "**The MarkRead Mode For This Chat Has Been {}!**",
-    "markread": "**The MarkRead {} Messages Mode Has Been {}!**",
+    "markchat": "**{STR} The MarkRead Mode For This Chat Has Been {}!**",
+    "markread": "**{STR} The MarkRead {} Messages Mode Has Been {}!**"
 }
 
 @client.Command(command="Read (On|Off)")
