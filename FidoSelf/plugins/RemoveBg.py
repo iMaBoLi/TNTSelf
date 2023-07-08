@@ -15,10 +15,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setapi": "**The RemoveBg ApiKey** ( `{}` ) **Has Been Saved!**",
-    "notsave": "**The RemoveBg ApiKey Is Not Saved!**",
-    "notcom": "**The Remove Background Not Completed!**\n**Error:** ( `{}` )",
-    "caption": "**The Remove Background From Photo Completed!**",
+    "setapi": "**{STR} The RemoveBg ApiKey** ( `{}` ) **Has Been Saved!**",
+    "notsave": "**{STR} The RemoveBg ApiKey Is Not Saved!**",
+    "notcom": "**{STR} The Remove Background Not Completed!**\n**Error:** ( `{}` )",
+    "caption": "**{STR} The Remove Background From Photo Completed!**"
 }
 
 def removebg(photo, newphoto):
