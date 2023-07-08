@@ -13,7 +13,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "count": "**The Number Of Characters:** ( `{}` )",
+    "count": "**{STR} The Number Of Characters:** ( `{}` )"
 }
 
 @client.Command(command="SLen")
