@@ -28,10 +28,10 @@ STRINGS = {
 
 @client.Command(command="AddMutePv ?(.*)?")
 async def addmutepv(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -47,10 +47,10 @@ async def addmutepv(event):
     
 @client.Command(command="DelMutePv ?(.*)?")
 async def delmutepv(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -62,7 +62,7 @@ async def delmutepv(event):
     
 @client.Command(command="MutePvList")
 async def mutepvlist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     if not mutepvs:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -75,7 +75,7 @@ async def mutepvlist(event):
 
 @client.Command(command="CleanMutePvList")
 async def cleanmutepvlist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
     if not mutepvs:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
