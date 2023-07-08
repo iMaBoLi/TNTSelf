@@ -22,14 +22,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Comment Mode Has Been {}!**",
-    "setcomment": "**The Comment Message For This Chat Has Been Saved!**",
-    "notsave": "**The Comment Message For This Chat Is Not Saved!**",
-    "delcomment": "**The Comment Message For This Chat Has Been Removed!**",
-    "empty": "**The Comment List Is Empty!**",
-    "list": "**The Comment List:**\n\n",
-    "aempty": "**The Comment List Is Already Empty**",
-    "clean": "**The Comment List Has Been Cleaned!**",
+    "change": "**{STR} The Comment Mode Has Been {}!**",
+    "setcomment": "**{STR} The Comment Message For This Chat Has Been Saved!**",
+    "notsave": "**{STR} The Comment Message For This Chat Is Not Saved!**",
+    "delcomment": "**{STR} The Comment Message For This Chat Has Been Removed!**",
+    "empty": "**{STR} The Comment List Is Empty!**",
+    "list": "**{STR} The Comment List:**\n\n",
+    "aempty": "**{STR} The Comment List Is Already Empty**",
+    "clean": "**{STR} The Comment List Has Been Cleaned!**"
 }
 
 @client.Command(command="Comment (On|Off)")
