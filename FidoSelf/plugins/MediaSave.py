@@ -22,11 +22,11 @@ STRINGS = {
 
 @client.Command(command="MSave (On|Off)")
 async def msave(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("MEDIAPV_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(onlysudo=False)
 async def savemedias(event):
@@ -36,5 +36,5 @@ async def savemedias(event):
     if mmode == "ON":
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
-        caption = STRINGS["caption"].format(mention)
+        caption = client.getstrings(STRINGS)["caption"].format(mention)
         await client.send_file(client.REALM, event.media, caption=caption)
