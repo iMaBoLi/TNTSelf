@@ -38,59 +38,59 @@ STRINGS = {
 
 @client.Command(command="Mute ?(.*)?")
 async def muteuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id, send_messages=False)
     except Exception as error:
-        return await event.edit(STRINGS["errormute"].format(mention, error))
-    text = STRINGS["muteuser"].format(mention)
+        return await event.edit(client.getstrings(STRINGS)["errormute"].format(mention, error))
+    text = client.getstrings(STRINGS)["muteuser"].format(mention)
     await event.edit(text)
 
 @client.Command(command="TMute (\d*)")
 async def timermuteuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     timer = int(event.pattern_match.group(1))
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     if not event.is_reply:
-        return await event.edit(client.STRINGS["user"]["reply"])
+        return await event.edit(client.getstrings()["user"]["reply"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     userid = event.reply_message.sender_id
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), send_messages=False)
     except Exception as error:
-        return await event.edit(STRINGS["errormute"].format(mention, error))
+        return await event.edit(client.getstrings(STRINGS)["errormute"].format(mention, error))
     stimer = client.functions.convert_time(timer)
-    text = STRINGS["tmuteuser"].format(mention, stimer)
+    text = client.getstrings(STRINGS)["tmuteuser"].format(mention, stimer)
     await event.edit(text)
     
 @client.Command(command="UnMute ?(.*)?")
 async def unmuteuser(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     if not event.checkAdmin(ban_users=True):
-        return await event.edit(STRINGS["notacs"])
+        return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id)
     except Exception as error:
-        return await event.edit(STRINGS["errorunmute"].format(mention, error))
-    text = STRINGS["unmuteuser"].format(mention)
+        return await event.edit(client.getstrings(STRINGS)["errorunmute"].format(mention, error))
+    text = client.getstrings(STRINGS)["unmuteuser"].format(mention)
     await event.edit(text)
