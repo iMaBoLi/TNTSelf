@@ -42,13 +42,13 @@ async def addvip(event):
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["user"]["all"])
-    vips = client.DB.get_key("VIP_LIST") or []
+    vips = client.DB.get_key("VIP_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid in vips:
         return await event.edit(STRINGS["notall"].format(mention))
     vips.append(userid)
-    client.DB.set_key("VIP_LIST", vips)
+    client.DB.set_key("VIP_USERS", vips)
     await event.edit(STRINGS["add"].format(mention))
     
 @client.Command(command="DelVip ?(.*)?")
@@ -57,19 +57,19 @@ async def delvip(event):
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
         return await event.edit(client.STRINGS["user"]["all"])
-    vips = client.DB.get_key("VIP_LIST") or []
+    vips = client.DB.get_key("VIP_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid not in vips:
         return await event.edit(STRINGS["notin"].format(mention))  
     vips.remove(userid)
-    client.DB.set_key("VIP_LIST", vips)
+    client.DB.set_key("VIP_USERS", vips)
     await event.edit(STRINGS["del"].format(mention))
     
 @client.Command(command="VipList")
 async def viplist(event):
     await event.edit(client.STRINGS["wait"])
-    vips = client.DB.get_key("VIP_LIST") or []
+    vips = client.DB.get_key("VIP_USERS") or []
     if not vips:
         return await event.edit(STRINGS["empty"])
     text = STRINGS["list"]
@@ -82,8 +82,8 @@ async def viplist(event):
 @client.Command(command="CleanVipList")
 async def cleanviplist(event):
     await event.edit(client.STRINGS["wait"])
-    vips = client.DB.get_key("VIP_LIST") or []
+    vips = client.DB.get_key("VIP_USERS") or []
     if not vips:
         return await event.edit(STRINGS["aempty"])
-    client.DB.del_key("VIP_LIST")
+    client.DB.del_key("VIP_USERS")
     await event.edit(STRINGS["clean"])
