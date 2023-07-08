@@ -25,7 +25,7 @@ STRINGS = {
 
 @client.Command(command="DelProfile ?((\-)?\d*)?")
 async def delprofiles(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     pphoto = await client.get_profile_photos("me")
     if not pphoto:
         return await event.edit(client.getstrings(STRINGS)["not"])
