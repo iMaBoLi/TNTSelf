@@ -24,12 +24,12 @@ STRINGS = {
 }
 
 MANAGES = {
-    "VIP_USERS": "Vip"
+    "VIP_USERS": "Vip",
     "LOVE_USERS": "Love",
     "WHITE_LIST": "White",
     "BLACK_LIST": "Black",
     "ECHO_USERS": "Echo",
-    "MUTEPV_USERS": "Mute Pv",
+    "MUTEPV_USERS": "MutePv",
 }
 
 async def get_manage_buttons(userid, chatid):
