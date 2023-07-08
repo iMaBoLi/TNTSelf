@@ -26,14 +26,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The User** ( {} ) **Already In Vip List!**",
-    "add": "**The User** ( {} ) **Is Added To Vip List!**",
-    "notin": "**The User** ( {} ) **Is Not In Vip List!**",
-    "del": "**The User** ( {} ) **Deleted From Vip List!**",
-    "empty": "**The Vip List Is Empty!**",
-    "list": "**The Vip List:**\n\n",
-    "aempty": "**The Vip List Is Already Empty**",
-    "clean": "**The Vip List Has Been Cleaned!**",
+    "notall": "**{STR} The User** ( {} ) **Already In Vip List!**",
+    "add": "**{STR} The User** ( {} ) **Is Added To Vip List!**",
+    "notin": "**{STR} The User** ( {} ) **Is Not In Vip List!**",
+    "del": "**{STR} The User** ( {} ) **Deleted From Vip List!**",
+    "empty": "**{STR} The Vip List Is Empty!**",
+    "list": "**{STR} The Vip List:**\n\n",
+    "aempty": "**{STR} The Vip List Is Already Empty**",
+    "clean": "**{STR} The Vip List Has Been Cleaned!**"
 }
 
 @client.Command(command="AddVip ?(.*)?")
