@@ -24,8 +24,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "editchat": "**The Edit Mode** ( `{}` ) **For This Chat Has Been {}!**",
-    "editall": "**The Edit Mode** ( `{}` ) **Has Been {}!**",
+    "editchat": "**{STR} The Edit Mode** ( `{}` ) **For This Chat Has Been {}!**",
+    "editall": "**{STR} The Edit Mode** ( `{}` ) **Has Been {}!**"
 }
 
 PATTERN = ""
