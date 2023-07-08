@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="SCountry (.*)")
 async def countryinfo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     coname = event.pattern_match.group(1).title()
     try:
         country = CountryInfo(coname)
