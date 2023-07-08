@@ -17,7 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "pass": "**Your Password:** ( `{}` )\n\n`{}`",
+    "pass": "**{STR} Your Password:** ( `{}` )\n\n`{}`"
 }
 
 @client.Command(command="SP(Easy|Medium|Hard) (\d*)")
