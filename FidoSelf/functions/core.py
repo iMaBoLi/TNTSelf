@@ -4,7 +4,9 @@ import re
 import time
 import os
 
-def getstrings(STRINGS):
+def getstrings(STRINGS=None):
+    if not STRINGS:
+        STRINGS = client.STRINGS
     NEWSTR = {}
     for element in STRINGS:
         text = STRINGS[element]
