@@ -39,7 +39,7 @@ STRINGS = {
 
 @client.Command(command="SBw")
 async def blackwhite(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -47,14 +47,14 @@ async def blackwhite(event):
     img = Image.open(photo)
     newimg = ImageOps.grayscale(img)
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["bw"])        
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["bw"])        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
 
 @client.Command(command="SP(Blur|Contour|Detail|Emboss|Edge|Smooth|Sharpen)")
 async def filterphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     mode = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
@@ -72,7 +72,7 @@ async def filterphoto(event):
     img = Image.open(photo)
     newimg = img.filter(MODES[mode])
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["filter"].format(mode))        
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["filter"].format(mode))        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
