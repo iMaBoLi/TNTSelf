@@ -11,8 +11,8 @@ def getstrings(STRINGS):
         if type(text) == str:
             STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
             CMD = client.DB.get_key("CMD_SAMBOL") or "."
+            text = text.replace("{STR}", STR)
             text = text.replace("{CMD}", CMD)
-            text = f"**{STR}** " + text
         NEWSTR.update({element: text})
     return NEWSTR
 
