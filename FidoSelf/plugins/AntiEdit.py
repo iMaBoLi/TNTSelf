@@ -14,7 +14,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Anti Edit Mode Has Been {}!**",
+    "change": "**{STR} The Anti Edit Mode Has Been {}!**"
 }
 
 @client.Command(command="AntiEdit (On|Off)")
