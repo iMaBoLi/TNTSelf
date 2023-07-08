@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "Create Image For Your Text White Beautiful Styles!",
         "Commands": {
-            "{CMD}CPhoto '<StyleID>' <Text>": None,
+            "{CMD}CPhoto <StyleID> <Text>": None,
             "{CMD}GStyles": "To Get StylesID For Create Images!",
         },
     },
@@ -20,7 +20,7 @@ STRINGS = {
     "styles": "**The Styles For Creating Photo:** ( {} )\n\n**Use From StylesID For Create Photos!**",
 }
 
-@client.Command(command="CPhoto \'(\d*)\' (.*)")
+@client.Command(command="CPhoto (\d*) (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
     client.loop.create_task(generate(event))
