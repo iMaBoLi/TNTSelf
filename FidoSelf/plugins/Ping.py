@@ -21,7 +21,7 @@ STRINGS = {
 @client.Command(command="Ping")
 async def ping(event):
     start = datetime.now()
-    await event.edit(STRINGS["bping"])
+    await event.editt(STRINGS["bping"])
     end = datetime.now()
     tms = (end - start).microseconds / 10000
     ping = round(tms / 3, 2)
