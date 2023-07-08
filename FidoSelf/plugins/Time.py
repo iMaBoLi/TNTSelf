@@ -22,10 +22,10 @@ STRINGS = {
 
 @client.Command(command="Time")
 async def time(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     irtime = jdatetime.datetime.now()
     localtime = datetime.datetime.now()
-    text = STRINGS["time"].format(
+    text = client.getstrings(STRINGS)["time"].format(
         irtime.strftime("%H:%M"),
         irtime.strftime("%Y") + "/" + irtime.strftime("%m") + "/" + irtime.strftime("%d"),
         irtime.strftime("%A"),
