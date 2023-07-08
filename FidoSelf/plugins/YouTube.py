@@ -16,13 +16,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "linkinv": "**The Entered Youtube Link Is Invalid!**",
-    "downingvid": "**Downloadig Video** ( `{}` ) **...**",
-    "downingaud": "**Downloadig Audio** ( `{}` ) **...**",
-    "ytdown": "**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
-    "ytclick": "**Click To Follow Button To Get Search Results For Query:** ( `{}` )",
-    "ytsearch": "**Link:** ( {} )\n**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
-    "com": "**The Download And Upload Completed!**",
+    "linkinv": "**{STR} The Entered Youtube Link Is Invalid!**",
+    "downingvid": "**{STR} Downloadig Video** ( `{}` ) **...**",
+    "downingaud": "**{STR} Downloadig Audio** ( `{}` ) **...**",
+    "ytdown": "**{STR} Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
+    "ytclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
+    "ytsearch": "**{STR} Link:** ( {} )\n**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
+    "com": "**{STR} The Download And Upload Completed!**"
 }
     
 @client.Command(command="YtDown (.*)")
