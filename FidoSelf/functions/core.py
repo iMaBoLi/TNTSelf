@@ -4,7 +4,9 @@ import re
 import time
 import os
 
-def getstring(STRINGS, element):
+def getstring(element, STRINGS=None):
+    if not STRINGS:
+        STRINGS = client.STRINGS
     text = STRINGS[element]
     STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
     CMD = client.DB.get_key("CMD_SAMBOL") or "."
