@@ -7,7 +7,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Ping Of Your Self!",
         "Commands": {
-            "{CMD}Ping": None,
+            "{CMD}Ping": {
+                "Help": "To Get Ping",
+            },
         },
     },
 }
@@ -15,7 +17,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "bping": "**!!!**",
-    "ping": "**PonG!** [ `{ping}` ]",
+    "ping": "**❁ PonG !!** ( `{ping}` )",
 }
 
 @client.Command(command="Ping")
