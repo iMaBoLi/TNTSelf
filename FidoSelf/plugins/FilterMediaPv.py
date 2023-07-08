@@ -12,19 +12,19 @@ async def mediafilterpv(event):
         await event.delete()
     elif event.media and MODES["FILTERPV_MEDIA"] == "ON":
         await event.delete()
-    elif mtype.endswith("Photo") and MODES["FILTERPV_PHOTO"] == "ON":
+    elif mtype and mtype.endswith("Photo") and MODES["FILTERPV_PHOTO"] == "ON":
         await event.delete()
-    elif mtype == "Video" and MODES["FILTERPV_VIDEO"] == "ON":
+    elif mtype and mtype == "Video" and MODES["FILTERPV_VIDEO"] == "ON":
         await event.delete()
-    elif mtype == "Gif" and MODES["FILTERPV_GIF"] == "ON":
+    elif mtype and mtype == "Gif" and MODES["FILTERPV_GIF"] == "ON":
         await event.delete()
-    elif mtype == "Voice" and MODES["FILTERPV_VOICE"] == "ON":
+    elif mtype and mtype == "Voice" and MODES["FILTERPV_VOICE"] == "ON":
         await event.delete()
-    elif mtype == "Music" and MODES["FILTERPV_MUSIC"] == "ON":
+    elif mtype and mtype == "Music" and MODES["FILTERPV_MUSIC"] == "ON":
         await event.delete()
-    elif mtype in ["Sticker", "ASticker", "VSticker"] and MODES["FILTERPV_STICKER"] == "ON":
+    elif mtype and mtype in ["Sticker", "ASticker", "VSticker"] and MODES["FILTERPV_STICKER"] == "ON":
         await event.delete()
-    elif mtype.endswith("File") and MODES["FILTERPV_FILE"] == "ON":
+    elif mtype and mtype.endswith("File") and MODES["FILTERPV_FILE"] == "ON":
         await event.delete()
     elif event.text and MODES["FILTERPV_LINK"] == "ON":
         if event.entities:
