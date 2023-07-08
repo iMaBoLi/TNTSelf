@@ -15,6 +15,19 @@ def checkCmd(event, text=None):
 
 setattr(Message, "checkCmd", checkCmd)
 
+async def try_edit(event, text, **kwargs):
+    edit = await event.edit(text, **kwargs)
+    if not edit:
+        reply = await event.reply(text, **kwargs)
+        if reply:
+            event.id = reply.id
+        else:
+            send = await event.client.send_message(event.chat_id, text, **kwargs)
+            event.id = send.id
+    return event
+
+setattr(Message, "editt", try_edit)
+
 SPAMS = {}
 
 def checkSpam(event):
