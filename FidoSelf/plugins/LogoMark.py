@@ -17,11 +17,11 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "save": "**The Logo Has Been Saved!**",
-    "notsave": "**The Logo Is Not Saved!**",
-    "getlogo": "**The Logo Image!**",
-    "adding": "**Adding Logo To Image ...**",
-    "added": "**The Logo Is Added To Your Photo!**",
+    "save": "**{STR} The Logo Has Been Saved!**",
+    "notsave": "**{STR} The Logo Is Not Saved!**",
+    "getlogo": "**{STR} The Logo Image!**",
+    "adding": "**{STR} Adding Logo To Image ...**",
+    "added": "**{STR} The Logo Is Added To Your Photo!**"
 }
 
 @client.Command(command="SetLogo")
