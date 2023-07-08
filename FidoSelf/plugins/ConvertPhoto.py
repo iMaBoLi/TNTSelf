@@ -18,9 +18,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "tophoto": "**The Sticker Converted To Photo!**",
-    "tojpg": "**The PNG Photo Converted To JPG Photo!**",
-    "topng": "**The JPG Photo Converted To PNG Photo!**",
+    "tophoto": "**{STR} The Sticker Converted To Photo!**",
+    "tojpg": "**{STR} The PNG Photo Converted To JPG Photo!**",
+    "topng": "**{STR} The JPG Photo Converted To PNG Photo!**"
 }
 
 @client.Command(command="ToPhoto")
