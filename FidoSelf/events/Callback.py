@@ -14,7 +14,7 @@ def Callback(
         async def wrapper(event):
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
-                if onlysudo and not event.is_sudo):
+                if onlysudo and not event.is_sudo:
                     return await event.answer(client.STRINGS["OtherCallback"], alert=True)
                 await func(event)
             except:
