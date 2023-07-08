@@ -6,7 +6,7 @@ import os
 
 def getstrings(STRINGS=None):
     if not STRINGS:
-        STRINGS = client.STRINGS
+        return client.STRINGS
     NEWSTR = {}
     for element in STRINGS:
         text = STRINGS[element]
