@@ -16,11 +16,11 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**The Profile Photos Is Not Found!**",
-    "last": "**The Last Profile Photo Has Been Deleted!**",
-    "count": "**The** ( `{}` ) **Of Your Profile Photos Has Been Deleted!**",
-    "nota": "**This Profile Photo Is Not Available!**",
-    "one": "**The Profile Photo** ( `{}` ) **Has Been Deleted!**",
+    "not": "**{STR} The Profile Photos Is Not Found!**",
+    "last": "**{STR} The Last Profile Photo Has Been Deleted!**",
+    "count": "**{STR} The** ( `{}` ) **Of Your Profile Photos Has Been Deleted!**",
+    "nota": "**{STR} This Profile Photo Is Not Available!**",
+    "one": "**{STR} The Profile Photo** ( `{}` ) **Has Been Deleted!**"
 }
 
 @client.Command(command="DelProfile ?((\-)?\d*)?")
