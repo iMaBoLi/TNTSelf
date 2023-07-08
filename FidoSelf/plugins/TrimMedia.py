@@ -34,13 +34,13 @@ STRINGS = {
 
 @client.Command(command="VTrim (\d*)\-(\d*)")
 async def trimvideo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     if end > event.reply_message.file.duration:
@@ -60,13 +60,13 @@ async def trimvideo(event):
     
 @client.Command(command="ATrim (\d*)\-(\d*)")
 async def trimaudio(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
     if reply:= event.checkReply(["Music"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     if end > event.reply_message.file.duration:
