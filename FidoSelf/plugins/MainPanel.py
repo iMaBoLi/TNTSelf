@@ -31,6 +31,7 @@ STRINGS = {
     "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
     "editpage": "**❃ Select Which edit Mode You Want Turn On-Off:**",
     "actionpage": "**❃ Select Which Action Mode You Want Turn On-Off:**",
+    "filterpvpage": "**❃ Select Which Media Filter For Your Pv You Want Turn On-Off:**",
     "allpage": "☻︎ You Are Already In This Page!",
     "closepanel":  "**☻︎ The Panel Successfuly Closed!**",
 }
@@ -84,6 +85,16 @@ def get_modename(mode):
         "ACTION_MODE": "Send Action",
         "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
+        "FILTERPV_TEXT": "Text",
+        "FILTERPV_PHOTO": "Photo",
+        "FILTERPV_VIDEO": "Video",
+        "FILTERPV_GIF": "Gif",
+        "FILTERPV_VOICE": "Voice",
+        "FILTERPV_MUSIC": "Music",
+        "FILTERPV_STICKER": "Sticker",
+        "FILTERPV_ANISTICKER": "Animated Sticker",
+        "FILTERPV_FILE": "File",
+        "FILTERPV_LINK": "Link",
     }
     if mode in MODES:
         return MODES[mode]
@@ -116,10 +127,9 @@ async def inlinepanel(event):
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
-    try:
-        await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
-    except:
-        await event.answer(STRINGS["allpage"], alert=True)
+    if page == 0:
+        return await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
+    await event.answer(STRINGS["allpage"], alert=True)
 
 def get_text(page):
     TEXTS = {
@@ -128,7 +138,8 @@ def get_text(page):
         3: STRINGS["modepage"],
         4: STRINGS["fontpage"],
         5: STRINGS["editpage"],
-        6: STRINGS["actionpage"]
+        6: STRINGS["actionpage"],
+        7: STRINGS["actionpage"]
     }
     mention = client.functions.mention(client.me)
     text = f"**ᯓ Dear** ( {mention} )\n\n"
@@ -138,11 +149,12 @@ def get_text(page):
 
 def get_pages_button(chatid, opage):
     buttons = []
-    PAGES_COUNT = 6
+    PAGES_COUNT = 7
     for page in range(1, PAGES_COUNT + 1):
         font = 3 if page != opage else 4
+        apage = page if page != opage else 0
         name = client.functions.create_font(page, font)
-        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{page}"))
+        buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{apage}"))
     return buttons
 
 def create_button(key, value, type, settype, chatid, page, default=None, show=None):
@@ -214,6 +226,11 @@ def get_buttons(chatid, page):
         for action in client.functions.ACTIONS:
             actbts.append(create_button("ACTION_TYPE", action, "Mode", "Mode", chatid, page, "random", (action.replace("record-", "Rec ").title())))
         buttons = buttons + list(client.functions.chunks(actbts, 3))
+    elif page == 7:
+        for Mode in client.functions.PVFILTERS:
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
+            buttons.append(button)
+        buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
