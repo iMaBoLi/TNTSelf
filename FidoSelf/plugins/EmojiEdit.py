@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Emoji Mode Has Been {}!**",
-    "setemoji": "**The Edit Emojis Was Set To** ( `{}` )",
+    "change": "**{STR} The Emoji Mode Has Been {}!**",
+    "setemoji": "**{STR} The Edit Emojis Was Set To** ( `{}` )"
 }
 
 @client.Command(command="Emoji (On|Off)")
