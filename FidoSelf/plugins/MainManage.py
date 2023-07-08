@@ -18,8 +18,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "menu": "**Please Use The Options Below To Manage User Modes:**",
-    "closemanage": "**The Manage Panel Successfuly Closed!**",
+    "menu": "**{STR} Please Use The Options Below To Manage User Modes:**",
+    "closemanage": "**{STR} The Manage Panel Successfuly Closed!**",
     "infouser": "**User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
 }
 
