@@ -21,9 +21,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "result": "**Search Result Messages For Text:** ( `{}` )\n**Filter:** ( `{}` )\n\n",
-    "click": "Click Here!",
-    "not": "**No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )",
+    "result": "**{STR} Search Result Messages For Text:** ( `{}` )\n**Filter:** ( `{}` )\n\n",
+    "click": "**{STR} ick Here!",
+    "not": "**{STR} No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )"
 }
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
