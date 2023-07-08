@@ -30,8 +30,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setrealm": "**{STR} \u2726 This Chat Is Saved For Realm Chat!**",
-    "setback": "**{STR} \u2726 This Channel Is Saved For BackUp Channel!**"
+    "setrealm": "**{STR} This Chat Is Saved For Realm Chat!**",
+    "setback": "**{STR} This Channel Is Saved For BackUp Channel!**"
 }
 
 @client.Command(command="SetRealm")
