@@ -16,7 +16,7 @@ import time
 
 @client.Command(command="Logs")
 async def logs(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if os.path.exists("Fido.log"):
         await event.respond("**The Console Logs File!**", file="Fido.log")
         await event.delete()
@@ -68,7 +68,7 @@ async def runcodes(event):
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
