@@ -25,7 +25,7 @@ __INFO__ = {
                 },
             },
             "{CMD}SaveList": {
-                "Help": "To Get Saved Content List",
+                "Help": "To Getting Saved Content List",
             },
             "{CMD}CleanSaveList": {
                 "Help": "To Clean Saved Content List",
