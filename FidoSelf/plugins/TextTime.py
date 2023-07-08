@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="NewTtime ([\s\S]*)")
 async def addttime(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     newttime = str(event.pattern_match.group(1))
     if newttime in ttimes:
@@ -39,7 +39,7 @@ async def addttime(event):
     
 @client.Command(command="DelTtime ([\s\S]*)")
 async def delttime(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     newttime = str(event.pattern_match.group(1))
     if newttime not in ttimes:
@@ -50,7 +50,7 @@ async def delttime(event):
 
 @client.Command(command="TtimeList")
 async def ttimelist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     if not ttimes:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -61,7 +61,7 @@ async def ttimelist(event):
 
 @client.Command(command="CleanTtimeList")
 async def cleanttimes(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     if not ttimes:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
