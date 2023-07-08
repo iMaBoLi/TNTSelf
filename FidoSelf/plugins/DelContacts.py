@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="DelC (.*)")
 async def delcontacts(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
     contacts = await client(functions.contacts.GetContactsRequest(hash=0))
     count = 0
