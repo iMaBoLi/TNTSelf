@@ -17,7 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**❁ The Online Has Been {}!**",
+    "change": "**{STR} \u2741 The Online Has Been {}!**"
 }
 
 @client.Command(command="Online (On|Off)")
