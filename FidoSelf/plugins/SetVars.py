@@ -2,13 +2,15 @@ from FidoSelf import client
 
 __INFO__ = {
     "Category": "Setting",
-    "Name": "Realm",
+    "Name": "Command",
     "Info": {
-        "Help": "To Setting Your Realm Chat!",
+        "Help": "To Setting Command Starter!",
         "Commands": {
-            "{CMD}SetRealm": {
-                "Help": "To Set Realm",
-                "Note": "Send In Groups"
+            "{CMD}SetCmd <Text>": {
+                "Help": "To Set Cmd",
+                "Input": {
+                    "<Text": "Command Starter",
+                },
             },
         },
     },
@@ -16,13 +18,15 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 __INFO__ = {
     "Category": "Setting",
-    "Name": "BackUp",
+    "Name": "Simbel",
     "Info": {
-        "Help": "To Setting Your BackUp Channel!",
+        "Help": "To Setting Simbel For Self Texts!",
         "Commands": {
-            "{CMD}SetBackUp": {
-                "Help": "To Set BackUp",
-                "Note": "Send In Channels"
+            "{CMD}SetSimbel <Text>": {
+                "Help": "To Set Simbel",
+                "Input": {
+                    "<Text": "Simbel Text",
+                },
             },
         },
     },
@@ -30,24 +34,20 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setrealm": "**{STR} \u2726 This Chat Is Saved For Realm Chat!**",
-    "setback": "**{STR} \u2726 This Channel Is Saved For BackUp Channel!**"
+    "setcmd": "**{STR} The Command Starter Has Been Set To:** ( `{}` )",
+    "setsim": "**{STR} The Simbel For Texts Has Been Set To:** ( `{}` )",
 }
 
-@client.Command(command="SetRealm")
-async def realm(event):
+@client.Command(command="SetCmd (.*)")
+async def cmdstarter(event):
     await event.edit(client.STRINGS["wait"])
-    if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
-    client.DB.set_key("REALM_CHAT", event.chat_id)
-    client.realm = event.chat_id
-    await event.edit(client.getstrings(STRINGS)["setrealm"])
+    simbel = event.pattern_match.group(1)
+    client.DB.set_key("CMD_SIMBEL", simbel)
+    await event.edit(client.getstrings(STRINGS)["setcmd"].format(simbel))
 
-@client.Command(command="SetBackUp")
-async def backup(event):
+@client.Command(command="SetBSimbel (.*)")
+async def simbeltexts(event):
     await event.edit(client.STRINGS["wait"])
-    if not event.is_ch:
-        return await event.edit(client.STRINGS["only"]["Channel"])
-    client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
-    client.backch = event.chat_id
-    await event.edit(client.getstrings(STRINGS)["setback"])
+    simbel = event.pattern_match.group(1)
+    client.DB.set_key("EMOJI_SIMBEL", simbel)
+    await event.edit(client.getstrings(STRINGS)["setsim"].format(simbel))
