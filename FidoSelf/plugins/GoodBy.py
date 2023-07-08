@@ -34,17 +34,17 @@ STRINGS = {
 
 @client.Command(command="GoodBy (On|Off)")
 async def goodbymode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("GOODBY_MODE", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetGoodBy")
 async def setgoodby(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     goodbys = client.DB.get_key("GOODBY_CHATS") or {}
@@ -55,9 +55,9 @@ async def setgoodby(event):
     
 @client.Command(command="DelGoodBy")
 async def delgoodby(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     goodbys = client.DB.get_key("GOODBY_CHATS") or {}
     if event.chat_id not in goodbys:
         return await event.edit(client.getstrings(STRINGS)["notsave"])  
@@ -67,9 +67,9 @@ async def delgoodby(event):
  
 @client.Command(command="GetGoodby")
 async def getgoodby(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     comments = client.DB.get_key("GOODBY_CHATS") or {}
     if event.chat_id not in comments:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
@@ -80,7 +80,7 @@ async def getgoodby(event):
     
 @client.Command(command="GoodByList")
 async def goodbylist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     goodbys = client.DB.get_key("GOODBY_CHATS") or {}
     if not goodbys:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -93,7 +93,7 @@ async def goodbylist(event):
 
 @client.Command(command="CleanGoodByList")
 async def cleangoodbylist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     goodbys = client.DB.get_key("GOODBY_CHATS") or {}
     if not goodbys:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
