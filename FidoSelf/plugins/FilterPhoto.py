@@ -39,7 +39,7 @@ STRINGS = {
 
 @client.Command(command="SBw")
 async def blackwhite(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -54,7 +54,7 @@ async def blackwhite(event):
 
 @client.Command(command="SP(Blur|Contour|Detail|Emboss|Edge|Smooth|Sharpen)")
 async def filterphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     mode = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
