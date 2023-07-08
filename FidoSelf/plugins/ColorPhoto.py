@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="S(Red|Blue|Green|Yellow|Purple|Orange|Pink|Gray|Gold)")
 async def colorphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     color = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
