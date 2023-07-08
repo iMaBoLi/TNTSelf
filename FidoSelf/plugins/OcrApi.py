@@ -16,13 +16,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setapi": "**The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
-    "notsave": "**The Ocr ApiKey Is Not Saved!**",
-    "notlang": "**The Entered Language Is Not Found!**",
-    "notcom": "**The Extract Text Not Completed!**\n**Error:** ( `{}` )",
-    "notresult": "**The Extract Text Completed And Not Text Finded!**",
-    "result": "**The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
-    "langs": "**The Available OcrApi Languages:**\n\n",
+    "setapi": "**{STR} The Ocr ApiKey** ( `{}` ) **Has Been Saved!**",
+    "notsave": "**{STR} The Ocr ApiKey Is Not Saved!**",
+    "notlang": "**{STR} The Entered Language Is Not Found!**",
+    "notcom": "**{STR} The Extract Text Not Completed!**\n**Error:** ( `{}` )",
+    "notresult": "**{STR} The Extract Text Completed And Not Text Finded!**",
+    "result": "**{STR} The Extract Text Completed!**\n**Language:** ( `{}` )\n\n**Result:** ( `{}` )",
+    "langs": "**{STR} The Available OcrApi Languages:**\n\n"
 }
 
 def ocr_file(file, language):
