@@ -22,6 +22,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**{STR} The Entered UserID/Username Is Not Found!**",
+    "najva": "**{STR} The NAjva For User** ( {} )\n\n**{STR} Only You Can Open Najva!**",
     "notyou": "{STR} This Najva Is Not For You!",
     "notnaj": "**{STR} This Najva Is Not Available!**",
     "opennajva": "{STR} Your Najva:\n\n{}",
@@ -43,11 +44,11 @@ async def najva(event):
     NAJVAS.update({najid: message})
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
-    text = client.getstrings(STRINGS)["notfound"].format(mention)
-    buttons = [[Button.inline("• Open •", data=f"OpenNajva:{najid}:{userid}")]]
+    text = client.getstrings(STRINGS)["najva"].format(mention)
+    buttons = [[Button.inline("• Open Najva •", data=f"OpenNajva:{najid}:{userid}")]]
     await event.answer([event.builder.article("FidoSelf - Najva", text=text, buttons=buttons)])
     
-@client.Callback(data="OpenNajva\:(.*)\:(.*)")
+@client.Callback(data="OpenNajva\:(.*)\:(.*)", onlysudo=False)
 async def opennajva(event):
     najid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
