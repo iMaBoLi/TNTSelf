@@ -26,10 +26,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "trvid": "**Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
-    "trdvid": "**The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
-    "traud": "**Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
-    "trdaud": "**The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )",
+    "trvid": "**{STR} Triming Video From** ( `{}` ) **To** ( `{}` ) **...**",
+    "trdvid": "**{STR} The Video Was Trimed From** ( `{}` ) **To** ( `{}` )",
+    "traud": "**{STR} Triming Audio From** ( `{}` ) **To** ( `{}` ) **...**",
+    "trdaud": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )"
 }
 
 @client.Command(command="VTrim (\d*)\-(\d*)")
