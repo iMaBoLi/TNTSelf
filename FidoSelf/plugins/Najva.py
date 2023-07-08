@@ -12,7 +12,7 @@ __INFO__ = {
                "Help": "To Create Najva",
                 "Input": {
                     "<ID>": "UserID/Username Of User",
-                    "<Text>": "Your Message ( Max: 50 )",
+                    "<Text>": "Your Message ( Max: 500 )",
                 },
             },
         },
@@ -25,7 +25,6 @@ STRINGS = {
     "najva": "**{STR} The NAjva For User** ( {} )\n\n**{STR} Only You Can Open Najva!**",
     "notyou": "{STR} This Najva Is Not For You!",
     "notnaj": "**{STR} This Najva Is Not Available!**",
-    "opennajva": "{STR} Your Najva:\n\n{}",
 }
 
 NAJVAS = {}
@@ -38,8 +37,8 @@ async def najva(event):
     if not userid:
         text = client.getstrings(STRINGS)["notfound"]
         return await event.answer([event.builder.article("Najva - ( User Not Found )", text=text)])
-    if len(message) > 50:
-        message = message[:50]
+    if len(message) > 500:
+        message = message[:500]
     najid = random.randint(0, 999999)
     NAJVAS.update({najid: message})
     info = await client.get_entity(userid)
@@ -57,5 +56,4 @@ async def opennajva(event):
     if najid not in NAJVAS:
         return await event.edit(client.getstrings(STRINGS)["notnaj"])
     message = NAJVAS[najid]
-    text = client.getstrings(STRINGS)["opennajva"].format(message)
-    await event.answer(text, alert=True)
+    await event.answer(message, alert=True)
