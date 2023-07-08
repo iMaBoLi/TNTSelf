@@ -34,45 +34,45 @@ STRINGS = {
 
 @client.Command(command="Comment (On|Off)")
 async def commentmode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("COMMENT_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetComment")
 async def setcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     info = await event.reply_message.save()
     comments.update({event.chat_id: info})
     client.DB.set_key("COMMENT_CHATS", comments)
-    await event.edit(STRINGS["setcomment"])
+    await event.edit(client.getstrings(STRINGS)["setcomment"])
     
 @client.Command(command="DelComment")
 async def delcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if event.chat_id not in comments:
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     del comments[event.chat_id]
     client.DB.set_key("COMMENT_CHATS", comments)
-    await event.edit(STRINGS["delcomment"])
+    await event.edit(client.getstrings(STRINGS)["delcomment"])
 
 @client.Command(command="GetComment")
 async def getcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if event.chat_id not in comments:
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     info = comments[event.chat_id]
     getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await event.respond(getmsg)
@@ -80,11 +80,11 @@ async def getcomment(event):
 
 @client.Command(command="CommentList")
 async def commentlist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if not comments:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for comment in comments:
         text += f"**{row} -** `{comment}`\n"
@@ -93,12 +93,12 @@ async def commentlist(event):
 
 @client.Command(command="CleanCommentList")
 async def cleancommentlist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if not comments:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("COMMENT_CHATS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
     
 @client.Command(onlysudo=False, allowedits=False)
 async def autocomment(event):
