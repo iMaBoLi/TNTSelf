@@ -3,7 +3,7 @@ from telethon import functions
 import aiocron
 
 __INFO__ = {
-    "Category": "Setting",
+    "Category": "Account",
     "Name": "Online",
     "Info": {
         "Help": "To Setting Online Status For Account!",
