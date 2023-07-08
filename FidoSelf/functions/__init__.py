@@ -16,6 +16,7 @@ async def AddVarsToClient():
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
     setattr(client, "STRINGS", STRINGS)
+    setattr(client, "getstring", getstring)
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", config.MAX_SIZE)
