@@ -40,10 +40,10 @@ INPHOTO_LIST = {}
 
 @client.Command(command="Photo (On|Off)")
 async def photomode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("PHOTO_MODE", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
     await photochanger()
 
@@ -54,36 +54,36 @@ def get_buttons(phname):
     wherbts = [[Button.inline("• Where : ⤵️", data="Empty")]]
     owherbts = []
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
-        ShowMode = client.getstrings()["inline"]["On"] if str(info["Where"]) == str(where) else client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["On"] if str(info["Where"]) == str(where) else client.STRINGS["inline"]["Off"]
         owherbts.append(Button.inline(f"{where} {ShowMode}", data=f"SetPhoto:Where:{phname}:{where}"))
     buttons += wherbts + list(client.functions.chunks(owherbts, 3))
     sizebts = [[Button.inline("• Size : ⤵️", data="Empty")]]
     osizebts = []
     for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
         ssize = size.replace(" ", "").lower()
-        ShowMode = client.getstrings()["inline"]["On"] if str(info["Size"]) == str(ssize) else client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["On"] if str(info["Size"]) == str(ssize) else client.STRINGS["inline"]["Off"]
         osizebts.append(Button.inline(f"{size} {ShowMode}", data=f"SetPhoto:Size:{phname}:{ssize}"))
     buttons += sizebts + client.functions.chunker(osizebts, [2,1,2])
     colorbts = [[Button.inline("• Color : ⤵️", data="Empty")]]
     ocolorbts = []
     for color in (["Random ♻️"] + client.functions.COLORS):
         scolor = color if color != "Random ♻️" else "Random"
-        ShowMode = client.getstrings()["inline"]["On"] if str(info["Color"]) == str(scolor) else client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["On"] if str(info["Color"]) == str(scolor) else client.STRINGS["inline"]["Off"]
         ocolorbts.append(Button.inline(f"{color.title()} {ShowMode}", data=f"SetPhoto:Color:{phname}:{scolor}"))
     buttons += colorbts + list(client.functions.chunks(ocolorbts, 3))
     alignbts = [[Button.inline("• Align : ⤵️", data="Empty")]]
     oalignbts = []
     for align in ["Left", "Center", "Right"]:
         salign = align.lower()
-        ShowMode = client.getstrings()["inline"]["On"] if str(info["Align"]) == str(salign) else client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["On"] if str(info["Align"]) == str(salign) else client.STRINGS["inline"]["Off"]
         oalignbts.append(Button.inline(f"{align} {ShowMode}", data=f"SetPhoto:Align:{phname}:{salign}"))
     buttons += alignbts + list(client.functions.chunks(oalignbts, 3))
-    buttons.append([Button.inline("📥 Save ✅", data=f"SavePhoto:{phname}"), Button.inline(client.getstrings()["inline"]["Delete"], data=f"DelPhoto:{phname}")])
+    buttons.append([Button.inline("📥 Save ✅", data=f"SavePhoto:{phname}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelPhoto:{phname}")])
     return buttons
 
 @client.Command(command="AddPhoto (.*)")
 async def addphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     phname = str(event.pattern_match.group(1)) + ".jpg"
@@ -98,7 +98,7 @@ async def addphoto(event):
 
 @client.Command(command="DelPhoto (.*)")
 async def delphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -113,7 +113,7 @@ async def delphoto(event):
 
 @client.Command(command="GetPhoto (.*)")
 async def getphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -126,7 +126,7 @@ async def getphoto(event):
 
 @client.Command(command="PhotoList")
 async def photolist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -137,7 +137,7 @@ async def photolist(event):
 
 @client.Command(command="CleanPhotoList")
 async def cleanphotos(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(client.getstrings(STRINGS)["allempty"])
