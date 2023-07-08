@@ -29,10 +29,10 @@ STRINGS = {
 
 @client.Command(command="SetRank (.*)")
 async def setrank(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid()
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     rank = event.pattern_match.group(1)
     ranks = client.DB.get_key("RANK_LIST") or {}
     info = await client.get_entity(userid)
@@ -43,10 +43,10 @@ async def setrank(event):
     
 @client.Command(command="DelRank ?(.*)?")
 async def delrank(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     ranks = client.DB.get_key("RANK_LIST") or {}
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -58,10 +58,10 @@ async def delrank(event):
     
 @client.Command(command="GetRank ?(.*)?")
 async def getrank(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     ranks = client.DB.get_key("RANK_LIST") or {}
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
@@ -72,7 +72,7 @@ async def getrank(event):
     
 @client.Command(command="RankList")
 async def ranklist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ranks = client.DB.get_key("RANK_LIST") or {}
     if not ranks:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -85,7 +85,7 @@ async def ranklist(event):
 
 @client.Command(command="CleanRankList")
 async def cleanranklist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ranks = client.DB.get_key("RANK_LIST") or {}
     if not ranks:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
