@@ -17,14 +17,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setapi": "**The OpenAi ApiKey** ( `{}` ) **Has Been Saved!**",
-    "noapi": "**The OpenAi ApiKey Is Not Saved!**",
-    "getch": "**Geeting OpenAi Result For Question** ( `{}` ) **...**",
-    "erch": "**The Ai Result Not Received!**\n\n`{}`",
-    "result": "**Question** ( `{}` ):\n\n**ChatGPT:** ( `{}` )",
-    "getim": "**Geeting Ai Photo For Query** ( `{}` ) **...**",
-    "erim": "**The Ai Photo Not Created!**\n\n`{}`",
-    "caption": "**The AiImages For Query** ( `{}` ) **Created!**",
+    "setapi": "**{STR} The OpenAi ApiKey** ( `{}` ) **Has Been Saved!**",
+    "noapi": "**{STR} The OpenAi ApiKey Is Not Saved!**",
+    "getch": "**{STR} Geeting OpenAi Result For Question** ( `{}` ) **...**",
+    "erch": "**{STR} The Ai Result Not Received!**\n\n`{}`",
+    "result": "**{STR} Question** ( `{}` ):\n\n**ChatGPT:** ( `{}` )",
+    "getim": "**{STR} Geeting Ai Photo For Query** ( `{}` ) **...**",
+    "erim": "**{STR} The Ai Photo Not Created!**\n\n`{}`",
+    "caption": "**{STR} The AiImages For Query** ( `{}` ) **Created!**"
 }
 
 @client.Command(command="SetAiKey (.*)")
