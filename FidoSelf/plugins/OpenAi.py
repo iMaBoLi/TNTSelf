@@ -29,7 +29,7 @@ STRINGS = {
 
 @client.Command(command="SetAiKey (.*)")
 async def saveaiapi(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     api = event.pattern_match.group(1)
     client.DB.set_key("OPENAI_APIKEY", api)
     await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
@@ -53,7 +53,7 @@ async def gpt_response(query, chat_id):
     
 @client.Command(command="GText (.*)")
 async def aichat(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(client.getstrings(STRINGS)["noapi"])
@@ -68,7 +68,7 @@ async def aichat(event):
     
 @client.Command(command="GPhoto (.*)")
 async def aiphoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(client.getstrings(STRINGS)["noapi"])
