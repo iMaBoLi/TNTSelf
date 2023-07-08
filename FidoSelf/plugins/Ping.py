@@ -3,7 +3,7 @@ from datetime import datetime
 
 STRINGS = {
     "bping": "**!!!**",
-    "ping": "**{STR} PonG !!** ( `{ping}` )"
+    "ping": "**{STR} PonG !!** ( `{}` )"
 }
 
 @client.Command(command="Ping")
@@ -14,5 +14,5 @@ async def ping(event):
     tms = (end - start).microseconds / 10000
     ping = round(tms / 3, 2)
     text = client.getstrings(STRINGS)["ping"]
-    text = text.format(ping=ping)
+    text = text.format(ping)
     await event.edit(text)
