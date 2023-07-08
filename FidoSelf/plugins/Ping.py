@@ -21,7 +21,11 @@ STRINGS = {
 @client.Command(command="Ping")
 async def ping(event):
     start = datetime.now()
-    event = await event.editt(STRINGS["bping"])
+    if event.is_sudo:
+        await event.edit(STRINGS["bping"])
+    else:
+        reply = await event.reply(STRINGS["bping"])
+        event.id = reply.id
     end = datetime.now()
     tms = (end - start).microseconds / 10000
     ping = round(tms / 3, 2)
