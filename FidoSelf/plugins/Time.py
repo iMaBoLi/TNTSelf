@@ -3,7 +3,7 @@ import datetime
 import jdatetime
 
 __INFO__ = {
-    "Category": "Setting",
+    "Category": "Tools",
     "Name": "Time",
     "Info": {
         "Help": "To Get Time And Date Information!",
