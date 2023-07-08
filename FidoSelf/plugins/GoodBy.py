@@ -22,14 +22,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The GoodBy Mode Has Been {}!**",
-    "setgoodby": "**The GoodBy Message For This Chat Has Been Saved!**",
-    "notsave": "**The GoodBy Message For This Chat Is Not Saved!**",
-    "delgoodby": "**The GoodBy Message For This Chat Has Been Removed!**",
-    "empty": "**The GoodBy List Is Empty!**",
-    "list": "**The GoodBy List:**\n\n",
-    "aempty": "**The GoodBy List Is Already Empty**",
-    "clean": "**The GoodBy List Has Been Cleaned!**",
+    "change": "**{STR} The GoodBy Mode Has Been {}!**",
+    "setgoodby": "**{STR} The GoodBy Message For This Chat Has Been Saved!**",
+    "notsave": "**{STR} The GoodBy Message For This Chat Is Not Saved!**",
+    "delgoodby": "**{STR} The GoodBy Message For This Chat Has Been Removed!**",
+    "empty": "**{STR} The GoodBy List Is Empty!**",
+    "list": "**{STR} The GoodBy List:**\n\n",
+    "aempty": "**{STR} The GoodBy List Is Already Empty**",
+    "clean": "**{STR} The GoodBy List Has Been Cleaned!**"
 }
 
 @client.Command(command="GoodBy (On|Off)")
