@@ -61,7 +61,7 @@ def gethelp(plugin):
     text += f'**꥟ Help:** ( `{info["Help"]}` )\n\n'
     text += "⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
-        CMD = client.DB.get_key("CMD_SAMBOL") or "."
+        CMD = client.DB.get_key("CMD_SIMBEL") or "."
         cname = command.replace("{CMD}", CMD)
         ccname = cname.split(" ")[0]
         scname = "`" + cname.replace(" ", "` `") + "`"
