@@ -27,7 +27,7 @@ STRINGS = {
     
 @client.Command(command="YtDown (.*)")
 async def ytdown(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     link = event.pattern_match.group(1)
     if not client.functions.YOUTUBE_REGEX.search(link):
         return await event.edit(client.getstrings(STRINGS)["linkinv"])
@@ -101,7 +101,7 @@ async def ytdownload(event):
     
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     query = query[:15]
     res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
