@@ -27,12 +27,12 @@ STRINGS = {
 
 @client.Command(command="VShot ((\-)?\d*)")
 async def videoshot(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     duration = event.reply_message.file.duration
