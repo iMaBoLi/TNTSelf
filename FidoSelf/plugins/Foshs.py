@@ -24,7 +24,7 @@ STRINGS = {
 
 @client.Command(command="AddFosh")
 async def savefoshfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["TXT File"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -35,7 +35,7 @@ async def savefoshfile(event):
 
 @client.Command(command="DelFosh")
 async def delfoshfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if os.path.exists(client.PATH + "FOSHS.txt"):
         os.remove(client.PATH + "FOSHS.txt")
     client.DB.del_key("FOSHS_FILE")
@@ -43,7 +43,7 @@ async def delfoshfile(event):
 
 @client.Command(command="GetFosh")
 async def getfoshfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     foshs = client.DB.get_key("FOSHS_FILE")
     if not foshs:
         return await event.edit(client.getstrings(STRINGS)["nsave"])
