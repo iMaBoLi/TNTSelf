@@ -140,7 +140,7 @@ def get_text(page):
         4: client.getstrings(STRINGS)["fontpage"],
         5: client.getstrings(STRINGS)["editpage"],
         6: client.getstrings(STRINGS)["actionpage"],
-        7: client.getstrings(STRINGS)["actionpage"]
+        7: client.getstrings(STRINGS)["filterpvpage"]
     }
     mention = client.functions.mention(client.me)
     text = f"**ᯓ Dear** ( {mention} )\n\n"
