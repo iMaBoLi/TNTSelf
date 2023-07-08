@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**The Wikipedia For** ( `{}` ) **Is Not Finded!**",
-    "info": "**Query:** ( `{}` )\n\n**Title:** ( `{}` )\n\n`{}`",
+    "not": "**{STR} The Wikipedia For** ( `{}` ) **Is Not Finded!**",
+    "info": "**{STR} Query:** ( `{}` )\n\n**Title:** ( `{}` )\n\n`{}`"
 }
 
 @client.Command(command="SWiki (.*)")

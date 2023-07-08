@@ -17,12 +17,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "taking": "**Taking** ( `{}` ) **Screen Shot From Your Video ...**",
-    "taked": "**Taked** ( `{}` ) **Screen Shot From Your Video ...**",
-    "sending": "**Sending** ( `{}` ) **Screen Shots ...**",
-    "sended": "**Taked** ( `{}` ) **Screen Shot From Your Video!**",
-    "takingdur": "**Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
-    "takeddur": "**Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**",
+    "taking": "**{STR} Taking** ( `{}` ) **Screen Shot From Your Video ...**",
+    "taked": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video ...**",
+    "sending": "**{STR} Sending** ( `{}` ) **Screen Shots ...**",
+    "sended": "**{STR} Taked** ( `{}` ) **Screen Shot From Your Video!**",
+    "takingdur": "**{STR} Taking Screen Shot From Duration** ( `{}` ) **From Your Video ...**",
+    "takeddur": "**{STR} Taked Screen Shot From Duration** ( `{}` ) **From Your Video!**"
 }
 
 @client.Command(command="VShot ((\-)?\d*)")

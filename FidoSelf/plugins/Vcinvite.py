@@ -15,11 +15,11 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notcall": "**The Voice Chat Is Not Founded For This Chat!**",
-    "notuser": "**The Users To Invite In To Voice Chat Is Not Founded!**",
-    "notflood": "**The Flood Wait Error Is Coming Please Wait And Try Again!**",
-    "inviting": "**Inviting Users To Voice Chat ...**",
-    "invited": "**Invite Users To Voice Chat Completed!**",
+    "notcall": "**{STR} The Voice Chat Is Not Founded For This Chat!**",
+    "notuser": "**{STR} The Users To Invite In To Voice Chat Is Not Founded!**",
+    "notflood": "**{STR} The Flood Wait Error Is Coming Please Wait And Try Again!**",
+    "inviting": "**{STR} Inviting Users To Voice Chat ...**",
+    "invited": "**{STR} Invite Users To Voice Chat Completed!**"
 }
 
 @client.Command(command="InvVc ?(.*)?")
