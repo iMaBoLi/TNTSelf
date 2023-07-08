@@ -49,7 +49,7 @@ STRINGS = {
 
 @client.Command(command="Save (.*)")
 async def savesaves(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
     if reply:= event.checkReply():
         return await event.edit(reply)
@@ -63,7 +63,7 @@ async def savesaves(event):
 
 @client.Command(command="Delete (.*)$")
 async def delsaves(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
     saves = client.DB.get_key("SAVED_LIST") or {}
     if name not in saves:
@@ -74,7 +74,7 @@ async def delsaves(event):
 
 @client.Command(command="Get (.*)$")
 async def getsaves(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
     saves = client.DB.get_key("SAVED_LIST") or {}
     if name not in saves:
@@ -89,7 +89,7 @@ async def getsaves(event):
         
 @client.Command(command="SaveList")
 async def savelist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     saves = client.DB.get_key("SAVED_LIST") or {}
     if not saves:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -102,7 +102,7 @@ async def savelist(event):
 
 @client.Command(command="CleanSaveList")
 async def cleansaves(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     saves = client.DB.get_key("SAVED_LIST") or {}
     if not saves:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
