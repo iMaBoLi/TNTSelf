@@ -22,14 +22,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Welcome Mode Has Been {}!**",
-    "setwelcome": "**The Welcome Message For This Chat Has Been Saved!**",
-    "notsave": "**The Welcome Message For This Chat Is Not Saved!**",
-    "delwelcome": "**The Welcome Message For This Chat Has Been Removed!**",
-    "empty": "**The Welcome List Is Empty!**",
-    "list": "**The Welcome List:**\n\n",
-    "aempty": "**The Welcome List Is Already Empty**",
-    "clean": "**The Welcome List Has Been Cleaned!**",
+    "change": "**{STR} The Welcome Mode Has Been {}!**",
+    "setwelcome": "**{STR} The Welcome Message For This Chat Has Been Saved!**",
+    "notsave": "**{STR} The Welcome Message For This Chat Is Not Saved!**",
+    "delwelcome": "**{STR} The Welcome Message For This Chat Has Been Removed!**",
+    "empty": "**{STR} The Welcome List Is Empty!**",
+    "list": "**{STR} The Welcome List:**\n\n",
+    "aempty": "**{STR} The Welcome List Is Already Empty**",
+    "clean": "**{STR} The Welcome List Has Been Cleaned!**"
 }
 
 @client.Command(command="Welcome (On|Off)")
