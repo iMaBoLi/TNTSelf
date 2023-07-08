@@ -20,13 +20,13 @@ STRINGS = {
 
 @client.Command(command="SCountry (.*)")
 async def countryinfo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     coname = event.pattern_match.group(1).title()
     try:
         country = CountryInfo(coname)
         info = country.info()
     except:
-        return await event.edit(STRINGS["notcon"].format(coname))
+        return await event.edit(client.getstrings(STRINGS)["notcon"].format(coname))
     name = info["name"] + " - " + info["nativeName"]
     region = info["region"] + " - " + info["subregion"]
     spellings = ""
@@ -53,5 +53,5 @@ async def countryinfo(event):
     for province in info["provinces"]:
         provinces += province + " - "
     provinces = provinces[:-3]
-    text = STRINGS["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
+    text = client.getstrings(STRINGS)["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
     await event.edit(text)
