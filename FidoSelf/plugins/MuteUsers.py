@@ -28,12 +28,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notacs": "**✶ You Do Not Have Access To Mute/UnMute Users!**",
-    "muteuser": "**The User** ( {} ) **Was Muted In This Chat!**",
-    "errormute": "**The User** ( {} ) **Is Not Muted!**\n**Error:** ( `{}` )",
-    "tmuteuser": "**The User** ( {} ) **Was Muted For** ( `{}` ) **In This Chat!**",
-    "unmuteuser": "**The User** ( {} ) **Was UnMuted In This Chat!**",
-    "errorunabn": "**The User** ( {} ) **Is Not UnMuted!**\n**Error:** ( `{}` )",
+    "notacs": "**{STR} \u2736 You Do Not Have Access To Mute/UnMute Users!**",
+    "muteuser": "**{STR} The User** ( {} ) **Was Muted In This Chat!**",
+    "errormute": "**{STR} The User** ( {} ) **Is Not Muted!**\n**Error:** ( `{}` )",
+    "tmuteuser": "**{STR} The User** ( {} ) **Was Muted For** ( `{}` ) **In This Chat!**",
+    "unmuteuser": "**{STR} The User** ( {} ) **Was UnMuted In This Chat!**",
+    "errorunabn": "**{STR} The User** ( {} ) **Is Not UnMuted!**\n**Error:** ( `{}` )"
 }
 
 @client.Command(command="Mute ?(.*)?")
