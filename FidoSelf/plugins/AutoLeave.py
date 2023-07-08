@@ -20,10 +20,10 @@ STRINGS = {
 
 @client.Command(command="AutoLeave (On|Off)")
 async def autoleavemode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTOLEAVE_MODE", change)
-    schange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    schange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(schange))
     
 @client.on(events.ChatAction())
