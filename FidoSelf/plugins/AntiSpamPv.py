@@ -30,46 +30,46 @@ STRINGS = {
 
 @client.Command(command="AntiSpamPv (On|Off)")
 async def antipvmode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPV_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["antimode"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["antimode"].format(showchange))
 
 @client.Command(command="AntiSpamWarn (On|Off)")
 async def antipvwarn(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPVWARN_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["warnmode"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["warnmode"].format(showchange))
 
 @client.Command(command="SetSpamPvLimit (\d*)")
 async def setspamlimit(event):
-    await event.edit(STRINGS["wait"])
+    await event.edit(client.getstrings(STRINGS)["wait"])
     limit = event.pattern_match.group(1)
     if 3 > limit > 20:
-        return await event.edit(STRINGS["nolimit"].format(3, 20))
+        return await event.edit(client.getstrings(STRINGS)["nolimit"].format(3, 20))
     client.DB.set_key("ANTISPAM_LIMIT", limit)
-    await event.edit(STRINGS["limit"].format(limit))
+    await event.edit(client.getstrings(STRINGS)["limit"].format(limit))
 
 @client.Command(command="SetAntiSpam")
 async def setanti(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("ANTISPAM_MEDIA", info)
-    await event.edit(STRINGS["saveanti"])
+    await event.edit(client.getstrings(STRINGS)["saveanti"])
     
 @client.Command(command="SetAntiSpamWarn")
 async def setantiwarn(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("ANTISPAMWARN_MEDIA", info)
-    await event.edit(STRINGS["saveantiwarn"])
+    await event.edit(client.getstrings(STRINGS)["saveantiwarn"])
 
 WARNS = {}
 
