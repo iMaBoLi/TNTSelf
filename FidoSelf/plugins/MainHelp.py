@@ -39,7 +39,7 @@ CATEGORYS = {
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
     "Account": ["Edit Profile", "Set Profile", "My Info", "Chats Count", "Del Profiles", "Del Contacts"],
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
-    "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv", "Filter Media"],
+    "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv"],
     "Users": ["User Info", "Get Profiles"],
     "Variebels": [],
     "Other": [],
