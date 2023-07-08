@@ -16,14 +16,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The User** ( {} ) **Already In MutePv List!**",
-    "add": "**The User** ( {} ) **Is Added To MutePv List!**",
-    "notin": "**The User** ( {} ) **Is Not In MutePv List!**",
-    "del": "**The User** ( {} ) **Deleted From MutePv List!**",
-    "empty": "**The MutePv List Is Empty!**",
-    "list": "**The MutePv List:**\n\n",
-    "aempty": "**The MutePv List Is Already Empty**",
-    "clean": "**The MutePv List Has Been Cleaned!**",
+    "notall": "**{STR} The User** ( {} ) **Already In MutePv List!**",
+    "add": "**{STR} The User** ( {} ) **Is Added To MutePv List!**",
+    "notin": "**{STR} The User** ( {} ) **Is Not In MutePv List!**",
+    "del": "**{STR} The User** ( {} ) **Deleted From MutePv List!**",
+    "empty": "**{STR} The MutePv List Is Empty!**",
+    "list": "**{STR} The MutePv List:**\n\n",
+    "aempty": "**{STR} The MutePv List Is Already Empty**",
+    "clean": "**{STR} The MutePv List Has Been Cleaned!**"
 }
 
 @client.Command(command="AddMutePv ?(.*)?")
