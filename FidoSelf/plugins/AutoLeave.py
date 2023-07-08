@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Auto Leave Mode Has Been {}!**",
-    "autoleave": "**The Auto Leave Leaved You From New Joined Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )",
+    "change": "**{STR} The Auto Leave Mode Has Been {}!**",
+    "autoleave": "**{STR} The Auto Leave Leaved You From New Joined Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )"
 }
 
 @client.Command(command="AutoLeave (On|Off)")

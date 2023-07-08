@@ -15,7 +15,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "slice": "**The Photo Was Sliced To** ( `{}` ) **Tiles!**",
+    "slice": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**"
 }
 
 @client.Command(command="Slice (\d*)")

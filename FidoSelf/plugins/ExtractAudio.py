@@ -18,8 +18,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "exing": "**Extracting Audio From Video ...**",
-    "exed": "**The Audio Was Extracted From Video!**",
+    "exing": "**{STR} Extracting Audio From Video ...**",
+    "exed": "**{STR} The Audio Was Extracted From Video!**"
 }
 
 @client.Command(command="ExAudio")

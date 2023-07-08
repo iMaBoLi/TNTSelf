@@ -16,9 +16,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Auto Delete Message Has Been {}!**",
-    "nosleep": "**The Auto Delete Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
-    "setsleep": "**The Auto Delete Sleep Was Set To** ( `{}` )",
+    "change": "**{STR} The Auto Delete Message Has Been {}!**",
+    "nosleep": "**{STR} The Auto Delete Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
+    "setsleep": "**{STR} The Auto Delete Sleep Was Set To** ( `{}` )"
 }
 
 @client.Command(command="AutoDelete (On|Off)")

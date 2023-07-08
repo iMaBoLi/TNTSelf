@@ -23,7 +23,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "color": "**The Color** ( `{}` ) **Added To Your Photo!**",
+    "color": "**{STR} The Color** ( `{}` ) **Added To Your Photo!**"
 }
 
 @client.Command(command="S(Red|Blue|Green|Yellow|Purple|Orange|Pink|Gray|Gold)")

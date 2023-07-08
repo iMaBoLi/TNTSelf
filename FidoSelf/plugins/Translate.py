@@ -15,8 +15,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notlang": "**The Language** ( `{}` ) **Is Not Available!**",
-    "translate": "**Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`",
+    "notlang": "**{STR} The Language** ( `{}` ) **Is Not Available!**",
+    "translate": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`"
 }
 
 @client.Command(command="Str (.*)")

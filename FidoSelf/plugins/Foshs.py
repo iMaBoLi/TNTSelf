@@ -16,10 +16,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "save": "**The Enemy Foshs File Has Been Saved!**",
-    "del": "**The Enemy Foshs File Has Been Deleted!**",
-    "nsave": "**The Enemy Foshs File Is Not Saved!**",
-    "file": "**The Foshs File!**\n**Count:** ( `{}` )",
+    "save": "**{STR} The Enemy Foshs File Has Been Saved!**",
+    "del": "**{STR} The Enemy Foshs File Has Been Deleted!**",
+    "nsave": "**{STR} The Enemy Foshs File Is Not Saved!**",
+    "file": "**{STR} The Foshs File!**\n**Count:** ( `{}` )"
 }
 
 @client.Command(command="AddFosh")

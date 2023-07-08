@@ -13,7 +13,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Anti Forward Mode Has Been {}!**",
+    "change": "**{STR} The Anti Forward Mode Has Been {}!**"
 }
 
 @client.Command(command="AntiForward (On|Off)")

@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notdel": "**The Contact With Name** ( `{}` ) **Is Not Founded!**",
-    "delcon": "**The** ( `{}` ) **Contact By Name** ( `{}` ) **From Contacts Was Deleted!**",
+    "notdel": "**{STR} The Contact With Name** ( `{}` ) **Is Not Founded!**",
+    "delcon": "**{STR} The** ( `{}` ) **Contact By Name** ( `{}` ) **From Contacts Was Deleted!**"
 }
 
 @client.Command(command="DelC (.*)")

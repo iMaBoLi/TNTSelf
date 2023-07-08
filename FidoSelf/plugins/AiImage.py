@@ -15,9 +15,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "gen": "**Creating Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **...**",
-    "caption": "**The Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **Created!**",
-    "styles": "**The Styles For Creating Photo:** ( {} )\n\n**Use From StylesID For Create Photos!**",
+    "gen": "**{STR} Creating Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **...**",
+    "caption": "**{STR} The Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **Created!**",
+    "styles": "**{STR} The Styles For Creating Photo:** ( {} )\n\n**Use From StylesID For Create Photos!**"
 }
 
 @client.Command(command="CPhoto (\d*) (.*)")

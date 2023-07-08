@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Sign Mode Has Been {}!**",
-    "setsign": "**The Sign Text Was Set To** ( `{}` )",
+    "change": "**{STR} The Sign Mode Has Been {}!**",
+    "setsign": "**{STR} The Sign Text Was Set To** ( `{}` )"
 }
 
 @client.Command(command="Sign (On|Off)")

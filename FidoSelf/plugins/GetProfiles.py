@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**The Profile Photos For** ( {} ) **Is Not Found!**",
-    "caption": "**The Profile Photos For** ( {} ) **Is Sended!**",
+    "not": "**{STR} The Profile Photos For** ( {} ) **Is Not Found!**",
+    "caption": "**{STR} The Profile Photos For** ( {} ) **Is Sended!**"
 }
 
 @client.Command(command="GProfiles ?(.*)?")

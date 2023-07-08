@@ -16,9 +16,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notacs": "**✶ You Do Not Have Access To Kick Users!**",
-    "kickuser": "**The User** ( {} ) **Was Kicked In This Chat!**",
-    "errorkick": "**The User** ( {} ) **Is Not Kicked!**\n**Error:** ( `{}` )",
+    "notacs": "**{STR} \u2736 You Do Not Have Access To Kick Users!**",
+    "kickuser": "**{STR} The User** ( {} ) **Was Kicked In This Chat!**",
+    "errorkick": "**{STR} The User** ( {} ) **Is Not Kicked!**\n**Error:** ( `{}` )"
 }
 
 @client.Command(command="Kick ?(.*)?")

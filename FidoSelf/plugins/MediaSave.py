@@ -16,8 +16,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Save Media Has Been {}!**",
-    "caption": "**The Media Was Saved!**\n\n**User:** ( {} )",
+    "change": "**{STR} The Save Media Has Been {}!**",
+    "caption": "**{STR} The Media Was Saved!**\n\n**User:** ( {} )"
 }
 
 @client.Command(command="MSave (On|Off)")

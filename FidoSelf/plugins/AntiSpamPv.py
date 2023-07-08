@@ -20,12 +20,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "antimode": "**The Anti Spam Pv Mode Has Been {}!**",
-    "warnmode": "**The Anti Spam Warn Message Has Been {}!**",
-    "nolimit": "**The Anti Spam Limit Must Be Between** ( `{}` ) **And** ( `{}` )",
-    "limit": "**The Anti Spam Limit Messages Was Set To** ( `{}` )",
-    "saveanti": "**The Anti Spam Message Was Saved!**",
-    "saveantiwarn": "**The Anti Spam Warn Message Was Saved!**",
+    "antimode": "**{STR} The Anti Spam Pv Mode Has Been {}!**",
+    "warnmode": "**{STR} The Anti Spam Warn Message Has Been {}!**",
+    "nolimit": "**{STR} The Anti Spam Limit Must Be Between** ( `{}` ) **And** ( `{}` )",
+    "limit": "**{STR} The Anti Spam Limit Messages Was Set To** ( `{}` )",
+    "saveanti": "**{STR} The Anti Spam Message Was Saved!**",
+    "saveantiwarn": "**{STR} The Anti Spam Warn Message Was Saved!**"
 }
 
 @client.Command(command="AntiSpamPv (On|Off)")

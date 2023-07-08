@@ -16,8 +16,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "bping": "**!!!**",
-    "ping": "**❁ PonG !!** ( `{ping}` )",
+    "bping": "**{STR} !!!**",
+    "ping": "**{STR} \u2741 PonG !!** ( `{ping}` )"
 }
 
 @client.Command(command="Ping")

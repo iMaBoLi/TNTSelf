@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notcon": "**The Country Name** ( `{}` ) **Is Not Finded!**",
-    "country": "**Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**Time Zones:** ( `{}` )\n**Borders:** ( `{}` )\n\n**Provinces:** ( `{}` )",
+    "notcon": "**{STR} The Country Name** ( `{}` ) **Is Not Finded!**",
+    "country": "**{STR} Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**Time Zones:** ( `{}` )\n**Borders:** ( `{}` )\n\n**Provinces:** ( `{}` )"
 }
 
 @client.Command(command="SCountry (.*)")

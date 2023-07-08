@@ -42,18 +42,18 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**𑁍 The Quicks Mode Has Been {}!**",
-    "notin": "**𑁍 The Command** ( `{}` ) **Not In Quicks Command Lists!**",
-    "quickpage": "**𑁍 Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
-    "setquick": "**➜ The {} Setting Was Set To** ( `{}` )",
-    "savequick": "**𑁍 The Quick Answer Was Saved!**\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )\n\n**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )",
-    "delquick": "**𑁍 The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
-    "getquick": "**✯ Command:** ( `{}` )\n\n**✯ Answer(s):** ( `{}` )\n\n**✯ Person:** ( `{}` )\n**✯ Where:** ( `{}` )\n**✯ Type:** ( `{}` )\n**✯ Find:** ( `{}` )\n**✯ Sleep:** ( `{}` )",
-    "listdel": "**𑁍 Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
-    "quicklist":  "**𑁍 Select Each Quick Answer To View Its Information:**\n\n**✯ Quicks Count:** ( `{}` )",
-    "allempty": "**𑁍 The Quicks List Is Already Empty!**",
-    "cleanquick":  "**𑁍 The Quicks List Was Cleaned!**",
-    "empty": "**𑁍 The Quicks List Is Empty!**",
+    "change": "**{STR} \ud804\udc4d The Quicks Mode Has Been {}!**",
+    "notin": "**{STR} \ud804\udc4d The Command** ( `{}` ) **Not In Quicks Command Lists!**",
+    "quickpage": "**{STR} \ud804\udc4d Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
+    "setquick": "**{STR} \u279c The {} Setting Was Set To** ( `{}` )",
+    "savequick": "**{STR} \ud804\udc4d The Quick Answer Was Saved!**\n\n**\u272f Person:** ( `{}` )\n**\u272f Where:** ( `{}` )\n**\u272f Type:** ( `{}` )\n**\u272f Find:** ( `{}` )\n**\u272f Sleep:** ( `{}` )\n\n**\u272f Command:** ( `{}` )\n\n**\u272f Answer(s):** ( `{}` )",
+    "delquick": "**{STR} \ud804\udc4d The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
+    "getquick": "**{STR} \u272f Command:** ( `{}` )\n\n**\u272f Answer(s):** ( `{}` )\n\n**\u272f Person:** ( `{}` )\n**\u272f Where:** ( `{}` )\n**\u272f Type:** ( `{}` )\n**\u272f Find:** ( `{}` )\n**\u272f Sleep:** ( `{}` )",
+    "listdel": "**{STR} \ud804\udc4d Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
+    "quicklist": "**{STR} \ud804\udc4d Select Each Quick Answer To View Its Information:**\n\n**\u272f Quicks Count:** ( `{}` )",
+    "allempty": "**{STR} \ud804\udc4d The Quicks List Is Already Empty!**",
+    "cleanquick": "**{STR} \ud804\udc4d The Quicks List Was Cleaned!**",
+    "empty": "**{STR} \ud804\udc4d The Quicks List Is Empty!**"
 }
 
 @client.Command(command="Quick (On|Off)")

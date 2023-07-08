@@ -14,7 +14,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Lock Pv Mode Has Been {}!**",
+    "change": "**{STR} The Lock Pv Mode Has Been {}!**"
 }
 @client.Command(command="LockPv (On|Off)")
 async def lockpvmode(event):

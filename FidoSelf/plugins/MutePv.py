@@ -13,7 +13,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Mute Pv Mode Has Been {}!**",
+    "change": "**{STR} The Mute Pv Mode Has Been {}!**"
 }
 @client.Command(command="MutePv (On|Off)")
 async def mutepvmode(event):

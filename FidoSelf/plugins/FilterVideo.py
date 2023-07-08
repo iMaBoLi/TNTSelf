@@ -15,8 +15,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "coning": "**Adding** ( `{}` ) **Filter To Video ...**",
-    "caption": "**The Filter** ( `{}` ) **iS Added To Video!**",
+    "coning": "**{STR} Adding** ( `{}` ) **Filter To Video ...**",
+    "caption": "**{STR} The Filter** ( `{}` ) **iS Added To Video!**"
 }
 
 @client.Command(command="SV(Bw|Negative)")

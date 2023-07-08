@@ -16,14 +16,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "newnot": "**The Text Time** ( `{}` ) **Already In Text Time List!**",
-    "newadd": "**The Text Time** ( `{}` ) **Added To Text Time List!**",
-    "delnot": "**The Text Time** ( `{}` ) **Not In Text Time List!**",
-    "del": "**The Text Time** ( `{}` ) **Deleted From Text Time List!**",
-    "empty": "**The Text Time List Is Empty!**",
-    "list": "**The Text Time List:**\n\n",
-    "aempty": "**The Text Time List Is Already Empty!**",
-    "clean": "**The Text Time List Is Cleaned!**",
+    "newnot": "**{STR} The Text Time** ( `{}` ) **Already In Text Time List!**",
+    "newadd": "**{STR} The Text Time** ( `{}` ) **Added To Text Time List!**",
+    "delnot": "**{STR} The Text Time** ( `{}` ) **Not In Text Time List!**",
+    "del": "**{STR} The Text Time** ( `{}` ) **Deleted From Text Time List!**",
+    "empty": "**{STR} The Text Time List Is Empty!**",
+    "list": "**{STR} The Text Time List:**\n\n",
+    "aempty": "**{STR} The Text Time List Is Already Empty!**",
+    "clean": "**{STR} The Text Time List Is Cleaned!**"
 }
 
 @client.Command(command="NewTtime ([\s\S]*)")

@@ -21,19 +21,19 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**𑁍 The Photo Mode Has Been {}!**",
-    "notall": "**𑁍 The Photo** ( `{}` ) **Is Already In Photo List!**",
-    "notin": "**𑁍 The Photo** ( `{}` ) **Not In Photo List!**",
-    "photopage": "**𑁍 Select And Setting This Photo:**\n\n**Photo Name:** ( `{}` )",
-    "setphoto": "**➜ The {} Setting Was Set To** ( `{}` )",
-    "savephoto": "**𑁍 The Photo Was Saved!**\n\n**✯ Where:** ( `{}` )\n**✯ Size:** ( `{}` )\n**✯ Color:** ( `{}` )\n**✯ Align:** ( `{}` )",
-    "delphoto": "**𑁍 The Photo** ( `{}` ) **Has Been Deleted!**",
-    "getphoto": "**✯ Photo Name:** ( `{}` )\n\n**✯ Where:** ( `{}` )\n**✯ Size:** ( `{}` )\n**✯ Color:** ( `{}` )\n**✯ Align:** ( `{}` )",
-    "empty": "**𑁍 The Photo List Is Empty!**",
-    "listphoto": "**𑁍 The Photo List:**\n\n",
-    "allempty": "**𑁍 The Photo List Is Already Empty!**",
-    "cleanphoto":  "**𑁍 The Photo List Was Cleaned!**",
-    "saveagain":  "**𑁍 The Photo Was Removed Try Again To Save!**",
+    "change": "**{STR} \ud804\udc4d The Photo Mode Has Been {}!**",
+    "notall": "**{STR} \ud804\udc4d The Photo** ( `{}` ) **Is Already In Photo List!**",
+    "notin": "**{STR} \ud804\udc4d The Photo** ( `{}` ) **Not In Photo List!**",
+    "photopage": "**{STR} \ud804\udc4d Select And Setting This Photo:**\n\n**Photo Name:** ( `{}` )",
+    "setphoto": "**{STR} \u279c The {} Setting Was Set To** ( `{}` )",
+    "savephoto": "**{STR} \ud804\udc4d The Photo Was Saved!**\n\n**\u272f Where:** ( `{}` )\n**\u272f Size:** ( `{}` )\n**\u272f Color:** ( `{}` )\n**\u272f Align:** ( `{}` )",
+    "delphoto": "**{STR} \ud804\udc4d The Photo** ( `{}` ) **Has Been Deleted!**",
+    "getphoto": "**{STR} \u272f Photo Name:** ( `{}` )\n\n**\u272f Where:** ( `{}` )\n**\u272f Size:** ( `{}` )\n**\u272f Color:** ( `{}` )\n**\u272f Align:** ( `{}` )",
+    "empty": "**{STR} \ud804\udc4d The Photo List Is Empty!**",
+    "listphoto": "**{STR} \ud804\udc4d The Photo List:**\n\n",
+    "allempty": "**{STR} \ud804\udc4d The Photo List Is Already Empty!**",
+    "cleanphoto": "**{STR} \ud804\udc4d The Photo List Was Cleaned!**",
+    "saveagain": "**{STR} \ud804\udc4d The Photo Was Removed Try Again To Save!**"
 }
 
 INPHOTO_LIST = {}

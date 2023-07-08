@@ -26,14 +26,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The User** ( {} ) **Already In Black List!**",
-    "add": "**The User** ( {} ) **Is Added To Black List!**",
-    "notin": "**The User** ( {} ) **Is Not In Black List!**",
-    "del": "**The User** ( {} ) **Deleted From Black List!**",
-    "empty": "**The Black List Is Empty!**",
-    "list": "**The Black List:**\n\n",
-    "aempty": "**The Black List Is Already Empty**",
-    "clean": "**The Black List Has Been Cleaned!**",
+    "notall": "**{STR} The User** ( {} ) **Already In Black List!**",
+    "add": "**{STR} The User** ( {} ) **Is Added To Black List!**",
+    "notin": "**{STR} The User** ( {} ) **Is Not In Black List!**",
+    "del": "**{STR} The User** ( {} ) **Deleted From Black List!**",
+    "empty": "**{STR} The Black List Is Empty!**",
+    "list": "**{STR} The Black List:**\n\n",
+    "aempty": "**{STR} The Black List Is Already Empty**",
+    "clean": "**{STR} The Black List Has Been Cleaned!**"
 }
 
 @client.Command(command="AddBlack ?(.*)?")

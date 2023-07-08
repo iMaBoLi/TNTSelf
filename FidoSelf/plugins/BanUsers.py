@@ -28,12 +28,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notacs": "**✶ You Do Not Have Access To Ban/UnBan Users!**",
-    "banuser": "**The User** ( {} ) **Was Banned In This Chat!**",
-    "errorban": "**The User** ( {} ) **Is Not Banned!**\n**Error:** ( `{}` )",
-    "tbanuser": "**The User** ( {} ) **Was Banned For** ( `{}` ) **In This Chat!**",
-    "unbanuser": "**The User** ( {} ) **Was UnBanned In This Chat!**",
-    "errorunabn": "**The User** ( {} ) **Is Not UnBanned!**\n**Error:** ( `{}` )",
+    "notacs": "**{STR} \u2736 You Do Not Have Access To Ban/UnBan Users!**",
+    "banuser": "**{STR} The User** ( {} ) **Was Banned In This Chat!**",
+    "errorban": "**{STR} The User** ( {} ) **Is Not Banned!**\n**Error:** ( `{}` )",
+    "tbanuser": "**{STR} The User** ( {} ) **Was Banned For** ( `{}` ) **In This Chat!**",
+    "unbanuser": "**{STR} The User** ( {} ) **Was UnBanned In This Chat!**",
+    "errorunabn": "**{STR} The User** ( {} ) **Is Not UnBanned!**\n**Error:** ( `{}` )"
 }
 
 @client.Command(command="Ban ?(.*)?")

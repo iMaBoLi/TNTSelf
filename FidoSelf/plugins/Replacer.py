@@ -13,7 +13,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "replace": "**The Replace Word** ( `{}` ) **Instead Of Word** ( `{}` ) **Completed!**",
+    "replace": "**{STR} The Replace Word** ( `{}` ) **Instead Of Word** ( `{}` ) **Completed!**"
 }
 
 @client.Command(command="SReplace (.*)\,(.*)")

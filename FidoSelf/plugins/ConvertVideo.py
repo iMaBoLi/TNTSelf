@@ -17,8 +17,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "tovideo": "**The Video Note Converted To Video!**",
-    "togif": "**The Video Converted To Gif!**",
+    "tovideo": "**{STR} The Video Note Converted To Video!**",
+    "togif": "**{STR} The Video Converted To Gif!**"
 }
 
 @client.Command(command="ToVideo")

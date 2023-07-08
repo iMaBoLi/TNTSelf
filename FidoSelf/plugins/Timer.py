@@ -37,15 +37,15 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The Timer White Name** ( {} ) **Already In Timer List!**",
-    "add": "**The Timer White Name** ( {} ) **Is Added To Timer List!**",
-    "notin": "**The Timer White Name** ( {} ) **Is Not In Timer List!**",
-    "del": "**The Timer White Name** ( {} ) **Deleted From Timer List!**",
-    "get": "**Timer Name:** ( `{}` )\n\n( `{}` )",
-    "empty": "**The Timer List Is Empty!**",
-    "list": "**The Timer List:**\n\n",
-    "aempty": "**The Timer List Is Already Empty**",
-    "clean": "**The Timer List Has Been Cleaned!**",
+    "notall": "**{STR} The Timer White Name** ( {} ) **Already In Timer List!**",
+    "add": "**{STR} The Timer White Name** ( {} ) **Is Added To Timer List!**",
+    "notin": "**{STR} The Timer White Name** ( {} ) **Is Not In Timer List!**",
+    "del": "**{STR} The Timer White Name** ( {} ) **Deleted From Timer List!**",
+    "get": "**{STR} Timer Name:** ( `{}` )\n\n( `{}` )",
+    "empty": "**{STR} The Timer List Is Empty!**",
+    "list": "**{STR} The Timer List:**\n\n",
+    "aempty": "**{STR} The Timer List Is Already Empty**",
+    "clean": "**{STR} The Timer List Has Been Cleaned!**"
 }
 
 def convert_time(seconds):

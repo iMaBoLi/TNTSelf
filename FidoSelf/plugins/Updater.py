@@ -2,7 +2,7 @@ from FidoSelf import client
 import shutil, glob, os
 
 STRINGS = {
-    "complete": "**Successfuly Updated And Restarting ...**",
+    "complete": "**{STR} Successfuly Updated And Restarting ...**"
 }
 
 @client.Command(command="Update")

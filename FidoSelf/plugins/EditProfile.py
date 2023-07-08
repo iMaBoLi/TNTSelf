@@ -29,17 +29,17 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "lenname": "**The Number Of Characters Entered For Name Exceeds The Limit!**",
-    "setname": "**The Profile Name Was Set To** ( `{}` )",
-    "lenlname": "**The Number Of Characters Entered For Last Name Exceeds The Limit!**",
-    "setlname": "**The Profile Last Name Was Set To** ( `{}` )",
-    "lenbio": "**The Number Of Characters Entered For Bio Exceeds The Limit!**",
-    "setbio": "**The Profile Bio Was Set To** ( `{}` )",
-    "lenuname": "**The Number Of Characters Entered For UserName Exceeds The Limit!**",
-    "unameinvalid": "**The Entered UserName Is Invalid!**",
-    "unameall": "**The Entered UserName Is Already Used!**",
-    "setuname": "**The Profile UserName Was Set To** ( `{}` )",
-    "setprof": "**The Photo iS Added To Profile Photos!**",
+    "lenname": "**{STR} The Number Of Characters Entered For Name Exceeds The Limit!**",
+    "setname": "**{STR} The Profile Name Was Set To** ( `{}` )",
+    "lenlname": "**{STR} The Number Of Characters Entered For Last Name Exceeds The Limit!**",
+    "setlname": "**{STR} The Profile Last Name Was Set To** ( `{}` )",
+    "lenbio": "**{STR} The Number Of Characters Entered For Bio Exceeds The Limit!**",
+    "setbio": "**{STR} The Profile Bio Was Set To** ( `{}` )",
+    "lenuname": "**{STR} The Number Of Characters Entered For UserName Exceeds The Limit!**",
+    "unameinvalid": "**{STR} The Entered UserName Is Invalid!**",
+    "unameall": "**{STR} The Entered UserName Is Already Used!**",
+    "setuname": "**{STR} The Profile UserName Was Set To** ( `{}` )",
+    "setprof": "**{STR} The Photo iS Added To Profile Photos!**"
 }
 
 @client.Command(command="Set(Name|LName|Bio|Username) (.*)")

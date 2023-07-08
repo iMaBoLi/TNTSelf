@@ -16,14 +16,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-        "notall": "**The Word** ( `{}` ) **Already In Words Filter Pv List!**",
-        "add": "**The Word** ( `{}` ) **Is Added To Words Filter Pv List!**",
-        "notin": "**The Word** ( `{}` ) **Is Not In Words Filter Pv List!**",
-        "del": "**The Word** ( `{}` ) **Deleted From Words Filter Pv List!**",
-        "empty": "**The Words Filter Pv List Is Empty!**",
-        "list": "**The Words Filter Pv List:**\n\n",
-        "aempty": "**The Words Filter Pv List Is Already Empty!**",
-        "clean": "**The Words Filter Pv List Has Been Cleaned!**",
+    "notall": "**{STR} The Word** ( `{}` ) **Already In Words Filter Pv List!**",
+    "add": "**{STR} The Word** ( `{}` ) **Is Added To Words Filter Pv List!**",
+    "notin": "**{STR} The Word** ( `{}` ) **Is Not In Words Filter Pv List!**",
+    "del": "**{STR} The Word** ( `{}` ) **Deleted From Words Filter Pv List!**",
+    "empty": "**{STR} The Words Filter Pv List Is Empty!**",
+    "list": "**{STR} The Words Filter Pv List:**\n\n",
+    "aempty": "**{STR} The Words Filter Pv List Is Already Empty!**",
+    "clean": "**{STR} The Words Filter Pv List Has Been Cleaned!**"
 }
 
 @client.Command(command="AddFilterPv (.*)")

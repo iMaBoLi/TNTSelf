@@ -16,12 +16,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "save": "**The Cover Photo For Files Has Been Saved!**",
-    "notsave": "**The Cover Photo Is Not Saved!**",
-    "adding": "**Adding Cover To Your File ...**",
-    "added": "**The Cover Photo Is Added To Your File!**",
-    "notcover": "**The File Has No Cover Photo!**",
-    "getcover": "**The Cover Photo For File!**",
+    "save": "**{STR} The Cover Photo For Files Has Been Saved!**",
+    "notsave": "**{STR} The Cover Photo Is Not Saved!**",
+    "adding": "**{STR} Adding Cover To Your File ...**",
+    "added": "**{STR} The Cover Photo Is Added To Your File!**",
+    "notcover": "**{STR} The File Has No Cover Photo!**",
+    "getcover": "**{STR} The Cover Photo For File!**"
 }
 
 @client.Command(command="SetCover")

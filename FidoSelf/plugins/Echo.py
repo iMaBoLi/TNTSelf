@@ -19,18 +19,18 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "where": "**Select You Want This Echo User To Be Saved For Where:**",
-    "notall": "The User ( {} ) Is Alredy In Echo List In {} Location!",
-    "add": "**The User** ( {} ) **Is Added To Echo List For ( `{}` ) Location!**",
-    "notin": "**The User** ( {} ) **Not In Echo Lis!**",
-    "wheredel": "**Select You Want This Echo User To Be Deleted From Where:**",
-    "del": "**The User** ( {} ) **From Echo List For Location** ( `{}` ) **Has Been Deleted!**",
-    "esleep": "**The Echo Sleep Was Set To** ( `{}` )",
-    "empty": "**The Echo List Is Empty!**",
-    "list": "**The Echo List:**\n\n",
-    "aempty": "**The Echo List Is Already Empty!**",
-    "clean": "**The Echo List Is Cleaned!**",
-    "close": "**The Echo Panel Successfuly Closed!**",
+    "where": "**{STR} Select You Want This Echo User To Be Saved For Where:**",
+    "notall": "**{STR} e User ( {} ) Is Alredy In Echo List In {} Location!",
+    "add": "**{STR} The User** ( {} ) **Is Added To Echo List For ( `{}` ) Location!**",
+    "notin": "**{STR} The User** ( {} ) **Not In Echo Lis!**",
+    "wheredel": "**{STR} Select You Want This Echo User To Be Deleted From Where:**",
+    "del": "**{STR} The User** ( {} ) **From Echo List For Location** ( `{}` ) **Has Been Deleted!**",
+    "esleep": "**{STR} The Echo Sleep Was Set To** ( `{}` )",
+    "empty": "**{STR} The Echo List Is Empty!**",
+    "list": "**{STR} The Echo List:**\n\n",
+    "aempty": "**{STR} The Echo List Is Already Empty!**",
+    "clean": "**{STR} The Echo List Is Cleaned!**",
+    "close": "**{STR} The Echo Panel Successfuly Closed!**"
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
 

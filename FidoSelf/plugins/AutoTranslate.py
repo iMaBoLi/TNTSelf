@@ -16,9 +16,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Auto Translate Mode Has Been {}!**",
-    "notlang": "**The Language** ( `{}` ) **Is Not Available!**",
-    "setlang": "**The Auto Translate Language Was Set To** ( `{}` )",
+    "change": "**{STR} The Auto Translate Mode Has Been {}!**",
+    "notlang": "**{STR} The Language** ( `{}` ) **Is Not Available!**",
+    "setlang": "**{STR} The Auto Translate Language Was Set To** ( `{}` )"
 }
 
 @client.Command(command="AutoTr (On|Off)")

@@ -18,15 +18,15 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Bio Mode Has Been {}!**",
-    "newnot": "**The Bio** ( `{}` ) **Already In Bio List!**",
-    "newadd": "**The Bio** ( `{}` ) **Added To Bio List!**",
-    "delnot": "**The Bio** ( `{}` ) **Not In Bio List!**",
-    "del": "**The Bio** ( `{}` ) **Deleted From Bio List!**",
-    "empty": "**The Bio List Is Empty!**",
-    "list": "**The Bio List:**\n\n",
-    "aempty": "**The Bio List Is Already Empty!**",
-    "clean": "**The Bio List Is Cleaned!**",
+    "change": "**{STR} The Bio Mode Has Been {}!**",
+    "newnot": "**{STR} The Bio** ( `{}` ) **Already In Bio List!**",
+    "newadd": "**{STR} The Bio** ( `{}` ) **Added To Bio List!**",
+    "delnot": "**{STR} The Bio** ( `{}` ) **Not In Bio List!**",
+    "del": "**{STR} The Bio** ( `{}` ) **Deleted From Bio List!**",
+    "empty": "**{STR} The Bio List Is Empty!**",
+    "list": "**{STR} The Bio List:**\n\n",
+    "aempty": "**{STR} The Bio List Is Already Empty!**",
+    "clean": "**{STR} The Bio List Is Cleaned!**"
 }
 
 @client.Command(command="Bio (On|Off)")
