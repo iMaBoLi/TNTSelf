@@ -16,8 +16,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Downlaod Timer Medias Has Been {}!**",
-    "caption": "**The Timer Media Was Saved!**\n\n**User:** ( {} )\n**Timer:** ( `{}` )",
+    "change": "**{STR} The Downlaod Timer Medias Has Been {}!**",
+    "caption": "**{STR} The Timer Media Was Saved!**\n\n**User:** ( {} )\n**Timer:** ( `{}` )"
 }
 
 @client.Command(command="TSave (On|Off)")
