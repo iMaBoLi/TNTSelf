@@ -27,10 +27,10 @@ STRINGS = {
     
 @client.Command(command="YtDown (.*)")
 async def ytdown(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     link = event.pattern_match.group(1)
     if not client.functions.YOUTUBE_REGEX.search(link):
-        return await event.edit(STRINGS["linkinv"])
+        return await event.edit(client.getstrings(STRINGS)["linkinv"])
     videoid = client.functions.get_videoid(link)
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"ytdown:{chatid}:{videoid}")
@@ -44,7 +44,7 @@ async def ytdowninline(event):
     link = client.functions.YOUTUBE_URL + videoid
     ytinfo = client.functions.yt_info(link)
     description = str(ytinfo["description"])[:50]
-    text = STRINGS["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
+    text = client.getstrings(STRINGS)["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     videos, audios = client.functions.get_formats(link)
     vidbuttons = []
     for video in videos:
@@ -74,18 +74,18 @@ async def ytdownload(event):
     link = client.functions.YOUTUBE_URL + videoid
     ytinfo = client.functions.yt_info(link)
     if ext == "mp4":
-        await event.edit(STRINGS["downingvid"].format(ytinfo["title"]))
+        await event.edit(client.getstrings(STRINGS)["downingvid"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
     elif ext == "mp3":
-        await event.edit(STRINGS["downingaud"].format(ytinfo["title"]))
+        await event.edit(client.getstrings(STRINGS)["downingaud"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         title = ytinfo["title"]
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
     down = await client.functions.yt_downloader(link, format, ext)
     description = str(ytinfo["description"])[:50]
-    caption = STRINGS["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
+    caption = client.getstrings(STRINGS)["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
     await client.send_file(
         int(chatid),
@@ -97,11 +97,11 @@ async def ytdownload(event):
     )
     os.remove(down["OUTFILE"])
     os.remove(down["THUMBNAIL"])
-    await event.edit(STRINGS["com"])
+    await event.edit(client.getstrings(STRINGS)["com"])
     
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     query = event.pattern_match.group(1)
     query = query[:15]
     res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
@@ -111,7 +111,7 @@ async def ytsearch(event):
 @client.Inline(pattern="ytclick\:(.*)")
 async def ytsearchclick(event):
     query = event.pattern_match.group(1)
-    text = STRINGS["ytclick"].format(query)
+    text = client.getstrings(STRINGS)["ytclick"].format(query)
     buttons = [[Button.switch_inline("• Click !", "ytsearch:" + str(query), same_peer=True)]]
     await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
 
@@ -123,7 +123,7 @@ async def ytsearchinline(event):
     for search in searchs:
         link = search["link"]
         description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
-        text = STRINGS["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
+        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         url = f"http://t.me/share/text?text=.ytdown+{link}"
         buttons = [[Button.url("• Download •", url=url)]]
         thumblink = search["thumbnails"][-1]["url"]
