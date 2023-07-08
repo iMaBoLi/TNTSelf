@@ -5,7 +5,8 @@ import time
 import os
 
 def checkCmd(event, text=None):
-    if not event.text and not text: return False
+    if not (event.text and text):
+        return False
     text = text if text else event.text
     for command in client.COMMANDS:
         search = re.search(command, text)
