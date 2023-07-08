@@ -27,7 +27,7 @@ TOKEN = "SY1196W-HN84TCJ-G8J41WK-4B17FNK"
 
 @client.Command(command="SShot (.*)")
 async def screenshot(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     sitelink = event.pattern_match.group(1)
     url = f"https://shot.screenshotapi.net/screenshot?token={TOKEN}&url={sitelink}&full_page=true"
     result = await client.functions.request(url, re_json=True)
