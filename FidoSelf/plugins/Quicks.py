@@ -58,10 +58,10 @@ STRINGS = {
 
 @client.Command(command="Quick (On|Off)")
 async def quickmode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("QUICK_LIST_MODE", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(onlysudo=False, allowedits=False)
@@ -142,9 +142,9 @@ def get_buttons(quick):
     operbts = []
     persons = ["Sudo", "Others", "Replyed User"] if info["Reply"] else ["Sudo", "Others"] 
     for person in persons:
-        ShowMode = client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["Off"]
         if (person == "Replyed User" and info["Person"].startswith("USER")) or info["Person"] == person:
-            ShowMode = client.getstrings()["inline"]["On"]
+            ShowMode = client.STRINGS["inline"]["On"]
         sperson = person if person != "Replyed User" else f"USER{info['Reply']}"
         operbts.append(Button.inline(f"{person} {ShowMode}", data=f"SetQuick:Person:{quick}:{sperson}"))
     perbts += [operbts]
@@ -153,9 +153,9 @@ def get_buttons(quick):
     owherebts = []
     wheres = ["All", "Pv", "Groups", "Here"] 
     for where in wheres:
-        ShowMode = client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["Off"]
         if (where == "Here" and info["Where"].startswith("CHAT")) or info["Where"] == where:
-            ShowMode = client.getstrings()["inline"]["On"]
+            ShowMode = client.STRINGS["inline"]["On"]
         swhere = where if where != "Here" else f"CHAT{info['chatid']}"
         owherebts.append(Button.inline(f"{where} {ShowMode}", data=f"SetQuick:Where:{quick}:{swhere}"))
     wherebts += list(client.functions.chunks(owherebts, 2))
@@ -165,16 +165,16 @@ def get_buttons(quick):
         otypebts = []
         types = ["Normal", "Multi", "Edit", "Random", "Draft"] if len(info["Answers"].split(",")) > 1 else ["Normal", "Draft"]
         for type in types:
-            ShowMode = client.getstrings()["inline"]["On"] if info["Type"] == type else client.getstrings()["inline"]["Off"]
+            ShowMode = client.STRINGS["inline"]["On"] if info["Type"] == type else client.STRINGS["inline"]["Off"]
             otypebts.append(Button.inline(f"{type} {ShowMode}", data=f"SetQuick:Type:{quick}:{type}"))
         typebts += list(client.functions.chunks(otypebts, 3))
         buttons += typebts
-    client.getstrings()["inline"]["Yes"]
+    client.STRINGS["inline"]["Yes"]
     findbts = [[Button.inline("🔎 Find : ⤵️", data="Empty")]]
     ofindbts = []
     findes = ["Yes", "No"] 
     for find in findes:
-        ShowMode = client.getstrings()["inline"]["On"] if info["Finder"] == find else client.getstrings()["inline"]["Off"]
+        ShowMode = client.STRINGS["inline"]["On"] if info["Finder"] == find else client.STRINGS["inline"]["Off"]
         ofindbts.append(Button.inline(f"{find} {ShowMode}", data=f"SetQuick:Finder:{quick}:{find}"))
     findbts += [ofindbts]
     buttons += findbts
@@ -183,16 +183,16 @@ def get_buttons(quick):
         osleepbts = []
         sleeps = [0, 0.2, 0.5, 1, 1.5, 2, 3, 4, 5]
         for sleep in sleeps:
-            ShowMode = client.getstrings()["inline"]["On"] if str(info["Sleep"]) == str(sleep) else client.getstrings()["inline"]["Off"]
+            ShowMode = client.STRINGS["inline"]["On"] if str(info["Sleep"]) == str(sleep) else client.STRINGS["inline"]["Off"]
             osleepbts.append(Button.inline(f"{sleep} {ShowMode}", data=f"SetQuick:Sleep:{quick}:{sleep}"))
         sleepbts += list(client.functions.chunks(osleepbts, 3))
         buttons += sleepbts
-    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline(client.getstrings()["inline"]["Delete"], data=f"DelQuick:{quick}")])
+    buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}")])
     return buttons
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
 async def addquick(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)[:25]
     answers = event.pattern_match.group(2)[:500]
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -216,7 +216,7 @@ async def addquick(event):
 
 @client.Command(command="DelQuick ([\s\S]*)")
 async def delquick(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     command = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
@@ -231,7 +231,7 @@ async def delquick(event):
 
 @client.Command(command="GetQuick (.*)")
 async def getquick(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
@@ -252,7 +252,7 @@ async def getquick(event):
 
 @client.Command(command="QuickList")
 async def quicklist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(client.getstrings(STRINGS)["empty"])    
@@ -262,7 +262,7 @@ async def quicklist(event):
     
 @client.Command(command="CleanQuickList")
 async def cleanquicklist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(client.getstrings(STRINGS)["allempty"])
@@ -342,7 +342,7 @@ async def inlinequicklist(event):
         ShowName = f'[ {info["Command"]} ] ( {info["Person"]} ) - ( {info["Where"]} ) - ( {info["Type"]} )'
         buttons.append([Button.inline(ShowName, data=f"ViweQuick:{quick}:1")])
     if len(quicks) > 10:
-        buttons.append([Button.inline(client.getstrings()["inline"]["Next"], data=f"QuickListPage:2")])
+        buttons.append([Button.inline(client.STRINGS["inline"]["Next"], data=f"QuickListPage:2")])
     await event.answer([event.builder.article("FidoSelf - List Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="QuickListPage\:(.*)")
@@ -358,9 +358,9 @@ async def listquickspage(event):
         buttons.append([Button.inline(ShowName, data=f"ViweQuick:{quick}:{page}")])
     pbts = []
     if int(page) != 1:
-        pbts.append(Button.inline(client.getstrings()["inline"]["BackPage"], data=f"QuickListPage:{int(page)-1}"))
+        pbts.append(Button.inline(client.STRINGS["inline"]["BackPage"], data=f"QuickListPage:{int(page)-1}"))
     if len(quicks) > qcount:
-        pbts.append(Button.inline(client.getstrings()["inline"]["NextPage"], data=f"QuickListPage:{int(page)+1}"))
+        pbts.append(Button.inline(client.STRINGS["inline"]["NextPage"], data=f"QuickListPage:{int(page)+1}"))
     buttons.append(pbts)
     await event.edit(text=text, buttons=buttons)
 
@@ -372,5 +372,5 @@ async def viewquicks(event):
     info = quicks[quick]
     answers = info["Answers"] if info["Type"] != "Media" else "Media"
     text = client.getstrings(STRINGS)["getquick"].format(info["Command"], answers, info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"])
-    buttons = [[Button.inline(client.getstrings()["inline"]["Delete"], data=f"DelQuick:{quick}"), Button.inline(client.getstrings()["inline"]["Back"], data=f"QuickListPage:{page}")]]
+    buttons = [[Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Back"], data=f"QuickListPage:{page}")]]
     await event.edit(text=text, buttons=buttons)
