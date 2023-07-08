@@ -103,7 +103,7 @@ def get_modename(mode):
 
 @client.Command(command="Panel")
 async def panel(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(event.chat_id)
@@ -111,7 +111,7 @@ async def panel(event):
 
 @client.Command(command="PanelPv")
 async def panelpv(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(client.me.id)
@@ -128,19 +128,19 @@ async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
     if page == 0:
-        return await event.answer(STRINGS["allpage"], alert=True)
+        return await event.answer(client.getstrings(STRINGS)["allpage"], alert=True)
     await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
     
 
 def get_text(page):
     TEXTS = {
-        1: STRINGS["modepage"],
-        2: STRINGS["modepage"],
-        3: STRINGS["modepage"],
-        4: STRINGS["fontpage"],
-        5: STRINGS["editpage"],
-        6: STRINGS["actionpage"],
-        7: STRINGS["actionpage"]
+        1: client.getstrings(STRINGS)["modepage"],
+        2: client.getstrings(STRINGS)["modepage"],
+        3: client.getstrings(STRINGS)["modepage"],
+        4: client.getstrings(STRINGS)["fontpage"],
+        5: client.getstrings(STRINGS)["editpage"],
+        6: client.getstrings(STRINGS)["actionpage"],
+        7: client.getstrings(STRINGS)["actionpage"]
     }
     mention = client.functions.mention(client.me)
     text = f"**ᯓ Dear** ( {mention} )\n\n"
@@ -163,20 +163,20 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
     if type == "Turn":
         getMode = client.DB.get_key(key) or default
         value = "ON" if getMode == "OFF" else "OFF"
-        svalue = client.STRINGS["inline"]["On"] if getMode == "ON" else client.STRINGS["inline"]["Off"]
+        svalue = client.getstrings()["inline"]["On"] if getMode == "ON" else client.getstrings()["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Mode":
         getMode = client.DB.get_key(key) or default
-        svalue = client.STRINGS["inline"]["On"] if str(getMode) == str(value) else client.STRINGS["inline"]["Off"]
+        svalue = client.getstrings()["inline"]["On"] if str(getMode) == str(value) else client.getstrings()["inline"]["Off"]
         return Button.inline(f"{showname} {svalue}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "Chat":
         chats = client.DB.get_key(key) or default
         value = "del" if int(chatid) in chats else "add"
-        smode = client.STRINGS["inline"]["On"] if value == "del" else client.STRINGS["inline"]["Off"]
+        smode = client.getstrings()["inline"]["On"] if value == "del" else client.getstrings()["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or default
-        smode = client.STRINGS["inline"]["On"] if (int(chatid) in chats and chats[int(chatid)] == value) else client.STRINGS["inline"]["Off"]
+        smode = client.getstrings()["inline"]["On"] if (int(chatid) in chats and chats[int(chatid)] == value) else client.getstrings()["inline"]["Off"]
         return Button.inline(f"{showname} {smode}", data=f"Set:{key}:{value}:{settype}:{chatid}:{page}")
 
 def get_buttons(chatid, page):
@@ -233,7 +233,7 @@ def get_buttons(chatid, page):
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="ClosePanel")])
     return buttons
     
 @client.Callback(data="Set\:(.*)\:(.*)\:(.*)\:(.*)\:(.*)")
@@ -247,23 +247,23 @@ async def setpanel(event):
     pagetext = get_text(page)
     if type == "Turn":
         client.DB.set_key(key, value)
-        cshow = client.STRINGS["On"] if value == "ON" else client.STRINGS["Off"]
-        settext = STRINGS["changeturn"].format(skey, cshow)
+        cshow = client.getstrings()["On"] if value == "ON" else client.getstrings()["Off"]
+        settext = client.getstrings(STRINGS)["changeturn"].format(skey, cshow)
     elif type == "Mode":
         client.DB.set_key(key, value)
-        settext = STRINGS["changemode"].format(skey, value)
+        settext = client.getstrings(STRINGS)["changemode"].format(skey, value)
     elif type == "ModeDel":
         gvalue = client.DB.get_key(key)
         value = value if value != gvalue else None
         client.DB.set_key(key, value)
         if not value:
-            settext = STRINGS["disablemode"].format(skey)
+            settext = client.getstrings(STRINGS)["disablemode"].format(skey)
         else:
-            settext = STRINGS["changemode"].format(skey, value)
+            settext = client.getstrings(STRINGS)["changemode"].format(skey, value)
     elif type == "ModeAll":
         client.DB.set_key(key, value)
-        cshow = client.STRINGS["On"] if value == "ON" else client.STRINGS["Off"]
-        settext = STRINGS["changeall"].format(skey, cshow)
+        cshow = client.getstrings()["On"] if value == "ON" else client.getstrings()["Off"]
+        settext = client.getstrings(STRINGS)["changeall"].format(skey, cshow)
     elif type == "Chat":
         chats = client.DB.get_key(key) or []
         if value == "add":
@@ -271,15 +271,15 @@ async def setpanel(event):
         elif value == "del":
             chats.remove(chatid)
         client.DB.set_key(key, chats)
-        cshow = client.STRINGS["On"] if value == "add" else client.STRINGS["Off"]
-        settext = STRINGS["changechat"].format(skey, cshow)
+        cshow = client.getstrings()["On"] if value == "add" else client.getstrings()["Off"]
+        settext = client.getstrings(STRINGS)["changechat"].format(skey, cshow)
     elif type == "ChatMode":
         chats = client.DB.get_key(key) or {}
         if chatid not in chats:
             chats.update({chatid: None})
         chats[chatid] = value
         client.DB.set_key(key, chats)
-        settext = STRINGS["changechatmode"].format(skey, value)
+        settext = client.getstrings(STRINGS)["changechatmode"].format(skey, value)
     elif type == "ChatModeDel":
         chats = client.DB.get_key(key) or {}
         if chatid not in chats:
@@ -288,17 +288,17 @@ async def setpanel(event):
         chats[chatid] = value
         client.DB.set_key(key, chats)
         if not value:
-            settext = STRINGS["disablechatmode"].format(skey)
+            settext = client.getstrings(STRINGS)["disablechatmode"].format(skey)
         else:
-            settext = STRINGS["changechatmode"].format(skey, value)
+            settext = client.getstrings(STRINGS)["changechatmode"].format(skey, value)
     text = settext + "\n\n" + pagetext
     buttons = get_buttons(chatid, page)
     await event.edit(text=text, buttons=buttons)
     
 @client.Callback(data="ClosePanel")
 async def closepanel(event):
-    await event.edit(text=STRINGS["closepanel"])
+    await event.edit(text=client.getstrings(STRINGS)["closepanel"])
     
 @client.Callback(data="Empty")
 async def empty(event):
-    await event.answer(client.STRINGS["inline"]["Show"], alert=True)
+    await event.answer(client.getstrings()["inline"]["Show"], alert=True)

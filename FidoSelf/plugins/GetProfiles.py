@@ -20,16 +20,16 @@ STRINGS = {
 
 @client.Command(command="GProfiles ?(.*)?")
 async def getprofiles(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     photos = await client.get_profile_photos(userid)
     if not photos:
-        return await event.edit(STRINGS["not"].format(mention))
-    caption = STRINGS["caption"].format(mention)
+        return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
+    caption = client.getstrings(STRINGS)["caption"].format(mention)
     for phs in client.functions.chunks(photos, 9):
         await event.respond(caption, file=phs)
     await event.delete()

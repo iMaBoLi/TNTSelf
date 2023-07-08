@@ -22,20 +22,20 @@ STRINGS = {
 
 @client.Command(command="CPhoto (\d*) (.*)")
 async def generatephoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     client.loop.create_task(generate(event))
     
 async def generate(event):
     style = event.pattern_match.group(1)
     query = event.pattern_match.group(2)
-    await event.edit(STRINGS["gen"].format(query, style))
+    await event.edit(client.getstrings(STRINGS)["gen"].format(query, style))
     file = Somnium.Generate(query, style)
-    caption = STRINGS["caption"].format(query, style)
+    caption = client.getstrings(STRINGS)["caption"].format(query, style)
     await client.send_file(event.chat_id, file, caption=caption)
     await event.delete()
     
 @client.Command(command="GStyles")
 async def getstyles(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     link = "https://graph.org/List-Of-Styles-06-05"
-    await event.edit(STRINGS["styles"].format(link))
+    await event.edit(client.getstrings(STRINGS)["styles"].format(link))

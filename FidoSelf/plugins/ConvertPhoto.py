@@ -25,21 +25,21 @@ STRINGS = {
 
 @client.Command(command="ToPhoto")
 async def tophoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Sticker"]):
         return await event.edit(reply)
     sticker = await event.reply_message.download_media(client.PATH)
     photo = client.PATH + "StickerToPhoto.jpg"
     img = Image.open(sticker)
     img.save(photo, format="jpeg")  
-    await client.send_file(event.chat_id, photo, caption=STRINGS["tophoto"])
+    await client.send_file(event.chat_id, photo, caption=client.getstrings(STRINGS)["tophoto"])
     os.remove(sticker)
     os.remove(photo)
     await event.delete()
 
 @client.Command(command="ToSticker")
 async def tosticker(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -53,28 +53,28 @@ async def tosticker(event):
 
 @client.Command(command="ToJPG")
 async def tojpg(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["PNG Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "PngToJpg.jpg"
     img = Image.open(photo)
     img.save(newphoto, format="jpeg")  
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["tophoto"])
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["tophoto"])
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
     
 @client.Command(command="ToPNG")
 async def topng(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["JPG Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "JpgToPng.png"
     img = Image.open(photo)
     img.save(newphoto, format="png")  
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["tophoto"], force_document=True)
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["tophoto"], force_document=True)
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()

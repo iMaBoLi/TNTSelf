@@ -23,20 +23,20 @@ STRINGS = {
 
 @client.Command(command="AutoTr (On|Off)")
 async def settrauto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTOTR_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetTrLang (.*)")
 async def settrlang(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     lang = event.pattern_match.group(1).lower()
     if lang not in googletrans.LANGUAGES:
-        return await event.edit(STRINGS["notlang"].format(lang))
+        return await event.edit(client.getstrings(STRINGS)["notlang"].format(lang))
     client.DB.set_key("AUTOTR_LANG", lang)
-    await event.edit(STRINGS["setlang"].format(lang))
+    await event.edit(client.getstrings(STRINGS)["setlang"].format(lang))
 
 @client.Command(allowedits=False)
 async def autotr(event):

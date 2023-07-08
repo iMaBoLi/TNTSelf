@@ -42,21 +42,21 @@ async def get_manage_buttons(userid, chatid):
     obuts = []
     for manage in MANAGES:
         lists = client.DB.get_key(manage) or []
-        smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
+        smode = client.getstrings()["inline"]["On"] if userid in lists else client.getstrings()["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"{MANAGES[manage]} {smode}", data=f"SetUser:{chatid}:{userid}:{manage}:{cmode}"))
     obuts = list(client.functions.chunks(obuts, 2))
     for but in obuts:
         buttons.append(but)
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseManage")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseManage")])
     return buttons
 
 @client.Command(command="Manage ?(.*)?")
 async def Manage(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{userid}")
     if event.is_reply:
@@ -69,7 +69,7 @@ async def Manage(event):
 async def inlinemanage(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
-    text = STRINGS["menu"]
+    text = client.getstrings(STRINGS)["menu"]
     buttons = await get_manage_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
@@ -114,7 +114,7 @@ async def getuserinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = STRINGS["infouser"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = client.getstrings(STRINGS)["infouser"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await client.send_file(chatid, info.profile_photo, caption=userinfo)
     else:
@@ -124,5 +124,5 @@ async def getuserinfo(event):
 
 @client.Callback(data="CloseManage")
 async def closemanage(event):
-    text = STRINGS["closemanage"]
+    text = client.getstrings(STRINGS)["closemanage"]
     await event.edit(text=text)

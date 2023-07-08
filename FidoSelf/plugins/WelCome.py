@@ -34,45 +34,45 @@ STRINGS = {
 
 @client.Command(command="Welcome (On|Off)")
 async def welcomemode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("WELCOME_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetWelcome")
 async def setwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     info = await event.reply_message.save()
     welcomes.update({event.chat_id: info})
     client.DB.set_key("WELCOME_CHATS", welcomes)
-    await event.edit(STRINGS["setwelcome"])
+    await event.edit(client.getstrings(STRINGS)["setwelcome"])
     
 @client.Command(command="DelWelcome")
 async def delwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     if event.chat_id not in welcomes:
-        return await event.edit(STRINGS["notsave"])  
+        return await event.edit(client.getstrings(STRINGS)["notsave"])  
     del welcomes[event.chat_id]
     client.DB.set_key("WELCOME_CHATS", welcomes)
-    await event.edit(STRINGS["delwelcome"])
+    await event.edit(client.getstrings(STRINGS)["delwelcome"])
 
 @client.Command(command="GetWelcome")
 async def getwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if not event.is_group:
-        return await event.edit(client.STRINGS["only"]["Group"])
+        return await event.edit(client.getstrings()["only"]["Group"])
     comments = client.DB.get_key("WELCOME_CHATS") or {}
     if event.chat_id not in comments:
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     info = comments[event.chat_id]
     getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await event.respond(getmsg)
@@ -80,11 +80,11 @@ async def getwelcome(event):
     
 @client.Command(command="WelcomeList")
 async def welcomelist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     if not welcomes:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for welcome in welcomes:
         text += f"**{row} -** `{welcome}`\n"
@@ -93,12 +93,12 @@ async def welcomelist(event):
 
 @client.Command(command="CleanWelcomeList")
 async def cleanwelcomelist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     if not welcomes:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("WELCOME_CHATS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
     
 @client.on(events.ChatAction())
 async def autowelcome(event):

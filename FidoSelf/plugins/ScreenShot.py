@@ -27,17 +27,17 @@ TOKEN = "SY1196W-HN84TCJ-G8J41WK-4B17FNK"
 
 @client.Command(command="SShot (.*)")
 async def screenshot(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     sitelink = event.pattern_match.group(1)
     url = f"https://shot.screenshotapi.net/screenshot?token={TOKEN}&url={sitelink}&full_page=true"
     result = await client.functions.request(url, re_json=True)
     if "error" in result:
-        return await event.edit(STRINGS["invlink"].format(sitelink))
+        return await event.edit(client.getstrings(STRINGS)["invlink"].format(sitelink))
     content = await client.functions.request(result["screenshot"], re_content=True)
     screenshot = client.PATH + "ScreenShot.png"
     with open(screenshot, "wb") as file:
         file.write(content)
-    caption = STRINGS["taked"].format(sitelink)
+    caption = client.getstrings(STRINGS)["taked"].format(sitelink)
     await client.send_file(event.chat_id, screenshot, caption=caption, force_document=True)
     os.remove(screenshot)
     await event.delete()

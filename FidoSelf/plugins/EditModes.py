@@ -36,21 +36,21 @@ PATTERN = PATTERN[:-1]
 
 @client.Command(command=f"({PATTERN}) (On|Off)")
 async def editchanger(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     type = event.pattern_match.group(1).title()
     change = event.pattern_match.group(2).upper()
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
     if type.endswith("all"):
         getMode = client.DB.get_key("EDIT_MODE")
         if change == "ON":
             type = type.replace("all", "")
             client.DB.set_key("EDIT_MODE", str(type))
-            settext = STRINGS["editall"].format(type, ShowChange)
+            settext = client.getstrings(STRINGS)["editall"].format(type, showchange)
         else:
             type = type.replace("all", "")
             if getMode == type:
                 client.DB.set_key("EDIT_MODE", None)
-            settext = STRINGS["editall"].format(type, ShowChange)
+            settext = client.getstrings(STRINGS)["editall"].format(type, showchange)
     else:
         echats = client.DB.get_key("EDIT_CHATS") or {}
         chatid = event.chat_id
@@ -59,11 +59,11 @@ async def editchanger(event):
         if change == "ON":
             echats[chatid] = type
             client.DB.set_key("EDIT_CHATS", echats)
-            settext = STRINGS["editchat"].format(type, ShowChange)
+            settext = client.getstrings(STRINGS)["editchat"].format(type, showchange)
         else:
             if echats[chatid] == type:
                 echats[chatid] = ""
-            settext = STRINGS["editchat"].format(type, ShowChange)
+            settext = client.getstrings(STRINGS)["editchat"].format(type, showchange)
     await event.edit(settext)
 
 @client.Command(allowedits=False)

@@ -26,27 +26,27 @@ STRINGS = {
 
 @client.Command(command="SetLogo")
 async def setlogo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Logo.png")
     client.DB.set_key("LOGO_FILE", info)
-    await event.edit(STRINGS["save"])
+    await event.edit(client.getstrings(STRINGS)["save"])
     
 @client.Command(command="GetLogo")
 async def setlogo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
-        return await event.edit(STRINGS["notsave"])
-    await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=STRINGS["getlogo"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
+    await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
     await event.delete()
 
 @client.Command(command="AddLogo (\d*)\-(\d*)\,(\d*)")
 async def addlogo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     size = int(event.pattern_match.group(1))
@@ -54,9 +54,9 @@ async def addlogo(event):
     height = int(event.pattern_match.group(3))
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     photo = await event.reply_message.download_media(client.PATH)
-    await event.edit(STRINGS["adding"])
+    await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(photo).convert("RGBA")
     pwidth, pheight = image.size
     width = width if width < (pwidth - size) else (pwidth - size)
@@ -66,8 +66,8 @@ async def addlogo(event):
     image.paste(logimg, (width, height), logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=STRINGS["added"])
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["added"])
+    await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["added"])
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["added"])
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()

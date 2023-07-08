@@ -54,7 +54,7 @@ async def myinfo(event):
     username = f"@{info.username}" if info.username else "---"
     prof = mypic[0] if mypic else None
     if type == "info":
-        text = STRINGS[type]
+        text = client.getstrings(STRINGS)[type]
         text = text.format(info.id, name, username, uinfo.about)
         await event.respond(text, file=prof)
         return await event.delete()
@@ -66,10 +66,10 @@ async def myinfo(event):
         "username": username,
         "bio": uinfo.about,
     }
-    text = STRINGS[type]
+    text = client.getstrings(STRINGS)[type]
     if type == "profile":
         if not prof:
-            await event.edit(STRINGS["notprof"])
+            await event.edit(client.getstrings(STRINGS)["notprof"])
         await event.respond(text, file=prof)
         await event.delete()
     else:

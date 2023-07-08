@@ -104,12 +104,12 @@ def search_plugin(pluginname):
 
 @client.Command(command="Help ?(.*)?")
 async def help(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     pname = event.pattern_match.group(1)
     if pname:
         plugin = search_plugin(pname)
         if not plugin:
-            return await event.edit(STRINGS["notfound"].format(pname))
+            return await event.edit(client.getstrings(STRINGS)["notfound"].format(pname))
         text = gethelp(plugin)
         return await event.edit(text)
     else:
@@ -119,24 +119,24 @@ async def help(event):
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):
-    text = STRINGS["main"].format(client.functions.mention(client.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseHelp")])
     await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
 
 @client.Callback(data="Help")
 async def callhelp(event):
-    text = STRINGS["main"].format(client.functions.mention(client.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATEGORYS:
         sname = "「 " + category + " 」"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetCategory\:(.*)")
@@ -146,8 +146,8 @@ async def getcategory(event):
     for plugin in CATEGORYS[category]:
         buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
-    buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    text = STRINGS["category"].format(client.functions.mention(client.me), category)
+    buttons.append([Button.inline(client.getstrings()["inline"]["Back"], data="Help"), Button.inline(client.getstrings()["inline"]["Close"], data="CloseHelp")])
+    text = client.getstrings(STRINGS)["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetHelp\:(.*)\:(.*)")
@@ -155,10 +155,10 @@ async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
     text = gethelp(plugin)
-    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
+    buttons = [[Button.inline(client.getstrings()["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.getstrings()["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
 
 @client.Callback(data="CloseHelp")
 async def closehelp(event):
-    text = STRINGS["closehelp"]
+    text = client.getstrings(STRINGS)["closehelp"]
     await event.edit(text=text)

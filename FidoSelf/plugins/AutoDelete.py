@@ -23,21 +23,21 @@ STRINGS = {
 
 @client.Command(command="AutoDelete (On|Off)")
 async def delautomode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTODELETE_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
     
 @client.Command(command="SetDeleteSleep (\d*)")
 async def setautodeletesleep(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     sleep = int(event.pattern_match.group(1))
     if 1 > sleep > 120:
-        return await event.edit(STRINGS["nosleep"].format(1, 60))
+        return await event.edit(client.getstrings(STRINGS)["nosleep"].format(1, 60))
     sleep = sleep * 60
     client.DB.set_key("AUTODELETE_SLEEP", sleep)
-    await event.edit(STRINGS["setsleep"].format(sleep))
+    await event.edit(client.getstrings(STRINGS)["setsleep"].format(sleep))
 
 @client.Command(allowedits=False)
 async def autodelete(event):

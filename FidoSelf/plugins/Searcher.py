@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
 async def searcher(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
@@ -42,13 +42,13 @@ async def searcher(event):
     }
     filter = event.pattern_match.group(1).title()
     addfilter = filters[filter]
-    text = STRINGS["result"].format((query or "---"), filter)
+    text = client.getstrings(STRINGS)["result"].format((query or "---"), filter)
     count = 1
     async for message in client.iter_messages(event.chat_id, search=query, filter=addfilter, limit=40):
         link = await client(functions.channels.ExportMessageLinkRequest(channel=message.chat_id, id=message.id, thread=True))
-        name = STRINGS["click"]
+        name = client.getstrings(STRINGS)["click"]
         text += f"**{count} -** [{name}]({link.link})\n"
         count += 1
     if count < 2:
-        text = STRINGS["not"].format((query or "---"), filter)
+        text = client.getstrings(STRINGS)["not"].format((query or "---"), filter)
     await event.edit(text)

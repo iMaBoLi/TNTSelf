@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="S(Red|Blue|Green|Yellow|Purple|Orange|Pink|Gray|Gold)")
 async def colorphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     color = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
@@ -37,7 +37,7 @@ async def colorphoto(event):
     img = Image.open(photo).convert("L")
     newimg = ImageOps.colorize(img, black=color.lower(), white="white")
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["color"].format(color))        
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["color"].format(color))        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()

@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="Read (On|Off)")
 async def readchat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("READ_CHATS") or []
     chatid = event.chat_id
@@ -35,24 +35,24 @@ async def readchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("READ_CHATS", acChats)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["markchat"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["markchat"].format(showchange))
 
 @client.Command(command="Read(All|Pv|Gp|Ch) (On|Off)")
 async def readmode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     type = event.pattern_match.group(1)
     change = event.pattern_match.group(2).upper()
     setmode = "READ" + type.upper() + "_MODE"
     client.DB.set_key(setmode, change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
     Types = {
         "All": "All",
         "Pv": "Pvs",
         "Gp": "Groups",
         "Ch": "Channels",
     }
-    await event.edit(STRINGS["markread"].format(Types[type.title()], ShowChange))
+    await event.edit(client.getstrings(STRINGS)["markread"].format(Types[type.title()], showchange))
 
 @client.Command(onlysudo=False)
 async def mark(event):

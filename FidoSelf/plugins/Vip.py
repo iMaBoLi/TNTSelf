@@ -38,41 +38,41 @@ STRINGS = {
 
 @client.Command(command="AddVip ?(.*)?")
 async def addvip(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     vips = client.DB.get_key("VIP_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid in vips:
-        return await event.edit(STRINGS["notall"].format(mention))
+        return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
     vips.append(userid)
     client.DB.set_key("VIP_USERS", vips)
-    await event.edit(STRINGS["add"].format(mention))
+    await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
 @client.Command(command="DelVip ?(.*)?")
 async def delvip(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     vips = client.DB.get_key("VIP_USERS") or []
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     if userid not in vips:
-        return await event.edit(STRINGS["notin"].format(mention))  
+        return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
     vips.remove(userid)
     client.DB.set_key("VIP_USERS", vips)
-    await event.edit(STRINGS["del"].format(mention))
+    await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
 @client.Command(command="VipList")
 async def viplist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     vips = client.DB.get_key("VIP_USERS") or []
     if not vips:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for vip in vips:
         text += f"**{row} -** `{vip}`\n"
@@ -81,9 +81,9 @@ async def viplist(event):
 
 @client.Command(command="CleanVipList")
 async def cleanviplist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     vips = client.DB.get_key("VIP_USERS") or []
     if not vips:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("VIP_USERS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])

@@ -44,43 +44,43 @@ STRINGS = {
 
 @client.Command(command="Set(Name|LName|Bio|Username) (.*)")
 async def setinfos(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     type = event.pattern_match.group(1).lower()
     data = str(event.pattern_match.group(2))
     if type == "name":
         if len(data) > 50:
-            return await event.edit(STRINGS["lenname"])
+            return await event.edit(client.getstrings(STRINGS)["lenname"])
         await client(functions.account.UpdateProfileRequest(first_name=str(data)))
-        await event.edit(STRINGS["setname"].format(data))
+        await event.edit(client.getstrings(STRINGS)["setname"].format(data))
     elif type == "lname":
         if len(data) > 50:
-            return await event.edit(STRINGS["lenlname"])
+            return await event.edit(client.getstrings(STRINGS)["lenlname"])
         await client(functions.account.UpdateProfileRequest(last_name=str(data)))
-        await event.edit(STRINGS["setlname"].format(data))
+        await event.edit(client.getstrings(STRINGS)["setlname"].format(data))
     elif type == "bio":
         if len(data) > 70:
-            return await event.edit(STRINGS["lenbio"])
+            return await event.edit(client.getstrings(STRINGS)["lenbio"])
         await client(functions.account.UpdateProfileRequest(about=str(data)))
-        await event.edit(STRINGS["setbio"].format(data))
+        await event.edit(client.getstrings(STRINGS)["setbio"].format(data))
     elif type == "username":
         data = data.replace(" ", "")
         if 5 > len(data) > 32:
-            return await event.edit(STRINGS["lenuname"])
+            return await event.edit(client.getstrings(STRINGS)["lenuname"])
         try:
             await client(functions.account.UpdateUsernameRequest(username=data))
         except UsernameInvalidError:
-            return await event.edit(STRINGS["unameinvalid"])
+            return await event.edit(client.getstrings(STRINGS)["unameinvalid"])
         except UsernameOccupiedError:
-            return await event.edit(STRINGS["unameall"])
-        await event.edit(STRINGS["setuname"].format("@" + data))
+            return await event.edit(client.getstrings(STRINGS)["unameall"])
+        await event.edit(client.getstrings(STRINGS)["setuname"].format("@" + data))
 
 @client.Command(command="SetProfile")
 async def setprofile(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
     profile = await client.upload_file(photo)
     await client(functions.photos.UploadProfilePhotoRequest(file=profile))
-    await event.edit(STRINGS["setprof"])
+    await event.edit(client.getstrings(STRINGS)["setprof"])
     os.remove(photo)

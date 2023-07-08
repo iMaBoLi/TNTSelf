@@ -47,31 +47,31 @@ LISTS = {
 
 @client.Command(command="Lists")
 async def lists(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     res = await client.inline_query(client.bot.me.username, "Lists")
     await res[0].click(event.chat_id)
     await event.delete()
 
 @client.Inline(pattern="Lists")
 async def inlinelists(event):
-    text = STRINGS["main"].format(client.functions.mention(client.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for slist in LISTS:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseLists")])
     await event.answer([event.builder.article("FidoSelf - Lists", text=text, buttons=buttons)])
 
 @client.Callback(data="Lists")
 async def calllists(event):
-    text = STRINGS["main"].format(client.functions.mention(client.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for slist in LISTS:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
     buttons = list(client.functions.chunks(buttons, 2))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseLists")])
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetList\:(.*)")
@@ -80,11 +80,11 @@ async def getlistitems(event):
     getdb = LISTS[listname]
     lists = client.DB.get_key(getdb)
     if not lists:
-        return await event.answer(STRINGS["emptylist"].format(listname), alert=True)
-    text = STRINGS["getlist"].format(listname)
+        return await event.answer(client.getstrings(STRINGS)["emptylist"].format(listname), alert=True)
+    text = client.getstrings(STRINGS)["getlist"].format(listname)
     for row, item in enumerate(lists):
         text += f"**{row + 1} -** `{item}`\n"
-    buttons = [[Button.inline(client.STRINGS["inline"]["Clean"], data=f"CleanList:{listname}")], [Button.inline(client.STRINGS["inline"]["Back"], data="Lists"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")]]
+    buttons = [[Button.inline(client.getstrings()["inline"]["Clean"], data=f"CleanList:{listname}")], [Button.inline(client.getstrings()["inline"]["Back"], data="Lists"), Button.inline(client.getstrings()["inline"]["Close"], data="CloseLists")]]
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="CleanList\:(.*)")
@@ -92,10 +92,10 @@ async def cleanlist(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
     getdb = LISTS[listname]
     client.DB.del_key(getdb)
-    text = STRINGS["cleanlist"].format(listname)
+    text = client.getstrings(STRINGS)["cleanlist"].format(listname)
     await event.edit(text=text)
 
 @client.Callback(data="CloseLists")
 async def closelists(event):
-    text = STRINGS["closelists"]
+    text = client.getstrings(STRINGS)["closelists"]
     await event.edit(text=text)

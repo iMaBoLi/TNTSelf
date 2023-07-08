@@ -20,14 +20,14 @@ STRINGS = {
 
 @client.Command(command="Slice (\d*)")
 async def sliceimage(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     tile = event.pattern_match.group(1)
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH + "PhotoTile.jpg")
     tiles = image_slicer.slice(photo, int(tile))
     photos = [client.PATH + str(tile).split(" - ")[1].replace(">", "") for tile in tiles]
-    text = STRINGS["slice"].format(len(photos))
+    text = client.getstrings(STRINGS)["slice"].format(len(photos))
     for phs in list(client.functions.chunks(photos, 9)):
         await event.respond(text, file=phs)
     os.remove(photo)

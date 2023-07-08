@@ -31,10 +31,10 @@ STRINGS = {
 
 @client.Command(command="UInfo ?(.*)?")
 async def userinfo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
@@ -42,7 +42,7 @@ async def userinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = STRINGS["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = client.getstrings(STRINGS)["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:
@@ -51,10 +51,10 @@ async def userinfo(event):
 
 @client.Command(command="Cinfo ?(.*)?")
 async def ginfo(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["getchatID"])
+        return await event.edit(client.getstrings()["getchatID"])
     cinfo = await client.get_entity(chatid)
     if cinfo.megagroup or cinfo.broadcast:
         info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
@@ -67,7 +67,7 @@ async def ginfo(event):
     kicks = getattr(info, "kicked_count", None) or "---"
     onlines = getattr(info, "online_count", None) or "---"
     username = f"@{cinfo.username}" if cinfo.username else "---"
-    chatinfo = STRINGS["chat"].format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
+    chatinfo = client.getstrings(STRINGS)["chat"].format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
     if str(cinfo.photo) == "ChatPhotoEmpty()":
         await event.respond(chatinfo)
     else:

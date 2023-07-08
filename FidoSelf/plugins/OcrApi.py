@@ -44,34 +44,34 @@ def ocr_file(file, language):
 
 @client.Command(command="SetOcrKey (.*)")
 async def saveocrapi(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     api = event.pattern_match.group(1)
     client.DB.set_key("OCR_APIKEY", api)
-    await event.edit(STRINGS["setapi"].format(api))
+    await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
 
 @client.Command(command="Ocr ?(.*)?")
 async def ocrapi(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     lang = event.pattern_match.group(1) or "eng"
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     if not client.DB.get_key("OCR_APIKEY"):
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     if not lang in client.functions.OCRLANGS:
-        return await event.edit(STRINGS["notlang"])
+        return await event.edit(client.getstrings(STRINGS)["notlang"])
     photo = await event.reply_message.download_media(client.PATH)
     stat, res = ocr_file(photo, lang)
     if not stat:
-        return await event.edit(STRINGS["notcom"].format(res))
+        return await event.edit(client.getstrings(STRINGS)["notcom"].format(res))
     elif stat and not res:
-        return await event.edit(STRINGS["notresult"].format(res))
-    await event.edit(STRINGS["result"].format(client.functions.OCRLANGS[lang], res))   
+        return await event.edit(client.getstrings(STRINGS)["notresult"].format(res))
+    await event.edit(client.getstrings(STRINGS)["result"].format(client.functions.OCRLANGS[lang], res))   
     os.remove(photo)
 
 @client.Command(command="OcrLangs")
 async def ocrlangs(event):
-    await event.edit(client.STRINGS["wait"])
-    text = STRINGS["langs"]
+    await event.edit(client.getstrings()["wait"])
+    text = client.getstrings(STRINGS)["langs"]
     for lang in client.functions.OCRLANGS:
         text += f"• `{lang}` - **{client.functions.OCRLANGS[lang]}**\n"
     await event.edit(text)

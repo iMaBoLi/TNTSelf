@@ -65,47 +65,47 @@ STRINGS = {
 
 @client.Command(command="Auto (On|Off)")
 async def automode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTO_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="AddAuto ?(.*)?")
 async def addauto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["chat"]["all"])
+        return await event.edit(client.getstrings()["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid in autos:
-        return await event.edit(STRINGS["notall"].format(info.title))
+        return await event.edit(client.getstrings(STRINGS)["notall"].format(info.title))
     autos.update({chatid: time.time()})
     client.DB.set_key("AUTO_CHATS", autos)
-    await event.edit(STRINGS["addchat"].format(info.title))
+    await event.edit(client.getstrings(STRINGS)["addchat"].format(info.title))
     
 @client.Command(command="DelAuto ?(.*)?")
 async def delauto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     chatid = await event.chatid(event.pattern_match.group(1))
     if not chatid:
-        return await event.edit(client.STRINGS["chat"]["all"])
+        return await event.edit(client.getstrings()["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
     info = await client.get_entity(chatid)
     if chatid not in autos:
-        return await event.edit(STRINGS["notin"].format(info.title))  
+        return await event.edit(client.getstrings(STRINGS)["notin"].format(info.title))  
     del autos[chatid]
     client.DB.set_key("AUTO_CHATS", autos)
-    await event.edit(STRINGS["delchat"].format(info.title))
+    await event.edit(client.getstrings(STRINGS)["delchat"].format(info.title))
     
 @client.Command(command="AutoList")
 async def autolist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     autos = client.DB.get_key("AUTO_CHATS") or []
     if not autos:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for auto in autos:
         text += f"**{row} -** `{auto}`\n"
@@ -114,41 +114,41 @@ async def autolist(event):
 
 @client.Command(command="CleanAutoList")
 async def cleanautolist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     autos = client.DB.get_key("AUTO_CHATS") or []
     if not autos:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("AUTO_CHATS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
 
 @client.Command(command="SetAuto")
 async def setauto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
     client.DB.set_key("AUTO_MESSAGE", info)
-    await event.edit(STRINGS["saveauto"])
+    await event.edit(client.getstrings(STRINGS)["saveauto"])
  
 @client.Command(command="GetAuto")
 async def getauto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     info = client.DB.get_key("AUTO_MESSAGE")
     if not info:
-        return await event.edit(STRINGS["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     getmsg = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await event.respond(getmsg)
     await event.delete()
     
 @client.Command(command="SetAutoSleep (\d*)")
 async def setautosleep(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     sleep = int(event.pattern_match.group(1))
     if 1 > sleep > 120:
-        return await event.edit(STRINGS["nosleep"].format(1, 60))
+        return await event.edit(client.getstrings(STRINGS)["nosleep"].format(1, 60))
     sleep = sleep * 60
     client.DB.set_key("AUTO_SLEEP", sleep)
-    await event.edit(STRINGS["setsleep"].format(sleep))
+    await event.edit(client.getstrings(STRINGS)["setsleep"].format(sleep))
 
 @aiocron.crontab("*/30 * * * * *")
 async def autosender():

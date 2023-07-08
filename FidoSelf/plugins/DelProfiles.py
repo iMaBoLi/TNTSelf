@@ -25,15 +25,15 @@ STRINGS = {
 
 @client.Command(command="DelProfile ?((\-)?\d*)?")
 async def delprofiles(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     pphoto = await client.get_profile_photos("me")
     if not pphoto:
-        return await event.edit(STRINGS["not"])
+        return await event.edit(client.getstrings(STRINGS)["not"])
     prof = event.pattern_match.group(1)
     if not prof:
         pphoto = pphoto[0]
         await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
-        await event.edit(STRINGS["last"])
+        await event.edit(client.getstrings(STRINGS)["last"])
     elif str(prof).startswith("-"):
         prof = prof.replace("-", "")
         if int(prof) > len(pphoto):
@@ -41,10 +41,10 @@ async def delprofiles(event):
         for con in range(0, int(prof)):
             profs = pphoto[con]
             await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=profs.id, access_hash=profs.access_hash, file_reference=profs.file_reference)]))
-        await event.edit(STRINGS["count"].format(prof))
+        await event.edit(client.getstrings(STRINGS)["count"].format(prof))
     else:        
         if int(prof) > len(pphoto):
-            return await event.edit(STRINGS["nota"])
+            return await event.edit(client.getstrings(STRINGS)["nota"])
         pphoto = pphoto[int(prof)-1]
         await client(functions.photos.DeletePhotosRequest(id=[types.InputPhoto(id=pphoto.id, access_hash=pphoto.access_hash, file_reference=pphoto.file_reference)]))
-        await event.edit(STRINGS["one"].format(prof))
+        await event.edit(client.getstrings(STRINGS)["one"].format(prof))

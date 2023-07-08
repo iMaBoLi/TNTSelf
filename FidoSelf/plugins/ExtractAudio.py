@@ -24,19 +24,19 @@ STRINGS = {
 
 @client.Command(command="ExAudio")
 async def exaudio(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-    await event.edit(STRINGS["exing"])
+    await event.edit(client.getstrings(STRINGS)["exing"])
     audiofile = client.PATH + f"ExAudio-{video}.mp3"
     clip = mp.VideoFileClip(video)
     clip.audio.write_audiofile(audiofile)
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, audiofile, caption=STRINGS["exed"], progress_callback=callback)        
+    await client.send_file(event.chat_id, audiofile, caption=client.getstrings(STRINGS)["exed"], progress_callback=callback)        
     os.remove(video)
     os.remove(audiofile)
     await event.delete()
