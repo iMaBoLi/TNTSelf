@@ -18,16 +18,16 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "repeatall": "**The Repeat Mode Has Been {}!**",
-    "repeatchat": "**The Repeat Mode For This Chat Has Been {}!**",
-    "newnot": "**The Text** ( `{}` ) **Already In Repeat List!**",
-    "newadd": "**The Text** ( `{}` ) **Added To Repeat List!**",
-    "delnot": "**The Text** ( `{}` ) **Not In Repeat List!**",
-    "del": "**The Text** ( `{}` ) **Deleted From Repeat List!**",
-    "empty": "**The Repeat List Is Empty!**",
-    "list": "**The Repeat List:**\n\n",
-    "aempty": "**The Repeat List Is Already Empty!**",
-    "clean": "**The Repeat List Is Cleaned!**",
+    "repeatall": "**{STR} The Repeat Mode Has Been {}!**",
+    "repeatchat": "**{STR} The Repeat Mode For This Chat Has Been {}!**",
+    "newnot": "**{STR} The Text** ( `{}` ) **Already In Repeat List!**",
+    "newadd": "**{STR} The Text** ( `{}` ) **Added To Repeat List!**",
+    "delnot": "**{STR} The Text** ( `{}` ) **Not In Repeat List!**",
+    "del": "**{STR} The Text** ( `{}` ) **Deleted From Repeat List!**",
+    "empty": "**{STR} The Repeat List Is Empty!**",
+    "list": "**{STR} The Repeat List:**\n\n",
+    "aempty": "**{STR} The Repeat List Is Already Empty!**",
+    "clean": "**{STR} The Repeat List Is Cleaned!**"
 }
 
 @client.Command(command="Repeat (On|Off)")
