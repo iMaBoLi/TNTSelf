@@ -218,7 +218,7 @@ def get_buttons(chatid, page):
         chbts, allbts = [], []
         for edit in client.functions.EDITS:
             chbts.append(create_button("EDIT_CHATS", edit, "ChatMode", "ChatModeDel", chatid, page, {}, edit.title()))
-            allbts.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "Bold", (edit.title() + "All")))
+            allbts.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "", (edit.title() + "All")))
         buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
     elif page == 6:
         buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
