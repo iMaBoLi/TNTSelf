@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="Del (\d*)")
 async def deletemsg(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     limit = int(event.pattern_match.group(1))
     if not limit:
         if event.is_reply:
@@ -35,7 +35,7 @@ async def deletemsg(event):
             messages.append(message.id)
             count += 1
         await client.delete_messages(event.chat_id, messages)
-        await event.edit(STRINGS["userdel"].format(count, mention))
+        await event.edit(client.getstrings(STRINGS)["userdel"].format(count, mention))
     else:
         messages = []
         count = 0
@@ -44,4 +44,4 @@ async def deletemsg(event):
             messages.append(message.id)
             count += 1
         await client.delete_messages(event.chat_id, messages)
-        await event.edit(STRINGS["chatdel"].format(count))
+        await event.edit(client.getstrings(STRINGS)["chatdel"].format(count))
