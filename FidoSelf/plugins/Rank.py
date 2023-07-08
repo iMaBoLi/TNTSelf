@@ -17,14 +17,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setrank": "**The Rank Of User** ( {} ) **Was Set To** ( `{}` )",
-    "notrank": "**The Rank For User** ( {} ) **Is Not Saved!**",
-    "delrank": "**The Rank Of User** ( {} ) **Has Been Deleted!**",
-    "getrank": "**The Rank Of User** ( {} ) **Is** ( `{}` )",
-    "empty": "**The Rank List Is Empty!**",
-    "ranklist": "**The Ranks List:**\n\n",
-    "aempty": "**The Rank List Is Already Empty**",
-    "clean": "**The Rank List Has Been Cleaned!**",
+    "setrank": "**{STR} The Rank Of User** ( {} ) **Was Set To** ( `{}` )",
+    "notrank": "**{STR} The Rank For User** ( {} ) **Is Not Saved!**",
+    "delrank": "**{STR} The Rank Of User** ( {} ) **Has Been Deleted!**",
+    "getrank": "**{STR} The Rank Of User** ( {} ) **Is** ( `{}` )",
+    "empty": "**{STR} The Rank List Is Empty!**",
+    "ranklist": "**{STR} The Ranks List:**\n\n",
+    "aempty": "**{STR} The Rank List Is Already Empty**",
+    "clean": "**{STR} The Rank List Has Been Cleaned!**"
 }
 
 @client.Command(command="SetRank (.*)")
