@@ -22,7 +22,28 @@ async def logs(event):
         await event.delete()
     else:
         await event.edit("**The Log File Is Not Available!**")
+        
+@client.Command(command="File (.*)")
+async def file(event):
+    await event.edit(client.STRINGS["wait"])
+    file = event.pattern_match.group(1)
+    if os.path.exists(file):
+        await event.respond(f"**The {file} File!**", file=file)
+        await event.delete()
+    else:
+        await event.edit(f"**The File {file} Is Not Available!**")
 
+@client.Command(command="Pip (.*)")
+async def pipinstall(event):
+    await event.edit(client.STRINGS["wait"])
+    lib = event.pattern_match.group(1)
+    cmd = "pip install " + lib
+    result, error = await runcmd(cmd)
+    if error:
+        await event.reply(f"**Erros:** `{error}`")
+    if result:
+        await event.reply(f"**Results:** `{result}`")
+        
 async def runner(code , event):
     chat = await event.get_chat()
     reply = await event.get_reply_message()
@@ -108,3 +129,4 @@ async def ls(event):
         open("ls.txt", "w").write(output)
         await event.respond("**Results In File!**", file="ls.txt")
         await event.delete()
+
