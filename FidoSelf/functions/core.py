@@ -9,8 +9,8 @@ def getstrings(STRINGS):
     for element in STRINGS:
         text = STRINGS[element]
         if type(text) == str:
-            STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
-            CMD = client.DB.get_key("CMD_SAMBOL") or "."
+            STR = client.DB.get_key("EMOJI_SIMBEL") or "❃"
+            CMD = client.DB.get_key("CMD_SIMBEL") or "."
             text = text.replace("{STR}", STR)
             text = text.replace("{CMD}", CMD)
         NEWSTR.update({element: text})
