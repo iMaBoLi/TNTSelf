@@ -26,14 +26,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The User** ( {} ) **Already In White List!**",
-    "add": "**The User** ( {} ) **Is Added To White List!**",
-    "notin": "**The User** ( {} ) **Is Not In White List!**",
-    "del": "**The User** ( {} ) **Deleted From White List!**",
-    "empty": "**The White List Is Empty!**",
-    "list": "**The White List:**\n\n",
-    "aempty": "**The White List Is Already Empty**",
-    "clean": "**The White List Has Been Cleaned!**",
+    "notall": "**{STR} The User** ( {} ) **Already In White List!**",
+    "add": "**{STR} The User** ( {} ) **Is Added To White List!**",
+    "notin": "**{STR} The User** ( {} ) **Is Not In White List!**",
+    "del": "**{STR} The User** ( {} ) **Deleted From White List!**",
+    "empty": "**{STR} The White List Is Empty!**",
+    "list": "**{STR} The White List:**\n\n",
+    "aempty": "**{STR} The White List Is Already Empty**",
+    "clean": "**{STR} The White List Has Been Cleaned!**"
 }
 
 @client.Command(command="AddWhite ?(.*)?")
