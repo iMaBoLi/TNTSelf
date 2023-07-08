@@ -36,10 +36,10 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEcho ?(.*)?")
 async def addecho(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{userid}")
     if event.is_reply:
@@ -50,15 +50,15 @@ async def addecho(event):
 
 @client.Command(command="DelEcho ?(.*)?")
 async def delecho(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await event.edit(client.getstrings()["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)
         mention = client.functions.mention(uinfo)
-        return await event.edit(STRINGS["notin"].format(mention))
+        return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))
     res = await client.inline_query(client.bot.me.username, f"delecho:{userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
@@ -68,11 +68,11 @@ async def delecho(event):
 
 @client.Command(command="EchoList")
 async def echolist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if not Echos:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for echo in Echos:
         text += f"**{row}-** `{echo}` \n"
@@ -81,19 +81,19 @@ async def echolist(event):
 
 @client.Command(command="CleanEchoList")
 async def cleanechos(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     echos = client.DB.get_key("ECHO_USERS") or []
     if not echos:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("ECHO_USERS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
 
 @client.Command(command="SetEchoSleep (\d*)")
 async def setechosleep(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ECHO_SLEEP", sleep)
-    await event.edit(STRINGS["esleep"].format(client.functions.convert_time(int(sleep))))
+    await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def echofosh(event):
@@ -111,13 +111,13 @@ async def echofosh(event):
 async def inlineecho(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
-    text = STRINGS["where"]
+    text = client.getstrings(STRINGS)["where"]
     buttons = []
     for where in WHERES:
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addecho:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
-    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeecho")])
+    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="closeecho")])
     await event.answer([event.builder.article("FidoSelf - Echo", text=text, buttons=buttons)])
 
 @client.Callback(data="addecho\:(.*)\:(.*)\:(.*)")
@@ -130,17 +130,17 @@ async def addechos(event):
     if userid not in Echos:
         Echos.update({userid: []})
     if where in Echos[userid]:
-        text = STRINGS["notall"].format(userinfo.first_name, where)
+        text = client.getstrings(STRINGS)["notall"].format(userinfo.first_name, where)
         return await event.answer(text, alert=True)
     Echos[userid].append(where)
     client.DB.set_key("ECHO_USERS", Echos)
-    text = STRINGS["add"].format(client.functions.mention(userinfo), where)
+    text = client.getstrings(STRINGS)["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
 @client.Inline(pattern="delecho\:(.*)")
 async def delechoinline(event):
     userid = int(event.pattern_match.group(1))
-    text = STRINGS["wheredel"]
+    text = client.getstrings(STRINGS)["wheredel"]
     Echos = client.DB.get_key("ECHO_USERS") or {}
     buttons = []
     for where in Echos[userid]:
@@ -158,9 +158,9 @@ async def delechos(event):
     if not Echos[userid]:
         del Echos[userid]
     client.DB.set_key("ECHO_USERS", Echos)
-    text = STRINGS["del"].format(mention, where)
+    text = client.getstrings(STRINGS)["del"].format(mention, where)
     await event.edit(text=text)
 
 @client.Callback(data="closeecho")
 async def closeecho(event):
-    await event.edit(text=STRINGS["close"])
+    await event.edit(text=client.getstrings(STRINGS)["close"])
