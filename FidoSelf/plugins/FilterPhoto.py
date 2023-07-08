@@ -33,8 +33,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "bw": "**The Photo Converted To Black White!**",
-    "filter": "**The Filter** ( `{}` ) **Added To Your Photo!**",
+    "bw": "**{STR} The Photo Converted To Black White!**",
+    "filter": "**{STR} The Filter** ( `{}` ) **Added To Your Photo!**"
 }
 
 @client.Command(command="SBw")
