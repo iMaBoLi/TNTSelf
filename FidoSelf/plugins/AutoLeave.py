@@ -20,11 +20,11 @@ STRINGS = {
 
 @client.Command(command="AutoLeave (On|Off)")
 async def autoleavemode(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTOLEAVE_MODE", change)
-    schange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["change"].format(schange))
+    schange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["change"].format(schange))
     
 @client.on(events.ChatAction())
 async def autoleave(event):
@@ -35,7 +35,7 @@ async def autoleave(event):
             try:
                 chat = await event.get_chat()
                 await client(functions.channels.LeaveChannelRequest(channel=chat.id))
-                text = STRINGS["autoleave"].format(chat.id, (chat.username or chat.title))
+                text = client.getstrings(STRINGS)["autoleave"].format(chat.id, (chat.username or chat.title))
                 await client.send_message(client.REALM, text)
             except:
                 pass
