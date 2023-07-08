@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**The Auto Join Mode Has Been {}!**",
-    "autojoin": "**The Auto Join Joined You To Leaved Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )",
+    "change": "**{STR} The Auto Join Mode Has Been {}!**",
+    "autojoin": "**{STR} The Auto Join Joined You To Leaved Chat!**\n\n**ChatID:** ( `{}` )\n**Username:** ( `{}` )"
 }
 
 @client.Command(command="AutoJoin (On|Off)")
