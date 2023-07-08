@@ -15,7 +15,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "mirror": "**The Photo Has Been Mirrored!**",
+    "mirror": "**{STR} The Photo Has Been Mirrored!**"
 }
 
 @client.Command(command="SMirror")
