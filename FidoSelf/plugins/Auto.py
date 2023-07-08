@@ -48,19 +48,19 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**᪥ The Send Auto Message Has Been {}!**",
-    "notall": "**᪥ The Chat** ( `{}` ) **Already In Auto List!**",
-    "addchat": "**᪥ The Chat** ( `{}` ) **Is Added To Auto List!**",
-    "notin": "**᪥ The Chat** ( `{}` ) **Is Not In Auto List!**",
-    "delchat": "**᪥ The Chat** ( `{}` ) **Deleted From Auto List!**",
-    "empty": "**᪥ The Auto List Is Empty!**",
-    "list": "**᪥ The Auto List:**\n\n",
-    "aempty": "**᪥ The Auto List Is Already Empty**",
-    "clean": "**᪥ The Auto List Has Been Cleaned!**",
-    "nosleep": "**᪥ The Auto Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
-    "setsleep": "**᪥ The Auto Sleep Was Set To** ( `{}` )",
-    "saveauto": "**᪥ The Auto Message Was Saved!**",
-    "notauto": "**᪥ The Auto Message Is Not Saved!**",
+    "change": "**{STR} \u1aa5 The Send Auto Message Has Been {}!**",
+    "notall": "**{STR} \u1aa5 The Chat** ( `{}` ) **Already In Auto List!**",
+    "addchat": "**{STR} \u1aa5 The Chat** ( `{}` ) **Is Added To Auto List!**",
+    "notin": "**{STR} \u1aa5 The Chat** ( `{}` ) **Is Not In Auto List!**",
+    "delchat": "**{STR} \u1aa5 The Chat** ( `{}` ) **Deleted From Auto List!**",
+    "empty": "**{STR} \u1aa5 The Auto List Is Empty!**",
+    "list": "**{STR} \u1aa5 The Auto List:**\n\n",
+    "aempty": "**{STR} \u1aa5 The Auto List Is Already Empty**",
+    "clean": "**{STR} \u1aa5 The Auto List Has Been Cleaned!**",
+    "nosleep": "**{STR} \u1aa5 The Auto Sleep Must Be Between** ( `{}` ) **And** ( `{}` )",
+    "setsleep": "**{STR} \u1aa5 The Auto Sleep Was Set To** ( `{}` )",
+    "saveauto": "**{STR} \u1aa5 The Auto Message Was Saved!**",
+    "notauto": "**{STR} \u1aa5 The Auto Message Is Not Saved!**"
 }
 
 @client.Command(command="Auto (On|Off)")
