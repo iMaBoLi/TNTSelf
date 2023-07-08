@@ -12,6 +12,10 @@ __INFO__ = {
                     "<Text": "Command Starter",
                 },
             },
+            "{CMD}DelCmd": {
+                "Help": "To Delete Cmd",
+                "Note": "Command Starter Set To Default ( `.` )",
+            },
         },
     },
 }
@@ -34,9 +38,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setcmd": "**{STR} The Command Starter Has Been Set To:** ( `{}` )",
-    "setsim": "**{STR} The Simbel For Texts Has Been Set To:** ( `{}` )",
+    "setcmd": "**{STR} The Command Starter Was Set To:** ( `{}` )\n\n**{STR} Reloading ...**",
+    "delcmd": "**{STR} The Command Starter Was Deleted And Set To:** ( `{}` )\n\n**{STR} Reloading ...**",
+    "setsim": "**{STR} The Simbel For Texts Was Set To:** ( `{}` )",
 }
+
+RUNCMD = "python3 -m FidoSelf"
 
 @client.Command(command="SetCmd (.*)")
 async def cmdstarter(event):
@@ -44,8 +51,16 @@ async def cmdstarter(event):
     simbel = event.pattern_match.group(1)
     client.DB.set_key("CMD_SIMBEL", simbel)
     await event.edit(client.getstrings(STRINGS)["setcmd"].format(simbel))
+    await client.functions.runcmd(RUNCMD)
 
-@client.Command(command="SetBSimbel (.*)")
+@client.Command(pattern="(?i)^\.DelCmd$")
+async def delcmdstarter(event):
+    await event.edit(client.STRINGS["wait"])
+    client.DB.set_key("CMD_SIMBEL", ".")
+    await event.edit(client.getstrings(STRINGS)["delcmd"].format("."))
+    await client.functions.runcmd(RUNCMD)
+
+@client.Command(command="SetSimbel (.*)")
 async def simbeltexts(event):
     await event.edit(client.STRINGS["wait"])
     simbel = event.pattern_match.group(1)
