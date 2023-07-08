@@ -1,23 +1,9 @@
 from FidoSelf import client
 from datetime import datetime
 
-__INFO__ = {
-    "Category": "Setting",
-    "Name": "Ping",
-    "Info": {
-        "Help": "To Get Ping Of Your Self!",
-        "Commands": {
-            "{CMD}Ping": {
-                "Help": "To Get Ping",
-            },
-        },
-    },
-}
-client.functions.AddInfo(__INFO__)
-
 STRINGS = {
-    "bping": "**{STR} !!!**",
-    "ping": "**{STR} \u2741 PonG !!** ( `{ping}` )"
+    "bping": "**!!!**",
+    "ping": "**{STR} PonG !!** ( `{ping}` )"
 }
 
 @client.Command(command="Ping")
