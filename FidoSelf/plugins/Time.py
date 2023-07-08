@@ -6,16 +6,18 @@ __INFO__ = {
     "Category": "Setting",
     "Name": "Time",
     "Info": {
-        "Help": "To Get Time And Date!",
+        "Help": "To Get Time And Date Information!",
         "Commands": {
-            "{CMD}Time": None,
+            "{CMD}Time": {
+                "Help": "To Get Full Time",
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "time": "**Time:** ( `{}` )\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n\n**Local Time:**\n**Date:** ( `{}` )\n**Day:** ( `{}` )\n**Month:** ( `{}` )\n",
+    "time": "**𑁍 Time:** ( `{}` )\n**𑁍 Date:** ( `{}` )\n**𑁍 Day:** ( `{}` )\n**𑁍 Month:** ( `{}` )\n\n**𑁍 Date:** ( `{}` )\n**𑁍 Day:** ( `{}` )\n**𑁍 Month:** ( `{}` )",
 }
 
 @client.Command(command="Time")
