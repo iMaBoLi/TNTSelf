@@ -61,7 +61,8 @@ def gethelp(plugin):
     text += f'**꥟ Help:** ( `{info["Help"]}` )\n\n'
     text += "⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
-        cname = command.replace("{CMD}", ".")
+        CMD = client.DB.get_key("CMD_SAMBOL") or "."
+        cname = command.replace("{CMD}", CMD)
         ccname = cname.split(" ")[0]
         scname = "`" + cname.replace(" ", "` `") + "`"
         share = f"http://t.me/share/text?text={ccname}"
