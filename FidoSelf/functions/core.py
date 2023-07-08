@@ -4,7 +4,7 @@ import re
 import time
 import os
 
-def getstrings(STRINGS):
+def getstrings(STRINGS=None):
     NEWSTR = {}
     for element in STRINGS:
         text = STRINGS[element]
