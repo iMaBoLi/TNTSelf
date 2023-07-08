@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "pokerall": "**The Poker Mode Has Been {}!**",
-    "pokerchat": "**The Poker Mode For This Chat Has Been {}!**",
+    "pokerall": "**{STR} The Poker Mode Has Been {}!**",
+    "pokerchat": "**{STR} The Poker Mode For This Chat Has Been {}!**"
 }
 
 @client.Command(command="Poker (On|Off)")
