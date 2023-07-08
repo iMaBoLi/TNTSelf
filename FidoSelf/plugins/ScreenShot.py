@@ -19,8 +19,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "invlink": "**The Site Link** ( `{}` ) **Is Invalid!**",
-    "taked": "**The Screen Shot From Site** ( `{}` ) **Has Been Taked!**",
+    "invlink": "**{STR} The Site Link** ( `{}` ) **Is Invalid!**",
+    "taked": "**{STR} The Screen Shot From Site** ( `{}` ) **Has Been Taked!**"
 }
 
 TOKEN = "SY1196W-HN84TCJ-G8J41WK-4B17FNK"
