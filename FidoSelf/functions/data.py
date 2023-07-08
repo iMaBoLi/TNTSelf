@@ -68,3 +68,16 @@ OCRLANGS = {
     "hrv": "Croatian",
     "hin": "Hindi",
 }
+
+PVFILTERS = [
+    "FILTERPV_TEXT",
+    "FILTERPV_PHOTO",
+    "FILTERPV_VIDEO",
+    "FILTERPV_GIF",
+    "FILTERPV_VOICE",
+    "FILTERPV_MUSIC",
+    "FILTERPV_STICKER",
+    "FILTERPV_ANISTICKER",
+    "FILTERPV_FILE",
+    "FILTERPV_LINK",
+]
