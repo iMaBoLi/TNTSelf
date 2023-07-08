@@ -28,33 +28,33 @@ STRINGS = {
 
 @client.Command(command="AddFilterPv (.*)")
 async def addfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     word = str(event.pattern_match.group(1))
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word in filterpvs:
-        return await event.edit(STRINGS["notall"].format(word))
+        return await event.edit(client.getstrings(STRINGS)["notall"].format(word))
     filterpvs.append(word)
     client.DB.set_key("FILTERPV_WORDS", filterpvs)
-    await event.edit(STRINGS["add"].format(word))
+    await event.edit(client.getstrings(STRINGS)["add"].format(word))
     
 @client.Command(command="DelFilterPv (.*)")
 async def delfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     word = str(event.pattern_match.group(1))
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word not in filterpvs:
-        return await event.edit(STRINGS["notin"].format(word))
+        return await event.edit(client.getstrings(STRINGS)["notin"].format(word))
     filterpvs.remove(word)
     client.DB.set_key("FILTERPV_WORDS", filterpvs)
-    await event.edit(STRINGS["del"].format(word))
+    await event.edit(client.getstrings(STRINGS)["del"].format(word))
     
 @client.Command(command="FilterPvList")
 async def filterpvlist(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
-        return await event.edit(STRINGS["empty"])
-    text = STRINGS["list"]
+        return await event.edit(client.getstrings(STRINGS)["empty"])
+    text = client.getstrings(STRINGS)["list"]
     row = 1
     for word in filterpvs:
         text += f"**{row} -** `{word}`\n"
@@ -63,12 +63,12 @@ async def filterpvlist(event):
 
 @client.Command(command="CleanFilterPvList")
 async def cleanfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
-        return await event.edit(STRINGS["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("FILTERPV_WORDS")
-    await event.edit(STRINGS["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])
     
 @client.Command(onlysudo=False, allowedits=False)
 async def filterpv(event):
