@@ -14,8 +14,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "chatdel": "**The** ( `{}` ) **Message In This Chat Was Deleted!**",
-    "userdel": "**The** ( `{}` ) **Message From User** ( {} ) **In This Chat Was Deleted!**",
+    "chatdel": "**{STR} The** ( `{}` ) **Message In This Chat Was Deleted!**",
+    "userdel": "**{STR} The** ( `{}` ) **Message From User** ( {} ) **In This Chat Was Deleted!**"
 }
 
 @client.Command(command="Del (\d*)")
