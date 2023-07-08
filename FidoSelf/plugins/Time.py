@@ -17,7 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "time": "**{STR} \ud804\udc4d Time:** ( `{}` )\n**\ud804\udc4d Date:** ( `{}` )\n**\ud804\udc4d Day:** ( `{}` )\n**\ud804\udc4d Month:** ( `{}` )\n\n**\ud804\udc4d Date:** ( `{}` )\n**\ud804\udc4d Day:** ( `{}` )\n**\ud804\udc4d Month:** ( `{}` )"
+    "time": "**{STR} Time:** ( `{}` )\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )\n\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )"
 }
 
 @client.Command(command="Time")
