@@ -29,10 +29,10 @@ STRINGS = {
 
 @client.Command(command="SetAiKey (.*)")
 async def saveaiapi(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     api = event.pattern_match.group(1)
     client.DB.set_key("OPENAI_APIKEY", api)
-    await event.edit(STRINGS["setapi"].format(api))
+    await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
 
 CONVERSATIONS = {}
 
@@ -53,38 +53,38 @@ async def gpt_response(query, chat_id):
     
 @client.Command(command="GText (.*)")
 async def aichat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
-        return await event.edit(STRINGS["noapi"])
-    await event.edit(STRINGS["getch"].format(query))
+        return await event.edit(client.getstrings(STRINGS)["noapi"])
+    await event.edit(client.getstrings(STRINGS)["getch"].format(query))
     try:
         result = await gpt_response(query, event.chat_id)
     except Exception as error:
-        return await event.edit(STRINGS["erch"].format(error))
-    text = STRINGS["result"].format(query, result)
+        return await event.edit(client.getstrings(STRINGS)["erch"].format(error))
+    text = client.getstrings(STRINGS)["result"].format(query, result)
     await event.respond(text)
     await event.delete()
     
 @client.Command(command="GPhoto (.*)")
 async def aiphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     query = event.pattern_match.group(1)
     if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
-        return await event.edit(STRINGS["noapi"])
+        return await event.edit(client.getstrings(STRINGS)["noapi"])
     if not openai.api_key:
         openai.api_key = client.DB.get_key("OPENAI_APIKEY")
-    await event.edit(STRINGS["getim"].format(query))
+    await event.edit(client.getstrings(STRINGS)["getim"].format(query))
     try:
         result = await openai.Image.acreate(prompt=query, n=3, size="1024x1024")
     except Exception as error:
-        return await event.edit(STRINGS["erim"].format(error))
+        return await event.edit(client.getstrings(STRINGS)["erim"].format(error))
     files = []
     for i, media in enumerate(result["data"], 1):
         filename = query + "-" + str(i) + ".jpg"
         with open(filename, "wb") as f:
             f.write(requests.get(media["url"]).content)
         files.append(filename)
-    caption = STRINGS["caption"].format(query)
+    caption = client.getstrings(STRINGS)["caption"].format(query)
     await client.send_file(event.chat_id, files, caption=caption)
     await event.delete()
