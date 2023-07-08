@@ -18,10 +18,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "reactall": "**The Send Reaction To Messages Has Been {}!**",
-    "reactchat": "**The Send Reaction To Messages For This Chat Has Been {}!**",
-    "notreact": "**The Reaction** ( `{}` ) **Is Not Available!**",
-    "setreact": "**The Reaction Emoji Was Set To** ( `{}` )",
+    "reactall": "**{STR} The Send Reaction To Messages Has Been {}!**",
+    "reactchat": "**{STR} The Send Reaction To Messages For This Chat Has Been {}!**",
+    "notreact": "**{STR} The Reaction** ( `{}` ) **Is Not Available!**",
+    "setreact": "**{STR} The Reaction Emoji Was Set To** ( `{}` )"
 }
 
 @client.Command(command="Reaction (On|Off)")
