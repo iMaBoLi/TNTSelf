@@ -21,7 +21,7 @@ __INFO__ = {
                 "Help": "To Getting Love List",
             },
             "{CMD}CleanLoveList": {
-                "Help": "To Cleaning Love List",
+                "Help": "To Clean Love List",
             },
             "{CMD}SetLove": {
                 "Help": "To Set Love Message",
