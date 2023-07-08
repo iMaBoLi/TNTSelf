@@ -29,15 +29,15 @@ STRINGS = {
 }
 
 CATEGORYS = {
-    "Setting": ["Help", "Panel", "Lists", "Manage", "Save", "Ping", "Realm", "BackUp", "Online", "Time"],
+    "Setting": ["Help", "Panel", "Lists", "Manage", "Save", "Command", "Realm", "BackUp", "Simbel"],
     "Manage": ["Quick", "Save", "Auto", "Vip", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Rank"],
-    "Tools": ["Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info"],
+    "Tools": ["Time", "Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info"],
     "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
     "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
     "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Emojis"],
-    "Account": ["Edit Profile", "Set Profile", "My Info", "Chats Count", "Del Profiles", "Del Contacts"],
+    "Account": ["Edit Profile", "Set Profile", "My Info", "Online", "Chats Count", "Del Profiles", "Del Contacts"],
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv"],
     "Users": ["User Info", "Get Profiles"],
