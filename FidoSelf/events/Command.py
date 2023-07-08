@@ -13,7 +13,7 @@ def Command(
     **kwargs,
 ):
     if command and not pattern:
-        CMD = client.DB.get_key("CMD_SAMBOL") or "."
+        CMD = client.DB.get_key("CMD_SIMBEL") or "."
         if end:
             pattern = f"(?i)^\{CMD}{command}$"
         else:
