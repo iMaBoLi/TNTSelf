@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="SMirror")
 async def mirrorphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -28,7 +28,7 @@ async def mirrorphoto(event):
     img = Image.open(photo)
     newimg = ImageOps.mirror(img)
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, caption=STRINGS["mirror"])        
+    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["mirror"])        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
