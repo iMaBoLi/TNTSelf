@@ -31,13 +31,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "actionall": "**The Send Chat Action Has Been {}!**",
-    "actionchat": "**The Send Chat Action For This Chat Has Been {}!**",
-    "notact": "**The Action** ( `{}` ) **Is Not Available!**",
-    "setact": "**The Send Action Mode Was Set To** ( `{}` )",
-    "actions": "**The Action List:**\n\n",
-    "copyactionall": "**The Copy Chat Action Has Been {}!**",
-    "copyactionchat": "**The Copy Chat Action For This Chat Has Been {}!**",
+    "actionall": "**{STR} The Send Chat Action Has Been {}!**",
+    "actionchat": "**{STR} The Send Chat Action For This Chat Has Been {}!**",
+    "notact": "**{STR} The Action** ( `{}` ) **Is Not Available!**",
+    "setact": "**{STR} The Send Action Mode Was Set To** ( `{}` )",
+    "actions": "**{STR} The Action List:**\n\n",
+    "copyactionall": "**{STR} The Copy Chat Action Has Been {}!**",
+    "copyactionchat": "**{STR} The Copy Chat Action For This Chat Has Been {}!**"
 }
 
 @client.Command(command="Action (On|Off)")
