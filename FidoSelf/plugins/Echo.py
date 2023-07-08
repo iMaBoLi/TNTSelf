@@ -36,10 +36,10 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEcho ?(.*)?")
 async def addecho(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{userid}")
     if event.is_reply:
@@ -50,10 +50,10 @@ async def addecho(event):
 
 @client.Command(command="DelEcho ?(.*)?")
 async def delecho(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if userid not in Echos:
         uinfo = await client.get_entity(userid)
@@ -68,7 +68,7 @@ async def delecho(event):
 
 @client.Command(command="EchoList")
 async def echolist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if not Echos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -81,7 +81,7 @@ async def echolist(event):
 
 @client.Command(command="CleanEchoList")
 async def cleanechos(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     echos = client.DB.get_key("ECHO_USERS") or []
     if not echos:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -90,7 +90,7 @@ async def cleanechos(event):
 
 @client.Command(command="SetEchoSleep (\d*)")
 async def setechosleep(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ECHO_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))
@@ -117,7 +117,7 @@ async def inlineecho(event):
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addecho:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
-    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="closeecho")])
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeecho")])
     await event.answer([event.builder.article("FidoSelf - Echo", text=text, buttons=buttons)])
 
 @client.Callback(data="addecho\:(.*)\:(.*)\:(.*)")
