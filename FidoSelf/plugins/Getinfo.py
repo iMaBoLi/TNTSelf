@@ -25,8 +25,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "user": "**User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
-    "chat": "**Chat Info:**\n\n**ID:** ( `{}` )\n**Title:** ( `{}` )\n**Username :** ( `{}` )\n\n**Messages Count:** ( `{}` )\n\n**Members Count:** ( `{}` )\n**Administrators Count:** ( `{}` )\n**Bots Count:** ( `{}` )\n**Onlines Count:** ( `{}` )\n**Banned Count:** ( `{}` )\n**Kicked Count:** ( `{}` )\n**Description:** ( `{}` )",
+    "user": "**{STR} User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
+    "chat": "**{STR} Chat Info:**\n\n**ID:** ( `{}` )\n**Title:** ( `{}` )\n**Username :** ( `{}` )\n\n**Messages Count:** ( `{}` )\n\n**Members Count:** ( `{}` )\n**Administrators Count:** ( `{}` )\n**Bots Count:** ( `{}` )\n**Onlines Count:** ( `{}` )\n**Banned Count:** ( `{}` )\n**Kicked Count:** ( `{}` )\n**Description:** ( `{}` )"
 }
 
 @client.Command(command="UInfo ?(.*)?")
