@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="Poker (On|Off)")
 async def pokerchat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("POKER_CHATS") or []
     chatid = event.chat_id
@@ -32,16 +32,16 @@ async def pokerchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("POKER_CHATS", acChats)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["pokerchat"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["pokerchat"].format(showchange))
 
 @client.Command(command="PokerAll (On|Off)")
 async def pokerall(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("POKER_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["pokerall"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["pokerall"].format(showchange))
  
 @client.Command(onlysudo=False, allowedits=False)
 async def poker(event):
