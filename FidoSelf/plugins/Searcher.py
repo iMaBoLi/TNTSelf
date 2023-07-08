@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
 async def searcher(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
