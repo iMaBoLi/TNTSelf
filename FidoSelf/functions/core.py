@@ -4,16 +4,15 @@ import re
 import time
 import os
 
-def getstrings(STRINGS=None):
-    if not STRINGS:
-        STRINGS = client.STRINGS
+def getstrings(STRINGS):
     NEWSTR = {}
     for element in STRINGS:
         text = STRINGS[element]
-        STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
-        CMD = client.DB.get_key("CMD_SAMBOL") or "."
-        text = text.replace("{STR}", STR)
-        text = text.replace("{CMD}", CMD)
+        if type(text) == str:
+            STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
+            CMD = client.DB.get_key("CMD_SAMBOL") or "."
+            text = text.replace("{STR}", STR)
+            text = text.replace("{CMD}", CMD)
         NEWSTR.update({element: text})
     return NEWSTR
 
