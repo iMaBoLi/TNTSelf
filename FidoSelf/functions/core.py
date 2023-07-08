@@ -4,6 +4,14 @@ import re
 import time
 import os
 
+def getstring(STRINGS, element):
+    text = STRINGS[element]
+    STR = client.DB.get_key("EMOJI_SAMBOL") or "❃"
+    CMD = client.DB.get_key("CMD_SAMBOL") or "."
+    text = text.replace("{STR}", STR)
+    text = text.replace("{CMD}", CMD)
+    return text
+
 def checkCmd(event, text=None):
     if not (event.text and text):
         return False
