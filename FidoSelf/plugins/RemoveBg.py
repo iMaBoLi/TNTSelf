@@ -39,14 +39,14 @@ def removebg(photo, newphoto):
 
 @client.Command(command="SetRmBgKey (.*)")
 async def savebgapi(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     api = event.pattern_match.group(1)
     client.DB.set_key("RMBG_API_KEY", api)
     await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
 
 @client.Command(command="RmBg")
 async def rmbg(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     if not client.DB.get_key("RMBG_API_KEY"):

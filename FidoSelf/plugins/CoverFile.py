@@ -26,7 +26,7 @@ STRINGS = {
 
 @client.Command(command="SetCover")
 async def setcover(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -37,11 +37,11 @@ async def setcover(event):
 
 @client.Command(command="AddCover")
 async def addcover(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["File", "Music"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cover = client.PATH + "Cover.png"
     if not os.path.exists(cover):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
@@ -55,7 +55,7 @@ async def addcover(event):
     
 @client.Command(command="GetCover")
 async def getcover(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["File", "Music"]):
         return await event.edit(reply)
     if not event.reply_message.document.thumbs:

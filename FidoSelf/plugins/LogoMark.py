@@ -26,7 +26,7 @@ STRINGS = {
 
 @client.Command(command="SetLogo")
 async def setlogo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -37,7 +37,7 @@ async def setlogo(event):
     
 @client.Command(command="GetLogo")
 async def setlogo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
@@ -46,7 +46,7 @@ async def setlogo(event):
 
 @client.Command(command="AddLogo (\d*)\-(\d*)\,(\d*)")
 async def addlogo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     size = int(event.pattern_match.group(1))

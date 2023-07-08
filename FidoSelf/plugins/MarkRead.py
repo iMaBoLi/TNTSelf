@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="Read (On|Off)")
 async def readchat(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("READ_CHATS") or []
     chatid = event.chat_id
@@ -35,17 +35,17 @@ async def readchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("READ_CHATS", acChats)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["markchat"].format(showchange))
 
 @client.Command(command="Read(All|Pv|Gp|Ch) (On|Off)")
 async def readmode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1)
     change = event.pattern_match.group(2).upper()
     setmode = "READ" + type.upper() + "_MODE"
     client.DB.set_key(setmode, change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     Types = {
         "All": "All",
         "Pv": "Pvs",

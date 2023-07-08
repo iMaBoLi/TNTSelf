@@ -22,7 +22,7 @@ STRINGS = {
 
 @client.Command(command="CPhoto (\d*) (.*)")
 async def generatephoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     client.loop.create_task(generate(event))
     
 async def generate(event):
@@ -36,6 +36,6 @@ async def generate(event):
     
 @client.Command(command="GStyles")
 async def getstyles(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     link = "https://graph.org/List-Of-Styles-06-05"
     await event.edit(client.getstrings(STRINGS)["styles"].format(link))

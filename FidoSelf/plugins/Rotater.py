@@ -22,13 +22,13 @@ STRINGS = {
 
 @client.Command(command="SRotate (\d*)")
 async def rotate(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
     if reply:= event.checkReply(["Video", "Photo"]):
         return await event.edit(reply)
     mtype = event.reply_message.mediatype()
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await event.edit(client.getstrings()["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     if mtype == "Photo":
         file = await event.reply_message.download_media(client.PATH)
         newfile = client.PATH + f"RotatedImage-{str(darge)}.jpg"

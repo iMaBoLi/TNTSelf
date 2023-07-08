@@ -38,12 +38,12 @@ STRINGS = {
 
 @client.Command(command="Ban ?(.*)?")
 async def banuser(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)
@@ -57,12 +57,12 @@ async def banuser(event):
     
 @client.Command(command="TBan (\d*)")
 async def timerbanuser(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     timer = int(event.pattern_match.group(1))
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     if not event.is_reply:
-        return await event.edit(client.getstrings()["user"]["reply"])
+        return await event.edit(client.STRINGS["user"]["reply"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
     userid = event.reply_message.sender_id
@@ -78,12 +78,12 @@ async def timerbanuser(event):
     
 @client.Command(command="UnBan ?(.*)?")
 async def unbanuser(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)

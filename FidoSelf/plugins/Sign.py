@@ -20,15 +20,15 @@ STRINGS = {
 
 @client.Command(command="Sign (On|Off)")
 async def signmode(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("SIGN_MODE", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetSign ([\s\S]*)")
 async def setsign(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     stext = event.pattern_match.group(1)
     client.DB.set_key("SIGN_TEXT", stext)
     text = client.getstrings(STRINGS)["setsign"].format(stext)

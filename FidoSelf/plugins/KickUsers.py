@@ -23,12 +23,12 @@ STRINGS = {
 
 @client.Command(command="Kick ?(.*)?")
 async def kickuser(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
-        return await event.edit(client.getstrings()["only"]["Group"])
+        return await event.edit(client.STRINGS["only"]["Group"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
     info = await client.get_entity(userid)

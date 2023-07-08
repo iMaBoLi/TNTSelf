@@ -24,7 +24,7 @@ STRINGS = {
 
 @client.Command(command="SetFont")
 async def setfontfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["TTF File"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -35,7 +35,7 @@ async def setfontfile(event):
 
 @client.Command(command="DelFont")
 async def delfontfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     client.DB.del_key("FONT_FILE")
     font = client.PATH + "FontFile.ttf"
     if os.path.exists(font):
@@ -44,7 +44,7 @@ async def delfontfile(event):
     
 @client.Command(command="GetFont")
 async def getfontfile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     font = client.PATH + "FontFile.ttf"
     if not os.path.exists(font):
         return await event.edit(client.getstrings(STRINGS)["notsave"])

@@ -44,7 +44,7 @@ STRINGS = {
 
 @client.Command(command="Set(Name|LName|Bio|Username) (.*)")
 async def setinfos(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).lower()
     data = str(event.pattern_match.group(2))
     if type == "name":
@@ -76,7 +76,7 @@ async def setinfos(event):
 
 @client.Command(command="SetProfile")
 async def setprofile(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)

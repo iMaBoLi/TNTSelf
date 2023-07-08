@@ -64,7 +64,7 @@ def convert_time(seconds):
 
 @client.Command(command="NewTimer (.*)")
 async def addtimer(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMER_LIST") or {}
     if ntimer in timers:
@@ -75,7 +75,7 @@ async def addtimer(event):
     
 @client.Command(command="DelTimer (.*)")
 async def deltimer(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMER_LIST") or {}
     if ntimer not in timers:
@@ -86,7 +86,7 @@ async def deltimer(event):
 
 @client.Command(command="GetTimer (.*)")
 async def gettimer(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMER_LIST") or {}
     if ntimer not in timers:
@@ -98,7 +98,7 @@ async def gettimer(event):
 
 @client.Command(command="TimerList")
 async def timerlist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     timers = client.DB.get_key("TIMER_LIST") or {}
     if not timers:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -109,7 +109,7 @@ async def timerlist(event):
 
 @client.Command(command="CleanTimerList")
 async def cleantimerlist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     timers = client.DB.get_key("TIMER_LIST") or {}
     if not timers:
         return await event.edit(client.getstrings(STRINGS)["aempty"])

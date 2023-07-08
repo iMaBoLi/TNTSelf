@@ -36,10 +36,10 @@ PATTERN = PATTERN[:-1]
 
 @client.Command(command=f"({PATTERN}) (On|Off)")
 async def editchanger(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
     change = event.pattern_match.group(2).upper()
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     if type.endswith("all"):
         getMode = client.DB.get_key("EDIT_MODE")
         if change == "ON":

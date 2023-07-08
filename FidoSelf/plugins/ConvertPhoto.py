@@ -25,7 +25,7 @@ STRINGS = {
 
 @client.Command(command="ToPhoto")
 async def tophoto(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Sticker"]):
         return await event.edit(reply)
     sticker = await event.reply_message.download_media(client.PATH)
@@ -39,7 +39,7 @@ async def tophoto(event):
 
 @client.Command(command="ToSticker")
 async def tosticker(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -53,7 +53,7 @@ async def tosticker(event):
 
 @client.Command(command="ToJPG")
 async def tojpg(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["PNG Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
@@ -67,7 +67,7 @@ async def tojpg(event):
     
 @client.Command(command="ToPNG")
 async def topng(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["JPG Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)

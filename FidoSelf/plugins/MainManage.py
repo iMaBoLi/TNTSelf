@@ -42,21 +42,21 @@ async def get_manage_buttons(userid, chatid):
     obuts = []
     for manage in MANAGES:
         lists = client.DB.get_key(manage) or []
-        smode = client.getstrings()["inline"]["On"] if userid in lists else client.getstrings()["inline"]["Off"]
+        smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"{MANAGES[manage]} {smode}", data=f"SetUser:{chatid}:{userid}:{manage}:{cmode}"))
     obuts = list(client.functions.chunks(obuts, 2))
     for but in obuts:
         buttons.append(but)
-    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="CloseManage")])
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseManage")])
     return buttons
 
 @client.Command(command="Manage ?(.*)?")
 async def Manage(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{userid}")
     if event.is_reply:

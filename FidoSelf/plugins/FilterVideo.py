@@ -21,7 +21,7 @@ STRINGS = {
 
 @client.Command(command="SV(Bw|Negative)")
 async def editvideo(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     vfilter = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
