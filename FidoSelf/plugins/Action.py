@@ -42,7 +42,7 @@ STRINGS = {
 
 @client.Command(command="Action (On|Off)")
 async def actionchat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("ACTION_CHATS") or []
     chatid = event.chat_id
@@ -54,37 +54,37 @@ async def actionchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("ACTION_CHATS", acChats)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["actionchat"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["actionchat"].format(showchange))
 
 @client.Command(command="ActionAll (On|Off)")
 async def actionall(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ACTION_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["actionall"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["actionall"].format(showchange))
 
 @client.Command(command="SetAction (.*)")
 async def setaction(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     acmode = event.pattern_match.group(1).lower()
     if acmode not in client.functions.ACTIONS:
-        return await event.edit(STRINGS["notact"].format(acmode))
+        return await event.edit(client.getstrings(STRINGS)["notact"].format(acmode))
     client.DB.set_key("ACTION_TYPE", acmode)
-    await event.edit(STRINGS["setact"].format(acmode.title()))
+    await event.edit(client.getstrings(STRINGS)["setact"].format(acmode.title()))
 
 @client.Command(command="ActionList")
 async def actionlist(event):
-    await event.edit(client.STRINGS["wait"])
-    text = STRINGS["actions"]
+    await event.edit(client.getstrings()["wait"])
+    text = client.getstrings(STRINGS)["actions"]
     for lang in client.functions.ACTIONS:
         text += f"• `{lang.title()}`\n"
     await event.edit(text)
 
 @client.Command(command="CAction (On|Off)")
 async def copyactionchat(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("COPYACTION_CHATS") or []
     chatid = event.chat_id
@@ -96,16 +96,16 @@ async def copyactionchat(event):
         if chatid in acChats:
             acChats.remove(chatid)
             client.DB.set_key("COPYACTION_CHATS", acChats)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["copyactionchat"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["copyactionchat"].format(showchange))
 
 @client.Command(command="CActionAll (On|Off)")
 async def copyactionall(event):
-    await event.edit(client.STRINGS["wait"])
+    await event.edit(client.getstrings()["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("COPYACTION_MODE", change)
-    ShowChange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(STRINGS["copyactionall"].format(ShowChange))
+    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    await event.edit(client.getstrings(STRINGS)["copyactionall"].format(showchange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def action(event):
