@@ -51,9 +51,9 @@ async def getuserid(event, match=None):
                 userid = userinfo.id
         except:
             pass
-    elif event.reply_message:
+    elif hasattr(event, "reply_message") and event.reply_message:
         userid = event.reply_message.sender_id
-    elif event.is_private:
+    elif hasattr(event, "is_private") and event.is_private:
         userid = event.chat_id
     return userid
 
