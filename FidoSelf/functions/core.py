@@ -16,14 +16,15 @@ def checkCmd(event, text=None):
 setattr(Message, "checkCmd", checkCmd)
 
 async def try_edit(event, text, **kwargs):
-    edit = await event.edit(text, **kwargs)
-    if not edit:
-        reply = await event.reply(text, **kwargs)
-        if reply:
-            event.id = reply.id
-        else:
-            send = await event.client.send_message(event.chat_id, text, **kwargs)
-            event.id = send.id
+    if event.is_sudo:
+        newevent = await event.edit(text, **kwargs)
+    else:
+        newevent = await event.reply(text, **kwargs)
+    newevent.text = event.text
+    newevent.sender_id = event.sender_id
+    newevent.reply_message = event.reply_message
+    if hasattr(event, "pattern_match"):
+        newevent.pattern_match = event.pattern_match
     return event
 
 setattr(Message, "editt", try_edit)
