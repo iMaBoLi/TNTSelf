@@ -85,6 +85,7 @@ def get_modename(mode):
         "ACTION_MODE": "Send Action",
         "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
+        "FILTERPV_MEDIA": "Media",
         "FILTERPV_TEXT": "Text",
         "FILTERPV_PHOTO": "Photo",
         "FILTERPV_VIDEO": "Video",
@@ -92,7 +93,6 @@ def get_modename(mode):
         "FILTERPV_VOICE": "Voice",
         "FILTERPV_MUSIC": "Music",
         "FILTERPV_STICKER": "Sticker",
-        "FILTERPV_ANISTICKER": "Animated Sticker",
         "FILTERPV_FILE": "File",
         "FILTERPV_LINK": "Link",
     }
