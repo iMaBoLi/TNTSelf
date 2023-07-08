@@ -39,10 +39,10 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEnemy ?(.*)?")
 async def addenemy(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"addenemy:{chatid}:{userid}")
     if event.is_reply:
@@ -53,10 +53,10 @@ async def addenemy(event):
 
 @client.Command(command="DelEnemy ?(.*)?")
 async def delenemy(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     userid = await event.userid(event.pattern_match.group(1))
     if not userid:
-        return await event.edit(client.getstrings()["user"]["all"])
+        return await event.edit(client.STRINGS["user"]["all"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
     if userid not in Enemies:
         uinfo = await client.get_entity(userid)
@@ -71,7 +71,7 @@ async def delenemy(event):
 
 @client.Command(command="EnemyList")
 async def enemylist(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
     if not Enemies:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -84,7 +84,7 @@ async def enemylist(event):
     
 @client.Command(command="CleanEnemyList")
 async def cleanenemies(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     enemys = client.DB.get_key("ENEMY_LIST") or []
     if not enemys:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -93,17 +93,17 @@ async def cleanenemies(event):
 
 @client.Command(command="SetEnemySleep (\d*)")
 async def setenemysleep(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ENEMY_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))
 
 @client.Command(command="DelEnemyPms (On|Off)")
 async def delpms(event):
-    await event.edit(client.getstrings()["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("DELENEMY_MSGS", change)
-    showchange = client.getstrings()["On"] if change == "ON" else client.getstrings()["Off"]
+    showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["edelete"].format(showchange))
 
 @client.Command(onlysudo=False, allowedits=False)
@@ -136,7 +136,7 @@ async def inlineenemy(event):
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
-    buttons.append([Button.inline(client.getstrings()["inline"]["Close"], data="closeenemy")])
+    buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
     await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="addenemy\:(.*)\:(.*)\:(.*)")
