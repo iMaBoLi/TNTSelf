@@ -128,8 +128,9 @@ async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
     if page == 0:
-        return await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
-    await event.answer(STRINGS["allpage"], alert=True)
+        return await event.answer(STRINGS["allpage"], alert=True)
+    await event.edit(text=get_text(page), buttons=get_buttons(chatid, page))
+    
 
 def get_text(page):
     TEXTS = {
