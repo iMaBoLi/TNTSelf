@@ -6,26 +6,45 @@ __INFO__ = {
     "Info": {
         "Help": "To Save Your Contents In Backup Channel!",
         "Commands": {
-            "{CMD}Save <Name>": "Save Your Content White Name!**",
-            "{CMD}Delete <Name>": "Delete Your Content White Name!**",
-            "{CMD}Get <Name>": "Get Your Content White Name!**",
-            "{CMD}SaveList": None,
-            "{CMD}CleanSaveList": None,
+            "{CMD}Save <Name>": {
+                "Help": "To Save Your Content White Name",
+                "Input": {
+                    "<Name>": "Name For Content",
+                },
+            },
+            "{CMD}Delete <Name>": {
+                "Help": "To Delete Your Saved Content White Name",
+                "Input": {
+                    "<Name>": "Name For Content",
+                },
+            },
+            "{CMD}Get <Name>": {
+                "Help": "To Get Your Saved Content White Name",
+                "Input": {
+                    "<Name>": "Name For Content",
+                },
+            },
+            "{CMD}SaveList": {
+                "Help": "To Get Saved Content List",
+            },
+            "{CMD}CleanSaveList": {
+                "Help": "To Clean Saved Content List",
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**The Name** ( `{}` ) **Already In Saveds List!**",
-    "save": "**The Message White Name** ( `{}` ) **Is Saved!**",
-    "notin": "**The Name** ( `{}` ) **Is Not In Saveds List!**",
-    "del": "**The Name And Message** ( `{}` ) **Deleted From Saveds List!**",
-    "notav": "**The Message White Name** ( `{}` ) **Is Not Available To Send!**",
-    "empty": "**The Saveds List Is Empty!**",
-    "list": "**The Saveds List:**\n\n",
-    "aempty": "**The Saveds List Is Already Empty!**",
-    "clean": "**The Saveds List Has Been Cleaned!**",
+    "notall": "**𖡛 The Name** ( `{}` ) **Already In Saves List!**",
+    "save": "**𖡛 The Message White Name** ( `{}` ) **Is Saves List!**",
+    "notin": "**𖡛 The Name** ( `{}` ) **Is Not In Saves List!**",
+    "del": "**𖡛 The Name And Message** ( `{}` ) **Deleted From Saves List!**",
+    "notav": "**𖡛 The Message White Name** ( `{}` ) **Is Not Available!**",
+    "empty": "**𖡛 The Saves List Is Empty!**",
+    "list": "**𖡛 The List Of Your Saves:**\n\n",
+    "aempty": "**𖡛 The Saves List Is Already Empty!**",
+    "clean": "**𖡛 The Saves List Has Been Cleaned!**",
 }
 
 @client.Command(command="Save (.*)")
