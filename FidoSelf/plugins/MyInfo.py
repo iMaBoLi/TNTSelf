@@ -34,14 +34,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "info": "**{STR} \u2746 Your Profile Info:**\n\n   **\u2022 ID:** ( `{}` )\n   **\u2022 Name:** ( `{}` )\n   **\u2022 UserName:** ( `{}` )\n   **\u2022 Biography:** ( `{}` )",
-    "id": "**{STR} \u2746 Your ID:** ( `{}` )",
-    "name": "**{STR} \u2746 Your Name:** ( `{}` )",
-    "username": "**{STR} \u2746 Your UserName:** ( `{}` )",
-    "bio": "**{STR} \u2746 Your Biography:** ( `{}` )",
-    "phone": "**{STR} \u2746 Your Phone:** ( `{}` )",
+    "info": "**{STR} Your Profile Info:**\n\n   **{STR} ID:** ( `{}` )\n   **\{STR}} Name:** ( `{}` )\n   **{STR} UserName:** ( `{}` )\n   **{STR} Biography:** ( `{}` )",
+    "id": "**{STR} Your ID:** ( `{}` )",
+    "name": "**{STR} Your Name:** ( `{}` )",
+    "username": "**{STR} Your UserName:** ( `{}` )",
+    "bio": "**{STR} Your Biography:** ( `{}` )",
+    "phone": "**{STR} Your Phone:** ( `{}` )",
     "notprof": "**{STR} You Profile Photos iS Empty!**",
-    "profile": "**{STR} \u2746 Your Profile Picture!**"
+    "profile": "**{STR} Your Profile Picture!**"
 }
 
 @client.Command(command="My(iNfo|iD|Name|Bio|Username|Phone|Profile)")
