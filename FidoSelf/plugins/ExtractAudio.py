@@ -1,4 +1,5 @@
 from FidoSelf import client
+from telethon import types
 import os
 
 __INFO__ = {
@@ -31,12 +32,15 @@ async def exaudio(event):
     callback = event.progress(download=True)
     video = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(client.getstrings(STRINGS)["exing"])
-    vname = video.split("/")[-1]
-    audiofile = client.PATH + f"ExAudio-{vname}.mp3"
-    cmd = f"ffmpeg -i {video} -vn -acodec copy {audiofile}"
+    vduration = event.reply_message.file.duration
+    audiofile = client.PATH + "ExtractAudio.acc"
+    cmd = f"ffmpeg -i {video} -vn -ar 44100 -ac 2 -ab 192k -f mp3 {audiofile}"
     await client.functions.runcmd(cmd)
+    voicefile = client.PATH + "ExtractAudio.ogg"
+    new = os.rename(audiofile, voicefile)
+    attributes = [types.DocumentAttributeAudio(duration=vduration, voice=True)]
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, audiofile, caption=client.getstrings(STRINGS)["exed"], progress_callback=callback)        
+    await client.send_file(event.chat_id, voicefile, caption=client.getstrings(STRINGS)["exed"], attributes=attributes, progress_callback=callback)        
     os.remove(video)
     os.remove(audiofile)
     await event.delete()
