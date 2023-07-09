@@ -59,7 +59,7 @@ async def inlinelists(event):
     for slist in LISTS:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
     await event.answer([event.builder.article("FidoSelf - Lists", text=text, buttons=buttons)])
 
@@ -70,7 +70,7 @@ async def calllists(event):
     for slist in LISTS:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = list(client.functions.chunks(buttons, 3))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
     await event.edit(text=text, buttons=buttons)
 
