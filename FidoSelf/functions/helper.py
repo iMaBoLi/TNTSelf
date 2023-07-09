@@ -41,9 +41,11 @@ async def create_progress(event, current, total, start, download=False, upload=F
         text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
         await event.edit(text)
 
-async def getuserid(event, match=None):
+async def getuserid(event, number=1):
     userid = None
-    if match:
+    inputs = event.text.split(" ")
+    if len(inputs) < 1:
+        match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
             userinfo = await client.get_entity(inputid)
