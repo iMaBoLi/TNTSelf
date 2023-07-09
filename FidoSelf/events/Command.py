@@ -29,7 +29,7 @@ def Command(
                 event.reply_message = await event.get_reply_message()
                 if onlysudo and not (event.is_sudo or event.is_ch): return
                 event.is_bot = True if (not isinstance(event.sender, types.User) or event.sender.bot) else False
-                event.userid = await event.getuserid() if userid else None
+                event.userid = await client.functions.getuserid(event) if userid else None
                 event.chatid = await event.getchatid() if chatid else None
                 blacks = client.DB.get_key("BLACK_LIST") or []
                 event.is_black = True if event.sender_id in blacks else False
