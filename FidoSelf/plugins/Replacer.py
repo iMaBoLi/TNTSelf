@@ -6,7 +6,14 @@ __INFO__ = {
     "Info": {
         "Help": "To Replace Words In Text!",
         "Commands": {
-            "{CMD}SReplace <Word>,<Word>": None,
+            "{CMD}SReplace <FWord>,<TWord>": {
+                "Help": "To Replace Words",
+                "Input": {
+                    "<FWord>": "Word For Search",
+                    "<TWord>": "Word For Replace",
+                },
+                "Reply": ["Text"]
+            },
         },
     },
 }
