@@ -108,6 +108,8 @@ def search_plugin(pluginname):
 @client.Command(command="Help ?(.*)?")
 async def help(event):
     await event.edit(client.STRINGS["wait"])
+    if not CATEGORYS["Variebels"]:
+        CATEGORYS["Variebels"] = list(client.VARIEBELS.keys()) if hasattr(client, "VARIEBELS") else []
     pname = event.pattern_match.group(1)
     if pname:
         plugin = search_plugin(pname)
