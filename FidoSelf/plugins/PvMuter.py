@@ -6,10 +6,20 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Users On MutePv List!",
         "Commands": {
-            "{CMD}AddMutePv <Reply|Userid|Username>": None,
-            "{CMD}DelMutePv <Reply|Userid|Username>": None,
-            "{CMD}MutePvList": None,
-            "{CMD}CleanMutePvList": None,
+            "{CMD}AddMutePv": {
+                "Help": "To Add User On MutePv List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelMutePv": {
+                "Help": "To Delete User From MutePv List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}MutePvList": {
+                "Help": "To Getting MutePv List",
+            },
+            "{CMD}CleanMutePvList": {
+                "Help": "To Clean MutePv List",
+            },
         },
     },
 }
