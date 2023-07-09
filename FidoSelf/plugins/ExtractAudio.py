@@ -42,5 +42,5 @@ async def exaudio(event):
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, voicefile, caption=client.getstrings(STRINGS)["exed"], attributes=attributes, progress_callback=callback)        
     os.remove(video)
-    os.remove(audiofile)
+    os.remove(voicefile)
     await event.delete()
