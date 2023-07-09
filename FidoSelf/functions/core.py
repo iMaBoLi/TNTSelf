@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon.types import Message
+import urllib
 import re
 import time
 import os
@@ -100,6 +101,16 @@ async def DownloadFiles():
     if not os.path.exists("downloads"):
         os.mkdir("downloads")
         
+    LINKS = {
+        client.PATH + "PlayStore.png": "https://raw.githubusercontent.com/TgCatUB/CatUserbot-Resources/master/Resources/App/app-full.jpg",
+        client.PATH + "GoogleSans-Medium.ttf": "https://github.com/TgCatUB/CatUserbot-Resources/blob/master/Resources/Spotify/GoogleSans-Medium.ttf?raw=true",
+    }
+    for filename in LINKS:
+        try:
+            urllib.request.urlretrieve(LINKS[filename], filename)
+        except:
+            continue
+    
     foshs = client.DB.get_key("FOSHS_FILE")
     if foshs:
         try:
