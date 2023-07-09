@@ -5,11 +5,20 @@ __INFO__ = {
     "Category": "Usage",
     "Name": "Cover File",
     "Info": {
-        "Help": "To Set And Add Cover To Files!",
+        "Help": "To Setting Cover Photo Of Files!",
         "Commands": {
-            "{CMD}SetCover <Reply(Photo)>": "Set Cover Photo!",
-            "{CMD}AddCover <Reply(Music|File)>": "Add Cover Photo To File!",
-            "{CMD}GetCover <Reply(Music|File)>": "Get Cover Photo From File!",
+            "{CMD}SetCover": {
+                "Help": "To Set Cover Photo",
+                "Reply": ["Photo"],
+            },
+            "{CMD}AddCover":  {
+                "Help": "To Add Cover To Files",
+                "Reply": ["File", "Music"],
+            },
+            "{CMD}GetCover":  {
+                "Help": "To Get Cover Of File",
+                "Reply": ["File", "Video", "Music"],
+            },
         },
     },
 }
@@ -38,7 +47,7 @@ async def setcover(event):
 @client.Command(command="AddCover")
 async def addcover(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["File", "Music"]):
+    if reply:= event.checkReply(["File", "Video", "Music"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
