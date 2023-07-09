@@ -42,13 +42,13 @@ async def create_progress(event, current, total, start, download=False, upload=F
         await event.edit(text)
 
 async def getuserid(event, number=1):
-    userid = None
+    userid = 0
     inputs = event.text.split(" ")
     if len(inputs) > number:
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            userinfo = await client.bot.get_entity(inputid)
+            userinfo = await client.get_entity(inputid)
             if userinfo.to_dict()["_"] == "User":
                 userid = userinfo.id
         except:
@@ -57,23 +57,23 @@ async def getuserid(event, number=1):
         userid = event.reply_message.sender_id
     elif hasattr(event, "is_private") and event.is_private:
         userid = event.chat_id
-    return userid
+    return int(userid)
 
 async def getchatid(event, number=1):
-    chatid = None
+    chatid = 0
     inputs = event.text.split(" ")
     if len(inputs) > number:
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            chatinfo = await client.bot.get_entity(inputid)
+            chatinfo = await client.get_entity(inputid)
             if chatinfo.to_dict()["_"] in ["Channel", "Group"]:
                 chatid = chatinfo.id
         except:
             pass
     elif not event.is_private:
         chatid = event.chat_id
-    return chatid
+    return int(chatid)
 
 def mention(info, coustom=None):
     if not coustom:
