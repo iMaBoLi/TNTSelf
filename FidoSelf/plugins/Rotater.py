@@ -13,7 +13,7 @@ __INFO__ = {
                 "Input": {
                     "<Num>": "Number For Rotate ( 1-360 )",
                 },
-                "Reply": ["Photo", "Video"]
+                "Reply": ["Photo", "Video"],
             },
         },
     },
