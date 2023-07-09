@@ -44,19 +44,21 @@ async def create_progress(event, current, total, start, download=False, upload=F
 async def getuserid(event, number=1):
     userid = None
     inputs = event.text.split(" ")
-    if len(inputs) < 1:
-        match = inputs[number]
-        inputid = int(match) if match.isdigit() else str(match)
-        try:
-            userinfo = await client.get_entity(inputid)
-            if userinfo.to_dict()["_"] == "User":
-                userid = userinfo.id
-        except:
-            pass
-    elif hasattr(event, "reply_message") and event.reply_message:
-        userid = event.reply_message.sender_id
-    elif hasattr(event, "is_private") and event.is_private:
-        userid = event.chat_id
+    if number > len(inputs):
+        return userid
+    match = inputs[number]
+    inputid = int(match) if match.isdigit() else str(match)
+    try:
+        userinfo = await client.get_entity(inputid)
+        if userinfo.to_dict()["_"] == "User":
+            userid = userinfo.id
+    except:
+        pass
+    if not userid:
+        if hasattr(event, "reply_message") and event.reply_message:
+            userid = event.reply_message.sender_id
+        elif hasattr(event, "is_private") and event.is_private:
+            userid = event.chat_id
     return userid
 
 setattr(Message, "userid", getuserid)
