@@ -44,7 +44,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
 async def getuserid(event, number=1):
     userid = None
     inputs = event.text.split(" ")
-    if len(inputs) >= number:
+    if len(inputs) > number:
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
@@ -64,7 +64,7 @@ setattr(Message, "userid", getuserid)
 async def getchatid(event, number=1):
     chatid = None
     inputs = event.text.split(" ")
-    if len(inputs) >= number:
+    if len(inputs) > number:
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
