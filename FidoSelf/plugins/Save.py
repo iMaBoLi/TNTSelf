@@ -36,15 +36,15 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notall": "**{STR} \ud81a\udc5b The Name** ( `{}` ) **Already In Saves List!**",
-    "save": "**{STR} \ud81a\udc5b The Message White Name** ( `{}` ) **Is Saves List!**",
-    "notin": "**{STR} \ud81a\udc5b The Name** ( `{}` ) **Is Not In Saves List!**",
-    "del": "**{STR} \ud81a\udc5b The Name And Message** ( `{}` ) **Deleted From Saves List!**",
-    "notav": "**{STR} \ud81a\udc5b The Message White Name** ( `{}` ) **Is Not Available!**",
-    "empty": "**{STR} \ud81a\udc5b The Saves List Is Empty!**",
-    "list": "**{STR} \ud81a\udc5b The List Of Your Saves:**\n\n",
-    "aempty": "**{STR} \ud81a\udc5b The Saves List Is Already Empty!**",
-    "clean": "**{STR} \ud81a\udc5b The Saves List Has Been Cleaned!**"
+    "notall": "**{STR} The Name** ( `{}` ) **Already In Saves List!**",
+    "save": "**{STR} The Message White Name** ( `{}` ) **Is Saves List!**",
+    "notin": "**{STR} The Name** ( `{}` ) **Is Not In Saves List!**",
+    "del": "**{STR} The Name And Message** ( `{}` ) **Deleted From Saves List!**",
+    "notav": "**{STR} The Message White Name** ( `{}` ) **Is Not Available!**",
+    "empty": "**{STR} The Saves List Is Empty!**",
+    "list": "**{STR} The List Of Your Saves:**\n\n",
+    "aempty": "**{STR} The Saves List Is Already Empty!**",
+    "clean": "**{STR} The Saves List Has Been Cleaned!**"
 }
 
 @client.Command(command="Save (.*)")
