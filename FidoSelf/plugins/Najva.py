@@ -12,7 +12,7 @@ __INFO__ = {
                "Help": "To Create Najva",
                 "Input": {
                     "<ID>": "UserID/Username Of User",
-                    "<Text>": "Your Message ( Max: 500 )",
+                    "<Text>": "Your Message ( Max: 50 )",
                 },
             },
         },
@@ -22,7 +22,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**{STR} The Entered UserID/Username Is Not Found!**",
-    "najva": "**{STR} The NAjva For User** ( {} )\n\n**{STR} Only You Can Open Najva!**",
+    "najva": "**{STR} The Najva For User** ( {} )\n\n**{STR} Only You Can Open Najva!**",
     "notyou": "{STR} This Najva Is Not For You!",
     "notnaj": "**{STR} This Najva Is Not Available!**",
 }
@@ -37,8 +37,8 @@ async def najva(event):
     if not userid:
         text = client.getstrings(STRINGS)["notfound"]
         return await event.answer([event.builder.article("Najva - ( User Not Found )", text=text)])
-    if len(message) > 500:
-        message = message[:500]
+    if len(message) > 50:
+        message = message[:50]
     najid = random.randint(0, 999999)
     NAJVAS.update({najid: message})
     info = await client.get_entity(userid)
