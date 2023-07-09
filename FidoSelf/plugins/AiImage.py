@@ -5,22 +5,30 @@ __INFO__ = {
     "Category": "Tools",
     "Name": "Ai Image",
     "Info": {
-        "Help": "Create Image For Your Text White Beautiful Styles!",
+        "Help": "To Create Image For Your Text White Beautiful Styles!",
         "Commands": {
-            "{CMD}CPhoto <StyleID> <Text>": None,
-            "{CMD}GStyles": "To Get StylesID For Create Images!",
+            "{CMD}CPhoto <StyleId>,<Text>": {
+                "Help": "To Create Photo",
+                "Input": {
+                    "<StyleId>": "Style Id ( Get From Styles )",
+                    "<Text>": "Your Text For Create Photo",
+                },
+            },
+            "{CMD}GStyles": {
+                "Help": "To Get Styles",
+            }
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "gen": "**{STR} Creating Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **...**",
-    "caption": "**{STR} The Image For Query** ( `{}` ) **And StyleID** ( `{}` ) **Created!**",
-    "styles": "**{STR} The Styles For Creating Photo:** ( {} )\n\n**Use From StylesID For Create Photos!**"
+    "gen": "**{STR} Creating Image For Query** ( `{}` ) **And Style Id** ( `{}` ) **...**",
+    "caption": "**{STR} The Image For Query** ( `{}` ) **And Style Id** ( `{}` ) **Created!**",
+    "styles": "**{STR} The Styles For Creating Photo:** ( {} )"
 }
 
-@client.Command(command="CPhoto (\d*) (.*)")
+@client.Command(command="CPhoto (\d*),(.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
     client.loop.create_task(generate(event))
