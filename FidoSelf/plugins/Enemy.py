@@ -9,12 +9,29 @@ __INFO__ = {
     "Info": {
         "Help": "To Seeting Enemy List And Send Foshs!",
         "Commands": {
-            "{CMD}AddEnemy <Pv|Reply|UserId|Username>": None,
-            "{CMD}DelEnemy <Pv|Reply|UserId|Username>": None,
-            "{CMD}EnemyList": None,
-            "{CMD}CleanEnemyList": None,
-            "{CMD}SetEnemySleep <Time>": "Set Sleep For Send Fosh To Enemy!",
-            "{CMD}DelEnemyPms <On-Off>": "Delete Pv Messages Of Enemies!",
+            "{CMD}AddEnemy": {
+                "Help": "To Add User On Enemy List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelEnemy": {
+                "Help": "To Delete User From Enemy List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}EnemyList": {
+                "Help": "To Getting Enemy List",
+            },
+            "{CMD}CleanEnemyList": {
+                "Help": "To Clean Enemy List",
+            },
+            "{CMD}SetEnemySleep <Time>": {
+                "Help":"Set Sleep For Send Fosh To Enemy!",
+                "Input": {
+                    "<Time>": "Sleep Time",
+                },
+            },
+            "{CMD}DelEnemyPms <On-Off>": {
+                "Help": "To Turn On-Off Delete Enemy Pms",
+            },
         },
     },
 }
@@ -22,7 +39,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "where": "**{STR} Select You Want This Enemy User To Be Saved For Where:**",
-    "notall": "**{STR} e User ( {} ) Is Alredy In Enemy List In {} Location!",
+    "notall": "**{STR} The User ( {} ) Is Alredy In Enemy List In {} Location!",
     "add": "**{STR} The User** ( {} ) **Is Added To Enemy List For ( `{}` ) Location!**",
     "notin": "**{STR} The User** ( {} ) **Not In Enemy Lis!**",
     "wheredel": "**{STR} Select You Want This Enemy User To Be Deleted From Where:**",
@@ -37,32 +54,30 @@ STRINGS = {
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
 
-@client.Command(command="AddEnemy ?(.*)?")
+@client.Command(command="AddEnemy", userid=True)
 async def addenemy(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"addenemy:{chatid}:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"addenemy:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Command(command="DelEnemy ?(.*)?")
+@client.Command(command="DelEnemy", userid=True)
 async def delenemy(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
-    if userid not in Enemies:
-        uinfo = await client.get_entity(userid)
+    if event.userid not in Enemies:
+        uinfo = await client.get_entity(event.userid)
         mention = client.functions.mention(uinfo)
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))
-    res = await client.inline_query(client.bot.me.username, f"delenemy:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"delenemy:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
@@ -76,10 +91,8 @@ async def enemylist(event):
     if not Enemies:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for enemy in Enemies:
-        text += f"**{row}-** `{enemy}` \n"
-        row += 1
+    for row, enemy in enumerate(Enemies):
+        text += f"**{row + 1}-** `{enemy}` \n"
     await event.edit(text)
     
 @client.Command(command="CleanEnemyList")
