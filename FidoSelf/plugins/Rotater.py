@@ -8,16 +8,22 @@ __INFO__ = {
     "Info": {
         "Help": "To Rotate Your Photo And Videos!",
         "Commands": {
-            "{CMD}SRotate <Num> <Reply(Photo|Video)>": None,
+            "{CMD}SRotate <Num>": {
+                "Help": "To Rotate Video Or Photo",
+                "Input": {
+                    "<Num>": "Number For Rotate ( 1-360 )",
+                },
+                "Reply": ["Photo", "Video"]
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "proted": "**{STR} The Photo Was Rotated To** ( `{}\u00b0` )",
-    "vrot": "**{STR} Rotating Video To** ( `{}\u00b0` ) **...**",
-    "vroted": "**{STR} The Video Was Rotated To** ( `{}\u00b0` )"
+    "proted": "**{STR} The Photo Was Rotated To** ( `{}°` )",
+    "vrot": "**{STR} Rotating Video To** ( `{}°` ) **...**",
+    "vroted": "**{STR} The Video Was Rotated To** ( `{}°` )"
 }
 
 @client.Command(command="SRotate (\d*)")
