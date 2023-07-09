@@ -25,7 +25,8 @@ STRINGS = {
 
 LISTS = {
     "Saves": "SAVED_LIST",
-    "Enemy Users": "ENEMY_LIST",
+    "Enemies": "ENEMY_LIST",
+    "Timers": "TIMER_LIST",
     "White Users": "WHITE_LIST",
     "Black Users": "BLACK_LIST",
     "Names": "NAME_LIST",
@@ -35,7 +36,9 @@ LISTS = {
     "Auto Chats": "AUTO_CHATS",
     "Action Chats": "ACTION_CHATS",
     "Reaction Chats": "REACTION_CHATS",
+    "Repeats": "REPEAT_LIST",
     "Echo Users": "ECHO_USERS",
+    "Vip Users": "VIP_USERS",
     "Love Users": "LOVE_LIST",
     "Love Times": "LOVETIME_LIST",
     "Comment Chats": "COMMENT_CHATS",
