@@ -7,7 +7,12 @@ __INFO__ = {
     "Info": {
         "Help": "To Search A Note On Wikipedia!",
         "Commands": {
-            "{CMD}SWiki <Text>": None,
+            "{CMD}SWiki <Text>": {
+                "Help": "To Search On Wikipedia",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
         },
     },
 }
@@ -15,7 +20,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "not": "**{STR} The Wikipedia For** ( `{}` ) **Is Not Finded!**",
-    "info": "**{STR} Query:** ( `{}` )\n\n**Title:** ( `{}` )\n\n`{}`"
+    "info": "**{STR} Query:** ( `{}` )\n\n**{STR} Title:** ( `{}` )\n\n`{}`"
 }
 
 @client.Command(command="SWiki (.*)")
