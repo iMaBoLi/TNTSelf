@@ -36,37 +36,31 @@ STRINGS = {
     "clean": "**{STR} The MutePv List Has Been Cleaned!**"
 }
 
-@client.Command(command="AddMutePv ?(.*)?")
+@client.Command(command="AddMutePv", userid=True)
 async def addmutepv(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid in mutepvs:
+    if event.userid in mutepvs:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
-    mutepvs.append(userid)
+    mutepvs.append(event.userid)
     client.DB.set_key("MUTEPV_USERS", mutepvs)
-    whites = client.DB.get_key("WHITE_LIST") or []
-    if userid in whites:
-        whites.remove(userid)
-        client.DB.set_key("WHITE_LIST", whites)
     await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
-@client.Command(command="DelMutePv ?(.*)?")
+@client.Command(command="DelMutePv", userid=True)
 async def delmutepv(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     mutepvs = client.DB.get_key("MUTEPV_USERS") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid not in mutepvs:
+    if event.userid not in mutepvs:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
-    mutepvs.remove(userid)
+    mutepvs.remove(event.userid)
     client.DB.set_key("MUTEPV_USERS", mutepvs)
     await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
@@ -77,10 +71,8 @@ async def mutepvlist(event):
     if not mutepvs:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for mutepv in mutepvs:
-        text += f"**{row} -** `{mutepv}`\n"
-        row += 1
+    for row, mutepv in enumerate(mutepvs):
+        text += f"**{row + 1} -** `{mutepv}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanMutePvList")
@@ -94,7 +86,13 @@ async def cleanmutepvlist(event):
     
 @client.Command(onlysudo=False, allowedits=False)
 async def pvmuter(event):
-    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
+    if (
+        not event.is_private
+        or event.is_white
+        or event.is_sudo
+        or event.is_bot
+    ):
+        return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
     if event.sender_id in mutes:
         await event.delete()
