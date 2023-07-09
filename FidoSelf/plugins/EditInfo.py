@@ -10,7 +10,13 @@ __INFO__ = {
     "Info": {
         "Help": "To Edit Duration Of Music And Videos!",
         "Commands": {
-            "{CMD}SDuration <Sec> <Reply(Music|Video)>": None,
+            "{CMD}SDuration <Time>": {
+                "Help": "To Set Duration",
+                "Input": {
+                    "<Time>": "Duration Time",
+                },
+                "Reply": ["Video", "Music", "Voice"],
+            },
         },
     },
 }
@@ -21,16 +27,23 @@ __INFO__ = {
     "Info": {
         "Help": "To Edit Title And Performer For Music!",
         "Commands": {
-            "{CMD}SMusic <Title>:<Name>": None,
+            "{CMD}SMusic <Title>:<Name>": {
+                "Help": "To Edit Info",
+                "Input": {
+                    "<Title>": "Title For Music",
+                    "<Name>": "Name Of Performer",
+                },
+                "Reply": ["Music", "Voice"],
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "adur": "**The Duration Of This Audio Was Changed To** ( `{}` )",
-    "vdur": "**The Duration Of This Video Was Changed To** ( `{}` )",
-    "atilper": "**The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
+    "audioduration": "**{STR} The Duration Of This Audio Was Changed To** ( `{}` )",
+    "videoduration": "**{STR} The Duration Of This Video Was Changed To** ( `{}` )",
+    "settilper": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
 }
 
 @client.Command(command="SDuration (\d*)")
@@ -38,18 +51,18 @@ async def setduration(event):
     await event.edit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
     if dur > 2147483647: dur = 2147483647
-    if reply:= event.checkReply(["Video", "Music"]):
+    if reply:= event.checkReply(["Video", "Music", "Voice"]):
         return await event.edit(reply)
     mtype = event.reply_message.mediatype()
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
-    if mtype == "Music":
-        attributes = [types.DocumentAttributeAudio(duration=dur, title=event.reply_message.file.title, performer=event.reply_message.file.performer)] 
+    if mtype in ["Music", "Voice"]:
+        attributes = [types.DocumentAttributeAudio(duration=dur, voice=False, title=event.reply_message.file.title, performer=event.reply_message.file.performer)] 
     elif mtype == "Video":
         attributes = [types.DocumentAttributeVideo(duration=dur, w=event.reply_message.file.width, h=event.reply_message.file.height)]
-    caption = client.getstrings(STRINGS)["adur"] if mtype == "Music" else client.getstrings(STRINGS)["adur"]
+    caption = client.getstrings(STRINGS)["audioduration"] if mtype in ["Music", "Voice"] else client.getstrings(STRINGS)["videoduration"]
     caption = caption.format(client.functions.convert_time(dur))
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, caption=caption, progress_callback=callback, attributes=attributes)        
@@ -61,7 +74,7 @@ async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
     title = str(event.pattern_match.group(2))
-    if reply:= event.checkReply(["Music"]):
+    if reply:= event.checkReply(["Music", "Voice"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -77,9 +90,8 @@ async def editaudio(event):
     thumb = None
     if event.reply_message.document.thumbs:
         thumb = await event.reply_message.download_media(thumb=-1)
-        #load["artwork"] == open(thumb, "rb").read()
-    attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, title=title, performer=performer)] 
-    caption = client.getstrings(STRINGS)["atilper"].format(performer, title)
+    attributes = [types.DocumentAttributeAudio(duration=event.reply_message.file.duration, voice=False, title=title, performer=performer)] 
+    caption = client.getstrings(STRINGS)["settilper"].format(performer, title)
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, newfile, caption=caption, thumb=thumb, progress_callback=callback, attributes=attributes)        
     os.remove(audio)
