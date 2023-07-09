@@ -2,12 +2,15 @@ from FidoSelf import client
 from telethon import functions
 
 __INFO__ = {
-    "Category": "Groups",
+    "Category": "Users",
     "Name": "User Info",
     "Info": {
         "Help": "To Get Information Of Users!",
         "Commands": {
-            "{CMD}UInfo <Pv|Reply|UserId|Username>": None,
+            "{CMD}UInfo": {
+                "Help": "To Get User Info",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
         },
     },
 }
@@ -18,15 +21,18 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information Of Chats!",
         "Commands": {
-            "{CMD}CInfo <Chat|ChatId>": None,
+            "{CMD}CInfo": {
+                "Help": "To Get Chat Info",
+                "Getid": "You Must Send In Chat Or Input ChatID/UserName",
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "user": "**{STR} User Info:**\n\n**Mention:** ( {} )\n**ID:** ( `{}` )\n**First Name:** ( `{}` )\n**Last Name:** ( `{}` )\n**Username :** ( `{}` )\n**Contact:** ( `{}` )\n**Mutual Contact:** ( `{}` )\n**Status:** ( `{}` )\n**Common Chats:** ( `{}` )\n**Bio:** ( `{}` )",
-    "chat": "**{STR} Chat Info:**\n\n**ID:** ( `{}` )\n**Title:** ( `{}` )\n**Username :** ( `{}` )\n\n**Messages Count:** ( `{}` )\n\n**Members Count:** ( `{}` )\n**Administrators Count:** ( `{}` )\n**Bots Count:** ( `{}` )\n**Onlines Count:** ( `{}` )\n**Banned Count:** ( `{}` )\n**Kicked Count:** ( `{}` )\n**Description:** ( `{}` )"
+    "user": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
+    "chat": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )"
 }
 
 @client.Command(command="UInfo ?(.*)?")
