@@ -8,10 +8,24 @@ __INFO__ = {
     "Info": {
         "Help": "To Setting Your Profile Info!",
         "Commands": {
-            "{CMD}SetName <Text>": "Set First Name!",
-            "{CMD}SetLName <Text>": "Set Last Name!",
-            "{CMD}SetBio <Text>": None,
-            "{CMD}SetUsername <Text>": None,
+            "{CMD}SetName <Text>": {
+                "Help": "To Set First Name",
+                "Input": {
+                    "<Text>": "Text Name",
+                },
+            },
+            "{CMD}SetLName <Text>": {
+                "Help": "To Set Last Name",
+                "Input": {
+                    "<Text>": "Text Last Name",
+                },
+            },
+            "{CMD}SetBio <Text>": {
+                "Help": "To Set Bio",
+                "Input": {
+                    "<Text>": "Text Bio",
+                },
+            },
         },
     },
 }
@@ -22,7 +36,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Set Your Profile Photo!",
         "Commands": {
-            "{CMD}SetProfile <Reply(Photo)>": None,
+            "{CMD}SetProfile": {
+                "Help": "To Set Profile Photo",
+                "Reply": ["Photo"],
+            },
         },
     },
 }
@@ -39,10 +56,10 @@ STRINGS = {
     "unameinvalid": "**{STR} The Entered UserName Is Invalid!**",
     "unameall": "**{STR} The Entered UserName Is Already Used!**",
     "setuname": "**{STR} The Profile UserName Was Set To** ( `{}` )",
-    "setprof": "**{STR} The Photo iS Added To Profile Photos!**"
+    "setprof": "**{STR} The Photo Is Added To Profile Photos!**"
 }
 
-@client.Command(command="Set(Name|LName|Bio|Username) (.*)")
+@client.Command(command="Set(Name|LName|Bio) (.*)")
 async def setinfos(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).lower()
