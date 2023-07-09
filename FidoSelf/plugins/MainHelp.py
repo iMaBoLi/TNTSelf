@@ -23,6 +23,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
+    "notplug": "✾ The Plugins In This Category Is Not Founded!",
     "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**ᯓ Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
@@ -148,6 +149,8 @@ async def callhelp(event):
 async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
+    if not CATEGORYS[category]:
+        return await event.answer(client.getstrings(STRINGS)["notplug"], alert=True)
     for plugin in CATEGORYS[category]:
         buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
