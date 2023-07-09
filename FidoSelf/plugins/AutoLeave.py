@@ -7,7 +7,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Auto Leave To Joined Chats!",
         "Commands": {
-            "{CMD}AutoLeave <On-Off>": None,
+            "{CMD}AutoLeave <On-Off>": {
+                "Help": "To Turn On-Off Auto Leave",
+            },
         },
     },
 }
