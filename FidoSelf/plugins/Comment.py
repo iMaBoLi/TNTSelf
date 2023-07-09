@@ -10,12 +10,26 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Auto Comment In The Channel Messages!",
         "Commands": {
-            "{CMD}Comment <On-Off>": None,
-            "{CMD}SetComment <Reply>": None,
-            "{CMD}DelComment": None,
-            "{CMD}GetComment": None,
-            "{CMD}CommentList": None,
-            "{CMD}CleanCommentList": None,
+            "{CMD}Comment <On-Off>": {
+                "Help": "To Turn On-Off Comment Message",
+            },
+            "{CMD}SetComment": {
+                "Help": "To Set Comment Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "TITLE", "CHATUSERNAME", "COUNT"],
+            },
+            "{CMD}DelComment": {
+                "Help": "To Delete Comment Message",
+            },
+            "{CMD}GetComment": {
+                "Help": "To Getting Comment Message",
+            },
+            "{CMD}CommentList": {
+                "Help": "To Getting Comment List",
+            },
+            "{CMD}CleanCommentList": {
+                "Help": "To Cleaning Comment List",
+            },
         },
     },
 }
