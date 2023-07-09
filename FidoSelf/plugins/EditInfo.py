@@ -58,8 +58,10 @@ async def setduration(event):
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(progress_callback=callback)
-    if mtype in ["Music", "Voice"]:
+    if mtype == "Music":
         attributes = [types.DocumentAttributeAudio(duration=dur, voice=False, title=event.reply_message.file.title, performer=event.reply_message.file.performer)] 
+    elif mtype == "Voice":
+        attributes = [types.DocumentAttributeAudio(duration=dur, voice=True)] 
     elif mtype == "Video":
         attributes = [types.DocumentAttributeVideo(duration=dur, w=event.reply_message.file.width, h=event.reply_message.file.height)]
     caption = client.getstrings(STRINGS)["audioduration"] if mtype in ["Music", "Voice"] else client.getstrings(STRINGS)["videoduration"]
