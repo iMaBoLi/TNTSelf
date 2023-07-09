@@ -20,7 +20,7 @@ for Var in VARIEBELS:
             "Help": "The Variebel For Use In Messages And ...",
             "Commands": {
                 Var: {
-                    "Help": VARS[Var],
+                    "Help": VARIEBELS[Var],
                 },
             },
         },
