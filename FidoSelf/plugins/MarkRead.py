@@ -6,11 +6,21 @@ __INFO__ = {
     "Info": {
         "Help": "To Mark Read Messages In Chats!",
         "Commands": {
-            "{CMD}Read <On-Off>": None,
-            "{CMD}ReadAll <On-Off>": None,
-            "{CMD}ReadPv <On-Off>": None,
-            "{CMD}ReadGp <On-Off>": None,
-            "{CMD}ReadCh <On-Off>": None,
+            "{CMD}Read <On-Off>": {
+                "Help": "To Turn On-Off Mark Read For This Chat",
+            },
+            "{CMD}ReadAll <On-Off>": {
+                "Help": "To Turn On-Off Mark Read For All Chats",
+            },
+            "{CMD}ReadPv <On-Off>": {
+                "Help": "To Turn On-Off Mark Read For Pvs",
+            },
+            "{CMD}ReadGp <On-Off>": {
+                "Help": "To Turn On-Off Mark Read For Groups",
+            },
+            "{CMD}ReadCh <On-Off>": {
+                "Help": "To Turn On-Off Mark Read For Channels",
+            },
         },
     },
 }
