@@ -88,33 +88,31 @@ async def lovemode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(command="AddLove ?(.*)?")
+@client.Command(command="AddLove", userid=True)
 async def addlove(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid in loves:
+    if event.userid in loves:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
-    loves.append(userid)
+    loves.append(event.userid)
     client.DB.set_key("LOVE_LIST", loves)
     await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
-@client.Command(command="DelLove ?(.*)?")
+@client.Command(command="DelLove", userid=True)
 async def dellove(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid not in loves:
+    if event.userid not in loves:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
-    loves.remove(userid)
+    loves.remove(event.userid)
     client.DB.set_key("LOVE_LIST", loves)
     await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
