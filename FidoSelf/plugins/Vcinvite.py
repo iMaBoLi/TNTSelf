@@ -7,8 +7,15 @@ __INFO__ = {
     "Info": {
         "Help": "To Invite Users To Voice Chat!",
         "Commands": {
-            "{CMD}InvVc": None,
-            "{CMD}InvVc <Users>": "To Invite Inputed Users!",
+            "{CMD}InvVc": {
+                "Help": "To Invite Users",
+            },
+            "{CMD}InvVc <Users>": {
+                "Help": "To Invite Inputed Users ( Use , To Split Answers )",
+                "Input": {
+                    "<Users>": "List Of UserIDs/Usernames",
+                },
+            },
         },
     },
 }
