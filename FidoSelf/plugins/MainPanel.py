@@ -29,7 +29,7 @@ STRINGS = {
     "disablechatmode":  "**➜ The {} For This Chat Has Been Disabled!**",
     "modepage": "**❃ Select Which Mode You Want Turn On-Off:**",
     "fontpage": "**❃ Select Which Time Font You Want Turn On-Off:**",
-    "editpage": "**❃ Select Which edit Mode You Want Turn On-Off:**",
+    "editpage": "**❃ Select Which Edit Mode You Want Turn On-Off:**",
     "actionpage": "**❃ Select Which Action Mode You Want Turn On-Off:**",
     "filterpvpage": "**❃ Select Which Media Filter For Your Pv You Want Turn On-Off:**",
     "allpage": "☻︎ You Are Already In This Page!",
@@ -215,11 +215,11 @@ def get_buttons(chatid, page):
             buttons.append(create_button("TIME_FONT", font, "Mode", "Mode", chatid, page, 1, smode))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 5:
-        chbts, allbts = [], []
+        buttons = []
         for edit in client.functions.EDITS:
-            chbts.append(create_button("EDIT_CHATS", edit, "ChatMode", "ChatModeDel", chatid, page, {}, edit.title()))
-            allbts.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "", (edit.title() + "All")))
-        buttons = list(client.functions.chunks(chbts, 3)) + list(client.functions.chunks(allbts, 3))
+            buttons.append(create_button("EDIT_CHATS", edit, "ChatMode", "ChatModeDel", chatid, page, {}, edit.title()))
+            buttons.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "", (edit.title() + "All")))
+        buttons = list(client.functions.chunks(buttons, 2))
     elif page == 6:
         buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
         buttons.append([create_button("ACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Action"), create_button("ACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Action All")])
