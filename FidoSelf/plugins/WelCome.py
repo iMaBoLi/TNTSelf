@@ -10,12 +10,26 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Auto Welcome In The Chats!",
         "Commands": {
-            "{CMD}Welcome <On-Off>": None,
-            "{CMD}SetWelcome <Reply>": None,
-            "{CMD}DelWelcome": None,
-            "{CMD}GetWelcome": None,
-            "{CMD}WelcomeList": None,
-            "{CMD}CleanWelcomeList": None,
+            "{CMD}Welcome <On-Off>": {
+                "Help": "To Turn On-Off Welcome Message",
+            },
+            "{CMD}SetWelcome": {
+                "Help": "To Set Welcome Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "TITLE", "CHATUSERNAME", "COUNT"],
+            },
+            "{CMD}DelWelcome": {
+                "Help": "To Delete Welcome Message",
+            },
+            "{CMD}GetWelcome": {
+                "Help": "To Getting Welcome Message",
+            },
+            "{CMD}WelcomeList": {
+                "Help": "To Getting Welcome List",
+            },
+            "{CMD}CleanWelcomeList": {
+                "Help": "To Cleaning Welcome List",
+            },
         },
     },
 }
