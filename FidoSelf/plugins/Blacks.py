@@ -75,10 +75,8 @@ async def blacklist(event):
     if not blacks:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for black in blacks:
-        text += f"**{row} -** `{black}`\n"
-        row += 1
+    for row, black in enumerate(blacks):
+        text += f"**{row + 1} -** `{black}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanBlackList")
