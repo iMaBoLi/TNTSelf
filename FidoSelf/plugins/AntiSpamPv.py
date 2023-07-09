@@ -9,11 +9,28 @@ __INFO__ = {
     "Info": {
         "Help": "To Setting Anti Spam For Pv And Protection!",
         "Commands": {
-            "{CMD}AntiSpamPv <On-Off>": None,
-            "{CMD}AntiSpamWarn <On-Off>": None,
-            "{CMD}SetSpamPvLimit <3-20>": None,
-            "{CMD}SetAntiSpam <Reply>": None,
-            "{CMD}SetAntiSpamWarn <Reply>": None,
+            "{CMD}AntiSpamPv <On-Off>": {
+                "Help": "To Turn On-Off AntiSpam Pv",
+            },
+            "{CMD}AntiSpamWarn <On-Off>": {
+                "Help": "To Turn On-Off AntiSpam Pv Warn Message",
+            },
+            "{CMD}SetSpamPvLimit <Limit>": {
+                "Help": "To Set AntiSpam Pv Limit",
+                "Input": {
+                    "<Limit>": "Limit For Messages ( 3-20 )",
+                },
+            },
+            "{CMD}SetAntiSpam": {
+                "Help": "To Set AntiSapm Pv Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "WARNS"],
+            },
+            "{CMD}SetAntiSpamWarn": {
+                "Help": "To Set AntiSpam Pv Warn Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "WARNS"],
+            },
         },
     },
 }
