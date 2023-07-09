@@ -9,10 +9,20 @@ __INFO__ = {
     "Info": {
         "Help": "To Setting Echo Users And Send User Messages!",
         "Commands": {
-            "{CMD}AddEcho <Pv|Reply|UserId|Username>": None,
-            "{CMD}DelEcho <Pv|Reply|UserId|Username>": None,
-            "{CMD}EchoList": None,
-            "{CMD}CleanEchoList": None,
+            "{CMD}AddEcho": {
+                "Help": "To Add User On Echo List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}DelEcho": {
+                "Help": "To Delete User From Echo List",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}EchoList": {
+                "Help": "To Getting Echo List",
+            },
+            "{CMD}CleanEchoList": {
+                "Help": "To Clean Echo List",
+            },
         },
     },
 }
@@ -34,32 +44,30 @@ STRINGS = {
 }
 WHERES = ["All", "Groups", "Pvs", "Here"]
 
-@client.Command(command="AddEcho ?(.*)?")
+@client.Command(command="AddEcho", userid=True)
 async def addecho(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"addecho:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Command(command="DelEcho ?(.*)?")
+@client.Command(command="DelEcho", userid=True)
 async def delecho(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
-    if userid not in Echos:
-        uinfo = await client.get_entity(userid)
+    if event.userid not in Echos:
+        uinfo = await client.get_entity(event.userid)
         mention = client.functions.mention(uinfo)
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))
-    res = await client.inline_query(client.bot.me.username, f"delecho:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"delecho:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
