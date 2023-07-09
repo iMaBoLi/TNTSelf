@@ -9,7 +9,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Convert Photo To Black White!",
         "Commands": {
-            "{CMD}SBw <Reply(Photo)>": None,
+            "{CMD}SPBw": {
+                "Help": "To Convert Black White",
+                "Reply": ["Photo"]
+            },
         },
     },
 }
@@ -20,13 +23,34 @@ __INFO__ = {
     "Info": {
         "Help": "To Convert Photo Add Filters To Photo!",
         "Commands": {
-            "{CMD}SPBlur <Reply(Photo)>": None,
-            "{CMD}SPContour <Reply(Photo)>": None,
-            "{CMD}SPDetail <Reply(Photo)>": None,
-            "{CMD}SPEmboss <Reply(Photo)>": None,
-            "{CMD}SPEdge <Reply(Photo)>": None,
-            "{CMD}SPSmooth <Reply(Photo)>": None,
-            "{CMD}SPSharpen <Reply(Photo)>": None,
+            "{CMD}SPBlur": {
+                "Help": "To Add Blur Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPContour": {
+                "Help": "To Add Contour Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPDetail": {
+                "Help": "To Add Detail Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPEmboss": {
+                "Help": "To Add Emboss Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPEdge": {
+                "Help": "To Add Edge Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPSmooth": {
+                "Help": "To Add Smooth Filter",
+                "Reply": ["Photo"]
+            },
+            "{CMD}SPSharpen": {
+                "Help": "To Add Sharpen Filter",
+                "Reply": ["Photo"]
+            },
         },
     },
 }
@@ -37,7 +61,7 @@ STRINGS = {
     "filter": "**{STR} The Filter** ( `{}` ) **Added To Your Photo!**"
 }
 
-@client.Command(command="SBw")
+@client.Command(command="SPBw")
 async def blackwhite(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
