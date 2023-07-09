@@ -71,31 +71,29 @@ async def automode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(command="AddAuto ?(.*)?")
+@client.Command(command="AddAuto", chatid=True)
 async def addauto(event):
     await event.edit(client.STRINGS["wait"])
-    chatid = await event.chatid(event.pattern_match.group(1))
-    if not chatid:
+    if not event.chatid:
         return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
-    info = await client.get_entity(chatid)
-    if chatid in autos:
+    info = await client.get_entity(event.chatid)
+    if event.chatid in autos:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(info.title))
-    autos.update({chatid: time.time()})
+    autos.update({event.chatid: time.time()})
     client.DB.set_key("AUTO_CHATS", autos)
     await event.edit(client.getstrings(STRINGS)["addchat"].format(info.title))
     
-@client.Command(command="DelAuto ?(.*)?")
+@client.Command(command="DelAuto", chatid=True)
 async def delauto(event):
     await event.edit(client.STRINGS["wait"])
-    chatid = await event.chatid(event.pattern_match.group(1))
-    if not chatid:
+    if not event.chatid:
         return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
-    info = await client.get_entity(chatid)
-    if chatid not in autos:
+    info = await client.get_entity(event.chatid)
+    if event.chatid not in autos:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(info.title))  
-    del autos[chatid]
+    del autos[event.chatid]
     client.DB.set_key("AUTO_CHATS", autos)
     await event.edit(client.getstrings(STRINGS)["delchat"].format(info.title))
     
