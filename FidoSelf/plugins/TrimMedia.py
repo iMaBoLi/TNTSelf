@@ -6,9 +6,16 @@ __INFO__ = {
     "Category": "Usage",
     "Name": "Trim Video",
     "Info": {
-        "Help": "To Trim Your Video Files!",
+        "Help": "To Trim Your Videos!",
         "Commands": {
-            "{CMD}VTrim <Sec>-<Sec>": None,
+            "{CMD}VTrim <Start>-<End>": {
+                "Help": "To Trim Video",
+                "Input": {
+                    "<Start>": "Start Time",
+                    "<End>": "End Time",
+                },
+                "Reply": ["Video"],
+            },
         },
     },
 }
@@ -17,9 +24,16 @@ __INFO__ = {
     "Category": "Usage",
     "Name": "Trim Audio",
     "Info": {
-        "Help": "To Trim Your Music Files!",
+        "Help": "To Trim Your Musics!",
         "Commands": {
-            "{CMD}ATrim <Sec>-<Sec>": None,
+            "{CMD}ATrim <Start>-<End>": {
+                "Help": "To Trim Music",
+                "Input": {
+                    "<Start>": "Start Time",
+                    "<End>": "End Time",
+                },
+                "Reply": ["Music"],
+            },
         },
     },
 }
