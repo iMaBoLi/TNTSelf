@@ -7,10 +7,22 @@ __INFO__ = {
     "Category": "Usage",
     "Name": "Video Shot",
     "Info": {
-        "Help": "To Get Screen Shot From Your Videos!",
+        "Help": "To Take Screen Shot From Your Videos!",
         "Commands": {
-            "{CMD}VShot <Time>": "To Get Shot From a Time!",
-            "{CMD}VShot -<Count>": "To Get Shots From Times As Required!",
+            "{CMD}VShot <Time>": {
+                 "Help": "To Take Shot From Time",
+                "Input": {
+                    "<Time>" : "Time For Take",
+                },
+                "Reply": ["Video"],
+            },
+            "{CMD}VShot -<Count>": {
+                 "Help": "To Take Multi Shots",
+                "Input": {
+                    "<Count>" : "Count Of Shots",
+                },
+                "Reply": ["Video"],
+            },
         },
     },
 }
