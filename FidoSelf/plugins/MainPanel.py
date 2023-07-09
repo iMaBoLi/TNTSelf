@@ -85,16 +85,16 @@ def get_modename(mode):
         "ACTION_MODE": "Send Action",
         "ACTION_CHATS": "Send Action",
         "ACTION_TYPE": "Action Type",
-        "FILTERPV_MEDIA": "Media",
-        "FILTERPV_TEXT": "Text",
-        "FILTERPV_PHOTO": "Photo",
-        "FILTERPV_VIDEO": "Video",
-        "FILTERPV_GIF": "Gif",
-        "FILTERPV_VOICE": "Voice",
-        "FILTERPV_MUSIC": "Music",
-        "FILTERPV_STICKER": "Sticker",
-        "FILTERPV_FILE": "File",
-        "FILTERPV_LINK": "Link",
+        "FILTERPV_MEDIA": "Filter Media",
+        "FILTERPV_TEXT": "Filter Text",
+        "FILTERPV_PHOTO": "Filter Photo",
+        "FILTERPV_VIDEO": "Filter Video",
+        "FILTERPV_GIF": "Filter Gif",
+        "FILTERPV_VOICE": "Filter Voice",
+        "FILTERPV_MUSIC": "Filter Music",
+        "FILTERPV_STICKER": "Filter Sticker",
+        "FILTERPV_FILE": "Filter File",
+        "FILTERPV_LINK": "Filter Link",
     }
     if mode in MODES:
         return MODES[mode]
@@ -229,7 +229,8 @@ def get_buttons(chatid, page):
         buttons = buttons + list(client.functions.chunks(actbts, 3))
     elif page == 7:
         for Mode in client.functions.PVFILTERS:
-            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
+            smode = Mode.split("_")[-1].title()
+            button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF", smode)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
     buttons.append(get_pages_button(chatid, page))
