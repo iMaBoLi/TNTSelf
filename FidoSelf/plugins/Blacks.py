@@ -42,15 +42,15 @@ async def addblack(event):
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid in blacks:
+    if event.userid in blacks:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
-    blacks.append(userid)
+    blacks.append(event.userid)
     client.DB.set_key("BLACK_LIST", blacks)
     whites = client.DB.get_key("WHITE_LIST") or []
-    if userid in whites:
-        whites.remove(userid)
+    if event.userid in whites:
+        whites.remove(event.userid)
         client.DB.set_key("WHITE_LIST", whites)
     await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
@@ -60,11 +60,11 @@ async def delblack(event):
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid not in blacks:
+    if event.userid not in blacks:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
-    blacks.remove(userid)
+    blacks.remove(event.userid)
     client.DB.set_key("BLACK_LIST", blacks)
     await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
