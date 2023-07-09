@@ -39,7 +39,7 @@ STRINGS = {
 def get_modename(mode):
     MODES ={
         "ONLINE_MODE": "Online",
-        "QUICK_LIST_MODE": "Quicks",
+        "QUICK_MODE": "Quicks",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
         "PHOTO_MODE": "Photo",
@@ -182,8 +182,8 @@ def create_button(key, value, type, settype, chatid, page, default=None, show=No
 def get_buttons(chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "QUICK_LIST_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTEPV_MODE", "LOVKPV_MODE", "ANTI_SPAM"]:
-            default = "OFF" if Mode not in ["QUICK_LIST_MODE", "ANTI_SPAM"] else "ON"
+        for Mode in ["ONLINE_MODE", "QUICK_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTEPV_MODE", "LOVKPV_MODE", "ANTI_SPAM"]:
+            default = "OFF" if Mode not in ["QUICK_MODE", "ANTI_SPAM"] else "ON"
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, default)
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
