@@ -110,7 +110,7 @@ async def quicksupdate(event):
             continue
         elif info["Type"] == "Edit":
             SplitAnswers = MainAnswers.split(",")
-            if info["Person"] == "Others":
+            if info["Person"] != "Sudo":
                 event = await event.reply(SplitAnswers[0])
                 SplitAnswers = SplitAnswers[1:]
                 if not SplitAnswers: continue
@@ -147,7 +147,7 @@ def get_buttons(quick):
             ShowMode = client.STRINGS["inline"]["On"]
         sperson = person if person != "Replyed User" else f"USER{info['Reply']}"
         operbts.append(Button.inline(f"{person} {ShowMode}", data=f"SetQuick:Person:{quick}:{sperson}"))
-    perbts += [operbts]
+    perbts += list(client.functions.chunks(operbts, 2))
     buttons += perbts
     wherebts = [[Button.inline("🛸 Place : ⤵️", data="Empty")]]
     owherebts = []
@@ -169,7 +169,6 @@ def get_buttons(quick):
             otypebts.append(Button.inline(f"{type} {ShowMode}", data=f"SetQuick:Type:{quick}:{type}"))
         typebts += list(client.functions.chunks(otypebts, 3))
         buttons += typebts
-    client.STRINGS["inline"]["Yes"]
     findbts = [[Button.inline("🔎 Find : ⤵️", data="Empty")]]
     ofindbts = []
     findes = ["Yes", "No"] 
