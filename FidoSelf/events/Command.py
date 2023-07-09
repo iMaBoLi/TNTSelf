@@ -9,17 +9,16 @@ def Command(
     command=None,
     onlysudo=True,
     allowedits=True,
-    end=True,
     userid=False,
     chatid=False,
     **kwargs,
 ):
     if command and not pattern:
         CMD = client.DB.get_key("CMD_SIMBEL") or "."
-        if end:
-            pattern = f"(?i)^\{CMD}{command}$"
-        else:
+        if userid or chatid:
             pattern = f"(?i)^\{CMD}{command}"
+        else:
+            pattern = f"(?i)^\{CMD}{command}$"
     if pattern and pattern not in client.COMMANDS:
         client.COMMANDS.append(pattern)
     def decorator(func):
