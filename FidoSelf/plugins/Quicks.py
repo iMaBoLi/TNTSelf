@@ -12,29 +12,29 @@ __INFO__ = {
                 "Help": "To Turn On-Off Quicks!"
             },
             "{CMD}AddQuick '<CMD>' <Answers>": {
-                "Help": "To Add Quick To Quicks! ( Use , To Split Answers )",
+                "Help": "To Add Quick To Quicks ( Use , To Split Answers )",
                 "Input": {
                     "<CMD>": "Command For Quick",
                     "<Answers>": "Answers For Quick",
                 },
             },
             "{CMD}DelQuick <CMD>": {
-                "Help": "To Delete Quick From Quicks!",
+                "Help": "To Delete Quick From Quicks",
                 "Input": {
                     "<CMD>": "Command For Quick",
                 },
             },
             "{CMD}GetQuick <CMD>": {
-                "Help": "To Getting Quick From Quicks!",
+                "Help": "To Getting Quick From Quicks",
                 "Input": {
                     "<CMD>": "Command For Quick",
                 },
             },
             "{CMD}QuickList": {
-                "Help": "To Getting Quicks List!",
+                "Help": "To Getting Quicks List",
             },
             "{CMD}CleanQuickList": {
-                "Help": "To Cleaning Quicks List!",
+                "Help": "To Cleaning Quicks List",
             },
         },
     },
