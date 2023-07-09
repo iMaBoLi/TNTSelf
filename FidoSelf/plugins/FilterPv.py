@@ -72,7 +72,14 @@ async def cleanfilterpv(event):
     
 @client.Command(onlysudo=False, allowedits=False)
 async def filterpv(event):
-    if not event.text or not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
+    if (
+        not event.text
+        or not event.is_private
+        or event.is_white
+        or event.is_sudo
+        or event.is_bot
+    ):
+        return
     words = client.DB.get_key("FILTERPV_WORDS") or []
     if not words: return
     for word in words:
