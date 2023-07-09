@@ -36,37 +36,35 @@ STRINGS = {
     "clean": "**{STR} The White List Has Been Cleaned!**"
 }
 
-@client.Command(command="AddWhite ?(.*)?")
+@client.Command(command="AddWhite", userid=True)
 async def addwhite(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid in whites:
+    if event.userid in whites:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
-    whites.append(userid)
+    whites.append(event.userid)
     client.DB.set_key("WHITE_LIST", whites)
     whites = client.DB.get_key("BLACK_LIST") or []
-    if userid in whites:
-        whites.remove(userid)
+    if event.userid in whites:
+        whites.remove(event.userid)
         client.DB.set_key("BLACK_LIST", whites)
     await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
-@client.Command(command="DelWhite ?(.*)?")
+@client.Command(command="DelWhite", userid=True)
 async def delwhite(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid not in whites:
+    if event.userid not in whites:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
-    whites.remove(userid)
+    whites.remove(event.userid)
     client.DB.set_key("WHITE_LIST", whites)
     await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
