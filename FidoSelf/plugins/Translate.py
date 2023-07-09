@@ -8,7 +8,13 @@ __INFO__ = {
     "Info": {
         "Help": "To Translate Your Texts!",
         "Commands": {
-            "{CMD}STr <Lang> <Reply(Text)>": None,
+            "{CMD}STr <Lang>": {
+                "Help": "To Translate Text",
+                "Input": {
+                    "<Lang>": "Tranlate Language",
+                },
+                "Reply": ["Text"]
+            },
         },
     },
 }
