@@ -38,7 +38,7 @@ async def get_manage_buttons(userid, chatid):
     info = await client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     smode = "UnBlock" if info.blocked else "Block"
-    buttons.append([Button.inline(f"• {smode} •", data=f"User:{smode}:{chatid}:{userid}")])
+    buttons.append([Button.inline(f"• {smode} User •", data=f"User:{smode}:{chatid}:{userid}")])
     obuts = []
     for manage in MANAGES:
         lists = client.DB.get_key(manage) or []
@@ -51,14 +51,13 @@ async def get_manage_buttons(userid, chatid):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseManage")])
     return buttons
 
-@client.Command(command="Manage ?(.*)?")
+@client.Command(command="Manage", userid=True)
 async def Manage(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{userid}")
+    res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
