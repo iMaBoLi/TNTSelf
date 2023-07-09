@@ -6,7 +6,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Len Of Characters In Message!",
         "Commands": {
-            "{CMD}SLen <Reply(Text)>": None,
+            "{CMD}SLen": {
+                "Help": "To Get Len",
+                "Reply": ["Text"],
+            },
         },
     },
 }
