@@ -12,6 +12,8 @@ VARS = {
     "COUNT": "Use For Replace With Chat Members Count",
 }
 
+client.VARIEBELS = VARS
+
 for Var in VARS:
     __INFO__ = {
         "Category": "Variebels",
