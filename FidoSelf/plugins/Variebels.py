@@ -10,6 +10,7 @@ VARIEBELS = {
     "TITLE": "Use For Replace With Chat Title",
     "CHATUSERNAME": "Use For Replace With Chat Username",
     "COUNT": "Use For Replace With Chat Members Count",
+    "WARNS": "Use For Replace With User Warns In Anti Spam Pv",
 }
 
 for Var in VARIEBELS:
@@ -17,7 +18,7 @@ for Var in VARIEBELS:
         "Category": "Variebels",
         "Name": Var,
         "Info": {
-            "Help": "The Variebel For Use In Messages And ...",
+            "Help": "The Variebel For Use In Messages And Other!",
             "Commands": {
                 Var: {
                     "Help": VARIEBELS[Var],
