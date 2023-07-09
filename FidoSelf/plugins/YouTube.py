@@ -6,10 +6,20 @@ __INFO__ = {
     "Category": "Usage",
     "Name": "Youtube",
     "Info": {
-        "Help": "To Download From Youtube And Search On Youtube!",
+        "Help": "To Download And Search On Youtube!",
         "Commands": {
-            "{CMD}YtDown <Link>": None,
-            "{CMD}YtSearch <Text>": None,
+            "{CMD}YtDown <Link>": {
+                "Help": "To Download From Youtube",
+                "Input": {
+                    "<Link>": "Link Of Youtube",
+                },
+            },
+            "{CMD}YtSearch <Text>": {
+                "Help": "To Search On Youtube",
+                "Input": {
+                    "<Text>": "Query For Search",
+                },
+            },
         },
     },
 }
@@ -19,10 +29,10 @@ STRINGS = {
     "linkinv": "**{STR} The Entered Youtube Link Is Invalid!**",
     "downingvid": "**{STR} Downloadig Video** ( `{}` ) **...**",
     "downingaud": "**{STR} Downloadig Audio** ( `{}` ) **...**",
-    "ytdown": "**{STR} Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
+    "ytdown": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n**{STR} Description:** ( `{}` )",
     "ytclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
-    "ytsearch": "**{STR} Link:** ( {} )\n**Title:** ( `{}` )\n**Uploader:** ( `{}` )\n**Views:** ( `{}` )\n**Duration:** ( `{}` )\n**Description:** ( `{}` )",
-    "com": "**{STR} The Download And Upload Completed!**"
+    "ytsearch": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n**{STR} Description:** ( `{}` )",
+    "complete": "**{STR} The Download And Upload Completed!**"
 }
     
 @client.Command(command="YtDown (.*)")
@@ -97,7 +107,7 @@ async def ytdownload(event):
     )
     os.remove(down["OUTFILE"])
     os.remove(down["THUMBNAIL"])
-    await event.edit(client.getstrings(STRINGS)["com"])
+    await event.edit(client.getstrings(STRINGS)["complete"])
     
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
