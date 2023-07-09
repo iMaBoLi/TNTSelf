@@ -6,7 +6,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Mute Users In Pv!",
         "Commands": {
-            "{CMD}MutePv <On-Off>": None,
+            "{CMD}MutePv <On-Off>": {
+                "Help": "To Turn On-Off Mute Pv",
+            },
         },
     },
 }
