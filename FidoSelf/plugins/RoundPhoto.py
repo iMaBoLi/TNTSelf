@@ -9,7 +9,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Create Round Sticker For Photo!",
         "Commands": {
-            "{CMD}RPhoto <Reply(Photo)>": None,
+            "{CMD}RPhoto": {
+                "Help": "To Create Round",
+                "Reply": ["Photo"]
+            },
         },
     },
 }
