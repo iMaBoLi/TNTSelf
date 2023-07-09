@@ -36,11 +36,10 @@ STRINGS = {
     "clean": "**{STR} The Black List Has Been Cleaned!**"
 }
 
-@client.Command(command="AddBlack ?(.*)?")
+@client.Command(command="AddBlack", end=False)
 async def addblack(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not (await event.userid()):
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
@@ -58,8 +57,7 @@ async def addblack(event):
 @client.Command(command="DelBlack ?(.*)?")
 async def delblack(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not (await event.userid()):
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     info = await client.get_entity(userid)
