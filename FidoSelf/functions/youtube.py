@@ -57,13 +57,15 @@ async def yt_thumb(link):
     thumb = client.PATH + "youtube/" + filename
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
-    os.rename(thumb + ".webp", thumb + ".jpg")
-    thumb = thumb + ".jpg"
-    thumb = convert_thumb(thumb)
+    thumb = convert_thumb(thumb + ".webp")
     return thumb
 
 def convert_thumb(file):
-    img = Image.open(file)
-    img.save(file + ".jpg", format="jpeg")
-    os.remove(file)
-    return file + ".jpg"
+    thumb = file + ".jpg"
+    try:
+        img = Image.open(file)
+        img.save(thumb, format="jpeg")
+        os.remove(file)
+    except:
+        os.rename(file, thumb)
+    return thumb
