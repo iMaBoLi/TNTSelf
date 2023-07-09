@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import Button
+from .Variebels import VARIEBELS
 
 __INFO__ = {
     "Category": "Setting",
@@ -29,8 +30,6 @@ STRINGS = {
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
-VARIEBELS = list(client.VARIEBELS.keys()) if hasattr(client, "VARIEBELS") else []
-
 CATEGORYS = {
     "Setting": ["Help", "Panel", "Lists", "Manage", "Save", "Command", "Realm", "BackUp", "Simbel", "Ping", "Reload"],
     "Manage": ["Quick", "Save", "Auto", "Vip", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Rank"],
@@ -44,7 +43,7 @@ CATEGORYS = {
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv"],
     "Users": ["User Info", "Get Profiles"],
-    "Variebels": VARIEBELS,
+    "Variebels": list(VARIEBELS.keys()),
     "Other": [],
 }
 
@@ -109,8 +108,6 @@ def search_plugin(pluginname):
 @client.Command(command="Help ?(.*)?")
 async def help(event):
     await event.edit(client.STRINGS["wait"])
-    if not CATEGORYS["Variebels"]:
-        CATEGORYS["Variebels"] = list(client.VARIEBELS.keys()) if hasattr(client, "VARIEBELS") else []
     pname = event.pattern_match.group(1)
     if pname:
         plugin = search_plugin(pname)
