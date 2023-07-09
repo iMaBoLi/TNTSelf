@@ -125,7 +125,7 @@ async def quicksupdate(event):
                 getmsg = await client.get_messages(int(MainAnswers["chat_id"]), ids=int(MainAnswers["msg_id"]))
                 await event.respond(getmsg)
             else:
-                getmsg = await client.get_messages(int(media["chat_id"]), ids=int(media["msg_id"]))
+                getmsg = await client.get_messages(int(MainAnswers["chat_id"]), ids=int(MainAnswers["msg_id"]))
                 await event.reply(getmsg)
             continue
         elif info["Type"] == "Draft":
