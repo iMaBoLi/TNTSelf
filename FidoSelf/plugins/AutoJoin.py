@@ -7,7 +7,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Auto Join To Leaved Chats!",
         "Commands": {
-            "{CMD}AutoJoin <On-Off>": None,
+            "{CMD}AutoJoin <On-Off>": {
+                "Help": "To Turn On-Off Auto Join",
+            },
         },
     },
 }
