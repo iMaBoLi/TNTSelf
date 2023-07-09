@@ -16,7 +16,7 @@ __INFO__ = {
             "{CMD}SetComment": {
                 "Help": "To Set Comment Message",
                 "Reply": ["Message", "Media"],
-                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "TITLE", "CHATUSERNAME", "COUNT"],
+                "Vars": ["TIME", "DATE", "HEART"],
             },
             "{CMD}DelComment": {
                 "Help": "To Delete Comment Message",
