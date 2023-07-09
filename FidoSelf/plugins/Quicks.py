@@ -18,6 +18,13 @@ __INFO__ = {
                     "<Answers>": "Answers For Quick",
                 },
             },
+            "{CMD}AddQuick <CMD>": {
+                "Help": "To Add Media Quick To Quicks",
+                "Input": {
+                    "<CMD>": "Command For Quick",
+                },
+                "Reply": ["Message", "Media"]
+            },
             "{CMD}DelQuick <CMD>": {
                 "Help": "To Delete Quick From Quicks",
                 "Input": {
@@ -189,7 +196,7 @@ def get_buttons(quick):
     buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}")])
     return buttons
 
-@client.Command(command="AddQuick \'([\s\S]*)\' ?([\s\S]*)?")
+@client.Command(command="AddQuick \'([\s\S]*)\' ([\s\S]*)")
 async def addquick(event):
     await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)[:25]
@@ -198,13 +205,27 @@ async def addquick(event):
     rand = random.randint(111111111, 999999999)
     QName = f"Quick{str(rand)}"
     replyuser = event.reply_message.sender_id if event.is_reply else None
-    if not answers:
-        if not event.is_reply:
-            return await event.edit(client.getstrings(STRINGS)["notans"])
-        info = await event.reply_message.save()
-        quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 0, "DO": False}})
+    quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 0, "DO": False}})
+    client.DB.set_key("QUICK_LIST", quicks)
+    res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
+    if replyuser:
+        await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
-        quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 0, "DO": False}})
+        await res[0].click(event.chat_id)
+    await event.delete()
+    
+@client.Command(command="AddQuick ([\s\S]*)")
+async def addmediaquick(event):
+    await event.edit(client.STRINGS["wait"])
+    if reply:= event.checkReply():
+        return await event.edit(reply)
+    cmd = event.pattern_match.group(1)[:25]
+    quicks = client.DB.get_key("QUICK_LIST") or {}
+    rand = random.randint(111111111, 999999999)
+    QName = f"Quick{str(rand)}"
+    replyuser = event.reply_message.sender_id if event.is_reply else None
+    info = await event.reply_message.save()
+    quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 0, "DO": False}})
     client.DB.set_key("QUICK_LIST", quicks)
     res = await client.inline_query(client.bot.me.username, f"QuickPage:{QName}")
     if replyuser:
