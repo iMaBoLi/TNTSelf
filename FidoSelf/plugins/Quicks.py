@@ -8,7 +8,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Setting Your Quicks Answers!",
         "Commands": {
-            "{CMD}Quicks <On-Off>": {
+            "{CMD}Quick <On-Off>": {
                 "Help": "To Turn On-Off Quicks!"
             },
             "{CMD}AddQuick '<CMD>' <Answers>": {
@@ -42,32 +42,32 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**{STR} \ud804\udc4d The Quicks Mode Has Been {}!**",
-    "notin": "**{STR} \ud804\udc4d The Command** ( `{}` ) **Not In Quicks Command Lists!**",
-    "quickpage": "**{STR} \ud804\udc4d Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
-    "setquick": "**{STR} \u279c The {} Setting Was Set To** ( `{}` )",
-    "savequick": "**{STR} \ud804\udc4d The Quick Answer Was Saved!**\n\n**\u272f Person:** ( `{}` )\n**\u272f Where:** ( `{}` )\n**\u272f Type:** ( `{}` )\n**\u272f Find:** ( `{}` )\n**\u272f Sleep:** ( `{}` )\n\n**\u272f Command:** ( `{}` )\n\n**\u272f Answer(s):** ( `{}` )",
-    "delquick": "**{STR} \ud804\udc4d The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
-    "getquick": "**{STR} \u272f Command:** ( `{}` )\n\n**\u272f Answer(s):** ( `{}` )\n\n**\u272f Person:** ( `{}` )\n**\u272f Where:** ( `{}` )\n**\u272f Type:** ( `{}` )\n**\u272f Find:** ( `{}` )\n**\u272f Sleep:** ( `{}` )",
-    "listdel": "**{STR} \ud804\udc4d Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
-    "quicklist": "**{STR} \ud804\udc4d Select Each Quick Answer To View Its Information:**\n\n**\u272f Quicks Count:** ( `{}` )",
-    "allempty": "**{STR} \ud804\udc4d The Quicks List Is Already Empty!**",
-    "cleanquick": "**{STR} \ud804\udc4d The Quicks List Was Cleaned!**",
-    "empty": "**{STR} \ud804\udc4d The Quicks List Is Empty!**"
+    "change": "**{STR} The Quicks Mode Has Been {}!**",
+    "notin": "**{STR} The Command** ( `{}` ) **Not In Quicks Command Lists!**",
+    "quickpage": "**{STR} Select And Setting This Quick Answer:**\n\n**Command:** ( `{}` )\n**Answer:** ( `{}` )",
+    "setquick": "**{STR} The {} Setting Was Set To** ( `{}` )",
+    "savequick": "**{STR} The Quick Answer Was Saved!**\n\n**{STR} Person:** ( `{}` )\n**{STR} Where:** ( `{}` )\n**{STR} Type:** ( `{}` )\n**{STR} Find:** ( `{}` )\n**{STR} Sleep:** ( `{}` )\n\n**{STR} Command:** ( `{}` )\n\n**{STR} Answer(s):** ( `{}` )",
+    "delquick": "**{STR} The Quick** ( `{}` ) **From List** ( `{} -> {} -> {}` ) **Has Been Deleted!**",
+    "getquick": "**{STR} Command:** ( `{}` )\n\n**{STR} Answer(s):** ( `{}` )\n\n**{STR} Person:** ( `{}` )\n**{STR} Where:** ( `{}` )\n**{STR} Type:** ( `{}` )\n**{STR} Find:** ( `{}` )\n**{STR} Sleep:** ( `{}` )",
+    "listdel": "**{STR} Choose From Which List You Want** ( `{}` ) **Quick Answer To Be Deleted:**",
+    "quicklist": "**{STR} Select Each Quick Answer To View Its Information:**\n\n**{STR} Quicks Count:** ( `{}` )",
+    "allempty": "**{STR} The Quicks List Is Already Empty!**",
+    "cleanquick": "**{STR} The Quicks List Was Cleaned!**",
+    "empty": "**{STR} The Quicks List Is Empty!**"
 }
 
 @client.Command(command="Quick (On|Off)")
 async def quickmode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("QUICK_LIST_MODE", change)
+    client.DB.set_key("QUICK_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def quicksupdate(event):
     if event.checkCmd() or not event.text: return
-    QMode = client.DB.get_key("QUICK_LIST_MODE") or "ON"
+    QMode = client.DB.get_key("QUICK_MODE") or "ON"
     if QMode == "OFF": return
     quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks: return
