@@ -10,12 +10,26 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Auto GoodBy In The Chats!",
         "Commands": {
-            "{CMD}GoodBy <On-Off>": None,
-            "{CMD}SetGoodBy <Reply>": None,
-            "{CMD}DelGoodBy": None,
-            "{CMD}GetGoodBy": None,
-            "{CMD}GoodByList": None,
-            "{CMD}CleanGoodByList": None,
+            "{CMD}Goodby <On-Off>": {
+                "Help": "To Turn On-Off Goodby Message",
+            },
+            "{CMD}SetGoodby": {
+                "Help": "To Set Goodby Message",
+                "Reply": ["Message", "Media"],
+                "Vars": ["TIME", "DATE", "HEART", "NAME", "MENTION", "USERNAME", "TITLE", "CHATUSERNAME", "COUNT"],
+            },
+            "{CMD}DelGoodby": {
+                "Help": "To Delete Goodby Message",
+            },
+            "{CMD}GetGoodby": {
+                "Help": "To Getting Goodby Message",
+            },
+            "{CMD}GoodbyList": {
+                "Help": "To Getting Goodby List",
+            },
+            "{CMD}CleanGoodbyList": {
+                "Help": "To Cleaning Goodby List",
+            },
         },
     },
 }
