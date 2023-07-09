@@ -7,23 +7,63 @@ __INFO__ = {
     "Info": {
         "Help": "To Search On Messages In The Chat!",
         "Commands": {
-            "{CMD}SRAll <Text>": "Search On All Messages!",
-            "{CMD}SRPhoto <Text>": "Search On Photo Messages!",
-            "{CMD}SRVideo <Text>": "Search On Video Messages!",
-            "{CMD}SRGif <Text>": "Search On Gif Messages!",
-            "{CMD}SRVoice <Text>": "Search On Voice Messages!",
-            "{CMD}SRMusic <Text>": "Search On Music Messages!",
-            "{CMD}SRFile <Text>": "Search On File Messages!",
-            "{CMD}SRUrl <Text>": "Search On Url Messages!",
+            "{CMD}SRAll <Text>": {
+                "Help": "Search On All Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRPhoto <Text>": {
+                "Help": "Search On Photo Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRVideo <Text>": {
+                "Help": "Search On Video Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRGif <Text>": {
+                "Help": "Search On Gif Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRMusic <Text>": {
+                "Help": "Search On Music Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRVoice <Text>": {
+                "Help": "Search On Voice Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRFile <Text>": {
+                "Help": "Search On File Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
+            "{CMD}SRUrl <Text>": {
+                "Help": "Search On Url Messages!",
+                "Input": {
+                    "<Text>": "Text For Search",
+                },
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "result": "**{STR} Search Result Messages For Text:** ( `{}` )\n**Filter:** ( `{}` )\n\n",
-    "click": "**{STR} ick Here!",
-    "not": "**{STR} No Results Found For Text:** ( `{}` )\n**Filter:** ( `{}` )"
+    "result": "**{STR} Search Result Messages For Text:** ( `{}` )\n{STR} **Filter:** ( `{}` )\n\n",
+    "click": "**{STR} Click Here!",
+    "notres": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )"
 }
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
@@ -50,5 +90,5 @@ async def searcher(event):
         text += f"**{count} -** [{name}]({link.link})\n"
         count += 1
     if count < 2:
-        text = client.getstrings(STRINGS)["not"].format((query or "---"), filter)
+        text = client.getstrings(STRINGS)["notres"].format((query or "---"), filter)
     await event.edit(text)
