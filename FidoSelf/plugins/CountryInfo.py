@@ -7,7 +7,12 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information About Country!",
         "Commands": {
-            "{CMD}SCountry <Name>": None,
+            "{CMD}SCountry <Name>": {
+                "Help": "To Get Info",
+                "Input": {
+                    "<Name>": "Name Of Country",
+                },
+            },
         },
     },
 }
@@ -15,7 +20,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notcon": "**{STR} The Country Name** ( `{}` ) **Is Not Finded!**",
-    "country": "**{STR} Country Info:** ( `{}` )\n\n**Spellings:** ( `{}` )\n**Capital:** ( `{}` )\n**Population:** ( `{}` )\n**Area:** ( `{}` )\n**Region:** ( `{}` )\n**Currencies:** ( `{}` )\n**Calling Codes:** ( `{}` )\n**Time Zones:** ( `{}` )\n**Borders:** ( `{}` )\n\n**Provinces:** ( `{}` )"
+    "country": "**{STR} Country Info:** ( `{}` )\n\n**{STR} Spellings:** ( `{}` )\n**{STR} Capital:** ( `{}` )\n**{STR} Population:** ( `{}` )\n**{STR} Area:** ( `{}` )\n**{STR} Region:** ( `{}` )\n**{STR} Currencies:** ( `{}` )\n**{STR} Calling Codes:** ( `{}` )\n**{STR} Time Zones:** ( `{}` )\n**{STR} Borders:** ( `{}` )\n\n**{STR} Provinces:** ( `{}` )"
 }
 
 @client.Command(command="SCountry (.*)")
