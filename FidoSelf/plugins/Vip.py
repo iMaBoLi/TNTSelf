@@ -36,33 +36,31 @@ STRINGS = {
     "clean": "**{STR} The Vip List Has Been Cleaned!**"
 }
 
-@client.Command(command="AddVip ?(.*)?")
+@client.Command(command="AddVip", userid=True)
 async def addvip(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     vips = client.DB.get_key("VIP_USERS") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid in vips:
+    if event.userid in vips:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
-    vips.append(userid)
+    vips.append(event.userid)
     client.DB.set_key("VIP_USERS", vips)
     await event.edit(client.getstrings(STRINGS)["add"].format(mention))
     
-@client.Command(command="DelVip ?(.*)?")
+@client.Command(command="DelVip", userid=True)
 async def delvip(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     vips = client.DB.get_key("VIP_USERS") or []
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    if userid not in vips:
+    if event.userid not in vips:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
-    vips.remove(userid)
+    vips.remove(event.userid)
     client.DB.set_key("VIP_USERS", vips)
     await event.edit(client.getstrings(STRINGS)["del"].format(mention))
     
