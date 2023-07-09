@@ -28,7 +28,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notacs": "**{STR} \u2736 You Do Not Have Access To Ban/UnBan Users!**",
+    "notacs": "**{STR} You Do Not Have Access To Ban/UnBan Users!**",
     "banuser": "**{STR} The User** ( {} ) **Was Banned In This Chat!**",
     "errorban": "**{STR} The User** ( {} ) **Is Not Banned!**\n**Error:** ( `{}` )",
     "tbanuser": "**{STR} The User** ( {} ) **Was Banned For** ( `{}` ) **In This Chat!**",
@@ -36,17 +36,16 @@ STRINGS = {
     "errorunabn": "**{STR} The User** ( {} ) **Is Not UnBanned!**\n**Error:** ( `{}` )"
 }
 
-@client.Command(command="Ban ?(.*)?")
+@client.Command(command="Ban", userid=True)
 async def banuser(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id, view_messages=False)
@@ -76,17 +75,16 @@ async def timerbanuser(event):
     text = client.getstrings(STRINGS)["tbanuser"].format(mention, stimer)
     await event.edit(text)
     
-@client.Command(command="UnBan ?(.*)?")
+@client.Command(command="UnBan", userid=True)
 async def unbanuser(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
-    info = await client.get_entity(userid)
+    info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     try:
         await client.edit_permissions(event.chat_id, info.id)
