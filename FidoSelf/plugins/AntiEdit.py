@@ -7,7 +7,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Delete Edited Messages And Send Whitout Edit!",
         "Commands": {
-            "{CMD}AntiEdit <On-Off>": None,
+            "{CMD}AntiEdit <On-Off>": {
+                "Help": "To Turn On-Off Anti Edit"
+            },
         },
     },
 }
