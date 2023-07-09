@@ -6,10 +6,24 @@ __INFO__ = {
     "Info": {
         "Help": "To Filter Words In Pv And Delete!",
         "Commands": {
-            "{CMD}AddFilterPv <Text>": None,
-            "{CMD}DelFilterPv <Text>": None,
-            "{CMD}FilterPvList": None,
-            "{CMD}CleanFilterPvList": None,
+            "{CMD}AddFilterPv <Word>": {
+                "Help": "To Add Words To FilterPv List",
+                "Input": {
+                    "<Word>": "Word For Filter",
+                },
+            },
+            "{CMD}DelFilterPv <Word>": {
+                "Help": "To Delete Words From FilterPv List",
+                "Input": {
+                    "<Word>": "Word For Delete",
+                },
+            },
+            "{CMD}FilterPvList": {
+                "Help": "To Getting FilterPv List",
+            },
+            "{CMD}CleanFilterPvList": {
+                "Help": "To Cleaning FilterPv List",
+            },
         },
     },
 }
