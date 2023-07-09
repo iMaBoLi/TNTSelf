@@ -59,8 +59,6 @@ async def getuserid(event, number=1):
         userid = event.chat_id
     return userid
 
-setattr(Message, "getuserid", getuserid)
-
 async def getchatid(event, number=1):
     chatid = None
     inputs = event.text.split(" ")
@@ -76,8 +74,6 @@ async def getchatid(event, number=1):
     elif not event.is_private:
         chatid = event.chat_id
     return chatid
-
-setattr(Message, "getchatid", getchatid)
 
 def mention(info, coustom=None):
     if not coustom:
