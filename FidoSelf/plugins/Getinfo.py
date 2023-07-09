@@ -40,8 +40,8 @@ async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
-    uinfo = await client.get_entity(userid)
-    info = await client(functions.users.GetFullUserRequest(userid))
+    uinfo = await client.get_entity(event.userid)
+    info = await client(functions.users.GetFullUserRequest(event.userid))
     info = info.full_user
     contact = "✅" if uinfo.contact else "❌"
     mcontact = "✅" if uinfo.mutual_contact else "❌"
@@ -59,12 +59,12 @@ async def ginfo(event):
     await event.edit(client.STRINGS["wait"])
     if not event.chatid:
         return await event.edit(client.STRINGS["getchatID"])
-    cinfo = await client.get_entity(chatid)
+    cinfo = await client.get_entity(event.chatid)
     if cinfo.megagroup or cinfo.broadcast:
-        info = (await client(functions.channels.GetFullChannelRequest(chatid))).full_chat
+        info = (await client(functions.channels.GetFullChannelRequest(event.chatid))).full_chat
     else:
-        info = (await client(functions.messages.GetFullChatRequest(chatid))).full_chat
-    history = await client(functions.messages.GetHistoryRequest(peer=chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
+        info = (await client(functions.messages.GetFullChatRequest(event.chatid))).full_chat
+    history = await client(functions.messages.GetHistoryRequest(peer=event.chatid, offset_id=0, offset_date=None, add_offset=-0, limit=0, max_id=0, min_id=0, hash=0))
     members = getattr(info, "participants_count", None) or "---"
     bans = getattr(info, "banned_count", None) or "---"
     admins = getattr(info, "admins_count", None) or "---"
