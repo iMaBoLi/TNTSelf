@@ -6,9 +6,12 @@ __INFO__ = {
     "Category": "Convert",
     "Name": "Mirror Photo",
     "Info": {
-        "Help": "To Mirror Your Photo!",
+        "Help": "To Create Mirror Photo For Your Photo!",
         "Commands": {
-            "{CMD}SMirror <Reply(Photo)>": None,
+            "{CMD}SMirror": {
+                "Help": "To Create Mirror",
+                "Reply": ["Photo"]
+            },
         },
     },
 }
