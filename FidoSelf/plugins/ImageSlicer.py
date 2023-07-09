@@ -6,9 +6,15 @@ __INFO__ = {
     "Category": "Tools",
     "Name": "Image Slicer",
     "Info": {
-        "Help": "To Get Slices Images To Tiles!",
+        "Help": "To Create Slice Images With Tiles!",
         "Commands": {
-            "{CMD}Slice <Count>": None,
+            "{CMD}Slice <Count>": {
+                "Help": "To Slice Image",
+                "Input": {
+                    "<Count>": "Number For Tiles",
+                },
+                "Reply": ["Photo"]
+            },
         },
     },
 }
