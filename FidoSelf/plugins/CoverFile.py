@@ -47,7 +47,7 @@ async def setcover(event):
 @client.Command(command="AddCover")
 async def addcover(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["File", "Video", "Music"]):
+    if reply:= event.checkReply(["File", "Music"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
@@ -65,7 +65,7 @@ async def addcover(event):
 @client.Command(command="GetCover")
 async def getcover(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["File", "Music"]):
+    if reply:= event.checkReply(["File", "Video", "Music"]):
         return await event.edit(reply)
     if not event.reply_message.document.thumbs:
         return await event.edit(client.getstrings(STRINGS)["notcover"])
