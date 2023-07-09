@@ -7,7 +7,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Profile Photos Of Users!",
         "Commands": {
-            "{CMD}GProfiles <Pv|Reply|UserID|Username>": None,
+            "{CMD}GProfiles": {
+                "Help": "To Get Profiles",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
         },
     },
 }
