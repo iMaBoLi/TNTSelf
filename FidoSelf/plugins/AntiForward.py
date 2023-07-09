@@ -6,7 +6,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Delete Forwarded Messages And Send Whitout Forward!",
         "Commands": {
-            "{CMD}AntiForward <On-Off>": None,
+            "{CMD}AntiForward <On-Off>": {
+                "Help": "To Turn On-Off Anti Forward"
+            },
         },
     },
 }
