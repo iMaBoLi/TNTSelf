@@ -7,7 +7,9 @@ __INFO__ = {
     "Info": {
         "Help": "To Lock Pv And Block Users In Pv!",
         "Commands": {
-            "{CMD}LockPv <On-Off>": None,
+            "{CMD}LockPv <On-Off>": {
+                "Help": "To Turn On-Off Lock Pv",
+            },
         },
     },
 }
