@@ -28,6 +28,8 @@ STRINGS = {
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
 
+VARIEBELS = list(client.VARIEBELS.keys()) if hasattr(client, "VARIEBELS") else []
+
 CATEGORYS = {
     "Setting": ["Help", "Panel", "Lists", "Manage", "Save", "Command", "Realm", "BackUp", "Simbel", "Ping", "Reload"],
     "Manage": ["Quick", "Save", "Auto", "Vip", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Rank"],
@@ -41,7 +43,7 @@ CATEGORYS = {
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv"],
     "Users": ["User Info", "Get Profiles"],
-    "Variebels": [],
+    "Variebels": VARIEBELS,
     "Other": [],
 }
 
