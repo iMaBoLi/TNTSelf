@@ -59,7 +59,7 @@ async def getuserid(event, number=1):
         userid = event.chat_id
     return userid
 
-setattr(Message, "userid", getuserid)
+setattr(Message, "getuserid", getuserid)
 
 async def getchatid(event, number=1):
     chatid = None
@@ -77,7 +77,7 @@ async def getchatid(event, number=1):
         chatid = event.chat_id
     return chatid
 
-setattr(Message, "chatid", getchatid)
+setattr(Message, "getchatid", getchatid)
 
 def mention(info, coustom=None):
     if not coustom:
