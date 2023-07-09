@@ -7,9 +7,16 @@ __INFO__ = {
     "Info": {
         "Help": "To Manage Fosh File For Enemies!",
         "Commands": {
-            "{CMD}AddFosh <Reply(File)>": None,
-            "{CMD}DelFosh": None,
-            "{CMD}GetFosh": None,
+            "{CMD}SetFosh <Reply(File)>": {
+                "Help": "To Save Fosh File",
+                "Reply": ["TXT File"]
+            },
+            "{CMD}DelFosh": {
+                "Help": "To Delete Fosh File",
+            },
+            "{CMD}GetFosh": {
+                "Help": "To Getting Fosh File",
+            },
         },
     },
 }
@@ -22,7 +29,7 @@ STRINGS = {
     "file": "**{STR} The Foshs File!**\n**Count:** ( `{}` )"
 }
 
-@client.Command(command="AddFosh")
+@client.Command(command="SetFosh")
 async def savefoshfile(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["TXT File"]):
