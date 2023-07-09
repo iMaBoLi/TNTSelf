@@ -6,8 +6,19 @@ __INFO__ = {
     "Info": {
         "Help": "To Delete Message In Chats!",
         "Commands": {
-            "{CMD}Del <Count>": None,
-            "{CMD}Del <Count> <Reply>": "Delete Messages Of User!",
+            "{CMD}Del <Count>": {
+                "Help": "To Delete Messages",
+                "Input": {
+                    "<Count>": "Number Of Messages",
+                },
+            },
+            "{CMD}Del <Count>": {
+                "Help": "To Delete Messages Of User",
+                "Input": {
+                    "<Count>": "Number Of Messages",
+                },
+                "Getid": "You Must Reply To User",
+            },
         },
     },
 }
