@@ -6,17 +6,19 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Chats Count Of Your Account!",
         "Commands": {
-            "{CMD}GChats": None,
+            "{CMD}CCount": {
+                "Help": "To Get Count",
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "count": "**{STR} \u2748 Account Chats Count:**\n\n  **\u0e5b All:** ( `{}` )\n  **\u0e5b Privates:** ( `{}` )\n  **\u0e5b SuperGroups:** ( `{}` )\n  **\u0e5b Groups:** ( `{}` )\n  **\u0e5b Channels:** ( `{}` )\n  **\u0e5b Bots:** ( `{}` )"
+    "count": "**{STR} Account Chats Count:**\n\n  **{STR} All:** ( `{}` )\n  **{STR} Privates:** ( `{}` )\n  **{STR} SuperGroups:** ( `{}` )\n  **{STR} Groups:** ( `{}` )\n  **{STR} Channels:** ( `{}` )\n  **{STR} Bots:** ( `{}` )"
 }
 
-@client.Command(command="GChats")
+@client.Command(command="CCount")
 async def chatcounts(event):
     await event.edit(client.STRINGS["wait"])
     all, users, groups, sgroups, channels, bots = 0,0,0,0,0,0
