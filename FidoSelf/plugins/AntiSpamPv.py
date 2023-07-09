@@ -76,7 +76,7 @@ WARNS = {}
 @client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
     if (
-        or not event.is_private
+        not event.is_private
         or event.is_white
         or event.is_sudo
         or event.is_bot
