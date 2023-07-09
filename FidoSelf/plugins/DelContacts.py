@@ -5,9 +5,14 @@ __INFO__ = {
     "Category": "Account",
     "Name": "Del Contacts",
     "Info": {
-        "Help": "To Delete Your Contacts!",
+        "Help": "To Delete Your Account Contacts!",
         "Commands": {
-            "{CMD}DelC <Name>": None,
+            "{CMD}DelC <Name>": {
+                "Help": "To Delete Contacts With Name",
+                "Input": {
+                    "<Name>": "Name Of Contact",
+                },
+            },
         },
     },
 }
