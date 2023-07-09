@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information Of Users!",
         "Commands": {
-            "{CMD}UInfo": {
+            "{CMD}Info": {
                 "Help": "To Get User Info",
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
@@ -21,7 +21,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information Of Chats!",
         "Commands": {
-            "{CMD}CInfo": {
+            "{CMD}GInfo": {
                 "Help": "To Get Chat Info",
                 "Getid": "You Must Send In Chat Or Input ChatID/UserName",
             },
@@ -35,11 +35,10 @@ STRINGS = {
     "chat": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )"
 }
 
-@client.Command(command="UInfo ?(.*)?")
+@client.Command(command="Info", userid=True)
 async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
-    userid = await event.userid(event.pattern_match.group(1))
-    if not userid:
+    if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     uinfo = await client.get_entity(userid)
     info = await client(functions.users.GetFullUserRequest(userid))
@@ -55,11 +54,10 @@ async def userinfo(event):
         await event.respond(userinfo)
     await event.delete()
 
-@client.Command(command="Cinfo ?(.*)?")
+@client.Command(command="Ginfo", chatid=True)
 async def ginfo(event):
     await event.edit(client.STRINGS["wait"])
-    chatid = await event.chatid(event.pattern_match.group(1))
-    if not chatid:
+    if not event.chatid:
         return await event.edit(client.STRINGS["getchatID"])
     cinfo = await client.get_entity(chatid)
     if cinfo.megagroup or cinfo.broadcast:
