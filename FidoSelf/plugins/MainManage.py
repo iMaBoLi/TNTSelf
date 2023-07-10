@@ -18,13 +18,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "menu": "**{STR} Please Use The Options Below To Manage User Modes:**",
+    "menu": "**{STR} Select The Options Below To Manage User Modes:**\n\n**{STR} User:** ( {} )",
     "closemanage": "**{STR} The Manage Panel Successfuly Closed!**",
     "infouser": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
 }
 
 MANAGES = {
-    "VIP_USERS": "Vip",
+    "SUDO_USERS": "Sudo",
     "LOVE_USERS": "Love",
     "WHITE_LIST": "White",
     "BLACK_LIST": "Black",
@@ -68,7 +68,9 @@ async def Manage(event):
 async def inlinemanage(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
-    text = client.getstrings(STRINGS)["menu"]
+    info = await client.get_entity(userid)
+    mention = client.functions.mention(info)
+    text = client.getstrings(STRINGS)["menu"].format(mention)
     buttons = await get_manage_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
