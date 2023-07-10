@@ -38,7 +38,7 @@ LISTS = {
     "Reaction Chats": "REACTION_CHATS",
     "Repeats": "REPEAT_LIST",
     "Echo Users": "ECHO_USERS",
-    "Vip Users": "VIP_USERS",
+    "Sudo Users": "SUDO_USERS",
     "Love Users": "LOVE_LIST",
     "Love Times": "LOVETIME_LIST",
     "Comment Chats": "COMMENT_CHATS",
