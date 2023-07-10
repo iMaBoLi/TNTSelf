@@ -8,13 +8,7 @@ __INFO__ = {
         "Help": "To Clean Recent Saved Stickers!",
         "Commands": {
             "{CMD}CStickers": {
-                "Help": "To Delete All Stickers",
-            },
-            "{CMD}CStickers <Count>": {
-                "Help": "To Delete Some Stickers",
-                "Input": {
-                    "<Count>": "Number Of Stickers",
-                },
+                "Help": "To Clean Stickers",
             },
         },
     },
