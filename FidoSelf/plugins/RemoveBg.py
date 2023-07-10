@@ -39,26 +39,26 @@ def removebg(photo, newphoto):
 
 @client.Command(command="SetRmBgKey (.*)")
 async def savebgapi(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     api = event.pattern_match.group(1)
     client.DB.set_key("RMBG_API_KEY", api)
-    await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
+    await edit.edit(client.getstrings(STRINGS)["setapi"].format(api))
 
 @client.Command(command="RmBg")
 async def rmbg(event):
-    event = await event.tryedit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
-        return await event.edit(reply)
+        return await edit.edit(reply)
     if not client.DB.get_key("RMBG_API_KEY"):
-        return await event.edit(client.getstrings(STRINGS)["notsave"])
+        return await edit.edit(client.getstrings(STRINGS)["notsave"])
     photo = await event.reply_message.download_media(client.PATH)
     newphoto = client.PATH + "RemoveBG.png"
     state, result = removebg(photo, newphoto)
     if not state:
-        return await event.edit(client.getstrings(STRINGS)["notcom"].format(result))
+        return await edit.edit(client.getstrings(STRINGS)["notcom"].format(result))
     caption = client.getstrings(STRINGS)["caption"]
     await client.send_file(event.chat_id, newphoto, force_document=True, caption=caption)
     await client.send_file(event.chat_id, newphoto, caption=caption)
     os.remove(photo)
     os.remove(newphoto)
-    await event.delete()
+    await edit.delete()
