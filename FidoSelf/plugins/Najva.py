@@ -31,9 +31,16 @@ NAJVAS = {}
 
 @client.Inline(pattern="Najva\:(.*)\,(.*)")
 async def najva(event):
-    userid = event.pattern_match.group(1)
+    inputid = event.pattern_match.group(1)
     message = event.pattern_match.group(2)
-    userid = await client.functions.getuserid(event, userid)
+    userid = None
+    inputid = int(inputid) if inputid.isdigit() else str(inputid)
+    try:
+        userinfo = await client.get_entity(inputid)
+        if userinfo.to_dict()["_"] == "User":
+            userid = userinfo.id
+    except:
+        pass
     if not userid:
         text = client.getstrings(STRINGS)["notfound"]
         return await event.answer([event.builder.article("Najva - ( User Not Found )", text=text)])
