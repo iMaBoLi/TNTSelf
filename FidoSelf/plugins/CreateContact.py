@@ -30,5 +30,5 @@ async def createcontact(event):
     phone = str(event.pattern_match.group(2))
     caption = client.getstrings(STRINGS)["created"].format(name, phone)
     contact = types.InputMediaContact(phone_number=phone, first_name=name, last_name="", vcard="0")
-    await client.send_file(event.chat_id, contact)
+    await client.send_file(event.chat_id, contact, caption=caption)
     await event.delete()
