@@ -20,12 +20,13 @@ STRINGS = {
 
 @client.Command(command="TSay ?([\S\s]*)?")
 async def tsay(event):
+    edit = await event.tryedit(client.STRINGS["wait"])
     inputtext = str(event.pattern_match.group(1) or "")
     if not inputtext and not (event.reply_message or event.reply_message.text):
-        return await event.edit(client.getstrings(STRINGS)["not"])
+        return await edit.edit(client.getstrings(STRINGS)["not"])
     OText = inputtext if inputtext else event.reply_message.text
     Text = ""
     for Part in OText:
         Text += Part
-        await event.edit(Text)
+        await edit.edit(Text)
         await asyncio.sleep(0.5)

@@ -28,11 +28,11 @@ STRINGS = {
 
 @client.Command(command="CGifs ?(\d*)?")
 async def cleangifs(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     number = event.pattern_match.group(1)
     result = await client(functions.messages.GetSavedGifsRequest(hash=0))
     gifcount = number if number else len(result.gifs)
-    await event.edit(client.getstrings(STRINGS)["cleaning"].format(gifcount))
+    await edit.edit(client.getstrings(STRINGS)["cleaning"].format(gifcount))
     count = 0
     for gif in result.gifs:
         gifid = types.InputDocument(id=gif.id, access_hash=gif.access_hash, file_reference=gif.file_reference)
@@ -40,4 +40,4 @@ async def cleangifs(event):
         count += 1
         if number and count >= number:
             break
-    await event.edit(client.getstrings(STRINGS)["cleaned"].format(count))
+    await edit.edit(client.getstrings(STRINGS)["cleaned"].format(count))
