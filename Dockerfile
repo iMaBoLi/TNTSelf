@@ -1,9 +1,7 @@
 FROM python:3.11
 
-WORKDIR /usr/src/app
-RUN chmod 777 /usr/src/app
-
-COPY . .
+COPY . /app
+WORKDIR /app
 
 RUN apt-get update
 RUN apt-get install -y ffmpeg
