@@ -18,9 +18,8 @@ def getstrings(STRINGS):
     return NEWSTR
     
 async def tryedit(event, text, **kwargs):
-    if event.out:
-        newevent = await event.edit(text, **kwargs)
-    else:
+    newevent = await event.edit(text, **kwargs)
+    if not newevent:
         newevent = await event.reply(text, **kwargs)
     return newevent
 
