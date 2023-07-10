@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="CCount")
 async def chatcounts(event):
-    edit = await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     all, users, groups, sgroups, channels, bots = 0,0,0,0,0,0
     async for dialog in client.iter_dialogs():
         all += 1
