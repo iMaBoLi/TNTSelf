@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Create Contact With Name And Phone!",
         "Commands": {
-            "{CMD}SContact <Name>:<Phone": {
+            "{CMD}SContact <Name>:<Phone>": {
                 "Help": "To Create Contact",
                 "Input": {
                     "<Name>": "Name Of Contact",
