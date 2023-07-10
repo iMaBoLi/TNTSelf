@@ -28,7 +28,7 @@ def Command(
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 event.reply_message = await event.get_reply_message()
                 sudolist = client.DB.get_key("SUDO_USERS") or []
-                if onlysudo and not (event.is_sudo or event.is_ch or event.sender_id in sudolist): return
+                if onlysudo and not (event.is_sudo or event.is_ch or (event.sender_id in sudolist)): return
                 event.is_bot = True if (not isinstance(event.sender, types.User) or event.sender.bot) else False
                 event.userid = await client.functions.getuserid(event) if userid else 0
                 event.chatid = await client.functions.getchatid(event) if chatid else 0
