@@ -23,7 +23,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "cleaning": "**{STR} The Saved Gifs Is Cleaning ...** ( `{}` )",
-    "cleaned": "**{STR} The Number Of** ( `{}` ) **From Your Saved Gifs Was Deleted!**",
+    "cleaned": "**{STR} The Number Of** ( `{}` ) **From Your Saved Gifs Has Been Cleaned!**",
 }
 
 @client.Command(command="CGifs ?(\d*)?")
