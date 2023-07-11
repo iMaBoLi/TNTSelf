@@ -103,12 +103,12 @@ def translate(text):
     trjome = translator.translate(text, dest="fa")
     return trjome.text
     
-def gethelp(plugin):
+def gettrhelp(plugin):
     info = client.HELP[plugin]
-    text = f"**꥟ پلاگین:** ( `{plugin}` )\n"
+    text = f"**• پلاگین:** ( `{translate(plugin)}` )\n"
     category = search_category(plugin)
-    text += f"**꥟ دسته بندی:** ( `{translate(category)}` )\n"
-    text += f'**꥟ راهنما:** ( `{translate(info["Help"])}` )\n\n'
+    text += f"**• دسته بندی:** ( `{translate(category)}` )\n"
+    text += f'**• راهنما:** ( `{translate(info["Help"])}` )\n\n'
     text += "⊱┈───╌ ❊ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
         CMD = client.DB.get_key("CMD_SIMBEL") or "."
@@ -124,7 +124,7 @@ def gethelp(plugin):
                 text += "    **💡 راهنما:** __" + translate(hcom["Help"]) + "__\n"
             if "Input" in hcom:
                 for inp in hcom["Input"]:
-                    inpinf = hcom["Input"][inp]
+                    inpinf = translate(hcom["Input"][inp])
                     text += f"    **✏️** `{inp}` : __{inpinf}__\n"
             if "Getid" in hcom:
                 text += "    **🆔 دریافت آیدی:** __" + translate(hcom["Getid"]) + "__\n"
