@@ -8,9 +8,24 @@ __INFO__ = {
     "Info": {
         "Help": "To Generate Random Passwords!",
         "Commands": {
-            "{CMD}SPEasy <Count>": None,
-            "{CMD}SPMedium <Count>": None,
-            "{CMD}SPHard <Count>": None,
+            "{CMD}SPEasy <Count>": {
+                "Help": "To Craete Easy Password",
+                "Input": {
+                    "<Count>": "Number Of Password",
+                },
+            },
+            "{CMD}SPMedium <Count>": {
+                "Help": "To Craete Medium Password",
+                "Input": {
+                    "<Count>": "Number Of Password",
+                },
+            },
+            "{CMD}SPHard <Count>": {
+                "Help": "To Craete Hard Password",
+                "Input": {
+                    "<Count>": "Number Of Password",
+                },
+            },
         },
     },
 }
@@ -37,4 +52,4 @@ async def password(event):
     for i in range(count):
         password += random.choice(characters)
     text = client.getstrings(STRINGS)["pass"].format(type, password)
-    await event.edit(text)
+    await edit.edit(text)
