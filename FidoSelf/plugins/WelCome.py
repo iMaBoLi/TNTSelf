@@ -48,7 +48,7 @@ STRINGS = {
 
 @client.Command(command="Welcome (On|Off)")
 async def welcomemode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("WELCOME_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -56,7 +56,7 @@ async def welcomemode(event):
 
 @client.Command(command="SetWelcome")
 async def setwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if reply:= event.checkReply():
@@ -69,7 +69,7 @@ async def setwelcome(event):
     
 @client.Command(command="DelWelcome")
 async def delwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
@@ -81,7 +81,7 @@ async def delwelcome(event):
 
 @client.Command(command="GetWelcome")
 async def getwelcome(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     comments = client.DB.get_key("WELCOME_CHATS") or {}
@@ -94,7 +94,7 @@ async def getwelcome(event):
     
 @client.Command(command="WelcomeList")
 async def welcomelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     if not welcomes:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -107,7 +107,7 @@ async def welcomelist(event):
 
 @client.Command(command="CleanWelcomeList")
 async def cleanwelcomelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     welcomes = client.DB.get_key("WELCOME_CHATS") or {}
     if not welcomes:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
