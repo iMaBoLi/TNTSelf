@@ -25,7 +25,7 @@ STRINGS = {
 
 @client.Command(command="SWiki (.*)")
 async def wikisearch(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     search = wikipedia.search(query)[0]
     if not result:

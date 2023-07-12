@@ -48,7 +48,7 @@ STRINGS = {
 
 @client.Command(command="Comment (On|Off)")
 async def commentmode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("COMMENT_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -56,7 +56,7 @@ async def commentmode(event):
 
 @client.Command(command="SetComment")
 async def setcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if reply:= event.checkReply():
@@ -69,7 +69,7 @@ async def setcomment(event):
     
 @client.Command(command="DelComment")
 async def delcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
@@ -81,7 +81,7 @@ async def delcomment(event):
 
 @client.Command(command="GetComment")
 async def getcomment(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
@@ -94,7 +94,7 @@ async def getcomment(event):
 
 @client.Command(command="CommentList")
 async def commentlist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if not comments:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -107,7 +107,7 @@ async def commentlist(event):
 
 @client.Command(command="CleanCommentList")
 async def cleancommentlist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     comments = client.DB.get_key("COMMENT_CHATS") or {}
     if not comments:
         return await event.edit(client.getstrings(STRINGS)["aempty"])

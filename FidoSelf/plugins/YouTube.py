@@ -37,15 +37,15 @@ STRINGS = {
     
 @client.Command(command="YtDown (.*)")
 async def ytdown(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     link = event.pattern_match.group(1)
     if not client.functions.YOUTUBE_REGEX.search(link):
-        return await event.edit(client.getstrings(STRINGS)["linkinv"])
+        return await edit.edit(client.getstrings(STRINGS)["linkinv"])
     videoid = client.functions.get_videoid(link)
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"ytdown:{chatid}:{videoid}")
     await res[0].click(event.chat_id)
-    await event.delete()
+    await edit.delete()
 
 @client.Inline(pattern="ytdown\:(.*)\:(.*)")
 async def ytdowninline(event):
@@ -111,12 +111,12 @@ async def ytdownload(event):
     
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     query = query[:15]
     res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
     await res[0].click(event.chat_id)
-    await event.delete()
+    await edit.delete()
 
 @client.Inline(pattern="ytclick\:(.*)")
 async def ytsearchclick(event):

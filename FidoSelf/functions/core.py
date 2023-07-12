@@ -1,4 +1,5 @@
 from FidoSelf import client
+from telethon import functions
 from telethon.types import Message
 import urllib
 import re
@@ -39,16 +40,13 @@ setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
 
-def checkSpam(event):
+def checkSpam(event, bantime=30, maxbans=5, maxtime=3, maxmsg=5, block=False):
     antimode = client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
         return False
     whites = client.DB.get_key("WHITE_LIST") or []
     if event.sender_id in whites:
         return False
-    bantime = 20
-    maxbans = 3
-    maxtime, maxmsg = 3, 6
     if event.sender_id not in SPAMS:
         SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0, "bancount": 0}
         uspam = SPAMS[event.sender_id]
@@ -63,9 +61,12 @@ def checkSpam(event):
                 SPAMS[event.sender_id]["banned"] = int(time.time()) + bantime
                 SPAMS[event.sender_id]["bancount"] += 1
                 if SPAMS[event.sender_id]["bancount"] >= maxbans:
-                    blacks = client.DB.get_key("BLACK_LIST") or []
-                    blacks.append(event.sender_id)
-                    client.DB.set_key("BLACK_LIST", blacks)
+                    if block:
+                        client.loop.create_task(client(functions.contacts.BlockRequest(event.sender_id)))
+                    else:
+                        blacks = client.DB.get_key("BLACK_LIST") or []
+                        blacks.append(event.sender_id)
+                        client.DB.set_key("BLACK_LIST", blacks)
                 return True
         else:
             SPAMS[event.sender_id]["messages"] = 0

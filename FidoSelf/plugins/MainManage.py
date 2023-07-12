@@ -53,7 +53,7 @@ async def get_manage_buttons(userid, chatid):
 
 @client.Command(command="Manage", userid=True)
 async def Manage(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id

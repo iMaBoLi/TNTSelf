@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="GProfiles", userid=True)
 async def getprofiles(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     info = await client.get_entity(event.userid)
