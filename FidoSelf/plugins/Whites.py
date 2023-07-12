@@ -38,7 +38,7 @@ STRINGS = {
 
 @client.Command(command="AddWhite", userid=True)
 async def addwhite(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
@@ -56,7 +56,7 @@ async def addwhite(event):
     
 @client.Command(command="DelWhite", userid=True)
 async def delwhite(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
@@ -70,7 +70,7 @@ async def delwhite(event):
     
 @client.Command(command="WhiteList")
 async def whitelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     whites = client.DB.get_key("WHITE_LIST") or []
     if not whites:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -83,7 +83,7 @@ async def whitelist(event):
 
 @client.Command(command="CleanWhiteList")
 async def cleanwhitelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     whites = client.DB.get_key("WHITE_LIST") or []
     if not whites:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
