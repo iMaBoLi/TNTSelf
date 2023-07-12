@@ -96,6 +96,7 @@ async def filterpv(event):
         return
     words = client.DB.get_key("FILTERPV_WORDS") or []
     if not words: return
+    if event.checkSpam(maxmsg=8, block=True): return
     for word in words:
         if word in event.text:
             await event.delete()
