@@ -82,7 +82,7 @@ STRINGS = {
 
 @client.Command(command="Love (On|Off)")
 async def lovemode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("LOVE_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -90,7 +90,7 @@ async def lovemode(event):
 
 @client.Command(command="AddLove", userid=True)
 async def addlove(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
@@ -104,7 +104,7 @@ async def addlove(event):
     
 @client.Command(command="DelLove", userid=True)
 async def dellove(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     loves = client.DB.get_key("LOVE_LIST") or []
@@ -118,7 +118,7 @@ async def dellove(event):
     
 @client.Command(command="LoveList")
 async def lovelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     loves = client.DB.get_key("LOVE_LIST") or []
     if not loves:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -131,7 +131,7 @@ async def lovelist(event):
 
 @client.Command(command="CleanLoveList")
 async def cleanlovelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     loves = client.DB.get_key("LOVE_LIST") or []
     if not loves:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -140,7 +140,7 @@ async def cleanlovelist(event):
 
 @client.Command(command="SetLove")
 async def savelove(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -149,7 +149,7 @@ async def savelove(event):
 
 @client.Command(command="DeleteLove")
 async def deletelove(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     mlove = client.DB.get_key("LOVE_MESSAGE") or {}
     if not mlove:
         return await event.edit(client.getstrings(STRINGS)["notlove"])
@@ -158,7 +158,7 @@ async def deletelove(event):
 
 @client.Command(command="GetLove")
 async def getlove(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     mlove = client.DB.get_key("LOVE_MESSAGE") or {}
     if not mlove:
         return await event.edit(client.getstrings(STRINGS)["notlove"])
@@ -168,7 +168,7 @@ async def getlove(event):
 
 @client.Command(command="AddLoveTime (.*)")
 async def addlovetime(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVETIME_LIST") or []
     newtime = str(event.pattern_match.group(1))
     if newtime in times:
@@ -179,7 +179,7 @@ async def addlovetime(event):
     
 @client.Command(command="DelLoveTime (.*)")
 async def dellovetime(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVETIME_LIST") or []
     newtime = str(event.pattern_match.group(1))
     if newtime not in times:
@@ -190,7 +190,7 @@ async def dellovetime(event):
 
 @client.Command(command="LoveTimeList")
 async def lovetimelist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVETIME_LIST") or []
     if not times:
         return await event.edit(client.getstrings(STRINGS)["emptytime"])
@@ -203,7 +203,7 @@ async def lovetimelist(event):
 
 @client.Command(command="CleanLoveTimeList")
 async def cleanlovetimes(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     times = client.DB.get_key("LOVETIME_LIST") or []
     if not times:
         return await event.edit(client.getstrings(STRINGS)["aemptytime"])
