@@ -45,7 +45,7 @@ async def ytdown(event):
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"ytdown:{chatid}:{videoid}")
     await res[0].click(event.chat_id)
-    await event.delete()
+    await edit.delete()
 
 @client.Inline(pattern="ytdown\:(.*)\:(.*)")
 async def ytdowninline(event):
@@ -116,7 +116,7 @@ async def ytsearch(event):
     query = query[:15]
     res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
     await res[0].click(event.chat_id)
-    await event.delete()
+    await edit.delete()
 
 @client.Inline(pattern="ytclick\:(.*)")
 async def ytsearchclick(event):
