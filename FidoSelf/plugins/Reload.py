@@ -22,6 +22,6 @@ RUNCMD = "python3 -m FidoSelf"
 
 @client.Command(command="Reload")
 async def reloadself(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     await event.edit(client.getstrings(STRINGS)["reload"])
     await client.functions.runcmd(RUNCMD)
