@@ -19,7 +19,7 @@ STRINGS = {
 }
 @client.Command(command="MutePv (On|Off)")
 async def mutepvmode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("MUTEPV_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -30,5 +30,4 @@ async def mutepv(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mode = client.DB.get_key("MUTEPV_MODE") or "OFF"
     if mode == "ON":
-        if event.checkSpam(maxmsg=8, block=True): return
         await event.delete()
