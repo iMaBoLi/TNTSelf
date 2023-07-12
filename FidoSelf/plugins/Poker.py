@@ -20,7 +20,7 @@ STRINGS = {
 
 @client.Command(command="Poker (On|Off)")
 async def pokerchat(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("POKER_CHATS") or []
     chatid = event.chat_id
@@ -37,7 +37,7 @@ async def pokerchat(event):
 
 @client.Command(command="PokerAll (On|Off)")
 async def pokerall(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("POKER_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -49,5 +49,4 @@ async def poker(event):
     pomode = client.DB.get_key("POKER_MODE") or "OFF"
     pochats = client.DB.get_key("POKER_CHATS") or []
     if pomode == "ON" or event.chat_id in pochats:
-        if event.checkSpam(maxmsg=8): return
         await event.reply("😐")
