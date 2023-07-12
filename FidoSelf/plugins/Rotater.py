@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="SRotate (\d*)")
 async def rotate(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
     if reply:= event.checkReply(["Video", "Photo"]):
         return await event.edit(reply)
