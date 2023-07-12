@@ -34,7 +34,7 @@ STRINGS = {
 
 @client.Command(command="Str (.*)")
 async def translator(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
     dest = data.split(":")[0].lower()
     text = data.split(":")[1] if len(data) > 1 else None
