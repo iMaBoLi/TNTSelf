@@ -8,16 +8,7 @@ import random
 
 def progress(event, download=False, upload=False):
     newtime = time.time()
-    callback = lambda start, end: client.loop.create_task(
-        create_progress(
-            event,
-            start,
-            end,
-            newtime,
-            download,
-            upload,
-         )
-    )
+    callback = lambda start, end: client.loop.create_task(create_progress(event, start, end, newtime, download, upload))
     return callback
 
 setattr(Message, "progress", progress)
@@ -31,7 +22,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
     else:
         type = "-----"
     diff = time.time() - start
-    if round(diff % 8.00) == 0 or current == total:
+    if round(diff % 5.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
         eta = round((total - current) / speed) * 1000
@@ -53,9 +44,9 @@ async def getuserid(event, number=1):
                 userid = userinfo.id
         except:
             pass
-    elif hasattr(event, "reply_message") and event.reply_message:
+    elif event.reply_message:
         userid = event.reply_message.sender_id
-    elif hasattr(event, "is_private") and event.is_private:
+    elif event.is_private:
         userid = event.chat_id
     return int(userid)
 
