@@ -40,52 +40,52 @@ STRINGS = {
 async def addwhite(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await edit.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     if event.userid in whites:
-        return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
+        return await edit.edit(client.getstrings(STRINGS)["notall"].format(mention))
     whites.append(event.userid)
     client.DB.set_key("WHITE_LIST", whites)
     whites = client.DB.get_key("BLACK_LIST") or []
     if event.userid in whites:
         whites.remove(event.userid)
         client.DB.set_key("BLACK_LIST", whites)
-    await event.edit(client.getstrings(STRINGS)["add"].format(mention))
+    await edit.edit(client.getstrings(STRINGS)["add"].format(mention))
     
 @client.Command(command="DelWhite", userid=True)
 async def delwhite(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await edit.edit(client.STRINGS["user"]["all"])
     whites = client.DB.get_key("WHITE_LIST") or []
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     if event.userid not in whites:
-        return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
+        return await edit.edit(client.getstrings(STRINGS)["notin"].format(mention))  
     whites.remove(event.userid)
     client.DB.set_key("WHITE_LIST", whites)
-    await event.edit(client.getstrings(STRINGS)["del"].format(mention))
+    await edit.edit(client.getstrings(STRINGS)["del"].format(mention))
     
 @client.Command(command="WhiteList")
 async def whitelist(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     whites = client.DB.get_key("WHITE_LIST") or []
     if not whites:
-        return await event.edit(client.getstrings(STRINGS)["empty"])
+        return await edit.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
     row = 1
     for white in whites:
         text += f"**{row} -** `{white}`\n"
         row += 1
-    await event.edit(text)
+    await edit.edit(text)
 
 @client.Command(command="CleanWhiteList")
 async def cleanwhitelist(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     whites = client.DB.get_key("WHITE_LIST") or []
     if not whites:
-        return await event.edit(client.getstrings(STRINGS)["aempty"])
+        return await edit.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("WHITE_LIST")
-    await event.edit(client.getstrings(STRINGS)["clean"])
+    await edit.edit(client.getstrings(STRINGS)["clean"])
