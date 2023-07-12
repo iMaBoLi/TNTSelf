@@ -42,7 +42,7 @@ STRINGS = {
 
 @client.Command(command="AddFilterPv (.*)")
 async def addfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     word = str(event.pattern_match.group(1))
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word in filterpvs:
@@ -53,7 +53,7 @@ async def addfilterpv(event):
     
 @client.Command(command="DelFilterPv (.*)")
 async def delfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     word = str(event.pattern_match.group(1))
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if word not in filterpvs:
@@ -64,7 +64,7 @@ async def delfilterpv(event):
     
 @client.Command(command="FilterPvList")
 async def filterpvlist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -77,7 +77,7 @@ async def filterpvlist(event):
 
 @client.Command(command="CleanFilterPvList")
 async def cleanfilterpv(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     filterpvs = client.DB.get_key("FILTERPV_WORDS") or []
     if not filterpvs:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -96,7 +96,6 @@ async def filterpv(event):
         return
     words = client.DB.get_key("FILTERPV_WORDS") or []
     if not words: return
-    if event.checkSpam(maxmsg=8, block=True): return
     for word in words:
         if word in event.text:
             await event.delete()
