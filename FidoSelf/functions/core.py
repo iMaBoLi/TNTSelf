@@ -39,7 +39,7 @@ setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
 
-def checkSpam(event, bantime=30, maxbans=4, maxtime=3, maxmsg=5):
+def checkSpam(event, bantime=30, maxbans=5, maxtime=3, maxmsg=5):
     antimode = client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
         return False
