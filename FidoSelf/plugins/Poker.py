@@ -49,4 +49,5 @@ async def poker(event):
     pomode = client.DB.get_key("POKER_MODE") or "OFF"
     pochats = client.DB.get_key("POKER_CHATS") or []
     if pomode == "ON" or event.chat_id in pochats:
+        if event.checkSpam(maxmsg=8): return
         await event.reply("😐")
