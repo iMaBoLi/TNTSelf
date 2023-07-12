@@ -96,4 +96,4 @@ async def trimaudio(event):
     await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
     os.remove(newfile)
     os.remove(file)
-    await event.delete()
+    await edit.delete()
