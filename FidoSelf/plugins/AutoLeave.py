@@ -22,7 +22,7 @@ STRINGS = {
 
 @client.Command(command="AutoLeave (On|Off)")
 async def autoleavemode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTOLEAVE_MODE", change)
     schange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
