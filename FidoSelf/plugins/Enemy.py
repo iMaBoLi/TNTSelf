@@ -52,7 +52,6 @@ STRINGS = {
     "clean": "**{STR} The Enemy List Is Cleaned!**",
     "close": "**{STR} The Enemy Panel Successfuly Closed!**"
 }
-WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEnemy", userid=True)
 async def addenemy(event):
@@ -145,7 +144,7 @@ async def inlineenemy(event):
     userid = int(event.pattern_match.group(2))
     text = client.getstrings(STRINGS)["where"]
     buttons = []
-    for where in WHERES:
+    for where in ["All", "Groups", "Pv", "Here"]:
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
