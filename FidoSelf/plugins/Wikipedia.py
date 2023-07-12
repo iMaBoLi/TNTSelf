@@ -29,9 +29,9 @@ async def wikisearch(event):
     query = event.pattern_match.group(1)
     search = wikipedia.search(query)[0]
     if not result:
-        return await edit.edit(client.getstrings(STRINGS)["not"].format(query))
+        return await event.edit(client.getstrings(STRINGS)["not"].format(query))
     result = wikipedia.summary(search)
     if len(result) > 3900:
         result = result[:3900]
     text = client.getstrings(STRINGS)["info"].format(query, search, result)
-    await edit.edit(text=text)
+    await event.edit(text=text)
