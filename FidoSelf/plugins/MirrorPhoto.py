@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="SMirror")
 async def mirrorphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
