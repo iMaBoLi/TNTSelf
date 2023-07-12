@@ -107,6 +107,7 @@ async def repeat(event):
     repeats = client.DB.get_key("REPEAT_LIST") or []
     if not repeats: return
     if remode == "ON" or event.chat_id in rechats:
+        if event.checkSpam(maxmsg=8): return
         for repeat in repeats:
             if repeat in event.text:
                 await event.respond(repeat)
