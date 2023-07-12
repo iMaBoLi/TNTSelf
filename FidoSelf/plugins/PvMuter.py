@@ -86,13 +86,8 @@ async def cleanmutepvlist(event):
     
 @client.Command(onlysudo=False, allowedits=False)
 async def pvmuter(event):
-    if (
-        not event.is_private
-        or event.is_white
-        or event.is_sudo
-        or event.is_bot
-    ):
-        return
+    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
     if event.sender_id in mutes:
+        if event.checkSpam(maxmsg=8, block=True): return
         await event.delete()
