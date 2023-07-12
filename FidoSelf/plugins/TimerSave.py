@@ -22,7 +22,7 @@ STRINGS = {
 
 @client.Command(command="TSave (On|Off)")
 async def tsave(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("TIMER_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
