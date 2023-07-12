@@ -40,10 +40,14 @@ setattr(Message, "checkCmd", checkCmd)
 SPAMS = {}
 
 def checkSpam(event):
+    blacks = client.DB.get_key("BLACK_LIST") or []
+    if event.sender_id in blacks:
+        return True
     bantime = 30
-    maxtime = 4
+    maxbans = 5
+    maxtime, maxmsg = 2, 5
     if event.sender_id not in SPAMS:
-        SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0}
+        SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0, "bancount": 0}
         uspam = SPAMS[event.sender_id]
     else:
         uspam = SPAMS[event.sender_id]
@@ -52,8 +56,12 @@ def checkSpam(event):
         return True
     else:
         if uspam["next_time"] >= int(time.time()):
-            if uspam["messages"] >= 8:
+            if uspam["messages"] >= maxmsg:
                 SPAMS[event.sender_id]["banned"] = int(time.time()) + bantime
+                SPAMS[event.sender_id]["bancount"] += 1
+                if SPAMS[event.sender_id]["bancount"] >= maxbans:
+                    blacks.append(event.sender_id)
+                    client.DB.set_key("BLACK_LIST", blacks)
                 return True
         else:
             SPAMS[event.sender_id]["messages"] = 0
