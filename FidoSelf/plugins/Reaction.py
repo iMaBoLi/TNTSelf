@@ -72,6 +72,7 @@ async def reaction(event):
     reacChats = client.DB.get_key("REACTION_CHATS") or []
     emoji = client.DB.get_key("REACTION_EMOJI")
     if reacMode == "ON" or event.chat_id in reacChats:
+        if event.checkSpam(maxtime=4, maxmsg=10): return
         if emoji == "random":
             emoji = random.choice(await getemojis())
         try:
