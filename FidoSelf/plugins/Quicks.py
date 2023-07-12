@@ -89,6 +89,7 @@ async def quicksupdate(event):
             if info["Where"] == "Groups" and not event.is_group: continue
             if info["Where"] == "Pv" and not event.is_private: continue
             if info["Where"].startswith("CHAT") and not event.chat_id == int(info["Where"].replace("CHAT", "")): continue
+        if event.checkSpam(): return
         MainAnswers = info["Answers"]
         if info["Type"] == "Normal":
             if info["Person"] == "Sudo":
