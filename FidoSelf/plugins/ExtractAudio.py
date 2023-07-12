@@ -24,7 +24,7 @@ STRINGS = {
 
 @client.Command(command="ExAudio")
 async def exaudio(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
