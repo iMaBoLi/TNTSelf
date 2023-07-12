@@ -42,10 +42,11 @@ STRINGS = {
     "clean": "**{STR} The Echo List Is Cleaned!**",
     "close": "**{STR} The Echo Panel Successfuly Closed!**"
 }
+WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEcho", userid=True)
 async def addecho(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
@@ -58,7 +59,7 @@ async def addecho(event):
 
 @client.Command(command="DelEcho", userid=True)
 async def delecho(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
@@ -75,7 +76,7 @@ async def delecho(event):
 
 @client.Command(command="EchoList")
 async def echolist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if not Echos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -88,7 +89,7 @@ async def echolist(event):
 
 @client.Command(command="CleanEchoList")
 async def cleanechos(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     echos = client.DB.get_key("ECHO_USERS") or []
     if not echos:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -97,7 +98,7 @@ async def cleanechos(event):
 
 @client.Command(command="SetEchoSleep (\d*)")
 async def setechosleep(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ECHO_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))
@@ -110,7 +111,6 @@ async def echofosh(event):
     if userid not in Echos: return
     sleep = client.DB.get_key("ECHO_SLEEP") or 0
     if ("All" in Echos[userid]) or ("Groups" in Echos[userid] and event.is_group) or ("Pvs" in Echos[userid] and event.is_private) or (str(event.chat_id) in Echos[userid]):
-        if event.checkSpam(maxmsg=8): return
         await asyncio.sleep(int(sleep))
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
         await event.respond(getmsg)
@@ -121,7 +121,7 @@ async def inlineecho(event):
     userid = int(event.pattern_match.group(2))
     text = client.getstrings(STRINGS)["where"]
     buttons = []
-    for where in ["All", "Groups", "Pv", "Here"]:
+    for where in WHERES:
         swhere = where if where != "Here" else chatid
         buttons.append(Button.inline(f"• {where} •", data=f"addecho:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
