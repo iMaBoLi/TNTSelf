@@ -40,7 +40,7 @@ INPHOTO_LIST = {}
 
 @client.Command(command="Photo (On|Off)")
 async def photomode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("PHOTO_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -83,7 +83,7 @@ def get_buttons(phname):
 
 @client.Command(command="AddPhoto (.*)")
 async def addphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     phname = str(event.pattern_match.group(1)) + ".jpg"
@@ -98,7 +98,7 @@ async def addphoto(event):
 
 @client.Command(command="DelPhoto (.*)")
 async def delphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -113,7 +113,7 @@ async def delphoto(event):
 
 @client.Command(command="GetPhoto (.*)")
 async def getphoto(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     phname = str(event.pattern_match.group(1))
     if phname not in photos:
@@ -126,7 +126,7 @@ async def getphoto(event):
 
 @client.Command(command="PhotoList")
 async def photolist(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -137,7 +137,7 @@ async def photolist(event):
 
 @client.Command(command="CleanPhotoList")
 async def cleanphotos(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     photos = client.DB.get_key("PHOTO_LIST") or {}
     if not photos:
         return await event.edit(client.getstrings(STRINGS)["allempty"])
