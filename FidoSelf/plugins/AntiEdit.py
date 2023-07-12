@@ -25,7 +25,7 @@ async def setantiedit(event):
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTIEDIT_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
+    await edit.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command()
 async def antiedit(event):
