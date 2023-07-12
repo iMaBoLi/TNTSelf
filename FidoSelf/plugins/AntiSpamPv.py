@@ -92,13 +92,7 @@ WARNS = {}
 
 @client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
-    if (
-        not event.is_private
-        or event.is_white
-        or event.is_sudo
-        or event.is_bot
-    ):
-        return
+    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     antimode = client.DB.get_key("ANTISPAMPV_MODE") or "OFF"
     if antimode == "OFF": return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
