@@ -48,7 +48,7 @@ STRINGS = {
 
 @client.Command(command="SDuration (\d*)")
 async def setduration(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
     if dur > 2147483647: dur = 2147483647
     if reply:= event.checkReply(["Video", "Music", "Voice"]):
@@ -73,7 +73,7 @@ async def setduration(event):
 
 @client.Command(command="SMusic (.*)\:(.*)")
 async def editaudio(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
     title = str(event.pattern_match.group(2))
     if reply:= event.checkReply(["Music", "Voice"]):
