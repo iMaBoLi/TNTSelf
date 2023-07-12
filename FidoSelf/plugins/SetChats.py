@@ -36,7 +36,7 @@ STRINGS = {
 
 @client.Command(command="SetRealm")
 async def realm(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     client.DB.set_key("REALM_CHAT", event.chat_id)
@@ -45,7 +45,7 @@ async def realm(event):
 
 @client.Command(command="SetBackUp")
 async def backup(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if not event.is_ch:
         return await event.edit(client.STRINGS["only"]["Channel"])
     client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
