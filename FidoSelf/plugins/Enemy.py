@@ -125,10 +125,10 @@ async def enemyfosh(event):
     userid = event.sender_id
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
     if userid not in Enemies: return
-    if event.checkSpam(): return
     sleep = client.DB.get_key("ENEMY_SLEEP") or 0
     delete = client.DB.get_key("DELENEMY_MSGS") or "OFF"
     if ("All" in Enemies[userid]) or ("Groups" in Enemies[userid] and event.is_group) or ("Pvs" in Enemies[userid] and event.is_private) or (str(event.chat_id) in Enemies[userid]):
+        if event.checkSpam(): return
         if os.path.exists(client.PATH + "FOSHS.txt"):
             FOSHS = open(client.PATH + "FOSHS.txt", "r").readlines()
         else:
