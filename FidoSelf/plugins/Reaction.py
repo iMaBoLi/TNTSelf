@@ -26,7 +26,7 @@ STRINGS = {
 
 @client.Command(command="Reaction (On|Off)")
 async def reactionchat(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("REACTION_CHATS") or []
     chatid = event.chat_id
@@ -43,7 +43,7 @@ async def reactionchat(event):
 
 @client.Command(command="ReactionAll (On|Off)")
 async def reactionall(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("REACTION_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -51,7 +51,7 @@ async def reactionall(event):
 
 @client.Command(command="SetReaction (.*)")
 async def setreaction(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     emoji = event.pattern_match.group(1)
     if emoji not in (await getemojis()) and emoji != "random":
         return await event.edit(client.getstrings(STRINGS)["notreact"].format(emoji))
@@ -72,7 +72,6 @@ async def reaction(event):
     reacChats = client.DB.get_key("REACTION_CHATS") or []
     emoji = client.DB.get_key("REACTION_EMOJI")
     if reacMode == "ON" or event.chat_id in reacChats:
-        if event.checkSpam(maxtime=4, maxmsg=10): return
         if emoji == "random":
             emoji = random.choice(await getemojis())
         try:
