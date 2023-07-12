@@ -25,24 +25,13 @@ async def logs(event):
         
 @client.Command(command="File (.*)")
 async def file(event):
-    await edit.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     file = event.pattern_match.group(1)
     if os.path.exists(file):
         await event.respond(f"**The {file} File!**", file=file)
         await event.delete()
     else:
         await edit.edit(f"**The File {file} Is Not Available!**")
-
-@client.Command(command="Pip (.*)")
-async def pipinstall(event):
-    await edit.edit(client.STRINGS["wait"])
-    lib = event.pattern_match.group(1)
-    cmd = "pip install " + lib
-    result, error = await runcmd(cmd)
-    if error:
-        await event.reply(f"**Erros:** `{error}`")
-    if result:
-        await event.reply(f"**Results:** `{result}`")
         
 async def runner(code , event):
     chat = await event.get_chat()
@@ -89,7 +78,7 @@ async def runcodes(event):
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
-    await edit.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
