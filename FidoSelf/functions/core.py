@@ -39,16 +39,13 @@ setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
 
-def checkSpam(event):
+def checkSpam(event, bantime=30, maxbans=4, maxtime=3, maxmsg=5):
     antimode = client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
         return False
     whites = client.DB.get_key("WHITE_LIST") or []
     if event.sender_id in whites:
         return False
-    bantime = 30
-    maxbans = 4
-    maxtime, maxmsg = 3, 5
     if event.sender_id not in SPAMS:
         SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0, "bancount": 0}
         uspam = SPAMS[event.sender_id]
