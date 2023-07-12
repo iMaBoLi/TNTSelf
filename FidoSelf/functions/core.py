@@ -46,9 +46,9 @@ def checkSpam(event):
     whites = client.DB.get_key("WHITE_LIST") or []
     if event.sender_id in whites:
         return False
-    bantime = 20
-    maxbans = 3
-    maxtime, maxmsg = 3, 6
+    bantime = 30
+    maxbans = 4
+    maxtime, maxmsg = 3, 5
     if event.sender_id not in SPAMS:
         SPAMS[event.sender_id] = {"next_time": int(time.time()) + maxtime, "messages": 0, "banned": 0, "bancount": 0}
         uspam = SPAMS[event.sender_id]
