@@ -16,26 +16,26 @@ import time
 
 @client.Command(command="Logs")
 async def logs(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await edit.edit(client.STRINGS["wait"])
     if os.path.exists("Fido.log"):
         await event.respond("**The Console Logs File!**", file="Fido.log")
         await event.delete()
     else:
-        await event.edit("**The Log File Is Not Available!**")
+        await edit.edit("**The Log File Is Not Available!**")
         
 @client.Command(command="File (.*)")
 async def file(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await edit.edit(client.STRINGS["wait"])
     file = event.pattern_match.group(1)
     if os.path.exists(file):
         await event.respond(f"**The {file} File!**", file=file)
         await event.delete()
     else:
-        await event.edit(f"**The File {file} Is Not Available!**")
+        await edit.edit(f"**The File {file} Is Not Available!**")
 
 @client.Command(command="Pip (.*)")
 async def pipinstall(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await edit.edit(client.STRINGS["wait"])
     lib = event.pattern_match.group(1)
     cmd = "pip install " + lib
     result, error = await runcmd(cmd)
@@ -89,11 +89,11 @@ async def runcodes(event):
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await edit.edit(client.STRINGS["wait"])
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
-        return await event.edit(f"**The File With The Name** ( `{input}` ) **Is Not Finded!**")
+        return await edit.edit(f"**The File With The Name** ( `{input}` ) **Is Not Finded!**")
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
@@ -123,7 +123,7 @@ async def ls(event):
         output += f"    **Size:** `{convert_bytes(size)}`\n"
         output += f"    **Update Time:** `{uptime}`\n"
     if len(output) < 4000:
-        await event.edit(output) 
+        await edit.edit(output) 
     else:
         output = output.replace("*", "").replace("`", "")
         open("ls.txt", "w").write(output)
