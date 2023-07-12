@@ -91,4 +91,4 @@ async def searcher(event):
         count += 1
     if count < 2:
         text = client.getstrings(STRINGS)["notres"].format((query or "---"), filter)
-    await event.edit(text)
+    await edit.edit(text)
