@@ -47,7 +47,7 @@ STRINGS = {
 
 @client.Command(command="AntiSpamPv (On|Off)")
 async def antipvmode(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPV_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -55,7 +55,7 @@ async def antipvmode(event):
 
 @client.Command(command="AntiSpamWarn (On|Off)")
 async def antipvwarn(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPVWARN_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -72,7 +72,7 @@ async def setspamlimit(event):
 
 @client.Command(command="SetAntiSpam")
 async def setanti(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -81,7 +81,7 @@ async def setanti(event):
     
 @client.Command(command="SetAntiSpamWarn")
 async def setantiwarn(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -92,7 +92,13 @@ WARNS = {}
 
 @client.Command(onlysudo=False, allowedits=False)
 async def antispam(event):
-    if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
+    if (
+        not event.is_private
+        or event.is_white
+        or event.is_sudo
+        or event.is_bot
+    ):
+        return
     antimode = client.DB.get_key("ANTISPAMPV_MODE") or "OFF"
     if antimode == "OFF": return
     mutes = client.DB.get_key("MUTEPV_USERS") or []
