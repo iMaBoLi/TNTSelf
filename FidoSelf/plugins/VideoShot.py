@@ -39,7 +39,7 @@ STRINGS = {
 
 @client.Command(command="VShot ((\-)?\d*)")
 async def videoshot(event):
-    await event.edit(client.STRINGS["wait"])
+    edit = await event.tryedit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
