@@ -42,11 +42,11 @@ async def runner(code , event):
 
 @client.Command(command="Run(?:\s|$)([\s\S]*)")
 async def runcodes(event):
-    edit = await event.reply(f"**Running ...**")
+    reply = await event.reply(f"**Running ...**")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
-        return await event.edit(f"**What Should I Run ?**")
+        return await reply.edit(f"**What Should I Run ?**")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -68,13 +68,13 @@ async def runcodes(event):
     elif stdout:
         result = stdout
     if len(result) < 4096:
-        await event.edit(f"**Results:**\n\n`{result}`")
+        await reply.edit(f"**Results:**\n\n`{result}`")
     else:
         file = client.PATH + "OutPut.txt"
         open(file, "w").write(str(result))
         await client.send_file(event.chat_id, file , caption="**Code OutPut!**", reply_to=event.id)
         os.remove(file)
-        await event.delete()
+        await reply.delete()
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
