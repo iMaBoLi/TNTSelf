@@ -42,10 +42,10 @@ async def translator(event):
         text = data.split(":")[1]
     if not text:
         if not (event.reply_message or event.reply_message.text):
-            return await edit.edit(client.STRINGS["replytext"])
+            return await event.edit(client.STRINGS["replytext"])
         text = event.reply_message.text
     if dest not in googletrans.LANGUAGES:
-        return await edit.edit(client.getstrings(STRINGS)["notlang"].format(dest))
+        return await event.edit(client.getstrings(STRINGS)["notlang"].format(dest))
     translator = Translator()
     trjome = translator.translate(text, dest=dest)
-    await edit.edit(client.getstrings(STRINGS)["translate"].format(trjome.src, dest.lower(), trjome.text))
+    await event.edit(client.getstrings(STRINGS)["translate"].format(trjome.src, dest.lower(), trjome.text))
