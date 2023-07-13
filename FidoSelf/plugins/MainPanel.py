@@ -79,7 +79,6 @@ def get_modename(mode):
         "ANTISPAMPV_TYPE": "AntiSpam Type",
         "TIME_FONT": "Time Font",
         "EDIT_MODE": "Edit",
-        "EDIT_CHATS": "Edit",
         "COPYACTION_MODE": "Copy Action",
         "COPYACTION_CHATS": "Copy Action",
         "ACTION_MODE": "Send Action",
@@ -217,8 +216,7 @@ def get_buttons(chatid, page):
     elif page == 5:
         buttons = []
         for edit in client.functions.EDITS:
-            buttons.append(create_button("EDIT_CHATS", edit, "ChatMode", "ChatModeDel", chatid, page, {}, edit.title()))
-            buttons.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "", (edit.title() + " All")))
+            buttons.append(create_button("EDIT_MODE", edit, "Mode", "ModeDel", chatid, page, "", edit.title()))
         buttons = list(client.functions.chunks(buttons, 2))
     elif page == 6:
         buttons.append([create_button("COPYACTION_CHATS", None, "Chat", "Chat", chatid, page, [], "Copy Action"), create_button("COPYACTION_MODE", None, "Turn", "Turn", chatid, page, "OFF", "Copy Action All")])
