@@ -22,7 +22,7 @@ STRINGS = {
 
 @client.Command(command="MSave (On|Off)")
 async def msave(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("MEDIAPV_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
