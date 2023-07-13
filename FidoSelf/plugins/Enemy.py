@@ -56,7 +56,7 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEnemy", userid=True)
 async def addenemy(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
@@ -69,7 +69,7 @@ async def addenemy(event):
 
 @client.Command(command="DelEnemy", userid=True)
 async def delenemy(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
@@ -86,7 +86,7 @@ async def delenemy(event):
 
 @client.Command(command="EnemyList")
 async def enemylist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     Enemies = client.DB.get_key("ENEMY_LIST") or {}
     if not Enemies:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -97,7 +97,7 @@ async def enemylist(event):
     
 @client.Command(command="CleanEnemyList")
 async def cleanenemies(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     enemys = client.DB.get_key("ENEMY_LIST") or []
     if not enemys:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -106,14 +106,14 @@ async def cleanenemies(event):
 
 @client.Command(command="SetEnemySleep (\d*)")
 async def setenemysleep(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ENEMY_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))
 
 @client.Command(command="DelEnemyPms (On|Off)")
 async def delpms(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("DELENEMY_MSGS", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
