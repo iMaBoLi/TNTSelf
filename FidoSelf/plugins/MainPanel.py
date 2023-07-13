@@ -74,6 +74,7 @@ def get_modename(mode):
         "GOODBY_MODE": "GoodBy",
         "AUTOJOIN_MODE": "Auto Join",
         "AUTOLEAVE_MODE": "Auto Leave",
+        "CHSIGN_MODE": "Sign Channel",
         "ANTISPAMPV_MODE": "AntiSpam Pv",
         "ANTISPAMPVWARN_MODE": "AntiSpam Warn",
         "ANTISPAMPV_TYPE": "AntiSpam Type",
@@ -197,10 +198,10 @@ def get_buttons(chatid, page):
         othbutton.insert(4, create_button("READ_CHATS", None, "Chat", "Chat", chatid, page, [], "MarkRead"))
         buttons = buttons + list(client.functions.chunks(othbutton, 2))
     elif page == 3:
-        for Mode in ["AUTOTR_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "ANTISPAMPV_MODE", "ANTISPAMPVWARN_MODE"]:
+        for Mode in ["AUTOTR_MODE", "COMMENT_MODE", "LOVE_MODE", "ALARM_MODE", "WELCOME_MODE", "GOODBY_MODE", "AUTOJOIN_MODE", "AUTOLEAVE_MODE", "CHSIGN_MODE", "ANTISPAMPV_MODE", "ANTISPAMPVWARN_MODE"]:
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
-        buttons = list(client.functions.chunks(buttons, 2))
+        buttons = client.functions.chunker(buttons, [2,2,2,1,2])
         typebts = [Button.inline("AntiSapm Mode:", data="Empty")]
         for type in ["Mute", "Block"]:
             typebts.append(create_button("ANTISPAMPV_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
