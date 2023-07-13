@@ -31,7 +31,7 @@ STRINGS = {
 
 @client.Command(command="Del (\d*)")
 async def deletemsg(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     limit = int(event.pattern_match.group(1))
     if not limit:
         if event.is_reply:
