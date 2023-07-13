@@ -25,7 +25,7 @@ STRINGS = {
 
 @client.Command(command="SContact (.*)\:(.*)")
 async def createcontact(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     name = str(event.pattern_match.group(1))
     phone = str(event.pattern_match.group(2))
     firstname = name.split(" ")[0]
