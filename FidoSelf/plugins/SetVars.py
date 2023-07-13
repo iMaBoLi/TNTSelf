@@ -47,7 +47,7 @@ RUNCMD = "python3 -m FidoSelf"
 
 @client.Command(command="SetCmd (.*)")
 async def cmdstarter(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     simbel = event.pattern_match.group(1)
     client.DB.set_key("CMD_SIMBEL", simbel)
     await event.edit(client.getstrings(STRINGS)["setcmd"].format(simbel))
@@ -55,14 +55,14 @@ async def cmdstarter(event):
 
 @client.Command(pattern="(?i)^\.DelCmd$")
 async def delcmdstarter(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     client.DB.set_key("CMD_SIMBEL", ".")
     await event.edit(client.getstrings(STRINGS)["delcmd"].format("."))
     await client.functions.runcmd(RUNCMD)
 
 @client.Command(command="SetSimbel (.*)")
 async def simbeltexts(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     simbel = event.pattern_match.group(1)
     client.DB.set_key("EMOJI_SIMBEL", simbel)
     await event.edit(client.getstrings(STRINGS)["setsim"].format(simbel))
