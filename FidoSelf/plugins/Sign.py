@@ -34,9 +34,8 @@ async def setsign(event):
     text = client.getstrings(STRINGS)["setsign"].format(stext)
     await event.edit(text)
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def autosign(event):
-    if event.checkCmd(): return
     smode = client.DB.get_key("SIGN_MODE") or "OFF"
     signtext = client.DB.get_key("SIGN_TEXT")
     if smode == "ON" and signtext:
