@@ -32,7 +32,7 @@ async def screenshot(event):
     url = f"https://shot.screenshotapi.net/screenshot?token={TOKEN}&url={sitelink}&full_page=true"
     result = await client.functions.request(url, re_json=True)
     if "error" in result:
-        return await edit.edit(client.getstrings(STRINGS)["invlink"].format(sitelink))
+        return await event.edit(client.getstrings(STRINGS)["invlink"].format(sitelink))
     content = await client.functions.request(result["screenshot"], re_content=True)
     screenshot = client.PATH + "ScreenShot.png"
     with open(screenshot, "wb") as file:
