@@ -40,9 +40,9 @@ async def editmodechanger(event):
     text = client.getstrings(STRINGS)["editmode"].format(editmode, showchange)
     await event.edit(text)
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def editmodes(event):
-    if not event.raw_text or event.checkCmd(): return
+    if not event.raw_text: return
     editmode = client.DB.get_key("EDIT_MODE") or ""
     if editmode == "Bold":
         await event.edit("**" + event.raw_text + "**")
