@@ -1,14 +1,15 @@
 from FidoSelf import client
 from datetime import datetime
+import time
 
 __INFO__ = {
     "Category": "Setting",
     "Name": "Ping",
     "Info": {
-        "Help": "To Check Bot And Get Ping!",
+        "Help": "To Check Bot And Get Ping And Uptime!",
         "Commands": {
             "{CMD}Ping": {
-                "Help": "To Check Self",
+                "Help": "To Check Self And Uptime",
             },
         },
     },
@@ -16,17 +17,16 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "bping": "**!!!**",
-    "ping": "**{STR} PonG !!** ( `{}` )"
+    "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
 }
 
 @client.Command(command="Ping")
 async def ping(event):
     start = datetime.now()
-    event = await event.tryedit(client.getstrings(STRINGS)["bping"])
+    await event.edit(client.STRINGS["wait"])
     end = datetime.now()
-    tms = (end - start).microseconds / 10000
+    tms = (end - start).microseconds / 1000
     ping = round(tms / 3, 2)
-    text = client.getstrings(STRINGS)["ping"]
-    text = text.format(ping)
-    await event.edit(text)
+    uptime = time.time() - client.START_TIME
+    uptime = client.functions.convert_time(uptime)
+    await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
