@@ -126,6 +126,7 @@ async def DownloadFiles():
             await get.download_media(client.PATH + "FOSHS.txt")
         except:
             pass
+
     logo = client.DB.get_key("LOGO_FILE")
     if logo:
         try:

@@ -11,6 +11,7 @@ def Command(
     allowedits=True,
     userid=False,
     chatid=False,
+    checkCmd=False,
     **kwargs,
 ):
     if command and not pattern:
@@ -31,6 +32,7 @@ def Command(
                 event.is_bot = True if (not isinstance(event.sender, types.User) or event.sender.bot) else False
                 event.userid = await client.functions.getuserid(event) if userid else 0
                 event.chatid = await client.functions.getchatid(event) if chatid else 0
+                if checkCmd and event.is_sudo and event.checkCmd(): return
                 blacks = client.DB.get_key("BLACK_LIST") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = client.DB.get_key("WHITE_LIST") or []
@@ -40,6 +42,8 @@ def Command(
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
+                errortext = f"**• Error :**\n\n`{format_exc()}`"
+                await client.bot.send_message(client.REALM, errortext)
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if allowedits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))

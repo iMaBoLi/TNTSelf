@@ -38,9 +38,9 @@ async def settrlang(event):
     client.DB.set_key("AUTOTR_LANG", lang)
     await event.edit(client.getstrings(STRINGS)["setlang"].format(lang))
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def autotr(event):
-    if event.checkCmd() or not event.text: return
+    if not event.text: return
     autotr = client.DB.get_key("AUTOTR_MODE") or "OFF"
     if autotr == "ON":
         autolang = client.DB.get_key("AUTOTR_LANG") or "fa"

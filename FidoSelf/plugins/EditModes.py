@@ -40,32 +40,32 @@ async def editmodechanger(event):
     text = client.getstrings(STRINGS)["editmode"].format(editmode, showchange)
     await event.edit(text)
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def editmodes(event):
-    if not event.text or event.checkCmd(): return
+    if not event.raw_text: return
     editmode = client.DB.get_key("EDIT_MODE") or ""
-    if allmode == "Bold":
-        await event.edit("**" + event.text + "**")
-    elif allmode == "Mono":
-        await event.edit("`" + event.text + "`")
-    elif allmode == "Italic":
-        await event.edit("__" + event.text + "__")
-    elif allmode == "Underline":
-        await event.edit("<u>" + event.text + "</u>", parse_mode="HTML")
-    elif allmode == "Strike":
-        await event.edit("~~" + event.text + "~~")
-    elif allmode == "Spoiler":
-        await event.edit("||" + event.text + "||")
-    elif allmode == "Hashtag":
-        newtext = event.text.replace(" ", "_")
+    if editmode == "Bold":
+        await event.edit("**" + event.raw_text + "**")
+    elif editmode == "Mono":
+        await event.edit("`" + event.raw_text + "`")
+    elif editmode == "Italic":
+        await event.edit("__" + event.raw_text + "__")
+    elif editmode == "Underline":
+        await event.edit("<u>" + event.raw_text + "</u>", parse_mode="HTML")
+    elif editmode == "Strike":
+        await event.edit("~~" + event.raw_text + "~~")
+    elif editmode == "Spoiler":
+        await event.edit("||" + event.raw_text + "||")
+    elif editmode == "Hashtag":
+        newtext = event.raw_text.replace(" ", "_")
         newtext = newtext.replace("\n", "_")
         await event.edit("#" + newtext)
-    elif allmode == "Mention":
+    elif editmode == "Mention":
         if event.is_reply:
             userid = event.reply_message.sender_id
         elif event.is_private:
             userid = event.chat_id
         else:
             userid = event.sender_id
-        text = f"[{event.text}](tg://user?id={userid})"
+        text = f"[{event.raw_text}](tg://user?id={userid})"
         await event.edit(text)

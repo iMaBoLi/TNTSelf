@@ -26,9 +26,9 @@ async def setantiforward(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def antiforward(event):
-    if event.checkCmd() or not event.fwd_from or event.is_ch: return
+    if not event.fwd_from or event.is_ch: return
     antimode = client.DB.get_key("ANTIFORWARD_MODE") or "OFF"
     if antimode == "ON":
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
