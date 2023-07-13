@@ -37,26 +37,26 @@ STRINGS = {
 async def setcover(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
-        return await edit.edit(reply)
+        return await event.edit(reply)
     info = await event.reply_message.save()
     get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Cover.png")
     client.DB.set_key("FILE_COVER", info)
-    await edit.edit(client.getstrings(STRINGS)["save"])  
+    await event.edit(client.getstrings(STRINGS)["save"])  
 
 @client.Command(command="AddCover")
 async def addcover(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["File", "Music"]):
-        return await edit.edit(reply)
+        return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
-        return await edit.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cover = client.PATH + "Cover.png"
     if not os.path.exists(cover):
-        return await edit.edit(client.getstrings(STRINGS)["notsave"])
+        return await event.edit(client.getstrings(STRINGS)["notsave"])
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
-    await edit.edit(client.getstrings(STRINGS)["adding"])
+    await event.edit(client.getstrings(STRINGS)["adding"])
     callback = event.progress(upload=True)
     await client.send_file(event.chat_id, file, thumb=cover, caption=client.getstrings(STRINGS)["added"], progress_callback=callback)
     os.remove(file)
@@ -66,9 +66,9 @@ async def addcover(event):
 async def getcover(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if reply:= event.checkReply(["File", "Video", "Music"]):
-        return await edit.edit(reply)
+        return await event.edit(reply)
     if not event.reply_message.document.thumbs:
-        return await edit.edit(client.getstrings(STRINGS)["notcover"])
+        return await event.edit(client.getstrings(STRINGS)["notcover"])
     cover = await event.reply_message.download_media(client.PATH, thumb=-1)
     await event.respond(client.getstrings(STRINGS)["getcover"], file=cover)
     os.remove(cover)
