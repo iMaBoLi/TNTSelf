@@ -48,7 +48,7 @@ STRINGS = {
 
 @client.Command(command="VTrim (\d*)\-(\d*)")
 async def trimvideo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
     if reply:= event.checkReply(["Video"]):
@@ -74,7 +74,7 @@ async def trimvideo(event):
     
 @client.Command(command="ATrim (\d*)\-(\d*)")
 async def trimaudio(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
     end = int(event.pattern_match.group(2))
     if reply:= event.checkReply(["Music"]):
