@@ -40,48 +40,48 @@ STRINGS = {
 async def addsudo(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await edit.edit(client.STRINGS["user"]["all"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     if event.userid in sudos:
-        return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
+        return await edit.edit(client.getstrings(STRINGS)["notall"].format(mention))
     sudos.append(event.userid)
     client.DB.set_key("SUDO_USERS", sudos)
-    await event.edit(client.getstrings(STRINGS)["add"].format(mention))
+    await edit.edit(client.getstrings(STRINGS)["add"].format(mention))
     
 @client.Command(command="DelSudo", userid=True)
 async def delsudo(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if not event.userid:
-        return await event.edit(client.STRINGS["user"]["all"])
+        return await edit.edit(client.STRINGS["user"]["all"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
     if event.userid not in sudos:
-        return await event.edit(client.getstrings(STRINGS)["notin"].format(mention))  
+        return await edit.edit(client.getstrings(STRINGS)["notin"].format(mention))  
     sudos.remove(event.userid)
     client.DB.set_key("SUDO_USERS", sudos)
-    await event.edit(client.getstrings(STRINGS)["del"].format(mention))
+    await edit.edit(client.getstrings(STRINGS)["del"].format(mention))
     
 @client.Command(command="SudoList")
 async def sudolist(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     if not sudos:
-        return await event.edit(client.getstrings(STRINGS)["empty"])
+        return await edit.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
     row = 1
     for sudo in sudos:
         text += f"**{row} -** `{sudo}`\n"
         row += 1
-    await event.edit(text)
+    await edit.edit(text)
 
 @client.Command(command="CleanSudoList")
 async def cleansudolist(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     if not sudos:
-        return await event.edit(client.getstrings(STRINGS)["aempty"])
+        return await edit.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("SUDO_USERS")
-    await event.edit(client.getstrings(STRINGS)["clean"])
+    await edit.edit(client.getstrings(STRINGS)["clean"])
