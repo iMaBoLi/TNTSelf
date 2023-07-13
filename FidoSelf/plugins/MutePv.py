@@ -27,15 +27,14 @@ async def mutepvmode(event):
 
 @client.Command(onlysudo=False, allowedits=False)
 async def mutepv(event):
-    client.LOGS.error(222)
     if not event.is_private:
-        return client.LOGS.error(222)
+        return
     if event.is_white:
-        return client.LOGS.error(222)
+        return client.LOGS.error(333)
     if event.is_sudo:
-        return client.LOGS.error(222)
+        return client.LOGS.error(444)
     if event.is_bot:
-        return client.LOGS.error(222)
+        return client.LOGS.error(555)
     client.LOGS.error(1)
     mutemode = client.DB.get_key("MUTEPV_MODE") or "OFF"
     client.LOGS.error(2)
