@@ -17,26 +17,14 @@ def getstrings(STRINGS):
             text = text.replace("{CMD}", CMD)
         NEWSTR.update({element: text})
     return NEWSTR
-    
-async def tryedit(event, text, **kwargs):
-    newevent = await event.edit(text, **kwargs)
-    if not newevent:
-        newevent = await event.reply(text, **kwargs)
-    return newevent
 
-setattr(Message, "tryedit", tryedit)
-
-def checkCmd(event, text=None):
-    if not (event.text and text):
-        return False
-    text = text if text else event.text
+def checkCmd(text):
+    if not text: return False
     for command in client.COMMANDS:
         search = re.search(command, text)
         if search:
             return True
     return False
-
-setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
 def checkSpam(event, bantime=30, maxbans=5, maxtime=3, maxmsg=5, block=False):
