@@ -30,6 +30,6 @@ async def createcontact(event):
     phone = str(event.pattern_match.group(2))
     firstname = name.split(" ")[0]
     lastname = name.split(" ")[1] if len(name.split(" ")) > 1 else ""
-    await edit.edit(client.getstrings(STRINGS)["created"].format(name, phone))
+    await event.edit(client.getstrings(STRINGS)["created"].format(name, phone))
     contact = types.InputMediaContact(phone_number=phone, first_name=firstname, last_name=lastname, vcard="0")
     await client.send_file(event.chat_id, contact)
