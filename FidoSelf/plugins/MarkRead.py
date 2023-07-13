@@ -33,7 +33,7 @@ STRINGS = {
 
 @client.Command(command="Read (On|Off)")
 async def readchat(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     acChats = client.DB.get_key("READ_CHATS") or []
     chatid = event.chat_id
@@ -50,7 +50,7 @@ async def readchat(event):
 
 @client.Command(command="Read(All|Pv|Gp|Ch) (On|Off)")
 async def readmode(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1)
     change = event.pattern_match.group(2).upper()
     setmode = "READ" + type.upper() + "_MODE"
