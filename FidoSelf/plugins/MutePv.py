@@ -30,5 +30,5 @@ async def mutepv(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mutemode = client.DB.get_key("MUTEPV_MODE") or "OFF"
     if mutemode == "ON":
-        if event.checkSpam(maxmsg=6, block=True): return
+        event.checkSpam(bantime=0, block=True)
         await event.delete()
