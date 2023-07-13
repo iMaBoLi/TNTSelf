@@ -1,3 +1,5 @@
+import os
+
 #Infos
 API_ID = 26909317
 API_HASH = "bae2fc6f671b02f9bea0473ed369a95f"
