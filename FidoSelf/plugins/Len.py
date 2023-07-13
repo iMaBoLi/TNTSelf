@@ -23,6 +23,6 @@ STRINGS = {
 async def getlen(event):
     edit = await event.tryedit(client.STRINGS["wait"])
     if not event.reply_message or not event.reply_message.text:
-        return await edit.edit(client.STRINGS["replytext"])
+        return await event.edit(client.STRINGS["replytext"])
     count = len(event.reply_message.text)
-    await edit.edit(client.getstrings(STRINGS)["count"].format(count))
+    await event.edit(client.getstrings(STRINGS)["count"].format(count))
