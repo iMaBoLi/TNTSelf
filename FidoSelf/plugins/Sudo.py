@@ -38,7 +38,7 @@ STRINGS = {
 
 @client.Command(command="AddSudo", userid=True)
 async def addsudo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     sudos = client.DB.get_key("SUDO_USERS") or []
@@ -52,7 +52,7 @@ async def addsudo(event):
     
 @client.Command(command="DelSudo", userid=True)
 async def delsudo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     sudos = client.DB.get_key("SUDO_USERS") or []
@@ -66,7 +66,7 @@ async def delsudo(event):
     
 @client.Command(command="SudoList")
 async def sudolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     if not sudos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -79,7 +79,7 @@ async def sudolist(event):
 
 @client.Command(command="CleanSudoList")
 async def cleansudolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sudos = client.DB.get_key("SUDO_USERS") or []
     if not sudos:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
