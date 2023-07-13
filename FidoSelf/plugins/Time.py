@@ -34,4 +34,4 @@ async def time(event):
         localtime.strftime("%A"),
         localtime.strftime("%B"),
     )
-    await edit.edit(text)
+    await event.edit(text)
