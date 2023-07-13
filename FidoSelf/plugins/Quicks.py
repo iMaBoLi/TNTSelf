@@ -71,9 +71,9 @@ async def quickmode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(onlysudo=False, allowedits=False)
+@client.Command(onlysudo=False, allowedits=False, checkCmd=True)
 async def quicksupdate(event):
-    if event.checkCmd() or not event.text: return
+    if not event.text: return
     QMode = client.DB.get_key("QUICK_MODE") or "ON"
     if QMode == "OFF": return
     quicks = client.DB.get_key("QUICK_LIST") or {}
