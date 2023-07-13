@@ -21,7 +21,7 @@ STRINGS = {
 
 @client.Command(command="SLen")
 async def getlen(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.reply_message or not event.reply_message.text:
         return await event.edit(client.STRINGS["replytext"])
     count = len(event.reply_message.text)
