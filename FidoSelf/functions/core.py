@@ -17,14 +17,6 @@ def getstrings(STRINGS):
             text = text.replace("{CMD}", CMD)
         NEWSTR.update({element: text})
     return NEWSTR
-    
-async def tryedit(event, text, **kwargs):
-    newevent = await event.edit(text, **kwargs)
-    if not newevent:
-        newevent = await event.reply(text, **kwargs)
-    return newevent
-
-setattr(Message, "tryedit", tryedit)
 
 def checkCmd(text):
     if not text: return False
