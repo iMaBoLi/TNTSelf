@@ -201,7 +201,7 @@ def get_buttons(chatid, page):
             button = create_button(Mode, None, "Turn", "Turn", chatid, page, "OFF")
             buttons.append(button)
         buttons = list(client.functions.chunks(buttons, 2))
-        typebts = [Button.inline("• AntiSapm Mode :", data="Empty")]
+        typebts = [Button.inline("AntiSapm Mode:", data="Empty")]
         for type in ["Mute", "Block"]:
             typebts.append(create_button("ANTISPAMPV_TYPE", type, "Mode", "Mode", chatid, page, "Mute", type))
         buttons.append(typebts)
