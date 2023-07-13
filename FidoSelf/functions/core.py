@@ -39,7 +39,6 @@ def checkCmd(event, text=None):
 setattr(Message, "checkCmd", checkCmd)
 
 SPAMS = {}
-
 def checkSpam(event, bantime=30, maxbans=5, maxtime=3, maxmsg=5, block=False):
     antimode = client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
