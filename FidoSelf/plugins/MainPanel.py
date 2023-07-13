@@ -103,7 +103,7 @@ def get_modename(mode):
 
 @client.Command(command="Panel")
 async def panel(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(event.chat_id)
@@ -111,7 +111,7 @@ async def panel(event):
 
 @client.Command(command="PanelPv")
 async def panelpv(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
     res = await client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(client.me.id)
