@@ -24,7 +24,7 @@ async def signmode(event):
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("SIGN_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await edit.edit(client.getstrings(STRINGS)["change"].format(showchange))
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(command="SetSign ([\s\S]*)")
 async def setsign(event):
@@ -32,7 +32,7 @@ async def setsign(event):
     stext = event.pattern_match.group(1)
     client.DB.set_key("SIGN_TEXT", stext)
     text = client.getstrings(STRINGS)["setsign"].format(stext)
-    await edit.edit(text)
+    await event.edit(text)
 
 @client.Command(allowedits=False)
 async def autosign(event):
