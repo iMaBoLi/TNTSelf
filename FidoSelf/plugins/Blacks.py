@@ -38,7 +38,7 @@ STRINGS = {
 
 @client.Command(command="AddBlack", userid=True)
 async def addblack(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
@@ -56,7 +56,7 @@ async def addblack(event):
     
 @client.Command(command="DelBlack", userid=True)
 async def delblack(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     blacks = client.DB.get_key("BLACK_LIST") or []
@@ -70,7 +70,7 @@ async def delblack(event):
     
 @client.Command(command="BlackList")
 async def blacklist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     if not blacks:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -81,7 +81,7 @@ async def blacklist(event):
 
 @client.Command(command="CleanBlackList")
 async def cleanblacklist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     blacks = client.DB.get_key("BLACK_LIST") or []
     if not blacks:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
