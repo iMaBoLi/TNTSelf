@@ -41,4 +41,4 @@ async def chatcounts(event):
         elif type == "Chat":
             groups += 1
     text = client.getstrings(STRINGS)["count"].format(all, users, sgroups, groups, channels, bots)
-    await edit.edit(text)
+    await event.edit(text)
