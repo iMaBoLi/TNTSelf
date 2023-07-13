@@ -16,22 +16,22 @@ import time
 
 @client.Command(command="Logs")
 async def logs(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if os.path.exists("Fido.log"):
         await event.respond("**The Console Logs File!**", file="Fido.log")
         await event.delete()
     else:
-        await edit.edit("**The Log File Is Not Available!**")
+        await event.edit("**The Log File Is Not Available!**")
         
 @client.Command(command="File (.*)")
 async def file(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     file = event.pattern_match.group(1)
     if os.path.exists(file):
         await event.respond(f"**The {file} File!**", file=file)
         await event.delete()
     else:
-        await edit.edit(f"**The File {file} Is Not Available!**")
+        await event.edit(f"**The File {file} Is Not Available!**")
         
 async def runner(code , event):
     chat = await event.get_chat()
@@ -42,11 +42,11 @@ async def runner(code , event):
 
 @client.Command(command="Run(?:\s|$)([\s\S]*)")
 async def runcodes(event):
-    edit = await event.reply(f"**Running ...**")
+    reply = await event.reply(f"**Running ...**")
     if event.text[4:]:
         cmd = "".join(event.text.split(maxsplit=1)[1:])
     else:
-        return await edit.edit(f"**What Should I Run ?**")
+        return await reply.edit(f"**What Should I Run ?**")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
@@ -68,21 +68,21 @@ async def runcodes(event):
     elif stdout:
         result = stdout
     if len(result) < 4096:
-        await edit.edit(f"**Results:**\n\n`{result}`")
+        await reply.edit(f"**Results:**\n\n`{result}`")
     else:
         file = client.PATH + "OutPut.txt"
         open(file, "w").write(str(result))
         await client.send_file(event.chat_id, file , caption="**Code OutPut!**", reply_to=event.id)
         os.remove(file)
-        await edit.delete()
+        await reply.delete()
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     input = "".join(event.text.split(maxsplit=1)[1:])
     path = input or os.getcwd()
     if not os.path.exists(path):
-        return await edit.edit(f"**The File With The Name** ( `{input}` ) **Is Not Finded!**")
+        return await event.edit(f"**The File With The Name** ( `{input}` ) **Is Not Finded!**")
     path = Path(input) if input else os.getcwd()
     if os.path.isdir(path):
         if input:
@@ -112,7 +112,7 @@ async def ls(event):
         output += f"    **Size:** `{convert_bytes(size)}`\n"
         output += f"    **Update Time:** `{uptime}`\n"
     if len(output) < 4000:
-        await edit.edit(output) 
+        await event.edit(output) 
     else:
         output = output.replace("*", "").replace("`", "")
         open("ls.txt", "w").write(output)

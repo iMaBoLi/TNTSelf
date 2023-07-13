@@ -7,7 +7,7 @@ STRINGS = {
 
 @client.Command(command="Update")
 async def update(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     git = client.functions.Git()
     link = git.repo.get_archive_link("zipball", "dev")
     await client.functions.runcmd(f"curl {link} -o Fido.zip")

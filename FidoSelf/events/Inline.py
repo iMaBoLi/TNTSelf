@@ -11,8 +11,7 @@ def Inline(
         async def wrapper(event):
             try:
                 event.is_sudo = True if event.sender_id == client.me.id else False
-                sudolist = client.DB.get_key("SUDO_USERS") or []
-                if onlysudo and not (event.is_sudo or event.sender_id in sudolist):
+                if onlysudo and not event.is_sudo:
                     text = client.STRINGS["OtherInline"]
                     return await event.answer([event.builder.article("FidoSelf - NotForYou", text=text)])
                 await func(event)

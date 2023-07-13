@@ -24,10 +24,9 @@ STRINGS = {
 }
 
 MANAGES = {
-    "SUDO_USERS": "Sudo",
-    "LOVE_USERS": "Love",
     "WHITE_LIST": "White",
     "BLACK_LIST": "Black",
+    "LOVE_USERS": "Love",
     "ECHO_USERS": "Echo",
     "MUTEPV_USERS": "MutePv",
 }
@@ -53,7 +52,7 @@ async def get_manage_buttons(userid, chatid):
 
 @client.Command(command="Manage", userid=True)
 async def Manage(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id

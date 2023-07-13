@@ -38,7 +38,7 @@ STRINGS = {
 
 @client.Command(command="Mute", userid=True)
 async def muteuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if not event.userid:
@@ -56,7 +56,7 @@ async def muteuser(event):
 
 @client.Command(command="TMute (\d*)")
 async def timermuteuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     timer = int(event.pattern_match.group(1))
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
@@ -77,7 +77,7 @@ async def timermuteuser(event):
     
 @client.Command(command="UnMute", userid=True)
 async def unmuteuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if not event.userid:

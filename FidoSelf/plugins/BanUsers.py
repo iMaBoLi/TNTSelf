@@ -38,7 +38,7 @@ STRINGS = {
 
 @client.Command(command="Ban", userid=True)
 async def banuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if not event.userid:
@@ -56,7 +56,7 @@ async def banuser(event):
     
 @client.Command(command="TBan (\d*)")
 async def timerbanuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     timer = int(event.pattern_match.group(1))
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
@@ -77,7 +77,7 @@ async def timerbanuser(event):
     
 @client.Command(command="UnBan", userid=True)
 async def unbanuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if not event.userid:

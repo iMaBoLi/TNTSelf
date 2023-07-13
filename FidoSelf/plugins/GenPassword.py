@@ -37,7 +37,7 @@ STRINGS = {
 
 @client.Command(command="SP(Easy|Medium|Hard) (\d*)")
 async def password(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
     count = int(event.pattern_match.group(2))
     if type == "Easy":
@@ -52,4 +52,4 @@ async def password(event):
     for i in range(count):
         password += random.choice(characters)
     text = client.getstrings(STRINGS)["pass"].format(type, password)
-    await edit.edit(text)
+    await event.edit(text)

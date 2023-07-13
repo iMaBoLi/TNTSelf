@@ -33,7 +33,7 @@ STRINGS = {
 
 CATEGORYS = {
     "Setting": ["Help", "Panel", "Lists", "Manage", "Save", "Command", "Realm", "BackUp", "Simbel", "Ping", "Reload"],
-    "Manage": ["Quick", "Save", "Auto", "Sudo", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer"],
+    "Manage": ["Quick", "Save", "Auto", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer"],
     "Tools": ["Time", "Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info", "Najva"],
     "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
     "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
@@ -155,18 +155,18 @@ def search_plugin(pluginname):
 
 @client.Command(command="Help ?(.*)?")
 async def help(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     pname = event.pattern_match.group(1)
     if pname:
         plugin = search_plugin(pname)
         if not plugin:
-            return await edit.edit(client.getstrings(STRINGS)["notfound"].format(pname))
+            return await event.edit(client.getstrings(STRINGS)["notfound"].format(pname))
         text = gethelp(plugin)
-        return await edit.edit(text)
+        return await event.edit(text)
     else:
         res = await client.inline_query(client.bot.me.username, "Help")
         await res[0].click(event.chat_id)
-        await edit.delete()
+        await event.delete()
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):

@@ -38,7 +38,6 @@ LISTS = {
     "Reaction Chats": "REACTION_CHATS",
     "Repeats": "REPEAT_LIST",
     "Echo Users": "ECHO_USERS",
-    "Sudo Users": "SUDO_USERS",
     "Love Users": "LOVE_LIST",
     "Love Times": "LOVETIME_LIST",
     "Comment Chats": "COMMENT_CHATS",
@@ -50,7 +49,7 @@ LISTS = {
 
 @client.Command(command="Lists")
 async def lists(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     res = await client.inline_query(client.bot.me.username, "Lists")
     await res[0].click(event.chat_id)
     await event.delete()

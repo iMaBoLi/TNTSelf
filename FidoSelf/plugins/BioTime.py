@@ -31,7 +31,7 @@ STRINGS = {
 
 @client.Command(command="Bio (On|Off)")
 async def biomode(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("BIO_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -40,7 +40,7 @@ async def biomode(event):
 
 @client.Command(command="NewBio (.*)")
 async def addbio(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     bios = client.DB.get_key("BIO_LIST") or []
     newbio = str(event.pattern_match.group(1))
     if newbio in bios:
@@ -52,7 +52,7 @@ async def addbio(event):
     
 @client.Command(command="DelBio (.*)")
 async def delbio(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     bios = client.DB.get_key("BIO_LIST") or []
     newbio = str(event.pattern_match.group(1))
     if newbio not in bios:
@@ -64,7 +64,7 @@ async def delbio(event):
 
 @client.Command(command="BioList")
 async def biolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     bios = client.DB.get_key("BIO_LIST") or []
     if not bios:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -77,7 +77,7 @@ async def biolist(event):
 
 @client.Command(command="CleanBioList")
 async def cleanbios(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     bios = client.DB.get_key("BIO_LIST") or []
     if not bios:
         return await event.edit(client.getstrings(STRINGS)["aempty"])

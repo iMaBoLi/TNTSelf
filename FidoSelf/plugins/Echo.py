@@ -46,7 +46,7 @@ WHERES = ["All", "Groups", "Pvs", "Here"]
 
 @client.Command(command="AddEcho", userid=True)
 async def addecho(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
@@ -59,7 +59,7 @@ async def addecho(event):
 
 @client.Command(command="DelEcho", userid=True)
 async def delecho(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
@@ -76,7 +76,7 @@ async def delecho(event):
 
 @client.Command(command="EchoList")
 async def echolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     Echos = client.DB.get_key("ECHO_USERS") or {}
     if not Echos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -89,7 +89,7 @@ async def echolist(event):
 
 @client.Command(command="CleanEchoList")
 async def cleanechos(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     echos = client.DB.get_key("ECHO_USERS") or []
     if not echos:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -98,7 +98,7 @@ async def cleanechos(event):
 
 @client.Command(command="SetEchoSleep (\d*)")
 async def setechosleep(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
     client.DB.set_key("ECHO_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["esleep"].format(client.functions.convert_time(int(sleep))))

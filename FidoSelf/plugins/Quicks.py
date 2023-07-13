@@ -65,7 +65,7 @@ STRINGS = {
 
 @client.Command(command="Quick (On|Off)")
 async def quickmode(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("QUICK_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -199,7 +199,7 @@ def get_buttons(quick):
 
 @client.Command(command="AddQuick \'([\s\S]*)\' ([\s\S]*)")
 async def addquick(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)[:25]
     answers = event.pattern_match.group(2)[:500]
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -217,7 +217,7 @@ async def addquick(event):
     
 @client.Command(command="AddQuick ([\s\S]*)")
 async def addmediaquick(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     cmd = event.pattern_match.group(1)[:25]
@@ -237,7 +237,7 @@ async def addmediaquick(event):
 
 @client.Command(command="DelQuick ([\s\S]*)")
 async def delquick(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     command = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
@@ -252,7 +252,7 @@ async def delquick(event):
 
 @client.Command(command="GetQuick (.*)")
 async def getquick(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)
     quicks = client.DB.get_key("QUICK_LIST") or {}
     quicklist = []
@@ -273,7 +273,7 @@ async def getquick(event):
 
 @client.Command(command="QuickList")
 async def quicklist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(client.getstrings(STRINGS)["empty"])    
@@ -283,7 +283,7 @@ async def quicklist(event):
     
 @client.Command(command="CleanQuickList")
 async def cleanquicklist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     quicks = client.DB.get_key("QUICK_LIST") or {}
     if not quicks:
         return await event.edit(client.getstrings(STRINGS)["allempty"])

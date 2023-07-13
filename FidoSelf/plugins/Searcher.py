@@ -68,7 +68,7 @@ STRINGS = {
 
 @client.Command(command="SR(All|Photo|Video|Gif|Voice|Music|File|Url) ?(.*)?")
 async def searcher(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     query = str(event.pattern_match.group(2) or "")
     filters = {
         "All": None,
@@ -91,4 +91,4 @@ async def searcher(event):
         count += 1
     if count < 2:
         text = client.getstrings(STRINGS)["notres"].format((query or "---"), filter)
-    await edit.edit(text)
+    await event.edit(text)

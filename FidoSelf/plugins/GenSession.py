@@ -31,43 +31,43 @@ async def createsession(event):
     try:
         scode = await client.send_code_request(phone, force_sms=False)
         async with bot.conversation(event.chat_id) as conv:
-            send = await edit.edit(f"**💠 Ok, Send Your Telegram Code For Your Phone:** ( `{phone}` )")
+            send = await event.edit(f"**💠 Ok, Send Your Telegram Code For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             phone_code = response.text
     except (PhoneNumberInvalidError, TypeError):
-        return await edit.edit("**❌ Your Phone Number Is Invalid!**")
+        return await event.edit("**❌ Your Phone Number Is Invalid!**")
     except PhoneNumberFloodError:
-        return await edit.edit("**❓ Your Phone Number Is Flooded!**")
+        return await event.edit("**❓ Your Phone Number Is Flooded!**")
     except PhoneNumberBannedError:
-        return await edit.edit("**🚫 Your Phone Number Is Banned!**")
+        return await event.edit("**🚫 Your Phone Number Is Banned!**")
     edit = await event.reply("`♻️ Please Wait . . .`")
     phone_code = phone_code.replace(" ", "")
     try:
         await client.sign_in(phone=phone, code=phone_code, password=None)
         session = client.session.save()
-        await edit.edit(f"**• String Session:**\n\n`{session}`")
+        await event.edit(f"**• String Session:**\n\n`{session}`")
         return await client.disconnect()
     except (PhoneCodeInvalidError, TypeError):
-        return await edit.edit("**❌ Your Code Is Invalid, Try Again!**")
+        return await event.edit("**❌ Your Code Is Invalid, Try Again!**")
     except PhoneCodeExpiredError:
-        return await edit.edit("**🚫 Your Code Is Expired, Try Again!**")
+        return await event.edit("**🚫 Your Code Is Expired, Try Again!**")
     except SessionPasswordNeededError:
         async with bot.conversation(event.chat_id) as conv:
-            send = await edit.edit(f"**🔐 Ok, Send Your Account 2Fa Password For Your Phone:** ( `{phone}` )")
+            send = await event.edit(f"**🔐 Ok, Send Your Account 2Fa Password For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             password = response.text
         edit = await event.reply("`♻️ Please Wait . . .`")
         try:
             await client.sign_in(password=password)
             session = client.session.save()
-            await edit.edit(f"**• String Session:**\n\n`{session}`")
+            await event.edit(f"**• String Session:**\n\n`{session}`")
             return await client.disconnect()
         except PasswordHashInvalidError:
-            return await edit.edit("**❌ Your Account Password Is Invalid, Try Again!**")
+            return await event.edit("**❌ Your Account Password Is Invalid, Try Again!**")
         except Exception as error:
-            return await edit.edit(error)
+            return await event.edit(error)
     except Exception as error:
-        return await edit.edit(error)
+        return await event.edit(error)
         
 @bot.on(events.NewMessage(pattern="(?i)\/GenSession", incoming=True, from_users=[client.me.id]))
 async def gensession(event):
@@ -84,15 +84,15 @@ async def gensession(event):
     try:
         scode = await client.send_code_request(phone, force_sms=False)
         async with bot.conversation(event.chat_id) as conv:
-            send = await edit.edit(f"**💠 Ok, Send Your Telegram Code For Your Phone:** ( `{phone}` )")
+            send = await event.edit(f"**💠 Ok, Send Your Telegram Code For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             phone_code = response.text
     except (PhoneNumberInvalidError, TypeError):
-        return await edit.edit("**❌ Your Phone Number Is Invalid!**")
+        return await event.edit("**❌ Your Phone Number Is Invalid!**")
     except PhoneNumberFloodError:
-        return await edit.edit("**❓ Your Phone Number Is Flooded!**")
+        return await event.edit("**❓ Your Phone Number Is Flooded!**")
     except PhoneNumberBannedError:
-        return await edit.edit("**🚫 Your Phone Number Is Banned!**")
+        return await event.edit("**🚫 Your Phone Number Is Banned!**")
     edit = await event.reply("`♻️ Please Wait . . .`")
     phone_code = phone_code.replace(" ", "")
     try:
@@ -101,12 +101,12 @@ async def gensession(event):
         await edit.respond(file=file)
         return await client.disconnect()
     except (PhoneCodeInvalidError, TypeError):
-        return await edit.edit("**❌ Your Code Is Invalid, Try Again!**")
+        return await event.edit("**❌ Your Code Is Invalid, Try Again!**")
     except PhoneCodeExpiredError:
-        return await edit.edit("**🚫 Your Code Is Expired, Try Again!**")
+        return await event.edit("**🚫 Your Code Is Expired, Try Again!**")
     except SessionPasswordNeededError:
         async with bot.conversation(event.chat_id) as conv:
-            send = await edit.edit(f"**🔐 Ok, Send Your Account 2Fa Password For Your Phone:** ( `{phone}` )")
+            send = await event.edit(f"**🔐 Ok, Send Your Account 2Fa Password For Your Phone:** ( `{phone}` )")
             response = await conv.get_response(send.id)
             password = response.text
         edit = await event.reply("`♻️ Please Wait . . .`")
@@ -116,8 +116,8 @@ async def gensession(event):
             await edit.respond(file=file)
             return await client.disconnect()
         except PasswordHashInvalidError:
-            return await edit.edit("**❌ Your Account Password Is Invalid, Try Again!**")
+            return await event.edit("**❌ Your Account Password Is Invalid, Try Again!**")
         except Exception as error:
-            return await edit.edit(error)
+            return await event.edit(error)
     except Exception as error:
-        return await edit.edit(error)
+        return await event.edit(error)

@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="Kick", userid=True)
 async def kickuser(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.is_group:
         return await event.edit(client.STRINGS["only"]["Group"])
     if not event.userid:

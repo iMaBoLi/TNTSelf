@@ -28,42 +28,42 @@ STRINGS = {
 
 @client.Command(command="NewTtime ([\s\S]*)")
 async def addttime(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     newttime = str(event.pattern_match.group(1))
     if newttime in ttimes:
-        return await edit.edit(client.getstrings(STRINGS)["newnot"].format(newttime))  
+        return await event.edit(client.getstrings(STRINGS)["newnot"].format(newttime))  
     ttimes.append(newttime)
     client.DB.set_key("TEXTTIME_LIST", ttimes)
-    await edit.edit(client.getstrings(STRINGS)["newadd"].format(newttime))
+    await event.edit(client.getstrings(STRINGS)["newadd"].format(newttime))
     
 @client.Command(command="DelTtime ([\s\S]*)")
 async def delttime(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     newttime = str(event.pattern_match.group(1))
     if newttime not in ttimes:
-        return await edit.edit(client.getstrings(STRINGS)["delnot"].format(newttime))  
+        return await event.edit(client.getstrings(STRINGS)["delnot"].format(newttime))  
     ttimes.remove(newttime)
     client.DB.set_key("TEXTTIME_LIST", ttimes)
-    await edit.edit(client.getstrings(STRINGS)["del"].format(newttime))
+    await event.edit(client.getstrings(STRINGS)["del"].format(newttime))
 
 @client.Command(command="TtimeList")
 async def ttimelist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     if not ttimes:
-        return await edit.edit(client.getstrings(STRINGS)["empty"])
+        return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
     for row, ttime in enumerate(ttimes):
         text += f"**{row + 1} -** `{ttime}`\n"
-    await edit.edit(text)
+    await event.edit(text)
 
 @client.Command(command="CleanTtimeList")
 async def cleanttimes(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
     if not ttimes:
-        return await edit.edit(client.getstrings(STRINGS)["aempty"])
+        return await event.edit(client.getstrings(STRINGS)["aempty"])
     client.DB.del_key("TEXTTIME_LIST")
-    await edit.edit(client.getstrings(STRINGS)["clean"])
+    await event.edit(client.getstrings(STRINGS)["clean"])

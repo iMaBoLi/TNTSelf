@@ -36,7 +36,7 @@ PATTERN = PATTERN[:-1]
 
 @client.Command(command=f"({PATTERN}) (On|Off)")
 async def editchanger(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
     change = event.pattern_match.group(2).upper()
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
