@@ -13,11 +13,9 @@ __INFO__ = {
             "{CMD}ChSign <On-Off>": {
                 "Help": "To Turn On-Off Channel Sign Message",
             },
-            "{CMD}SetChSign <Text>": {
+            "{CMD}SetChSign": {
                 "Help": "To Set Channel Sign Message",
-                "Input": {
-                    "<Text>": "Sign Text",
-                },
+                "Reply": ["Text"],
             },
             "{CMD}DelChSign": {
                 "Help": "To Delete Channel Sign Message",
@@ -52,13 +50,15 @@ async def chsignmode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(command="SetChSign ([\s\S]*)")
+@client.Command(command="SetChSign")
 async def setchsign(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_ch:
         return await event.edit(client.STRINGS["only"]["Channel"])
-    signtext = event.pattern_match.group(1)
+    if not event.reply_message or not event.reply_message.text:
+        return await event.edit(client.STRINGS["replytext"])
     chsigns = client.DB.get_key("CHSIGN_CHATS") or {}
+    signtext = event.reply_message.text
     chsigns.update({event.chat_id: signtext})
     client.DB.set_key("CHSIGN_CHATS", chsigns)
     await event.edit(client.getstrings(STRINGS)["setchsign"].format(signtext))
@@ -97,7 +97,7 @@ async def cleanchsignlist(event):
     client.DB.del_key("CHSIGN_CHATS")
     await event.edit(client.getstrings(STRINGS)["clean"])
     
-@client.Command(onlysudo=False)
+@client.Command(onlysudo=False, allowedits=False, checkCmd=True)
 async def autochsign(event):
     if not event.is_ch: return
     chsignmode = client.DB.get_key("CHSIGN_MODE") or "OFF"
