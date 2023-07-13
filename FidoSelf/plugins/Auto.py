@@ -65,7 +65,7 @@ STRINGS = {
 
 @client.Command(command="Auto (On|Off)")
 async def automode(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("AUTO_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -73,7 +73,7 @@ async def automode(event):
 
 @client.Command(command="AddAuto", chatid=True)
 async def addauto(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.chatid:
         return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
@@ -86,7 +86,7 @@ async def addauto(event):
     
 @client.Command(command="DelAuto", chatid=True)
 async def delauto(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.chatid:
         return await event.edit(client.STRINGS["chat"]["all"])
     autos = client.DB.get_key("AUTO_CHATS") or {}
@@ -99,7 +99,7 @@ async def delauto(event):
     
 @client.Command(command="AutoList")
 async def autolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     autos = client.DB.get_key("AUTO_CHATS") or []
     if not autos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
@@ -112,7 +112,7 @@ async def autolist(event):
 
 @client.Command(command="CleanAutoList")
 async def cleanautolist(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     autos = client.DB.get_key("AUTO_CHATS") or []
     if not autos:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
@@ -121,7 +121,7 @@ async def cleanautolist(event):
 
 @client.Command(command="SetAuto")
 async def setauto(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -130,7 +130,7 @@ async def setauto(event):
  
 @client.Command(command="GetAuto")
 async def getauto(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     info = client.DB.get_key("AUTO_MESSAGE")
     if not info:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
@@ -140,7 +140,7 @@ async def getauto(event):
     
 @client.Command(command="SetAutoSleep (\d*)")
 async def setautosleep(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     sleep = int(event.pattern_match.group(1))
     if 1 > sleep > 120:
         return await event.edit(client.getstrings(STRINGS)["nosleep"].format(1, 60))
