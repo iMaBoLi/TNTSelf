@@ -40,6 +40,8 @@ def Command(
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
+                errortext = f"**• Error :**\n\n`{format_exc()}`"
+                await client.bot.send_message(client.REALM, errortext)
         client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
         if allowedits:
             client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
