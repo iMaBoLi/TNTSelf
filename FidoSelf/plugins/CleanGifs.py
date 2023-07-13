@@ -28,7 +28,7 @@ STRINGS = {
 
 @client.Command(command="CGifs ?(\d*)?")
 async def cleangifs(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     number = event.pattern_match.group(1)
     result = await client(functions.messages.GetSavedGifsRequest(hash=0))
     gifcount = number if number else len(result.gifs)
