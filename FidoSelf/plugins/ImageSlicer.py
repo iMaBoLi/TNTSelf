@@ -26,7 +26,7 @@ STRINGS = {
 
 @client.Command(command="Slice (\d*)")
 async def sliceimage(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     tile = event.pattern_match.group(1)
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
