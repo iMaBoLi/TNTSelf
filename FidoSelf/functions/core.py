@@ -27,7 +27,7 @@ def checkCmd(text):
     return False
 
 SPAMS = {}
-def checkSpam(event, bantime=30, maxbans=5, maxtime=3, maxmsg=5, block=False):
+def checkSpam(event, bantime=30, maxbans=3, maxtime=3, maxmsg=6, block=False):
     antimode = client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
         return False
