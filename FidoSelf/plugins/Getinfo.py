@@ -37,7 +37,7 @@ STRINGS = {
 
 @client.Command(command="Info", userid=True)
 async def userinfo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     uinfo = await client.get_entity(event.userid)
@@ -56,7 +56,7 @@ async def userinfo(event):
 
 @client.Command(command="Ginfo", chatid=True)
 async def ginfo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if not event.chatid:
         return await event.edit(client.STRINGS["getchatID"])
     cinfo = await client.get_entity(event.chatid)
