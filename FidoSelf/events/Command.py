@@ -32,7 +32,7 @@ def Command(
                 event.is_bot = event.sender.bot if isinstance(event.sender, types.User) else False
                 event.userid = await client.functions.getuserid(event) if userid else 0
                 event.chatid = await client.functions.getchatid(event) if chatid else 0
-                if checkCmd and event.is_sudo and event.text and client.functions.checkCmd(event.text): return
+                if checkCmd and event.text and client.functions.checkCmd(event.text): return
                 blacks = client.DB.get_key("BLACK_LIST") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = client.DB.get_key("WHITE_LIST") or []
