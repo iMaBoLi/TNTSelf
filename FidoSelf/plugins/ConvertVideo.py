@@ -23,7 +23,7 @@ STRINGS = {
 
 @client.Command(command="ToVideo")
 async def tovideo(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["VideoNote"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
@@ -38,7 +38,7 @@ async def tovideo(event):
 
 @client.Command(command="ToVNote")
 async def tovnote(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
@@ -53,7 +53,7 @@ async def tovnote(event):
     
 @client.Command(command="ToGif")
 async def togif(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Video", "VideoNote"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
