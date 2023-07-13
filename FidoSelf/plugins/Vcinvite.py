@@ -31,7 +31,7 @@ STRINGS = {
 
 @client.Command(command="InvVc ?(.*)?")
 async def invitevc(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     users = str(event.pattern_match.group(1) or "")
     if event.chat.megagroup or event.chat.broadcast:
         info = (await client(functions.channels.GetFullChannelRequest(event.chat_id))).full_chat
