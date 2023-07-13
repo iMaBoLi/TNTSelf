@@ -24,10 +24,9 @@ STRINGS = {
 }
 
 MANAGES = {
-    "SUDO_USERS": "Sudo",
-    "LOVE_USERS": "Love",
     "WHITE_LIST": "White",
     "BLACK_LIST": "Black",
+    "LOVE_USERS": "Love",
     "ECHO_USERS": "Echo",
     "MUTEPV_USERS": "MutePv",
 }
