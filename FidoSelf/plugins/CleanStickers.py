@@ -23,6 +23,6 @@ STRINGS = {
 @client.Command(command="CStickers")
 async def cleanstickers(event):
     edit = await event.tryedit(client.STRINGS["wait"])
-    await edit.edit(client.getstrings(STRINGS)["cleaning"])
+    await event.edit(client.getstrings(STRINGS)["cleaning"])
     await client(functions.messages.ClearRecentStickersRequest(attached=False))
-    await edit.edit(client.getstrings(STRINGS)["cleaned"])
+    await event.edit(client.getstrings(STRINGS)["cleaned"])
