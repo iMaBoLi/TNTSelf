@@ -47,7 +47,7 @@ STRINGS = {
 
 @client.Command(command="AntiSpamPv (On|Off)")
 async def antipvmode(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPV_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -55,7 +55,7 @@ async def antipvmode(event):
 
 @client.Command(command="AntiSpamWarn (On|Off)")
 async def antipvwarn(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("ANTISPAMPVWARN_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
@@ -63,7 +63,7 @@ async def antipvwarn(event):
 
 @client.Command(command="SetSpamPvLimit (\d*)")
 async def setspamlimit(event):
-    edit = await event.tryedit(client.getstrings(STRINGS)["wait"])
+    await event.edit(client.getstrings(STRINGS)["wait"])
     limit = event.pattern_match.group(1)
     if 3 > limit > 20:
         return await event.edit(client.getstrings(STRINGS)["nolimit"].format(3, 20))
@@ -72,7 +72,7 @@ async def setspamlimit(event):
 
 @client.Command(command="SetAntiSpam")
 async def setanti(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
@@ -81,7 +81,7 @@ async def setanti(event):
     
 @client.Command(command="SetAntiSpamWarn")
 async def setantiwarn(event):
-    edit = await event.tryedit(client.STRINGS["wait"])
+    await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply():
         return await event.edit(reply)
     info = await event.reply_message.save()
