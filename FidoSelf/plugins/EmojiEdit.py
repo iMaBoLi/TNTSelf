@@ -36,9 +36,9 @@ async def setemoji(event):
     text = client.getstrings(STRINGS)["setemoji"].format(emojis)
     await event.edit(text)
 
-@client.Command(allowedits=False)
+@client.Command(allowedits=False, checkCmd=True)
 async def emoji(event):
-    if event.checkCmd() or not event.text: return
+    if not event.text: return
     mode = client.DB.get_key("EMOJI_MODE") or "OFF"
     emojis = client.DB.get_key("EDIT_EMOJIS") or ""
     if mode == "OFF" or not emojis: return
