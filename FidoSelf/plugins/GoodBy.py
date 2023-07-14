@@ -99,10 +99,8 @@ async def goodbylist(event):
     if not goodbys:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for goodby in goodbys:
-        text += f"**{row} -** `{goodby}`\n"
-        row += 1
+    for row, goodby in enumerate(goodbys):
+        text += f"**{row + 1} -** `{goodby}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanGoodByList")
