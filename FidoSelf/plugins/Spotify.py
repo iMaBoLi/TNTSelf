@@ -3,6 +3,42 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import os
 
+__INFO__ = {
+    "Category": "Usage",
+    "Name": "Spotify",
+    "Info": {
+        "Help": "To Search Music And Artists On Spotify!",
+        "Commands": {
+            "{CMD}SetSpotify <ID>:<SECRET>": {
+                "Help": "To Save Spotify Info",
+                "Input": {
+                    "<ID>": "Spotify Client ID",
+                    "<SECRET>": "Spotify Client SECRET",
+                },
+            },
+            "{CMD}SPTrack <Text>": {
+                "Help": "To Search Track",
+                "Input": {
+                    "<Text>": "Text For Search Track",
+                },
+            },
+            "{CMD}SPArtist <Text>": {
+                "Help": "To Search Artist",
+                "Input": {
+                    "<Text>": "Text For Search Artist",
+                },
+            },
+            "{CMD}SPAlbum <Text>": {
+                "Help": "To Search Album",
+                "Input": {
+                    "<Text>": "Text For Search Album",
+                },
+            },
+        },
+    },
+}
+client.functions.AddInfo(__INFO__)
+
 STRINGS = {
     "setinfo": "**{STR} The Spotify Keys Has Been Saved!**\n\n**{STR} Client ID:** ( `{}` )\n**{STR} Client Secret:** ( `{}` )",
     "errorclient": "**{STR} The Spotify Client Is Not Worked!**\n\n**{STR} Error:** ( `{}` )",
@@ -30,8 +66,8 @@ async def setspotify(event):
     client.DB.set_key("SPOTIFY_KEYS", client_info)
     await event.edit(client.getstrings(STRINGS)["setinfo"].format(client_id, client_secret))
     
-@client.Command(command="SpSearch (.*)")
-async def searchspotify(event):
+@client.Command(command="SpTrack (.*)")
+async def spotifytrack(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     spotify, error = getspotify()
