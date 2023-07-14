@@ -50,16 +50,24 @@ def convert_bytes(size_bytes):
    s = round(size_bytes / p, 2)
    return "%s%s" % (s, size_name[i])
 
-def convert_time(seconds):
+def convert_time(seconds, strings=True):
     if int(seconds) == 0: return "0s"
     minutes, seconds = divmod(int(seconds), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-    result = (
+    if strings:
+        result = (
             ((str(days) + "d:") if days else "")
             + ((str(hours) + "h:") if hours else "")
             + ((str(minutes) + "m:") if minutes else "")
             + ((str(seconds) + "s") if seconds else "")
+        )
+    else:
+        result = (
+            ((str(days) + ":") if days else "")
+            + ((str(hours) + ":") if hours else "")
+            + ((str(minutes) + ":") if minutes else "")
+            + (str(seconds) if seconds else "")
         )
     if result.endswith(":"):
         return result[:-1]
