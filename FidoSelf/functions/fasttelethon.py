@@ -1,3 +1,4 @@
+from FidoSelf import client as CLIENT
 import asyncio
 import hashlib
 import logging
@@ -364,29 +365,33 @@ async def _internal_transfer_to_telegram(
     return InputFile(file_id, part_count, filename, hash_md5.hexdigest()), file_size
 
 async def download_file(
-    client: TelegramClient,
-    location: TypeLocation,
-    outfile: BinaryIO,
+    event,
+    outfile=None,
     progress_callback: callable = None,
 ) -> BinaryIO:
-    size = location.size
-    dc_id, location = utils.get_input_location(location)
-    downloader = ParallelTransferrer(client, dc_id)
+    if outfile:
+        opfile = open(outfile, "wb")
+    else:
+        outfile = CLIENT.PATH + event.file.name
+        opfile = open(outfile, "wb")
+    size = event.file.size
+    dc_id, location = utils.get_input_location(event)
+    downloader = ParallelTransferrer(CLIENT, dc_id)
     downloaded = downloader.download(location, size)
     async for x in downloaded:
-        outfile.write(x)
+        opfile.write(x)
         if progress_callback:
             try:
-                await _maybe_await(progress_callback(outfile.tell(), size))
+                await _maybe_await(progress_callback(opfile.tell(), size))
             except BaseException:
                 pass
-    return out
+    return outfile
 
 async def upload_file(
-    client: TelegramClient,
-    file: BinaryIO,
+    file,
     progress_callback: callable = None,
 ) -> TypeInputFile:
+    opfile = open(file, "rb")
     return (
-        await _internal_transfer_to_telegram(client, file, Path(file).name, progress_callback)
+        await _internal_transfer_to_telegram(CLIENT, opfile, Path(file).name, progress_callback)
     )[0]
