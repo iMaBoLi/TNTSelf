@@ -15,3 +15,9 @@ async def request(url, post=False, head=False, headers=None, evaluate=None, obje
         if head or object:
             return data
         return await data.text()
+        
+async def download_photo(url, outfile):
+    result = await request(url, re_content=True)
+    with open(outfile, "wb") as file:
+        file.write(result)
+    return outfile
