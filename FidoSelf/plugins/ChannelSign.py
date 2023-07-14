@@ -33,7 +33,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "change": "**{STR} The Channel Sign Mode Has Been {}!**",
-    "setchsign": "**{STR} The Sign Message For This Channel Was Set To** ( `{}` )",
+    "setchsign": "**{STR} The Sign Message For This Channel Was Saved!**",
     "notsave": "**{STR} The Sign Message For This Channel Is Not Saved!**",
     "delchsign": "**{STR} The Sign Message For This Channel Has Been Removed!**",
     "empty": "**{STR} The Channel Sign List Is Empty!**",
@@ -61,7 +61,7 @@ async def setchsign(event):
     signtext = event.reply_message.text
     chsigns.update({event.chat_id: signtext})
     client.DB.set_key("CHSIGN_CHATS", chsigns)
-    await event.edit(client.getstrings(STRINGS)["setchsign"].format(signtext))
+    await event.edit(client.getstrings(STRINGS)["setchsign"])
     
 @client.Command(command="DelChSign")
 async def delchsign(event):
@@ -82,10 +82,8 @@ async def chsignlist(event):
     if not chsigns:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for chsign in chsigns:
-        text += f"**{row} -** `{chsign}`\n"
-        row += 1
+    for row, chsign in enumerate(chsigns):
+        text += f"**{row + 1} -** `{chsign}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanChSignList")
