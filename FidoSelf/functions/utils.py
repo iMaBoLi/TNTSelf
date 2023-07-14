@@ -51,7 +51,7 @@ def convert_bytes(size_bytes):
    return "%s%s" % (s, size_name[i])
 
 def convert_time(seconds, strings=True):
-    if int(seconds) == 0: return "0s"
+    if int(seconds) == 0: return "0"
     minutes, seconds = divmod(int(seconds), 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
