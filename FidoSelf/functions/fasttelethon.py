@@ -381,7 +381,6 @@ async def download_file(
                 pass
     return out
 
-
 async def upload_file(
     client: TelegramClient,
     file: BinaryIO,
