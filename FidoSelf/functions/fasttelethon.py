@@ -1,3 +1,4 @@
+from FidoSelf import client as CLIENT
 import asyncio
 import hashlib
 import logging
@@ -364,14 +365,13 @@ async def _internal_transfer_to_telegram(
     return InputFile(file_id, part_count, filename, hash_md5.hexdigest()), file_size
 
 async def download_file(
-    client: TelegramClient,
     location: TypeLocation,
     outfile: BinaryIO,
     progress_callback: callable = None,
 ) -> BinaryIO:
     size = location.size
     dc_id, location = utils.get_input_location(location)
-    downloader = ParallelTransferrer(client, dc_id)
+    downloader = ParallelTransferrer(CLIENT, dc_id)
     downloaded = downloader.download(location, size)
     async for x in downloaded:
         outfile.write(x)
@@ -383,10 +383,9 @@ async def download_file(
     return out
 
 async def upload_file(
-    client: TelegramClient,
     file: BinaryIO,
     progress_callback: callable = None,
 ) -> TypeInputFile:
     return (
-        await _internal_transfer_to_telegram(client, file, Path(file).name, progress_callback)
+        await _internal_transfer_to_telegram(CLIENT, file, Path(file).name, progress_callback)
     )[0]
