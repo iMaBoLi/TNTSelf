@@ -97,8 +97,7 @@ async def ytdownload(event):
     description = str(ytinfo["description"])[:50]
     caption = client.getstrings(STRINGS)["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
-    file = open(down["OUTFILE"], "rb")
-    uploadfile = await client.fast_upload(file=file, progress_callback=callback)
+    uploadfile = await client.fast_upload(file=down["OUTFILE"], progress_callback=callback)
     await client.send_file(
         int(chatid),
         file=uploadfile,
