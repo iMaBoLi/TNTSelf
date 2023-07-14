@@ -56,7 +56,7 @@ async def trimvideo(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    file = await client.fast_download(event.reply_message, progress_callback=callback)
     if end > event.reply_message.file.duration:
         end = event.reply_message.file.duration
     if start >= end:
@@ -65,9 +65,10 @@ async def trimvideo(event):
     newfile = client.PATH + f"TrimedVideo-{start}-{end}.mp4"
     cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {start} -to {end} -codec copy -map 0 "{newfile}" -y'
     await client.functions.runcmd(cmd)
-    callback = event.progress(upload=True)
     caption = client.getstrings(STRINGS)["trdvid"].format(start, end)
-    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    callback = event.progress(upload=True)
+    uploadfile = await client.fast_upload(newfile, progress_callback=callback)
+    await client.send_file(event.chat_id, uploadfile, caption=caption)        
     os.remove(newfile)
     os.remove(file)
     await event.delete()
@@ -82,7 +83,7 @@ async def trimaudio(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    file = await client.fast_download(event.reply_message, progress_callback=callback)
     if end > event.reply_message.file.duration:
         end = event.reply_message.file.duration
     if start >= end:
@@ -91,9 +92,10 @@ async def trimaudio(event):
     newfile = client.PATH + f"TrimedAudio-{start}-{end}.mp3"
     cmd = f'ffmpeg -i "{file}" -preset ultrafast -ss {start} -to {end} -vn -acodec copy "{newfile}" -y'
     await client.functions.runcmd(cmd)
-    callback = event.progress(upload=True)
     caption = client.getstrings(STRINGS)["trdvid"].format(start, end)
-    await client.send_file(event.chat_id, newfile, caption=caption, progress_callback=callback)        
+    callback = event.progress(upload=True)
+    uploadfile = await client.fast_upload(newfile, progress_callback=callback)
+    await client.send_file(event.chat_id, uploadfile, caption=caption)        
     os.remove(newfile)
     os.remove(file)
     await event.delete()

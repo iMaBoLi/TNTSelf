@@ -55,10 +55,11 @@ async def addcover(event):
     if not os.path.exists(cover):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    file = await client.fast_download(event.reply_message, progress_callback=callback)
     await event.edit(client.getstrings(STRINGS)["adding"])
     callback = event.progress(upload=True)
-    await client.send_file(event.chat_id, file, thumb=cover, caption=client.getstrings(STRINGS)["added"], progress_callback=callback)
+    uploadfile = await client.fast_upload(file, progress_callback=callback)
+    await client.send_file(event.chat_id, uploadfile, thumb=cover, caption=client.getstrings(STRINGS)["added"])
     os.remove(file)
     await event.delete()
     

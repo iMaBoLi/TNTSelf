@@ -5,7 +5,6 @@ import logging
 import math
 import os
 from collections import defaultdict
-from pathlib import Path
 from typing import (
     AsyncGenerator,
     Awaitable,
@@ -324,7 +323,7 @@ def stream_file(file_to_stream: BinaryIO, chunk_size=1024):
             break
         yield data_read
 
-async def _internal_transfer_to_telegram(
+async def TransferTel(
     client: TelegramClient,
     response: BinaryIO,
     filename: str,
@@ -364,11 +363,7 @@ async def _internal_transfer_to_telegram(
         return InputFileBig(file_id, part_count, filename), file_size
     return InputFile(file_id, part_count, filename, hash_md5.hexdigest()), file_size
 
-async def download_file(
-    event,
-    outfile=None,
-    progress_callback: callable = None,
-) -> BinaryIO:
+async def download_file(event, outfile=None, progress_callback=None):
     if outfile:
         opfile = open(outfile, "wb")
     else:
@@ -387,11 +382,7 @@ async def download_file(
                 pass
     return outfile
 
-async def upload_file(
-    file,
-    progress_callback: callable = None,
-) -> TypeInputFile:
+async def upload_file(file, progress_callback=None):
     opfile = open(file, "rb")
-    return (
-        await _internal_transfer_to_telegram(CLIENT, opfile, Path(file).name, progress_callback)
-    )[0]
+    transfer = await TransferTel(CLIENT, opfile, opfile.name, progress_callback)
+    return transfer[0]
