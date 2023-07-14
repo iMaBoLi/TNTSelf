@@ -1,9 +1,12 @@
+from FidoSelf import client as CLIENT
 import asyncio
 import hashlib
 import inspect
 import logging
 import math
 import os
+import io
+import pathlib
 from collections import defaultdict
 from typing import (
     AsyncGenerator,
@@ -32,6 +35,7 @@ from telethon.tl.functions.upload import (
     SaveFilePartRequest,
 )
 from telethon.tl.types import (
+    Message,
     Document,
     InputDocumentFileLocation,
     InputFile,
@@ -194,8 +198,6 @@ class ParallelTransferrer:
                 return minimum + 1
             return minimum
 
-        # The first cross-DC sender will export+import the authorization, so we always create it
-        # before creating any other senders.
         self.senders = [
             await self._create_download_sender(
                 file, 0, part_size, connections * part_size, get_part_count()
@@ -378,28 +380,26 @@ async def TransferTel(
         return InputFileBig(file_id, part_count, "upload"), file_size
     return InputFile(file_id, part_count, "upload", hash_md5.hexdigest()), file_size
 
-async def download_file(
-    client: TelegramClient,
-    location: TypeLocation,
-    out: BinaryIO,
-    progress_callback: callable = None,
-) -> BinaryIO:
-    size = location.size
-    dc_id, location = utils.get_input_location(location)
-    downloader = ParallelTransferrer(client, dc_id)
-    downloaded = downloader.download(location, size)
-    async for x in downloaded:
-        out.write(x)
+async def download_file(event, outfile, progress_callback):
+    file = io.FileIO(outfile, "a")
+    dc_id, location = utils.get_input_location(event)
+    downloader = ParallelTransferrer(CLIENT, dc_id)
+    downloaded = downloader.download(location, event.file.size)
+    async for down in downloaded:
+        file.write(down)
         if progress_callback:
-            r = progress_callback(out.tell(), size)
-            if inspect.isawaitable(r):
-                await r
-    return out
+            progress = progress_callback(out.tell(), size)
+            if inspect.isawaitable(progress):
+                await progress
+    file.close()
+    return outfile
 
-
-async def upload_file(
-    client: TelegramClient,
-    file: BinaryIO,
-    progress_callback: callable = None,
-) -> TypeInputFile:
-    return (await TransferTel(client, file, progress_callback))[0]
+async def upload_file(event, file, progress_callback):
+    phfile = pathlib.Path(file)
+    file = io.open(phfile, "rb")
+    transfer = await TransferTel(CLIENT, file, progress_callback)
+    file.close()
+    return transfer[0]
+    
+setattr(Message, "download_file", download_file)
+setattr(Message, "upload_file", upload_file)
