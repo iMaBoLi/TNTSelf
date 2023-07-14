@@ -69,10 +69,8 @@ async def biolist(event):
     if not bios:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for bio in bios:
-        text += f"**{row} -** `{bio}`\n"
-        row += 1
+    for row, bio in enumerate(bios):
+        text += f"**{row + 1} -** `{bio}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanBioList")
