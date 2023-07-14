@@ -366,10 +366,14 @@ async def _internal_transfer_to_telegram(
 
 async def download_file(
     event,
-    outfile,
+    outfile=None,
     progress_callback: callable = None,
 ) -> BinaryIO:
-    opfile = open(outfile, "wb")
+    if outfile:
+        opfile = open(outfile, "wb")
+    else:
+        outfile = CLIENT.PATH + event.file.name
+        opfile = open(outfile, "wb")
     size = event.file.size
     dc_id, location = utils.get_input_location(event)
     downloader = ParallelTransferrer(CLIENT, dc_id)
