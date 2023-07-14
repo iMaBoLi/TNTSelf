@@ -99,10 +99,8 @@ async def welcomelist(event):
     if not welcomes:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for welcome in welcomes:
-        text += f"**{row} -** `{welcome}`\n"
-        row += 1
+    for row, welcome in enumerate(welcomes):
+        text += f"**{row + 1} -** `{welcome}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanWelcomeList")
