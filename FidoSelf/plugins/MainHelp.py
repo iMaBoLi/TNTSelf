@@ -36,7 +36,7 @@ CATEGORYS = {
     "Manage": ["Quick", "Save", "Auto", "Love", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer"],
     "Tools": ["Time", "Translate", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info", "Najva"],
     "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
-    "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Extract Audio", "Edit Duration", "Music Info"],
+    "Usage": ["Youtube", "Cover File", "Video Shot", "Trim Video", "Trim Audio", "Rotater", "Shazam", "Extract Audio", "Edit Duration", "Music Info"],
     "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
     "Funs": ["Wikipedia", "Flood", "Password", "Say", "Sign", "Len", "Contact", "Emojis"],
