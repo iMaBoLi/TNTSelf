@@ -27,7 +27,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Edit Title And Performer For Music!",
         "Commands": {
-            "{CMD}SMusic <Title>:<Name>": {
+            "{CMD}SMInfo <Title>:<Name>": {
                 "Help": "To Edit Info",
                 "Input": {
                     "<Title>": "Title For Music",
@@ -71,7 +71,7 @@ async def setduration(event):
     os.remove(file)
     await event.delete()
 
-@client.Command(command="SMusic (.*)\:(.*)")
+@client.Command(command="SMInfo (.*)\:(.*)")
 async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
