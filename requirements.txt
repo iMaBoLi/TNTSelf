@@ -6,6 +6,7 @@ gunicorn
 redis
 opencv-python
 pillow
+spotipy
 moviepy
 openai
 somnium
