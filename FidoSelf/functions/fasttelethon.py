@@ -4,6 +4,7 @@ import logging
 import math
 import os
 from collections import defaultdict
+from pathlib import Path
 from typing import (
     AsyncGenerator,
     Awaitable,
@@ -365,7 +366,7 @@ async def _internal_transfer_to_telegram(
 async def download_file(
     client: TelegramClient,
     location: TypeLocation,
-    out: BinaryIO,
+    outfile: BinaryIO,
     progress_callback: callable = None,
 ) -> BinaryIO:
     size = location.size
@@ -373,10 +374,10 @@ async def download_file(
     downloader = ParallelTransferrer(client, dc_id)
     downloaded = downloader.download(location, size)
     async for x in downloaded:
-        out.write(x)
+        outfile.write(x)
         if progress_callback:
             try:
-                await _maybe_await(progress_callback(out.tell(), size))
+                await _maybe_await(progress_callback(outfile.tell(), size))
             except BaseException:
                 pass
     return out
@@ -384,9 +385,8 @@ async def download_file(
 async def upload_file(
     client: TelegramClient,
     file: BinaryIO,
-    filename: str,
     progress_callback: callable = None,
 ) -> TypeInputFile:
     return (
-        await _internal_transfer_to_telegram(client, file, filename, progress_callback)
+        await _internal_transfer_to_telegram(client, file, Path(file).name, progress_callback)
     )[0]
