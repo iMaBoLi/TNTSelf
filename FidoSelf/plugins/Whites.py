@@ -75,10 +75,8 @@ async def whitelist(event):
     if not whites:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for white in whites:
-        text += f"**{row} -** `{white}`\n"
-        row += 1
+    for row, white in enumerate(whites):
+        text += f"**{row + 1} -** `{white}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanWhiteList")

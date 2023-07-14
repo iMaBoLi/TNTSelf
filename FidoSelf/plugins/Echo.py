@@ -81,10 +81,8 @@ async def echolist(event):
     if not Echos:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for echo in Echos:
-        text += f"**{row}-** `{echo}` \n"
-        row += 1
+    for row, echo in enumerate(Echos):
+        text += f"**{row + 1}-** `{echo}` \n"
     await event.edit(text)
 
 @client.Command(command="CleanEchoList")

@@ -99,10 +99,8 @@ async def commentlist(event):
     if not comments:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
-    row = 1
-    for comment in comments:
-        text += f"**{row} -** `{comment}`\n"
-        row += 1
+    for row, comment in enumerate(comments):
+        text += f"**{row + 1} -** `{comment}`\n"
     await event.edit(text)
 
 @client.Command(command="CleanCommentList")

@@ -13,6 +13,7 @@ aiofiles
 setuptools
 psutil
 PyGithub
+shazamio
 wikipedia
 aiocron
 bs4
