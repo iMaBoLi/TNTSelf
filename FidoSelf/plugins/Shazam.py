@@ -39,6 +39,9 @@ async def searchshazam(event):
     subtitle = track["track"]["subtitle"]
     thumb = track["track"]["images"]["coverarthq"]
     caption = client.getstrings(STRINGS)["caption"].format(title, subtitle)
-    await client.send_file(event.chat_id, thumb, caption=caption)
+    send = await client.send_file(event.chat_id, thumb, caption=caption)
     os.remove(file)
     await event.delete()
+    searchtitle = track["track"]["share"]["subject"]
+    result = await client.inline_query("@DeezerMusicBot", searchtitle)
+    await send.reply(file=result.result.results[0].document)
