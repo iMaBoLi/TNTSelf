@@ -46,7 +46,8 @@ async def videoshot(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
+    file = client.PATH + "Vshot.mp4"
+    file = await event.reply_message.fast_download(file, progress_callback=callback)
     duration = event.reply_message.file.duration
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
