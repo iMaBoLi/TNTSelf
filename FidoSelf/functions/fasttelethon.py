@@ -401,5 +401,5 @@ async def upload_file(event, file, progress_callback):
     file.close()
     return transfer[0]
     
-setattr(Message, "download_file", download_file)
-setattr(Message, "upload_file", upload_file)
+setattr(Message, "fast_download", download_file)
+setattr(Message, "fast_upload", upload_file)
