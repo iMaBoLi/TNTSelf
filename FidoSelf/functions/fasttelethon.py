@@ -388,7 +388,7 @@ async def download_file(event, outfile, progress_callback):
     async for down in downloaded:
         file.write(down)
         if progress_callback:
-            progress = progress_callback(out.tell(), size)
+            progress = progress_callback(file.tell(), size)
             if inspect.isawaitable(progress):
                 await progress
     file.close()
