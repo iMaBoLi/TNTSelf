@@ -93,7 +93,7 @@ async def ytsearchinline(event):
     searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
         link = search["link"]
-        description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
+        description = str(search["descriptionSnippet"][0]["text"])[:3000] if search["descriptionSnippet"] else "---"
         text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         vidshare = f"http://t.me/share/text?text=.YtVideo+{link}"
         audshare = f"http://t.me/share/text?text=.YtAudio+{link}"
