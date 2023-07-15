@@ -13,12 +13,10 @@ async def update(event):
     await client.functions.runcmd(f"curl {link} -o Fido.zip")
     await client.functions.runcmd("unzip Fido.zip")
     shutil.rmtree("/app/FidoSelf/")
-    shutil.rmtree("/app/downloads/")
     path = glob.glob("iMaBoLi*")[0]
     newpath = "/app/" + path + "/FidoSelf/"
     shutil.copytree(newpath, "/app/FidoSelf/")
     await event.edit(client.getstrings(STRINGS)["complete"])
     shutil.rmtree(path)
     os.remove("Fido.zip")
-    await client.functions.runcmd("kill -9 -1")
     await client.functions.runcmd("python3 -m FidoSelf")

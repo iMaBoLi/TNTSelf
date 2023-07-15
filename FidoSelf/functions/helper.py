@@ -36,6 +36,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
     if round(diff % 5.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / diff
+        speed = speed if speed else 1
         eta = round((total - current) / speed) * 1000
         pstrs = "".join("■" for i in range(math.floor(perc / 5)))
         fstrs = "".join("□" for i in range(20-len(pstrs)))
