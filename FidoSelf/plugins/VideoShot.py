@@ -1,7 +1,7 @@
 from FidoSelf import client
 from telethon import functions, types
-import time
 import os
+import glob
 
 __INFO__ = {
     "Category": "Usage",
@@ -50,22 +50,14 @@ async def videoshot(event):
     duration = event.reply_message.file.duration
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
-        newdur = duration / count
-        if newdur < 1:
-            newdur = 1
+        if duration / count < 1:
             count = duration
         files = []
-        lastdur = 0
         await event.edit(client.getstrings(STRINGS)["taking"].format(count))
-        for con in range(count):
-            out = client.PATH + f"Shot-{con}.jpg"
-            cmd = f"ffmpeg -i {file} -ss {lastdur} -vframes 1 {out}"
-            await client.functions.runcmd(cmd)
-            files.append(out)
-            lastdur += newdur
-            if con == 0 or ((con + 1) % 3) == 0:
-                await event.edit(client.getstrings(STRINGS)["taked"].format(con + 1))
+        cmd = f'ffmpeg -i "{file}" -vf fps=0.009 -vframes {count} "downloads/Shot-%01d.png"'
+        await client.functions.runcmd(cmd)
         await event.edit(client.getstrings(STRINGS)["sending"].format(count))
+        files = glob.glob("downloads/Shot*.png")
         caption = client.getstrings(STRINGS)["sended"].format(count)
         for shots in list(client.functions.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=caption)

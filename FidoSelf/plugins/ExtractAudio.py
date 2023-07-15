@@ -19,7 +19,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "exing": "**{STR} Extracting Audio From Video ...**",
-    "exed": "**{STR} The Audio Was Extracted From Video!**"
+    "notaudio": "**{STR} The Video Is Haven't Audio To Extract!**",
+    "exaudio": "**{STR} The Audio Was Extracted From Video!**"
 }
 
 @client.Command(command="ExAudio")
@@ -36,12 +37,14 @@ async def exaudio(event):
     audiofile = client.PATH + "ExtractAudio.acc"
     cmd = f"ffmpeg -i {video} -vn -ar 44100 -ac 2 -ab 192k -f mp3 {audiofile}"
     await client.functions.runcmd(cmd)
+    if not os.path.exists(audiofile):
+        return await event.edit(client.getstrings(STRINGS)["notaudio"])
     voicefile = client.PATH + "ExtractAudio.ogg"
     os.rename(audiofile, voicefile)
     attributes = [types.DocumentAttributeAudio(duration=vduration, voice=True)]
     callback = event.progress(upload=True)
     uploadfile = await client.fast_upload(voicefile, progress_callback=callback)
-    await client.send_file(event.chat_id, uploadfile, caption=client.getstrings(STRINGS)["exed"], attributes=attributes)        
+    await client.send_file(event.chat_id, uploadfile, caption=client.getstrings(STRINGS)["exaudio"], attributes=attributes)        
     os.remove(video)
     os.remove(voicefile)
     await event.delete()
