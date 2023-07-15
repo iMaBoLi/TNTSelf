@@ -1,6 +1,5 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
-from yt_dlp import YoutubeDL
 from PIL import Image
 import random
 import re
@@ -13,21 +12,12 @@ MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
+    from yt_dlp import YoutubeDL
     info = YoutubeDL().extract_info(link, download=False)
     return info
 
-async def yt_downloader(link, format, ext):
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + "." + ext
-    cmd = MAIN.format(outfile=outfile, format=format, link=link)
-    await client.functions.runcmd(cmd)
-    info = {}
-    info["OUTFILE"] = outfile
-    thumb = await yt_thumb(link)
-    info["THUMBNAIL"] = thumb
-    return info
-
 async def yt_video(link):
+    from yt_dlp import YoutubeDL
     filename = str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
