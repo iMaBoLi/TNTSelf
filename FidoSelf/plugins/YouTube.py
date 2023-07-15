@@ -83,17 +83,20 @@ async def ytdownload(event):
     ext = event.data_match.group(4).decode('utf-8')
     link = client.functions.YOUTUBE_URL + videoid
     ytinfo = client.functions.yt_info(link)
+    videos, audios = client.functions.get_formats(link)
     if ext == "mp4":
         await event.edit(client.getstrings(STRINGS)["downingvid"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
+        filesize = videos[format]["filesize"]
     elif ext == "mp3":
         await event.edit(client.getstrings(STRINGS)["downingaud"].format(ytinfo["title"]))
         duration = int(ytinfo["duration"])
         title = ytinfo["title"]
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
-    down = await client.functions.yt_downloader(event, link, format, ext)
+        filesize = audios[format]["filesize"]
+    down = await client.functions.yt_downloader(event, link, format, ext, filesize)
     description = str(ytinfo["description"])[:50]
     caption = client.getstrings(STRINGS)["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
