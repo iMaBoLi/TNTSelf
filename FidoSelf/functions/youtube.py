@@ -4,6 +4,7 @@ from PIL import Image
 import random
 import re
 import os
+import glob
 
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
@@ -50,7 +51,7 @@ async def yt_video(link):
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + ".mp3"
+    outfile = client.PATH + "youtube/" + filename
     OPTS = {
         "outtmpl": outfile,
         "writethumbnail": True,
@@ -62,7 +63,7 @@ async def yt_audio(link):
             {
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
-                "preferredquality": "320",
+                "preferredquality": "128",
             },
             {"key": "EmbedThumbnail"},
             {"key": "FFmpegMetadata"},
@@ -72,7 +73,7 @@ async def yt_audio(link):
     with YoutubeDL(OPTS) as ytdl:
         ytinfo = ytdl.extract_info(link, download=True)
     info = {}
-    info["OUTFILE"] = outfile
+    info["OUTFILE"] = glob.glob(f"{outfile}*")[0]
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
