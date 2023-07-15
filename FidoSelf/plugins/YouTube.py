@@ -100,7 +100,7 @@ async def ytsearchinline(event):
         buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
         thumblink = search["thumbnails"][-1]["url"]
         thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
-        desc = search["channel"]["name"]] + " - " + search["viewCount"]["text"]
+        desc = search["channel"]["name"] + " - " + search["viewCount"]["text"]
         answer = event.builder.article(
             title=search["title"],
             description=desc,
