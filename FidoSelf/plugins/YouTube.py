@@ -38,7 +38,7 @@ STRINGS = {
     "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
     "ytclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
-    "ytsearch": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
+    "ytsearch": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n**{STR} Description:** ( `{}` )",
 }
     
 @client.Command(command="Yt(Video|Audio) (.*)")
@@ -94,7 +94,7 @@ async def ytsearchinline(event):
     for search in searchs:
         link = search["link"]
         description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
-        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"])
+        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
         vidshare = f"http://t.me/share/text?text=.YtVideo+{link}"
         audshare = f"http://t.me/share/text?text=.YtAudio+{link}"
         buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
