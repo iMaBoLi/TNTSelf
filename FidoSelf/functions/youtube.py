@@ -23,7 +23,7 @@ def get_videoid(url):
 async def yt_downloader(event, link, format, ext, filesize):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + "." + ext
-    event.fileprogress(outfile, filesize, download=True)
+    client.fileprogress(event, outfile, filesize, download=True)
     cmd = MAIN.format(outfile=outfile, format=format, link=link)
     await client.functions.runcmd(cmd)
     info = {}
