@@ -73,7 +73,7 @@ async def yt_audio(link):
     with YoutubeDL(OPTS) as ytdl:
         ytinfo = ytdl.extract_info(link, download=True)
     info = {}
-    info["OUTFILE"] = glob.glob(f"{outfile}*")[0]
+    info["OUTFILE"] = outfile + ".mp3"
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
