@@ -56,7 +56,7 @@ async def ytdownloader(event):
         await event.edit(client.getstrings(STRINGS)["downaudio"].format(link))
         file, ytinfo = await client.functions.yt_audio(link)
         attributes = [types.DocumentAttributeAudio(duration=ytinfo["duration"], voice=False, title=ytinfo["title"], performer=ytinfo["uploader"])]
-    filesize = convert_bytes(os.path.getsize(file["OUTFILE"]))
+    filesize = client.functions.convert_bytes(os.path.getsize(file["OUTFILE"]))
     caption = client.getstrings(STRINGS)["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], filesize, ytinfo["duration_string"])
     callback = client.progress(event, upload=True)
     uploadfile = await client.fast_upload(file["OUTFILE"], progress_callback=callback)
