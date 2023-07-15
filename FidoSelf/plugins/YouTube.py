@@ -49,7 +49,7 @@ async def ytvideo(event):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     ytinfo = client.functions.yt_info(link)
     await event.edit(client.getstrings(STRINGS)["downvideo"].format(ytinfo["title"]))
-    video = await client.functions.yt_video(ytinfo)
+    video = await client.functions.yt_video(link)
     duration = int(ytinfo["duration"])
     attributes = [types.DocumentAttributeVideo(duration=duration, w=720, h=720, supports_streaming=True)]
     description = str(ytinfo["description"])[:50]
