@@ -90,13 +90,14 @@ async def ytsearchclick(event):
 async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
-    searchs = client.functions.yt_search(query, limit=50)
+    searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
         link = search["link"]
         description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
-        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
-        url = f"http://t.me/share/text?text=.ytdown+{link}"
-        buttons = [[Button.url("• Download •", url=url)]]
+        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"])
+        vidshare = f"http://t.me/share/text?text=.ytdown+{link}"
+        audshare = f"http://t.me/share/text?text=.ytdown+{link}"
+        buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
         thumblink = search["thumbnails"][-1]["url"]
         thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
         answer = event.builder.article(
