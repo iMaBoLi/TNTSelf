@@ -35,7 +35,7 @@ STRINGS = {
     "linkinv": "**{STR} The Entered Youtube Link** ( `{}` ) **Is Invalid!**",
     "downvideo": "**{STR} Downloadig Video From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
-    "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
+    "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
     "ytclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
     "ytsearch": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
@@ -56,9 +56,9 @@ async def ytdownloader(event):
         await event.edit(client.getstrings(STRINGS)["downaudio"].format(link))
         file, ytinfo = await client.functions.yt_audio(link)
         attributes = [types.DocumentAttributeAudio(duration=ytinfo["duration"], voice=False, title=ytinfo["title"], performer=ytinfo["uploader"])]
-    filesize = os.stat(file["OUTFILE"]).st_size
+    filesize = os.path.getsize(file["OUTFILE"])
     filesize = client.functions.convert_bytes(filesize)
-    caption = client.getstrings(STRINGS)["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], filesize, ytinfo["duration_string"])
+    caption = client.getstrings(STRINGS)["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], filesize, ytinfo["duration_string"])
     callback = client.progress(event, upload=True)
     uploadfile = await client.fast_upload(file["OUTFILE"], progress_callback=callback)
     send = await client.send_file(event.chat_id, file=uploadfile, thumb=file["THUMBNAIL"], attributes=attributes, caption=caption)
@@ -90,13 +90,14 @@ async def ytsearchclick(event):
 async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
-    searchs = client.functions.yt_search(query, limit=50)
+    searchs = client.functions.yt_search(query, limit=10)
     for search in searchs:
         link = search["link"]
         description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
-        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
-        url = f"http://t.me/share/text?text=.ytdown+{link}"
-        buttons = [[Button.url("• Download •", url=url)]]
+        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"])
+        vidshare = f"http://t.me/share/text?text=.YtVideo+{link}"
+        audshare = f"http://t.me/share/text?text=.YtAudio+{link}"
+        buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
         thumblink = search["thumbnails"][-1]["url"]
         thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
         answer = event.builder.article(
