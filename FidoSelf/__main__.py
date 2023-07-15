@@ -7,9 +7,9 @@ import platform
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await AddVarsToClient()
+    client.functions = functions
     client.LOGS.info("• Installing Youtube Downloader ...")
     await client.functions.runcmd("pip install yt-dlp")
-    client.functions = functions
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
