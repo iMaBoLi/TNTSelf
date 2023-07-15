@@ -4,7 +4,6 @@ from PIL import Image
 import random
 import re
 import os
-import glob
 
 YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
