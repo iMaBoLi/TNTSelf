@@ -93,7 +93,7 @@ async def ytdownload(event):
         title = ytinfo["title"]
         performer = ytinfo["uploader"]
         attributes = [types.DocumentAttributeAudio(duration=duration, title=title, performer=performer)]
-    down = await client.functions.yt_downloader(link, format, ext)
+    down = await client.functions.yt_downloader(event, link, format, ext)
     description = str(ytinfo["description"])[:50]
     caption = client.getstrings(STRINGS)["ytdown"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["duration_string"], description)
     callback = client.progress(event, upload=True)
