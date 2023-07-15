@@ -36,7 +36,7 @@ async def yt_video(link):
         "logtostderr": False,
         "quiet": True,
     }
-    YoutubeDL(OPTS).download([link])
+    YoutubeDL(OPTS).extract_info(link, download=True)
     info = {}
     info["OUTFILE"] = outfile
     thumb = await yt_thumb(link)
