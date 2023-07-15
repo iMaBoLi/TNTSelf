@@ -20,12 +20,11 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
-async def yt_downloader(event, link, format, ext, filesize):
+async def yt_downloader(link, format, ext):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + "." + ext
     cmd = MAIN.format(outfile=outfile, format=format, link=link)
-    client.loop.create_task(client.functions.runcmd(cmd))
-    client.fileprogress(event, outfile, filesize, download=True)
+    await client.functions.runcmd(cmd)
     info = {}
     info["OUTFILE"] = outfile
     thumb = await yt_thumb(link)
