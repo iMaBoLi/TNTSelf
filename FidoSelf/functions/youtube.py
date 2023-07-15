@@ -50,7 +50,7 @@ async def yt_video(link):
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + ".mp3" 
+    outfile = client.PATH + "youtube/" + filename
     OPTS = {
         "outtmpl": outfile,
         "writethumbnail": True,
@@ -72,7 +72,7 @@ async def yt_audio(link):
     with YoutubeDL(OPTS) as ytdl:
         ytinfo = ytdl.extract_info(link, download=True)
     info = {}
-    info["OUTFILE"] = outfile
+    info["OUTFILE"] = outfile + ".mp3"
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
