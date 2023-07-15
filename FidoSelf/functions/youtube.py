@@ -20,38 +20,61 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
-async def yt_downloader(event, link, format, ext, filesize):
+async def yt_video(link):
+    from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + "." + ext
-    cmd = MAIN.format(outfile=outfile, format=format, link=link)
-    client.loop.create_task(client.functions.runcmd(cmd))
-    client.fileprogress(event, outfile, filesize, download=True)
+    outfile = client.PATH + "youtube/" + filename + ".mp4" 
+    OPTS = {
+        "format": "best",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
+            {"key": "FFmpegMetadata"},
+        ],
+        "outtmpl": outfile,
+        "logtostderr": False,
+        "quiet": True,
+    }
+    with YoutubeDL(OPTS) as ytdl:
+        ytinfo = ytdl.extract_info(link, download=True)
     info = {}
     info["OUTFILE"] = outfile
-    thumb = await yt_thumb(link)
-    info["THUMBNAIL"] = thumb
-    return info
+    info["THUMBNAIL"] = await yt_thumb(link)
+    return info, ytinfo
 
-def yt_search(query, limit=50):
-    results = VideosSearch(query, limit=limit)
-    return results.result()["result"]
-    
-def get_formats(link):
-    info = yt_info(link)
-    videoformats = {}
-    audioformats = {}
-    for format in info["formats"]:
-        if format["ext"] == "mp4" and "filesize" in format and format["filesize"]:
-            if format["format_note"] in ["144p", "240p", "360p"] and not format["audio_channels"]: continue
-            for vfor in videoformats:
-                if format["format_note"] == vfor: continue
-            videoformats.update({format["format_id"]: {"ext": format["ext"], "filesize": format["filesize"], "format": format["format_note"]}})
-        if format["ext"] == "m4a" and "filesize" in format and format["filesize"]:
-            if format["format_note"] == "low":
-                audioformats.update({format["format_id"]: {"ext": "mp3", "filesize": format["filesize"], "format": "128K"}})
-            elif format["format_note"] == "medium":
-                audioformats.update({format["format_id"]: {"ext": "mp3", "filesize": format["filesize"], "format": "320K"}})
-    return videoformats, audioformats
+async def yt_audio(link):
+    from yt_dlp import YoutubeDL
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + filename + ".mp4" 
+    OPTS = {
+        "outtmpl": outfile,
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "format": "bestaudio/best",
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "320",
+            },
+            {"key": "EmbedThumbnail"},
+            {"key": "FFmpegMetadata"},
+        ],
+        "quiet": True,
+    }
+    with YoutubeDL(OPTS) as ytdl:
+        ytinfo = ytdl.extract_info(link, download=True)
+    info = {}
+    info["OUTFILE"] = outfile
+    info["THUMBNAIL"] = await yt_thumb(link)
+    return info, ytinfo
 
 async def yt_thumb(link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
@@ -70,3 +93,7 @@ def convert_thumb(file):
     except:
         os.rename(file, thumb)
     return thumb
+    
+def yt_search(query, limit=50):
+    results = VideosSearch(query, limit=limit)
+    return results.result()["result"]
