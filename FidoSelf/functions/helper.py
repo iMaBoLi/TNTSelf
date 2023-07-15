@@ -17,11 +17,15 @@ setattr(client, "progress", progress)
 
 def fileprogress(event, file, total, download=False, upload=False):
     newtime = time.time()
-    out = open(file, "wb")
-    current = out.tell()
+    if os.path.exists(file):
+        out = open(file, "wb")
+        current = out.tell()
+    else:
+        current = 0
     while total != current:
         client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-        current = out.tell()
+        if os.path.exists(file):
+            current = out.tell()
 
 setattr(Message, "fileprogress", fileprogress)
 setattr(client, "fileprogress", fileprogress)
