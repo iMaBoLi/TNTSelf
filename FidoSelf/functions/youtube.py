@@ -43,8 +43,33 @@ async def yt_video(link):
     YoutubeDL(OPTS).extract_info(link, download=True)
     info = {}
     info["OUTFILE"] = outfile
-    thumb = await yt_thumb(link)
-    info["THUMBNAIL"] = thumb
+    info["THUMBNAIL"] = await yt_thumb(link)
+    return info
+
+async def yt_audio(link):
+    from yt_dlp import YoutubeDL
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + filename + ".mp4" 
+    OPTS = {
+        "format": "best",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
+            {"key": "FFmpegMetadata"},
+        ],
+        "outtmpl": outfile,
+        "logtostderr": False,
+        "quiet": True,
+    }
+    YoutubeDL(OPTS).extract_info(link, download=True)
+    info = {}
+    info["OUTFILE"] = outfile
+    info["THUMBNAIL"] = await yt_thumb(link)
     return info
 
 async def yt_thumb(link):
