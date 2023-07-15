@@ -95,8 +95,8 @@ async def ytsearchinline(event):
         link = search["link"]
         description = str(search["descriptionSnippet"][0]["text"])[:100] if search["descriptionSnippet"] else "---"
         text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"])
-        vidshare = f"http://t.me/share/text?text=.ytdown+{link}"
-        audshare = f"http://t.me/share/text?text=.ytdown+{link}"
+        vidshare = f"http://t.me/share/text?text=.YtVideo+{link}"
+        audshare = f"http://t.me/share/text?text=.YtAudio+{link}"
         buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
         thumblink = search["thumbnails"][-1]["url"]
         thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
