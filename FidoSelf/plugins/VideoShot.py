@@ -64,6 +64,7 @@ async def videoshot(event):
     else:
         if int(data) > duration:
             data = duration - 1
+        data = client.functions.convert_time(int(data), strings=False)
         await event.edit(client.getstrings(STRINGS)["takingdur"].format(data))
         outfile = client.PATH + f"Shot-{data}.jpg"
         cmd = f'ffmpeg -i "{file}" -ss {int(data)} -vframes 1 "{outfile}"'
