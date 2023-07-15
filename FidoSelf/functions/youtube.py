@@ -16,9 +16,13 @@ def yt_info(link):
     info = YoutubeDL().extract_info(link, download=False)
     return info
 
+def get_videoid(url):
+    match = YOUTUBE_REGEX.search(url)
+    return match.group(1)
+
 async def yt_video(link):
     from yt_dlp import YoutubeDL
-    filename = str(random.randint(11111, 99999))
+    filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
         "format": "best",
