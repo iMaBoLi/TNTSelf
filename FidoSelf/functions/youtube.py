@@ -62,7 +62,7 @@ async def yt_audio(link):
             {
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
-                "preferredquality": "128",
+                "preferredquality": "320",
             },
             {"key": "EmbedThumbnail"},
             {"key": "FFmpegMetadata"},
