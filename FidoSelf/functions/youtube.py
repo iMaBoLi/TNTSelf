@@ -31,7 +31,7 @@ async def yt_video(event, link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
-        "progress_hooks": [lambda result: client.functions.yt_progress(event, result)],
+        "progress_hooks": [lambda result: client.yt_progress(event, result)],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
@@ -59,7 +59,7 @@ async def yt_audio(event, link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename
     OPTS = {
-        "progress_hooks": [lambda result: client.functions.yt_progress(event, result)],
+        "progress_hooks": [lambda result: client.yt_progress(event, result)],
         "outtmpl": outfile,
         "writethumbnail": True,
         "prefer_ffmpeg": True,
