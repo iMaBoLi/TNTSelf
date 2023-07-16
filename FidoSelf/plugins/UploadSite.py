@@ -1,6 +1,4 @@
 from FidoSelf import client
-import asyncio
-import subprocess
 import os
 import re
 
