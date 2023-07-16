@@ -5,8 +5,8 @@ import random
 import re
 import os
 
-YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
+YOUTUBEPL_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/playlist/(?:[\w-]+\?list=|list/)?([\w-])")
 
 MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
@@ -20,11 +20,25 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
+def ytdl_progress(k):
+    if k["status"] == "error":
+        client.LOGS.error("Error")
+    while k["status"] == "downloading":
+        text = (
+            f"`Downloading: {k['filename']}\n"
+            + f"Total Size: {k['total_bytes']}\n"
+            + f"Downloaded: {k['downloaded_bytes']}\n"
+            + f"Speed: {k['speed']}/s\n"
+            + f"ETA: {k['eta']*1000}`"
+        )
+        client.LOGS.error(text)
+
 async def yt_video(link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
+        "progress_hooks": [ytdl_progress()],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
