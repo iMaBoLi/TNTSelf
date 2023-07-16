@@ -20,12 +20,6 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
-def ytdl_progress(k):
-    if k["status"] == "error":
-        client.LOGS.error("Error")
-    while k["status"] == "downloading":
-        client.LOGS.error(k)
-
 async def yt_video(event, link):
     from yt_dlp import YoutubeDL
     randnum = str(random.randint(11111, 99999))
@@ -47,7 +41,12 @@ async def yt_video(event, link):
         "logtostderr": False,
         "quiet": True,
     }
-    with YoutubeDL(OPTS) as ytdl:
+    OPTS2 = {
+            "format": "best[ext=mp4]",
+            "outtmpl": outfile,
+            "writethumbnail": True
+        }
+    with YoutubeDL(OPTS2) as ytdl:
         ytinfo = ytdl.extract_info(link, download=False)
         ydl.process_info(ytinfo)
         outvideo = ydl.prepare_filename(ytinfo)
