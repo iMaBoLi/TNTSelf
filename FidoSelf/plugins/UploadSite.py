@@ -1,6 +1,4 @@
 from FidoSelf import client
-import asyncio
-import subprocess
 import os
 import re
 
@@ -71,7 +69,8 @@ async def uploadsites(event):
         return await event.edit(client.getstrings(STRINGS)["notfound"])
     links = ""
     for url in urls:
-        links += f"`{url[0]}` - "
+        newurl = str(url[0]).replace("\/", "/")
+        links += f"`{newurl}` - "
     links = links[:-3]
     text = client.getstrings(STRINGS)["uploadlinks"].format(site, links)
     await event.edit(text)
