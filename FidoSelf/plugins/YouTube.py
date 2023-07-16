@@ -41,9 +41,9 @@ STRINGS = {
     "linkinv": "**{STR} The Entered Youtube Link** ( `{}` ) **Is Invalid!**",
     "downvideo": "**{STR} Downloadig Video From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
-    "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
+    "caption": "**{STR} Title:** ( `{}` )\n\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
-    "textinfo": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
+    "textinfo": "**{STR} Title:** ( {} )\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n\n**{STR} Uploader:** ( {} )\n**{STR} Followers:** ( `{}` )",
     "searchclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
     "searchinfo": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
 }
@@ -85,7 +85,9 @@ async def ytinfo(event):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     ytinfo = client.functions.yt_info(link)
     thumb = await client.functions.yt_thumb(link)
-    caption = client.getstrings(STRINGS)["textinfo"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"])
+    title = f'[{ytinfo["title"]}]({ytinfo["original_url"]})'
+    uploader = f'[{ytinfo["uploader"]}]({ytinfo["uploader_url"]})'
+    caption = client.getstrings(STRINGS)["textinfo"].format(title, ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"], uploader, ytinfo["channel_follower_count"])
     send = await client.send_file(event.chat_id, thumb, caption=caption)
     description = ytinfo["description"]
     description = client.getstrings(STRINGS)["description"].format(description)
