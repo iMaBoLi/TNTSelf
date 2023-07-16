@@ -37,9 +37,9 @@ async def yt_video(link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
-    ytdl_prog = ytdl_progress(k)
+    #ytdl_prog = 
     OPTS = {
-        "progress_hooks": [ytdl_prog],
+        "progress_hooks": [ytdl_progress(k)],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
