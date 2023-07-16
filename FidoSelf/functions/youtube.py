@@ -29,7 +29,6 @@ def ytdl_progress(k):
             + f"Total Size: {k['total_bytes']}\n"
             + f"Downloaded: {k['downloaded_bytes']}\n"
             + f"Speed: {k['speed']}/s\n"
-            + f"ETA: {k['eta']*1000}`"
         )
         client.LOGS.error(text)
 
