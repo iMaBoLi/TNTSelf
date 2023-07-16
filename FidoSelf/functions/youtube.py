@@ -39,7 +39,7 @@ async def yt_video(link):
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     #ytdl_prog = 
     OPTS = {
-        "progress_hooks": [ytdl_progress(k)],
+        "progress_hooks": [lambda k: ytdl_progress(k)],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
