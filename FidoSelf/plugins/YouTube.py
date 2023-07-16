@@ -84,12 +84,15 @@ async def ytinfo(event):
     if not client.functions.YOUTUBE_REGEX.search(link):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     ytinfo = client.functions.yt_info(link)
-    textinfo = client.getstrings(STRINGS)["textinfo"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"])
-    await event.edit(textinfo)
+    thumb = await client.functions.yt_thumb(link)
+    caption = client.getstrings(STRINGS)["textinfo"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"])
+    send = await client.send_file(event.chat_id, thumb, caption=caption)
     description = ytinfo["description"]
     description = client.getstrings(STRINGS)["description"].format(description)
     if len(description) < 4096:
-        await event.reply(description)
+        await send.reply(description)
+    os.remove(thumb)
+    await event.delete()
 
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
