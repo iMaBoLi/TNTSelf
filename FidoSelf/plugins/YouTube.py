@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import types, Button
+from telethon import functions, types
 import os
 
 __INFO__ = {
@@ -8,6 +8,12 @@ __INFO__ = {
     "Info": {
         "Help": "To Download And Search On Youtube!",
         "Commands": {
+            "{CMD}YtSearch <Text>": {
+                "Help": "To Search On Youtube",
+                "Input": {
+                    "<Text>": "Query For Search",
+                },
+            },
             "{CMD}YtVideo <Link>": {
                 "Help": "To Download Video",
                 "Input": {
@@ -20,10 +26,10 @@ __INFO__ = {
                     "<Link>": "Link Of Youtube",
                 },
             },
-            "{CMD}YtSearch <Text>": {
-                "Help": "To Search On Youtube",
+            "{CMD}YtInfo <Link>": {
+                "Help": "To Get Video Info",
                 "Input": {
-                    "<Text>": "Query For Search",
+                    "<Link>": "Link Of Youtube",
                 },
             },
         },
@@ -37,8 +43,8 @@ STRINGS = {
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
-    "ytclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
-    "ytsearch": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n**{STR} Description:** ( `{}` )",
+    "searchclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
+    "searchinfo": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
 }
     
 @client.Command(command="Yt(Video|Audio) (.*)")
@@ -50,11 +56,11 @@ async def ytdownloader(event):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     if downtype == "Video":
         await event.edit(client.getstrings(STRINGS)["downvideo"].format(link))
-        file, ytinfo = await client.functions.yt_video(event, link)
+        file, ytinfo = await client.functions.yt_video(link)
         attributes = [types.DocumentAttributeVideo(duration=ytinfo["duration"], w=720, h=720, supports_streaming=True)]
     if downtype == "Audio":
         await event.edit(client.getstrings(STRINGS)["downaudio"].format(link))
-        file, ytinfo = await client.functions.yt_audio(event, link)
+        file, ytinfo = await client.functions.yt_audio(link)
         attributes = [types.DocumentAttributeAudio(duration=ytinfo["duration"], voice=False, title=ytinfo["title"], performer=ytinfo["uploader"])]
     filesize = os.path.getsize(file["OUTFILE"])
     filesize = client.functions.convert_bytes(filesize)
@@ -73,37 +79,27 @@ async def ytdownloader(event):
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
     await event.edit(client.STRINGS["wait"])
-    query = event.pattern_match.group(1)
-    query = query[:15]
-    res = await client.inline_query(client.bot.me.username, f"ytclick:{query}")
-    await res[0].click(event.chat_id)
+    query = event.pattern_match.group(1)[:20]
+    message = "@" + client.bot.me.username + " " + "Youtube:" + query
+    await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=message))
     await event.delete()
 
-@client.Inline(pattern="ytclick\:(.*)")
-async def ytsearchclick(event):
-    query = event.pattern_match.group(1)
-    text = client.getstrings(STRINGS)["ytclick"].format(query)
-    buttons = [[Button.switch_inline("• Click !", "ytsearch:" + str(query), same_peer=True)]]
-    await event.answer([event.builder.article("FidoSelf - YtClick", text=text, buttons=buttons)])
-
-@client.Inline(pattern="ytsearch\:(.*)")
+@client.Inline(pattern="Youtube\:(.*)")
 async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
-    searchs = client.functions.yt_search(query, limit=10)
+    searchs = client.functions.yt_search(query, limit=20)
     for search in searchs:
         link = search["link"]
-        description = str(search["descriptionSnippet"][0]["text"])[:3000] if search["descriptionSnippet"] else "---"
-        text = client.getstrings(STRINGS)["ytsearch"].format(link, search["title"], search["channel"]["name"], search["viewCount"]["text"], search["duration"], description)
+        text = client.getstrings(STRINGS)["searchinfo"].format(link, search["title"], search["viewCount"]["text"], search["duration"])
+        infoshare = f"http://t.me/share/text?text=.YtInfo+{link}"
         vidshare = f"http://t.me/share/text?text=.YtVideo+{link}"
         audshare = f"http://t.me/share/text?text=.YtAudio+{link}"
-        buttons = [[Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
-        thumblink = search["thumbnails"][-1]["url"]
-        thumb = types.InputWebDocument(thumblink, 0, "image/jpg", [])
-        desc = search["channel"]["name"] + " - " + search["viewCount"]["text"]
+        buttons = [[Button.url("• Get Info •", url=infoshare)], [Button.url("• Download Video •", url=vidshare)], [Button.url("• Download Audio •", url=audshare)]]
+        thumb = types.InputWebDocument(search["thumbnails"][-1]["url"], 0, "image/jpg", [])
         answer = event.builder.article(
             title=search["title"],
-            description=desc,
+            description=search["viewCount"]["text"],
             text=text,
             buttons=buttons,
             thumb=thumb,
