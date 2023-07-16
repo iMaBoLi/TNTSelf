@@ -23,6 +23,10 @@ __INFO__ = {
                  "Help": "To Upload On AnonFiles",
                 "Reply": ["Media"],
             },
+            "{CMD}UPOload": {
+                 "Help": "To Upload On OLoad",
+                "Reply": ["Media"],
+            },
             "{CMD}UPTransfer": {
                  "Help": "To Upload On Transfer",
                 "Reply": ["Media"],
@@ -47,7 +51,7 @@ STRINGS = {
     "uploadlinks": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( {} )",
 }
 
-@client.Command(command="UP(Fileio|Filebin|Anon|Transfer|Anonymous|Bay|VShare)")
+@client.Command(command="UP(Fileio|Filebin|Anon|Oload|Transfer|Anonymous|Bay|VShare)")
 async def uploadsites(event):
     await event.edit(client.STRINGS["wait"])
     site = event.pattern_match.group(1).title()
@@ -61,9 +65,10 @@ async def uploadsites(event):
     filename = os.path.basename(file)
     WEBS = {
         "fileio": 'curl -F "file=@{filepath}" https://file.io',
-        "anon": 'curl -F "file=@{filepath}" https://api.anonfiles.com/upload',
-        "transfer": 'curl --upload-file "{filepath}" https://transfer.sh/' + filename,
         "filebin": 'curl -X POST --data-binary "@{filepath}" -H "filename: {filename}" "https://filebin.net"',
+        "anon": 'curl -F "file=@{filepath}" https://api.anonfiles.com/upload',
+        "oload": 'curl -F "file=@{filepath}" https://api.openload.cc/upload',
+        "transfer": 'curl --upload-file "{filepath}" https://transfer.sh/' + filename,
         "anonymous": 'curl -F "file=@{filepath}" https://api.anonymousfiles.io/',
         "vshare": 'curl -F "file=@{filepath}" https://api.vshare.is/upload',
         "bay": 'curl -F "file=@{filepath}" https://bayfiles.com/api/upload',
