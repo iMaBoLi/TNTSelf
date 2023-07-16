@@ -26,7 +26,7 @@ async def yt_video(link):
     outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp4"
     cmd = MAIN.format(outfile=outfile, format="best[ext=mp4]", link=link)
     await client.functions.runcmd(cmd)
-    return outfile, ytinfo
+    return outfile
 
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
@@ -35,7 +35,7 @@ async def yt_audio(link):
     outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp3"
     cmd = MAIN.format(outfile=outfile, format="bestaudio", link=link)
     await client.functions.runcmd(cmd)
-    return outfile, ytinfo
+    return outfile
 
 async def yt_thumb(link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
