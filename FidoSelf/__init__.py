@@ -3,17 +3,16 @@ from telethon.sessions import StringSession
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
-import logging
 import time
 import sys
 
-__version__ = "2.5.1"
+__version__ = "3.0.1"
 
 LOGS = getLogger("FidoSelf")
 basicConfig(
-    format="%(asctime)s | %(name)s [%(funcName)s] : %(message)s",
+    format="%(asctime)s | %(message)s",
     level=INFO,
-    datefmt="%H:%M:%S",
+    datefmt="%H:%M",
     handlers=[FileHandler("Fido.log"), StreamHandler()],
 )
 
@@ -28,7 +27,6 @@ try:
         connection=ConnectionTcpAbridged,
         auto_reconnect=True,
         connection_retries=None,
-        base_logger=logging.getLogger(),
     ).start()
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
@@ -44,7 +42,6 @@ try:
         connection=ConnectionTcpAbridged,
         auto_reconnect=True,
         connection_retries=None,
-        base_logger=logging.getLogger(),
     ).start()
 except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
