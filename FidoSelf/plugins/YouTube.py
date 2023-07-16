@@ -68,11 +68,7 @@ async def ytdownloader(event):
     caption = client.getstrings(STRINGS)["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], filesize, ytinfo["duration_string"])
     callback = client.progress(event, upload=True)
     uploadfile = await client.fast_upload(file["OUTFILE"], progress_callback=callback)
-    send = await client.send_file(event.chat_id, file=uploadfile, thumb=file["THUMBNAIL"], attributes=attributes, caption=caption)
-    description = ytinfo["description"]
-    description = client.getstrings(STRINGS)["description"].format(description)
-    if len(description) < 4096:
-        await send.reply(description)
+    await client.send_file(event.chat_id, file=uploadfile, thumb=file["THUMBNAIL"], attributes=attributes, caption=caption)
     os.remove(file["OUTFILE"])
     os.remove(file["THUMBNAIL"])
     await event.delete()
