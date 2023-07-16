@@ -20,43 +20,19 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
-async def yt_video(event, link):
+async def yt_video(link):
     from yt_dlp import YoutubeDL
     videoid = get_videoid(link) 
     randnum = str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp4"
-    OPTS = {
-        "progress_hooks": [lambda result: client.yt_progress(event, result)],
-        "outtmpl": outfile,
-        "format": "best[ext=mp4]",
-        "addmetadata": True,
-        "key": "FFmpegMetadata",
-        "writethumbnail": True,
-        "prefer_ffmpeg": True,
-        "geo_bypass": True,
-        "nocheckcertificate": True,
-        "postprocessors": [
-            {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
-            {"key": "FFmpegMetadata"},
-        ],
-        "logtostderr": False,
-        "quiet": True,
-    }
-    OPTS2 = {
-            "format": "best[ext=mp4]",
-            "outtmpl": outfile,
-            "writethumbnail": True
-        }
-    with YoutubeDL(OPTS2) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=False)
-        ytdl.process_info(ytinfo)
-        outvideo = ytdl.prepare_filename(ytinfo)
+    cmd = MAIN.format(outfile=outfile, format="best[ext=mp4]", link=link)
+    await client.functions.runcmd(cmd)
     info = {}
-    info["OUTFILE"] = outvideo
+    info["OUTFILE"] = outfile
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
-async def yt_audio(event, link):
+async def yt_audio(link):
     from yt_dlp import YoutubeDL
     videoid = get_videoid(link) 
     randnum = str(random.randint(11111, 99999))
