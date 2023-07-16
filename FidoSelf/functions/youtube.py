@@ -24,13 +24,7 @@ def ytdl_progress(k):
     if k["status"] == "error":
         client.LOGS.error("Error")
     while k["status"] == "downloading":
-        text = (
-            f"`Downloading: {k['filename']}\n"
-            + f"Total Size: {k['total_bytes']}\n"
-            + f"Downloaded: {k['downloaded_bytes']}\n"
-            + f"Speed: {k['speed']}/s\n"
-        )
-        client.LOGS.error(text)
+        client.LOGS.error(k)
 
 async def yt_video(link):
     from yt_dlp import YoutubeDL
