@@ -20,18 +20,15 @@ async def create_progress(event, current, total, start, download=False, upload=F
         type = client.STRINGS["progress"]["Down"]
     elif upload:
         type = client.STRINGS["progress"]["Up"]
-    else:
-        type = "-----"
-    diff = time.time() - start
-    if round(diff % 5.00) == 0 or current == total:
+    duration = time.time() - start
+    if round(duration % 5.00) == 0 or current == total:
         perc = current * 100 / total
-        speed = current / diff
+        speed = current / duration
         speed = speed if speed else 1
         eta = round((total - current) / speed) * 1000
-        pstrs = "".join("■" for i in range(math.floor(perc / 5)))
-        fstrs = "".join("□" for i in range(20-len(pstrs)))
-        strs = pstrs + fstrs
-        text = client.STRINGS["progress"]["Text"].format(type, strs, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta))
+        strings = "".join("■" for i in range(math.floor(perc / 5)))
+        strings += "".join("□" for i in range(20 - len(strings)))
+        text = client.STRINGS["progress"]["Text"].format(type, strings, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta), client.functions.convert_time(duration))
         await event.edit(text)
 
 async def getuserid(event, number=1):

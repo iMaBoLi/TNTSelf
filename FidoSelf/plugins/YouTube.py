@@ -55,7 +55,7 @@ async def ytdownloader(event):
     link = event.pattern_match.group(2)
     if not client.functions.YOUTUBE_REGEX.search(link):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
-ytinfo = client.functions.yt_info(link)
+    ytinfo = client.functions.yt_info(link)
     if downtype == "Video":
         await event.edit(client.getstrings(STRINGS)["downvideo"].format(link))
         file = await client.functions.yt_video(link)
