@@ -48,8 +48,8 @@ async def yt_video(event, link):
         }
     with YoutubeDL(OPTS2) as ytdl:
         ytinfo = ytdl.extract_info(link, download=False)
-        ydl.process_info(ytinfo)
-        outvideo = ydl.prepare_filename(ytinfo)
+        ytdl.process_info(ytinfo)
+        outvideo = ytdl.prepare_filename(ytinfo)
     info = {}
     info["OUTFILE"] = outvideo
     info["THUMBNAIL"] = await yt_thumb(link)
@@ -81,8 +81,8 @@ async def yt_audio(event, link):
     }
     with YoutubeDL(OPTS) as ytdl:
         ytinfo = ytdl.extract_info(link, download=False)
-        ydl.process_info(ytinfo)
-        outaudio = ydl.prepare_filename(ytinfo)
+        ytdl.process_info(ytinfo)
+        outaudio = ytdl.prepare_filename(ytinfo)
     info = {}
     info["OUTFILE"] = outaudio
     info["THUMBNAIL"] = await yt_thumb(link)
