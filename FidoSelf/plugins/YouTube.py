@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import functions, types
+from telethon import functions, types, Button
 import os
 
 __INFO__ = {
