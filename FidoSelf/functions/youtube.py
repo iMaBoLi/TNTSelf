@@ -6,9 +6,8 @@ import re
 import os
 
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
-YOUTUBEPL_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/playlist/(?:[\w-]+\?list=|list/)?([\w-])")
 
-MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
+MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
@@ -20,69 +19,23 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
-def ytdl_progress(k):
-    if k["status"] == "error":
-        client.LOGS.error("Error")
-    while k["status"] == "downloading":
-        client.LOGS.error(k)
-
-async def yt_video(event, link):
+async def yt_video(link):
     from yt_dlp import YoutubeDL
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + ".mp4" 
-    OPTS = {
-        "progress_hooks": [lambda result: client.yt_progress(event, result)],
-        "format": "best",
-        "addmetadata": True,
-        "key": "FFmpegMetadata",
-        "writethumbnail": True,
-        "prefer_ffmpeg": True,
-        "geo_bypass": True,
-        "nocheckcertificate": True,
-        "postprocessors": [
-            {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
-            {"key": "FFmpegMetadata"},
-        ],
-        "outtmpl": outfile,
-        "logtostderr": False,
-        "quiet": True,
-    }
-    with YoutubeDL(OPTS) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=True)
-    info = {}
-    info["OUTFILE"] = outfile
-    info["THUMBNAIL"] = await yt_thumb(link)
-    return info, ytinfo
+    videoid = get_videoid(link) 
+    randnum = str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp4"
+    cmd = MAIN.format(outfile=outfile, format="best[ext=mp4]", link=link)
+    await client.functions.runcmd(cmd)
+    return outfile, ytinfo
 
-async def yt_audio(event, link):
+async def yt_audio(link):
     from yt_dlp import YoutubeDL
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename
-    OPTS = {
-        "progress_hooks": [lambda result: client.yt_progress(event, result)],
-        "outtmpl": outfile,
-        "writethumbnail": True,
-        "prefer_ffmpeg": True,
-        "format": "bestaudio/best",
-        "geo_bypass": True,
-        "nocheckcertificate": True,
-        "postprocessors": [
-            {
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "320",
-            },
-            {"key": "EmbedThumbnail"},
-            {"key": "FFmpegMetadata"},
-        ],
-        "quiet": True,
-    }
-    with YoutubeDL(OPTS) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=True)
-    info = {}
-    info["OUTFILE"] = outfile + ".mp3"
-    info["THUMBNAIL"] = await yt_thumb(link)
-    return info, ytinfo
+    videoid = get_videoid(link) 
+    randnum = str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp3"
+    cmd = MAIN.format(outfile=outfile, format="bestaudio", link=link)
+    await client.functions.runcmd(cmd)
+    return outfile, ytinfo
 
 async def yt_thumb(link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))

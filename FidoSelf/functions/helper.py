@@ -12,17 +12,8 @@ def progress(event, download=False, upload=False):
     callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
     return callback
 
-def yt_progress(event, result):
-    newtime = time.time()
-    total = result["total_bytes"]
-    if result["status"] == "downloading":
-        current = result["downloaded_bytes"]
-        client.loop.create_task(create_progress(event, current, total, newtime, download=True))
-
 setattr(Message, "progress", progress)
 setattr(client, "progress", progress)
-setattr(Message, "yt_progress", yt_progress)
-setattr(client, "yt_progress", yt_progress)
 
 async def create_progress(event, current, total, start, download=False, upload=False):
     if download:
