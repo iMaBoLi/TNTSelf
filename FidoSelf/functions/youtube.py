@@ -8,7 +8,7 @@ import os
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
 YOUTUBEPL_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/playlist/(?:[\w-]+\?list=|list/)?([\w-])")
 
-MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
+MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
@@ -22,8 +22,9 @@ def get_videoid(url):
 
 async def yt_video(event, link):
     from yt_dlp import YoutubeDL
+    videoid = get_videoid(link) 
     randnum = str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + f"{randnum} - %(id)s.%(ext)s"
+    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp4"
     OPTS = {
         "progress_hooks": [lambda result: client.yt_progress(event, result)],
         "outtmpl": outfile,
@@ -57,34 +58,13 @@ async def yt_video(event, link):
 
 async def yt_audio(event, link):
     from yt_dlp import YoutubeDL
+    videoid = get_videoid(link) 
     randnum = str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + f"{randnum} - %(id)s.%(ext)s"
-    OPTS = {
-        "progress_hooks": [lambda result: client.yt_progress(event, result)],
-        "outtmpl": outfile,
-        "format": "bestaudio",
-        "writethumbnail": True,
-        "prefer_ffmpeg": True,
-        "geo_bypass": True,
-        "nocheckcertificate": True,
-        "postprocessors": [
-            {
-                "key": "FFmpegExtractAudio",
-                "preferredcodec": "mp3",
-                "preferredquality": "320",
-            },
-            {"key": "EmbedThumbnail"},
-            {"key": "FFmpegMetadata"},
-        ],
-        "logtostderr": False,
-        "quiet": True,
-    }
-    with YoutubeDL(OPTS) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=False)
-        ytdl.process_info(ytinfo)
-        outaudio = ytdl.prepare_filename(ytinfo)
+    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp3"
+    cmd = MAIN.format(outfile=outfile, format="bestaudio", link=link)
+    await client.functions.runcmd(cmd)
     info = {}
-    info["OUTFILE"] = outaudio
+    info["OUTFILE"] = outfile
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
