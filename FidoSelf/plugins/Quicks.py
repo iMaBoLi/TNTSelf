@@ -1,6 +1,8 @@
 from FidoSelf import client
 from telethon import functions, types, Button
-import asyncio, random
+import asyncio
+import random
+import secrets
 
 __INFO__ = {
     "Category": "Manage",
@@ -203,8 +205,8 @@ async def addquick(event):
     cmd = event.pattern_match.group(1)[:25]
     answers = event.pattern_match.group(2)[:500]
     quicks = client.DB.get_key("QUICK_LIST") or {}
-    rand = random.randint(111111111, 999999999)
-    QName = f"Quick{str(rand)}"
+    token = secrets.token_hex(nbytes=5)
+    QName = f"Quick-{token}"
     replyuser = event.reply_message.sender_id if event.is_reply else None
     quicks.update({QName: {"Command": cmd, "Answers": answers, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Normal", "Finder": "Yes", "Sleep": 0, "DO": False}})
     client.DB.set_key("QUICK_LIST", quicks)
@@ -222,8 +224,8 @@ async def addmediaquick(event):
         return await event.edit(reply)
     cmd = event.pattern_match.group(1)[:25]
     quicks = client.DB.get_key("QUICK_LIST") or {}
-    rand = random.randint(111111111, 999999999)
-    QName = f"Quick{str(rand)}"
+    token = secrets.token_hex(nbytes=5)
+    QName = f"Quick-{token}"
     replyuser = event.reply_message.sender_id if event.is_reply else None
     info = await event.reply_message.save()
     quicks.update({QName: {"Command": cmd, "Answers": info, "chatid": event.chat_id, "Reply": replyuser, "Person": "Sudo", "Where": "All", "Type": "Media", "Finder": "Yes", "Sleep": 0, "DO": False}})
