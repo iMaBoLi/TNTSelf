@@ -367,8 +367,12 @@ async def download_file(event, outfile=None, progress_callback=None):
     if outfile:
         opfile = open(outfile, "wb")
     else:
-        outfile = CLIENT.PATH + event.file.name
-        opfile = open(outfile, "wb")
+        if event.file.name:
+            outfile = CLIENT.PATH + event.file.name
+            opfile = open(outfile, "wb")
+        else:
+            outfile = CLIENT.PATH + str(event.file.size) + event.file.ext
+            opfile = open(outfile, "wb")
     size = event.file.size
     dc_id, location = utils.get_input_location(event)
     downloader = ParallelTransferrer(CLIENT, dc_id)
