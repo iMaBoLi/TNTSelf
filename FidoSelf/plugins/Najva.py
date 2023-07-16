@@ -46,21 +46,21 @@ async def najva(event):
         return await event.answer([event.builder.article("Najva - ( User Not Found )", text=text)])
     if len(message) > 50:
         message = message[:50]
-    najid = random.randint(0, 999999)
-    NAJVAS.update({najid: message})
+    token = secrets.token_hex(nbytes=5)
+    NAJVAS.update({token: message})
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["najva"].format(mention)
-    buttons = [[Button.inline("• Open Najva •", data=f"OpenNajva:{najid}:{userid}")]]
+    buttons = [[Button.inline("• Open Najva •", data=f"OpenNajva:{token}:{userid}")]]
     await event.answer([event.builder.article("FidoSelf - Najva", text=text, buttons=buttons)])
     
 @client.Callback(data="OpenNajva\:(.*)\:(.*)", onlysudo=False)
 async def opennajva(event):
-    najid = int(event.data_match.group(1).decode('utf-8'))
+    najtoken = event.data_match.group(1).decode('utf-8')
     userid = int(event.data_match.group(2).decode('utf-8'))
     if event.sender_id != userid:
         return await event.answer(client.getstrings(STRINGS)["notyou"], alert=True)
-    if najid not in NAJVAS:
+    if najtoken not in NAJVAS:
         return await event.edit(client.getstrings(STRINGS)["notnaj"])
-    message = NAJVAS[najid]
+    message = NAJVAS[najtoken]
     await event.answer(message, alert=True)
