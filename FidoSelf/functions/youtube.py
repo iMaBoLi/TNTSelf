@@ -25,7 +25,7 @@ async def yt_video(link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
-        "progress_hooks": lambda res: client.LOGS.error(res),
+        "progress_hooks": [client.LOGS.error(res)],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
