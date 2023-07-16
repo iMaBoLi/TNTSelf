@@ -20,12 +20,17 @@ def get_videoid(url):
     match = YOUTUBE_REGEX.search(url)
     return match.group(1)
 
+def my_hook(d):
+    client.LOGS.error(d)
+    if d['status'] == 'finished':
+        print('Done downloading, now post-processing ...')
+
 async def yt_video(link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
-        "progress_hooks": [client.LOGS.error(res)],
+        "progress_hooks": [my_hook()],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
