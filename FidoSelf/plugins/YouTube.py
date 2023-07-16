@@ -43,6 +43,7 @@ STRINGS = {
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "caption": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
+    "textinfo": "**{STR} Title:** ( `{}` )\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "searchclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
     "searchinfo": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
 }
@@ -76,6 +77,20 @@ async def ytdownloader(event):
     os.remove(file["THUMBNAIL"])
     await event.delete()
 
+@client.Command(command="YtInfo (.*)")
+async def ytinfo(event):
+    await event.edit(client.STRINGS["wait"])
+    link = event.pattern_match.group(1)
+    if not client.functions.YOUTUBE_REGEX.search(link):
+        return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
+    ytinfo = await client.functions.yt_info(link)
+    textinfo = client.getstrings(STRINGS)["textinfo"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"])
+    await event.edit(textinfo)
+    description = ytinfo["description"]
+    description = client.getstrings(STRINGS)["description"].format(description)
+    if len(description) < 4096:
+        await event.reply(description)
+
 @client.Command(command="YtSearch (.*)")
 async def ytsearch(event):
     await event.edit(client.STRINGS["wait"])
@@ -106,3 +121,4 @@ async def ytsearchinline(event):
         )
         answers.append(answer)
     await event.answer(answers)
+    
