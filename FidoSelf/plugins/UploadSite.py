@@ -1,7 +1,6 @@
 from FidoSelf import client
 import asyncio
 import subprocess
-import json
 import os
 import re
 
@@ -13,10 +12,6 @@ __INFO__ = {
         "Commands": {
             "{CMD}UPFileio": {
                  "Help": "To Upload On Fileio",
-                "Reply": ["Media"],
-            },
-            "{CMD}UPFilebin": {
-                 "Help": "To Upload On FileBin",
                 "Reply": ["Media"],
             },
             "{CMD}UPAnon": {
@@ -31,12 +26,8 @@ __INFO__ = {
                  "Help": "To Upload On Transfer",
                 "Reply": ["Media"],
             },
-            "{CMD}UPAnonymous": {
-                 "Help": "To Upload On AnonymousFiles",
-                "Reply": ["Media"],
-            },
-            "{CMD}UPBay": {
-                 "Help": "To Upload On BayFiles",
+            "{CMD}UPVShare": {
+                 "Help": "To Upload On VShare",
                 "Reply": ["Media"],
             },
         },
@@ -51,7 +42,7 @@ STRINGS = {
     "uploadlinks": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( {} )",
 }
 
-@client.Command(command="UP(Fileio|Filebin|Anon|Oload|Transfer|Anonymous|Bay|VShare)")
+@client.Command(command="UP(Fileio|Anon|Oload|Transfer|VShare)")
 async def uploadsites(event):
     await event.edit(client.STRINGS["wait"])
     site = event.pattern_match.group(1).title()
@@ -65,13 +56,10 @@ async def uploadsites(event):
     filename = os.path.basename(file)
     WEBS = {
         "fileio": 'curl -F "file=@{filepath}" https://file.io',
-        "filebin": 'curl -X POST --data-binary "@{filepath}" -H "filename: {filename}" "https://filebin.net"',
         "anon": 'curl -F "file=@{filepath}" https://api.anonfiles.com/upload',
         "oload": 'curl -F "file=@{filepath}" https://api.openload.cc/upload',
         "transfer": 'curl --upload-file "{filepath}" https://transfer.sh/' + filename,
-        "anonymous": 'curl -F "file=@{filepath}" https://api.anonymousfiles.io/',
         "vshare": 'curl -F "file=@{filepath}" https://api.vshare.is/upload',
-        "bay": 'curl -F "file=@{filepath}" https://bayfiles.com/api/upload',
     }
     cmd = WEBS[site.lower()]
     cmd = cmd.format(filepath=file, filename=filename)
@@ -81,15 +69,10 @@ async def uploadsites(event):
     error = stdout.decode().strip()
     if not response:
         return await event.edit(client.getstrings(STRINGS)["errorupload"].format(site, (error or "---")))
-        os.remove(file)
-    open("Res.txt", "w").write(str(response))
-    return await event.reply(file="Res.txt")
-    #response = json.dumps(json.loads(response), sort_keys=True, indent=4)
     linkregex = re.compile("((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)", re.DOTALL)
-    urls = re.findall(linkregex, response)
+    urls = re.findall(linkregex, str(response))
     if not urls:
         return await event.edit(client.getstrings(STRINGS)["notfound"])
-        os.remove(file)
     links = ""
     for url in urls:
         links += f"`{url[0]}` - "
