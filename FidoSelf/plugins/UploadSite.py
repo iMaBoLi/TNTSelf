@@ -81,11 +81,13 @@ async def uploadsites(event):
     error = stdout.decode().strip()
     if not response:
         return await event.edit(client.getstrings(STRINGS)["errorupload"].format(site, (error or "---")))
+        os.remove(file)
     response = json.dumps(json.loads(response), sort_keys=True, indent=4)
     linkregex = re.compile("((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)", re.DOTALL)
     urls = re.findall(linkregex, response)
     if not urls:
         return await event.edit(client.getstrings(STRINGS)["notfound"])
+        os.remove(file)
     links = ""
     for url in urls:
         links += f"`{url[0]}` - "
