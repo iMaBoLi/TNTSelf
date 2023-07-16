@@ -371,7 +371,7 @@ async def download_file(event, outfile=None, progress_callback=None):
             outfile = CLIENT.PATH + event.file.name
             opfile = open(outfile, "wb")
         else:
-            outfile = CLIENT.PATH + event.file.size + event.file.ext
+            outfile = CLIENT.PATH + str(event.file.size) + event.file.ext
             opfile = open(outfile, "wb")
     size = event.file.size
     dc_id, location = utils.get_input_location(event)
