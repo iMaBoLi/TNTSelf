@@ -83,7 +83,7 @@ async def ytinfo(event):
     link = event.pattern_match.group(1)
     if not client.functions.YOUTUBE_REGEX.search(link):
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
-    ytinfo = await client.functions.yt_info(link)
+    ytinfo = client.functions.yt_info(link)
     textinfo = client.getstrings(STRINGS)["textinfo"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"])
     await event.edit(textinfo)
     description = ytinfo["description"]
