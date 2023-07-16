@@ -1,17 +1,15 @@
 from FidoSelf import client
 import asyncio
 import subprocess
-import requests
 import json
 import os
 import re
-import glob
 
 __INFO__ = {
     "Category": "Tools",
     "Name": "Upload Site",
     "Info": {
-        "Help": "To Upload Your Files In Sites!",
+        "Help": "To Upload Your Files In Upload Sites!",
         "Commands": {
             "{CMD}UPFileio": {
                  "Help": "To Upload On Fileio",
