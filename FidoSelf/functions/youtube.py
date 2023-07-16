@@ -26,13 +26,12 @@ def ytdl_progress(k):
     while k["status"] == "downloading":
         client.LOGS.error(k)
 
-async def yt_video(link):
+async def yt_video(event, link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
-    #ytdl_prog = 
     OPTS = {
-        "progress_hooks": [lambda k: ytdl_progress(k)],
+        "progress_hooks": [lambda result: client.functions.yt_progress(event, result)],
         "format": "best",
         "addmetadata": True,
         "key": "FFmpegMetadata",
@@ -55,11 +54,12 @@ async def yt_video(link):
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
-async def yt_audio(link):
+async def yt_audio(event, link):
     from yt_dlp import YoutubeDL
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename
     OPTS = {
+        "progress_hooks": [lambda result: client.functions.yt_progress(event, result)],
         "outtmpl": outfile,
         "writethumbnail": True,
         "prefer_ffmpeg": True,
