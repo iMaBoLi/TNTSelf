@@ -12,6 +12,7 @@ STRINGS = {
     },
     "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
+    "replymedia": "**❉ Please Reply To A Media!**",
     "user": {
         "all": "**❉ Please Reply To User Or Enter UserID - Username Or Send In Pv!**",
         "reply": "**❉ Please Reply To User!**",
