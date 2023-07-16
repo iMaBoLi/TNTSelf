@@ -1,7 +1,7 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
 from PIL import Image
-import random
+import secrets
 import re
 import os
 
@@ -22,8 +22,8 @@ def get_videoid(url):
 async def yt_video(link):
     from yt_dlp import YoutubeDL
     videoid = get_videoid(link) 
-    randnum = str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp4"
+    token = secrets.token_hex(nbytes=5)
+    outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
     cmd = MAIN.format(outfile=outfile, format="best[ext=mp4]", link=link)
     await client.functions.runcmd(cmd)
     return outfile
@@ -31,15 +31,16 @@ async def yt_video(link):
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
     videoid = get_videoid(link) 
-    randnum = str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + f"{randnum} - {videoid}.mp3"
+    token = secrets.token_hex(nbytes=5)
+    outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp3"
     cmd = MAIN.format(outfile=outfile, format="bestaudio", link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
 async def yt_thumb(link):
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    thumb = client.PATH + "youtube/" + filename
+    videoid = get_videoid(link)
+    token = secrets.token_hex(nbytes=5)
+    thumb = client.PATH + "youtube/" + f"{token} - {videoid}"
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
     thumb = convert_thumb(thumb + ".webp")
