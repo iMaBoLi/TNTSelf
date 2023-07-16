@@ -5,8 +5,8 @@ import random
 import re
 import os
 
-YOUTUBE_URL = "https://www.youtube.com/watch?v="
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
+YOUTUBEPL_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/playlist/(?:[\w-]+\?list=|list/)?([\w-])")
 
 MAIN = "yt-dlp -o '{outfile}' -f {format} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
@@ -25,7 +25,8 @@ async def yt_video(link):
     filename = get_videoid(link) + str(random.randint(11111, 99999))
     outfile = client.PATH + "youtube/" + filename + ".mp4" 
     OPTS = {
-        "format": "best",
+        "progress_hooks": lambda res: client.LOGS.error(res),
+        "format": "best(video+audio)",
         "addmetadata": True,
         "key": "FFmpegMetadata",
         "writethumbnail": True,
