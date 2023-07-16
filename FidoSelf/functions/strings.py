@@ -12,6 +12,7 @@ STRINGS = {
     },
     "reply": "**❉ Please Reply To {}!**",
     "replytext": "**❉ Please Reply To A Text Message!**",
+    "replymedia": "**❉ Please Reply To A Media!**",
     "user": {
         "all": "**❉ Please Reply To User Or Enter UserID - Username Or Send In Pv!**",
         "reply": "**❉ Please Reply To User!**",
@@ -35,7 +36,7 @@ STRINGS = {
         "Show": "💡 This Button Is Only For Show!",
     },
     "progress": {
-        "Text": "`{}`\n\n`[ {} ]{}%`\n\n**🗃️ Size:** ( `{}` ) - ( `{}` )\n**🚅 Speed:** ( `{}` )\n**⏳ ETA:** ( `{}` )\n**⏲️ Duration:** ( `{}` )",
+        "Text": "`{}`\n\n[ `{}` ]`{}%`\n\n**🗃️ Size:** ( `{}` ) - ( `{}` )\n**🚅 Speed:** ( `{}` )\n**⏳ ETA:** ( `{}` )\n**⏰ Duration:** ( `{}` )",
         "Down": "📥 Downloading . . .",
         "Up": "📤 Uploading . . .",
     },
