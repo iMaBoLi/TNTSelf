@@ -61,10 +61,8 @@ async def uploadsites(event):
         "transfer": 'curl --upload-file "{filepath}" https://transfer.sh/' + filename,
         "vshare": 'curl -F "file=@{filepath}" https://api.vshare.is/upload',
     }
-    cmd = WEBS[site.lower()]
-    cmd = cmd.format(filepath=file, filename=filename)
-    process = await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-    stdout, stderr = await process.communicate()
+    cmd = WEBS[site.lower()].format(filepath=file, filename=filename)
+    stdout, stderr = await client.functions.runcmd(cmd)
     response = stdout.decode().strip()
     error = stdout.decode().strip()
     if not response:
