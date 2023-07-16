@@ -62,9 +62,7 @@ async def uploadsites(event):
         "vshare": 'curl -F "file=@{filepath}" https://api.vshare.is/upload',
     }
     cmd = WEBS[site.lower()].format(filepath=file, filename=filename)
-    stdout, stderr = await client.functions.runcmd(cmd)
-    response = stdout.decode().strip()
-    error = stdout.decode().strip()
+    response, error = await client.functions.runcmd(cmd)
     if not response:
         return await event.edit(client.getstrings(STRINGS)["errorupload"].format(site, (error or "---")))
     linkregex = re.compile("((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)", re.DOTALL)
