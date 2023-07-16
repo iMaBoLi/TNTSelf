@@ -28,11 +28,12 @@ def ytdl_progress(k):
 
 async def yt_video(event, link):
     from yt_dlp import YoutubeDL
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename + ".mp4" 
+    randnum = str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + f"{randnum} - %(id)s.%(ext)s"
     OPTS = {
         "progress_hooks": [lambda result: client.yt_progress(event, result)],
-        "format": "best",
+        "outtmpl": outfile,
+        "format": "best[ext=mp4]",
         "addmetadata": True,
         "key": "FFmpegMetadata",
         "writethumbnail": True,
@@ -43,27 +44,28 @@ async def yt_video(event, link):
             {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"},
             {"key": "FFmpegMetadata"},
         ],
-        "outtmpl": outfile,
         "logtostderr": False,
         "quiet": True,
     }
     with YoutubeDL(OPTS) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=True)
+        ytinfo = ytdl.extract_info(link, download=False)
+        ydl.process_info(ytinfo)
+        outvideo = ydl.prepare_filename(ytinfo)
     info = {}
-    info["OUTFILE"] = outfile
+    info["OUTFILE"] = outvideo
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
 async def yt_audio(event, link):
     from yt_dlp import YoutubeDL
-    filename = get_videoid(link) + str(random.randint(11111, 99999))
-    outfile = client.PATH + "youtube/" + filename
+    randnum = str(random.randint(11111, 99999))
+    outfile = client.PATH + "youtube/" + f"{randnum} - %(id)s.%(ext)s"
     OPTS = {
         "progress_hooks": [lambda result: client.yt_progress(event, result)],
         "outtmpl": outfile,
+        "format": "bestaudio",
         "writethumbnail": True,
         "prefer_ffmpeg": True,
-        "format": "bestaudio/best",
         "geo_bypass": True,
         "nocheckcertificate": True,
         "postprocessors": [
@@ -75,12 +77,15 @@ async def yt_audio(event, link):
             {"key": "EmbedThumbnail"},
             {"key": "FFmpegMetadata"},
         ],
+        "logtostderr": False,
         "quiet": True,
     }
     with YoutubeDL(OPTS) as ytdl:
-        ytinfo = ytdl.extract_info(link, download=True)
+        ytinfo = ytdl.extract_info(link, download=False)
+        ydl.process_info(ytinfo)
+        outaudio = ydl.prepare_filename(ytinfo)
     info = {}
-    info["OUTFILE"] = outfile + ".mp3"
+    info["OUTFILE"] = outaudio
     info["THUMBNAIL"] = await yt_thumb(link)
     return info, ytinfo
 
