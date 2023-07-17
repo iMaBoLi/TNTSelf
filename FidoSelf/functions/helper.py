@@ -7,8 +7,8 @@ import math
 import random
 import os
 
-def progress(event, current=None, total=None, download=False, upload=False):
-    newtime = time.time()
+def progress(event, current=None, total=None, newtime=None, download=False, upload=False):
+    newtime = newtime if newtime else time.time()
     if current and total:
         callback = client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
         return callback
