@@ -6,7 +6,6 @@ from FidoSelf.functions.utils import *
 from FidoSelf.functions.core import *
 from FidoSelf.functions.loader import *
 from FidoSelf.functions.tools import *
-from FidoSelf.functions.downloader import *
 from FidoSelf.functions.youtube import *
 from FidoSelf.functions.github import *
 from FidoSelf.functions.strings import STRINGS
