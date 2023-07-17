@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Download File From Your Links!",
         "Commands": {
-            "{CMD}SFile <Name>:<Link>": {
+            "{CMD}SFile <Name> <Link>": {
                 "Help": "To Download File",
                 "Input": {
                     "<Name>": "Name Of File",
