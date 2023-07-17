@@ -7,9 +7,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Download File From Your Links!",
         "Commands": {
-            "{CMD}SFile <Link>": {
+            "{CMD}SFile <Name>:<Link>": {
                 "Help": "To Download File",
                 "Input": {
+                    "<Name>": "Name Of File",
                     "<Link>": "Link Of File",
                 },
             },
@@ -24,7 +25,7 @@ STRINGS = {
     "caption": "**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
 }
 
-@client.Command(command="SFile (.*)\,(.*)")
+@client.Command(command="SFile (.*)\:(.*)")
 async def downloadfile(event):
     await event.edit(client.STRINGS["wait"])
     filename = event.pattern_match.group(1)
@@ -34,7 +35,6 @@ async def downloadfile(event):
     try:
         cmd = f"curl {link} -o {filepath}"
         await client.functions.runcmd(cmd)
-        #file = await client.functions.file_download(link, filename)
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
     caption = client.getstrings(STRINGS)["caption"].format(link, filename)
