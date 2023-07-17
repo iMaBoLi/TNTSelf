@@ -21,14 +21,8 @@ async def file_download(event, downloadurl, filename=None):
         filename = downloadurl.split("/")[-1]
     filename = client.PATH + filename
     response = await request(downloadurl, re_content=True)
-    total = 0
-    current = 0
     with open(filename, "wb") as file:
-        async for chunk in response.iter_chunked(1024):
-            if chunk:
-                file.write(chunk)
-                current += len(chunk)
-                #event.progress(current=current, total=total, newtime=newtime, download=True)
+        file.write(response)
     return filename
 
 setattr(Message, "file_download", file_download)
