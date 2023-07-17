@@ -6,6 +6,7 @@ import time
 async def file_download(event, downloadurl, filename=None):
     if not filename:
         filename = downloadurl.split("/")[-1]
+    filename = client.PATH + filename
     async with ClientSession() as session:
         async with session.get(downloadurl, timeout=None) as response:
             total_size = int(response.headers.get("content-length", 0)) or 0
