@@ -17,8 +17,7 @@ async def file_download(event, downloadurl, filename=None):
                     if chunk:
                         file.write(chunk)
                         current += len(chunk)
-                        if total and current:
-                            event.progress(current=current, total=total, newtime=newtime, download=True)
+                        event.progress(current=current, total=total, newtime=newtime, download=True)
             return filename
             
 setattr(Message, "file_download", file_download)
