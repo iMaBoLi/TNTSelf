@@ -23,7 +23,6 @@ async def file_download(event, downloadurl, filename=None):
     response = await request(downloadurl, re_content=True)
     total = 0
     current = 0
-    newtime = time.time()
     with open(filename, "wb") as file:
         async for chunk in response.iter_chunked(1024):
             if chunk:
