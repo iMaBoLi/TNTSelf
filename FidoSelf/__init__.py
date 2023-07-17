@@ -1,6 +1,5 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from FidoSelf import config
 import time
@@ -24,7 +23,6 @@ try:
         api_hash=config.API_HASH,
         loop=None,
         app_version=__version__,
-        connection=ConnectionTcpAbridged,
         auto_reconnect=True,
         connection_retries=None,
     ).start()
@@ -39,7 +37,6 @@ try:
         api_id=config.API_ID,
         api_hash=config.API_HASH,
         loop=None,
-        connection=ConnectionTcpAbridged,
         auto_reconnect=True,
         connection_retries=None,
     ).start()
