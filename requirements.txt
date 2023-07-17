@@ -13,7 +13,6 @@ somnium
 aiofiles
 setuptools
 psutil
-pymediainfo
 PyGithub
 shazamio
 wikipedia
