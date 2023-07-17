@@ -21,10 +21,7 @@ try:
         session=StringSession(config.SESSION),
         api_id=config.API_ID,
         api_hash=config.API_HASH,
-        loop=None,
         app_version=__version__,
-        auto_reconnect=True,
-        connection_retries=None,
     ).start()
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
@@ -36,9 +33,6 @@ try:
         session=StringSession(config.BOT_SESSION),
         api_id=config.API_ID,
         api_hash=config.API_HASH,
-        loop=None,
-        auto_reconnect=True,
-        connection_retries=None,
     ).start()
 except Exception as error:
     LOGS.error("• Login To Bot Was Unsuccessful!")
