@@ -32,13 +32,13 @@ async def downloadfile(event):
     link = event.pattern_match.group(2)
     await event.edit(client.getstrings(STRINGS)["downloading"].format(link, filename))
     filepath = client.PATH + filename
-    try:
-        cmd = f"curl {link} -o {filepath}"
-        await client.functions.runcmd(cmd)
-    except Exception as error:
-        return await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
-    caption = client.getstrings(STRINGS)["caption"].format(link, filename)
-    callback = event.progress(upload=True)
-    uploadfile = await client.fast_upload(filepath, progress_callback=callback)
-    await client.send_file(event.chat_id, uploadfile, caption=caption)        
-    os.remove(filepath)
+    cmd = f"curl {link} -o {filepath}"
+    result, error await client.functions.runcmd(cmd)
+    if error:
+        await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
+    if os.path.exists(filepath):
+        caption = client.getstrings(STRINGS)["caption"].format(link, filename)
+        callback = event.progress(upload=True)
+        uploadfile = await client.fast_upload(filepath, progress_callback=callback)
+        await client.send_file(event.chat_id, uploadfile, caption=caption)        
+        os.remove(filepath)
