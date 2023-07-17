@@ -9,16 +9,16 @@ async def file_download(event, downloadurl, filename=None):
     filename = client.PATH + filename
     async with ClientSession() as session:
         async with session.get(downloadurl, timeout=None) as response:
-            total_size = int(response.headers.get("content-length", 0)) or 0
-            downloaded_size = 0
-            start_time = time.time()
+            total = int(response.headers.get("content-length", 0)) or 0
+            current = 0
+            newtime = time.time()
             with open(filename, "wb") as file:
                 async for chunk in response.content.iter_chunked(1024):
                     if chunk:
                         file.write(chunk)
-                        downloaded_size += len(chunk)
-                        if total_size and downloaded_size:
-                            event.progress(current=downloaded_size, total=total_size, download=True)
+                        current += len(chunk)
+                        if total and current:
+                            event.progress(current=current, total=total, newtime=newtime, download=True)
             return filename
             
 setattr(Message, "file_download", file_download)
