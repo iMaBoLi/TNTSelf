@@ -59,11 +59,13 @@ async def ytdownloader(event):
     if downtype == "Video":
         await event.edit(client.getstrings(STRINGS)["downvideo"].format(link))
         file = await client.functions.yt_video(link)
-        attributes = [types.DocumentAttributeVideo(duration=ytinfo["duration"], w=ytinfo["width"], h=ytinfo["height"], supports_streaming=True)]
+        filename = ytinfo["title"] + ".mp4"
+        attributes = [types.DocumentAttributeVideo(duration=ytinfo["duration"], w=ytinfo["width"], h=ytinfo["height"], supports_streaming=True), types.DocumentAttributeFilename(file_name=filename)]
     if downtype == "Audio":
         await event.edit(client.getstrings(STRINGS)["downaudio"].format(link))
         file = await client.functions.yt_audio(link)
-        attributes = [types.DocumentAttributeAudio(duration=ytinfo["duration"], voice=False, title=ytinfo["title"], performer=ytinfo["uploader"])]
+        filename = ytinfo["title"] + ".mp3"
+        attributes = [types.DocumentAttributeAudio(duration=ytinfo["duration"], voice=False, title=ytinfo["title"], performer=ytinfo["uploader"]), types.DocumentAttributeFilename(file_name=filename)]
     thumb = await client.functions.yt_thumb(link)
     filesize = os.path.getsize(file)
     filesize = client.functions.convert_bytes(filesize)
