@@ -24,6 +24,3 @@ async def file_download(event, downloadurl, filename=None):
     with open(filename, "wb") as file:
         file.write(response)
     return filename
-
-setattr(Message, "file_download", file_download)
-setattr(client, "file_download", file_download)
