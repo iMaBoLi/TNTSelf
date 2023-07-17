@@ -19,18 +19,20 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "downloading": "**{STR} Downloading File From Your Link ...**\n\n**{STR} Link:** ( `{}` )",
+    "downloading": "**{STR} Downloading File From Your Link ...**\n\n**{STR} Link:** ( `{}` )\n**{STR} FileName:** ( `{}` )",
     "errordown": "**{STR} Downloading File Is Not Completed!**\n\n**{STR} Error:** ( `{}` )",
     "caption": "**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
 }
 
-@client.Command(command="SFile (.*)")
+@client.Command(command="SFile (.*)\,(.*)")
 async def downloadfile(event):
     await event.edit(client.STRINGS["wait"])
-    link = event.pattern_match.group(1)
-    await event.edit(client.getstrings(STRINGS)["downloading"].format(link))
+    filename = event.pattern_match.group(1)
+    link = event.pattern_match.group(2)
+    await event.edit(client.getstrings(STRINGS)["downloading"].format(link, filename))
+    filename = client.PATH + filename
     try:
-        file = await client.functions.file_download(link)
+        file = await client.functions.file_download(link, filename)
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
     caption = client.getstrings(STRINGS)["caption"].format(link, file)
