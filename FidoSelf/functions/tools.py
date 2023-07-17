@@ -16,10 +16,7 @@ async def request(url, post=False, head=False, headers=None, evaluate=None, obje
             return data
         return await data.text()
 
-async def file_download(event, downloadurl, filename=None):
-    if not filename:
-        filename = downloadurl.split("/")[-1]
-    filename = client.PATH + filename
+async def file_download(downloadurl, filename):
     response = await request(downloadurl, re_content=True)
     with open(filename, "wb") as file:
         file.write(response)
