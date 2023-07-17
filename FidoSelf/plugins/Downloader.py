@@ -33,7 +33,7 @@ async def downloadfile(event):
     await event.edit(client.getstrings(STRINGS)["downloading"].format(link, filename))
     filepath = client.PATH + filename
     cmd = f"curl {link} -o {filepath}"
-    result, error await client.functions.runcmd(cmd)
+    result, error = await client.functions.runcmd(cmd)
     if error:
         await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
     if os.path.exists(filepath):
