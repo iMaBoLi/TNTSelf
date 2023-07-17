@@ -20,6 +20,14 @@ __INFO__ = {
                  "Help": "To Upload On OLoad",
                 "Reply": ["Media"],
             },
+            "{CMD}UPBay": {
+                 "Help": "To Upload On Bayfiles",
+                "Reply": ["Media"],
+            },
+            "{CMD}UPX0at": {
+                 "Help": "To Upload On X0at",
+                "Reply": ["Media"],
+            },
             "{CMD}UPTransfer": {
                  "Help": "To Upload On Transfer",
                 "Reply": ["Media"],
@@ -35,43 +43,39 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "uploading": "**{STR} Trying Upload File To Site** ( `{}` ) **...**",
-    "errorupload": "**{STR} The File Is Not Uploaded To Site** ( `{}` )\n\n**{STR} Error:** ( `{}` )",
-    "notfound": "**{STR} The Upload File Links Is Not Finded!**",
-    "uploadlinks": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( {} )",
+    "uploadlink": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( `{}` )",
 }
 
-@client.Command(command="UP(Fileio|Anon|Oload|Transfer|VShare)")
+@client.Command(command="UP(Fileio|Anon|Oload|Bay|X0at|Transfer|VShare)")
 async def uploadsites(event):
     await event.edit(client.STRINGS["wait"])
-    site = event.pattern_match.group(1).title()
+    uploadsite = event.pattern_match.group(1)
     if not event.reply_message or not event.reply_message.file:
         return await event.edit(client.STRINGS["replymedia"])
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await client.fast_download(event.reply_message, progress_callback=callback)
-    await event.edit(client.getstrings(STRINGS)["uploading"].format(site))
-    filename = os.path.basename(file)
-    WEBS = {
-        "fileio": 'curl -F "file=@{filepath}" https://file.io',
-        "anon": 'curl -F "file=@{filepath}" https://api.anonfiles.com/upload',
-        "oload": 'curl -F "file=@{filepath}" https://api.openload.cc/upload',
-        "transfer": 'curl --upload-file "{filepath}" https://transfer.sh/' + filename,
-        "vshare": 'curl -F "file=@{filepath}" https://api.vshare.is/upload',
+    await event.edit(client.getstrings(STRINGS)["uploading"].format(uploadsite.title()))
+    SITES = {
+        "fileio": {"url": "https://file.io", "json": True},
+        "anon": {"url": "https://api.anonfiles.com/upload", "json": True},
+        "oload": {"url": "https://api.openload.cc/upload", "json": True},
+        "bay": {"url": "https://api.bayfiles.com/upload", "json": True},
+        "x0at": {"url": "https://x0.at/", "json": False},
+        "transfer": {"url": "https://transfer.sh", "json": False},
+        "vshare": {"url": "https://api.vshare.is/upload", "json": True},
     }
-    cmd = WEBS[site.lower()].format(filepath=file, filename=filename)
-    response, error = await client.functions.runcmd(cmd)
-    if not response:
-        return await event.edit(client.getstrings(STRINGS)["errorupload"].format(site, (error or "---")))
-    linkregex = re.compile("((https?):((//)|(\\\\))+([\w\d:#@%/;$()~_?\+-=\\\.&](#!)?)*)", re.DOTALL)
-    urls = re.findall(linkregex, str(response))
-    if not urls:
-        return await event.edit(client.getstrings(STRINGS)["notfound"])
-    links = ""
-    for url in urls:
-        newurl = str(url[0]).replace("\/", "/")
-        links += f"`{newurl}` - "
-    links = links[:-3]
-    text = client.getstrings(STRINGS)["uploadlinks"].format(site, links)
+    upsite = uploadsite.lower()
+    url = SITES[upsite]["url"]
+    opfile = open(file, "rb").read()
+    result = await client.functions.request(url, data={"file": opfile}, post=True, re_json=SITES[upsite]["json"])
+    if upsite in ["x0at", "transfer"]:
+        link = result
+    elif upsite == "fileio":
+        link = result["link"]
+    elif upsite in ["anon", "oload", "bay", "vshare"]:
+        link = result["data"]["file"]["url"]["full"]
+    text = client.getstrings(STRINGS)["uploadlink"].format(uploadsite.title(), link)
     await event.edit(text)
     os.remove(file)
