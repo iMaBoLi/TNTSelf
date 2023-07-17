@@ -7,10 +7,14 @@ import math
 import random
 import os
 
-def progress(event, download=False, upload=False):
+def progress(event, current=None, total=None, download=False, upload=False):
     newtime = time.time()
-    callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-    return callback
+    if current and total:
+        callback = client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
+        return callback
+    else:
+        callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
+        return callback
 
 setattr(Message, "progress", progress)
 setattr(client, "progress", progress)
