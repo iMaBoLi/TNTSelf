@@ -25,7 +25,7 @@ async def create_progress(event, current, total, start, download=False, upload=F
     elif upload:
         type = client.STRINGS["progress"]["Up"]
     duration = time.time() - start
-    if round(duration % 5.00) == 0 or current == total:
+    if duration != 0 and round(duration % 5.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / duration
         speed = speed if speed else 1
