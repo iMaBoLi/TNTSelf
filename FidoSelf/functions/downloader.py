@@ -12,7 +12,7 @@ async def file_download(event, downloadurl, filename=None):
             total_size = int(response.headers.get("content-length", 0)) or 0
             downloaded_size = 0
             start_time = time.time()
-            with open(filename, "wb") as ffile:
+            with open(filename, "wb") as file:
                 async for chunk in response.content.iter_chunked(1024):
                     if chunk:
                         file.write(chunk)
