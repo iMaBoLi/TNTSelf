@@ -7,9 +7,10 @@ __INFO__ = {
     "Info": {
         "Help": "To Download File From Your Links!",
         "Commands": {
-            "{CMD}SFile <Link>": {
+            "{CMD}SFile <Name>:<Link>": {
                 "Help": "To Download File",
                 "Input": {
+                    "<Name>": "Name Of File",
                     "<Link>": "Link Of File",
                 },
             },
@@ -19,22 +20,25 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "downloading": "**{STR} Downloading File From Your Link ...**\n\n**{STR} Link:** ( `{}` )",
+    "downloading": "**{STR} Downloading File From Your Link ...**\n\n**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
     "errordown": "**{STR} Downloading File Is Not Completed!**\n\n**{STR} Error:** ( `{}` )",
     "caption": "**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
 }
 
-@client.Command(command="SFile (.*)")
+@client.Command(command="SFile (.*)\:(.*)")
 async def downloadfile(event):
     await event.edit(client.STRINGS["wait"])
-    link = event.pattern_match.group(1)
-    await event.edit(client.getstrings(STRINGS)["downloading"].format(link))
-    try:
-        file = await client.functions.file_download(link)
-    except Exception as error:
-        return await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
-    caption = client.getstrings(STRINGS)["caption"].format(link, file)
-    callback = event.progress(upload=True)
-    uploadfile = await client.fast_upload(file, progress_callback=callback)
-    await client.send_file(event.chat_id, uploadfile, caption=caption)        
-    os.remove(file)
+    filename = event.pattern_match.group(1)
+    link = event.pattern_match.group(2)
+    await event.edit(client.getstrings(STRINGS)["downloading"].format(link, filename))
+    filepath = client.PATH + filename
+    cmd = f"curl {link} -o {filepath}"
+    result, error await client.functions.runcmd(cmd)
+    if error:
+        await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
+    if os.path.exists(filepath):
+        caption = client.getstrings(STRINGS)["caption"].format(link, filename)
+        callback = event.progress(upload=True)
+        uploadfile = await client.fast_upload(filepath, progress_callback=callback)
+        await client.send_file(event.chat_id, uploadfile, caption=caption)        
+        os.remove(filepath)
