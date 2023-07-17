@@ -1,6 +1,6 @@
+from FidoSelf import client
 from aiohttp import ClientSession
-import re
-import json
+from telethon.types import Message
 
 async def request(url, post=False, head=False, headers=None, evaluate=None, object=False, re_json=False, re_content=False, *args, **kwargs,):
     async with ClientSession(headers=headers) as CSession:
@@ -15,9 +15,12 @@ async def request(url, post=False, head=False, headers=None, evaluate=None, obje
         if head or object:
             return data
         return await data.text()
-        
-async def download_photo(url, outfile):
-    result = await request(url, re_content=True)
-    with open(outfile, "wb") as file:
-        file.write(result)
-    return outfile
+
+async def file_download(event, downloadurl, filename=None):
+    if not filename:
+        filename = downloadurl.split("/")[-1]
+    filename = client.PATH + filename
+    response = await request(downloadurl, re_content=True)
+    with open(filename, "wb") as file:
+        file.write(response)
+    return filename
