@@ -1,3 +1,5 @@
+from FidoSelf import client
+from telethon.types import Message
 from aiohttp import ClientSession
 import time
 
@@ -17,3 +19,6 @@ async def file_download(event, downloadurl, filename=None):
                         if total_size and downloaded_size:
                             event.progress(current=downloaded_size, total=total_size, download=True)
             return filename
+            
+setattr(Message, "file_download", file_download)
+setattr(client, "file_download", file_download)
