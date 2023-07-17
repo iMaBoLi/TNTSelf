@@ -21,7 +21,7 @@ async def file_download(event, downloadurl, filename=None):
         filename = downloadurl.split("/")[-1]
     filename = client.PATH + filename
     response = await request(downloadurl, re_content=True)
-    total = int(response.headers.get("content-length", 0)) or 0
+    total = int(response.get("content-length", 0)) or 0
     current = 0
     newtime = time.time()
     with open(filename, "wb") as file:
