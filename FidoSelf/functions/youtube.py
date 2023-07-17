@@ -24,7 +24,7 @@ async def yt_video(link):
     videoid = get_videoid(link) 
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
-    cmd = MAIN.format(outfile=outfile, format="best[height<=720&ext=mp4]", link=link)
+    cmd = MAIN.format(outfile=outfile, format="best[height=720&ext=mp4]", link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
