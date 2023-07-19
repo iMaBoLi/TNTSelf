@@ -30,6 +30,6 @@ async def searchmusic(event):
     result = await client.inline_query("@DeezerMusicBot", query)
     result = result.result.results[0]
     size = client.functions.convert_bytes(result.document.size)
-    caption = client.getstrings(STRINGS)["caption"].format(result.document.title, result.document.description, size)
+    caption = client.getstrings(STRINGS)["caption"].format(result.title, result.description, size)
     await client.send_file(event.chat_id, result.document, caption=caption)
     await event.delete()
