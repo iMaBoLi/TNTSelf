@@ -35,8 +35,9 @@ async def editvideo(event):
     elif vfilter == "Negative":
         cmd = f'ffmpeg -i "{file}" -vf lutyuv="y=negval:u=negval:v=negval" {outfile} -y'
     await client.functions.runcmd(cmd)
+    callback = event.progress(upload=True)
     caption = client.getstrings(STRINGS)["caption"].format(addfilter)
-    await client.send_file(event.chat_id, outfile, caption=caption, supports_streaming=True)
+    await client.send_file(event.chat_id, outfile, caption=caption, supports_streaming=True, progress_callback=callback)
     os.remove(file)
     os.remove(outfile)
     await event.delete()
