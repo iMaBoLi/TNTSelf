@@ -32,7 +32,7 @@ STRINGS = {
     "translate": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`"
 }
 
-@client.Command(command="Str (.*) ?(.*)?")
+@client.Command(command="Str (.*)\:?(.*)?")
 async def translattext(event):
     await event.edit(client.STRINGS["wait"])
     dest = event.pattern_match.group(1).lower()
