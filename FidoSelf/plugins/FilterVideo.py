@@ -25,6 +25,8 @@ async def editvideo(event):
     vfilter = event.pattern_match.group(1).title()
     if reply:= event.checkReply(["Video"]):
         return await event.edit(reply)
+    if event.reply_message.file.size > client.MAX_SIZE:
+        return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
     file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     addfilter = "BlackWhite" if vfilter == "Bw" else "Negative"
