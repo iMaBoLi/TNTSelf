@@ -20,6 +20,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
+    "notres": "**{STR} The Music With Name** ( `{}` ) **Is Not Finded!**",
     "caption": "**{STR} Title:** ( `{}` )\n**{STR} Artist:** ( `{}` )\n**{STR} Size:** ( `{}` )",
 }
 
@@ -28,6 +29,8 @@ async def searchmusic(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
     result = await client.inline_query("@DeezerMusicBot", query)
+    if not result.result.results:
+        return await event.edit(client.getstrings(STRINGS)["notres"].format(query))
     result = result.result.results[0]
     size = client.functions.convert_bytes(result.document.size)
     caption = client.getstrings(STRINGS)["caption"].format(result.title, result.description, size)
