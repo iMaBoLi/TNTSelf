@@ -77,7 +77,6 @@ async def downloadfile(event):
     await client.functions.runcmd(cmd)
     if not os.path.exists(filepath):
         return await event.edit(client.getstrings(STRINGS)["notdown"].format(link))
-    attributes = []
     caption = client.getstrings(STRINGS)["caption"].format(link, filename)
     callback = event.progress(upload=True)
     uploadfile = await client.fast_upload(filepath, progress_callback=callback)
