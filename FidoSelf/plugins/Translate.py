@@ -8,7 +8,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Translate Your Texts!",
         "Commands": {
-            "{CMD}STr <Lang>:<Text>": {
+            "{CMD}STr <Lang> <Text>": {
                 "Help": "To Translate Text",
                 "Input": {
                     "<Lang>": "Tranlate Language",
@@ -32,14 +32,11 @@ STRINGS = {
     "translate": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`"
 }
 
-@client.Command(command="Str (.*)")
+@client.Command(command="Str (.*) ?(.*)?")
 async def translator(event):
     await event.edit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
-    dest = data.split(":")[0].lower()
-    text = None
-    if len(data) > 1:
-        text = data.split(":")[1]
+    text = event.pattern_match.group(2)
     if not text:
         if not (event.reply_message or event.reply_message.text):
             return await event.edit(client.STRINGS["replytext"])

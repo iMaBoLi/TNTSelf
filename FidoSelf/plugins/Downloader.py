@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Download File From Your Links!",
         "Commands": {
-            "{CMD}SFile <Name>:<Link>": {
+            "{CMD}SFile <Name> <Link>": {
                 "Help": "To Download File",
                 "Input": {
                     "<Name>": "Name Of File",
@@ -25,7 +25,7 @@ STRINGS = {
     "caption": "**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
 }
 
-@client.Command(command="SFile (.*)\:(.*)")
+@client.Command(command="SFile (.*) (.*)")
 async def downloadfile(event):
     await event.edit(client.STRINGS["wait"])
     filename = event.pattern_match.group(1)

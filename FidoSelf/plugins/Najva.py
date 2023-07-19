@@ -1,6 +1,7 @@
 from FidoSelf import client
 from telethon import Button
 import random
+import secrets
 
 __INFO__ = {
     "Category": "Tools",

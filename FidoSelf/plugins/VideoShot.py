@@ -51,9 +51,9 @@ async def videoshot(event):
     if str(data).startswith("-"):
         count = int(data.replace("-", ""))
         await event.edit(client.getstrings(STRINGS)["taking"].format(count))
-        cmd = f'ffmpeg -i "{file}" -vf fps=0.009 -vframes {count} "downloads/Shot-%01d.png"'
+        cmd = f'ffmpeg -i "{file}" -vf fps=0.009 -vframes {count} "downloads/Shot-%01d.jpg"'
         await client.functions.runcmd(cmd)
-        files = glob.glob("downloads/Shot*.png")
+        files = glob.glob("downloads/Shot*.jpg")
         await event.edit(client.getstrings(STRINGS)["sending"].format(len(files)))
         for shots in list(client.functions.chunks(files, 9)):
             await client.send_file(event.chat_id, shots, caption=client.getstrings(STRINGS)["sended"])
@@ -69,7 +69,7 @@ async def videoshot(event):
         outfile = client.PATH + f"Shot-{data}.jpg"
         cmd = f'ffmpeg -i "{file}" -ss {int(data)} -vframes 1 "{outfile}"'
         await client.functions.runcmd(cmd)
-        await client.send_file(event.chat_id, out, caption=client.getstrings(STRINGS)["takeddur"])
+        await client.send_file(event.chat_id, outfile, caption=client.getstrings(STRINGS)["takeddur"])
         os.remove(file)
         os.remove(outfile)
         await event.delete()
