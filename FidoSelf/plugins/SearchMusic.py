@@ -1,6 +1,4 @@
 from FidoSelf import client
-from shazamio import Shazam
-import os
 
 __INFO__ = {
     "Category": "Usage",
