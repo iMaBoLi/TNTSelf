@@ -35,7 +35,7 @@ STRINGS = {
 @client.Command(command="Str (.*) ?(.*)?")
 async def translator(event):
     await event.edit(client.STRINGS["wait"])
-    data = event.pattern_match.group(1)
+    dest = event.pattern_match.group(1)
     text = event.pattern_match.group(2)
     if not text:
         if not (event.reply_message or event.reply_message.text):
