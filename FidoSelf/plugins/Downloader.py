@@ -71,7 +71,7 @@ async def downloadfile(event):
         filesize = resp.headers["content-length"]
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errordown"].format(error))
-    if filesize > client.MAX_SIZE:
+    if int(filesize) > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     cmd = f"curl {link} -o {filepath}"
     await client.functions.runcmd(cmd)
