@@ -7,7 +7,7 @@ import os
 
 YOUTUBE_REGEX = re.compile(r"(?:youtube\.com|youtu\.be)/(?:[\w-]+\?v=|embed/|v/|shorts/)?([\w-]{11})")
 
-MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} {link}"
+MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
@@ -24,7 +24,7 @@ async def yt_video(link):
     videoid = get_videoid(link) 
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
-    cmd = MAIN.format(outfile=outfile, format="best", link=link)
+    cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
@@ -33,7 +33,7 @@ async def yt_audio(link):
     videoid = get_videoid(link) 
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp3"
-    cmd = MAIN.format(outfile=outfile, format="bestaudio", link=link)
+    cmd = MAIN.format(outfile=outfile, format="bestaudio", size=client.MAX_SIZE, link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
@@ -43,17 +43,17 @@ async def yt_thumb(link):
     thumb = client.PATH + "youtube/" + f"{token} - {videoid}"
     cmd = THUMB.format(outfile=thumb, link=link)
     await client.functions.runcmd(cmd)
-    thumb = convert_thumb(thumb + ".webp")
+    thumb = convert_thumb(thumb)
     return thumb
 
 def convert_thumb(file):
     thumb = file + ".jpg"
     try:
-        img = Image.open(file)
+        img = Image.open(file + ".webp")
         img.save(thumb, format="jpeg")
-        os.remove(file)
+        os.remove(file + ".webp")
     except:
-        os.rename(file, thumb)
+        os.rename(file + ".webp", thumb)
     return thumb
     
 def yt_search(query, limit=50):
