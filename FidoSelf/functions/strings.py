@@ -36,8 +36,8 @@ STRINGS = {
         "Show": "💡 This Button Is Only For Show!",
     },
     "progress": {
-        "Text": "`{}`\n\n[ `{}` ]`{}%`\n\n**🗃️ Size:** ( `{}` ) - ( `{}` )\n**🚅 Speed:** ( `{}` )\n**⏳ ETA:** ( `{}` )\n**⏰ Duration:** ( `{}` )",
-        "Down": "📥 Downloading . . .",
-        "Up": "📤 Uploading . . .",
+        "Text": "`{}`\n\n[ `{}` ] `{}%`\n\n**🗃️ Size:** ( `{}` ) - ( `{}` )\n**🚅 Speed:** ( `{}` )\n**⏳ ETA:** ( `{}` )\n**⏰ Duration:** ( `{}` )",
+        "Down": "📥 Downloading ",
+        "Up": "📤 Uploading ",
     },
 }
