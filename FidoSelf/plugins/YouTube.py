@@ -43,7 +43,9 @@ STRINGS = {
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "caption": "**{STR} Title:** ( `{}` )\n\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
     "description": "**{STR} Description:** ( `{}` )",
-    "textinfo": "**{STR} Title:** ( {} )\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n\n**{STR} Uploader:** ( {} )\n**{STR} Followers:** ( `{}` )",
+    "plistinfo": "**{STR} Title:** ( {} )\n\n**{STR} Views:** ( `{}` )\n**{STR} Type:** ( `{}` )\n**{STR} Videos:** ( `{}` )\n\n**{STR} Uploader:** ( {} )\n**{STR} Followers:** ( `{}` )",
+    "soloinfo": "**{STR} Title:** ( {} )\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Duration:** ( `{}` )\n\n**{STR} Uploader:** ( {} )\n**{STR} Followers:** ( `{}` )",
+    "plistlinks": "**{STR} The Videos Link:**\n\n",
     "searchclick": "**{STR} Click To Follow Button To Get Search Results For Query:** ( `{}` )",
     "searchinfo": "**{STR} Link:** ( {} )\n**{STR} Title:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
 }
@@ -81,18 +83,29 @@ async def ytdownloader(event):
 async def ytinfo(event):
     await event.edit(client.STRINGS["wait"])
     link = event.pattern_match.group(1)
-    ytinfo = client.functions.yt_info(link)
+    ytinfo, type = client.functions.yt_info(link)
     if not ytinfo:
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     thumb = await client.functions.yt_thumb(link)
-    title = f'[{ytinfo["title"]}]({ytinfo["original_url"]})'
-    uploader = f'[{ytinfo["uploader"]}]({ytinfo["uploader_url"]})'
-    caption = client.getstrings(STRINGS)["textinfo"].format(title, ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"], uploader, ytinfo["channel_follower_count"])
+    if type == "PlayList":
+        title = f'[{ytinfo["title"]}]({ytinfo["original_url"]})'
+        uploader = f'[{ytinfo["uploader"]}]({ytinfo["channel_url"]})'
+        caption = client.getstrings(STRINGS)["plistinfo"].format(title, ytinfo["view_count"], type, ytinfo["playlist_count"], uploader, (ytinfo["channel_follower_count"] or 0))
+    elif type == "Solo":
+        title = f'[{ytinfo["title"]}]({ytinfo["original_url"]})'
+        uploader = f'[{ytinfo["uploader"]}]({ytinfo["channel_url"]})'
+        caption = client.getstrings(STRINGS)["soloinfo"].format(title, ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], ytinfo["duration_string"], uploader, (ytinfo["channel_follower_count"] or 0))
     send = await client.send_file(event.chat_id, thumb, caption=caption)
     description = ytinfo["description"]
     description = client.getstrings(STRINGS)["description"].format(description)
     if len(description) < 4096:
         await send.reply(description)
+    if type == "PlayList":
+        links = client.getstrings(STRINGS)["plistlinks"]
+        for row, video in enumerate(ytinfo["entries"]):
+            link = "https://www.youtube.com/watch?v=" + video["id"]
+            links += f"**{row + 1} -** `{link}`\n"
+        await send.reply(links)
     os.remove(thumb)
     await event.delete()
 
