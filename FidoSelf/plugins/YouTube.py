@@ -75,7 +75,7 @@ async def ytdownloader(event):
     filesize = os.path.getsize(file)
     filesize = client.functions.convert_bytes(filesize)
     caption = client.getstrings(STRINGS)["caption"].format(ytinfo["title"], ytinfo["uploader"], ytinfo["view_count"], ytinfo["like_count"], ytinfo["comment_count"], filesize, ytinfo["duration_string"])
-    callback = client.progress(event, upload=True)
+    callback = client.progress(event, upload=True, filename=filename)
     uploadfile = await client.fast_upload(file, progress_callback=callback)
     await client.send_file(event.chat_id, file=uploadfile, thumb=thumb, attributes=attributes, caption=caption)
     os.remove(file)
