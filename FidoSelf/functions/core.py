@@ -1,10 +1,11 @@
 from FidoSelf import client
 from telethon import functions
 from telethon.types import Message
-import urllib
+import aiocron
 import re
 import time
 import os
+import shutil
 
 def getstrings(STRINGS):
     NEWSTR = {}
@@ -147,3 +148,10 @@ async def DownloadFiles():
             await get.download_media(client.PATH + "FontFile.ttf")
         except:
             pass
+        
+async def deldownloads():
+    if os.path.exists("downloads"):
+        shutil.rmtree("downloads/")
+    await DownloadFiles()
+
+aiocron.crontab("*/5 * * * *", func=deldownloads)
