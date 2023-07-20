@@ -13,9 +13,10 @@ def yt_info(link):
     from yt_dlp import YoutubeDL
     try:
         info = YoutubeDL().extract_info(link, download=False)
+        type = "PlayList" if info.get("playlist_count", None) else "Solo"
     except:
-        return None
-    return info
+        return None, None
+    return info, type
 
 async def yt_video(link):
     from yt_dlp import YoutubeDL
