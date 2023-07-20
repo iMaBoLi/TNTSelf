@@ -5,7 +5,7 @@ import secrets
 import re
 import os
 
-MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} --progress {progress} {link}"
+MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
@@ -22,26 +22,18 @@ async def yt_video(link):
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
-    progress = lambda result: client.LOGS.error(result)
-    cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, progress=progress, link=link)
-    result, error = await client.functions.runcmd(cmd)
-    if os.path.exists(outfile):
-        return outfile
-    else:
-        return error
+    cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
+    await client.functions.runcmd(cmd)
+    return outfile
 
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp3"
-    progress = lambda result: client.LOGS.error(result)
-    cmd = MAIN.format(outfile=outfile, format="bestaudio", size=client.MAX_SIZE, progress=progress, link=link)
-    result, error = await client.functions.runcmd(cmd)
-    if os.path.exists(outfile):
-        return outfile
-    else:
-        return error
+    cmd = MAIN.format(outfile=outfile, format="bestaudio", size=client.MAX_SIZE, link=link)
+    await client.functions.runcmd(cmd)
+    return outfile
 
 async def yt_thumb(link):
     videoid = link[-11:]
