@@ -11,7 +11,10 @@ SUBTITLE = "yt-dlp -o '{outfile}' --write-subs --skip-download {link}"
 
 def yt_info(link):
     from yt_dlp import YoutubeDL
-    info = YoutubeDL().extract_info(link, download=False)
+    try:
+        info = YoutubeDL().extract_info(link, download=False)
+    except:
+        return None
     return info
 
 async def yt_video(link):
