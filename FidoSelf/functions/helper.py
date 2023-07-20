@@ -9,7 +9,7 @@ import os
 
 def progress(event, download=False, upload=False, filename=None):
     newtime = time.time()
-    if not filename:
+    if download and not filename:
         if event.file:
             filename = event.file.name
         elif event.reply_message and event.reply_message.file:
