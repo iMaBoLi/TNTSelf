@@ -53,15 +53,15 @@ async def ytdownloader(event):
     await event.edit(client.STRINGS["wait"])
     downtype = event.pattern_match.group(1).title()
     link = event.pattern_match.group(2)
-    if not client.functions.YOUTUBE_REGEX.search(link):
-        return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     ytinfo = client.functions.yt_info(link)
+    if not ytinfo:
+        return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     if downtype == "Video":
         await event.edit(client.getstrings(STRINGS)["downvideo"].format(link))
         file = await client.functions.yt_video(link)
         filename = ytinfo["title"] + ".mp4"
         attributes = [types.DocumentAttributeVideo(duration=ytinfo["duration"], w=ytinfo["width"], h=ytinfo["height"], supports_streaming=True), types.DocumentAttributeFilename(file_name=filename)]
-    if downtype == "Audio":
+    elif downtype == "Audio":
         await event.edit(client.getstrings(STRINGS)["downaudio"].format(link))
         file = await client.functions.yt_audio(link)
         filename = ytinfo["title"] + ".mp3"
@@ -81,9 +81,9 @@ async def ytdownloader(event):
 async def ytinfo(event):
     await event.edit(client.STRINGS["wait"])
     link = event.pattern_match.group(1)
-    if not client.functions.YOUTUBE_REGEX.search(link):
-        return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     ytinfo = client.functions.yt_info(link)
+    if not ytinfo:
+        return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
     thumb = await client.functions.yt_thumb(link)
     title = f'[{ytinfo["title"]}]({ytinfo["original_url"]})'
     uploader = f'[{ytinfo["uploader"]}]({ytinfo["uploader_url"]})'
@@ -100,11 +100,11 @@ async def ytinfo(event):
 async def ytsearch(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)[:20]
-    message = "@" + client.bot.me.username + " " + "Youtube:" + query
+    message = "@" + client.bot.me.username + " " + "YTSearch:" + query
     await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=message))
     await event.delete()
 
-@client.Inline(pattern="Youtube\:(.*)")
+@client.Inline(pattern="YTSearch\:(.*)")
 async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
