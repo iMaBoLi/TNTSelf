@@ -7,32 +7,34 @@ import math
 import random
 import os
 
-def progress(event, current=None, total=None, newtime=None, download=False, upload=False):
-    newtime = newtime if newtime else time.time()
-    if current and total:
-        callback = client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-        return callback
-    else:
-        callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-        return callback
+def progress(event, download=False, upload=False, filename=None):
+    newtime = time.time()
+    if download and not filename:
+        if event.file:
+            filename = event.file.name
+        elif event.to_dict().get("reply_message", None) and event.reply_message and event.reply_message.file:
+            filename = event.reply_message.file.name
+    callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload, filename))
+    return callback
 
 setattr(Message, "progress", progress)
 setattr(client, "progress", progress)
 
-async def create_progress(event, current, total, start, download=False, upload=False):
+async def create_progress(event, current, total, start, download=False, upload=False, filename=None):
+    filename = " " + filename if filename else ""
     if download:
-        type = client.STRINGS["progress"]["Down"]
+        strmode = client.STRINGS["progress"]["Down"] + filename + " ..."
     elif upload:
-        type = client.STRINGS["progress"]["Up"]
+        strmode = client.STRINGS["progress"]["Up"] + filename + " ..."
     duration = time.time() - start
     if duration != 0 and round(duration % 7.00) == 0 or current == total:
         perc = current * 100 / total
         speed = current / duration
         speed = speed if speed else 1
         eta = round((total - current) / speed) * 1000
-        strings = "".join("■" for i in range(math.floor(perc / 5)))
-        strings += "".join("□" for i in range(20 - len(strings)))
-        text = client.STRINGS["progress"]["Text"].format(type, strings, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta), client.functions.convert_time(duration))
+        strings = "".join("▰" for i in range(math.floor(perc / 5)))
+        strings += "".join("▱" for i in range(20 - len(strings)))
+        text = client.STRINGS["progress"]["Text"].format(strmode, strings, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta), client.functions.convert_time(duration))
         await event.edit(text)
 
 async def getuserid(event, number=1):

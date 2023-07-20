@@ -7,15 +7,15 @@ import os
 
 MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
-SUBTITLE = "yt-dlp -o '{outfile}' --write-subs --skip-download {link}"
 
 def yt_info(link):
     from yt_dlp import YoutubeDL
     try:
         info = YoutubeDL().extract_info(link, download=False)
+        type = "PlayList" if info.get("playlist_count", None) else "Solo"
     except:
-        return None
-    return info
+        return None, None
+    return info, type
 
 async def yt_video(link):
     from yt_dlp import YoutubeDL
@@ -57,12 +57,3 @@ def convert_thumb(file):
 def yt_search(query, limit=50):
     results = VideosSearch(query, limit=limit)
     return results.result()["result"]
-    
-async def yt_subtitle(link):
-    from yt_dlp import YoutubeDL
-    videoid = link[-11:]
-    token = secrets.token_hex(nbytes=5)
-    outfile = client.PATH + "youtube/" + f"{token} - {videoid}.txt"
-    cmd = SUBTITLE.format(outfile=outfile, link=link)
-    await client.functions.runcmd(cmd)
-    return outfile
