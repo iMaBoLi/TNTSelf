@@ -24,17 +24,24 @@ async def yt_video(link):
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
     progress = lambda result: client.LOGS.error(result)
     cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, progress=progress, link=link)
-    await client.functions.runcmd(cmd)
-    return outfile
+    result, error = await client.functions.runcmd(cmd)
+    if os.path.exists(outfile):
+        return outfile
+    else:
+        return error
 
 async def yt_audio(link):
     from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp3"
-    cmd = MAIN.format(outfile=outfile, format="bestaudio", size=client.MAX_SIZE, link=link)
-    await client.functions.runcmd(cmd)
-    return outfile
+    progress = lambda result: client.LOGS.error(result)
+    cmd = MAIN.format(outfile=outfile, format="bestaudio", size=client.MAX_SIZE, progress=progress, link=link)
+    result, error = await client.functions.runcmd(cmd)
+    if os.path.exists(outfile):
+        return outfile
+    else:
+        return error
 
 async def yt_thumb(link):
     videoid = link[-11:]
