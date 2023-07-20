@@ -7,14 +7,10 @@ import math
 import random
 import os
 
-def progress(event, current=None, total=None, newtime=None, download=False, upload=False):
-    newtime = newtime if newtime else time.time()
-    if current and total:
-        callback = client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-        return callback
-    else:
-        callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
-        return callback
+def progress(event, download=False, upload=False):
+    newtime = time.time()
+    callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload))
+    return callback
 
 setattr(Message, "progress", progress)
 setattr(client, "progress", progress)
@@ -30,8 +26,8 @@ async def create_progress(event, current, total, start, download=False, upload=F
         speed = current / duration
         speed = speed if speed else 1
         eta = round((total - current) / speed) * 1000
-        strings = "".join("■" for i in range(math.floor(perc / 5)))
-        strings += "".join("□" for i in range(20 - len(strings)))
+        strings = "".join("▰" for i in range(math.floor(perc / 5)))
+        strings += "".join("▱" for i in range(20 - len(strings)))
         text = client.STRINGS["progress"]["Text"].format(type, strings, round(perc, 2), client.functions.convert_bytes(current), client.functions.convert_bytes(total), client.functions.convert_bytes(speed), client.functions.convert_time(eta), client.functions.convert_time(duration))
         await event.edit(text)
 
