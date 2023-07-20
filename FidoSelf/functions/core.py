@@ -154,4 +154,4 @@ async def deldownloads():
         shutil.rmtree("downloads/")
     await DownloadFiles()
 
-aiocron.crontab("*/5 * * * *", func=deldownloads)
+aiocron.crontab("*/30 * * * *", func=deldownloads)
