@@ -39,6 +39,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "linkinv": "**{STR} The Entered Youtube Link** ( `{}` ) **Is Invalid!**",
+    "plistlink": "**{STR} The Entered Youtube PlayList Link** ( `{}` ) **Is Not Supported!**",
     "downvideo": "**{STR} Downloadig Video From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "downaudio": "**{STR} Downloadig Audio From Youtube ...**\n\n**{STR} Link:** ( `{}` )",
     "caption": "**{STR} Title:** ( `{}` )\n\n**{STR} Uploader:** ( `{}` )\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Size:** ( `{}` )\n**{STR} Duration:** ( `{}` )",
@@ -55,9 +56,11 @@ async def ytdownloader(event):
     await event.edit(client.STRINGS["wait"])
     downtype = event.pattern_match.group(1).title()
     link = event.pattern_match.group(2)
-    ytinfo = client.functions.yt_info(link)
+    ytinfo, type = client.functions.yt_info(link)
     if not ytinfo:
         return await event.edit(client.getstrings(STRINGS)["linkinv"].format(link))
+    if type == "PlayList":
+        return await event.edit(client.getstrings(STRINGS)["plistlink"].format(link))
     if downtype == "Video":
         await event.edit(client.getstrings(STRINGS)["downvideo"].format(link))
         file = await client.functions.yt_video(link)
