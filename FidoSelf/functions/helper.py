@@ -12,7 +12,7 @@ def progress(event, download=False, upload=False, filename=None):
     if download and not filename:
         if event.file:
             filename = event.file.name
-        elif event.reply_message and event.reply_message.file:
+        elif event.to_dict().get("reply_message", None) and event.reply_message and event.reply_message.file:
             filename = event.reply_message.file.name
     callback = lambda current, total: client.loop.create_task(create_progress(event, current, total, newtime, download, upload, filename))
     return callback
