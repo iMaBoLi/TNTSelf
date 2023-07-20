@@ -5,8 +5,7 @@ import secrets
 import re
 import os
 
-MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} {link}"
-SUBTITLE = "yt-dlp -o '{outfile}' --write-thumbnail --write-subs -f {format} --max-filesize {size} {link}"
+MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} --progress {progress} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
@@ -18,15 +17,13 @@ def yt_info(link):
         return None, None
     return info, type
 
-async def yt_video(link, sub=False):
+async def yt_video(link):
     from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
-    if sub:
-        cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
-    else:
-        cmd = SUBTITLE.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
+    progress = lambda result: client.LOGS.error(result)
+    cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, progress=progress, link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
