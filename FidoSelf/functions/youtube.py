@@ -6,8 +6,8 @@ import re
 import os
 
 MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size} {link}"
+SUBTITLE = "yt-dlp -o '{outfile}' --write-thumbnail --write-subs -f {format} --max-filesize {size} {link}"
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
-SUBTITLE = "yt-dlp -o '{outfile}' --write-subs --skip-download {link}"
 
 def yt_info(link):
     from yt_dlp import YoutubeDL
@@ -18,12 +18,15 @@ def yt_info(link):
         return None, None
     return info, type
 
-async def yt_video(link):
+async def yt_video(link, sub=False):
     from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
-    cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
+    if sub:
+        cmd = MAIN.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
+    else:
+        cmd = SUBTITLE.format(outfile=outfile, format="best", size=client.MAX_SIZE, link=link)
     await client.functions.runcmd(cmd)
     return outfile
 
@@ -58,12 +61,3 @@ def convert_thumb(file):
 def yt_search(query, limit=50):
     results = VideosSearch(query, limit=limit)
     return results.result()["result"]
-    
-async def yt_subtitle(link):
-    from yt_dlp import YoutubeDL
-    videoid = link[-11:]
-    token = secrets.token_hex(nbytes=5)
-    outfile = client.PATH + "youtube/" + f"{token} - {videoid}.txt"
-    cmd = SUBTITLE.format(outfile=outfile, link=link)
-    await client.functions.runcmd(cmd)
-    return outfile
