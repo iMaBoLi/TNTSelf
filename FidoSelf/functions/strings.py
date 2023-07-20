@@ -37,7 +37,7 @@ STRINGS = {
     },
     "progress": {
         "Text": "`{}`\n\n[ `{}` ] `{}%`\n\n**🗃️ Size:** ( `{}` ) - ( `{}` )\n**🚅 Speed:** ( `{}` )\n**⏳ ETA:** ( `{}` )\n**⏰ Duration:** ( `{}` )",
-        "Down": "📥 Downloading ",
-        "Up": "📤 Uploading ",
+        "Down": "📥 Downloading",
+        "Up": "📤 Uploading",
     },
 }
