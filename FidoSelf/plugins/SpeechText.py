@@ -27,7 +27,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "converting": "**{STR} Converting Your Speech To Text With Language** ( `{}` ) **...**",
-    "errortext": "**{STR} The Convert Is Not Completed!**\n**{STR} Error:** ( `{}` )",
+    "errortext": "**{STR} The Convert Is Not Completed!**\n\n**{STR} Error:** ( `{}` )",
     "speechtext": "**{STR} The Speech Converted To Text!**\n\n**{STR} Language:** ( `{}` )\n**{STR} Results:** ( `{}` )",
 }
 
@@ -50,9 +50,6 @@ async def convert(event):
     settings = ConnectionSettings(url="https://asr.api.speechmatics.com/v2", auth_token=API_KEY)
     config = {
         "type": "transcription",
-        "transcription_config": {
-            "language": lang
-        }
     }
     with BatchClient(settings) as bclient:
         try:
