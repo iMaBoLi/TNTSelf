@@ -18,7 +18,6 @@ def yt_info(link):
     return info, type
 
 async def yt_video(link):
-    from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp4"
@@ -27,7 +26,6 @@ async def yt_video(link):
     return outfile
 
 async def yt_audio(link):
-    from yt_dlp import YoutubeDL
     videoid = link[-11:]
     token = secrets.token_hex(nbytes=5)
     outfile = client.PATH + "youtube/" + f"{token} - {videoid}.mp3"
