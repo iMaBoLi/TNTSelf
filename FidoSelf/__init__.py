@@ -5,7 +5,7 @@ from FidoSelf import config
 import time
 import sys
 
-__version__ = "3.0.1"
+__version__ = "3.2.1"
 
 LOGS = getLogger("FidoSelf")
 basicConfig(
