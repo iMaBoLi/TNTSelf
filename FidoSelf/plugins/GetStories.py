@@ -1,5 +1,5 @@
 from FidoSelf import client
-from telethon import functions, types
+from telethon import functions
 
 __INFO__ = {
     "Category": "Users",
@@ -28,7 +28,7 @@ async def getStories(event):
         return await event.edit(client.STRINGS["user"]["all"])
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    stories = await client(functions.stories.GetPeerStoriesRequest(peer="@vahed135"))
+    stories = await client(functions.stories.GetPeerStoriesRequest(peer=event.userid))
     stories = stories.stories.stories
     if not stories:
         return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
