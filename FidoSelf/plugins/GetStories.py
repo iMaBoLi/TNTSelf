@@ -1,5 +1,6 @@
 from FidoSelf import client
 from telethon import functions
+import os
 
 __INFO__ = {
     "Category": "Users",
