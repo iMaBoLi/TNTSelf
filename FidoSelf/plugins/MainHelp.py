@@ -43,7 +43,7 @@ CATEGORYS = {
     "Account": ["Edit Profile", "Set Profile", "My Info", "Share Me", "Online", "Chats Count", "Del Profiles", "Del Contacts", "Clean Gifs", "Clean Stickers"],
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC", "Channel Sign"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Pv Mute", "Filter Pv"],
-    "Users": ["User Info", "Get Profiles"],
+    "Users": ["User Info", "Get Profiles", "Get Stories"],
     "Variebels": list(VARIEBELS.keys()),
     "Other": [],
 }
