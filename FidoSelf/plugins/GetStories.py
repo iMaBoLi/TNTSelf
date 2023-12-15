@@ -33,6 +33,11 @@ async def getStories(event):
     if not stories:
         return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
     caption = client.getstrings(STRINGS)["caption"].format(mention)
-    for storis in client.functions.chunks(stories, 9):
-        await event.respond(caption, file=storis)
+    for story in stories:
+        callback = event.progress(download=True)
+        file = await client.fast_download(story.media, progress_callback=callback)
+        callback = event.progress(upload=True)
+        uploadfile = await client.fast_upload(file, progress_callback=callback)
+        await client.send_file(event.chat_id, uploadfile, caption=caption)        
+        os.remove(file)
     await event.delete()
