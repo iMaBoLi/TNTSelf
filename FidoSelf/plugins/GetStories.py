@@ -34,10 +34,7 @@ async def getStories(event):
         return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
     caption = client.getstrings(STRINGS)["caption"].format(mention)
     for story in stories:
-        callback = event.progress(download=True)
-        file = await client.fast_download(story.media, progress_callback=callback)
-        callback = event.progress(upload=True)
-        uploadfile = await client.fast_upload(file, progress_callback=callback)
-        await client.send_file(event.chat_id, uploadfile, caption=caption)        
-        os.remove(file)
+        sfile = await client.download_media(story.media)
+        await client.send_file(event.chat_id, sfile, caption=caption)        
+        os.remove(sfile)
     await event.delete()
