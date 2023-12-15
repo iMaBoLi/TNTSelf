@@ -10,8 +10,8 @@ BOT_SESSION = os.environ.get("BOT_SESSION")
 USERID = 5889107490
 
 #Database
-REDIS_URL = "redis-17199.c59.eu-west-1-2.ec2.cloud.redislabs.com:17199"
-REDIS_PASSWORD = "f74yXD5tUxrgVAvBYSyeAJBWwcXRSGdP"
+REDIS_URL = "redis-13579.c6.eu-west-1-1.ec2.cloud.redislabs.com:13579"
+REDIS_PASSWORD = "o3Z0wmznzBrHZXXtRhdJpUD7VonB5OSW"
 
 #Github
 GIT_TOKEN = "Z2hwXzhXbk9Celpjd2d4QmFpOUdERnE2bHJJdnVSdWtObzRiNlNXdw=="
