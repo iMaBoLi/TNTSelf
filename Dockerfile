@@ -8,5 +8,6 @@ RUN apt-get install -y ffmpeg
 
 RUN pip3 install -U pip
 RUN pip3 install --no-cache-dir -r requirements.txt
+#RUN pip3 install --no-cache-dir -r plugin-requirements.txt
 
 CMD ["python3", "-m", "FidoSelf"]
