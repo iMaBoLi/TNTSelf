@@ -1,4 +1,5 @@
 from FidoSelf import client
+from openai import OpenAI
 import openai
 import requests
 
@@ -37,12 +38,13 @@ async def saveaiapi(event):
 CONVERSATIONS = {}
 
 async def gpt_response(query, chat_id):
+    client = OpenAI()
     if not openai.api_key:
         openai.api_key = client.DB.get_key("OPENAI_APIKEY")
     global CONVERSATIONS
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
-    response = await openai.ChatCompletion.acreate(
+    response = await client.chat.completion.create(
         model="gpt-3.5-turbo",
         messages=messages,
     )
