@@ -28,6 +28,8 @@ STRINGS = {
     "caption": "**{STR} The AiImages For Query** ( `{}` ) **Created!**"
 }
 
+AiClient = OpenAI()
+
 @client.Command(command="SetAiKey (.*)")
 async def saveaiapi(event):
     await event.edit(client.STRINGS["wait"])
@@ -38,13 +40,12 @@ async def saveaiapi(event):
 CONVERSATIONS = {}
 
 async def gpt_response(query, chat_id):
-    client = OpenAI()
-    if not openai.api_key:
-        openai.api_key = client.DB.get_key("OPENAI_APIKEY")
+    if not AiClient.api_key:
+        AiClient.api_key = client.DB.get_key("OPENAI_APIKEY")
     global CONVERSATIONS
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
-    response = await client.chat.completion.create(
+    response = await AiClient.chat.completion.create(
         model="gpt-3.5-turbo",
         messages=messages,
     )
@@ -57,7 +58,7 @@ async def gpt_response(query, chat_id):
 async def aichat(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
-    if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
+    if not AiClient.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(client.getstrings(STRINGS)["noapi"])
     await event.edit(client.getstrings(STRINGS)["getch"].format(query))
     try:
