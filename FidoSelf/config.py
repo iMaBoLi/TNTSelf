@@ -10,8 +10,8 @@ BOT_SESSION = "1BJWap1sBu6pSMOjRnaawzqCOhBh4QpHmQy5Ie1ggya9lZ8PRLnafoMQUJDdSJEB_
 USERID = 5889107490
 
 #Database
-REDIS_URL = "redis-13579.c6.eu-west-1-1.ec2.cloud.redislabs.com:13579"
-REDIS_PASSWORD = "o3Z0wmznzBrHZXXtRhdJpUD7VonB5OSW"
+REDIS_URL = "redis-18386.c72.eu-west-1-2.ec2.cloud.redislabs.com:18386"
+REDIS_PASSWORD = "iYDrdPFst96mw6O65Gfiwd9XlxxQxFMm"
 
 #Github
 GIT_TOKEN = "Z2hwXzhXbk9Celpjd2d4QmFpOUdERnE2bHJJdnVSdWtObzRiNlNXdw=="
