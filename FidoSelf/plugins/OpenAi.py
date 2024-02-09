@@ -28,8 +28,6 @@ STRINGS = {
     "caption": "**{STR} The AiImages For Query** ( `{}` ) **Created!**"
 }
 
-AiClient = OpenAI()
-
 @client.Command(command="SetAiKey (.*)")
 async def saveaiapi(event):
     await event.edit(client.STRINGS["wait"])
@@ -40,6 +38,7 @@ async def saveaiapi(event):
 CONVERSATIONS = {}
 
 async def gpt_response(query, chat_id):
+    AiClient = OpenAI()
     if not AiClient.api_key:
         AiClient.api_key = client.DB.get_key("OPENAI_APIKEY")
     global CONVERSATIONS
