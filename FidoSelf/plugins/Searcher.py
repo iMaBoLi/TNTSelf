@@ -62,7 +62,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "result": "**{STR} Search Result Messages For Text:** ( `{}` )\n{STR} **Filter:** ( `{}` )\n\n",
-    "click": "**{STR} Click Here!",
+    "click": "{STR} Click Here!",
     "notres": "**{STR} No Results Found For Text:** ( `{}` )\n**{STR} Filter:** ( `{}` )"
 }
 
