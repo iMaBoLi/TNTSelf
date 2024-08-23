@@ -5,6 +5,7 @@ selenium
 gunicorn
 redis
 opencv-python
+yt-dlp
 pillow
 spotipy
 moviepy
