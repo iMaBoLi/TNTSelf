@@ -85,7 +85,10 @@ async def globalsearcher(event):
     text = client.getstrings(STRINGS)["result"].format((query or "---"), filter)
     count = 1
     async for message in client.iter_messages(entity=None, search=query, filter=addfilter, limit=40):
-        link = await client(functions.channels.ExportMessageLinkRequest(channel=message.chat_id, id=message.id, thread=True))
+        try:
+            link = await client(functions.channels.ExportMessageLinkRequest(channel=message.chat_id, id=message.id, thread=True))
+        except:
+            link = await client(functions.channels.ExportMessageLinkRequest(channel=event.chat_id, id=event.id, thread=True))
         name = client.getstrings(STRINGS)["click"]
         text += f"**{count} -** [{name}]({link.link})\n"
         count += 1
