@@ -5,7 +5,7 @@ selenium
 gunicorn
 redis
 opencv-python
-yt-dlp
+yt-dlp[default]
 pillow
 spotipy
 moviepy
