@@ -1,5 +1,6 @@
 from FidoSelf import client
 from youtubesearchpython import VideosSearch
+from yt_dlp import YoutubeDL
 from PIL import Image
 import secrets
 import re
@@ -9,7 +10,6 @@ MAIN = "yt-dlp -o '{outfile}' --write-thumbnail -f {format} --max-filesize {size
 THUMB = "yt-dlp -o '{outfile}' --write-thumbnail --skip-download {link}"
 
 def yt_info(link):
-    from yt_dlp import YoutubeDL
     try:
         info = YoutubeDL().extract_info(link, download=False)
         type = "PlayList" if info.get("playlist_count", None) else "Solo"
