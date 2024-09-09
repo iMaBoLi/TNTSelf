@@ -16,10 +16,6 @@ __INFO__ = {
                  "Help": "To Upload On X0at",
                 "Reply": ["Media"],
             },
-            "{CMD}UPTransfer": {
-                 "Help": "To Upload On Transfer",
-                "Reply": ["Media"],
-            },
         },
     },
 }
