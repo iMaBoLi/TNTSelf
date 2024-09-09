@@ -28,8 +28,9 @@ async def onlinemode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@aiocron.crontab("*/5 * * * * *")
-async def autosender():
+@aiocron.crontab("*/1 * * * * *")
+async def autoonliner():
     onmode = client.DB.get_key("ONLINE_MODE") or "OFF"
     if onmode == "ON":
         await client(functions.account.UpdateStatusRequest(offline=False))
+        await client.send_message("me", "Online")
