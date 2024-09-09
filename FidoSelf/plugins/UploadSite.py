@@ -44,16 +44,12 @@ async def uploadsites(event):
     SITES = {
         "fileio": {"url": "https://file.io", "json": True},
         "x0at": {"url": "https://x0.at/", "json": False},
-        "transfer": {"url": "https://transfer.sh", "json": False},
     }
     upsite = uploadsite.lower()
     url = SITES[upsite]["url"]
     opfile = open(file, "rb").read()
     result = await client.functions.request(url, data={"file": opfile}, post=True, re_json=SITES[upsite]["json"])
-    if upsite in ["x0at", "transfer"]:
-        link = result
-    elif upsite == "fileio":
-        link = result["link"]
+    link = result[:-1] if upsite == "x0at" else result["link"]
     text = client.getstrings(STRINGS)["uploadlink"].format(uploadsite.title(), link)
     await event.edit(text)
     os.remove(file)
