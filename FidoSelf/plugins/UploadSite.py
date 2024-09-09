@@ -12,28 +12,12 @@ __INFO__ = {
                  "Help": "To Upload On Fileio",
                 "Reply": ["Media"],
             },
-            "{CMD}UPAnon": {
-                 "Help": "To Upload On AnonFiles",
-                "Reply": ["Media"],
-            },
-            "{CMD}UPOload": {
-                 "Help": "To Upload On OLoad",
-                "Reply": ["Media"],
-            },
-            "{CMD}UPBay": {
-                 "Help": "To Upload On Bayfiles",
-                "Reply": ["Media"],
-            },
             "{CMD}UPX0at": {
                  "Help": "To Upload On X0at",
                 "Reply": ["Media"],
             },
             "{CMD}UPTransfer": {
                  "Help": "To Upload On Transfer",
-                "Reply": ["Media"],
-            },
-            "{CMD}UPVShare": {
-                 "Help": "To Upload On VShare",
                 "Reply": ["Media"],
             },
         },
@@ -46,7 +30,7 @@ STRINGS = {
     "uploadlink": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( `{}` )",
 }
 
-@client.Command(command="UP(Fileio|Anon|Oload|Bay|X0at|Transfer|VShare)")
+@client.Command(command="UP(Fileio|X0at|Transfer)")
 async def uploadsites(event):
     await event.edit(client.STRINGS["wait"])
     uploadsite = event.pattern_match.group(1)
@@ -59,12 +43,8 @@ async def uploadsites(event):
     await event.edit(client.getstrings(STRINGS)["uploading"].format(uploadsite.title()))
     SITES = {
         "fileio": {"url": "https://file.io", "json": True},
-        "anon": {"url": "https://api.anonfiles.com/upload", "json": True},
-        "oload": {"url": "https://api.openload.cc/upload", "json": True},
-        "bay": {"url": "https://api.bayfiles.com/upload", "json": True},
         "x0at": {"url": "https://x0.at/", "json": False},
         "transfer": {"url": "https://transfer.sh", "json": False},
-        "vshare": {"url": "https://api.vshare.is/upload", "json": True},
     }
     upsite = uploadsite.lower()
     url = SITES[upsite]["url"]
@@ -74,8 +54,6 @@ async def uploadsites(event):
         link = result
     elif upsite == "fileio":
         link = result["link"]
-    elif upsite in ["anon", "oload", "bay", "vshare"]:
-        link = result["data"]["file"]["url"]["full"]
     text = client.getstrings(STRINGS)["uploadlink"].format(uploadsite.title(), link)
     await event.edit(text)
     os.remove(file)
