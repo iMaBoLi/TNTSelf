@@ -35,14 +35,14 @@ async def rotate(event):
     mtype = event.reply_message.mediatype()
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
-    if mtype == "Photo":
+    if "Photo" in mtype:
         file = await event.reply_message.download_media(client.PATH)
         newfile = client.PATH + f"RotatedImage-{str(darge)}.jpg"
         img = Image.open(file)
         newimg = img.rotate(darge)
         newimg.save(newfile)
         await event.respond(client.getstrings(STRINGS)["proted"].format(str(darge)), file=newfile)        
-    elif mtype == "Video":
+    elif "Video" in mtype:
         callback = event.progress(download=True)
         file = await event.reply_message.download_media(client.PATH, progress_callback=callback)
         await event.edit(client.getstrings(STRINGS)["vrot"].format(str(darge)))
