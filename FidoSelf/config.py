@@ -12,7 +12,7 @@ REDIS_URL = "redis-14180.c56.east-us.azure.redns.redis-cloud.com:14180"
 REDIS_PASSWORD = "Ug5X0y7sjsGGCz8UViSlmYNfpE9R4poK"
 
 #Github
-GIT_TOKEN = "Z2hwXzhXbk9Celpjd2d4QmFpOUdERnE2bHJJdnVSdWtObzRiNlNXdw=="
+GIT_TOKEN = "Z2hwX2NjcUZ1Nnd1SWFjbkV5emhnNzQ2VjNnaUIwb3FXWjNwZERJbA=="
 REPO = "iMaBoLi/FidoSelf"
 
 #Other
