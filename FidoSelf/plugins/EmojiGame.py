@@ -30,12 +30,12 @@ async def gameemojis(event):
         "Slot": "🎰",
     }
     emoji = event.pattern_match.group(1).title()
-    number = int(event.pattern_match.group(2)) or 0
+    number = event.pattern_match.group(2)
     emoji = emojis[emoji]
     send = await client.send_file(event.chat_id, types.InputMediaDice(emoji))
     if number:
         sendnumber = send.media.value
-        while sendnumber != number:
+        while sendnumber != int(number):
             await send.delete()
             send = await client.send_file(event.chat_id, types.InputMediaDice(emoji))
             sendnumber = send.media.value
