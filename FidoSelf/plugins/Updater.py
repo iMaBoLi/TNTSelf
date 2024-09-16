@@ -14,8 +14,8 @@ async def update(event):
     await client.functions.runcmd("unzip Fido.zip")
     shutil.rmtree("/app/FidoSelf/")
     path = glob.glob("iMaBoLi*")[0]
-    newpath = "/app/" + path + "/FidoSelf/"
-    shutil.copytree(newpath, "/app/FidoSelf/")
+    newpath = path + "/FidoSelf/"
+    shutil.copytree(newpath, "/FidoSelf/")
     await event.edit(client.getstrings(STRINGS)["complete"])
     shutil.rmtree(path)
     os.remove("Fido.zip")
