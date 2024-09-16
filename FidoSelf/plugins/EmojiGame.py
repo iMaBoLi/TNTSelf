@@ -18,7 +18,7 @@ __INFO__ = {
 }
 client.functions.AddInfo(__INFO__)
 
-@client.Command(command="S(Dice|Dart|Basket|Foot|Boll|Slot)")
+@client.Command(command="S(Dice|Dart|Basket|Foot|Boll|Slot) ?(1|2|3|4|5|6)?")
 async def gameemojis(event):
     await event.delete()
     emojis = {
@@ -30,5 +30,12 @@ async def gameemojis(event):
         "Slot": "🎰",
     }
     emoji = event.pattern_match.group(1).title()
+    number = int(event.pattern_match.group(2)) or 0
     emoji = emojis[emoji]
-    await client.send_file(event.chat_id, types.InputMediaDice(emoji))
+    send = await client.send_file(event.chat_id, types.InputMediaDice(emoji))
+    if number:
+        sendnumber = send.media.value
+        while sendnumber != number:
+            await send.delete()
+            send = await client.send_file(event.chat_id, types.InputMediaDice(emoji))
+            sendnumber = send.media.value
