@@ -20,7 +20,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notcon": "**{STR} The Country Name** ( `{}` ) **Is Not Finded!**",
-    "country": "**{STR} Country Info:** ( `{}` )\n\n**{STR} Spellings:** ( `{}` )\n**{STR} Capital:** ( `{}` )\n**{STR} Population:** ( `{}` )\n**{STR} Area:** ( `{}` )\n**{STR} Region:** ( `{}` )\n**{STR} Currencies:** ( `{}` )\n**{STR} Calling Codes:** ( `{}` )\n**{STR} Time Zones:** ( `{}` )\n**{STR} Borders:** ( `{}` )\n\n**{STR} Provinces:** ( `{}` )"
+    "country": "**{STR} Country Info:** ( [{}]({}) )\n\n**{STR} Spellings:** ( `{}` )\n**{STR} Capital:** ( `{}` )\n**{STR} Population:** ( `{}` )\n**{STR} Area:** ( `{}` )\n**{STR} Region:** ( `{}` )\n**{STR} Currencies:** ( `{}` )\n**{STR} Calling Codes:** ( `{}` )\n**{STR} Time Zones:** ( `{}` )\n**{STR} Borders:** ( `{}` )\n\n**{STR} Provinces:** ( `{}` )"
 }
 
 @client.Command(command="SCountry (.*)")
@@ -33,6 +33,7 @@ async def countryinfo(event):
     except:
         return await event.edit(client.getstrings(STRINGS)["notcon"].format(coname))
     name = info["name"] + " - " + info["nativeName"]
+    wiki = info["wiki"]
     region = info["region"] + " - " + info["subregion"]
     spellings = ""
     for spelling in info["altSpellings"]:
