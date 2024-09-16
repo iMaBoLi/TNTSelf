@@ -33,7 +33,7 @@ async def exaudio(event):
     callback = event.progress(download=True)
     video = await client.fast_download(event.reply_message, progress_callback=callback)
     await event.edit(client.getstrings(STRINGS)["exing"])
-    vduration = event.reply_message.file.duration
+    vduration = int(event.reply_message.file.duration)
     audiofile = client.PATH + "ExtractAudio.acc"
     cmd = f"ffmpeg -i {video} -vn -ar 44100 -ac 2 -ab 192k -f mp3 {audiofile}"
     await client.functions.runcmd(cmd)
