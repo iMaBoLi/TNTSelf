@@ -19,7 +19,9 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "not": "**{STR} The Stories For** ( {} ) **Is Not Found!**",
-    "caption": "**{STR} The Stories For** ( {} ) **Is Sended!**"
+    "sending": "**{STR} The Stories For** ( {} ) **Is Sending ...**",
+    "caption": "**{STR} Story:** ( `{}` )",
+    "sended": "**{STR} The Stories For** ( {} ) **Is Sended!**"
 }
 
 @client.Command(command="GStories", userid=True)
@@ -33,9 +35,13 @@ async def getStories(event):
     stories = stories.stories.stories
     if not stories:
         return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
-    caption = client.getstrings(STRINGS)["caption"].format(mention)
+    await event.edit(client.getstrings(STRINGS)["sending"].format(mention))
+    numstory = 1
     for story in stories:
         sfile = await client.download_media(story.media)
+        caption = client.getstrings(STRINGS)["caption"].format(str(numstory))
         await client.send_file(event.chat_id, sfile, caption=caption)        
         os.remove(sfile)
-    await event.delete()
+        numstory += 1
+    await event.edit(client.getstrings(STRINGS)["sended"].format(mention))
+    
