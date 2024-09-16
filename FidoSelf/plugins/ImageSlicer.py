@@ -8,7 +8,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Create Slice Images With Tiles!",
         "Commands": {
-            "{CMD}Slice <Count>": {
+            "{CMD}SSlice <Count>": {
                 "Help": "To Slice Image",
                 "Input": {
                     "<Count>": "Number For Tiles",
@@ -24,7 +24,7 @@ STRINGS = {
     "slice": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**"
 }
 
-@client.Command(command="Slice (\d*)")
+@client.Command(command="SSlice (\d*)")
 async def sliceimage(event):
     await event.edit(client.STRINGS["wait"])
     tile = event.pattern_match.group(1)
