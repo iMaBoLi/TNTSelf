@@ -59,5 +59,5 @@ async def countryinfo(event):
     for province in info["provinces"]:
         provinces += province + " - "
     provinces = provinces[:-3]
-    text = client.getstrings(STRINGS)["country"].format(name, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
+    text = client.getstrings(STRINGS)["country"].format(name, wiki, spellings, info["capital"], info["population"], info["area"], region, currencies, ccodes, tzones, borders, provinces)
     await event.edit(text)
