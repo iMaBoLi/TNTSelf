@@ -15,5 +15,4 @@ async def update(event):
     path = glob.glob("../iMaBoLi*")[0]
     os.rename(path, "../app")
     await event.edit(client.getstrings(STRINGS)["complete"])
-    os.remove("Fido.zip")
     await client.functions.runcmd("python3 -m FidoSelf")
