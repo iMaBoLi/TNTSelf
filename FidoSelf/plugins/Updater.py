@@ -12,7 +12,7 @@ async def update(event):
     link = git.repo.get_archive_link("zipball", "dev")
     await client.functions.runcmd(f"curl {link} -o Fido.zip")
     await client.functions.runcmd("unzip Fido.zip")
-    shutil.rmtree("/app/FidoSelf/")
+    shutil.rmtree("/FidoSelf/")
     path = glob.glob("iMaBoLi*")[0]
     newpath = path + "/FidoSelf/"
     shutil.copytree(newpath, "/FidoSelf/")
