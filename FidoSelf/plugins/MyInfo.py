@@ -34,7 +34,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "info": "**{STR} Your Profile Info:**\n\n   **{STR} ID:** ( `{}` )\n   **\{STR}} Name:** ( `{}` )\n   **{STR} UserName:** ( `{}` )\n   **{STR} Biography:** ( `{}` )",
+    "info": "**{STR} Your Profile Info:**\n\n   **{STR} ID:** ( `{}` )\n   **\{STR} Name:** ( `{}` )\n   **{STR} UserName:** ( `{}` )\n   **{STR} Biography:** ( `{}` )",
     "id": "**{STR} Your ID:** ( `{}` )",
     "name": "**{STR} Your Name:** ( `{}` )",
     "username": "**{STR} Your UserName:** ( `{}` )",
