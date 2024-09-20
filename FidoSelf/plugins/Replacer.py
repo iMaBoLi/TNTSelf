@@ -23,7 +23,7 @@ STRINGS = {
     "replace": "**{STR} The Replace Word** ( `{}` ) **Instead Of Word** ( `{}` ) **Completed!**"
 }
 
-@client.Command(command="SReplace (.*)\,(.*)")
+@client.Command(command="SReplace (.*)\\,(.*)")
 async def replacer(event):
     await event.edit(client.STRINGS["wait"])
     if not (event.reply_message or event.reply_message.text):
@@ -33,5 +33,5 @@ async def replacer(event):
     lasttext = event.reply_message.text
     newtext = event.reply_message.text.replace(fword, tword)
     if newtext != lasttext:
-        await event.reply(newtext)
+        await event.reply(newtext, file=event.reply_message.media)
     await event.edit(client.getstrings(STRINGS)["replace"].format(fword, tword))
