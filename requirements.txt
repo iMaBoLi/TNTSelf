@@ -1,14 +1,18 @@
 Telethon
 requests
+pillow
 selenium
+somnium
+countryinfo
+music_tag
+speechmatics-python
+openai
 gunicorn
 redis
 opencv-python
 yt-dlp[default]
 spotipy
 moviepy
-openai
-somnium
 aiofiles
 setuptools
 psutil
@@ -20,9 +24,7 @@ bs4
 image_slicer
 jdatetime
 httpx[http2]
-countryinfo
-music_tag
-speechmatics-python
+py-googletrans
+numpy
 
-git+https://github.com/sandy1709/py-googletrans
 git+https://github.com/alexmercerind/youtube-search-python
