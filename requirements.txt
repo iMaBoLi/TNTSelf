@@ -24,7 +24,6 @@ bs4
 image_slicer
 jdatetime
 httpx[http2]
-py-googletrans
 numpy
 
 git+https://github.com/alexmercerind/youtube-search-python
