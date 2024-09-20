@@ -1,6 +1,6 @@
 from FidoSelf import client
 from telethon import Button
-from googletrans import Translator
+#from googletrans import Translator
 from .Variebels import VARIEBELS
 
 __INFO__ = {
