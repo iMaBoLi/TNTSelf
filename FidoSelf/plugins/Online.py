@@ -17,7 +17,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "change": "**{STR} \u2741 The Online Has Been {}!**"
+    "change": "**{STR} The Online Mode Has Been {}!**"
 }
 
 @client.Command(command="Online (On|Off)")
@@ -28,7 +28,7 @@ async def onlinemode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@aiocron.crontab("*/1 * * * * *")
+@aiocron.crontab("*/30 * * * * *")
 async def autoonliner():
     onmode = client.DB.get_key("ONLINE_MODE") or "OFF"
     if onmode == "ON":
