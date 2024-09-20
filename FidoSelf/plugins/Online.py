@@ -33,4 +33,3 @@ async def autoonliner():
     onmode = client.DB.get_key("ONLINE_MODE") or "OFF"
     if onmode == "ON":
         await client(functions.account.UpdateStatusRequest(offline=False))
-        await client.send_message("me", "Online")
