@@ -1,6 +1,6 @@
 from redis import Redis
 from FidoSelf import config
-import json
+import json, os
 
 def get_data(self, key):
     data = self.get(str(key))
