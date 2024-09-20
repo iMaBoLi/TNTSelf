@@ -1,5 +1,5 @@
 STRINGS = {
-    "wait": "**⏳ Please Wait ...**",
+    "wait": "**♻️ Please Wait ...**",
     "On": "Actived (✔️)",
     "Off": "DeActived (✖️)",
     "LargeSize": "**✘ The File Size Must Be Less Than From:** ( `{}` )",
