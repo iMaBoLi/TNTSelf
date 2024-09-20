@@ -38,6 +38,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notall": "**{STR} The Timer White Name** ( {} ) **Already In Timer List!**",
+    "full": "**{STR} The Timer List Is Full!**",
     "add": "**{STR} The Timer White Name** ( {} ) **Is Added To Timer List!**",
     "notin": "**{STR} The Timer White Name** ( {} ) **Is Not In Timer List!**",
     "del": "**{STR} The Timer White Name** ( {} ) **Deleted From Timer List!**",
@@ -67,6 +68,8 @@ async def addtimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
     timers = client.DB.get_key("TIMER_LIST") or {}
+    if len(timers) > 20:
+        return await event.edit(client.getstrings(STRINGS)["full"])
     if ntimer in timers:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(ntimer))
     timers.update({ntimer: time.time()})
@@ -104,7 +107,10 @@ async def timerlist(event):
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
     for row, timer in enumerate(timers):
-        text += f"**{row + 1} -** `{timer}`\n"
+        start = timers[timer]
+        end = time.time()
+        ttimer = convert_time(end - start)
+        text += f"**{row + 1} -** `{timer}` -> ( `{ttimer}` )\n\n"
     await event.edit(text)
 
 @client.Command(command="CleanTimerList")
