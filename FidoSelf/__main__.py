@@ -4,12 +4,16 @@ from FidoSelf import functions
 from FidoSelf.functions import AddVarsToClient, load_plugins, DownloadFiles, runcmd
 import platform
 
+LIBS = ['somnium', 'countryinfo', 'music_tag', 'speechmatics-python', 'openai', 'yt-dlp', 'image_slicer']
+
 async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await AddVarsToClient()
     client.functions = functions
-    client.LOGS.info("• Installing Youtube Downloader ...")
-    await client.functions.runcmd("pip install yt-dlp")
+    client.LOGS.info("• Installing Other Libs ...")
+    for lib in LIBS:
+        await client.functions.runcmd(f"pip3 install --no-cache-dir {lib}")
+        client.LOGS.info(f"• Installed {lib} Lib.")
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
