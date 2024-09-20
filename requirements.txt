@@ -16,7 +16,6 @@ setuptools
 psutil
 PyGithub
 shazamio
-py-tgcalls==0.9.7
 wikipedia
 aiocron
 bs4
