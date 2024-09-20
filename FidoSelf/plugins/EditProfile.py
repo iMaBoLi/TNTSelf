@@ -56,7 +56,8 @@ STRINGS = {
     "unameinvalid": "**{STR} The Entered UserName Is Invalid!**",
     "unameall": "**{STR} The Entered UserName Is Already Used!**",
     "setuname": "**{STR} The Profile UserName Was Set To** ( `{}` )",
-    "setprof": "**{STR} The Photo Is Added To Profile Photos!**"
+    "notprof": "**{STR} The Media Is Unavailable For Your Profile Medias!**", 
+    "setprof": "**{STR} The Media Is Added To Profile Medias!**", 
 }
 
 @client.Command(command="Set(Name|LName|Bio) (.*)")
@@ -94,10 +95,17 @@ async def setinfos(event):
 @client.Command(command="SetProfile")
 async def setprofile(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["Photo"]):
+    if reply:= event.checkReply(["Photo", "Video"]):
         return await event.edit(reply)
-    photo = await event.reply_message.download_media(client.PATH)
-    profile = await client.upload_file(photo)
-    await client(functions.photos.UploadProfilePhotoRequest(file=profile))
+    callback = event.progress(download=True)
+    downfile = await client.fast_download(event.reply_message, progress_callback=callback)
+    profile = await client.upload_file(downfile)
+    if client.functions.mediatype(event.reply_message) == "Video":
+        try:
+            await client(functions.photos.UploadProfilePhotoRequest(video=profile))
+        except:
+            return await event.edit(client.getstrings(STRINGS)["notprof"])
+    else:
+        await client(functions.photos.UploadProfilePhotoRequest(file=profile))
     await event.edit(client.getstrings(STRINGS)["setprof"])
-    os.remove(photo)
+    os.remove(downfile)
