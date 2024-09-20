@@ -1,6 +1,6 @@
 from FidoSelf import client
 from telethon import Button
-from googletrans import Translator
+#from googletrans import Translator
 from .Variebels import VARIEBELS
 
 __INFO__ = {
@@ -26,6 +26,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
     "notplug": "✾ The Plugins In This Category Is Not Founded!",
+    "notwork": "✾ Translator Is Not Available Now!",
     "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**ᯓ Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
@@ -215,6 +216,7 @@ async def getplugin(event):
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
+    return await event.answer(client.getstrings(STRINGS)["notwork"], alert=True)
     text = gettrhelp(plugin)
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons) 
