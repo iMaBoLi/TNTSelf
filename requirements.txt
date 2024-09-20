@@ -1,12 +1,10 @@
 Telethon
-tgcrypto
 requests
 selenium
 gunicorn
 redis
 opencv-python
 yt-dlp[default]
-pillow
 spotipy
 moviepy
 openai
