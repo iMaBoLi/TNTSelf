@@ -47,7 +47,7 @@ async def cancelsellernums():
         if ranges in message.raw_text:
             await message.click(1)
 
-aiocron.crontab("*/20 * * * * *", func=cancelsellernums)
+aiocron.crontab("*/5 * * * * *", func=cancelsellernums)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
