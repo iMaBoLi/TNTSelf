@@ -22,9 +22,7 @@ async def seller(event):
     country = "🇺🇿 ازبکستان"
     ranges = "9985"
     if "موفقیت دریافت شد" in event.raw_text:
-        if ranges in event.raw_text:
-            await event.click(1)
-        else:
+        if ranges not in event.raw_text:
             text = "#New_Number - @" + client.me.username + "\n\n" + event.raw_text
             await client.bot.send_message(client.REALM, text)
         await event.respond(country)
@@ -35,12 +33,12 @@ async def cancelsellernums():
     fmode = client.DB.get_key("FINDNUMSELLER_MODE") or "OFF"
     if fmode == "OFF": return
     query = "شماره کشور  🇺🇿 ازبکستان با موفقیت دریافت شد"
-    async for message in client.iter_messages(6892848909, search=query, limit=30):
+    async for message in client.iter_messages(6892848909, search=query, limit=40):
         ranges = "9985"
         if ranges in message.raw_text:
             await message.click(1)
 
-aiocron.crontab("*/1 * * * *", func=cancelsellernums)
+aiocron.crontab("*/10 * * * * *", func=cancelsellernums)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
