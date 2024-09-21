@@ -40,6 +40,7 @@ async def editseller(event):
 async def cancelsellernums():
     fmode = client.DB.get_key("FINDNUMSELLER_MODE") or "OFF"
     if fmode == "OFF": return
+    await client.bot.send_message(client.REALM, "text")
     query = "Number :"
     async for message in client.iter_messages(6892848909, search=query, limit=30):
         ranges = "9985"
