@@ -3,20 +3,21 @@ from telethon import events
 import aiocron
 
 STRINGS = {
-    "change": "**{STR} The Find Number Mode Has Been {}!**",
+    "change": "**{STR} The Find Number For Bot** ( `{}` ) **Has Been {}!**",
 }
 
-@client.Command(command="Find (On|Off)")
+@client.Command(command="Find(Seller|Ir|Sms) (On|Off)")
 async def findnumber(event):
     await event.edit(client.STRINGS["wait"])
-    change = event.pattern_match.group(1).upper()
-    client.DB.set_key("FINDNUM_MODE", change)
+    bot = event.pattern_match.group(1).upper()
+    change = event.pattern_match.group(2).upper()
+    client.DB.set_key(f"FINDNUM{bot}_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
+    await event.edit(client.getstrings(STRINGS)["change"].format(bot, showchange))
 
 @client.on(events.NewMessage(from_users=[6892848909]))
 async def seller(event):
-    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    fmode = client.DB.get_key("FINDNUMSELLER_MODE") or "OFF"
     if fmode == "OFF": return
     country = "🇺🇿 ازبکستان"
     ranges = "9985"
@@ -31,7 +32,7 @@ async def seller(event):
         await event.respond(country)
     
 async def cancelsellernums():
-    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    fmode = client.DB.get_key("FINDNUMSELLER_MODE") or "OFF"
     if fmode == "OFF": return
     query = "شماره کشور  🇺🇿 ازبکستان با موفقیت دریافت شد"
     async for message in client.iter_messages(6892848909, search=query, limit=30):
@@ -43,7 +44,7 @@ aiocron.crontab("*/1 * * * *", func=cancelsellernums)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
-    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    fmode = client.DB.get_key("FINDNUMIR_MODE") or "OFF"
     if fmode == "OFF": return
     country = "ازبکستان,🇺🇿"
     ranges = "998 5"
@@ -58,7 +59,7 @@ async def irbot(event):
         await event.respond(country)
     
 async def cancelirnums():
-    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    fmode = client.DB.get_key("FINDNUMIR_MODE") or "OFF"
     if fmode == "OFF": return
     query = "#شماره_فعال"
     async for message in client.iter_messages(5044250099, search=query, limit=30):
@@ -70,7 +71,7 @@ aiocron.crontab("*/1 * * * *", func=cancelirnums)
 
 @client.on(events.MessageEdited(from_users=[5816454966]))
 async def smscode(event):
-    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    fmode = client.DB.get_key("FINDNUMSMS_MODE") or "OFF"
     if fmode == "OFF": return
     ranges = "9985"
     if "💎 قیمت" in event.raw_text:
