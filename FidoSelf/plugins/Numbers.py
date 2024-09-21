@@ -14,6 +14,33 @@ async def findnumber(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
+@client.on(events.NewMessage(from_users=[6892848909]))
+async def seller(event):
+    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    if fmode == "OFF": return
+    country = "🇺🇿 ازبکستان"
+    ranges = "9985"
+    if "موفقیت دریافت شد" in event.raw_text:
+        if ranges in event.raw_text:
+            await event.click(1)
+        else:
+            text = "#New_Number - @" + client.me.username + "\n\n" + event.raw_text
+            await client.bot.send_message(client.REALM, text)
+        await event.respond(country)
+    if "مشکلی پیش آمد " in event.raw_text:
+        await event.respond(country)
+    
+async def cancelsellernums():
+    fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
+    if fmode == "OFF": return
+    query = "شماره کشور  🇺🇿 ازبکستان با موفقیت دریافت شد"
+    async for message in client.iter_messages(6892848909, search=query, limit=30):
+        ranges = "9985"
+        if ranges in message.raw_text:
+            await message.click(1)
+
+aiocron.crontab("*/1 * * * *", func=cancelsellernums)
+
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
     fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
@@ -30,7 +57,7 @@ async def irbot(event):
     if "یافت نشد" in event.raw_text:
         await event.respond(country)
     
-async def cancelnums():
+async def cancelirnums():
     fmode = client.DB.get_key("FINDNUM_MODE") or "OFF"
     if fmode == "OFF": return
     query = "#شماره_فعال"
@@ -39,7 +66,7 @@ async def cancelnums():
         if ranges in message.raw_text:
             await message.click(1)
 
-aiocron.crontab("*/1 * * * *", func=cancelnums)
+aiocron.crontab("*/1 * * * *", func=cancelirnums)
 
 @client.on(events.MessageEdited(from_users=[5816454966]))
 async def smscode(event):
