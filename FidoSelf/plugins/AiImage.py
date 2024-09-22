@@ -63,9 +63,8 @@ async def generatephoto(event):
     styleid = client.DB.get_key("STYLEID_IMAGE")
     if not styleid:
         return await event.edit(client.getstrings(STRINGS)["notsetid"])
-    client.loop.create_task(generate(event))
-    
-async def generate(event):
+    #client.loop.create_task(generate(event))
+    #async def generate(event):
     prompt = str(event.pattern_match.group(1))
     styleid = client.DB.get_key("STYLEID_IMAGE")
     sname = STYLES[str(styleid)]["Name"]
