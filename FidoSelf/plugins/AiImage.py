@@ -28,6 +28,7 @@ STRINGS = {
     "notid": "**{STR} The Image Style Id** ( `{}` ) **Is Not Available!**",
     "setid": "**{STR} The Image Style Id Was Set To** ( `{}` - `{}` )",
     "styles": "**{STR} The Styles Name And ID:**\n\n",
+    "notsetid": "**{STR} The Style Id Is Not Available!**",
     "generating": "**{STR} Generating Image For Prompt** ( `{}` ) **...**\n\n**{STR} Style:** ( `{}` - `{}` )",
     "caption": "**{STR} The Ai Image For Prompt** ( `{}` ) **Was Created!**\n\n**{STR} Style:** ( `{}` - `{}` )",
 }
@@ -59,11 +60,14 @@ async def getstyles(event):
 @client.Command(command="GPhoto ([\s\S]*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
+    styleid = client.DB.get_key("STYLEID_IMAGE")
+    if not styleid:
+        return await event.edit(client.getstrings(STRINGS)["notsetid"])
     client.loop.create_task(generate(event))
     
 async def generate(event):
-    prompt = str(event.pattern_match.group(2))
-    styleid = client.DB.get_key("STYLEID_IMAGE") or 1
+    prompt = str(event.pattern_match.group(1))
+    styleid = client.DB.get_key("STYLEID_IMAGE")
     sname = STYLES[str(styleid)]["Name"]
     await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, name, styleid))
     file = Somnium.Generate(prompt, int(styleid))
