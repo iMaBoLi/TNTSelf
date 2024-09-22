@@ -37,9 +37,8 @@ async def saveaiapi(event):
 
 CONVERSATIONS = {}
 
-AiClient = OpenAI()
-
 async def gpt_response(query, chat_id):
+    AiClient = OpenAI()
     if not AiClient.api_key:
         AiClient.api_key = client.DB.get_key("OPENAI_APIKEY")
     global CONVERSATIONS
@@ -58,6 +57,7 @@ async def gpt_response(query, chat_id):
 async def aichat(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
+    AiClient = OpenAI()
     if not AiClient.api_key and not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(client.getstrings(STRINGS)["noapi"])
     await event.edit(client.getstrings(STRINGS)["getch"].format(query))
