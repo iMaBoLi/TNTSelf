@@ -27,7 +27,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "notid": "**{STR} The Image Style Id** ( `{}` ) **Is Not Available!**",
     "setid": "**{STR} The Image Style Id Was Set To** ( `{}` - `{}` )",
-    "styles": "**{STR} The Styles Name And ID:**\n\n"
+    "styles": "**{STR} The Styles Name And ID:**\n\n",
     "generating": "**{STR} Generating Image For Prompt** ( `{}` ) **...**\n\n**{STR} Style:** ( `{}` - `{}` )",
     "caption": "**{STR} The Ai Image For Prompt** ( `{}` ) **Was Created!**\n\n**{STR} Style:** ( `{}` - `{}` )",
 }
