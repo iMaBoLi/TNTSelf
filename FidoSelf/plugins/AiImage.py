@@ -57,7 +57,7 @@ async def getstyles(event):
         count += 1
     await event.edit(text)
 
-@client.Command(command="GPhoto ([\s\S]*)")
+@client.Command(command="GPhoto (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
     styleid = client.DB.get_key("STYLEID_IMAGE")
