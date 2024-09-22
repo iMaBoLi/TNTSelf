@@ -19,7 +19,7 @@ __INFO__ = {
             "{CMD}GStyles": {
                 "Help": "To Get Styles",
             }
-        },1
+        },
     },
 }
 client.functions.AddInfo(__INFO__)
