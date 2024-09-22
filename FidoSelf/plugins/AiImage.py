@@ -63,13 +63,14 @@ async def generatephoto(event):
     styleid = client.DB.get_key("STYLEID_IMAGE")
     if not styleid:
         return await event.edit(client.getstrings(STRINGS)["notsetid"])
-    #client.loop.create_task(generate(event))
-    #async def generate(event):
+    client.loop.create_task(generate(event))
+
+async def generate(event):
     prompt = str(event.pattern_match.group(1))
     styleid = client.DB.get_key("STYLEID_IMAGE")
     sname = STYLES[str(styleid)]["Name"]
-    await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, name, styleid))
+    await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, sname, styleid))
     file = Somnium.Generate(prompt, int(styleid))
-    caption = client.getstrings(STRINGS)["caption"].format(prompt, name, styleid)
+    caption = client.getstrings(STRINGS)["caption"].format(prompt, sname, styleid)
     await client.send_file(event.chat_id, file, caption=caption)
     await event.delete()
