@@ -1,7 +1,6 @@
 from FidoSelf import client
 from somnium import Somnium
 from telethon.tl.types import InputMediaWebPage
-from FidoSelf.functions import STYLES
 
 __INFO__ = {
     "Category": "Tools",
@@ -25,26 +24,24 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notid": "**{STR} The Image Style Id** ( `{}` ) **Is Not Available!**",
-    "setid": "**{STR} The Image Style Id Was Set To** ( `{}` - `{}` )",
+    "notid": "**{STR} The Image Style** ( `{}` ) **Is Not Available!**",
+    "setid": "**{STR} The Image Style Id Was Set To** ( `{}` )",
     "styles": "**{STR} The Styles Name And ID:**\n\n",
     "notsetid": "**{STR} The Style Id Is Not Available!**",
-    "generating": "**{STR} Generating Image For Prompt** ( `{}` ) **...**\n\n**{STR} Style:** ( `{}` - `{}` )",
-    "caption": "**{STR} The Ai Image For Prompt** ( `{}` ) **Was Created!**\n\n**{STR} Style:** ( `{}` - `{}` )",
+    "generating": "**{STR} Generating Image For Prompt** ( `{}` ) **...**\n\n**{STR} Style:** ( `{}` )",
+    "caption": "**{STR} The Ai Image For Prompt** ( `{}` ) **Was Created!**\n\n**{STR} Style:** ( `{}` )",
 }
 
-@client.Command(command="SStyle (\\d*)")
+STYLES = Somnium.Styles()
+
+@client.Command(command="SStyle (.*)")
 async def setstyle(event):
     await event.edit(client.STRINGS["wait"])
-    styleid = event.pattern_match.group(1)
-    if str(styleid) not in STYLES:
-        return await event.edit(client.getstrings(STRINGS)["notid"].format(styleid))
-    client.DB.set_key("STYLEID_IMAGE", styleid)
-    name = STYLES[str(styleid)]["Name"]
-    link = STYLES[str(styleid)]["Link"]
-    media = InputMediaWebPage(url=link)
-    await event.respond(client.getstrings(STRINGS)["setid"].format(name, styleid), file=media)
-    await event.delete()
+    stylename = event.pattern_match.group(1)
+    if stylename not in STYLES:
+        return await event.edit(client.getstrings(STRINGS)["notid"].format(stylename))
+    client.DB.set_key("STYLE_IMAGE", stylename)
+    await event.edit(client.getstrings(STRINGS)["setid"].format(stylename))
 
 @client.Command(command="GStyles")
 async def getstyles(event):
@@ -52,25 +49,25 @@ async def getstyles(event):
     text = client.getstrings(STRINGS)["styles"]
     count = 1
     for style in STYLES:
-        name = STYLES[style]["Name"]
-        text += f"**{count} -** ( `{name}` ) [ `{style}` ]\n"
+        sid = STYLES[style]
+        text += f"**{count} -** `{style}`\n"
         count += 1
     await event.edit(text)
 
 @client.Command(command="GPhoto (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
-    styleid = client.DB.get_key("STYLEID_IMAGE")
-    if not styleid:
+    stylename = client.DB.get_key("STYLE_IMAGE")
+    if not stylename:
         return await event.edit(client.getstrings(STRINGS)["notsetid"])
     client.loop.create_task(generate(event))
 
 async def generate(event):
     prompt = str(event.pattern_match.group(1))
-    styleid = client.DB.get_key("STYLEID_IMAGE")
-    sname = STYLES[str(styleid)]["Name"]
-    await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, sname, styleid))
+    stylename = client.DB.get_key("STYLE_IMAGE")
+    styleid = STYLES[stylename]
+    await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, stylename))
     file = Somnium.Generate(prompt, int(styleid))
-    caption = client.getstrings(STRINGS)["caption"].format(prompt, sname, styleid)
+    caption = client.getstrings(STRINGS)["caption"].format(prompt, stylename)
     await client.send_file(event.chat_id, file, caption=caption)
     await event.delete()
