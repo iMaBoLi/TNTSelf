@@ -6,18 +6,20 @@ __INFO__ = {
     "Category": "Tools",
     "Name": "Ai Image",
     "Info": {
-        "Help": "To Create Image For Your Text White Beautiful Styles!",
+        "Help": "To Create Image For Your Prompt White Beautiful Styles!",
         "Commands": {
-            "{CMD}CPhoto <Style>,<Text>": {
-                "Help": "To Create Photo",
-                "Input": {
-                    "<Style>": "Style Id ( Get From Styles )",
-                    "<Text>": "Your Text For Create Photo",
-                },
+            "{CMD}SStyles <Style-Name>": {
+                "Help": "To Set Style Model",
             },
             "{CMD}GStyles": {
                 "Help": "To Get Styles",
-            }
+            },
+            "{CMD}GenPhoto <Prompt>": {
+                "Help": "To Generating Photo",
+                "Input": {
+                    "<Prompt>": "Your Prompt For Generate Photo",
+                },
+            },
         },
     },
 }
@@ -29,7 +31,7 @@ STRINGS = {
     "styles": "**{STR} The Styles Name And ID:**\n\n",
     "notsetid": "**{STR} The Style Id Is Not Available!**",
     "generating": "**{STR} Generating Image For Prompt** ( `{}` ) **...**\n\n**{STR} Style:** ( `{}` )",
-    "caption": "**{STR} The Ai Image For Prompt** ( `{}` ) **Was Created!**\n\n**{STR} Style:** ( `{}` )",
+    "caption": "**{STR} The Image For Prompt** ( `{}` ) **Was Generated!**\n\n**{STR} Style:** ( `{}` )",
 }
 
 STYLES = Somnium.Styles()
@@ -54,7 +56,7 @@ async def getstyles(event):
         count += 1
     await event.edit(text)
 
-@client.Command(command="GPhoto (.*)")
+@client.Command(command="GenPhoto (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
     stylename = client.DB.get_key("STYLE_IMAGE")
