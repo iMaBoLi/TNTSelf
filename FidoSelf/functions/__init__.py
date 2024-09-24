@@ -17,6 +17,7 @@ async def AddVarsToClient():
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
     lang = client.DB.get_key("LANGUAGE") or "EN"
+    setattr(client, "LANG", lang)
     setattr(client, "STRINGS", STRINGS[lang])
     setattr(client, "getstrings", getstrings)
     setattr(client, "getstring", getstring)
