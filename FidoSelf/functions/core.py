@@ -21,8 +21,7 @@ def getstrings(STRINGS):
     
 def getstring(strings, element):
     lang = client.DB.get_key("LANGUAGE") or "EN"
-    data = strings[element]
-    text = data[lang]
+    text = strings[lang][element]
     STR = client.DB.get_key("EMOJI_SIMBEL") or "❃"
     CMD = client.DB.get_key("CMD_SIMBEL") or "."
     text = text.replace("{STR}", STR)
