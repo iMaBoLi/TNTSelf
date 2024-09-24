@@ -1,5 +1,3 @@
-from FidoSelf import client
-
 EN = {
     "wait": "**♻️ Please Wait ...**",
     "On": "Actived (✔️)",
@@ -88,9 +86,7 @@ FA = {
     },
 }
 
-lang = client.DB.get_key("LANGUAGE") or "EN"
-langs = {
+STRINGS = {
     "EN": EN,
     "FA": FA,
 }
-STRINGS = langs[lang]
