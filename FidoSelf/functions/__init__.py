@@ -16,7 +16,8 @@ async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
     setattr(client, "DB", DB)
     setattr(client, "Config", config)
-    setattr(client, "STRINGS", STRINGS)
+    lang = client.DB.get_key("LANGUAGE") or "EN"
+    setattr(client, "STRINGS", STRINGS[lang])
     setattr(client, "getstrings", getstrings)
     setattr(client, "getstring", getstring)
     setattr(client, "COMMANDS", [])
