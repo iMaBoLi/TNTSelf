@@ -31,8 +31,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "user": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
-    "chat": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )"
+    "EN": {
+        "user": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
+        "chat": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )",
+    },
+    "FA": {
+        "user": "**{STR} اطلاعات کاربر:**\n\n**{STR} تگ:** ( {} )\n**{STR} آیدی:** ( `{}` )\n**{STR} اسم:** ( `{}` )\n**{STR} فامیل:** ( `{}` )\n**{STR} یوزرنیم:** ( `{}` )\n**{STR} مخاطب:** ( `{}` )\n**{STR} مخاطب دوطرفه:** ( `{}` )\n**{STR} وضعیت:** ( `{}` )\n**{STR} چت های مشترک:** ( `{}` )\n**{STR} بیوگرافی:** ( `{}` )",
+        "chat": "**{STR} اطلاعات چت:**\n\n**{STR} آیدی:** ( `{}` )\n**{STR} نام:** ( `{}` )\n**{STR} یوزرنیم :** ( `{}` )\n\n**{STR} تعداد پیام ها:** ( `{}` )\n\n**{STR} تعداد کاربران:** ( `{}` )\n**{STR} تعداد ادمین ها:** ( `{}` )\n**{STR} تعداد ربات ها:** ( `{}` )\n**{STR} تعداد کاربران آنلاین:** ( `{}` )\n**{STR} تعداد کاربران مسدود:** ( `{}` )\n**{STR} تعداد کاربران اخراجی:** ( `{}` )\n**{STR} توضیحات:** ( `{}` )",
+    },
 }
 
 @client.Command(command="Info", userid=True)
@@ -47,7 +53,7 @@ async def userinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = client.getstrings(STRINGS)["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = client.getstrings(STRINGS, "user").format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:
@@ -71,7 +77,7 @@ async def ginfo(event):
     kicks = getattr(info, "kicked_count", None) or "---"
     onlines = getattr(info, "online_count", None) or "---"
     username = f"@{cinfo.username}" if cinfo.username else "---"
-    chatinfo = client.getstrings(STRINGS)["chat"].format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
+    chatinfo = client.getstrings(STRINGS, "chat").format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
     if str(cinfo.photo) == "ChatPhotoEmpty()":
         await event.respond(chatinfo)
     else:
