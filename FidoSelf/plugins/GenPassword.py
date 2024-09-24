@@ -32,7 +32,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "pass": "**{STR} Your Password:** ( `{}` )\n\n`{}`"
+    "EN": {
+        "pass": "**{STR} Your Password:** ( `{}` )\n\n`{}`"
+    },
+    "FA": {
+        "pass": "**{STR} پسوورد شما:** ( `{}` )\n\n`{}`"
+    },
 }
 
 @client.Command(command="SP(Easy|Medium|Hard) (\d*)")
@@ -40,6 +45,7 @@ async def password(event):
     await event.edit(client.STRINGS["wait"])
     type = event.pattern_match.group(1).title()
     count = int(event.pattern_match.group(2))
+    count = count if count < 20 else 20
     if type == "Easy":
         characters = string.ascii_letters
     elif type == "Medium":
@@ -51,5 +57,5 @@ async def password(event):
     password = ""
     for i in range(count):
         password += random.choice(characters)
-    text = client.getstrings(STRINGS)["pass"].format(type, password)
+    text = client.getstrings(STRINGS, "pass").format(type, password)
     await event.edit(text)
