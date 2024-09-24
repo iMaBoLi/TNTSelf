@@ -16,35 +16,69 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "main": "**ᯓ Dear** ( {} )\n\n    **✾ Please Select The List You Want:**",
-    "emptylist": "✾ The List Of Your {} Was Empty!",
-    "getlist": "**✾ The List Of Your {}:**\n\n",
-    "cleanlist": "**✾ The List Of Your {} Has Been Cleaned!**",
-    "closelists": "**☻ The Lists Panel Successfully Closed!**",
+    "EN": {
+        "main": "**ᯓ Dear** ( {} )\n\n    **✾ Please Select The List You Want:**",
+        "emptylist": "✾ The List Of Your {} Was Empty!",
+        "getlist": "**✾ The List Of Your {}:**\n\n",
+        "cleanlist": "**✾ The List Of Your {} Has Been Cleaned!**",
+        "closelists": "**☻ The Lists Panel Successfully Closed!**",
+    },
+    "FA": {
+        "main": "**ᯓ کاربر** ( {} )\n\n    **✾ لطفا لیست مورد نظر را انتخاب کنید:**",
+        "emptylist": "✾ لیست {} ذخیره شده شما خالی می باشد!",
+        "getlist": "**✾ لیست {} شما:**\n\n",
+        "cleanlist": "**✾  لیست {} ذخیره شده شما با موفقیت پاکسازی شد!**",
+        "closelists": "**☻ پنل لیست های ذخیره شده شما باموفقیت بسته شد!**",
+    },
 }
 
 LISTS = {
-    "Saves": "SAVED_LIST",
-    "Enemies": "ENEMY_LIST",
-    "Timers": "TIMER_LIST",
-    "White Users": "WHITE_LIST",
-    "Black Users": "BLACK_LIST",
-    "Names": "NAME_LIST",
-    "Bios": "BIO_LIST",
-    "Photos": "PHOTO_LIST",
-    "Text Times": "TEXTTIME_LIST",
-    "Auto Chats": "AUTO_CHATS",
-    "Action Chats": "ACTION_CHATS",
-    "Reaction Chats": "REACTION_CHATS",
-    "Repeats": "REPEAT_LIST",
-    "Echo Users": "ECHO_USERS",
-    "Love Users": "LOVE_LIST",
-    "Love Times": "LOVETIME_LIST",
-    "Comment Chats": "COMMENT_CHATS",
-    "WelCome Chats": "WELCOME_CHATS",
-    "GoodBy Chats": "GOODBY_CHATS",
-    "MutePv Users": "MUTEPV_USERS",
-    "FilterPv Words": "FILTERPV_WORDS",
+    "EN": {
+        "Saves": "SAVED_LIST",
+        "Enemies": "ENEMY_LIST",
+        "Timers": "TIMER_LIST",
+        "White Users": "WHITE_LIST",
+        "Black Users": "BLACK_LIST",
+        "Names": "NAME_LIST",
+        "Bios": "BIO_LIST",
+        "Photos": "PHOTO_LIST",
+        "Text Times": "TEXTTIME_LIST",
+        "Auto Chats": "AUTO_CHATS",
+        "Action Chats": "ACTION_CHATS",
+        "Reaction Chats": "REACTION_CHATS",
+        "Repeats": "REPEAT_LIST",
+        "Echo Users": "ECHO_USERS",
+        "Love Users": "LOVE_LIST",
+        "Love Times": "LOVETIME_LIST",
+        "Comment Chats": "COMMENT_CHATS",
+        "WelCome Chats": "WELCOME_CHATS",
+        "GoodBy Chats": "GOODBY_CHATS",
+        "MutePv Users": "MUTEPV_USERS",
+        "FilterPv Words": "FILTERPV_WORDS",
+    },
+    "FA": {
+        "ذخیره شده ها": "SAVED_LIST",
+        "دشمنان": "ENEMY_LIST",
+        "تایمرها": "TIMER_LIST",
+        "کاربران سفید": "WHITE_LIST",
+        "کاربران سیاه": "BLACK_LIST",
+        "اسم ها": "NAME_LIST",
+        "بیو ها": "BIO_LIST",
+        "عکس ها": "PHOTO_LIST",
+        "اسم تایم ها": "TEXTTIME_LIST",
+        "چت های خودکار": "AUTO_CHATS",
+        "اکشن چت ها": "ACTION_CHATS",
+        "ری اکشن چت ها": "REACTION_CHATS",
+        "تکرار ها": "REPEAT_LIST",
+        "کاربران تکرار": "ECHO_USERS",
+        "کاربران عشق": "LOVE_LIST",
+        "زمان های عشق": "LOVETIME_LIST",
+        "کامنت چت ها": "COMMENT_CHATS",
+        "ولکام چت ها": "WELCOME_CHATS",
+        "گودبای چت ها": "GOODBY_CHATS",
+        "کاربران سکوت پیوی": "MUTEPV_USERS",
+        "کلمات فیلتر شده پیوی": "FILTERPV_WORDS",
+    },
 }
 
 @client.Command(command="Lists")
@@ -58,7 +92,7 @@ async def lists(event):
 async def inlinelists(event):
     text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
-    for slist in LISTS:
+    for slist in LISTS[client.LANG]:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
     buttons = list(client.functions.chunks(buttons, 3))
@@ -69,7 +103,7 @@ async def inlinelists(event):
 async def calllists(event):
     text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
-    for slist in LISTS:
+    for slist in LISTS[client.LANG]:
         sname = "• " + slist + " •"
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
     buttons = list(client.functions.chunks(buttons, 3))
@@ -79,7 +113,7 @@ async def calllists(event):
 @client.Callback(data="GetList\:(.*)")
 async def getlistitems(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
-    getdb = LISTS[listname]
+    getdb = LISTS[client.LANG][listname]
     lists = client.DB.get_key(getdb)
     if not lists:
         return await event.answer(client.getstrings(STRINGS)["emptylist"].format(listname), alert=True)
@@ -92,7 +126,7 @@ async def getlistitems(event):
 @client.Callback(data="CleanList\:(.*)")
 async def cleanlist(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
-    getdb = LISTS[listname]
+    getdb = LISTS[client.LANG][listname]
     client.DB.del_key(getdb)
     text = client.getstrings(STRINGS)["cleanlist"].format(listname)
     await event.edit(text=text)
