@@ -49,7 +49,7 @@ async def googlepinfo(event):
         result = app(appID)
     except exceptions.NotFoundError:
         return await event.edit(client.getstring(STRINGS, "notapp").format(appID))
-    free = "✅ - " + str(result["price"]) if result["free"] else "❌"
+    free = "✅" if result["free"] else "❌ - " + str(result["price"]) 
     description = result["description"][:1000] + "...."
     caption = client.getstring(STRINGS, "appinfo").format(result["title"], result["appId"], result["genre"], (str(round(result["score"], 1)) + " ★"), result["installs"], result["ratings"], result["reviews"], free, result["developer"], description)
     icon = client.PATH + appID + ".jpg"
@@ -62,8 +62,7 @@ async def googlepinfo(event):
         with open(shname, "wb") as f:
             f.write(requests.get(shot).content)
         shots.append(shname)
-    caption = client.getstring(STRINGS, "shotcap").format(result["title"])
-    await info.reply(caption, file=shots)
+    await info.reply(file=shots)
     await event.delete()
     os.remove(icon)
     for shot in shots:
