@@ -17,7 +17,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
+    "ping": {
+        "EN": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
+        "FA": "**{STR} پونگ !!** ( `{}` )\n**{STR} آپ تایم:** ( `{}` )",
+    },
 }
 
 @client.Command(command="Ping")
