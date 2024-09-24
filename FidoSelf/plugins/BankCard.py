@@ -25,10 +25,18 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setcard": "**{STR} The Bank Card Saved!**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
-    "delcard": "**{STR} The Saved Bank Card Was Deleted!**",
-    "notcard": "**{STR} The Bank Card Is Not Saved!**",
-    "card": "**{STR} Bank Card Information:**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
+    "EN": {
+        "setcard": "**{STR} The Bank Card Saved!**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
+        "delcard": "**{STR} The Saved Bank Card Was Deleted!**",
+        "notcard": "**{STR} The Bank Card Is Not Saved!**",
+        "card": "**{STR} Bank Card Information:**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
+    },
+    "FA": {
+        "setcard": "**{STR} کارت بانکی ذخیره شد!**\n\n**• شماره کارت:** ( `{}` )\n**• صاحب کارت:** ( `{}` )",
+        "delcard": "**{STR} کارت بانکی ذخیره شده حذف شد!**",
+        "notcard": "**{STR} کارت بانکی ذخیره نشده است!**",
+        "card": "**{STR} اطلاعات کارت بانکی:**\n\n**• شماره کارت:** ( `{}` )\n**• صاحب کارت:** ( `{}` )",
+    },
 }
 
 @client.Command(command="SetCard \'(.*)\' (.*)")
@@ -38,18 +46,18 @@ async def setcard(event):
     cname = str(event.pattern_match.group(2))
     newcard = {"NUMBER": cnumber, "NAME": cname}
     client.DB.set_key("BANK_CARD", newcard)
-    await event.edit(client.getstrings(STRINGS)["setcard"].format(cnumber, cname))
+    await event.edit(client.getstrings(STRINGS, "setcard").format(cnumber, cname))
     
 @client.Command(command="DelCard")
 async def delcard(event):
     await event.edit(client.STRINGS["wait"])
     client.DB.set_key("BANK_CARD", {})
-    await event.edit(client.getstrings(STRINGS)["delcard"])
+    await event.edit(client.getstrings(STRINGS, "delcard"))
 
 @client.Command(command="Card")
 async def getcard(event):
     card = client.DB.get_key("BANK_CARD") or {}
     if not card:
-        return await event.edit(client.getstrings(STRINGS)["notcard"])
-    text = client.getstrings(STRINGS)["card"].format(card["NUMBER"], card["NAME"])
+        return await event.edit(client.getstrings(STRINGS"notcard"))
+    text = client.getstrings(STRINGS, "card").format(card["NUMBER"], card["NAME"])
     await event.edit(text)
