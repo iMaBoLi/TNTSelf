@@ -90,7 +90,7 @@ async def lists(event):
 
 @client.Inline(pattern="Lists")
 async def inlinelists(event):
-    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
+    text = client.getstring(STRINGS, "main").format(client.functions.mention(client.me))
     buttons = []
     for slist in LISTS[client.LANG]:
         sname = "• " + slist + " •"
@@ -101,7 +101,7 @@ async def inlinelists(event):
 
 @client.Callback(data="Lists")
 async def calllists(event):
-    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
+    text = client.getstring(STRINGS, "main").format(client.functions.mention(client.me))
     buttons = []
     for slist in LISTS[client.LANG]:
         sname = "• " + slist + " •"
@@ -116,8 +116,8 @@ async def getlistitems(event):
     getdb = LISTS[client.LANG][listname]
     lists = client.DB.get_key(getdb)
     if not lists:
-        return await event.answer(client.getstrings(STRINGS)["emptylist"].format(listname), alert=True)
-    text = client.getstrings(STRINGS)["getlist"].format(listname)
+        return await event.answer(client.getstring(STRINGS, "emptylist").format(listname), alert=True)
+    text = client.getstring(STRINGS, "getlist").format(listname)
     for row, item in enumerate(lists):
         text += f"**{row + 1} -** `{item}`\n"
     buttons = [[Button.inline(client.STRINGS["inline"]["Clean"], data=f"CleanList:{listname}")], [Button.inline(client.STRINGS["inline"]["Back"], data="Lists"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")]]
@@ -128,10 +128,10 @@ async def cleanlist(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
     getdb = LISTS[client.LANG][listname]
     client.DB.del_key(getdb)
-    text = client.getstrings(STRINGS)["cleanlist"].format(listname)
+    text = client.getstring(STRINGS, "cleanlist").format(listname)
     await event.edit(text=text)
 
 @client.Callback(data="CloseLists")
 async def closelists(event):
-    text = client.getstrings(STRINGS)["closelists"]
+    text = client.getstring(STRINGS, "closelists")
     await event.edit(text=text)
