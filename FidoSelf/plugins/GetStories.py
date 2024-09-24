@@ -18,10 +18,18 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**{STR} The Stories For** ( {} ) **Is Not Found!**",
-    "sending": "**{STR} The Stories For** ( {} ) **Is Sending ...**",
-    "caption": "**{STR} Story:** ( `{}` )",
-    "sended": "**{STR} The Stories For** ( {} ) **Is Sended!**"
+    "EN": {
+        "not": "**{STR} The Stories For** ( {} ) **Is Not Found!**",
+        "sending": "**{STR} The Stories For** ( {} ) **Is Sending ...**",
+        "caption": "**{STR} Story:** ( `{}` )",
+        "sended": "**{STR} The Stories For** ( {} ) **Is Sended!**",
+    },
+    "FA": {
+        "not": "**{STR} هیچ استوری برای** ( {} ) **پیدا نشد!**",
+        "sending": "**{STR} درحال ارسال استوری های کاربر:** ( {} )",
+        "caption": "**{STR} استوری:** ( `{}` )",
+        "sended": "**{STR} همه استوری های** ( {} ) **ارسال شد!**",
+    },
 }
 
 @client.Command(command="GStories", userid=True)
@@ -34,14 +42,14 @@ async def getStories(event):
     stories = await client(functions.stories.GetPeerStoriesRequest(peer=event.userid))
     stories = stories.stories.stories
     if not stories:
-        return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
-    await event.edit(client.getstrings(STRINGS)["sending"].format(mention))
+        return await event.edit(client.getstrings(STRINGS, "not").format(mention))
+    await event.edit(client.getstrings(STRINGS, "sending").format(mention))
     numstory = 1
     for story in stories:
         sfile = await client.download_media(story.media)
-        caption = client.getstrings(STRINGS)["caption"].format(str(numstory))
+        caption = client.getstrings(STRINGS, "caption").format(str(numstory))
         await client.send_file(event.chat_id, sfile, caption=caption)        
         os.remove(sfile)
         numstory += 1
-    await event.edit(client.getstrings(STRINGS)["sended"].format(mention))
+    await event.edit(client.getstrings(STRINGS, "sended").format(mention))
     
