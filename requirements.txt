@@ -27,3 +27,4 @@ httpx[http2]
 numpy
 
 git+https://github.com/alexmercerind/youtube-search-python
+git+https://github.com/Siddhesh-Agarwal/py-googletrans/
