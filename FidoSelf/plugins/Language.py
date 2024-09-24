@@ -16,4 +16,4 @@ async def setlanguage(event):
     lang = event.pattern_match.group(1).upper()
     client.DB.set_key("LANGUAGE", lang)
     await event.edit(client.getstring(STRINGS, "setlang"))
-    setattr(client, "STRINGS", STRINGS)
+    setattr(client, "STRINGS", STRINGS[lang])
