@@ -42,14 +42,14 @@ async def getStories(event):
     stories = await client(functions.stories.GetPeerStoriesRequest(peer=event.userid))
     stories = stories.stories.stories
     if not stories:
-        return await event.edit(client.getstrings(STRINGS, "not").format(mention))
-    await event.edit(client.getstrings(STRINGS, "sending").format(mention))
+        return await event.edit(client.getstring(STRINGS, "not").format(mention))
+    await event.edit(client.getstring(STRINGS, "sending").format(mention))
     numstory = 1
     for story in stories:
         sfile = await client.download_media(story.media)
-        caption = client.getstrings(STRINGS, "caption").format(str(numstory))
+        caption = client.getstring(STRINGS, "caption").format(str(numstory))
         await client.send_file(event.chat_id, sfile, caption=caption)        
         os.remove(sfile)
         numstory += 1
-    await event.edit(client.getstrings(STRINGS, "sended").format(mention))
+    await event.edit(client.getstring(STRINGS, "sended").format(mention))
     
