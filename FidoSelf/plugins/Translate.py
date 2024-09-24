@@ -1,6 +1,5 @@
 from FidoSelf import client
-from googletrans import Translator
-import googletrans
+from googletrans import Translator, LANGUAGES
 
 __INFO__ = {
     "Category": "Tools",
@@ -21,8 +20,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notlang": "**{STR} The Language** ( `{}` ) **Is Not Available!**",
-    "translate": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`"
+    "EN": {
+        "notlang": "**{STR} The Language** ( `{}` ) **Is Not Available!**",
+        "translate": "**{STR} Translated From** ( `{}` ) **To** ( `{}` ):\n\n`{}`"
+    },
+    "FA": {
+        "notlang": "**{STR} زبان مورد نظر** ( `{}` ) **موجود نمی باشد!**",
+        "translate": "**{STR} با موفقیت از** ( `{}` ) **به** ( `{}` ) **ترجمه شد!**\n\n`{}`"
+    },
 }
 
 @client.Command(command="Str (.*)")
@@ -32,8 +37,8 @@ async def translattext(event):
     if not event.reply_message or not event.reply_message.raw_text:
         return await event.edit(client.STRINGS["replytext"])
     text = event.reply_message.raw_text
-    if dest not in googletrans.LANGUAGES:
-        return await event.edit(client.getstrings(STRINGS)["notlang"].format(dest))
+    if dest not in LANGUAGES:
+        return await event.edit(client.getstring(STRINGS, "notlang").format(dest))
     translator = Translator()
     trjome = translator.translate(text, dest=dest)
-    await event.edit(client.getstrings(STRINGS)["translate"].format(trjome.src, dest, trjome.text))
+    await event.edit(client.getstring(STRINGS, "translate").format(trjome.src, dest, trjome.text))
