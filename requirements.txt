@@ -6,11 +6,11 @@ somnium
 countryinfo
 music_tag
 speechmatics-python
-openai
+openai==1.47.0
 gunicorn
 redis
 opencv-python
-yt-dlp[default]
+yt-dlp
 spotipy
 moviepy
 aiofiles
