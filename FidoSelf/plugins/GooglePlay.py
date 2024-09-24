@@ -8,7 +8,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information Of Google Play Apps!",
         "Commands": {
-            "{CMD}GPApp <App-Name>": {
+            "{CMD}GPInfo <App-Name>": {
                 "Help": "To Get App Info",
                 "Input": {
                     "<App-Name>": "Name Of App",
@@ -30,7 +30,7 @@ STRINGS = {
     },
 }
 
-@client.Command(command="GPApp (.*)")
+@client.Command(command="GPInfo (.*)")
 async def googlepinfo(event):
     await event.edit(client.STRINGS["wait"])
     appID = event.pattern_match.group(1)
@@ -38,9 +38,9 @@ async def googlepinfo(event):
         result = app(appID)
     except exceptions.NotFoundError:
         return await event.edit(client.getstring(STRINGS, "notapp").format(appID))
-    free = "✅" if app["free"] else "❌"
-    description = app["description"][:1000] + "...."
-    caption = client.getstring(STRINGS, "appinfo").format(app["title"], app["score"], app["installs"], app["ratings"], app["reviews"], free, app["developer"], description)
-    icon = InputMediaWebPage(url=app["icon"])
+    free = "✅" if result["free"] else "❌"
+    description = result["description"][:1000] + "...."
+    caption = client.getstring(STRINGS, "appinfo").format(result["title"], result["appId"], result["score"], result["installs"], result["ratings"], result["reviews"], free, result["developer"], description)
+    icon = InputMediaWebPage(url=result["icon"])
     await event.respond(caption, file=icon)
     await event.delete()
