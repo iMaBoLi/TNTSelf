@@ -1,5 +1,5 @@
 from FidoSelf import client
-from FidoSelf.functions.strings import STRINGS
+from FidoSelf.functions.strings import STRINGS as MSTRS
 
 STRINGS = {
     "EN": {
@@ -17,4 +17,4 @@ async def setlanguage(event):
     client.DB.set_key("LANGUAGE", lang)
     await event.edit(client.getstring(STRINGS, "setlang"))
     setattr(client, "LANG", lang)
-    setattr(client, "STRINGS", STRINGS[lang])
+    setattr(client, "STRINGS", MSTRS[lang])
