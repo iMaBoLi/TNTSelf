@@ -17,14 +17,14 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "EN": {
-        "main": "**ᯓ Dear** ( {} )\n\n    **✾ Please Select The List You Want:**",
+        "main": "**• Dear** ( {} )\n\n    **✾ Please Select The List You Want:**",
         "emptylist": "✾ The List Of Your {} Was Empty!",
         "getlist": "**✾ The List Of Your {}:**\n\n",
         "cleanlist": "**✾ The List Of Your {} Has Been Cleaned!**",
         "closelists": "**☻ The Lists Panel Successfully Closed!**",
     },
     "FA": {
-        "main": "**ᯓ کاربر** ( {} )\n\n    **✾ لطفا لیست مورد نظر را انتخاب کنید:**",
+        "main": "**• کاربر** ( {} )\n\n    **✾ لطفا لیست مورد نظر را انتخاب کنید:**",
         "emptylist": "✾ لیست {} ذخیره شده شما خالی می باشد!",
         "getlist": "**✾ لیست {} شما:**\n\n",
         "cleanlist": "**✾  لیست {} ذخیره شده شما با موفقیت پاکسازی شد!**",
