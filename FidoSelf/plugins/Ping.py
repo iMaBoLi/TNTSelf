@@ -17,9 +17,11 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "ping": {
-        "EN": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
-        "FA": "**{STR} پونگ !!** ( `{}` )\n**{STR} آپ تایم:** ( `{}` )",
+    "EN": {
+        "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
+    },
+    "FA": {
+        "ping": "**{STR} پونگ !!** ( `{}` )\n**{STR} آپ تایم:** ( `{}` )",
     },
 }
 
@@ -32,4 +34,4 @@ async def ping(event):
     ping = round(tms / 3, 2)
     uptime = time.time() - client.START_TIME
     uptime = client.functions.convert_time(uptime)
-    await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
+    await event.edit(client.getstring(STRINGS, "ping").format(ping, uptime))
