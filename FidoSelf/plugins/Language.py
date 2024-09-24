@@ -3,10 +3,10 @@ from FidoSelf.functions.strings import STRINGS
 
 STRINGS = {
     "EN": {
-        "ping": "**{STR} The Self Language Was Set To English!**",
+        "setlang": "**{STR} The Self Language Was Set To English!**",
     },
     "FA": {
-        "ping": "**{STR} زبان ربات با موفقیت روی فارسی تنظیم شد!**",
+        "setlang": "**{STR} زبان ربات با موفقیت روی فارسی تنظیم شد!**",
     },
 }
 
