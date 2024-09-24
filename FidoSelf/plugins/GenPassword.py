@@ -57,5 +57,5 @@ async def password(event):
     password = ""
     for i in range(count):
         password += random.choice(characters)
-    text = client.getstrings(STRINGS, "pass").format(type, password)
+    text = client.getstring(STRINGS, "pass").format(type, password)
     await event.edit(text)
