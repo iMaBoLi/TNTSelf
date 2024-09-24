@@ -58,6 +58,6 @@ async def delcard(event):
 async def getcard(event):
     card = client.DB.get_key("BANK_CARD") or {}
     if not card:
-        return await event.edit(client.getstrings(STRINGS"notcard"))
+        return await event.edit(client.getstrings(STRINGS, "notcard"))
     text = client.getstrings(STRINGS, "card").format(card["NUMBER"], card["NAME"])
     await event.edit(text)
