@@ -53,7 +53,7 @@ async def userinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = client.getstrings(STRINGS, "user").format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    userinfo = client.getstring(STRINGS, "user").format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:
@@ -77,7 +77,7 @@ async def ginfo(event):
     kicks = getattr(info, "kicked_count", None) or "---"
     onlines = getattr(info, "online_count", None) or "---"
     username = f"@{cinfo.username}" if cinfo.username else "---"
-    chatinfo = client.getstrings(STRINGS, "chat").format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
+    chatinfo = client.getstring(STRINGS, "chat").format(cinfo.id, cinfo.title, username, history.count, members, admins, len(info.bot_info), onlines, bans, kicks, (info.about or "---"))
     if str(cinfo.photo) == "ChatPhotoEmpty()":
         await event.respond(chatinfo)
     else:
