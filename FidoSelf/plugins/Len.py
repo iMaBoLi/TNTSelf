@@ -16,7 +16,12 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "count": "**{STR} The Number Of Characters:** ( `{}` )"
+    "EN": {
+        "count": "**{STR} The Number Of Characters:** ( `{}` )",
+    },
+    "FA": {
+        "count": "**{STR} تعداد کاراکترها:** ( `{}` )",
+    },
 }
 
 @client.Command(command="SLen")
@@ -25,4 +30,4 @@ async def getlen(event):
     if not event.reply_message or not event.reply_message.text:
         return await event.edit(client.STRINGS["replytext"])
     count = len(event.reply_message.text)
-    await event.edit(client.getstrings(STRINGS)["count"].format(count))
+    await event.edit(client.getstring(STRINGS, "count").format(count))
