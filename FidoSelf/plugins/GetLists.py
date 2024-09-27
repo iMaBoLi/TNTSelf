@@ -9,8 +9,8 @@ STRINGS = {
 LISTS = {
     "Save": ["Saveds", "SAVED_LIST", 1],
     "Enemy": ["Enemies", "ENEMY_LIST", 1],
-    "Timer": ["Timers", "TIMER_LIST", 2],
-    "Until": ["Untils", "UNTIL_LIST", 2],
+    "Timer": ["Timers", "TIMER_LIST", 1],
+    "Until": ["Untils", "UNTIL_LIST", 1],
     "White": ["White Users", "WHITE_LIST", 1],
     "Black": ["Black Users", "BLACK_LIST", 1],
     "Name": ["Names", "NAME_LIST", 1],
@@ -27,8 +27,8 @@ LISTS = {
     "Comment": ["Comment Chats" "COMMENT_CHATS", 1],
     "Welcome": ["Welcome Chats", "WELCOME_CHATS", 1],
     "Goodby": ["Goodby Chats", "GOODBY_CHATS", 1],
-    "MutePv": ["MutePv Users", "MUTEPV_USERS", 1],
-    "FilterPv": ["FilterPv Words", "FILTERPV_WORDS", 1],
+    "Mutepv": ["MutePv Users", "MUTEPV_USERS", 1],
+    "Filterpv": ["FilterPv Words", "FILTERPV_WORDS", 1],
 }
 
 STRING = ""
