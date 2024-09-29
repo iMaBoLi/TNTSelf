@@ -19,7 +19,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "not": "**{STR} The Wikipedia For** ( `{}` ) **Is Not Finded!**",
+    "not": "**{STR} The Wikipedia For** ( `{}` ) **Is Not Found!**",
     "info": "**{STR} Query:** ( `{}` )\n\n**{STR} Title:** ( `{}` )\n\n`{}`"
 }
 
@@ -27,7 +27,10 @@ STRINGS = {
 async def wikisearch(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
-    search = wikipedia.search(query)[0]
+    try:
+        search = wikipedia.search(query)[0]
+    except:
+        return await event.edit(client.getstrings(STRINGS)["not"].format(query))
     result = wikipedia.summary(search)
     if not result:
         return await event.edit(client.getstrings(STRINGS)["not"].format(query))
