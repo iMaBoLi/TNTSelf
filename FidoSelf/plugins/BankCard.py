@@ -25,13 +25,13 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "setcard": "**{STR} The Bank Card Saved!**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
+    "setcard": "**{STR} The Bank Card Saved!**\n\n**{STR} Card Number:** ( `{}` )\n**{STR} Card Name:** ( `{}` )",
     "delcard": "**{STR} The Saved Bank Card Was Deleted!**",
     "notcard": "**{STR} The Bank Card Is Not Saved!**",
-    "card": "**{STR} Bank Card Information:**\n\n**• Card Number:** ( `{}` )\n**• Card Name:** ( `{}` )",
+    "card": "**{STR}** `{}`\n\n**{STR}** `{}`",
 }
 
-@client.Command(command="SetCard \'(.*)\' (.*)")
+@client.Command(command="SetCard \\'(.*)\\' (.*)")
 async def setcard(event):
     await event.edit(client.STRINGS["wait"])
     cnumber = str(event.pattern_match.group(1))
