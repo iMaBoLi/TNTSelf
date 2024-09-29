@@ -38,8 +38,9 @@ async def timermedias(event):
         mention = client.functions.mention(sender)
         ttl = client.functions.convert_time(event.media.ttl_seconds)
         caption = client.getstrings(STRINGS)["caption"].format(mention, ttl)
-        newmessage = await client.send_message(client.REALM, ".")
-        callback = newmessage.progress(download=True)
-        file = await client.fast_download(event, progress_callback=callback)
-        await client.send_file(client.REALM, file, caption=caption)
-        os.remove(file)
+        try:
+            file = await event.download_media(client.PATH)
+            await client.send_file(client.REALM, file, caption=caption)
+            os.remove(file)
+        except:
+            pass
