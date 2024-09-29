@@ -1,4 +1,5 @@
 from FidoSelf import client
+import string
 
 __INFO__ = {
     "Category": "Funs",
