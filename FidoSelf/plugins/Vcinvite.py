@@ -16,9 +16,9 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "notcall": "**{STR} The Voice Chat Is Not Founded For This Chat!**",
-    "notuser": "**{STR} The Users To Invite In To Voice Chat Is Not Founded!**",
-    "notflood": "**{STR} The Flood Wait Error Is Coming Please Wait And Try Again!**",
+    "notcall": "**{STR} The Voice Chat Is Not Found In This Chat!**",
+    "notuser": "**{STR} The Users To Invite In To Voice Chat Is Not Found!**",
+    "notflood": "**{STR} The Flood Wait Error Is Coming Please Wait And Try Again ...**",
     "inviting": "**{STR} Inviting** ( `{}` ) **Users To Voice Chat ...**",
     "invited": "**{STR} Invited** ( `{}` ) **Users To Voice Chat Completed!**"
 }
