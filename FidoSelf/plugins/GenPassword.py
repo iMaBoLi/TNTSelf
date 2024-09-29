@@ -8,20 +8,8 @@ __INFO__ = {
     "Info": {
         "Help": "To Generate Random Passwords!",
         "Commands": {
-            "{CMD}SPEasy <Count>": {
-                "Help": "To Craete Easy Password",
-                "Input": {
-                    "<Count>": "Number Of Password",
-                },
-            },
-            "{CMD}SPMedium <Count>": {
-                "Help": "To Craete Medium Password",
-                "Input": {
-                    "<Count>": "Number Of Password",
-                },
-            },
-            "{CMD}SPHard <Count>": {
-                "Help": "To Craete Hard Password",
+            "{CMD}GenPass <Count>": {
+                "Help": "To Generate Password",
                 "Input": {
                     "<Count>": "Number Of Password",
                 },
@@ -32,30 +20,27 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "EN": {
-        "pass": "**{STR} Your Password:** ( `{}` )\n\n`{}`"
-    },
-    "FA": {
-        "pass": "**{STR} پسوورد شما:** ( `{}` )\n\n`{}`"
-    },
+    "pass": "**{STR} Easy Password:** ( `{}` )\n**{STR} Medium Password:** ( `{}` )\n**{STR} Hard Password:** ( `{}` )"
 }
 
-@client.Command(command="SP(Easy|Medium|Hard) (\d*)")
+@client.Command(command="GenPass (\d*)")
 async def password(event):
     await event.edit(client.STRINGS["wait"])
-    type = event.pattern_match.group(1).title()
-    count = int(event.pattern_match.group(2))
+    count = int(event.pattern_match.group(1))
     count = count if count < 20 else 20
-    if type == "Easy":
-        characters = string.ascii_letters
-    elif type == "Medium":
-        characters = string.ascii_letters + string.digits
-    elif type == "Hard":
-        characters = string.ascii_letters + string.digits + ".,*:;!?@#$_&-+()/~|÷×={}[]\%"
-    characters = characters.replace("`", "")
-    characters = characters.replace(" ", "")
-    password = ""
+    easy = string.ascii_letters
+    medium = string.ascii_letters + string.digits
+    hard = string.ascii_letters + string.digits + ".,*:;!?@#$_&-+()/~|÷×={}[]\%"
+    characters = characters.replace("`", "").replace(" ", "")
+    easypass = ""
+    mediumpass = ""
+    hardpass = ""
     for i in range(count):
-        password += random.choice(characters)
-    text = client.getstring(STRINGS, "pass").format(type, password)
+        easychr = easy.replace("`", "").replace(" ", "")
+        easypass += random.choice(easychr)
+        mediumchr = medium.replace("`", "").replace(" ", "")
+        mediumpass += random.choice(mediumchr)
+        hardchr = hard.replace("`", "").replace(" ", "")
+        hardpass += random.choice(hardchr)
+    text = client.getstrings(STRINGS)["pass"].format(easypass, mediumpass, hardpass)
     await event.edit(text)
