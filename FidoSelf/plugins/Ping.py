@@ -29,4 +29,4 @@ async def ping(event):
     ping = round(tms / 3, 2)
     uptime = time.time() - client.START_TIME
     uptime = client.functions.convert_time(uptime)
-    await event.edit(client.getstring(STRINGS, "ping").format(ping, uptime))
+    await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
