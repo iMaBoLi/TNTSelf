@@ -49,7 +49,7 @@ async def cancelsellernums():
 
 aiocron.crontab("*/20 * * * * *", func=cancelsellernums)
 
-@client.on(events.NewMessage(from_users=[7100598907]))
+@client.on(events.MessageEdited(from_users=[7100598907]))
 async def venus(event):
     fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
     if fmode == "OFF": return
@@ -58,12 +58,6 @@ async def venus(event):
         text = "#New_Number - @" + client.me.username + "\n\n" + event.raw_text
         await client.bot.send_message(client.REALM, text)
         await event.respond(country)
-
-@client.on(events.MessageEdited(from_users=[7100598907]))
-async def editvenus(event):
-    fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
-    if fmode == "OFF": return
-    country = "🔄 تکرار آخرین خرید"
     if "❌ شماره ای یافت نشد" in event.raw_text:
         await event.respond(country)
 
