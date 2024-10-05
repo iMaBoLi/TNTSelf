@@ -6,7 +6,7 @@ STRINGS = {
     "change": "**{STR} The Find Number For Bot** ( `{}` ) **Has Been {}!**",
 }
 
-@client.Command(command="Find(Seller|Ir|Sms) (On|Off)")
+@client.Command(command="Find(Seller|Ir|Sms|Venus) (On|Off)")
 async def findnumber(event):
     await event.edit(client.STRINGS["wait"])
     bot = event.pattern_match.group(1).upper()
@@ -48,6 +48,32 @@ async def cancelsellernums():
             await message.click(1)
 
 aiocron.crontab("*/20 * * * * *", func=cancelsellernums)
+
+@client.on(events.NewMessage(from_users=[7100598907]))
+async def venus(event):
+    fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
+    if fmode == "OFF": return
+    country = "🔄 تکرار آخرین خرید"
+    if "شماره با موفقیت دریافت گردید" in event.raw_text:
+        text = "#New_Number - @" + client.me.username + "\n\n" + event.raw_text
+        await client.bot.send_message(client.REALM, text)
+        await event.respond(country)
+
+@client.on(events.MessageEdited(from_users=[7100598907]))
+async def editvenus(event):
+    fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
+    if fmode == "OFF": return
+    country = "🔄 تکرار آخرین خرید"
+    if "❌ شماره ای یافت نشد" in event.raw_text:
+        await event.respond(country)
+
+async def sendvenus():
+    fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
+    if fmode == "OFF": return
+    country = "🔄 تکرار آخرین خرید"
+    await client.send_message(7100598907, country)
+
+aiocron.crontab("*/30 * * * * *", func=sendvenus)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
