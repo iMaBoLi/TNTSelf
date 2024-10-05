@@ -55,19 +55,9 @@ async def venus(event):
     if fmode == "OFF": return
     country = "🔄 تکرار آخرین خرید"
     if "شماره با موفقیت دریافت گردید" in event.raw_text:
-        text = "#New_Number - @" + client.me.username + "\n\n" + event.raw_text
+        text = "#New_Number - @" + client.me.username + "\n\n" + event.text
         await client.bot.send_message(client.REALM, text)
-        await event.respond(country)
-    if "❌ شماره ای یافت نشد" in event.raw_text:
-        await event.respond(country)
-
-async def sendvenus():
-    fmode = client.DB.get_key("FINDNUMVENUS_MODE") or "OFF"
-    if fmode == "OFF": return
-    country = "🔄 تکرار آخرین خرید"
-    await client.send_message(7100598907, country)
-
-aiocron.crontab("*/30 * * * * *", func=sendvenus)
+    await event.respond(country)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
 async def irbot(event):
