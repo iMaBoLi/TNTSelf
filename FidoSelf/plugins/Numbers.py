@@ -58,7 +58,7 @@ async def venus(event):
     country = "🔄 تکرار آخرین خرید"
     if "شماره با موفقیت دریافت گردید" in event.raw_text:
         phone = re.search("\\+(\\d*)", event.raw_text)
-        text = f"[#New_Number](@{client.me.username}) \n\n `+{phone}`"
+        text = f"[#New_Number](@{client.me.username}) \n\n `+{phone[1]}`"
         await client.bot.send_message(client.REALM, text)
     await asyncio.sleep(2)
     await event.respond(country)
