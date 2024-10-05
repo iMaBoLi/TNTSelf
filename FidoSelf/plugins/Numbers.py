@@ -1,6 +1,7 @@
 from FidoSelf import client
 from telethon import events
 import aiocron
+import asyncio
 
 STRINGS = {
     "change": "**{STR} The Find Number For Bot** ( `{}` ) **Has Been {}!**",
@@ -55,8 +56,10 @@ async def venus(event):
     if fmode == "OFF": return
     country = "🔄 تکرار آخرین خرید"
     if "شماره با موفقیت دریافت گردید" in event.raw_text:
-        text = "#New_Number - @" + client.me.username + "\n\n" + event.text
+        phone = re.search("\\+(\\d*)", event.raw_text)
+        text = f"[#New_Number](@{client.me.username}) \n\n `+{phone}`"
         await client.bot.send_message(client.REALM, text)
+    await asyncio.sleep(2)
     await event.respond(country)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
