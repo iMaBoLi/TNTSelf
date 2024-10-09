@@ -1,1 +1,19 @@
-from ..tmp.config import *
+#Infos
+API_ID = 28755988
+API_HASH = "a896935f6f7d48f914b5f19394ccce55"
+SESSION = "1BJWap1sBuwQDKTEhyuU-xW2ejbufyc4sZjQsm-fFJkCJ0MlSXs8GlMEUZq6mibs1kZhuX10R132KJhExEIQv-djWS4aeHsOQ-rkqQL3JfT8KNNysuGbAcua9W9NnXN5PH6olO2aJs8BGDn4z9lp0pOWt7RAJbNQ0dAa7H8WDMP0fP6GoxnqvLpxjA0FiMz2EmGbZxpuSdjUzsJXc-g77kzrxgWglu-ZejL4pPq5XhRAvyT8im7sGrhcSqMU_d3jqxd80h9-SmsuJxwNZ0khU6BDDhu67u6nRHWaf2h8NVWhkWagyEUChIsgg_xdgi1F-KL24x_9PVCow2ASMfTJBzGivTvppUwk="
+BOT_SESSION = "1BJWap1sBuzB1lX5p7-1yvXG8tBBXDS-KUTE1AkYLkp9inaMB1xbBu7RG2Xx_SkiDkPlDNjSxK5LhWSl2VNN0IXHPFqRqN16bnmw42D4C3qeCngpsA6BcH0VT_qJaV3ekiyjSyTbKrikDcSkPpp3BXvtQAakJ6xfnFmfvys8_OyZrGKs-s0kcVT6Rs_hvCnks_YbZH_Yw8jrSiaqw_9FIfQyytZhmIgMOauHarK1kmejdXgi97ghbhD_dSRbqRKuyxm_63TljdB0tKpTLpaNu32KiM5Rv9NtwTQxGBi-Q_FhzbNpcLEvWnmGpin2woS21fIozNW47jh5JLKw6ZJfDeYKQ3XxS7zo="
+
+#UserInfos
+USERID = 8013179906
+
+#Database
+REDIS_URL = "redis-14180.c56.east-us.azure.redns.redis-cloud.com:14180"
+REDIS_PASSWORD = "Ug5X0y7sjsGGCz8UViSlmYNfpE9R4poK"
+
+#Github
+GIT_TOKEN = "Z2hwX2NjcUZ1Nnd1SWFjbkV5emhnNzQ2VjNnaUIwb3FXWjNwZERJbA=="
+REPO = "iMaBoLi/FidoSelf"
+
+#Other
+MAX_SIZE = 104857600 * 5
