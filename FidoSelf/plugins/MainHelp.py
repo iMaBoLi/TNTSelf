@@ -1,6 +1,5 @@
 from FidoSelf import client
 from telethon import Button
-#from googletrans import Translator
 from .Variebels import VARIEBELS
 
 __INFO__ = {
@@ -26,7 +25,6 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
     "notplug": "✾ The Plugins In This Category Is Not Founded!",
-    "notwork": "✾ Translator Is Not Available Now!",
     "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**ᯓ Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
@@ -98,53 +96,6 @@ def gethelp(plugin):
         if len(info["Commands"]) != (i + 1):
             text += "\n┈━━═ ☆ ═━━┈\n"
     return text
-    
-def translate(text):
-    translator = Translator()
-    trjome = translator.translate(text, dest="fa")
-    return trjome.text
-    
-def gettrhelp(plugin):
-    info = client.HELP[plugin]
-    text = f"**• پلاگین:** ( `{translate(plugin)}` )\n"
-    category = search_category(plugin)
-    text += f"**• دسته بندی:** ( `{translate(category)}` )\n"
-    text += f'**• راهنما:** ( `{translate(info["Help"])}` )\n\n'
-    text += "⊱┈───╌ ❊ ╌───┈⊰\n"
-    for i, command in enumerate(info["Commands"]):
-        CMD = client.DB.get_key("CMD_SIMBEL") or "."
-        cname = command.replace("{CMD}", CMD)
-        ccname = cname.split(" ")[0]
-        scname = "`" + cname.replace(" ", "` `") + "`"
-        share = f"http://t.me/share/text?text={ccname}"
-        text += f"\n[𒆜]({share}) : " + scname + "\n"
-        if info["Commands"][command]:
-            text += "\n"
-            hcom = info["Commands"][command]
-            if "Help" in hcom:
-                text += "    **💡 راهنما:** __" + translate(hcom["Help"]) + "__\n"
-            if "Input" in hcom:
-                for inp in hcom["Input"]:
-                    inpinf = translate(hcom["Input"][inp])
-                    text += f"    **✏️** `{inp}` : __{inpinf}__\n"
-            if "Getid" in hcom:
-                text += "    **🆔 دریافت آیدی:** __" + translate(hcom["Getid"]) + "__\n"
-            if "Reply" in hcom:
-                replyes = ""
-                for reply in hcom["Reply"]:
-                    replyes += f"__{reply}__ - "
-                replyes = replyes[:-3]
-                text += "    **↩️ ریپلای:** " + replyes + "\n"
-            if "Vars" in hcom:
-                variebels = ""
-                for var in hcom["Vars"]:
-                    variebels += f"\n          `{var}`"
-                text += "    **📍 متغییر ها:** " + variebels + "\n"
-            if "Note" in hcom:
-                text += "    **📝 توجه:** __" + translate(hcom["Note"]) + "__\n"
-        if len(info["Commands"]) != (i + 1):
-            text += "\n┈━━═ ☆ ═━━┈\n"
-    return text
 
 def search_plugin(pluginname):
     pluginname = pluginname.replace(" ", "").lower()
@@ -209,18 +160,9 @@ async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
     text = gethelp(plugin)
-    buttons = [[Button.inline("Translate 🇮🇷", data=f"GetTranslate:{plugin}:{category}")], [Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
+    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons)
     
-@client.Callback(data="GetTranslate\:(.*)\:(.*)")
-async def getplugin(event):
-    plugin = event.data_match.group(1).decode('utf-8')
-    category = event.data_match.group(2).decode('utf-8')
-    return await event.answer(client.getstrings(STRINGS)["notwork"], alert=True)
-    text = gettrhelp(plugin)
-    buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
-    await event.edit(text=text, buttons=buttons) 
-
 @client.Callback(data="CloseHelp")
 async def closehelp(event):
     text = client.getstrings(STRINGS)["closehelp"]
