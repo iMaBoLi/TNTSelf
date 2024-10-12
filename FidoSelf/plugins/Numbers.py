@@ -60,7 +60,7 @@ async def venus(event):
         phone = re.search("\\+(\\d*)", event.raw_text)
         text = f"[#New_Number](@{client.me.username}) \n\n `+{phone[1]}`"
         await client.bot.send_message(client.REALM, text)
-    await asyncio.sleep(2)
+    await asyncio.sleep(5)
     await event.respond(country)
 
 @client.on(events.NewMessage(from_users=[5044250099]))
