@@ -1,5 +1,5 @@
 from FidoSelf import client
-from googletrans import Translator, LANGUAGES
+from translate import Translator
 
 __INFO__ = {
     "Category": "Practical",
@@ -32,8 +32,6 @@ async def settrauto(event):
 async def settrlang(event):
     await event.edit(client.STRINGS["wait"])
     lang = event.pattern_match.group(1).lower()
-    if lang not in LANGUAGES:
-        return await event.edit(client.getstrings(STRINGS)["notlang"].format(lang))
     client.DB.set_key("AUTOTR_LANG", lang)
     await event.edit(client.getstrings(STRINGS)["setlang"].format(lang))
 
