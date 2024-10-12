@@ -29,7 +29,7 @@ class FakeEmail:
 		datajson = {"mail":email["permalink"]["mail"], "session":email["session_id"]}		
 		return datajson
 
-	def inbox(self,loop=False):
+	def inbox(self, loop=False):
 		if self.session : 
 			sessinbox = self.session	
 		elif self.session == None:
