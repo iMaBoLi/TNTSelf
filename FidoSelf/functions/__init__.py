@@ -7,7 +7,6 @@ from FidoSelf.functions.core import *
 from FidoSelf.functions.loader import *
 from FidoSelf.functions.tools import *
 from FidoSelf.functions.youtube import *
-from FidoSelf.functions.github import *
 from FidoSelf.functions.strings import STRINGS
 from FidoSelf.functions.data import *
 from FidoSelf.functions.fasttelethon import download_file, upload_file
