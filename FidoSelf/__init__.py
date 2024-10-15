@@ -5,14 +5,14 @@ from FidoSelf import config
 import time
 import sys
 
-__version__ = "3.2.1"
+__version__ = "2.10.3"
 
-LOGS = getLogger("FidoSelf")
+LOGS = getLogger("TNTSelf")
 basicConfig(
     format="%(asctime)s | %(message)s",
     level=INFO,
     datefmt="%H:%M",
-    handlers=[FileHandler("Fido.log"), StreamHandler()],
+    handlers=[FileHandler("TNT.log"), StreamHandler()],
 )
 
 LOGS.info("• Login Account ...")
