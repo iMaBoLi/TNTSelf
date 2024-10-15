@@ -1,19 +1,14 @@
-#Infos
-API_ID = 24221494
-API_HASH = "d160f735031d2198f0e381dafce73ea5"
-SESSION = "1BJWap1sBu2xPo80D8YCKGldp3R-prvou8luz9ghTsDYYirw3CKvy8Q2-mQ66OK2IgAFUhblqnmfKp7W0VO2c2mWEE6XJKQL2ZZLrOSyl7MA-6KrG8ol2qjTYHCakPIAS7lQNP2HZ_6YCkljeQ2S-jV3SeU03Ii-IO7zGSg8wHqCdENL0UuSS7cKmo6WUS1JPItd1BnuRJdnp0s0gwu4PLJ1A7scI9_xGWaK1vQd05RjGTjUk55kppz5EfNieBmUpt9sPCRk46RXZWlFHHKAgGEVvs4X3s3OrroYz14EnUjfTxdR73SeZ5ERMU09j4c84xw6LAeMT2io9Fu1qGiEVGFIXxlTeORU="
-BOT_SESSION = "1BJWap1sBu5KcCQgMSCtZL0ZME3l-vGyDZQVE82dufVXQYj4399gXIiIxY4dyowJAu3bfcrKUnllABe30nzDzEKIlNVg0hutSjU-w4ha75Fot607gCL1575kwqK0r3j4mHfNZhuLDXd5Yma-o7LES88vfQ3CzWFkF2jQlahbddc0eilMSiYn2ChKSDAEZlcOHB5QVoiYrBf1cawfODbWrs6j1wksvodn9jsmmFWza3WtBTwf8O_jFsG-3ZRIxyemem8fkN2_d__Pf8QuTT0j5QWOaT-1UdX9kzTb4zEGCKbP3MN67A8RwzWYbCGbjc2xZljoK9UBpvuKkxFzZQOcMhx4Vp51fPQA="
+import os
 
-#UserInfos
-USERID = 6059646297
+#Infos
+API_ID = int(os.environ.get("API_ID", 0))
+API_HASH = os.environ.get("API_HASH", None)
+SESSION = os.environ.get("SESSION", None)
+BOT_SESSION = os.environ.get("BOT_SESSION", None)
 
 #Database
-REDIS_URL = "redis-14180.c56.east-us.azure.redns.redis-cloud.com:14180"
-REDIS_PASSWORD = "Ug5X0y7sjsGGCz8UViSlmYNfpE9R4poK"
-
-#Github
-GIT_TOKEN = "Z2hwX2NjcUZ1Nnd1SWFjbkV5emhnNzQ2VjNnaUIwb3FXWjNwZERJbA=="
-REPO = "iMaBoLi/FidoSelf"
+REDIS_URL = os.environ.get("REDIS_URL", None)
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", None)
 
 #Other
-MAX_SIZE = 104857600 * 5
+MAX_SIZE = int(os.environ.get("MAX_SIZE", (104857600 * 5)))
