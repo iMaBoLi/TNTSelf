@@ -1,14 +1,12 @@
-import os
-
 #Infos
-API_ID = int(os.environ.get("API_ID"))
-API_HASH = os.environ.get("API_HASH")
-SESSION = os.environ.get("SESSION")
-BOT_SESSION = os.environ.get("BOT_SESSION")
+API_ID = 21324412
+API_HASH = "e350a1f5b01c572b4d3f5762c3098b3a"
+SESSION = "1ApWapzMBuyb6tPS1dYEo7X9u7Ez440JW2mjrb5EG9eYb57hJH8FYNSCrnjPNCnenPkv4MDFT4m-1X5tEOsbx_u9Et1fK-LOuVNZByvF2m2h2tPBuR6SzJXi6zRPZ7SCexbhReZtD8oyJgnCvUDCZgetvajbIZ3vtPuitxyThOns2cwegj98oldwCwB5l3G_narWJziWa50gLMPq-slzkjYNy59MqMH8H7VMBacO26p8F6E7CRce3bzdEUzdXpj8pyjVqBq5-7nyOZfMDm5rGxBjOdXTup-nrq4KtRhTSUI_2mNqMfhrsEsYbvWmQXvjuvRmagRp0QXG0hzvZ9LdS71w2O78PSZM="
+BOT_SESSION = "1ApWapzMBu56QgGZWd0cFfD7bnretEa69Duy6O0FLXO-A19MnIB_QM6km00y-oWRecAmCDBWt28R7OsXRv7y4UKHTVg0xaOhLVpqQITC3sps2GoKRLKRHbeau1mbqJcsws4WyDy2oqewwvfldf0UWE6ByuuxsGetwZKorcmCdHQ_oaMuxJKeAbc-Sf3yzw756GqPF13xZtzipvJ6mybSZxT5KcghZH_fmctJnyzfL4Ig8NYJvOKHceTAL_0wDfwyqSp9laeaNYeHvVElwE8SlWpdkCh6J6sO91tIrCyI5Da6KFuukgxZ4e9YoEDF1Iym3AnQbzpnksamLJH7Zbc-3HTUbAET74uQ="
 
 #Database
-REDIS_URL = os.environ.get("REDIS_URL")
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+REDIS_URL = "redis-14180.c56.east-us.azure.redns.redis-cloud.com:14180"
+REDIS_PASSWORD = "Ug5X0y7sjsGGCz8UViSlmYNfpE9R4poK"
 
 #Other
-MAX_SIZE = int(os.environ.get("MAX_SIZE"))
+MAX_SIZE = 104857600 * 5
