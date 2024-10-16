@@ -54,7 +54,7 @@ async def muteuser(event):
     text = client.getstrings(STRINGS)["muteuser"].format(mention)
     await event.edit(text)
 
-@client.Command(command="TMute (\d*)")
+@client.Command(command="TMute (\\d*)")
 async def timermuteuser(event):
     await event.edit(client.STRINGS["wait"])
     timer = int(event.pattern_match.group(1))
