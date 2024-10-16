@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from google_play_scraper import app, exceptions, search
 import requests
 import os
