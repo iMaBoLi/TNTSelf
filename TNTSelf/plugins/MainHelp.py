@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import Button
 from .Variebels import VARIEBELS
 
@@ -129,7 +129,7 @@ async def inlinehelp(event):
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    await event.answer([event.builder.article("FidoSelf - Help", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Help", text=text, buttons=buttons)])
 
 @client.Callback(data="Help")
 async def callhelp(event):
