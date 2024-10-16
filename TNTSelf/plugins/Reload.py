@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 
 __INFO__ = {
     "Category": "Setting",
@@ -18,7 +18,7 @@ STRINGS = {
     "reload": "**{STR} The Self Was Reloading ...**",
 }
 
-RUNCMD = "python3 -m FidoSelf"
+RUNCMD = "python3 -m TNTSelf"
 
 @client.Command(command="Reload")
 async def reloadself(event):
