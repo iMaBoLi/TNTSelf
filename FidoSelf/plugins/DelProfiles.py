@@ -23,7 +23,7 @@ STRINGS = {
     "one": "**{STR} The Profile Photo** ( `{}` ) **Has Been Deleted!**"
 }
 
-@client.Command(command="DelProfile ?((\-)?\d*)?")
+@client.Command(command="DelProfile ?((\\-)?\\d*)?")
 async def delprofiles(event):
     await event.edit(client.STRINGS["wait"])
     pphoto = await client.get_profile_photos("me")
