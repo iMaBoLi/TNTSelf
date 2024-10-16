@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from datetime import timedelta
 
 __INFO__ = {
