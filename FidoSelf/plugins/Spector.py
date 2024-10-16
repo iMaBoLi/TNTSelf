@@ -24,6 +24,7 @@ STRINGS = {
     "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
     "specreadpv": "**{STR} User** ( {} - `{}` )\n    **Is Read Your Pv Now!** ( `{}` )",
     "specjoingroup": "**{STR} User** ( {} - `{}` )\n    **Is Joined To Group** ( `{}` - `{}` ) **Now!** ( `{}` )",
+    "specleavegroup": "**{STR} User** ( {} - `{}` )\n    **Is Leaved From Group** ( `{}` - `{}` ) **Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -32,6 +33,7 @@ SPECS = [
     "ACTION",
     "READ_PV",
     "JOIN_GROUPS",
+    "LEAVE_GROUPS",
 ]
 
 async def get_spector_buttons(userid, chatid):
@@ -168,4 +170,19 @@ async def joingroupspec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         text = client.getstrings(STRINGS)["specjoingroup"].format(mention, userid, chat.title, chat.id, time)
+        await client.bot.send_message(client.REALM, text)
+        
+@client.on(events.ChatAction)
+async def leavegroupspec(event):
+    if not event.user_left and not event.user_kicked: return
+    userid = (await event.get_user()).id
+    if userid == client.me.id: return
+    lists = client.DB.get_key("SPECTOR_LEAVE_GROUPS") or []
+    if userid in lists:
+        info = await client.get_entity(userid)
+        mention = client.functions.mention(info)
+        chat = await event.get_chat()
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        text = client.getstrings(STRINGS)["specleavegroup"].format(mention, userid, chat.title, chat.id, time)
         await client.bot.send_message(client.REALM, text)
