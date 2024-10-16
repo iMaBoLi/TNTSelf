@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 
 @client.Command(onlysudo=False, allowedits=False)
 async def mediafilterpv(event):
