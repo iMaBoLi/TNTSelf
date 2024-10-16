@@ -120,7 +120,7 @@ async def ytsearch(event):
     await client(functions.messages.SaveDraftRequest(peer=event.chat_id, message=message))
     await event.delete()
 
-@client.Inline(pattern="YTSearch\:(.*)")
+@client.Inline(pattern="YTSearch\\:(.*)")
 async def ytsearchinline(event):
     query = event.pattern_match.group(1)
     answers = []
