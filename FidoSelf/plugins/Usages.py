@@ -17,10 +17,10 @@ import time
 @client.Command(command="Logs")
 async def logs(event):
     await event.edit(client.STRINGS["wait"])
-    if os.path.exists("Fido.log"):
-        text = open("Fido.log", "r").read()
-        open("Fido.txt", "w").write(str(text))
-        await event.respond("**The Console Logs File!**", file="Fido.txt")
+    if os.path.exists("TNT.log"):
+        text = open("TNT.log", "r").read()
+        open("TNT.txt", "w").write(str(text))
+        await event.respond("**The Console Logs File!**", file="TNT.txt")
         await event.delete()
     else:
         await event.edit("**The Log File Is Not Available!**")
