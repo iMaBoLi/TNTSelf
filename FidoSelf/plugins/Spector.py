@@ -20,20 +20,18 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specstatus": "**{STR} {}, User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
-    "specaction": "**{STR} {}, User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
-    "specreadpv": "**{STR} {}, User** ( {} - `{}` )\n    **Is Read Your Pv Now!** ( `{}` )",
+    "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
+    "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
+    "specreadpv": "**{STR} User** ( {} - `{}` )\n    **Is Read Your Pv Now!** ( `{}` )",
+    "specjoingroup": "**{STR} User** ( {} - `{}` )\n    **Is Joined To Group** ( `{}` - `{}` ) **Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
 SPECS = [
     "STATUS",
-    "NAME",
-    "BIO",
-    "USERNAME",
-    "PHOTO",
     "ACTION",
     "READ_PV",
+    "JOIN_GROUPS",
 ]
 
 async def get_spector_buttons(userid, chatid):
@@ -113,10 +111,9 @@ async def statusspec(event):
     if event.user_id in lists:
         info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
-        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specstatus"].format(mymention, mention, event.user_id, status.replace("UserStatus", ""), time)
+        text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status.replace("UserStatus", ""), time)
         await client.bot.send_message(client.REALM, text)
         
 @client.on(events.UserUpdate)
@@ -139,11 +136,10 @@ async def actionspec(event):
     if event.user_id in lists:
         info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
-        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         where = "In Your Pv" if "UpdateUser" in event.original_update.to_dict()["_"] else "In A Chat"
-        text = client.getstrings(STRINGS)["specaction"].format(mymention, mention, event.user_id, actions[action], where, time)
+        text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, actions[action], where, time)
         await client.bot.send_message(client.REALM, text)
         
 @client.on(events.MessageRead)
@@ -154,8 +150,22 @@ async def readpvspec(event):
     if userid in lists:
         info = await client.get_entity(userid)
         mention = client.functions.mention(info)
-        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specreadpv"].format(mymention, mention, userid, time)
+        text = client.getstrings(STRINGS)["specreadpv"].format(mention, userid, time)
+        await client.bot.send_message(client.REALM, text)
+        
+@client.on(events.ChatAction)
+async def joingroupspec(event):
+    if not event.user_joined or nof event.added_by: return
+    userid = (await event.get_user()).id
+    if userid == client.me.id: return
+    lists = client.DB.get_key("SPECTOR_JOIN_GROUPS") or []
+    if userid in lists:
+        info = await client.get_entity(userid)
+        mention = client.functions.mention(info)
+        chat = await event.get_chat()
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        text = client.getstrings(STRINGS)["specjoingroup"].format(mention, userid, chat.title, chat.id, time)
         await client.bot.send_message(client.REALM, text)
