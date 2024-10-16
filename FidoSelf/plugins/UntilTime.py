@@ -63,7 +63,7 @@ def convert_time(seconds):
         return result[:-2]
     return result
 
-@client.Command(command="NewUntil (.*)\\:(.*)\\-(.*)\\-(.*)")
+@client.Command(command="NewUntil (.*)\\\:(.*)\\\-(.*)\\\-(.*)")
 async def adduntil(event):
     await event.edit(client.STRINGS["wait"])
     nuntil = event.pattern_match.group(1)
