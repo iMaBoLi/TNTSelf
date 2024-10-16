@@ -1,5 +1,6 @@
 from FidoSelf import client
 from datetime import datetime
+from telethon import events
 import time
 
 __INFO__ = {
@@ -30,3 +31,7 @@ async def ping(event):
     uptime = time.time() - client.START_TIME
     uptime = client.functions.convert_time(uptime)
     await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
+    
+@client.on(events.NewMessage)
+async def all(event):
+    print(event.text)
