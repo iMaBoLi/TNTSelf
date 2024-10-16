@@ -26,7 +26,7 @@ async def emojimode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(command="SetEmoji (.*)\-(.*)")
+@client.Command(command="SetEmoji (.*)\\-(.*)")
 async def setemoji(event):
     await event.edit(client.STRINGS["wait"])
     emoji1 = event.pattern_match.group(1)
