@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import Button
 
 __INFO__ = {
@@ -99,7 +99,7 @@ async def inlinelists(event):
         buttons.append(Button.inline(sname, data=f"GetList:{slist}"))
     buttons = list(client.functions.chunks(buttons, 2))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
-    await event.answer([event.builder.article("FidoSelf - Lists", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Lists", text=text, buttons=buttons)])
 
 @client.Callback(data="Lists")
 async def calllists(event):
