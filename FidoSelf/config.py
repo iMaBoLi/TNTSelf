@@ -1,7 +1,10 @@
 ###
 MAINCONFIG = "../tmp/config.txt"
-DATA = open(MAINCONFIG, "r").readlines()
-print(DATA)
+OLDDATA = open(MAINCONFIG, "r").readlines()
+DATA = []
+for ODATA in OLDDATA:
+    DATA.append(str(ODATA).replace("\n", ""))
+
 #Infos
 API_ID = int(DATA[0])
 API_HASH = DATA[1]
