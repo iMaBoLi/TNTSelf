@@ -1,7 +1,7 @@
 from . import client
 from telethon import __version__ as telever
-from FidoSelf import functions
-from FidoSelf.functions import AddVarsToClient, load_plugins, DownloadFiles, runcmd
+from TNTSelf import functions
+from TNTSelf.functions import AddVarsToClient, load_plugins, DownloadFiles, runcmd
 import platform
 
 async def setup():
@@ -41,8 +41,8 @@ async def setup():
             pass
     client.LOGS.info(f"• Python Version: {platform.python_version()}")
     client.LOGS.info(f"• Telethon Version: {telever}")
-    client.LOGS.info(f"• FidoSelf Version: {client.__version__}")
-    client.LOGS.info("\n----------------------------------------\n  • Starting FidoSelf Was Successful!\n----------------------------------------")
+    client.LOGS.info(f"• TNTSelf Version: {client.__version__}")
+    client.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
 
 client.bot.loop.run_until_complete(setup())
 client.run_until_disconnected()
