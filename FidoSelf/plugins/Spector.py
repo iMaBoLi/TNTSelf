@@ -142,7 +142,7 @@ async def actionspec(event):
         mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        where = "In Your Pv" if event.is_private else "In A Chat"
+        where = "In Your Pv" if "UpdateUser" in event.original_update.to_dict()["_"] else "In A Chat"
         text = client.getstrings(STRINGS)["specaction"].format(mymention, mention, event.user_id, actions[action], where, time)
         await client.bot.send_message(client.REALM, text)
         
