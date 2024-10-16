@@ -29,7 +29,7 @@ async def delautomode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
     
-@client.Command(command="SetDeleteSleep (\d*)")
+@client.Command(command="SetDeleteSleep (\\d*)")
 async def setautodeletesleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = int(event.pattern_match.group(1))
