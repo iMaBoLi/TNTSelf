@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from traceback import format_exc
 import importlib
 import glob
@@ -6,7 +6,7 @@ import os
 import re
 
 def get_plugins():
-    files = sorted(glob.glob(f"FidoSelf/plugins/*.py"))
+    files = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
     return files
 
 def load_plugins(files, reload=False):
