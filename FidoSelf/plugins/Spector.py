@@ -133,7 +133,8 @@ async def actionspec(event):
         "SendMessageUploadDocumentAction": "Sending File",
         "SendMessageUploadRoundAction": "Sending Round Video",
         "SendMessageRecordVideoAction": "Recording Video",
-        "SendMessageRecordAudioAction": "Recording Audio",
+        "SendMessageRecordAudioAction": "Recording Voice",
+        "SendMessageRecordRoundAction": "Recording Round Video",
     }
     if action not in actions: return
     lists = client.DB.get_key("SPECTOR_ACTION") or []
