@@ -27,7 +27,7 @@ STRINGS = {
     "caption": "**{STR} Link:** ( `{}` )\n\n**{STR} FileName:** ( `{}` )",
 }
 
-@client.Command(command="Down (.*)\|(.*)")
+@client.Command(command="Down (.*)\\|(.*)")
 async def downloadfile(event):
     await event.edit(client.STRINGS["wait"])
     dtype = event.pattern_match.group(1).lower()
