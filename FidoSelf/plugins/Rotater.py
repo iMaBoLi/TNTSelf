@@ -26,7 +26,7 @@ STRINGS = {
     "vroted": "**{STR} The Video Was Rotated To** ( `{}°` )"
 }
 
-@client.Command(command="SRotate (\d*)")
+@client.Command(command="SRotate (\\d*)")
 async def rotate(event):
     await event.edit(client.STRINGS["wait"])
     darge = int(event.pattern_match.group(1))
