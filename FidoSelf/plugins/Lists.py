@@ -112,7 +112,7 @@ async def calllists(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")])
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="GetList\:(.*)")
+@client.Callback(data="GetList\\:(.*)")
 async def getlistitems(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
     getdb = LISTS[client.LANG][listname]
@@ -125,7 +125,7 @@ async def getlistitems(event):
     buttons = [[Button.inline(client.STRINGS["inline"]["Clean"], data=f"CleanList:{listname}")], [Button.inline(client.STRINGS["inline"]["Back"], data="Lists"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseLists")]]
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="CleanList\:(.*)")
+@client.Callback(data="CleanList\\:(.*)")
 async def cleanlist(event):
     listname = str(event.data_match.group(1).decode('utf-8'))
     getdb = LISTS[client.LANG][listname]
