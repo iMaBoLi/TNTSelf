@@ -142,7 +142,7 @@ async def callhelp(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="GetCategory\:(.*)")
+@client.Callback(data="GetCategory\\:(.*)")
 async def getcategory(event):
     category = str(event.data_match.group(1).decode('utf-8'))
     buttons = []
@@ -155,7 +155,7 @@ async def getcategory(event):
     text = client.getstrings(STRINGS)["category"].format(client.functions.mention(client.me), category)
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="GetHelp\:(.*)\:(.*)")
+@client.Callback(data="GetHelp\\:(.*)\\:(.*)")
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
