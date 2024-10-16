@@ -1,5 +1,5 @@
-from FidoSelf import client
-from FidoSelf.functions import *
+from TNTSelf import client
+from TNTSelf.functions import *
 from telethon import events, functions, types, Button
 from datetime import datetime
 from pathlib import Path
