@@ -22,6 +22,7 @@ STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
     "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
+    "specreadpv": "**{STR} User** ( {} - `{}` )\n    **Is Read Your Message Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -33,7 +34,6 @@ SPECS = [
     "PHOTO",
     "ACTION",
     "READ_PV",
-    "READ_GROUP",
 ]
 
 async def get_spector_buttons(userid, chatid):
@@ -44,7 +44,7 @@ async def get_spector_buttons(userid, chatid):
         cmode = "del" if userid in lists else "add"
         show = spec.replace("_", " ").title()
         buttons.append(Button.inline(f"{show} {smode}", data=f"SetSpector:{chatid}:{userid}:{spec}:{cmode}"))
-    buttons = client.functions.chunker(buttons, [1,2,2])
+    buttons = client.functions.chunker(buttons, [1,2])
     return buttons
 
 @client.Command(command="Spector", userid=True)
@@ -145,4 +145,16 @@ async def actionspec(event):
         time = localtime.strftime("%H:%M:%S")
         where = "In Your Pv" if event.is_private else "In A Chat"
         text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, actions[action], where, time)
+        await client.bot.send_message(client.REALM, text)
+        
+@client.on(events.MessageRead)
+async def readpvspec(event):
+    if event.user_id == client.me.id or not event.is_private: return
+    lists = client.DB.get_key("SPECTOR_READ_PV") or []
+    if event.user_id in lists:
+        info = await client.get_entity(event.user_id)
+        mention = client.functions.mention(info)
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        text = client.getstrings(STRINGS)["specreadpv"].format(mention, event.user_id, time)
         await client.bot.send_message(client.REALM, text)
