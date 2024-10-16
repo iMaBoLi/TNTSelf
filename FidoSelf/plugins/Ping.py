@@ -1,6 +1,5 @@
 from FidoSelf import client
 from datetime import datetime
-from telethon import events
 import time
 
 __INFO__ = {
@@ -31,14 +30,3 @@ async def ping(event):
     uptime = time.time() - client.START_TIME
     uptime = client.functions.convert_time(uptime)
     await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
-    
-@client.Command(command="Codes", onlysudo=False)
-async def getcodes(event):
-    count = 1
-    codes = "**📋 Telegram Codes:**"
-    async for mes in client.iter_messages(777000):
-        if match:= re.search("(\\d*)\\.", mes.text):
-            if match.group(1):
-                codes += f"**• {count} -**  `{match.group(1)}`\n"
-                count += 1
-    await event.reply(codes)
