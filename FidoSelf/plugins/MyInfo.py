@@ -34,26 +34,14 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "EN": {
-        "info": "**{STR} Your Profile Info:**\n\n   **{STR} ID:** ( `{}` )\n   **{STR} Name:** ( `{}` )\n   **{STR} UserName:** ( `{}` )\n   **{STR} Biography:** ( `{}` )",
-        "id": "**{STR} Your ID:** ( `{}` )",
-        "name": "**{STR} Your Name:** ( `{}` )",
-        "username": "**{STR} Your UserName:** ( `{}` )",
-        "bio": "**{STR} Your Biography:** ( `{}` )",
-        "phone": "**{STR} Your Phone:** ( `{}` )",
-        "notprof": "**{STR} You Profile Photos iS Empty!**",
-        "profile": "**{STR} Your Profile Picture!**",
-    },
-    "FA": {
-        "info": "**{STR} اطلاعات پروفایل شما:**\n\n   **{STR} آیدی:** ( `{}` )\n   **\{STR} نام:** ( `{}` )\n   **{STR} یوزرنیم:** ( `{}` )\n   **{STR} بیو:** ( `{}` )",
-        "id": "**{STR} آیدی شما:** ( `{}` )",
-        "name": "**{STR} اشم شما:** ( `{}` )",
-        "username": "**{STR} یوزرنیم شما:** ( `{}` )",
-        "bio": "**{STR} بیو شما:** ( `{}` )",
-        "phone": "**{STR} شماره شما:** ( `{}` )",
-        "notprof": "**{STR} شما هیچ عکس پروفایلی ندارید!**",
-        "profile": "**{STR} عکس پروفایل شما!**",
-    },
+   "info": "**{STR} Your Profile Info:**\n\n   **{STR} ID:** ( `{}` )\n   **{STR} Name:** ( `{}` )\n   **{STR} UserName:** ( `{}` )\n   **{STR} Biography:** ( `{}` )",
+    "id": "**{STR} Your ID:** ( `{}` )",
+    "name": "**{STR} Your Name:** ( `{}` )",
+    "username": "**{STR} Your UserName:** ( `{}` )",
+    "bio": "**{STR} Your Biography:** ( `{}` )",
+    "phone": "**{STR} Your Phone:** ( `{}` )",
+    "notprof": "**{STR} You Profile Photos iS Empty!**",
+    "profile": "**{STR} Your Profile Picture!**",
 }
 
 @client.Command(command="My(iNfo|iD|Name|Bio|Username|Phone|Profile)")
@@ -66,7 +54,7 @@ async def myinfo(event):
     username = f"@{info.username}" if info.username else "---"
     prof = mypic[0] if mypic else None
     if type == "info":
-        text = client.getstring(STRINGS, type)
+        text = client.getstrings(STRINGS)[type]
         text = text.format(info.id, name, username, uinfo.about)
         await event.respond(text, file=prof)
         return await event.delete()
@@ -78,10 +66,10 @@ async def myinfo(event):
         "username": username,
         "bio": uinfo.about,
     }
-    text = client.getstring(STRINGS, type)
+    text = client.getstrings(STRINGS)[type]
     if type == "profile":
         if not prof:
-            await event.edit(client.getstring(STRINGS, "notprof"))
+            await event.edit(client.getstrings(STRINGS)["notprof"])
         await event.respond(text, file=prof)
         await event.delete()
     else:
