@@ -30,7 +30,7 @@ STRINGS = {
 
 NAJVAS = {}
 
-@client.Inline(pattern="Najva\:(.*)\,(.*)")
+@client.Inline(pattern="Najva\\:(.*)\,(.*)")
 async def najva(event):
     inputid = event.pattern_match.group(1)
     message = event.pattern_match.group(2)
@@ -55,7 +55,7 @@ async def najva(event):
     buttons = [[Button.inline("• Open Najva •", data=f"OpenNajva:{token}:{userid}")]]
     await event.answer([event.builder.article("FidoSelf - Najva", text=text, buttons=buttons)])
     
-@client.Callback(data="OpenNajva\:(.*)\:(.*)", onlysudo=False)
+@client.Callback(data="OpenNajva\\:(.*)\\:(.*)", onlysudo=False)
 async def opennajva(event):
     najtoken = event.data_match.group(1).decode('utf-8')
     userid = int(event.data_match.group(2).decode('utf-8'))
