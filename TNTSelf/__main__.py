@@ -9,7 +9,6 @@ async def setup():
     await AddVarsToClient()
     client.functions = functions
     client.LOGS.info("• Installing Main Plugins ...")
-    await client.functions.runcmd("pip install google-play-scraper")
     plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
