@@ -26,7 +26,7 @@ async def signmode(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@client.Command(command="SetSign ([\s\S]*)")
+@client.Command(command="SetSign ([\\s\\S]*)")
 async def setsign(event):
     await event.edit(client.STRINGS["wait"])
     stext = event.pattern_match.group(1)
