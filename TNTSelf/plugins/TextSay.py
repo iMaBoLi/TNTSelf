@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 import asyncio
 
 __INFO__ = {
