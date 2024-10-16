@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from somnium import Somnium
 from telethon.tl.types import InputMediaWebPage
 
