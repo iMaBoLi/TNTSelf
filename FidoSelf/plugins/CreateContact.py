@@ -23,7 +23,7 @@ STRINGS = {
     "created": "**{STR} The Contact With Name** ( `{}` ) **And Phone** ( `{}` ) **Has Been Created!**",
 }
 
-@client.Command(command="SContact (.*)\:(.*)")
+@client.Command(command="SContact (.*)\\:(.*)")
 async def createcontact(event):
     await event.edit(client.STRINGS["wait"])
     name = str(event.pattern_match.group(1))
