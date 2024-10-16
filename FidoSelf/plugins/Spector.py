@@ -20,7 +20,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    {STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specstatus": "**{STR} User** ( {} - `{}` ) **Is {} Now!** ( `{}` )",
+    "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -94,13 +94,13 @@ async def closespector(event):
 @client.on(events.UserUpdate)
 async def statusspec(event):
     if event.user_id == client.me.id or not event.status: return
-    lists = client.DB.get_key("SPECTOR_STATUS") or []
     status = event.status.to_dict()["_"]
     if status not in ["UserStatusOnline", "UserStatusOffline"]: return
+    lists = client.DB.get_key("SPECTOR_STATUS") or []
     if event.user_id in lists:
         info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status, time)
+        text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status.replace("UserStatus", ""), time)
         await client.bot.send_message(client.REALM, text)
