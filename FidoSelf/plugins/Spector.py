@@ -28,10 +28,10 @@ STRINGS = {
 SPECS = [
     "STATUS",
     "NAME",
-    "USERNAME",
     "BIO",
+    "USERNAME",
     "PHOTO",
-    "ACTION"
+    "ACTION",
     "READ_PV",
     "READ_GROUP",
 ]
@@ -44,7 +44,7 @@ async def get_spector_buttons(userid, chatid):
         cmode = "del" if userid in lists else "add"
         show = spec.replace("_", " ").title()
         buttons.append(Button.inline(f"{show} {smode}", data=f"SetSpector:{chatid}:{userid}:{spec}:{cmode}"))
-    buttons = list(client.functions.chunks(buttons, 2))
+    buttons = client.functions.chunker(buttons, [1,2,2])
     return buttons
 
 @client.Command(command="Spector", userid=True)
