@@ -61,7 +61,7 @@ async def antipvwarn(event):
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["warnmode"].format(showchange))
 
-@client.Command(command="SetSpamPvLimit (\d*)")
+@client.Command(command="SetSpamPvLimit (\\d*)")
 async def setspamlimit(event):
     await event.edit(client.getstrings(STRINGS)["wait"])
     limit = event.pattern_match.group(1)
