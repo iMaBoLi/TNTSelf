@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 
 __INFO__ = {
     "Category": "Time",
