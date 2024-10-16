@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import functions, types, Button
 import asyncio, random
 import os
@@ -150,7 +150,7 @@ async def inlineenemy(event):
         buttons.append(Button.inline(f"• {where} •", data=f"addenemy:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
-    await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="addenemy\\:(.*)\\:(.*)\\:(.*)")
 async def addenemies(event):
@@ -177,7 +177,7 @@ async def delenemyinline(event):
     buttons = []
     for where in Enemies[userid]:
         buttons.append(Button.inline(f"• {where} •", data=f"delenemydel:{userid}:{where}"))
-    await event.answer([event.builder.article("FidoSelf - Del Enemy", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Del Enemy", text=text, buttons=buttons)])
 
 @client.Callback(data="delenemydel\\:(.*)\\:(.*)")
 async def delenemies(event):
