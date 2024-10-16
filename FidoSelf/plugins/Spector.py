@@ -157,7 +157,7 @@ async def readpvspec(event):
         
 @client.on(events.ChatAction)
 async def joingroupspec(event):
-    if not event.user_joined or nof event.added_by: return
+    if not event.user_joined or not event.added_by: return
     userid = (await event.get_user()).id
     if userid == client.me.id: return
     lists = client.DB.get_key("SPECTOR_JOIN_GROUPS") or []
