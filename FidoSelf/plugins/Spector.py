@@ -21,6 +21,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
+    "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} Action Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -30,6 +31,7 @@ SPECS = [
     "USERNAME",
     "BIO",
     "PHOTO",
+    "ACTION"
     "READ_PV",
     "READ_GROUP",
 ]
@@ -117,4 +119,18 @@ async def statusspec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status.replace("UserStatus", ""), time)
+        await client.bot.send_message(client.REALM, text)
+        
+@client.on(events.UserUpdate)
+async def actionspec(event):
+    if event.user_id == client.me.id or not event.action: return
+    action = event.action.to_dict()["_"]
+    lists = client.DB.get_key("SPECTOR_ACTION") or []
+    if event.user_id in lists:
+        info = await client.get_entity(event.user_id)
+        mention = client.functions.mention(info)
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        action = action.replace("SendMessage", "").replace("Action", "")
+        text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, action, time)
         await client.bot.send_message(client.REALM, text)
