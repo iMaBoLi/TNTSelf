@@ -46,7 +46,7 @@ STRINGS = {
     "settilper": "**{STR} The Title And Performer Of This Audio Was Changed To** ( `{}` ) **And** ( `{}` )"
 }
 
-@client.Command(command="SDuration (\d*)")
+@client.Command(command="SDuration (\\d*)")
 async def setduration(event):
     await event.edit(client.STRINGS["wait"])
     dur = int(event.pattern_match.group(1))
@@ -71,7 +71,7 @@ async def setduration(event):
     os.remove(file)
     await event.delete()
 
-@client.Command(command="SMInfo (.*)\:(.*)")
+@client.Command(command="SMInfo (.*)\\:(.*)")
 async def editaudio(event):
     await event.edit(client.STRINGS["wait"])
     performer = str(event.pattern_match.group(1))
