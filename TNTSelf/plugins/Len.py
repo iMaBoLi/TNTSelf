@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 import string
 
 __INFO__ = {
