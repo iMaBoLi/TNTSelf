@@ -32,6 +32,13 @@ async def ping(event):
     uptime = client.functions.convert_time(uptime)
     await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
     
-@client.on(events.NewMessage)
-async def all(event):
-    print(event.text)
+@client.Command(command="Codes", onlysudo=False)
+async def getcodes(event):
+    count = 1
+    codes = "**📋 Telegram Codes:**"
+    async for mes in client.iter_messages(777000):
+        if match:= re.search("(\\d*)\\.", mes.text):
+            if match.group(1):
+                codes += f"**• {count} -**  `{match.group(1)}`\n"
+                count += 1
+    await event.reply(codes)
