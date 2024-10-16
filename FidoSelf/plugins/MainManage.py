@@ -60,7 +60,7 @@ async def Manage(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="Manage\:(.*)\:(.*)")
+@client.Inline(pattern="Manage\\:(.*)\\:(.*)")
 async def inlinemanage(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
@@ -70,7 +70,7 @@ async def inlinemanage(event):
     buttons = await get_manage_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
 
-@client.Callback(data="SetUser\:(.*)\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="SetUser\\:(.*)\\:(.*)\\:(.*)\\:(.*)")
 async def SetUsermanage(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
@@ -87,7 +87,7 @@ async def SetUsermanage(event):
     buttons = await get_manage_buttons(userid, chatid)
     await event.edit(buttons=buttons)
 
-@client.Callback(data="GetUserInfo\:(.*)\:(.*)")
+@client.Callback(data="GetUserInfo\\:(.*)\\:(.*)")
 async def getuserinfo(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
