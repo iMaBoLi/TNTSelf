@@ -37,7 +37,7 @@ STRINGS = {
     "takeddur": "**{STR} The Screen Shot From Your Video!**"
 }
 
-@client.Command(command="VShot ((\-)?\d*)")
+@client.Command(command="VShot ((\\-)?\\d*)")
 async def videoshot(event):
     await event.edit(client.STRINGS["wait"])
     data = event.pattern_match.group(1)
