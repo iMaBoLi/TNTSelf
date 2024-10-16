@@ -26,7 +26,7 @@ STRINGS = {
     "clean": "**{STR} The Text Time List Is Cleaned!**"
 }
 
-@client.Command(command="NewTtime ([\s\S]*)")
+@client.Command(command="NewTtime ([\\s\\S]*)")
 async def addttime(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
@@ -37,7 +37,7 @@ async def addttime(event):
     client.DB.set_key("TEXTTIME_LIST", ttimes)
     await event.edit(client.getstrings(STRINGS)["newadd"].format(newttime))
     
-@client.Command(command="DelTtime ([\s\S]*)")
+@client.Command(command="DelTtime ([\\s\\S]*)")
 async def delttime(event):
     await event.edit(client.STRINGS["wait"])
     ttimes = client.DB.get_key("TEXTTIME_LIST") or []
