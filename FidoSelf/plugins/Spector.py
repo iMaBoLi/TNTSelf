@@ -22,7 +22,7 @@ STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
     "specstatus": "**{STR} {}, User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
     "specaction": "**{STR} {}, User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
-    "specreadpv": "**{STR} {}, User** ( {} - `{}` )\n    **Is Read Your Message Now!** ( `{}` )",
+    "specreadpv": "**{STR} {}, User** ( {} - `{}` )\n    **Is Read Your Pv Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
