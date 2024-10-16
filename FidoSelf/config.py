@@ -1,6 +1,7 @@
 ###
 MAINCONFIG = "../tmp/config.txt"
 DATA = open(MAINCONFIG, "r").readlines()
+print(DATA)
 #Infos
 API_ID = int(DATA[0])
 API_HASH = DATA[1]
