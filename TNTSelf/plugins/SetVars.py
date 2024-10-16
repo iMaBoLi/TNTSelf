@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 
 __INFO__ = {
     "Category": "Setting",
@@ -43,7 +43,7 @@ STRINGS = {
     "setsim": "**{STR} The Simbel For Texts Was Set To:** ( `{}` )",
 }
 
-RUNCMD = "python3 -m FidoSelf"
+RUNCMD = "python3 -m TNTSelf"
 
 @client.Command(command="SetCmd (.*)")
 async def cmdstarter(event):
