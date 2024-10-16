@@ -30,7 +30,7 @@ STRINGS = {
 
 NAJVAS = {}
 
-@client.Inline(pattern="Najva\\:(.*)\,(.*)")
+@client.Inline(pattern="Najva\\:(.*)\\,(.*)")
 async def najva(event):
     inputid = event.pattern_match.group(1)
     message = event.pattern_match.group(2)
