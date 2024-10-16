@@ -117,13 +117,13 @@ async def panelpv(event):
     await res[0].click(client.me.id)
     await event.delete()
 
-@client.Inline(pattern="Panel\:(.*)\:(.*)")
+@client.Inline(pattern="Panel\\:(.*)\\:(.*)")
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
     page = int(event.pattern_match.group(2))
     await event.answer([event.builder.article("FidoSelf - Panel", text=get_text(page), buttons=get_buttons(chatid, page))])
 
-@client.Callback(data="Page\:(.*)\:(.*)")
+@client.Callback(data="Page\\:(.*)\\:(.*)")
 async def panelpages(event):
     chatid = event.data_match.group(1).decode('utf-8')
     page = int(event.data_match.group(2).decode('utf-8'))
@@ -236,7 +236,7 @@ def get_buttons(chatid, page):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="ClosePanel")])
     return buttons
     
-@client.Callback(data="Set\:(.*)\:(.*)\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="Set\\:(.*)\\:(.*)\\:(.*)\\:(.*)\\:(.*)")
 async def setpanel(event):
     key = event.data_match.group(1).decode('utf-8')
     value = event.data_match.group(2).decode('utf-8')
