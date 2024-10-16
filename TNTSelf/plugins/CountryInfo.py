@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from countryinfo import CountryInfo
 
 __INFO__ = {
