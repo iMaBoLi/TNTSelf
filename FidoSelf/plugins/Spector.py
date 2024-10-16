@@ -61,7 +61,7 @@ async def Spector(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="Spector\:(.*)\:(.*)")
+@client.Inline(pattern="Spector\\:(.*)\\:(.*)")
 async def inlinespector(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
@@ -71,7 +71,7 @@ async def inlinespector(event):
     buttons = await get_spector_buttons(userid, chatid)
     await event.answer([event.builder.article("FidoSelf - Spector", text=text, buttons=buttons)])
 
-@client.Callback(pattern="Spector\:(.*)\:(.*)")
+@client.Callback(pattern="Spector\\:(.*)\\:(.*)")
 async def callspector(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
@@ -81,7 +81,7 @@ async def callspector(event):
     buttons = await get_spector_buttons(userid, chatid)
     await event.edit(text, buttons=buttons)
 
-@client.Callback(data="SetSpector\:(.*)\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="SetSpector\\:(.*)\\:(.*)\\:(.*)\\:(.*)")
 async def setspector(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
