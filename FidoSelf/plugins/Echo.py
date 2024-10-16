@@ -94,7 +94,7 @@ async def cleanechos(event):
     client.DB.del_key("ECHO_USERS")
     await event.edit(client.getstrings(STRINGS)["clean"])
 
-@client.Command(command="SetEchoSleep (\d*)")
+@client.Command(command="SetEchoSleep (\\d*)")
 async def setechosleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
@@ -113,7 +113,7 @@ async def echofosh(event):
         getmsg = await client.get_messages(event.chat_id, ids=event.id)
         await event.respond(getmsg)
 
-@client.Inline(pattern="addecho\:(.*)\:(.*)")
+@client.Inline(pattern="addecho\\:(.*)\\:(.*)")
 async def inlineecho(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
@@ -126,7 +126,7 @@ async def inlineecho(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeecho")])
     await event.answer([event.builder.article("FidoSelf - Echo", text=text, buttons=buttons)])
 
-@client.Callback(data="addecho\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="addecho\\:(.*)\\:(.*)\\:(.*)")
 async def addechos(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
@@ -143,7 +143,7 @@ async def addechos(event):
     text = client.getstrings(STRINGS)["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
-@client.Inline(pattern="delecho\:(.*)")
+@client.Inline(pattern="delecho\\:(.*)")
 async def delechoinline(event):
     userid = int(event.pattern_match.group(1))
     text = client.getstrings(STRINGS)["wheredel"]
@@ -153,7 +153,7 @@ async def delechoinline(event):
         buttons.append(Button.inline(f"• {where} •", data=f"delechodel:{userid}:{where}"))
     await event.answer([event.builder.article("FidoSelf - Del Echo", text=text, buttons=buttons)])
 
-@client.Callback(data="delechodel\:(.*)\:(.*)")
+@client.Callback(data="delechodel\\:(.*)\\:(.*)")
 async def delechos(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     where = str(event.data_match.group(2).decode('utf-8'))
