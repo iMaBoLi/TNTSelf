@@ -24,7 +24,7 @@ STRINGS = {
     "slice": "**{STR} The Photo Was Sliced To** ( `{}` ) **Tiles!**"
 }
 
-@client.Command(command="SSlice (\d*)")
+@client.Command(command="SSlice (\\d*)")
 async def sliceimage(event):
     await event.edit(client.STRINGS["wait"])
     tile = event.pattern_match.group(1)
