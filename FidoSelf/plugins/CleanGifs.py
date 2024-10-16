@@ -26,7 +26,7 @@ STRINGS = {
     "cleaned": "**{STR} The Number Of** ( `{}` ) **From Your Saved Gifs Has Been Cleaned!**",
 }
 
-@client.Command(command="CGifs ?(\d*)?")
+@client.Command(command="CGifs ?(\\d*)?")
 async def cleangifs(event):
     await event.edit(client.STRINGS["wait"])
     number = event.pattern_match.group(1)
