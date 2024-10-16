@@ -1,15 +1,15 @@
-from FidoSelf import client
-from FidoSelf import config
-from FidoSelf.functions.database import *
-from FidoSelf.functions.helper import *
-from FidoSelf.functions.utils import *
-from FidoSelf.functions.core import *
-from FidoSelf.functions.loader import *
-from FidoSelf.functions.tools import *
-from FidoSelf.functions.youtube import *
-from FidoSelf.functions.strings import STRINGS
-from FidoSelf.functions.data import *
-from FidoSelf.functions.fasttelethon import download_file, upload_file
+from TNTSelf import client
+from TNTSelf import config
+from TNTSelf.functions.database import *
+from TNTSelf.functions.helper import *
+from TNTSelf.functions.utils import *
+from TNTSelf.functions.core import *
+from TNTSelf.functions.loader import *
+from TNTSelf.functions.tools import *
+from TNTSelf.functions.youtube import *
+from TNTSelf.functions.strings import STRINGS
+from TNTSelf.functions.data import *
+from TNTSelf.functions.fasttelethon import download_file, upload_file
 
 async def AddVarsToClient():
     setattr(client, "PLUGINS", get_plugins())
@@ -31,7 +31,7 @@ async def AddVarsToClient():
     SetTimeZone()
 
 def AddHandlersToClient():
-    from FidoSelf.events import Command, Callback, Inline
+    from TNTSelf.events import Command, Callback, Inline
     setattr(client, "Command", Command)
     setattr(client, "Callback", Callback)
     setattr(client, "Inline", Inline)
