@@ -1,4 +1,4 @@
-from FidoSelf import client as CLIENT
+from TNTSelf import client as CLIENT
 import asyncio
 import hashlib
 import logging
