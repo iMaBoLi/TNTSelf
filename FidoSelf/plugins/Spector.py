@@ -21,7 +21,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
-    "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
+    "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -143,5 +143,6 @@ async def actionspec(event):
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, actions[action], time)
+        where = "In Your Pv" if event.is_private else "In A Chat"
+        text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, actions[action], where, time)
         await client.bot.send_message(client.REALM, text)
