@@ -199,7 +199,7 @@ def get_buttons(quick):
     buttons.append([Button.inline("📥 Save ✅", data=f"SaveQuick:{quick}"), Button.inline(client.STRINGS["inline"]["Delete"], data=f"DelQuick:{quick}")])
     return buttons
 
-@client.Command(command="AddQuick \'([\s\S]*)\' ([\s\S]*)")
+@client.Command(command="AddQuick \'([\\s\\S]*)\' ([\\s\\S]*)")
 async def addquick(event):
     await event.edit(client.STRINGS["wait"])
     cmd = event.pattern_match.group(1)[:25]
@@ -217,7 +217,7 @@ async def addquick(event):
         await res[0].click(event.chat_id)
     await event.delete()
     
-@client.Command(command="AddQuick ([\s\S]*)")
+@client.Command(command="AddQuick ([\\s\\S]*)")
 async def addmediaquick(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply():
@@ -237,7 +237,7 @@ async def addmediaquick(event):
         await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Command(command="DelQuick ([\s\S]*)")
+@client.Command(command="DelQuick ([\\s\\S]*)")
 async def delquick(event):
     await event.edit(client.STRINGS["wait"])
     command = event.pattern_match.group(1)
@@ -292,7 +292,7 @@ async def cleanquicklist(event):
     client.DB.del_key("QUICK_LIST")
     await event.edit(client.getstrings(STRINGS)["cleanquick"])
 
-@client.Inline(pattern="QuickPage\:(.*)")
+@client.Inline(pattern="QuickPage\\:(.*)")
 async def quickpage(event):
     quick = str(event.pattern_match.group(1))
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -302,7 +302,7 @@ async def quickpage(event):
     buttons = get_buttons(quick)
     await event.answer([event.builder.article("FidoSelf - Quick Page", text=text, buttons=buttons)])
 
-@client.Callback(data="SetQuick\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="SetQuick\\:(.*)\\:(.*)\\:(.*)")
 async def setqucik(event):
     Mode = event.data_match.group(1).decode('utf-8')
     quick = event.data_match.group(2).decode('utf-8')
@@ -318,7 +318,7 @@ async def setqucik(event):
     buttons = get_buttons(quick)
     await event.edit(text=text, buttons=buttons)
     
-@client.Callback(data="SaveQuick\:(.*)")
+@client.Callback(data="SaveQuick\\:(.*)")
 async def savequcik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -329,7 +329,7 @@ async def savequcik(event):
     text = client.getstrings(STRINGS)["savequick"].format(info["Person"], info["Where"], info["Type"], info["Finder"], info["Sleep"], info["Command"], answer)
     await event.edit(text=text)
 
-@client.Inline(pattern="QuickDel\:(.*)")
+@client.Inline(pattern="QuickDel\\:(.*)")
 async def inlinedelquick(event):
     command = str(event.pattern_match.group(1))
     text = client.getstrings(STRINGS)["listdel"].format(command)
@@ -345,7 +345,7 @@ async def inlinedelquick(event):
         buttons.append([Button.inline(ShowName, data=f"DelQuick:{quick}")])
     await event.answer([event.builder.article("FidoSelf - Del Quick", text=text, buttons=buttons)])
 
-@client.Callback(data="DelQuick\:(.*)")
+@client.Callback(data="DelQuick\\:(.*)")
 async def delqucik(event):
     quick = event.data_match.group(1).decode('utf-8')
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -368,7 +368,7 @@ async def inlinequicklist(event):
         buttons.append([Button.inline(client.STRINGS["inline"]["Next"], data=f"QuickListPage:2")])
     await event.answer([event.builder.article("FidoSelf - List Quick", text=text, buttons=buttons)])
 
-@client.Callback(data="QuickListPage\:(.*)")
+@client.Callback(data="QuickListPage\\:(.*)")
 async def listquickspage(event):
     page = str(event.data_match.group(1).decode('utf-8'))
     quicks = client.DB.get_key("QUICK_LIST") or {}
@@ -387,7 +387,7 @@ async def listquickspage(event):
     buttons.append(pbts)
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="ViweQuick\:(.*)\:(.*)")
+@client.Callback(data="ViweQuick\\:(.*)\\:(.*)")
 async def viewquicks(event):
     quick = str(event.data_match.group(1).decode('utf-8'))
     page = str(event.data_match.group(2).decode('utf-8'))
