@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import events
 from traceback import format_exc
 
@@ -13,7 +13,7 @@ def Inline(
                 event.is_sudo = True if event.sender_id == client.me.id else False
                 if onlysudo and not event.is_sudo:
                     text = client.STRINGS["OtherInline"]
-                    return await event.answer([event.builder.article("FidoSelf - NotForYou", text=text)])
+                    return await event.answer([event.builder.article("TNTSelf - NotForYou", text=text)])
                 await func(event)
             except:
                 client.LOGS.error(format_exc())
