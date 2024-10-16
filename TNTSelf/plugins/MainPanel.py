@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import Button
 from jdatetime import datetime
 
@@ -121,7 +121,7 @@ async def panelpv(event):
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
     page = int(event.pattern_match.group(2))
-    await event.answer([event.builder.article("FidoSelf - Panel", text=get_text(page), buttons=get_buttons(chatid, page))])
+    await event.answer([event.builder.article("TNTSelf - Panel", text=get_text(page), buttons=get_buttons(chatid, page))])
 
 @client.Callback(data="Page\\:(.*)\\:(.*)")
 async def panelpages(event):
