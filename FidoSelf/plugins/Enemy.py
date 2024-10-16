@@ -104,7 +104,7 @@ async def cleanenemies(event):
     client.DB.del_key("ENEMY_LIST")
     await event.edit(client.getstrings(STRINGS)["clean"])
 
-@client.Command(command="SetEnemySleep (\d*)")
+@client.Command(command="SetEnemySleep (\\d*)")
 async def setenemysleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = event.pattern_match.group(1)
@@ -139,7 +139,7 @@ async def enemyfosh(event):
         if delete == "ON" and event.is_private:
             await event.delete()
 
-@client.Inline(pattern="addenemy\:(.*)\:(.*)")
+@client.Inline(pattern="addenemy\\:(.*)\\:(.*)")
 async def inlineenemy(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
@@ -152,7 +152,7 @@ async def inlineenemy(event):
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeenemy")])
     await event.answer([event.builder.article("FidoSelf - Enemy", text=text, buttons=buttons)])
 
-@client.Callback(data="addenemy\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="addenemy\\:(.*)\\:(.*)\\:(.*)")
 async def addenemies(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
@@ -169,7 +169,7 @@ async def addenemies(event):
     text = client.getstrings(STRINGS)["add"].format(client.functions.mention(userinfo), where)
     await event.edit(text=text)
 
-@client.Inline(pattern="delenemy\:(.*)")
+@client.Inline(pattern="delenemy\\:(.*)")
 async def delenemyinline(event):
     userid = int(event.pattern_match.group(1))
     text = client.getstrings(STRINGS)["wheredel"]
@@ -179,7 +179,7 @@ async def delenemyinline(event):
         buttons.append(Button.inline(f"• {where} •", data=f"delenemydel:{userid}:{where}"))
     await event.answer([event.builder.article("FidoSelf - Del Enemy", text=text, buttons=buttons)])
 
-@client.Callback(data="delenemydel\:(.*)\:(.*)")
+@client.Callback(data="delenemydel\\:(.*)\\:(.*)")
 async def delenemies(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     where = str(event.data_match.group(2).decode('utf-8'))
