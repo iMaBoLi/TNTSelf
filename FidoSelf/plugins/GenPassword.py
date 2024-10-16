@@ -23,7 +23,7 @@ STRINGS = {
     "pass": "**{STR} Passwords:**:\n\n    **{STR} Easy:** ( `{}` )\n    **{STR} Medium:** ( `{}` )\n    **{STR} Hard:** ( `{}` )"
 }
 
-@client.Command(command="GenPass (\\\d*)")
+@client.Command(command="GenPass (\\d*)")
 async def password(event):
     await event.edit(client.STRINGS["wait"])
     count = int(event.pattern_match.group(1))
