@@ -1,5 +1,5 @@
 from redis import Redis
-from FidoSelf import config
+from TNTSelf import config
 import json, os
 
 def get_data(self, key):
