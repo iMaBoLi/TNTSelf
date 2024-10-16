@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import functions, types, Button
 import asyncio, random
 import os
@@ -124,7 +124,7 @@ async def inlineecho(event):
         buttons.append(Button.inline(f"• {where} •", data=f"addecho:{chatid}:{userid}:{swhere}"))
     buttons = list(client.functions.chunks(buttons, 4))
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="closeecho")])
-    await event.answer([event.builder.article("FidoSelf - Echo", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Echo", text=text, buttons=buttons)])
 
 @client.Callback(data="addecho\\:(.*)\\:(.*)\\:(.*)")
 async def addechos(event):
@@ -151,7 +151,7 @@ async def delechoinline(event):
     buttons = []
     for where in Echos[userid]:
         buttons.append(Button.inline(f"• {where} •", data=f"delechodel:{userid}:{where}"))
-    await event.answer([event.builder.article("FidoSelf - Del Echo", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Del Echo", text=text, buttons=buttons)])
 
 @client.Callback(data="delechodel\\:(.*)\\:(.*)")
 async def delechos(event):
