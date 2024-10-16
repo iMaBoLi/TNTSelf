@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import functions, Button
 import asyncio
 
@@ -68,7 +68,7 @@ async def inlinemanage(event):
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["menu"].format(mention)
     buttons = await get_manage_buttons(userid, chatid)
-    await event.answer([event.builder.article("FidoSelf - Manage", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Manage", text=text, buttons=buttons)])
 
 @client.Callback(data="SetUser\\:(.*)\\:(.*)\\:(.*)\\:(.*)")
 async def SetUsermanage(event):
