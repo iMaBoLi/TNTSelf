@@ -144,14 +144,14 @@ async def cleanphotos(event):
     client.DB.del_key("PHOTO_LIST")
     await event.edit(client.getstrings(STRINGS)["cleanphoto"])
 
-@client.Inline(pattern="PhotoPage\:(.*)")
+@client.Inline(pattern="PhotoPage\\:(.*)")
 async def photopage(event):
     phname = str(event.pattern_match.group(1))
     text = client.getstrings(STRINGS)["photopage"].format(phname)
     buttons = get_buttons(phname)
     await event.answer([event.builder.article("FidoSelf - Photo Page", text=text, buttons=buttons)])
 
-@client.Callback(data="SetPhoto\:(.*)\:(.*)\:(.*)")
+@client.Callback(data="SetPhoto\\:(.*)\\:(.*)\\:(.*)")
 async def setphoto(event):
     smode = event.data_match.group(1).decode('utf-8')
     phname = event.data_match.group(2).decode('utf-8')
@@ -165,7 +165,7 @@ async def setphoto(event):
     buttons = get_buttons(phname)
     await event.edit(text=text, buttons=buttons)
     
-@client.Callback(data="SavePhoto\:(.*)")
+@client.Callback(data="SavePhoto\\:(.*)")
 async def savephoto(event):
     phname = event.data_match.group(1).decode('utf-8')
     photos = client.DB.get_key("PHOTO_LIST") or {}
@@ -180,7 +180,7 @@ async def savephoto(event):
     await event.edit(text=text)
     await photochanger()
     
-@client.Callback(data="DelPhoto\:(.*)")
+@client.Callback(data="DelPhoto\\:(.*)")
 async def delphoto(event):
     phname = event.data_match.group(1).decode('utf-8')
     if phname not in INPHOTO_LIST:
