@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import Button
 import random
 import secrets
@@ -53,7 +53,7 @@ async def najva(event):
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["najva"].format(mention)
     buttons = [[Button.inline("• Open Najva •", data=f"OpenNajva:{token}:{userid}")]]
-    await event.answer([event.builder.article("FidoSelf - Najva", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Najva", text=text, buttons=buttons)])
     
 @client.Callback(data="OpenNajva\\:(.*)\\:(.*)", onlysudo=False)
 async def opennajva(event):
