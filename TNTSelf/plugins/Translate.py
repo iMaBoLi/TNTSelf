@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from translate import Translator
 
 __INFO__ = {
