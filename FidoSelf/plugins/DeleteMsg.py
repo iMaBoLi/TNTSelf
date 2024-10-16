@@ -29,7 +29,7 @@ STRINGS = {
     "userdel": "**{STR} The** ( `{}` ) **Message From User** ( {} ) **In This Chat Was Deleted!**"
 }
 
-@client.Command(command="Del (\d*)")
+@client.Command(command="Del (\\d*)")
 async def deletemsg(event):
     await event.edit(client.STRINGS["wait"])
     limit = int(event.pattern_match.group(1))
