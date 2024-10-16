@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from youtubesearchpython import VideosSearch
 from yt_dlp import YoutubeDL
 from PIL import Image
