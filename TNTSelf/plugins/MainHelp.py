@@ -25,7 +25,7 @@ client.functions.AddInfo(__INFO__)
 STRINGS = {
     "notfound": "**✾ The Plugin With Name** ( `{}` ) **Is Not Available!**",
     "notplug": "✾ The Plugins In This Category Is Not Founded!",
-    "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To Fido Self Help!**\n      **✾ Please Select The Category You Want:**",
+    "main": "**ᯓ Dear** ( {} )\n   **✾ Welcome To TNT Self Help!**\n      **✾ Please Select The Category You Want:**",
     "category": "**ᯓ Dear** ( {} )\n   **✾ Welcome To** ( `{}` ) **Category Help!**\n      **✾ Please Choose Plugin To Get Info:**",
     "closehelp": "**☻ The Help Panel Successfully Closed!**",
 }
