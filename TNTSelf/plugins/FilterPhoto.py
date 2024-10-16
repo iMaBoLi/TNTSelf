@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from PIL import Image, ImageOps
 from PIL.ImageFilter import BLUR, CONTOUR, DETAIL, EDGE_ENHANCE_MORE, EMBOSS, SMOOTH_MORE, SHARPEN
 import os
