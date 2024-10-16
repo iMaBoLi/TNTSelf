@@ -23,8 +23,8 @@ STRINGS = {
         "id": "**❉ Please Enter ChatID - ChatUsername!**",
     },
     "inline": {
-        "On": "( ✔️ )",
-        "Off": "( ✖️ )",
+        "On": "﹝ ✔️ ﹞",
+        "Off": "﹝ ✖️ ﹞",
         "Yes": "Yes ✅",
         "No": "No ❌",
         "Close": "🚫 Close 🚫",
