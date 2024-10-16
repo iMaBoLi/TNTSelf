@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from .ManageTime import photochanger
 from telethon import Button
 import os
@@ -149,7 +149,7 @@ async def photopage(event):
     phname = str(event.pattern_match.group(1))
     text = client.getstrings(STRINGS)["photopage"].format(phname)
     buttons = get_buttons(phname)
-    await event.answer([event.builder.article("FidoSelf - Photo Page", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Photo Page", text=text, buttons=buttons)])
 
 @client.Callback(data="SetPhoto\\:(.*)\\:(.*)\\:(.*)")
 async def setphoto(event):
