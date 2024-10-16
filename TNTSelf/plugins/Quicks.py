@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import functions, types, Button
 import asyncio
 import random
@@ -300,7 +300,7 @@ async def quickpage(event):
     answer = info["Answers"] if info["Type"] != "Media" else "Media"
     text = client.getstrings(STRINGS)["quickpage"].format(info["Command"], answer)
     buttons = get_buttons(quick)
-    await event.answer([event.builder.article("FidoSelf - Quick Page", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Quick Page", text=text, buttons=buttons)])
 
 @client.Callback(data="SetQuick\\:(.*)\\:(.*)\\:(.*)")
 async def setqucik(event):
@@ -343,7 +343,7 @@ async def inlinedelquick(event):
         info = quicks[quick]
         ShowName = f'( {info["Person"]} ) - ( {info["Where"]} ) - ( {info["Type"]} )'
         buttons.append([Button.inline(ShowName, data=f"DelQuick:{quick}")])
-    await event.answer([event.builder.article("FidoSelf - Del Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Del Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="DelQuick\\:(.*)")
 async def delqucik(event):
@@ -366,7 +366,7 @@ async def inlinequicklist(event):
         buttons.append([Button.inline(ShowName, data=f"ViweQuick:{quick}:1")])
     if len(quicks) > 10:
         buttons.append([Button.inline(client.STRINGS["inline"]["Next"], data=f"QuickListPage:2")])
-    await event.answer([event.builder.article("FidoSelf - List Quick", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - List Quick", text=text, buttons=buttons)])
 
 @client.Callback(data="QuickListPage\\:(.*)")
 async def listquickspage(event):
