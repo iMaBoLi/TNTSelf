@@ -44,7 +44,7 @@ async def setlogo(event):
     await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
     await event.delete()
 
-@client.Command(command="AddLogo (\\d*)\\-(\\d*)\,(\\d*)")
+@client.Command(command="AddLogo (\\d*)\\-(\\d*)\\,(\\d*)")
 async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
