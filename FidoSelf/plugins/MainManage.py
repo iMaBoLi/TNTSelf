@@ -34,10 +34,7 @@ MANAGES = {
 async def get_manage_buttons(userid, chatid):
     buttons = []
     buttons.append([Button.inline(f"• User Info •", data=f"GetUserInfo:{chatid}:{userid}")])
-    info = await client(functions.users.GetFullUserRequest(userid))
-    info = info.full_user
-    smode = "UnBlock" if info.blocked else "Block"
-    buttons.append([Button.inline(f"• {smode} User •", data=f"User:{smode}:{chatid}:{userid}")])
+    buttons.append([Button.inline("• Spector •", data=f"Spector:{chatid}:{userid}")])
     obuts = []
     for manage in MANAGES:
         lists = client.DB.get_key(manage) or []
@@ -88,19 +85,6 @@ async def SetUsermanage(event):
         lists.remove(userid)
         client.DB.set_key(mode, lists)
     buttons = await get_manage_buttons(userid, chatid)
-    await event.edit(buttons=buttons)
-
-@client.Callback(data="User\:(Block|UnBlock)\:(.*)\:(.*)")
-async def blockunblock(event):
-    change = str(event.data_match.group(1).decode('utf-8'))
-    chatid = int(event.data_match.group(2).decode('utf-8'))
-    userid = int(event.data_match.group(3).decode('utf-8'))
-    if change == "Block":
-        await client(functions.contacts.BlockRequest(userid))
-    elif change == "UnBlock":
-        await client(functions.contacts.UnblockRequest(userid))
-    await asyncio.sleep(0.3)
-    buttons = await get_manage_buttons(userid, chatid)    
     await event.edit(buttons=buttons)
 
 @client.Callback(data="GetUserInfo\:(.*)\:(.*)")
