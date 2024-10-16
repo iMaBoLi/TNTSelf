@@ -53,7 +53,7 @@ async def cmdstarter(event):
     await event.edit(client.getstrings(STRINGS)["setcmd"].format(simbel))
     await client.functions.runcmd(RUNCMD)
 
-@client.Command(pattern="(?i)^\.DelCmd$")
+@client.Command(pattern="(?i)^\\.DelCmd$")
 async def delcmdstarter(event):
     await event.edit(client.STRINGS["wait"])
     client.DB.set_key("CMD_SIMBEL", ".")
