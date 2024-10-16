@@ -18,7 +18,7 @@ STRINGS = {
     "not": "**{STR} Please Reply To Text Or Enter Text!**"
 }
 
-@client.Command(command="TSay ?([\S\s]*)?")
+@client.Command(command="TSay ?([\\S\\s]*)?")
 async def tsay(event):
     await event.edit(client.STRINGS["wait"])
     inputtext = str(event.pattern_match.group(1) or "")
