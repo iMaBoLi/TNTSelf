@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 import time
 
 __INFO__ = {
