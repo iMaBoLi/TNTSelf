@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from telethon import events, functions, types, Button
 import asyncio
 import datetime
@@ -69,7 +69,7 @@ async def inlinespector(event):
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["spector"].format(mention)
     buttons = await get_spector_buttons(userid, chatid)
-    await event.answer([event.builder.article("FidoSelf - Spector", text=text, buttons=buttons)])
+    await event.answer([event.builder.article("TNTSelf - Spector", text=text, buttons=buttons)])
 
 @client.Callback(pattern="Spector\\:(.*)\\:(.*)")
 async def callspector(event):
