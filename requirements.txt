@@ -26,5 +26,6 @@ image_slicer
 jdatetime
 httpx[http2]
 numpy
+google-play-scraper
 
 git+https://github.com/alexmercerind/youtube-search-python
