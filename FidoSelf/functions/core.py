@@ -18,15 +18,6 @@ def getstrings(STRINGS):
             text = text.replace("{CMD}", CMD)
         NEWSTR.update({element: text})
     return NEWSTR
-    
-def getstring(strings, element):
-    lang = client.DB.get_key("LANGUAGE") or "EN"
-    text = strings[lang][element]
-    STR = client.DB.get_key("EMOJI_SIMBEL") or "❃"
-    CMD = client.DB.get_key("CMD_SIMBEL") or "."
-    text = text.replace("{STR}", STR)
-    text = text.replace("{CMD}", CMD)
-    return text
 
 def checkCmd(text):
     if not text: return False
