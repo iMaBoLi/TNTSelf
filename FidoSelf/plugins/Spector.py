@@ -20,9 +20,9 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specstatus": "**{STR} User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
-    "specaction": "**{STR} User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
-    "specreadpv": "**{STR} User** ( {} - `{}` )\n    **Is Read Your Message Now!** ( `{}` )",
+    "specstatus": "**[{STR}]({}) User** ( {} - `{}` )\n    **Is {} Now!** ( `{}` )",
+    "specaction": "**[{STR}]({}) User** ( {} - `{}` )\n    **Is {} {} Now!** ( `{}` )",
+    "specreadpv": "**[{STR}]({}) User** ( {} - `{}` )\n    **Is Read Your Message Now!** ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
@@ -108,28 +108,15 @@ async def closespector(event):
 async def statusspec(event):
     if event.user_id == client.me.id or not event.status: return
     status = event.status.to_dict()["_"]
-    if status not in ["UserStatusOnline", "UserStatusOffline"]: return
-    lists = client.DB.get_key("SPECTOR_STATUS") or []
-    if event.user_id in lists:
-        info = await client.get_entity(event.user_id)
-        mention = client.functions.mention(info)
-        localtime = datetime.datetime.now()
-        time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status.replace("UserStatus", ""), time)
-        await client.bot.send_message(client.REALM, text)
-
-@client.on(events.UserUpdate)
-async def statusspec(event):
-    if event.user_id == client.me.id or not event.status: return
-    status = event.status.to_dict()["_"]
     if status not in ["UserStatusOnline", "UserStatusOffline", "UserStatusRecently"]: return
     lists = client.DB.get_key("SPECTOR_STATUS") or []
     if event.user_id in lists:
         info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
+        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specstatus"].format(mention, event.user_id, status.replace("UserStatus", ""), time)
+        text = client.getstrings(STRINGS)["specstatus"].format(mymention, mention, event.user_id, status.replace("UserStatus", ""), time)
         await client.bot.send_message(client.REALM, text)
         
 @client.on(events.UserUpdate)
@@ -152,10 +139,11 @@ async def actionspec(event):
     if event.user_id in lists:
         info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
+        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         where = "In Your Pv" if event.is_private else "In A Chat"
-        text = client.getstrings(STRINGS)["specaction"].format(mention, event.user_id, actions[action], where, time)
+        text = client.getstrings(STRINGS)["specaction"].format(mymention, mention, event.user_id, actions[action], where, time)
         await client.bot.send_message(client.REALM, text)
         
 @client.on(events.MessageRead)
@@ -166,7 +154,8 @@ async def readpvspec(event):
     if userid in lists:
         info = await client.get_entity(userid)
         mention = client.functions.mention(info)
+        mymention = client.functions.mention(client.me)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specreadpv"].format(mention, userid, time)
+        text = client.getstrings(STRINGS)["specreadpv"].format(mymention, mention, userid, time)
         await client.bot.send_message(client.REALM, text)
