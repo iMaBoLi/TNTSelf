@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from openai import OpenAI
 import openai
 import requests
