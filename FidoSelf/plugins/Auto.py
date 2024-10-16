@@ -138,7 +138,7 @@ async def getauto(event):
     await event.respond(getmsg)
     await event.delete()
     
-@client.Command(command="SetAutoSleep (\d*)")
+@client.Command(command="SetAutoSleep (\\d*)")
 async def setautosleep(event):
     await event.edit(client.STRINGS["wait"])
     sleep = int(event.pattern_match.group(1))
