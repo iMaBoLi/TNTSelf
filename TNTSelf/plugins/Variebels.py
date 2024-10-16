@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 
 VARIEBELS = {
     "TIME": "Use For Replace With Time String ( Ex: 23:59 )",
