@@ -1,5 +1,5 @@
-from FidoSelf import client
-from FidoSelf.functions.strings import STRINGS as MSTRS
+from TNTSelf import client
+from TNTSelf.functions.strings import STRINGS as MSTRS
 
 STRINGS = {
     "EN": {
