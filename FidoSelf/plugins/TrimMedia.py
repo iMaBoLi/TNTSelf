@@ -46,7 +46,7 @@ STRINGS = {
     "trdaud": "**{STR} The Audio Was Trimed From** ( `{}` ) **To** ( `{}` )"
 }
 
-@client.Command(command="VTrim (\d*)\-(\d*)")
+@client.Command(command="VTrim (\\d*)\\-(\\d*)")
 async def trimvideo(event):
     await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
@@ -73,7 +73,7 @@ async def trimvideo(event):
     os.remove(file)
     await event.delete()
     
-@client.Command(command="ATrim (\d*)\-(\d*)")
+@client.Command(command="ATrim (\\d*)\\-(\\d*)")
 async def trimaudio(event):
     await event.edit(client.STRINGS["wait"])
     start = int(event.pattern_match.group(1))
