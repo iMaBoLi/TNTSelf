@@ -43,7 +43,7 @@ async def get_spector_buttons(userid, chatid):
         smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
         show = spec.replace("_", " ").title()
-        buttons.append(Button.inline(f"{show} {smode}", data=f"SetSpector:{chatid}:{userid}:{spec}:{cmode}"))
+        buttons.append(Button.inline(f"• {show} {smode}", data=f"SetSpector:{chatid}:{userid}:{spec}:{cmode}"))
     buttons = client.functions.chunker(buttons, [1,2])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseSpector")])
     return buttons
