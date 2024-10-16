@@ -73,8 +73,8 @@ async def inlinespector(event):
 
 @client.Callback(pattern="Spector\:(.*)\:(.*)")
 async def callspector(event):
-    chatid = int(event.pattern_match.group(1))
-    userid = int(event.pattern_match.group(2))
+    chatid = int(event.data_match.group(1).decode('utf-8'))
+    userid = int(event.data_match.group(2).decode('utf-8'))
     info = await client.get_entity(userid)
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["spector"].format(mention)
