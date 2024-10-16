@@ -150,11 +150,12 @@ async def actionspec(event):
 @client.on(events.MessageRead)
 async def readpvspec(event):
     if event.chat_id == client.me.id or not event.is_private: return
+    userid = event.original_update.peer.user_id
     lists = client.DB.get_key("SPECTOR_READ_PV") or []
-    if event.chat_id in lists:
-        info = await client.get_entity(event.chat_id)
+    if userid in lists:
+        info = await client.get_entity(userid)
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        text = client.getstrings(STRINGS)["specreadpv"].format(mention, event.chat_id, time)
+        text = client.getstrings(STRINGS)["specreadpv"].format(mention, userid, time)
         await client.bot.send_message(client.REALM, text)
