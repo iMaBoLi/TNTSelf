@@ -54,7 +54,7 @@ async def banuser(event):
     text = client.getstrings(STRINGS)["banuser"].format(mention)
     await event.edit(text)
     
-@client.Command(command="TBan (\d*)")
+@client.Command(command="TBan (\\d*)")
 async def timerbanuser(event):
     await event.edit(client.STRINGS["wait"])
     timer = int(event.pattern_match.group(1))
