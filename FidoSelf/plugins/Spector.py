@@ -20,11 +20,11 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!** ( `{}` )",
-    "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!** ( `{}` )",
-    "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!** ( `{}` )",
-    "specjoingroup": "**{STR} User** ( {} - `{}` )\n    **➛ Is Joined To Group** ( `{}` - `{}` ) **Now!** ( `{}` )",
-    "specleavegroup": "**{STR} User** ( {} - `{}` )\n    **➛ Is Leaved From Group** ( `{}` - `{}` ) **Now!** ( `{}` )",
+    "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!**\n    ( `{}` )",
+    "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!**\n    ( `{}` )",
+    "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!**\n    ( `{}` )",
+    "specjoingroup": "**{STR} User** ( {} - `{}` )\n    **➛ Is Joined To Group** ( `{}` - `{}` ) **Now!**\n    ( `{}` )",
+    "specleavegroup": "**{STR} User** ( {} - `{}` )\n    **➛ Is Leaved From Group** ( `{}` - `{}` ) **Now!**\n    ( `{}` )",
     "closespector": "**{STR} The Spector Panel Successfuly Closed!**",
 }
 
