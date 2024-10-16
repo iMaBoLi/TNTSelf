@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from traceback import format_exc
 from telethon.types import Message
 import asyncio
