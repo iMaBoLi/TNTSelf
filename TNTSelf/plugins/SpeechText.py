@@ -1,4 +1,4 @@
-from FidoSelf import client
+from TNTSelf import client
 from speechmatics.models import ConnectionSettings
 from speechmatics.batch_client import BatchClient
 from httpx import HTTPStatusError
