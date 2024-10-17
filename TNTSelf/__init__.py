@@ -5,7 +5,7 @@ from TNTSelf import config
 import time
 import sys
 
-__version__ = "2.10.3"
+__version__ = "2.10.6"
 
 LOGS = getLogger("TNTSelf")
 basicConfig(
