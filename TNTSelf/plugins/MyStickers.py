@@ -3,7 +3,7 @@ from telethon import functions, types
 
 __INFO__ = {
     "Category": "Account",
-    "Name": "MyStickers",
+    "Name": "My Stickers",
     "Info": {
         "Help": "To Get List Of Your Stickers!",
         "Commands": {
