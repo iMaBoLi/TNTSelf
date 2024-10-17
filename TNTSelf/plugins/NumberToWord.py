@@ -251,6 +251,6 @@ def number_to_word(inputN):
 @client.Command(command="ToWord (\\d*)")
 async def numbertoword(event):
     await event.edit(client.STRINGS["wait"])
-    number = int(event.pattern_match.group(1))
+    number = str(event.pattern_match.group(1))
     word = number_to_word(number)
     await event.edit(client.getstrings(STRINGS)["word"].format(number, word))
