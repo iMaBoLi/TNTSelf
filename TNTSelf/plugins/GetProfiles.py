@@ -17,14 +17,8 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "EN": {
-        "not": "**{STR} The Profile Photos For** ( {} ) **Is Not Found!**",
-        "caption": "**{STR} The Profile Photos For** ( {} ) **Is Sended!**"
-    },
-    "FA": {
-        "not": "**{STR} هیچ عکس پروفایلی برای** ( {} ) **پیدا نشد!**",
-        "caption": "**{STR} عکس های پروفایل** ( {} ) **ارسال شد!**"
-    },        
+    "not": "**{STR} The Profile Photos For** ( {} ) **Is Not Found!**",
+    "caption": "**{STR} The Profile Photos For** ( {} ) **Is Sended!**"
 }
 
 @client.Command(command="GProfiles", userid=True)
@@ -36,8 +30,8 @@ async def getprofiles(event):
     mention = client.functions.mention(info)
     photos = await client.get_profile_photos(event.userid)
     if not photos:
-        return await event.edit(client.getstring(STRINGS, "not").format(mention))
-    caption = client.getstring(STRINGS, "caption").format(mention)
+        return await event.edit(client.getstrings(STRINGS)["not"].format(mention))
+    caption = client.getstrings(STRINGS)["caption"].format(mention)
     for phs in client.functions.chunks(photos, 9):
         await event.respond(caption, file=phs)
     await event.delete()
