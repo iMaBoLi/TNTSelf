@@ -1,5 +1,5 @@
 from TNTSelf import client
-from telethon import functions, types
+from telethon import functions
 
 __INFO__ = {
     "Category": "Account",
