@@ -21,11 +21,6 @@ STRINGS = {
 
 def number_to_word(inputN):
     result = ""
-    if "-" in inputN:
-        inputN = inputN.replace("-", "")
-        result += "منفی "
-    elif "+" in inputN:
-        inputN = inputN.replace("+", "")
     inputN = inputN.zfill(61)
     intN = int(inputN)
     if intN > 10**61:
