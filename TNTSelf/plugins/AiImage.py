@@ -40,7 +40,7 @@ STYLES = Somnium.Styles()
 async def setstyle(event):
     await event.edit(client.STRINGS["wait"])
     stylename = event.pattern_match.group(1)
-    if stylename not in STYLES[:48]:
+    if stylename not in STYLES:
         return await event.edit(client.getstrings(STRINGS)["notid"].format(stylename))
     client.DB.set_key("STYLE_IMAGE", stylename)
     await event.edit(client.getstrings(STRINGS)["setid"].format(stylename))
@@ -50,10 +50,11 @@ async def getstyles(event):
     await event.edit(client.STRINGS["wait"])
     text = client.getstrings(STRINGS)["styles"]
     count = 1
-    for style in STYLES[:48]:
+    for style in STYLES:
         sid = STYLES[style]
         text += f"**{count} -** `{style}`\n"
         count += 1
+        if count > 50: pass
     await event.edit(text)
 
 @client.Command(command="GenPhoto (.*)")
