@@ -16,7 +16,6 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "get": "**{STR} Getting List Of Your Stickers ...**",
     "not": "**{STR} The List Of Your Stickers Is Empty!**",
     "stickers": "**{STR} The List Of Your Stickers:**\n\n",
 }
@@ -24,8 +23,7 @@ STRINGS = {
 @client.Command(command="MyStickers")
 async def mystickers(event):
     await event.edit(client.STRINGS["wait"])
-    await event.edit(client.getstrings(STRINGS)["get"])
-    stickers = await client(functions.messages.GetMyStickersRequest(offset_id=0, limit=100))
+    stickers = await client(functions.messages.GetMyStickersRequest(offset_id=0, limit=50))
     if stickers.count == 0:
         return await event.edit(client.getstrings(STRINGS)["not"])
     text = client.getstrings(STRINGS)["stickers"]
@@ -33,6 +31,6 @@ async def mystickers(event):
     for sticker in stickers.sets:
         link = f"https://t.me/addstickers/{sticker.set.short_name}"
         link = f"[{sticker.set.title}]({link})"
-        text += f"**{row} -** {link}\n"
+        text += f"**{row} -** {link} ( `{sticker.set.count}` )\n"
         row += 1
     await event.edit(text)
