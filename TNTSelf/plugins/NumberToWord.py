@@ -28,6 +28,8 @@ def number_to_word(inputN):
         inputN = inputN.replace("+", "")
     inputN = inputN.zfill(61)
     intN = int(inputN)
+    if intN > 10**61:
+        return "Not Supported!"
     yekan = ["", "یک", "دو", "سه", "چهار", "پنج", "شش", "هفت", "هشت", "نه"]
     dahha = ["ده", "یازده", "دوازده", "سیزده", "چهارده", "پانزده", "شانزده", "هفده", "هجده", "نوزده"]
     tabist = yekan + dahha
