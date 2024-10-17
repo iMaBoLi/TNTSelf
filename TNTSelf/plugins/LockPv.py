@@ -16,12 +16,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "EN": {
-        "change": "**{STR} The Lock Pv Mode Has Been {}!**"
-    },
-    "FA": {
-        "change": "**{STR} حالت قفل پیوی با موفقیت {}!**"
-    },        
+    "change": "**{STR} The Lock Pv Mode Has Been {}!**"
 }
 @client.Command(command="LockPv (On|Off)")
 async def lockpvmode(event):
@@ -29,7 +24,7 @@ async def lockpvmode(event):
     change = event.pattern_match.group(1).upper()
     client.DB.set_key("LOVKPV_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
-    await event.edit(client.getstring(STRINGS, "change").format(showchange))
+    await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(onlysudo=False, allowedits=False)
 async def lockepv(event):
