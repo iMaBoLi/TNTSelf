@@ -19,12 +19,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "EN": {
-        "time": "**{STR} Time:** ( `{}` )\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )\n\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )",
-    },
-    "FA": {
-        "time": "**{STR} ساعت:** ( `{}` )\n**{STR} تاریخ:** ( `{}` )\n**{STR} روز:** ( `{}` )\n**{STR} ماه:** ( `{}` )\n\n**{STR} تاریخ:** ( `{}` )\n**{STR} روز:** ( `{}` )\n**{STR} ماه:** ( `{}` )",
-    },
+    "time": "**{STR} Time:** ( `{}` )\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )\n\n**{STR} Local:**\n**{STR} Date:** ( `{}` )\n**{STR} Day:** ( `{}` )\n**{STR} Month:** ( `{}` )",
 }
 
 @client.Command(command="Time")
@@ -36,7 +31,7 @@ async def time(event):
         f.write(requests.get(link).content)
     irtime = jdatetime.datetime.now()
     localtime = datetime.datetime.now()
-    text = client.getstring(STRINGS, "time").format(
+    text = client.getstrings(STRINGS)["time"].format(
         irtime.strftime("%H:%M"),
         irtime.strftime("%Y") + "/" + irtime.strftime("%m") + "/" + irtime.strftime("%d"),
         irtime.strftime("%A"),
