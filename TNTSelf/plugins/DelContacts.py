@@ -31,7 +31,6 @@ STRINGS = {
 @client.Command(command="DelContacts")
 async def delallcontacts(event):
     await event.edit(client.STRINGS["wait"])
-    name = event.pattern_match.group(1)
     contacts = await client(functions.contacts.GetContactsRequest(hash=0))
     count = 0
     for contact in contacts.users:
