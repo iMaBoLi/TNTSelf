@@ -116,7 +116,7 @@ async def action(event):
     if not acType: return
     if acMode == "ON" or event.chat_id in acChats:
         if acType == "bandari":
-            client.loop.create_task(sendrandomaction(event.chat_id))
+            client.loop.create_task(sendbandariaction(event.chat_id))
         elif acType == "random":
             RType = random.choice(client.functions.ACTIONS[2:])
             client.loop.create_task(sendaction(event.chat_id, RType))
@@ -151,7 +151,7 @@ async def sendaction(chat_id, action):
     async with client.action(chat_id, action.lower()):
         await asyncio.sleep(3)
 
-async def sendrandomaction(chat_id):
+async def sendbandariaction(chat_id):
     for action in client.functions.ACTIONS[2:]:
         async with client.action(chat_id, action):
             await asyncio.sleep(1)
