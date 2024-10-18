@@ -1,6 +1,7 @@
 from TNTSelf import client
 from telethon import Button
 from .Variebels import VARIEBELS
+import re
 
 __INFO__ = {
     "Category": "Setting",
@@ -97,12 +98,16 @@ def gethelp(plugin):
             text += "\n┈━━═ ☆ ═━━┈\n"
     return text
 
-def search_plugin(pluginname):
-    pluginname = pluginname.replace(" ", "").lower()
+def search_plugin(query):
+    query = query.replace(" ", "").lower()
     for plugin in client.HELP:
         plname = plugin.replace(" ", "").lower()
-        if pluginname == plname:
+        if query == plname:
             return plugin
+        for com in client.HELP[plugin]["Commands"]:
+            search = re.search(query, com.lower())
+            if search:
+                return plugin
     return None
 
 @client.Command(command="Help ?(.*)?")
