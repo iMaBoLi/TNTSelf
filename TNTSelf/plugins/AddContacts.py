@@ -11,8 +11,8 @@ __INFO__ = {
         "Commands": {
             "{CMD}AddContacts": {
                 "Help": "To Add To Contacts",
-            },
-            "Reply": ["File"],
+                "Reply": ["File"],
+            A},
         },
     },
 }
