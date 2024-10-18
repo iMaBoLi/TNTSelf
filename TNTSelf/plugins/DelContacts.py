@@ -23,9 +23,9 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "notcon": "**{STR} The Contacts List Is Empty!**",
-    "delall": "**{STR} The** ( `{}` ) **Contact From Your Contacts Was Deleted!**"
+    "delall": "**{STR} The** ( `{}` ) **Contact From Your Contacts Was Deleted!**",
     "notdel": "**{STR} The Contact With Name** ( `{}` ) **Is Not Founded!**",
-    "delcon": "**{STR} The** ( `{}` ) **Contact By Name** ( `{}` ) **From Contacts Was Deleted!**"
+    "delcon": "**{STR} The** ( `{}` ) **Contact By Name** ( `{}` ) **From Contacts Was Deleted!**",
 }
 
 @client.Command(command="DelContacts")
