@@ -8,7 +8,7 @@ __INFO__ = {
         "Help": "To Clean Blocked Users!",
         "Commands": {
             "{CMD}CleanBlocks": {
-                "Help": "To Clean Blocks!",
+                "Help": "To Clean Blocks",
             },
         },
     },
