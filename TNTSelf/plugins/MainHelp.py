@@ -58,18 +58,18 @@ def search_category(plugin):
 
 def gethelp(plugin):
     info = client.HELP[plugin]
-    text = f"**꥟ Plugin:** ( `{plugin}` )\n"
+    text = f"**࿇ Plugin:** ( `{plugin}` )\n"
     category = search_category(plugin)
-    text += f"**꥟ Category:** ( `{category}` )\n"
-    text += f'**꥟ Help:** ( `{info["Help"]}` )\n\n'
-    text += "⊱┈───╌ ❊ ╌───┈⊰\n"
+    text += f"**࿇ Category:** ( `{category}` )\n"
+    text += f'**࿇ Help:** ( `{info["Help"]}` )\n\n'
+    text += "⊱┈───╌ ❈ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
         CMD = client.DB.get_key("CMD_SIMBEL") or "."
         cname = command.replace("{CMD}", CMD)
         ccname = cname.split(" ")[0]
         scname = "`" + cname.replace(" ", "` `") + "`"
         share = f"http://t.me/share/text?text={ccname}"
-        text += f"\n[𒆜]({share}) : " + scname + "\n"
+        text += f"\n[➜]({share}) : " + scname + "\n"
         if info["Commands"][command]:
             text += "\n"
             hcom = info["Commands"][command]
@@ -130,7 +130,7 @@ async def inlinehelp(event):
     text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATEGORYS:
-        sname = "「 " + category + " 」"
+        sname = "【 " + category + " 】"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -141,7 +141,7 @@ async def callhelp(event):
     text = client.getstrings(STRINGS)["main"].format(client.functions.mention(client.me))
     buttons = []
     for category in CATEGORYS:
-        sname = "「 " + category + " 」"
+        sname = "【 " + category + " 】"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -154,7 +154,7 @@ async def getcategory(event):
     if not CATEGORYS[category]:
         return await event.answer(client.getstrings(STRINGS)["notplug"], alert=True)
     for plugin in CATEGORYS[category]:
-        buttons.append(Button.inline(f"๑ {plugin} ๑", data=f"GetHelp:{plugin}:{category}"))
+        buttons.append(Button.inline(f"✿ {plugin} ✿", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
     text = client.getstrings(STRINGS)["category"].format(client.functions.mention(client.me), category)
