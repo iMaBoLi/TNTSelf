@@ -25,6 +25,9 @@ __INFO__ = {
             "{CMD}CleanFiles": {
                 "Help": "Clean File Messages!",
             },
+            "{CMD}CleanContacts": {
+                "Help": "Clean Contact Messages!",
+            },
             "{CMD}CleanUrls": {
                 "Help": "Clean Url Messages!",
             },
@@ -38,7 +41,7 @@ STRINGS = {
     "del": "**{STR} The** ( `{}` ) **Messages Of** ( `{}` ) **Medias Was Deleted!**",
 }
 
-@client.Command(command="Clean(Photo|Video|Gif|Voice|Music|File|Url)s")
+@client.Command(command="Clean(Photo|Video|Gif|Voice|Music|File|Contact|Url)s")
 async def cleanmedias(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_private:
@@ -51,6 +54,7 @@ async def cleanmedias(event):
         "Voice": types.InputMessagesFilterVoice,
         "Music": types.InputMessagesFilterMusic,
         "File": types.InputMessagesFilterDocument,
+        "Contact": types.InputMessagesFilterContacts,
         "Url": types.InputMessagesFilterUrl,
     }
     addfilter = filters[filter]
