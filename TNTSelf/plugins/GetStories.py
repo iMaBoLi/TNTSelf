@@ -8,8 +8,12 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Stories Of Users!",
         "Commands": {
-            "{CMD}GStories": {
+            "{CMD}GetStories": {
                 "Help": "To Get Stories",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
+            "{CMD}GetPinStories": {
+                "Help": "To Get Pinned Stories",
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
         },
@@ -22,9 +26,13 @@ STRINGS = {
     "sending": "**{STR} The Stories For** ( {} ) **Is Sending ...**",
     "caption": "**{STR} Story:** ( `{}` )",
     "sended": "**{STR} The Stories For** ( {} ) **Is Sended!**",
+    "notpin": "**{STR} The Pinned Stories For** ( {} ) **Is Not Found!**",
+    "sendingpin": "**{STR} The Pinned Stories For** ( {} ) **Is Sending ...**",
+    "captionpin": "**{STR} Pinned Story:** ( `{}` )",
+    "sendedpin": "**{STR} The Pinned Stories For** ( {} ) **Is Sended!**",
 }
 
-@client.Command(command="GStories", userid=True)
+@client.Command(command="GetStories", userid=True)
 async def getStories(event):
     await event.edit(client.STRINGS["wait"])
     if not event.userid:
@@ -45,3 +53,24 @@ async def getStories(event):
         numstory += 1
     await event.edit(client.getstrings(STRINGS)["sended"].format(mention))
     
+@client.Command(command="GetPinStories", userid=True)
+async def getpinStories(event):
+    await event.edit(client.STRINGS["wait"])
+    if not event.userid:
+        return await event.edit(client.STRINGS["user"]["all"])
+    info = await client.get_entity(event.userid)
+    mention = client.functions.mention(info)
+    pinstories = await client(functions.stories.GetPinnedStoriesRequest(peer=event.userid, offset_id=42, limit=100))
+    stories = await client(functions.stories.GetStoriesByIDRequest(peer=event.userid, id=pinstories.pinned_to_top))
+    stories = stories.stories
+    if not stories:
+        return await event.edit(client.getstrings(STRINGS)["notpin"].format(mention))
+    await event.edit(client.getstrings(STRINGS)["sendingpin"].format(mention))
+    numstory = 1
+    for story in stories:
+        sfile = await client.download_media(story.media)
+        caption = client.getstrings(STRINGS)["captionpin"].format(str(numstory))
+        await client.send_file(event.chat_id, sfile, caption=caption)        
+        os.remove(sfile)
+        numstory += 1
+    await event.edit(client.getstrings(STRINGS)["sendedpin"].format(mention))
