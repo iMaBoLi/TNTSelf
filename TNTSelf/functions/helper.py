@@ -74,8 +74,6 @@ async def getchatid(event, number=1):
 def mention(info, coustom=None):
     if not coustom:
         coustom = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
-    if info.username:
-        return f"[{coustom}](@{info.username})"
     return f"[{coustom}](tg://user?id={info.id})"
 
 def mediatype(event):
