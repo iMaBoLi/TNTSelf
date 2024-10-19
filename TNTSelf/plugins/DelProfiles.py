@@ -7,9 +7,21 @@ __INFO__ = {
     "Info": {
         "Help": "To Delete Profile Phots!",
         "Commands": {
-            "{CMD}DelProfile": "Delete First Profile!",
-            "{CMD}DelProfile <Num>": "Delete Inputed Number Profile!",
-            "{CMD}DelProfile -<Count>": "Delete Profiles As Required!",
+            "{CMD}DelProfile": {
+                "Help": "Delete First Profile",
+            },
+            "{CMD}DelProfile <Num>": {
+                "Help": "Delete Inputed Number Profile",
+                "Input": {
+                    "<Num>": "Input Number Profile",
+                },
+            },
+            "{CMD}DelProfile -<Count>": {
+                "Help": "Delete Numbers Of Profiles As Required",
+                "Input": {
+                    "<Count>": "Number Of Profiles",
+                },
+            },
         },
     },
 }
