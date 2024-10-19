@@ -48,11 +48,13 @@ async def deletemsg(event):
             if message.id == event.id: continue
             messages.append(message.id)
         dels = await client.delete_messages(event.chat_id, messages)
-        await event.edit(client.getstrings(STRINGS)["userdel"].format(dels[0].pts_count, mention))
+        count = dels[0].pts_count if dels else 0
+        await event.edit(client.getstrings(STRINGS)["userdel"].format(count, mention))
     else:
         messages = []
         async for message in client.iter_messages(event.chat_id, limit=int(limit) + 1):
             if message.id == event.id: continue
             messages.append(message.id)
         dels = await client.delete_messages(event.chat_id, messages)
-        await event.edit(client.getstrings(STRINGS)["chatdel"].format(dels[0].pts_count))
+        count = dels[0].pts_count if dels else 0
+        await event.edit(client.getstrings(STRINGS)["chatdel"].format(count))
