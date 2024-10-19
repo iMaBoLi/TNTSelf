@@ -60,11 +60,11 @@ async def getpinStories(event):
         return await event.edit(client.STRINGS["user"]["all"])
     info = await client.get_entity(event.userid)
     mention = client.functions.mention(info)
-    pinstories = await client(functions.stories.GetPinnedStoriesRequest(peer=event.userid, offset_id=42, limit=100))
+    pinstories = await client(functions.stories.GetPinnedStoriesRequest(peer=event.userid, offset_id=0, limit=100))
+    if not pinstories:
+        return await event.edit(client.getstrings(STRINGS)["notpin"].format(mention))
     stories = await client(functions.stories.GetStoriesByIDRequest(peer=event.userid, id=pinstories.pinned_to_top))
     stories = stories.stories
-    if not stories:
-        return await event.edit(client.getstrings(STRINGS)["notpin"].format(mention))
     await event.edit(client.getstrings(STRINGS)["sendingpin"].format(mention))
     numstory = 1
     for story in stories:
