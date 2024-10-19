@@ -12,10 +12,10 @@ __INFO__ = {
                     "<Count>": "Number Of Messages",
                 },
             },
-            "{CMD}Del <Count>": {
+            "{CMD}Del <Num>": {
                 "Help": "To Delete Messages Of User",
                 "Input": {
-                    "<Count>": "Number Of Messages",
+                    "<Num>": "Number Of Messages",
                 },
                 "Getid": "You Must Reply To User",
             },
