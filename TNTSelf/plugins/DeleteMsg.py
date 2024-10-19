@@ -36,7 +36,7 @@ STRINGS = {
 @client.Command(command="Del ?(\\d*)?")
 async def deletemsg(event):
     await event.edit(client.STRINGS["wait"])
-    limit = int(event.pattern_match.group(1))
+    limit = event.pattern_match.group(1)
     if not limit:
         if event.is_reply:
             await event.reply_message.delete(revoke=True)
@@ -44,15 +44,15 @@ async def deletemsg(event):
     if event.is_reply:
         mention = client.functions.mention(event.reply_message.sender)
         messages = []
-        async for message in client.iter_messages(event.chat_id, from_user=event.reply_message.sender_id, limit=limit):
+        async for message in client.iter_messages(event.chat_id, from_user=event.reply_message.sender_id, limit=int(limit)):
             if message.id == event.id: continue
             messages.append(message.id)
         dels = await client.delete_messages(event.chat_id, messages)
-        await event.edit(client.getstrings(STRINGS)["userdel"].format(dels.pts_count, mention))
+        await event.edit(client.getstrings(STRINGS)["userdel"].format(dels[0].pts_count, mention))
     else:
         messages = []
-        async for message in client.iter_messages(event.chat_id, limit=limit + 1):
+        async for message in client.iter_messages(event.chat_id, limit=int(limit) + 1):
             if message.id == event.id: continue
             messages.append(message.id)
         dels = await client.delete_messages(event.chat_id, messages)
-        await event.edit(client.getstrings(STRINGS)["chatdel"].format(dels.pts_count))
+        await event.edit(client.getstrings(STRINGS)["chatdel"].format(dels[0].pts_count))
