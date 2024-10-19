@@ -12,7 +12,7 @@ __INFO__ = {
             "{CMD}AddContacts": {
                 "Help": "To Add To Contacts",
                 "Reply": ["File"],
-            A},
+            },
         },
     },
 }
