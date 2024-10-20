@@ -48,7 +48,7 @@ async def autodelete(event):
         MSGS.update({msginfo: time.time()})
         client.DB.set_key("AUTODELETE_MSGS", MSGS)
 
-@aiocron.crontab("*/1 * * * * *")
+@aiocron.crontab("*/10 * * * * *")
 async def autodeleter():
     MSGS = client.DB.get_key("AUTODELETE_MSGS") or {}
     if not MSGS: return
