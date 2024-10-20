@@ -26,6 +26,10 @@ STRINGS = {
     "sending": "**{STR} The Stories For** ( {} ) **Is Sending ...**",
     "caption": "**{STR} Story:** ( `{}` )",
     "sended": "**{STR} The Stories For** ( {} ) **Is Sended!**",
+    "notall": "**{STR} The Stories For** ( {} ) **Is Not Found!**",
+    "sendingall": "**{STR} The All Stories For** ( {} ) **Is Sending ...**",
+    "captionall": "**{STR} Story:** ( `{}` )",
+    "sendedall": "**{STR} The All Stories For** ( {} ) **Is Sended!**",
     "notpin": "**{STR} The Pinned Stories For** ( {} ) **Is Not Found!**",
     "sendingpin": "**{STR} The Pinned Stories For** ( {} ) **Is Sending ...**",
     "captionpin": "**{STR} Pinned Story:** ( `{}` )",
@@ -52,7 +56,28 @@ async def getStories(event):
         os.remove(sfile)
         numstory += 1
     await event.edit(client.getstrings(STRINGS)["sended"].format(mention))
-    
+
+@client.Command(command="GetAllStories", userid=True)
+async def getallStories(event):
+    await event.edit(client.STRINGS["wait"])
+    if not event.userid:
+        return await event.edit(client.STRINGS["user"]["all"])
+    info = await client.get_entity(event.userid)
+    mention = client.functions.mention(info)
+    stories = await client(functions.stories.GetStoriesArchiveRequest(peer=event.userid, offset_id=0, limit=100))
+    stories = stories.stories
+    if not stories:
+        return await event.edit(client.getstrings(STRINGS)["notall"].format(mention))
+    await event.edit(client.getstrings(STRINGS)["sendingall"].format(mention))
+    numstory = 1
+    for story in stories:
+        sfile = await client.download_media(story.media)
+        caption = client.getstrings(STRINGS)["captionall"].format(str(numstory))
+        await client.send_file(event.chat_id, sfile, caption=caption)        
+        os.remove(sfile)
+        numstory += 1
+    await event.edit(client.getstrings(STRINGS)["sendedall"].format(mention))
+
 @client.Command(command="GetPinStories", userid=True)
 async def getpinStories(event):
     await event.edit(client.STRINGS["wait"])
