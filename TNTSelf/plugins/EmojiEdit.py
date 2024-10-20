@@ -45,4 +45,7 @@ async def emoji(event):
     emoji1 = emojis.split("-")[0]
     emoji2 = emojis.split("-")[1]
     ntext = emoji1 + " " + event.text + " " + emoji2
-    await event.edit(ntext)
+    try:
+        await event.edit(ntext)
+    except:
+        pass
