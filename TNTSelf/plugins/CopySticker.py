@@ -55,5 +55,8 @@ async def copysticker(event):
         for atts in sticker.attributes:
             if atts.to_dict()["_"] == "DocumentAttributeSticker":
                 attributes = atts
-        await client(functions.stickers.AddStickerToSetRequest(stickerset=types.InputStickerSetID(id=create.set.id, access_hash=create.set.access_hash), sticker=types.InputStickerSetItem(document=types.InputDocument(id=sticker.id, access_hash=sticker.access_hash, file_reference=sticker.file_reference), emoji=attributes.alt)))
+        try:
+            await client(functions.stickers.AddStickerToSetRequest(stickerset=types.InputStickerSetID(id=create.set.id, access_hash=create.set.access_hash), sticker=types.InputStickerSetItem(document=types.InputDocument(id=sticker.id, access_hash=sticker.access_hash, file_reference=sticker.file_reference), emoji=attributes.alt)))
+        except:
+            continue
     await event.edit(client.getstrings(STRINGS)["created"].format(setmen, sname))
