@@ -12,6 +12,10 @@ __INFO__ = {
                 "Help": "To Get Stories",
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
+            "{CMD}GetAllStories": {
+                "Help": "To Get All Stories",
+                "Getid": "You Must Reply To User Or Input UserID/UserName",
+            },
             "{CMD}GetPinStories": {
                 "Help": "To Get Pinned Stories",
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
