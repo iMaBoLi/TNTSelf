@@ -39,7 +39,7 @@ CATEGORYS = {
     "Usage": ["Youtube", "Spotify", "Google Play", "Trim Video", "Trim Audio", "Cover File", "Video Shot", "Shazam", "Search Music", "Extract Audio", "Edit Duration", "Music Info", "Rotater"],
     "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
     "Convert": ["Convert Video", "Convert Photo", "Color Photo", "Filter Video", "Filter Photo", "Bw Photo", "Mirror Photo", "Round Photo"],
-    "Funs": ["Bank Card", "Wikipedia", "FakeMail", "Flood", "Password", "Number To Word", "Say", "Sign", "Len", "Contact", "Emojis"],
+    "Funs": ["Bank Card", "Wikipedia", "FakeMail", "Flood", "Password", "Number To Word", "Say", "Sign", "Copy Sticker", "Len", "Contact", "Emojis"],
     "Account": ["Edit Profile", "Set Profile", "My Info", "My Stickers", "Share Me", "Left", "Online", "Chats Count", "Del Profiles", "Clean Profiles", "Add Contacts", "Del Contacts", "Clean Blocks", "Clean Gifs", "Clean Stickers"],
     "Groups": ["Ban", "Kick", "Mute", "Chat Info", "Search", "Delete Msg", "Welcome", "GoodBy", "Comment", "Auto Join", "Auto Leave", "Invite VC", "Channel Sign", "Global Search"],
     "Pv": ["MutePv", "LockPv", "Anti Spam", "Media Save", "Timer Save", "Clean Medias", "Pv Mute", "Filter Pv"],
