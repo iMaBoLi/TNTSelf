@@ -42,7 +42,7 @@ async def googlepinfo(event):
     except exceptions.NotFoundError:
         return await event.edit(client.getstrings(STRINGS)["notapp"].format(appID))
     free = "✅" if result["free"] else "❌ - " + str(result["price"]) 
-    description = result["description"][:1000] + "...."
+    description = result["description"][:500] + "...."
     caption = client.getstrings(STRINGS)["appinfo"].format(result["title"], result["appId"], result["genre"], (str(round(result["score"], 1)) + " ★"), result["installs"], result["ratings"], result["reviews"], free, result["developer"], description)
     icon = client.PATH + appID + ".jpg"
     with open(icon, "wb") as f:
