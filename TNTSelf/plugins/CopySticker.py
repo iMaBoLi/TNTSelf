@@ -13,6 +13,7 @@ __INFO__ = {
                     "<Title>" : "Title For StickerSet",
                     "<SName>" : "Short Name For StickerSet"
                 },
+                "Reply": ["Sticker"],
             },
         },
     },
