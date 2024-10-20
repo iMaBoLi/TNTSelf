@@ -8,9 +8,18 @@ __INFO__ = {
     "Info": {
         "Help": "To Convert Video And Gif Formats!",
         "Commands": {
-            "{CMD}ToVideo <Reply(VideoNote)>": None,
-            "{CMD}ToVNote <Reply(Video)>": None,
-            "{CMD}ToGif <Reply(Video)>": None,
+            "{CMD}ToVideo": {
+                "Help": "To Convert VideoNote To Video",
+                "Reply": ["VideoNote"],
+            },
+            "{CMD}ToVNote": {
+                "Help": "To Convert Video To VideoNote",
+                "Reply": ["Video"],
+            },
+            "{CMD}ToGif": {
+                "Help": "To Convert Video Or VideoNote Or VSticker To Gif",
+                "Reply": ["Video", "VideoNote", "VSticker"],
+            },
         },
     },
 }
@@ -18,7 +27,7 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "tovideo": "**{STR} The Video Note Converted To Video!**",
-    "togif": "**{STR} The Video Converted To Gif!**"
+    "togif": "**{STR} The Media Converted To Gif!**"
 }
 
 @client.Command(command="ToVideo")
