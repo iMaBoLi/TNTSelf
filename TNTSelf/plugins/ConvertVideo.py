@@ -54,7 +54,7 @@ async def tovnote(event):
 @client.Command(command="ToGif")
 async def togif(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["Video", "VideoNote"]):
+    if reply:= event.checkReply(["Video", "VideoNote", "VSticker"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
