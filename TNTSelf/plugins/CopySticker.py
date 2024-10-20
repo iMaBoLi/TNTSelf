@@ -42,32 +42,12 @@ async def copysticker(event):
     for atts in event.reply_message.media.document.attributes:
         if atts.to_dict()["_"] == "DocumentAttributeSticker":
             attributes = atts
-            pass
-    getstickers = await client(functions.messages.GetStickerSetRequest(
-        stickerset=types.InputStickerSetID(
-            id=attributes.stickerset.id,
-            access_hash=attributes.stickerset.access_hash
-        ),
-        hash=0
-    ))
+    getstickers = await client(functions.messages.GetStickerSetRequest(stickerset=types.InputStickerSetID(id=attributes.stickerset.id, access_hash=attributes.stickerset.access_hash), hash=0))
     first = getstickers.documents[0]
     for atts in first.attributes:
         if atts.to_dict()["_"] == "DocumentAttributeSticker":
             attributes = atts
-            pass
-    create = await client(functions.stickers.CreateStickerSetRequest(
-        user_id="me",
-        title=title,
-        short_name=sname,
-        stickers=[types.InputStickerSetItem(
-            document=types.InputDocument(
-                id=first.id,
-                access_hash=first.access_hash,
-                file_reference=first.file_reference
-            ),
-            emoji=attributes.alt,
-        )],
-    ))
+    create = await client(functions.stickers.CreateStickerSetRequest(user_id=client.me.id, title=title, short_name=sname, stickers=[types.InputStickerSetItem(document=types.InputDocument(id=first.id, access_hash=first.access_hash, file_reference=first.file_reference), emoji=attributes.alt)]))
     setmen = f"[{create.set.title}](https://t.me/addstickers/{create.set.short_name})"
     await event.edit(client.getstrings(STRINGS)["creating"].format(setmen))
     for sticker in getstickers.documents:
@@ -75,19 +55,5 @@ async def copysticker(event):
         for atts in sticker.attributes:
             if atts.to_dict()["_"] == "DocumentAttributeSticker":
                 attributes = atts
-                pass
-        await client(functions.stickers.AddStickerToSetRequest(
-            stickerset=types.InputStickerSetID(
-                id=create.set.id,
-                access_hash=create.set.access_hash
-            ),
-            sticker=types.InputStickerSetItem(
-                document=types.InputDocument(
-                    id=sticker.id,
-                    access_hash=sticker.access_hash,
-                    file_reference=sticker.file_reference
-            ),
-            emoji=attributes.alt,
-        )
-    ))
+        await client(functions.stickers.AddStickerToSetRequest(stickerset=types.InputStickerSetID(id=create.set.id, access_hash=create.set.access_hash), sticker=types.InputStickerSetItem(document=types.InputDocument(id=sticker.id, access_hash=sticker.access_hash, file_reference=sticker.file_reference), emoji=attributes.alt)))
     await event.edit(client.getstrings(STRINGS)["created"].format(setmen, sname))
