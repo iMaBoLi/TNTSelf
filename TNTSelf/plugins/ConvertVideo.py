@@ -18,7 +18,7 @@ __INFO__ = {
             },
             "{CMD}ToGif": {
                 "Help": "To Convert Video Or VideoNote Or VSticker To Gif",
-                "Reply": ["Video", "VideoNote", "VSticker"],
+                "Reply": ["Video", "VideoNote", "VideoSticker"],
             },
         },
     },
