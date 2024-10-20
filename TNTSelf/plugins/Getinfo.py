@@ -7,7 +7,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Get Information Of Users!",
         "Commands": {
-            "{CMD}Info": {
+            "{CMD}UInfo": {
                 "Help": "To Get User Info",
                 "Getid": "You Must Reply To User Or Input UserID/UserName",
             },
@@ -31,11 +31,11 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "user": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
+    "user": "**{STR} User Info:**\n\n**{STR} Mention:** ( {} )\n**{STR} ID:** ( `{}` )\n**{STR} First Name:** ( `{}` )\n**{STR} Last Name:** ( `{}` )\n**{STR} Username :** ( `{}` )\n**{STR} Birthday:** ( `{}` )\n**{STR} Location:** ( `{}` )\n**{STR} Contact:** ( `{}` )\n**{STR} Mutual Contact:** ( `{}` )\n**{STR} Status:** ( `{}` )\n**{STR} Common Chats:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
     "chat": "**{STR} Chat Info:**\n\n**{STR} ID:** ( `{}` )\n**{STR} Title:** ( `{}` )\n**{STR} Username :** ( `{}` )\n\n**{STR} Messages Count:** ( `{}` )\n\n**{STR} Members Count:** ( `{}` )\n**{STR} Administrators Count:** ( `{}` )\n**{STR} Bots Count:** ( `{}` )\n**{STR} Onlines Count:** ( `{}` )\n**{STR} Banned Count:** ( `{}` )\n**{STR} Kicked Count:** ( `{}` )\n**{STR} Description:** ( `{}` )",
 }
 
-@client.Command(command="Info", userid=True)
+@client.Command(command="UInfo", userid=True)
 async def userinfo(event):
     await event.edit(client.STRINGS["wait"])
     if not event.userid:
@@ -47,7 +47,9 @@ async def userinfo(event):
     mcontact = "✅" if uinfo.mutual_contact else "❌"
     status = uinfo.status.to_dict()["_"].replace("UserStatus", "") if uinfo.status else "---"
     username = f"@{uinfo.username}" if uinfo.username else "---"
-    userinfo = client.getstrings(STRINGS)["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
+    birthday = f"{info.birthday.year or '0000'}/{info.birthday.month}/{info.birthday.day}" if info.birthday else "---"
+    location = info.business_location.address if info.business_location else "---"
+    userinfo = client.getstrings(STRINGS)["user"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, birthday, location, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
         await event.respond(userinfo, file=info.profile_photo)
     else:
