@@ -103,7 +103,8 @@ async def delcalculator(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     msgid = int(event.data_match.group(2).decode('utf-8'))
     getdata = await get_calc_data(chatid, msgid)
-    if getdata == "Empty": return
+    if getdata == "Empty":
+        return await event.answer(client.getstrings(STRINGS)["notcalc"], alert=True)
     data = str(getdata)[:-1]
     data = data if data else "Empty"
     text = client.getstrings(STRINGS)["calc"].format(data)
