@@ -1,6 +1,5 @@
 from TNTSelf import client
 from telethon import functions, Button
-import re
 
 __INFO__ = {
     "Category": "Manage",
@@ -36,12 +35,7 @@ async def get_calc_data(chatid, msgid):
     message = await client.get_messages(chatid, ids=msgid)
     if not message:
         return "Empty"
-    match = "Operation\\: \\( (.*) \\)"
-    search = re.search(match, message.raw_text)
-    if not search:
-        return "Empty"
-    data = search.group(1)
-    return data
+    return message.text
 
 @client.Command(command="Calc")
 async def calculator(event):
@@ -69,8 +63,7 @@ async def addcalculator(event):
     string = str(event.data_match.group(3).decode('utf-8'))
     getdata = await get_calc_data(chatid, msgid)
     data = str(getdata) + str(string)
-    client.LOGS.error(data)
-    #data = data.replace("Empty", "")
+    data = data.replace("Empty", "")
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
     await event.edit(text=text, buttons=buttons)
