@@ -17,11 +17,13 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "calc": "**{STR} Use Following Options For The Calculator:**\n\n**{STR} Operation:** ( `{}` )",
+    "uncalc": "{STR} This Operation Is InValid!",
     "notcalc": "{STR} The Calculator Operation Is Empty!",
     "rescalc": "**{STR} Your Operation:** ( `{}` )\n\n**{STR} Result:** ( `{}` )",
 }
 
 NUMS = ["１", "２", "３", "４", "５", "６", "７", "８", "９", "０"]
+OPERS =  ["✚", "-", "×", "÷"]
 BUTTONS = {
     "０": "0",
     "１": "1",
@@ -41,7 +43,7 @@ BUTTONS = {
 def get_calc_buttons(chatid, msgid):
     buttons = [[Button.inline("🆑", data=f"ClearCalc:{chatid}:{msgid}"), Button.inline("⌫", data=f"DelCalc:{chatid}:{msgid}")]]
     otherbuttons = []
-    for othbts in ["✚", "-", "×", "÷"]:
+    for othbts in OPERS:
         otherbuttons.append(Button.inline(othbts, data=f"AddCalc:{chatid}:{msgid}:{othbts}"))
     otherbuttons = list(client.functions.chunks(otherbuttons, 4))
     numbuttons = []
@@ -83,8 +85,14 @@ async def addcalculator(event):
     msgid = int(event.data_match.group(2).decode('utf-8'))
     string = str(event.data_match.group(3).decode('utf-8'))
     getdata = await get_calc_data(chatid, msgid)
-    data = str(getdata) + str(string)
-    data = data.replace("Empty", "")
+    if getdata == "Empty":
+        if string in OPERS:
+            return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
+        data = string
+    else:
+        if str(getdata)[-1] in OPERS:
+            return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
+        data = str(getdata) + string
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
     await event.edit(text=text, buttons=buttons)
