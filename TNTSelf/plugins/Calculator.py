@@ -48,14 +48,14 @@ async def calculator(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
     msgid = event.id
-    res = await client.inline_query(client.bot.me.username, f"Calc:{chatid}:{msgid}")
+    res = await client.inline_query(client.bot.me.username, f"Calc:{chatid}")
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="Calc\\:(.*)\\:(.*)")
+@client.Inline(pattern="Calc\\:(.*)")
 async def inlinecalculator(event):
     chatid = int(event.pattern_match.group(1))
-    msgid = int(event.pattern_match.group(2))
+    msgid = event.id
     data = await get_calc_data(chatid, msgid)
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
