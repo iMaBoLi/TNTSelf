@@ -46,19 +46,17 @@ async def get_calc_data(chatid, msgid):
 @client.Command(command="Calc")
 async def calculator(event):
     await event.edit(client.STRINGS["wait"])
-    chatid = event.chat_id
-    msgid = event.id
-    res = await client.inline_query(client.bot.me.username, f"Calc:{chatid}")
+    message = await client.bot.send_message(client.REALM, "Empty")
+    chatid = message.chat_id
+    msgid = message.id
+    res = await client.inline_query(client.bot.me.username, f"Calc:{chatid}:{msgid}")
     await res[0].click(event.chat_id)
     await event.delete()
 
-@client.Inline(pattern="Calc\\:(.*)")
+@client.Inline(pattern="Calc\\:(.*)\\:(.*)")
 async def inlinecalculator(event):
     chatid = int(event.pattern_match.group(1))
-    msgid = event.id
-    client.LOGS.error(str(event))
-    client.LOGS.error(str(event.text))
-    client.LOGS.error(str(event.message))
+    msgid = int(event.pattern_match.group(2))
     data = await get_calc_data(chatid, msgid)
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
@@ -75,3 +73,4 @@ async def addcalculator(event):
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
     await event.edit(text=text, buttons=buttons)
+    await client.bot.edit_message(chatid, msgid, data)
