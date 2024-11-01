@@ -40,16 +40,16 @@ BUTTONS = {
     
 def get_calc_buttons(chatid, msgid):
     buttons = [[Button.inline("🆑", data=f"ClearCalc:{chatid}:{msgid}"), Button.inline("⌫", data=f"DelCalc:{chatid}:{msgid}")]]
-    otherbuttons = ["✚", "-", "×", "÷"]
-    for othbts in otherbuttons:
-        buttons.append(Button.inline(othbts, data=f"AddCalc:{chatid}:{msgid}:{othbts}"))
-    buttons = list(client.functions.chunks(buttons, 4))
+    otherbuttons = []
+    for othbts in ["✚", "-", "×", "÷"]:
+        otherbuttons.append(Button.inline(othbts, data=f"AddCalc:{chatid}:{msgid}:{othbts}"))
+    otherbuttons = list(client.functions.chunks(otherbuttons, 4))
     numbuttons = []
     for num in NUMS:
         numbuttons.append(Button.inline(num, data=f"AddCalc:{chatid}:{msgid}:{num}"))
     numbuttons = list(client.functions.chunks(numbuttons, 3))
     resbutton = [[Button.inline("=", data=f"CalcRes:{chatid}:{msgid}")]]
-    buttons = buttons + numbuttons + resbutton
+    buttons += otherbuttons + numbuttons + resbutton
     return buttons
 
 async def get_calc_data(chatid, msgid):
