@@ -90,7 +90,7 @@ async def addcalculator(event):
             return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
         data = string
     else:
-        if str(getdata)[-1] in OPERS:
+        if str(getdata)[-1] in OPERS and string in OPERS:
             return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
         data = str(getdata) + string
     text = client.getstrings(STRINGS)["calc"].format(data)
