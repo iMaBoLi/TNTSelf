@@ -34,10 +34,12 @@ BUTTONS = {
     "８": "8",
     "９": "9",
     "✚": "+",
+    "×": "*",
+    "÷": "/",
 }
     
 def get_calc_buttons(chatid, msgid):
-    buttons = []
+    buttons = [[Button.inline("🆑", data=f"ClearCalc:{chatid}:{msgid}"), Button.inline("⌫", data=f"DelCalc:{chatid}:{msgid}")]]
     otherbuttons = ["✚", "-", "×", "÷"]
     for othbts in otherbuttons:
         buttons.append(Button.inline(othbts, data=f"AddCalc:{chatid}:{msgid}:{othbts}"))
@@ -88,6 +90,17 @@ async def addcalculator(event):
     await event.edit(text=text, buttons=buttons)
     await client.bot.edit_message(chatid, msgid, data)
     
+@client.Callback(data="DelCalc\\:(.*)\\:(.*)")
+async def delcalculator(event):
+    chatid = int(event.data_match.group(1).decode('utf-8'))
+    msgid = int(event.data_match.group(2).decode('utf-8'))
+    getdata = await get_calc_data(chatid, msgid)
+    data = str(getdata)[:-1]
+    text = client.getstrings(STRINGS)["calc"].format(data)
+    buttons = get_calc_buttons(chatid, msgid)
+    await event.edit(text=text, buttons=buttons)
+    await client.bot.edit_message(chatid, msgid, data)
+
 @client.Callback(data="CalcRes\\:(.*)\\:(.*)")
 async def rescalculator(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
@@ -98,5 +111,18 @@ async def rescalculator(event):
     newdata = data
     for element in BUTTONS:
         newdata = newdata.replace(element, BUTTONS[element])
-    text = client.getstrings(STRINGS)["rescalc"].format(data, eval(newdata))
+    result = eval(newdata)
+    text = client.getstrings(STRINGS)["rescalc"].format(data, result)
     await event.edit(text=text)
+    resdata = data + " = " + result
+    await client.bot.edit_message(chatid, msgid, resdata)
+    
+@client.Callback(data="ClearCalc\\:(.*)\\:(.*)")
+async def clearcalculator(event):
+    chatid = int(event.data_match.group(1).decode('utf-8'))
+    msgid = int(event.data_match.group(2).decode('utf-8'))
+    await client.bot.edit_message(chatid, msgid, "Empty")
+    data = await get_calc_data(chatid, msgid)
+    text = client.getstrings(STRINGS)["calc"].format(data)
+    buttons = get_calc_buttons(chatid, msgid)
+    await event.edit(text=text, buttons=buttons)
