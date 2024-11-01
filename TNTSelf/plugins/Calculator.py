@@ -34,10 +34,12 @@ def get_calc_buttons(chatid, msgid):
 
 async def get_calc_data(chatid, msgid):
     message = await client.get_messages(chatid, ids=msgid)
+    if not message:
+        return "Empty"
     match = "Operation\\: \\( (.*) \\)"
     search = re.search(match, message.raw_text)
     if not search:
-        return ""
+        return "Empty"
     data = search.group(1)
     return data
 
@@ -65,7 +67,7 @@ async def addcalculator(event):
     msgid = int(event.data_match.group(2).decode('utf-8'))
     string = str(event.data_match.group(3).decode('utf-8'))
     data = await get_calc_data(chatid, msgid)
-    if str(data) == "Empty" :
+    if str(data) == "Empty":
         data = string
     else:
         data = str(data) + string
