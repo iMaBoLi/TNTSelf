@@ -67,10 +67,8 @@ async def addcalculator(event):
     msgid = int(event.data_match.group(2).decode('utf-8'))
     string = str(event.data_match.group(3).decode('utf-8'))
     data = await get_calc_data(chatid, msgid)
-    if str(data) == "Empty":
-        data = string
-    else:
-        data = str(data) + string
+    data = str(data) + string
+    data = data.replace("Empty", "")
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
     await event.edit(text=text, buttons=buttons)
