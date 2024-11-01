@@ -48,6 +48,9 @@ async def calculator(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
     msgid = event.id
+    client.LOGS.error(str(event))
+    client.LOGS.error(str(event.text))
+    client.LOGS.error(str(event.message))
     res = await client.inline_query(client.bot.me.username, f"Calc:{chatid}")
     await res[0].click(event.chat_id)
     await event.delete()
