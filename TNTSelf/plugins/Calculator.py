@@ -95,7 +95,9 @@ async def delcalculator(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     msgid = int(event.data_match.group(2).decode('utf-8'))
     getdata = await get_calc_data(chatid, msgid)
+    if getdata == "Empty": return
     data = str(getdata)[:-1]
+    data = data if data else "Empty"
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons(chatid, msgid)
     await event.edit(text=text, buttons=buttons)
@@ -114,7 +116,7 @@ async def rescalculator(event):
     result = eval(newdata)
     text = client.getstrings(STRINGS)["rescalc"].format(data, result)
     await event.edit(text=text)
-    resdata = data + " = " + result
+    resdata = data + " = " + str(result)
     await client.bot.edit_message(chatid, msgid, resdata)
     
 @client.Callback(data="ClearCalc\\:(.*)\\:(.*)")
