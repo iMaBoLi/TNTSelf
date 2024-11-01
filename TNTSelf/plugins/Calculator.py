@@ -46,7 +46,7 @@ def get_calc_buttons(chatid, msgid):
     for num in NUMS:
         numbuttons.append(Button.inline(num, data=f"AddCalc:{chatid}:{msgid}:{num}"))
     numbuttons = list(client.functions.chunks(numbuttons, 3))
-    resbutton = [Button.inline("=", data=f"CalcRes:{chatid}:{msgid}")]
+    resbutton = [[Button.inline("=", data=f"CalcRes:{chatid}:{msgid}")]]
     buttons = buttons + numbuttons + resbutton
     return buttons
 
