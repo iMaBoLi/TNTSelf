@@ -86,11 +86,11 @@ async def addcalculator(event):
     string = str(event.data_match.group(3).decode('utf-8'))
     getdata = await get_calc_data(chatid, msgid)
     if getdata == "Empty":
-        if string in OPERS:
+        if string in OPERS or string == "0":
             return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
         data = string
     else:
-        if str(getdata)[-1] in OPERS and string in OPERS:
+        if str(getdata)[-1] in OPERS and (string in OPERS or string == "0"):
             return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
         data = str(getdata) + string
     text = client.getstrings(STRINGS)["calc"].format(data)
