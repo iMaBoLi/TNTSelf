@@ -75,12 +75,15 @@ async def addcalculator(event):
     string = str(event.data_match.group(1).decode('utf-8'))
     getdata = client.DB.get_key("CALCULATOR") or "Empty"
     if getdata == "Empty":
-        if string in OPERS or string == "0":
+        if string in OPERS or string == "𝟬":
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
         data = string
     else:
-        if str(getdata)[-1] in OPERS and (string in OPERS or string == "0"):
+        if str(getdata)[-1] in OPERS and string in OPERS:
+            text = client.getstrings(STRINGS)["uncalc"]
+            return await event.answer(text, alert=True)
+        if str(getdata)[-1] in OPERS and string == "𝟬":
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
         data = str(getdata) + string
