@@ -20,6 +20,7 @@ STRINGS = {
     "uncalc": "• This Operation Is InValid!",
     "notcalc": "• The Calculator Operation Is Empty!",
     "notcalc": "• The Calculator Operation Is InValid!",
+    "longcalc": "• The Calculator Operation Is Too Long!",
     "rescalc": "**{STR} Operation:** ( `{}` )\n**{STR} Result:** ( `{}` )\n\n**{STR} Use Following Options For The Calculator:**",
 }
 
@@ -80,6 +81,9 @@ async def addcalculator(event):
             return await event.answer(text, alert=True)
         data = string
     else:
+        if len(getdata) > 500:
+            text = client.getstrings(STRINGS)["longcalc"]
+            return await event.answer(text, alert=True)
         if str(getdata)[-1] in OPERS and string in OPERS:
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
