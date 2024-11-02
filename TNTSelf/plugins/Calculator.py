@@ -22,26 +22,27 @@ STRINGS = {
     "rescalc": "**{STR} Your Operation:** ( `{}` )\n\n**{STR} Result:** ( `{}` )",
 }
 
-NUMS = ["１", "２", "３", "４", "５", "６", "７", "８", "９", "０"]
-OPERS =  ["✚", "-", "×", "÷"]
+NUMS = ["𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵", "𝟬"]
+OPERS = ["➕", "➖", "➗", "✖️"]
 BUTTONS = {
-    "０": "0",
-    "１": "1",
-    "２": "2",
-    "３": "3",
-    "４": "4",
-    "５": "5",
-    "６": "6",
-    "７": "7",
-    "８": "8",
-    "９": "9",
-    "✚": "+",
-    "×": "*",
-    "÷": "/",
+    "𝟭": "1",
+    "𝟮": "2",
+    "𝟯": "3",
+    "𝟰": "4",
+    "𝟱": "5",
+    "𝟲": "6",
+    "𝟳": "7",
+    "𝟴": "8",
+    "𝟵": "9",
+    "𝟬": "0",
+    "➕": "+",
+    "➖": "-",
+    "✖️": "*",
+    "➗": "/",
 }
     
 def get_calc_buttons():
-    buttons = [[Button.inline("🆑", data=f"ClearCalc"), Button.inline("⌫", data=f"DelCalc")]]
+    buttons = [[Button.inline("©", data=f"ClearCalc"), Button.inline("⌫", data=f"DelCalc")]]
     otherbuttons = []
     for othbts in OPERS:
         otherbuttons.append(Button.inline(othbts, data=f"AddCalc:{othbts}"))
@@ -50,7 +51,7 @@ def get_calc_buttons():
     for num in NUMS:
         numbuttons.append(Button.inline(num, data=f"AddCalc:{num}"))
     numbuttons = list(client.functions.chunks(numbuttons, 3))
-    resbutton = [[Button.inline("=", data=f"CalcRes")]]
+    resbutton = [[Button.inline("🟰", data=f"CalcRes")]]
     buttons += otherbuttons + numbuttons + resbutton
     return buttons
 
@@ -63,7 +64,7 @@ async def calculator(event):
 
 @client.Inline(pattern="Calc")
 async def inlinecalculator(event):
-    data = client.DB.get_key("CALCULATOR") or "Empty"
+    data = client.DB.get_key("CALCULATOR") or "♾"
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons()
     await event.answer([event.builder.article("TNTSelf - Calculator", text=text, buttons=buttons)])
@@ -71,8 +72,8 @@ async def inlinecalculator(event):
 @client.Callback(data="AddCalc\\:(.*)")
 async def addcalculator(event):
     string = str(event.data_match.group(1).decode('utf-8'))
-    getdata = client.DB.get_key("CALCULATOR") or "Empty"
-    if getdata == "Empty":
+    getdata = client.DB.get_key("CALCULATOR") or "♾"
+    if getdata == "♾":
         if string in OPERS or string == "0":
             return await event.answer(client.getstrings(STRINGS)["uncalc"], alert=True)
         data = string
@@ -85,40 +86,34 @@ async def addcalculator(event):
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="DelCalc\\:(.*)\\:(.*)")
+@client.Callback(data="DelCalc")
 async def delcalculator(event):
-    chatid = int(event.data_match.group(1).decode('utf-8'))
-    msgid = int(event.data_match.group(2).decode('utf-8'))
-    getdata = client.DB.get_key("CALCULATOR") or "Empty"
-    if getdata == "Empty":
+    getdata = client.DB.get_key("CALCULATOR") or "♾"
+    if getdata == "♾":
         return await event.answer(client.getstrings(STRINGS)["notcalc"], alert=True)
     data = str(getdata)[:-1]
-    data = data if data else "Empty"
+    data = data if data else "♾"
     client.DB.set_key("CALCULATOR", data)
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
 
-@client.Callback(data="CalcRes\\:(.*)\\:(.*)")
+@client.Callback(data="CalcRes")
 async def rescalculator(event):
-    chatid = int(event.data_match.group(1).decode('utf-8'))
-    msgid = int(event.data_match.group(2).decode('utf-8'))
-    data = client.DB.get_key("CALCULATOR") or "Empty"
-    if data == "Empty":
+    data = client.DB.get_key("CALCULATOR") or "♾"
+    if data == "♾":
         return await event.answer(client.getstrings(STRINGS)["notcalc"], alert=True)
     newdata = data
     for element in BUTTONS:
         newdata = newdata.replace(element, BUTTONS[element])
     result = eval(newdata)
-    client.DB.set_key("CALCULATOR", "Empty")
+    client.DB.set_key("CALCULATOR", "♾")
     text = client.getstrings(STRINGS)["rescalc"].format(data, result)
     await event.edit(text=text)
 
-@client.Callback(data="ClearCalc\\:(.*)\\:(.*)")
+@client.Callback(data="ClearCalc")
 async def clearcalculator(event):
-    chatid = int(event.data_match.group(1).decode('utf-8'))
-    msgid = int(event.data_match.group(2).decode('utf-8'))
-    client.DB.set_key("CALCULATOR", "Empty")
-    text = client.getstrings(STRINGS)["calc"].format("Empty")
+    client.DB.set_key("CALCULATOR", "♾")
+    text = client.getstrings(STRINGS)["calc"].format("♾")
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
