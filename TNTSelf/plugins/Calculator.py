@@ -26,7 +26,7 @@ STRINGS = {
 
 NUMS = ["𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵", "𝟬"]
 OPERS = ["➕", "➖", "✖️", "➗", "(", ")"]
-POPERS = ["‭π"]
+POPERS = ["π"]
 BUTTONS = {
     "𝟭": "1",
     "𝟮": "2",
@@ -42,7 +42,7 @@ BUTTONS = {
     "➖": "-",
     "✖️": "*",
     "➗": "/",
-    "‭π": "3.141592653589793238",
+    "π": "3.141592653589793238",
 }
     
 def get_calc_buttons():
@@ -52,7 +52,7 @@ def get_calc_buttons():
         otherbuttons.append(Button.inline(othbts, data=f"AddCalc:{othbts}"))
     otherbuttons = list(client.functions.chunks(otherbuttons, 4))
     majbuttons = []
-    for majbts in ["‭π", "(", ")"]:
+    for majbts in ["π", "(", ")"]:
         majbuttons.append(Button.inline(majbts, data=f"AddCalc:{majbts}"))
     majbuttons = list(client.functions.chunks(majbuttons, 4))
     numbuttons = []
