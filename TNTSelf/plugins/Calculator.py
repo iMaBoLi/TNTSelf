@@ -19,6 +19,7 @@ STRINGS = {
     "calc": "**{STR} Use Following Options For The Calculator:**\n\n**{STR} Operation:** ( `{}` )",
     "uncalc": "• This Operation Is InValid!",
     "notcalc": "• The Calculator Operation Is Empty!",
+    "notcalc": "• The Calculator Operation Is InValid!",
     "rescalc": "**{STR} Operation:** ( `{}` )\n**{STR} Result:** ( `{}` )\n\n**{STR} Use Following Options For The Calculator:**",
 }
 
@@ -110,7 +111,11 @@ async def rescalculator(event):
     newdata = data
     for element in BUTTONS:
         newdata = newdata.replace(element, BUTTONS[element])
-    result = eval(newdata)
+    try:
+        result = eval(newdata)
+    except:
+        text = client.getstrings(STRINGS)["invcalc"]
+        return await event.answer(text, alert=True)
     client.DB.set_key("CALCULATOR", "Empty")
     text = client.getstrings(STRINGS)["rescalc"].format(data, result)
     buttons = get_calc_buttons()
@@ -119,6 +124,6 @@ async def rescalculator(event):
 @client.Callback(data="ClearCalc")
 async def clearcalculator(event):
     client.DB.set_key("CALCULATOR", "Empty")
-    text = client.getstrings(STRINGS)["calc"].format("♾")
+    text = client.getstrings(STRINGS)["calc"].format("Empty")
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
