@@ -139,6 +139,10 @@ async def rescalculator(event):
 
 @client.Callback(data="ClearCalc")
 async def clearcalculator(event):
+    data = client.DB.get_key("CALCULATOR") or "Empty"
+    if data == "Empty":
+        text = client.getstrings(STRINGS)["notcalc"]
+        return await event.answer(text, alert=True)
     client.DB.set_key("CALCULATOR", "Empty")
     text = client.getstrings(STRINGS)["calc"].format("Empty")
     buttons = get_calc_buttons()
