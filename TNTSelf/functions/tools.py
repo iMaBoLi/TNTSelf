@@ -8,8 +8,6 @@ async def request(url, post=False, head=False, headers=None, evaluate=None, obje
     async with ClientSession(headers=headers) as CSession:
         method = CSession.head if head else (CSession.post if post else CSession.get)
         data = await method(url, *args, **kwargs)
-        if evaluate:
-            return await evaluate(data)
         if re_json:
             return await data.json()
         if re_content:
