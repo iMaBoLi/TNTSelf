@@ -108,7 +108,7 @@ async def rescalculator(event):
     if data == "Empty":
         text = client.getstrings(STRINGS)["notcalc"]
         return await event.answer(text, alert=True)
-    newdata = data
+    newdata = data[:-1] if data[-1] in OPERS else data
     for element in BUTTONS:
         newdata = newdata.replace(element, BUTTONS[element])
     try:
