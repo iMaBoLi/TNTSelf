@@ -19,7 +19,7 @@ STRINGS = {
     "calc": "**{STR} Use Following Options For The Calculator:**\n\n**{STR} Operation:** ( `{}` )",
     "uncalc": "• This Operation Is InValid!",
     "notcalc": "• The Calculator Operation Is Empty!",
-    "notcalc": "• The Calculator Operation Is InValid!",
+    "invcalc": "• The Calculator Operation Is InValid!",
     "longcalc": "• The Calculator Operation Is Too Long!",
     "rescalc": "**{STR} Operation:** ( `{}` )\n**{STR} Result:** ( `{}` )\n\n**{STR} Use Following Options For The Calculator:**",
 }
@@ -93,7 +93,7 @@ async def addcalculator(event):
         if str(getdata)[-1] in OPERS and string in OPERS:
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
-        if str(getdata)[-1] in POPERS and string in NUMS:
+        if str(getdata)[-1] in POPERS and (string in NUMS or string in POPERS):
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
         if str(getdata)[-1] in OPERS and string == "𝟬":
