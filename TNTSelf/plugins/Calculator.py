@@ -17,13 +17,13 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "calc": "**{STR} Use Following Options For The Calculator:**\n\n**{STR} Operation:** ( `{}` )",
-    "uncalc": "{STR} This Operation Is InValid!",
-    "notcalc": "{STR} The Calculator Operation Is Empty!",
-    "rescalc": "**{STR} Your Operation:** ( `{}` )\n\n**{STR} Result:** ( `{}` )",
+    "uncalc": "• This Operation Is InValid!",
+    "notcalc": "• The Calculator Operation Is Empty!",
+    "rescalc": "**{STR} Operation:** ( `{}` )\n**{STR} Result:** ( `{}` )\n\n**{STR} Use Following Options For The Calculator:**",
 }
 
 NUMS = ["𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵", "𝟬"]
-OPERS = ["➕", "➖", "➗", "✖️"]
+OPERS = ["➕", "➖", "✖️", "➗"]
 BUTTONS = {
     "𝟭": "1",
     "𝟮": "2",
@@ -92,7 +92,8 @@ async def addcalculator(event):
 async def delcalculator(event):
     getdata = client.DB.get_key("CALCULATOR") or "♾"
     if getdata == "♾":
-        return await event.answer(client.getstrings(STRINGS)["notcalc"], alert=True)
+        text = client.getstrings(STRINGS)["notcalc"]
+        return await event.answer(text, alert=True)
     data = str(getdata)[:-1]
     data = data if data else "♾"
     client.DB.set_key("CALCULATOR", data)
@@ -104,14 +105,16 @@ async def delcalculator(event):
 async def rescalculator(event):
     data = client.DB.get_key("CALCULATOR") or "♾"
     if data == "♾":
-        return await event.answer(client.getstrings(STRINGS)["notcalc"], alert=True)
+        text = client.getstrings(STRINGS)["notcalc"]
+        return await event.answer(text, alert=True)
     newdata = data
     for element in BUTTONS:
         newdata = newdata.replace(element, BUTTONS[element])
     result = eval(newdata)
     client.DB.set_key("CALCULATOR", "♾")
     text = client.getstrings(STRINGS)["rescalc"].format(data, result)
-    await event.edit(text=text)
+    buttons = get_calc_buttons()
+    await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="ClearCalc")
 async def clearcalculator(event):
