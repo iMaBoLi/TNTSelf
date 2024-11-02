@@ -25,7 +25,8 @@ STRINGS = {
 }
 
 NUMS = ["𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵", "𝟬"]
-OPERS = ["➕", "➖", "✖️", "➗"]
+OPERS = ["➕", "➖", "✖️", "➗", "(", ")"]
+POPERS = ["‭π"]
 BUTTONS = {
     "𝟭": "1",
     "𝟮": "2",
@@ -41,6 +42,7 @@ BUTTONS = {
     "➖": "-",
     "✖️": "*",
     "➗": "/",
+    "‭π": "3.141592653589793238",
 }
     
 def get_calc_buttons():
@@ -49,12 +51,16 @@ def get_calc_buttons():
     for othbts in OPERS:
         otherbuttons.append(Button.inline(othbts, data=f"AddCalc:{othbts}"))
     otherbuttons = list(client.functions.chunks(otherbuttons, 4))
+    majbuttons = []
+    for majbts in ["‭π", "(", ")"]:
+        majbuttons.append(Button.inline(majbts, data=f"AddCalc:{majbts}"))
+    majbuttons = list(client.functions.chunks(majbuttons, 4))
     numbuttons = []
     for num in NUMS:
         numbuttons.append(Button.inline(num, data=f"AddCalc:{num}"))
     numbuttons = list(client.functions.chunks(numbuttons, 3))
     resbutton = [[Button.inline("🟰", data=f"CalcRes")]]
-    buttons += otherbuttons + numbuttons + resbutton
+    buttons += otherbuttons + majbuttons + numbuttons + resbutton
     return buttons
 
 @client.Command(command="Calc")
@@ -85,6 +91,9 @@ async def addcalculator(event):
             text = client.getstrings(STRINGS)["longcalc"]
             return await event.answer(text, alert=True)
         if str(getdata)[-1] in OPERS and string in OPERS:
+            text = client.getstrings(STRINGS)["uncalc"]
+            return await event.answer(text, alert=True)
+        if str(getdata)[-1] in POPERS and string not in NUMS:
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
         if str(getdata)[-1] in OPERS and string == "𝟬":
