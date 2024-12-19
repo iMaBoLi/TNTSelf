@@ -20,8 +20,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( [Link]({}) ) **{} Now!**\n    ( `{}` )",
-    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( [Link]({}) ) **{} Now!**\n    ( `{}` )", 
+    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( {} ) **Now!**\n    ( `{}` )",
+    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( {} ) **Now!**\n    ( `{}` )", 
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!**\n    ( `{}` )",
     "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!**\n    ( `{}` )",
     "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!**\n    ( `{}` )",
@@ -118,12 +118,12 @@ async def sendmessagespec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         if event.is_private:
-            where = "In Your Pv"
-            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, mention, where, time)
+            where = f"[In Your Pv]({mention})"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         else:
-            where = "In A Chat"
             meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
-            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, meslink, where, time)
+            where = f"[In A Chat]({meslink})"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         await client.bot.send_message(client.REALM, text)
 
 @client.on(events.MessageEdited)
@@ -136,12 +136,12 @@ async def editmessagespec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         if event.is_private:
-            where = "In Your Pv"
-            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, mention, where, time)
+            where = f"[In Your Pv]({mention})"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         else:
-            where = "In A Chat"
             meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
-            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, meslink, where, time)
+            where = f"[In A Chat]({meslink})"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         await client.bot.send_message(client.REALM, text)
  
 @client.on(events.UserUpdate)
