@@ -35,7 +35,7 @@ async def unzip(event):
 
 async def unzipfile(event):
     callback = event.progress(download=True)
-    zfile = await event.reply_message.download_media(client.path, progress_callback=callback)
+    zfile = await event.reply_message.download_media(client.PATH, progress_callback=callback)
     await event.edit(client.getstrings(STRINGS)["unziping"])
     zipObj = ZipFile(zfile)
     token = secrets.token_hex(nbytes=3)
