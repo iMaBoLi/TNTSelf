@@ -63,7 +63,7 @@ async def addlogo(event):
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
-    token = secrets.token_hex(nbytes=4)
+    token = secrets.token_hex(nbytes=3)
     phname = client.PATH + token + ".jpg"
     await event.reply_message.download_media(phname)
     res = await client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
@@ -74,22 +74,37 @@ async def addlogo(event):
 async def addlogo(event):
     chatid = event.pattern_match.group(1)
     phname = event.pattern_match.group(2)
-    text = client.getstrings(STRINGS)["wherelogo"]
+    text = client.getstrings(STRINGS)["sizelogo"]
     buttons = []
-    for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
-        buttons.append(Button.inline(f"{where}", data=f"FAddLogo:{chatid}:{phname}:{where}"))
-    buttons = list(client.functions.chunks(buttons, 3))
+    for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
+        size = size.replace(" ", "").lower()
+        buttons.append(Button.inline(f"• {size} •", data=f"WAddLogo:{chatid}:{phname}:{size}"))
     await event.answer([event.builder.article("TNTSelf - Add Logo", text=text, buttons=buttons)])
 
-@client.Callback(data="FAddLogo\\:(.*)\\:(.*)\\:(.*)")
+@client.Callback(data="WAddLogo\\:(.*)\\:(.*)\\:(.*)")
+async def waddlogo(event):
+    chatid = int(event.data_match.group(1).decode('utf-8'))
+    phname = event.data_match.group(2).decode('utf-8')
+    size = event.data_match.group(3).decode('utf-8')
+    text = client.getstrings(STRINGS)["sizelogo"]
+    buttons = []
+    for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
+        buttons.append(Button.inline(f"{where}", data=f"FAddLogo:{chatid}:{phname}:{size}:{where}"))
+    buttons = list(client.functions.chunks(buttons, 3))
+    await event.edit(text=text, buttons=buttons)
+    
+@client.Callback(data="FAddLogo\\:(.*)\\:(.*)\\:(.*)\\:(.*)")
 async def faddlogo(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     phname = event.data_match.group(2).decode('utf-8')
-    where = event.data_match.group(3).decode('utf-8')
+    size = event.data_match.group(3).decode('utf-8')
+    where = event.data_match.group(4).decode('utf-8')
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
-    twidth, theight = round(width / 6), round(height / 6)
+    SIZES = {"verysmall":7, "small":6, "medium":5, "big":4, "verybig":3}
+    numsize = SIZES[size]
+    twidth, theight = round(width / numsize), round(height / numsize)
     WHERES = {
         "↖️": [1, 1],
         "⬆️": [(width - twidth) / 2, 1],
