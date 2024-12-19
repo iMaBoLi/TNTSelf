@@ -106,7 +106,7 @@ async def faddlogo(event):
     width, height = image.size
     SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
-    twidth, theight = round(width / numsize), round(height / numsize)
+    twidth, theight = round(width / numsize) / 2, round(height / numsize) / 2
     WHERES = {
         "↖️": [1, 1],
         "⬆️": [(width - twidth) / 2, 1],
