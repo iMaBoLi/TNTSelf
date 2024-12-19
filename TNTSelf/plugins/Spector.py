@@ -20,8 +20,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( [Link]({}) - `{}` ) **Now!**\n    ( `{}` )",
-    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( [Link]({}) - `{}`  ) **Now!**\n    ( `{}` )", 
+    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( [Link]({}) ) **{} Now!**\n    ( `{}` )",
+    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( [Link]({}) ) **{} Now!**\n    ( `{}` )", 
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!**\n    ( `{}` )",
     "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!**\n    ( `{}` )",
     "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!**\n    ( `{}` )",
