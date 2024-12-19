@@ -27,5 +27,6 @@ jdatetime
 httpx[http2]
 numpy
 google-play-scraper
+googlesearch-python
 
 git+https://github.com/alexmercerind/youtube-search-python
