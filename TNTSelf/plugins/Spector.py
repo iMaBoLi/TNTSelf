@@ -118,7 +118,7 @@ async def sendmessagespec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         if event.is_private:
-            where = f"[In Your Pv]({mention})"
+            where = "`In Your Pv`"
             text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         else:
             meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
@@ -136,7 +136,7 @@ async def editmessagespec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         if event.is_private:
-            where = f"[In Your Pv]({mention})"
+            where = "In Your Pv"
             text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, where, time)
         else:
             meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
