@@ -112,15 +112,15 @@ async def faddlogo(event):
     lwidth, lheight = round(minsize / numsize), round(minsize / numsize)
     logimg = logimg.resize((lwidth, lheight))
     WHERES = {
-        "↖️": [1, 1],
-        "⬆️": [(width - lwidth) / 2, 1],
-        "↗️": [(width - lwidth) - 1, 1],
-        "⬅️": [1, (height - lheight) /2],
+        "↖️": [3, 3],
+        "⬆️": [(width - lwidth) / 2, 3],
+        "↗️": [(width - lwidth) - 3, 3],
+        "⬅️": [3, (height - lheight) /2],
         "⏺": [(width - lwidth) / 2, (height - lheight) / 2],
-        "➡️": [(width - lwidth) - 1, (height - lheight) / 2],
-        "↙️": [1, (height - lheight) - 1],
-        "⬇️": [(width - lwidth) / 2, (height - lheight) - 1],
-        "↘️": [(width - lwidth) - 1, (height - lheight) - 1],
+        "➡️": [(width - lwidth) - 3, (height - lheight) / 2],
+        "↙️": [3, (height - lheight) - 3],
+        "⬇️": [(width - lwidth) / 2, (height - lheight) - 3],
+        "↘️": [(width - lwidth) - 3, (height - lheight) - 3],
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
     image.paste(logimg, where, logimg)
