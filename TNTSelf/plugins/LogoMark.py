@@ -6,20 +6,29 @@ __INFO__ = {
     "Category": "Tools",
     "Name": "Logo",
     "Info": {
-        "Help": "To Set And Add Logo To Images!",
+        "Help": "To Setting And Adding Coustom Logo To Images!",
         "Commands": {
-            "{CMD}SetLogo <Reply(Photo)>": None,
-            "{CMD}GetLogo <Reply(Photo)>": None,
-            "{CMD}AddLogo <Size>-<W>,<H> <Reply(Photo)>": None,
+            "{CMD}SetLogo": {
+                "Help": "To Set Logo",
+                "Reply": ["Photo"]
+            },
+            "{CMD}GetLogo": {
+                "Help": "To Get Logo",
+            },
+            "{CMD}AddLogo": {
+                "Help": "To Add Logo To Image",
+                "Reply": ["Photo"]
+            },
         },
     },
 }
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "save": "**{STR} The Logo Has Been Saved!**",
-    "notsave": "**{STR} The Logo Is Not Saved!**",
+    "save": "**{STR} The Logo Image Has Been Saved!**",
+    "notsave": "**{STR} The Logo Image Is Not Saved!**",
     "getlogo": "**{STR} The Logo Image!**",
+    "wherelogo": "**{STR} Select Position For Adding Logo To Image:**",
     "adding": "**{STR} Adding Logo To Image ...**",
     "added": "**{STR} The Logo Is Added To Your Photo!**"
 }
@@ -43,31 +52,58 @@ async def setlogo(event):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
     await event.delete()
-
-@client.Command(command="AddLogo (\\d*)\\-(\\d*)\\,(\\d*)")
+    
+@client.Command(command="AddLogo")
 async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
-    size = int(event.pattern_match.group(1))
-    width = int(event.pattern_match.group(2))
-    height = int(event.pattern_match.group(3))
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
-    photo = await event.reply_message.download_media(client.PATH)
+    phname = await event.reply_message.download_media(client.PATH)
+    res = await client.inline_query(client.bot.me.username, f"AddLogo:{phname}")
+    await res[0].click(event.chat_id, reply_to=event.reply_message.id)
+    await event.delete()
+    
+@client.Inline(pattern="AddLogo\\:(.*)")
+async def addlogo(event):
+    phname = str(event.pattern_match.group(1))
+    text = client.getstrings(STRINGS)["wherelogo"]
+    buttons = []
+    for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
+        buttons.append(Button.inline(f"{where}", data=f"FAddLogo:{phname}:{where}"))
+    buttons = list(client.functions.chunks(buttons, 3))
+    await event.answer([event.builder.article("TNTSelf - Add Logo", text=text, buttons=buttons)])
+
+@client.Callback(data="FAddLogo\\:(.*)\\:(.*)")
+async def faddlogo(event):
+    phname = event.data_match.group(1).decode('utf-8')
+    where = event.data_match.group(2).decode('utf-8')
     await event.edit(client.getstrings(STRINGS)["adding"])
-    image = Image.open(photo).convert("RGBA")
-    pwidth, pheight = image.size
-    width = width if width < (pwidth - size) else (pwidth - size)
-    height = height if height < (pheight - size) else (pheight - size)
+    image = Image.open(phname).convert("RGBA")
+    width, height = image.size
+    twidth, theight = round(width / 6), round(height / 6)
+    WHERES = {
+        "↖️": [1, 1],
+        "⬆️": [(width - twidth) / 2, 1],
+        "↗️": [(width - twidth) - 1, 1],
+        "⬅️": [1, (height - theight) /2],
+        "⏺": [(width - twidth) / 2, (height - theight) / 2],
+        "➡️": [(width - twidth) - 1, (height - theight) / 2],
+        "↙️": [1, (height - theight) - 1],
+        "⬇️": [(width - twidth) / 2, (height - theight) - 1],
+        "↘️": [(width - twidth) - 1, (height - theight) - 1],
+    }
+    where = round(WHERES[where][0]), round(WHERES[where][1])
+    logo = client.PATH + "Logo.png"
     logimg = Image.open(logo).convert("RGBA")
-    logimg.thumbnail((size, size))
-    image.paste(logimg, (width, height), logimg)
+    logimg.thumbnail((twidth, theight))
+    image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
     await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["added"])
     await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["added"])
-    os.remove(photo)
+    os.remove(phname)
     os.remove(newphoto)
     await event.delete()
