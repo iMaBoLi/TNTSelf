@@ -83,7 +83,7 @@ async def addlogo(event):
 
 @client.Callback(data="FAddLogo\\:(.*)\\:(.*)\\:(.*)")
 async def faddlogo(event):
-    chatid = event.data_match.group(1).decode('utf-8')
+    chatid = int(event.data_match.group(1).decode('utf-8'))
     phname = event.data_match.group(2).decode('utf-8')
     where = event.data_match.group(3).decode('utf-8')
     await event.edit(client.getstrings(STRINGS)["adding"])
