@@ -117,9 +117,13 @@ async def sendmessagespec(event):
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        where = "In Your Pv" if event.is_private else "In A Chat"
-        meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
-        text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, meslink, where, time)
+        if event.is_private:
+            where = "In Your Pv"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, mention, where, time)
+        else:
+            where = "In A Chat"
+            meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
 
 @client.on(events.MessageEdited)
@@ -131,9 +135,13 @@ async def editmessagespec(event):
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
-        where = "In Your Pv" if event.is_private else "In A Chat"
-        meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
-        text = client.getstrings(STRINGS)["speceditmessage"].format(mention, event.sender_id, meslink, where, time)
+        if event.is_private:
+            where = "In Your Pv"
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, mention, where, time)
+        else:
+            where = "In A Chat"
+            meslink = "https://t.me/c/" + str(event.chat_id).replace("-100", "") + "/" + str(event.id)
+            text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.sender_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
  
 @client.on(events.UserUpdate)
