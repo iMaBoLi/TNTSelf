@@ -40,7 +40,7 @@ async def unzipfile(event):
     zipObj = ZipFile(zfile)
     zipObj.extractall(client.PATH)
     zipObj.close()
-    zippath = client.PATH + "MainZip/"
+    zippath = client.PATH + "Zip/"
     files = [os.path.join(dirpath, file) for (dirpath, dirnames, filenames) in os.walk(zippath) for file in filenames]
     await event.edit(client.getstrings(STRINGS)["sending"].format(len(files)))
     for file in files:
