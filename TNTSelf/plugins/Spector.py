@@ -112,8 +112,8 @@ async def closespector(event):
 async def sendmessagespec(event):
     if event.sender_id == client.me.id: return
     lists = client.DB.get_key("SPECTOR_SEND_MESSAGE") or []
-    if event.user_id in lists:
-        info = await client.get_entity(event.user_id)
+    if event.sender_id in lists:
+        info = await client.get_entity(event.sender_id)
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
@@ -126,8 +126,8 @@ async def sendmessagespec(event):
 async def editmessagespec(event):
     if event.sender_id == client.me.id: return
     lists = client.DB.get_key("SPECTOR_EDIT_MESSAGE") or []
-    if event.user_id in lists:
-        info = await client.get_entity(event.user_id)
+    if event.sender_id in lists:
+        info = await client.get_entity(event.sender_id)
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
