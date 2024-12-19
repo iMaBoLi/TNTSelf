@@ -32,7 +32,7 @@ STRINGS = {
     "getlogo": "**{STR} The Logo Image!**",
     "wherelogo": "**{STR} Select Position For Adding Logo To Image:**",
     "adding": "**{STR} Adding Logo To Image ...**",
-    "added": "**{STR} The Logo Is Added To Your Photo!**"
+    "added": "**{STR} The Adding Logo To Your Image Completed!**"
 }
 
 @client.Command(command="SetLogo")
@@ -108,9 +108,8 @@ async def faddlogo(event):
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    caption = client.getstrings(STRINGS)["added"]
-    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True, caption=caption)
-    await client.send_file(chatid, newphoto, caption=caption)
+    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
+    await client.send_file(chatid, newphoto)
     os.remove(phname)
     os.remove(newphoto)
-    await event.delete()
+    await event.edit(client.getstrings(STRINGS)["added"])
