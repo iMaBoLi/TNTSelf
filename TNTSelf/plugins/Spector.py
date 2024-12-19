@@ -20,8 +20,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
-    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( {} ) **Now!**\n    ( `{}` )",
-    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( {} ) **Now!**\n    ( `{}` )", 
+    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( [Link]({}) - `{}` ) **Now!**\n    ( `{}` )",
+    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( [Link]({}) - `{}`  ) **Now!**\n    ( `{}` )", 
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!**\n    ( `{}` )",
     "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!**\n    ( `{}` )",
     "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!**\n    ( `{}` )",
@@ -117,8 +117,9 @@ async def sendmessagespec(event):
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
+        where = "In Your Pv" if event.is_private else "In A Chat"
         meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
-        text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.user_id, meslink, time)
+        text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.user_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
 
 @client.on(events.MessageEdited)
@@ -130,8 +131,9 @@ async def editmessagespec(event):
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
+        where = "In Your Pv" if event.is_private else "In A Chat"
         meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
-        text = client.getstrings(STRINGS)["speceditmessage"].format(mention, event.user_id, meslink, time)
+        text = client.getstrings(STRINGS)["speceditmessage"].format(mention, event.user_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
  
 @client.on(events.UserUpdate)
