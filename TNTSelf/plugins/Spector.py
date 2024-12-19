@@ -32,7 +32,7 @@ STRINGS = {
 
 SPECS = [
     "SEND_MESSAGE",
-    "EDIT_MESSAGE","
+    "EDIT_MESSAGE",
     "STATUS",
     "ACTION",
     "READ_PV",
