@@ -79,6 +79,7 @@ async def addlogo(event):
     for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
         size = size.replace(" ", "").lower()
         buttons.append(Button.inline(f"• {size} •", data=f"WAddLogo:{chatid}:{phname}:{size}"))
+    buttons = client.functions.chunker(buttons, [2,1,2])
     await event.answer([event.builder.article("TNTSelf - Add Logo", text=text, buttons=buttons)])
 
 @client.Callback(data="WAddLogo\\:(.*)\\:(.*)\\:(.*)")
