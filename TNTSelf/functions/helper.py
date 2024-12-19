@@ -105,6 +105,7 @@ def mediatype(event):
             "image/png": "PNG Photo",
             "font/ttf": "TTF File",
             "text/plain": "TXT File",
+            "application/zip": "ZIP File",
             "application/vnd.android.package-archive": "APP File",
         }
         filetype = TYPES[mimetype] if mimetype in TYPES else "File"
