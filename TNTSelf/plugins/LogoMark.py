@@ -106,10 +106,10 @@ async def faddlogo(event):
     width, height = image.size
     logo = client.PATH + "Logo.png"
     logimg = Image.open(logo).convert("RGBA")
-    #lwidth, lheight = logimg.size
     SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
-    lwidth, lheight = round(width / numsize), round(height / numsize)
+    minsize = min(width, height)
+    lwidth, lheight = round(minsize / numsize), round(minsize / numsize)
     logimg = logimg.resize((lwidth, lheight))
     WHERES = {
         "↖️": [1, 1],
