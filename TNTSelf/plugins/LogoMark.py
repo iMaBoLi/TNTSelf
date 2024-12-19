@@ -1,4 +1,5 @@
 from TNTSelf import client
+from telethon import Button
 from PIL import Image
 import os
 
