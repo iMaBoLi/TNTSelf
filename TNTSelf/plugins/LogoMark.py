@@ -2,6 +2,7 @@ from TNTSelf import client
 from telethon import Button
 from PIL import Image
 import os
+import secrets
 
 __INFO__ = {
     "Category": "Tools",
@@ -62,7 +63,9 @@ async def addlogo(event):
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
-    phname = await event.reply_message.download_media(client.PATH)
+    token = secrets.token_hex(nbytes=4)
+    phname = client.PATH + token + ".jpg"
+    await event.reply_message.download_media(phname)
     res = await client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
