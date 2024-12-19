@@ -20,6 +20,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "spector": "**❊ Welcome To Spector Menu:**\n\n    **{STR} Select Options Below To Manage Spector Modes:**\n    **{STR} User:** ( {} )",
+    "specsendmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Sended Message** ( {} ) **Now!**\n    ( `{}` )",
+    "speceditmessage": "**{STR} User** ( {} - `{}` )\n    **➛ Is Edited Message** ( {} ) **Now!**\n    ( `{}` )", 
     "specstatus": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} Now!**\n    ( `{}` )",
     "specaction": "**{STR} User** ( {} - `{}` )\n    **➛ Is {} {} Now!**\n    ( `{}` )",
     "specreadpv": "**{STR} User** ( {} - `{}` )\n    **➛ Is Read Your Pv Now!**\n    ( `{}` )",
@@ -29,6 +31,8 @@ STRINGS = {
 }
 
 SPECS = [
+    "SEND_MESSAGE",
+    "EDIT_MESSAGE","
     "STATUS",
     "ACTION",
     "READ_PV",
@@ -103,7 +107,33 @@ async def setspector(event):
 async def closespector(event):
     text = client.getstrings(STRINGS)["closespector"]
     await event.edit(text=text)
+    
+@client.on(events.NewMessage)
+async def sendmessagespec(event):
+    if event.sender_id == client.me.id: return
+    lists = client.DB.get_key("SPECTOR_SEND_MESSAGE") or []
+    if event.user_id in lists:
+        info = await client.get_entity(event.user_id)
+        mention = client.functions.mention(info)
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
+        text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.user_id, meslink, time)
+        await client.bot.send_message(client.REALM, text)
 
+@client.on(events.MessageEdited)
+async def editmessagespec(event):
+    if event.sender_id == client.me.id: return
+    lists = client.DB.get_key("SPECTOR_EDIT_MESSAGE") or []
+    if event.user_id in lists:
+        info = await client.get_entity(event.user_id)
+        mention = client.functions.mention(info)
+        localtime = datetime.datetime.now()
+        time = localtime.strftime("%H:%M:%S")
+        meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
+        text = client.getstrings(STRINGS)["speceditmessage"].format(mention, event.user_id, meslink, time)
+        await client.bot.send_message(client.REALM, text)
+ 
 @client.on(events.UserUpdate)
 async def statusspec(event):
     if event.user_id == client.me.id or not event.status: return
