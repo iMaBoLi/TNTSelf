@@ -78,8 +78,8 @@ async def addlogo(event):
     text = client.getstrings(STRINGS)["sizelogo"]
     buttons = []
     for size in ["Very Small", "Small", "Medium", "Big", "Very Big"]:
-        size = size.replace(" ", "").lower()
-        buttons.append(Button.inline(f"• {size} •", data=f"WAddLogo:{chatid}:{phname}:{size}"))
+        ssize = size.replace(" ", "").lower()
+        buttons.append(Button.inline(f"• {size} •", data=f"WAddLogo:{chatid}:{phname}:{ssize}"))
     buttons = client.functions.chunker(buttons, [2,1,2])
     await event.answer([event.builder.article("TNTSelf - Add Logo", text=text, buttons=buttons)])
 
@@ -104,7 +104,7 @@ async def faddlogo(event):
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
-    SIZES = {"verysmall":7, "small":6, "medium":5, "big":4, "verybig":3}
+    SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
     twidth, theight = round(width / numsize), round(height / numsize)
     WHERES = {
