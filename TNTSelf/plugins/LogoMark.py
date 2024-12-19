@@ -112,22 +112,22 @@ async def faddlogo(event):
     lwidth, lheight = round(minsize / numsize), round(minsize / numsize)
     logimg = logimg.resize((lwidth, lheight))
     WHERES = {
-        "↖️": [3, 3],
-        "⬆️": [(width - lwidth) / 2, 3],
-        "↗️": [(width - lwidth) - 3, 3],
-        "⬅️": [3, (height - lheight) /2],
+        "↖️": [5, 5],
+        "⬆️": [(width - lwidth) / 2, 5],
+        "↗️": [(width - lwidth) - 5, 5],
+        "⬅️": [5, (height - lheight) /2],
         "⏺": [(width - lwidth) / 2, (height - lheight) / 2],
-        "➡️": [(width - lwidth) - 3, (height - lheight) / 2],
-        "↙️": [3, (height - lheight) - 3],
-        "⬇️": [(width - lwidth) / 2, (height - lheight) - 3],
-        "↘️": [(width - lwidth) - 3, (height - lheight) - 3],
+        "➡️": [(width - lwidth) - 5, (height - lheight) / 2],
+        "↙️": [5, (height - lheight) - 5],
+        "⬇️": [(width - lwidth) / 2, (height - lheight) - 5],
+        "↘️": [(width - lwidth) - 5, (height - lheight) - 5],
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
     await client.send_file(chatid, newphoto)
+    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
     os.remove(phname)
     os.remove(newphoto)
     await event.edit(client.getstrings(STRINGS)["added"])
