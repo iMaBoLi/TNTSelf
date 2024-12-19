@@ -118,7 +118,7 @@ async def sendmessagespec(event):
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         where = "In Your Pv" if event.is_private else "In A Chat"
-        meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
+        meslink = "https://t.me/c/" + str(event.chat_id) + "/" + str(event.id)
         text = client.getstrings(STRINGS)["specsendmessage"].format(mention, event.user_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
 
@@ -127,12 +127,12 @@ async def editmessagespec(event):
     if event.sender_id == client.me.id: return
     lists = client.DB.get_key("SPECTOR_EDIT_MESSAGE") or []
     if event.sender_id in lists:
-        info = await client.get_entity(event.sender_id)
+        info = await client.get_entity(event.user_id)
         mention = client.functions.mention(info)
         localtime = datetime.datetime.now()
         time = localtime.strftime("%H:%M:%S")
         where = "In Your Pv" if event.is_private else "In A Chat"
-        meslink = "https://t.me/c/" + event.chat_id + "/" + event.id
+        meslink = "https://t.me/c/" + str(event.chat_id) + "/" + str(event.id)
         text = client.getstrings(STRINGS)["speceditmessage"].format(mention, event.user_id, meslink, where, time)
         await client.bot.send_message(client.REALM, text)
  
