@@ -110,7 +110,7 @@ async def faddlogo(event):
     WHERES = {
         "↖️": [1, 1],
         "⬆️": [(width - twidth) / 2, 1],
-        "↗️": [(width / 2 - twidth / 2) - 1, 1],
+        "↗️": [(width - twidth / 2) - 1, 1],
         "⬅️": [1, (height - theight) /2],
         "⏺": [(width - twidth) / 2, (height - theight) / 2],
         "➡️": [(width - twidth) - 1, (height - theight) / 2],
