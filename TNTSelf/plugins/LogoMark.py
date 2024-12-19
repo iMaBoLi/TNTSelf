@@ -30,6 +30,7 @@ STRINGS = {
     "save": "**{STR} The Logo Image Has Been Saved!**",
     "notsave": "**{STR} The Logo Image Is Not Saved!**",
     "getlogo": "**{STR} The Logo Image!**",
+    "sizelogo": "**{STR} Select Size For Adding Logo To Image:**",
     "wherelogo": "**{STR} Select Position For Adding Logo To Image:**",
     "adding": "**{STR} Adding Logo To Image ...**",
     "added": "**{STR} The Adding Logo To Your Image Completed!**"
