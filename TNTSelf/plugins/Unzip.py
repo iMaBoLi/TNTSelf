@@ -27,7 +27,7 @@ STRINGS = {
 @client.Command(command="Unzip")
 async def unzip(event):
     await event.edit(client.STRINGS["wait"])
-    if reply:= event.checkReply(["File"]):
+    if reply:= event.checkReply(["ZIP File"]):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
