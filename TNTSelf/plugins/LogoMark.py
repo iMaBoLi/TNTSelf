@@ -63,24 +63,26 @@ async def addlogo(event):
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     phname = await event.reply_message.download_media(client.PATH)
-    res = await client.inline_query(client.bot.me.username, f"AddLogo:{phname}")
+    res = await client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
     
-@client.Inline(pattern="AddLogo\\:(.*)")
+@client.Inline(pattern="AddLogo\\:(.*)\\:(.*)")
 async def addlogo(event):
-    phname = str(event.pattern_match.group(1))
+    chatid = event.pattern_match.group(1)
+    phname = event.pattern_match.group(2)
     text = client.getstrings(STRINGS)["wherelogo"]
     buttons = []
     for where in ["↖️", "⬆️", "↗️", "⬅️", "⏺", "➡️", "↙️", "⬇️", "↘️"]:
-        buttons.append(Button.inline(f"{where}", data=f"FAddLogo:{phname}:{where}"))
+        buttons.append(Button.inline(f"{where}", data=f"FAddLogo:{chatid}:{phname}:{where}"))
     buttons = list(client.functions.chunks(buttons, 3))
     await event.answer([event.builder.article("TNTSelf - Add Logo", text=text, buttons=buttons)])
 
-@client.Callback(data="FAddLogo\\:(.*)\\:(.*)")
+@client.Callback(data="FAddLogo\\:(.*)\\:(.*)\\:(.*)")
 async def faddlogo(event):
-    phname = event.data_match.group(1).decode('utf-8')
-    where = event.data_match.group(2).decode('utf-8')
+    chatid = event.data_match.group(1).decode('utf-8')
+    phname = event.data_match.group(2).decode('utf-8')
+    where = event.data_match.group(3).decode('utf-8')
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
@@ -103,8 +105,9 @@ async def faddlogo(event):
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["added"])
-    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["added"])
+    caption = client.getstrings(STRINGS)["added"]
+    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True, caption=caption)
+    await client.send_file(chatid, newphoto, caption=caption)
     os.remove(phname)
     os.remove(newphoto)
     await event.delete()
