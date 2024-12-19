@@ -106,7 +106,7 @@ async def faddlogo(event):
     width, height = image.size
     logo = client.PATH + "Logo.png"
     logimg = Image.open(logo).convert("RGBA")
-    lwidth, lheight = image.size
+    lwidth, lheight = logimg.size
     SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
     WHERES = {
@@ -121,7 +121,6 @@ async def faddlogo(event):
         "↘️": [(width - lwidth) - 1, (height - lheight) - 1],
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
-    await client.send_message(chatid, str(where))
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
