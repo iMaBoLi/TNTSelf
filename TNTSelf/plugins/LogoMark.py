@@ -119,6 +119,7 @@ async def faddlogo(event):
         "↘️": [(width - twidth) - 1, (height - theight) - 1],
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
+    await client.send_message(chatid, str(where))
     logo = client.PATH + "Logo.png"
     logimg = Image.open(logo).convert("RGBA")
     logimg.thumbnail((twidth, theight))
