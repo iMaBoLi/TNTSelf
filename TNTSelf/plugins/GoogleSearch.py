@@ -28,8 +28,6 @@ async def googlesearch(event):
     await event.edit(client.STRINGS["wait"])
     query = str(event.pattern_match.group(1))
     Gsearch = GSearch(query, advanced=True, num_results=20)
-    if not Gsearch:
-        return await event.edit(client.getstrings(STRINGS)["notsearch"].format(query))
     text = client.getstrings(STRINGS)["getsearch"].format(query)
     row = 1
     for result in Gsearch:
@@ -37,4 +35,6 @@ async def googlesearch(event):
         description = result.description[:200]
         text += f"**{row} -** {title}\n( `{description}` )\n\n"
         row += 1
+    if row == 1:
+        return await event.edit(client.getstrings(STRINGS)["notsearch"].format(query))
     await event.edit(text)
