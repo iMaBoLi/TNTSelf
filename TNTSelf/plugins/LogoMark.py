@@ -104,25 +104,24 @@ async def faddlogo(event):
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
+    logo = client.PATH + "Logo.png"
+    logimg = Image.open(logo).convert("RGBA")
+    lwidth, lheight = image.size
     SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
-    twidth, theight = round(width / numsize), round(height / numsize)
     WHERES = {
         "↖️": [1, 1],
-        "⬆️": [(width - twidth) / 2, 1],
-        "↗️": [(width - twidth / 2) - 1, 1],
-        "⬅️": [1, (height - theight) /2],
-        "⏺": [(width - twidth) / 2, (height - theight) / 2],
-        "➡️": [(width - twidth) - 1, (height - theight) / 2],
-        "↙️": [1, (height - theight) - 1],
-        "⬇️": [(width - twidth) / 2, (height - theight) - 1],
-        "↘️": [(width - twidth) - 1, (height - theight) - 1],
+        "⬆️": [(width - lwidth) / 2, 1],
+        "↗️": [(width - lwidth) - 1, 1],
+        "⬅️": [1, (height - lheight) /2],
+        "⏺": [(width - lwidth) / 2, (height - lheight) / 2],
+        "➡️": [(width - lwidth) - 1, (height - lheight) / 2],
+        "↙️": [1, (height - lheight) - 1],
+        "⬇️": [(width - lwidth) / 2, (height - lheight) - 1],
+        "↘️": [(width - lwidth) - 1, (height - lheight) - 1],
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
     await client.send_message(chatid, str(where))
-    logo = client.PATH + "Logo.png"
-    logimg = Image.open(logo).convert("RGBA")
-    logimg.thumbnail((twidth, theight))
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
