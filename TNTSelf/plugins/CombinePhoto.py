@@ -97,7 +97,7 @@ async def horizontalcombine(event):
         width, height = img.size
         heights += height
         widths += width + 5
-    roheight = round(roheight / len(photos))
+    roheight = round(heights / len(photos))
     newimg = Image.new("RGBA", (widths + 5, roheight + 10), (255, 255, 255))
     cwidth = 5
     for photo in photos:
