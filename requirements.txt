@@ -26,6 +26,9 @@ image_slicer
 jdatetime
 httpx[http2]
 numpy
+pilgram
+scikit-image
+qrcode
 google-play-scraper
 googlesearch-python
 
