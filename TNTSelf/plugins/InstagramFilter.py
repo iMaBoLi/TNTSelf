@@ -32,17 +32,20 @@ FILTERS = {
     "xpro2": pilgram.xpro2,
 }
 
-HCMDS = {}
-for filter in FILTERS:
-    cmd = "{STR}" + f"SF{filter.title()}"
-    HCMDS[cmd] = {"Help": f"To Add {filter.title()} Filter", "Reply": ["Photo"]}
-            
 __INFO__ = {
     "Category": "Convert",
     "Name": "Instagram Filter",
     "Info": {
         "Help": "To Add Instagram Filters To Photo!",
-        "Commands": HCMDS,
+        "Commands": {
+            "{CMD}SF<Filter>": {
+                "Help": "To Add Filter",
+                "Input": {
+                    "<Filter>": "Name Of Filter",
+                },
+                "Vars": [fil.title() for fil in FILTERS]
+            },
+        },
     },
 }
 client.functions.AddInfo(__INFO__)
