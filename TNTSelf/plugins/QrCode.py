@@ -1,6 +1,7 @@
 from TNTSelf import client
 import cv2
 import qrcode
+import os
 
 __INFO__ = {
     "Category": "Tools",
@@ -36,8 +37,8 @@ async def createqrcode(event):
     code = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
     code.add_data(text)
     code.make()
-    qrimg = code.make_image().convert("RGB")
-    qrname = client.PATH + "QrCode.jpg"
+    qrimg = code.make_image().convert("RGBA")
+    qrname = client.PATH + "QrCode.png"
     qrimg.save(qrname)
     caption = client.getstrings(STRINGS)["caption"]
     await client.send_file(event.chat_id, qrname, caption=caption)
