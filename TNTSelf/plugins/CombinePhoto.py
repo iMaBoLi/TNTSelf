@@ -49,15 +49,14 @@ async def verticalcombine(event):
             photo = await client.download_media(getmsg.media, client.PATH)
             photos.append(photo)
     await event.edit(client.getstrings(STRINGS)["vercoming"].format(len(photos)))
-    widthlist = []
+    widths = 0
     heights = 0
     for photo in photos:
         img = Image.open(photo)
         width, height = img.size
-        widthlist.append(width)
+        widths += width
         heights += height + 5
-    rowidth = max(widthlist) + min(widthlist)
-    rowidth = round(rowidth / 2)
+    rowidth = round(widths / len(photos))
     newimg = Image.new("RGBA", (rowidth + 10, heights + 5), (255, 255, 255))
     cheight = 5
     for photo in photos:
@@ -89,15 +88,14 @@ async def horizontalcombine(event):
             photo = await client.download_media(getmsg.media, client.PATH)
             photos.append(photo)
     await event.edit(client.getstrings(STRINGS)["horcoming"].format(len(photos)))
-    heightlist = []
+    heights = 0
     widths = 0
     for photo in photos:
         img = Image.open(photo)
         width, height = img.size
-        heightlist.append(height)
+        heights += height
         widths += width + 5
-    roheight = max(heightlist) + min(heightlist)
-    roheight = round(roheight / 2)
+    roheight = round(roheight / len(photos))
     newimg = Image.new("RGBA", (widths + 5, roheight + 10), (255, 255, 255))
     cwidth = 5
     for photo in photos:
