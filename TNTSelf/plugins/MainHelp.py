@@ -34,7 +34,7 @@ STRINGS = {
 CATEGORYS = {
     "Setting": ["Help", "Panel", "Language", "Lists", "Manage", "Save", "Command", "Realm", "BackUp", "Simbel", "Ping", "Reload"],
     "Manage": ["Quick", "Spector", "Save", "Auto", "Love", "Calculator", "White", "Black", "MarkRead", "Enemy", "Foshs", "Echo", "Timer", "Until"],
-    "Tools": ["Unzip", "Download", "Time", "Translate", "Upload Site", "SpeechText", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info", "Najva"],
+    "Tools": ["Unzip", "Download", "Time", "QrCode", "Translate", "Upload Site", "SpeechText", "RemoveBg", "Ocr", "Logo", "Image Slicer", "Screen Shot", "Open Ai", "Ai Image", "Country Info", "Najva"],
     "Practical": ["Action", "Copy Action", "Edit Modes", "Anti Forward", "Anti Edit", "Auto Delete", "Auto Translate", "Reaction", "Repeat", "Replace", "Emoji", "Poker"],
     "Usage": ["Youtube", "Spotify", "Google Search", "Google Play", "Cover File", "Trim Video", "Trim Audio", "Video Shot", "Shazam", "Search Music", "Extract Audio", "Edit Duration", "Music Info", "Rotater"],
     "Time": ["Name Time", "Bio Time", "Photo Time", "Font", "Text Time"],
