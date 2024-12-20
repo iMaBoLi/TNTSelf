@@ -29,6 +29,7 @@ numpy
 pilgram
 scikit-image
 qrcode
+Wand
 google-play-scraper
 googlesearch-python
 
