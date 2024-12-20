@@ -28,10 +28,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "vercoming": "**{STR} Comining Your Photos In Vertical Mode ...**\n**{STR} Photo Count:** ( `{}` )"
-    "vercom": "**{STR} The Selected Photos Is Combined In Vertical Mode!**\n**{STR} Photo Count:** ( `{}` )"
-    "horcoming": "**{STR} Comining Your Photos In Horizontal Mode ...**\n**{STR} Photo Count:** ( `{}` )"
-    "horcom": "**{STR} The Selected Photos Is Combined In Horizontal Mode!**\n**{STR} Photo Count:** ( `{}` )"
+    "vercoming": "**{STR} Comining Your Photos In Vertical Mode ...**\n**{STR} Photo Count:** ( `{}` )",
+    "vercom": "**{STR} The Selected Photos Is Combined In Vertical Mode!**\n**{STR} Photo Count:** ( `{}` )",
+    "horcoming": "**{STR} Comining Your Photos In Horizontal Mode ...**\n**{STR} Photo Count:** ( `{}` )",
+    "horcom": "**{STR} The Selected Photos Is Combined In Horizontal Mode!**\n**{STR} Photo Count:** ( `{}` )",
 }
 
 @client.Command(command="SCVer (\\d*)")
