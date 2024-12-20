@@ -67,7 +67,9 @@ async def verticalcombine(event):
         cheight += height + 5
     newphoto = client.PATH + "VerticalCombine.png"
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, force_document=True, caption=client.getstrings(STRINGS)["vercom"].format(len(photos)))
+    callback = event.progress(upload=True)
+    caption = client.getstrings(STRINGS)["vercom"].format(len(photos))
+    await client.send_file(event.chat_id, newphoto, force_document=True, caption=caption, progress_callback=callback)
     os.remove(newphoto)
     for photo in photos:
         os.remove(photo)
@@ -106,7 +108,9 @@ async def horizontalcombine(event):
         cwidth += width + 5
     newphoto = client.PATH + "HorizontalCombine.png"
     newimg.save(newphoto)
-    await client.send_file(event.chat_id, newphoto, force_document=True, caption=client.getstrings(STRINGS)["horcom"].format(len(photos)))
+    callback = event.progress(upload=True)
+    caption = client.getstrings(STRINGS)["horcom"].format(len(photos))
+    await client.send_file(event.chat_id, newphoto, force_document=True, caption=caption, progress_callback=callback)
     os.remove(newphoto)
     for photo in photos:
         os.remove(photo)
