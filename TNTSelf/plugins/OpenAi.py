@@ -43,7 +43,7 @@ async def gpt_response(query, chat_id):
     global CONVERSATIONS
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
-    response = await AiClient.chat.completion.create(
+    response = await AiClient.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=messages,
     )
@@ -59,7 +59,6 @@ async def aichat(event):
     apikey = client.DB.get_key("OPENAI_APIKEY")
     if not apikey:
         return await event.edit(client.getstrings(STRINGS)["noapi"])
-    AiClient = OpenAI(api_key=apikey)
     await event.edit(client.getstrings(STRINGS)["getch"].format(query))
     try:
         result = await gpt_response(query, event.chat_id)
