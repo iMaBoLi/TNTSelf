@@ -4,7 +4,7 @@ import asyncio
 import logging
 
 class MultiClient:
-    def __init__(self, sessions, *args, **kwargs):
+    def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
         for session in self.sessions:
@@ -15,8 +15,6 @@ class MultiClient:
                 session=StringSession(sessionstring),
                 api_id=api_id,
                 api_hash=api_hash,
-                *args,
-                **kwargs
             ).start()
             setattr(_cli, "session_id", sessionstring)
             self.clients.append(_cli)
