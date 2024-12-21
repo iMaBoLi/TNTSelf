@@ -41,3 +41,7 @@ class MultiClient:
         
     async def _add_coustom_vars(self, client):
         setattr(client, "me", (await client.get_me()))
+
+    def add_event_handler(self, wrapper, events):
+        for cli in self.clients:
+            cli.add_event_handler(wrapper, events)
