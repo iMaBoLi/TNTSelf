@@ -3,6 +3,7 @@ from TNTSelf import MultiClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from TNTSelf import config
+from traceback import format_exc
 import time
 import sys
 
@@ -28,7 +29,7 @@ try:
     client = MultiClient(sessions=sessions, app_version=__version__)
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
-    LOGS.error(error)
+    LOGS.error(format_exc())
 
 LOGS.info("• Login Bot ...")
 try:
