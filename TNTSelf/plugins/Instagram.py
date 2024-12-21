@@ -94,7 +94,7 @@ async def instapostdl(event):
             thumbnail = client.PATH + mediapk + ".jpg"
             img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
             with open(thumbnail, "wb") as img:
-                imh.write(img_data)
+                img.write(img_data)
         else:
             post = INSTA.photo_download(mediapk, folder=client.PATH)
             attributes, thumbnail = None, None
