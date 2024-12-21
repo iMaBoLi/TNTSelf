@@ -1,28 +1,27 @@
-from telethon import TelegramClient
+from telethon import TelegramClient, __name__ as __base_name__
+from telethon.tl import TLObject
 from telethon.sessions import StringSession
 import asyncio
 import logging
+from telethon.events.common import EventBuilder
+
 
 class MultiClient:
-    def __init__(self, sessions):
-        self.sessions = sessions
-        self.clients = list()
+    def __init__(self, sessions: list, *args, **kwargs) -> TelegramClient:
+        self.sessions: list = sessions
+        self.clients: list = list()
+        self.__default_log__ = logging.getLogger(__base_name__)
+        self.__default_log__.addHandler(logging.NullHandler())
         for session in self.sessions:
-            api_id = session["api_id"]
-            api_hash = session["api_hash"]
-            sessionstring = session["session"]
-            _cli = TelegramClient(
-                session=StringSession(sessionstring),
-                api_id=api_id,
-                api_hash=api_hash,
-            ).start()
-            setattr(_cli, "session_id", sessionstring)
+            _cli = TelegramClient(StringSession(session), *args, **kwargs)
+            setattr(_cli, 'session_id', session)
             self.clients.append(_cli)
 
-    def on(self, event):
+    def on(self: 'MultiClient', event: EventBuilder):
         def decorator(f):
             for cli in self.clients:
                 cli.add_event_handler(f, event)
+
         return decorator
 
     def run_all_clients(self, loop=None):
@@ -39,8 +38,25 @@ class MultiClient:
     def to_dict(self):
         return {c.session_id: c for c in self.clients}
 
+    def stringify(self):
+        result = ['(', '\n']
+        for session_id, client in self.to_dict().items():
+            result.append('\t')
+            result.append(session_id)
+            result.append(' : ')
+            result.append(TLObject.pretty_format(client.__dict__, indent=0))
+            result.append(',\n')
+        result.pop()
+        result.append('\n')
+        result.append('\t')
+        result.append(')')
+        return ''.join(result)
+
     def __iter__(self):
         return iter(self.clients)
 
     def __dict__(self):
         self.to_dict()
+
+    def __str__(self):
+        return self.stringify()
