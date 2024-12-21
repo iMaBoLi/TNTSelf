@@ -1,4 +1,5 @@
 from telethon import TelegramClient
+from TNTSelf.functions.MultiClient import MultiClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from TNTSelf import config
@@ -17,12 +18,14 @@ basicConfig(
 
 LOGS.info("• Login Account ...")
 try:
-    client = TelegramClient(
-        session=StringSession(config.SESSION),
-        api_id=config.API_ID,
-        api_hash=config.API_HASH,
-        app_version=__version__,
-    ).start()
+    sessions = {
+        1: {
+            "session": config.SESSION,
+            "api_id": config.API_ID,
+            "api_hash": config.API_HASH,
+        },
+    }
+    client = MultiClient(sessions=sessions, app_version=__version__)
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
     LOGS.error(error)
