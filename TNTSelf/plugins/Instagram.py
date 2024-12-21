@@ -34,9 +34,12 @@ STRINGS = {
     "nosession": "**{STR} The Instagram Session Is Not Saved!**",
     "invsession": "**{STR} The Instagram Session Is Invalid!**",
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
-    "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For Posts!**",
+    "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For A Post!**",
     "downpost": "**{STR} Downloading Instagram Post ...**\n**{STR} Link:** ( `{}` )",
     "postcaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Publish Time:** ( `{}` )\n**{STR} Caption:** ( `{}` )",
+    "notstory": "**{STR} The Instagram Link** ( `{}` ) **Is Not For A Story!**",
+    "downstory": "**{STR} Downloading Instagram Story ...**\n**{STR} Link:** ( `{}` )",
+    "storycaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Pubilsh Time:** ( `{}` )",
     "notuser": "**{STR} The Instagram User** ( `{}` ) **Is Not Founded!**",
 }
 
@@ -78,7 +81,7 @@ async def instapostdl(event):
         mediainfo = INSTA.media_info(mediapk)
     except:
         return await event.edit(client.getstrings(STRINGS)["invlink"].format(link))
-    if not mediainfo.media_type in [1,2,8]:
+    if not mediainfo.product_type in ["clips", "feed", "igtv"]:
         return await event.edit(client.getstrings(STRINGS)["notpost"].format(link))
     await event.edit(client.getstrings(STRINGS)["downpost"].format(link))
     publisher = f"[{mediainfo.user.full_name}](https://www.instagram.com/{mediainfo.user.username})"
@@ -88,14 +91,14 @@ async def instapostdl(event):
     mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 3000 else (mediainfo.caption_text[:3000] + " ...")
     caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
     if mediainfo.media_type in [1, 2]:
-        if mediainfo.product_type in ["clips", "feed", "igtv"]:
+        if mediainfo.media_type == 2 and mediainfo.product_type in ["clips", "feed", "igtv"]:
             post = INSTA.video_download(mediapk, folder=client.PATH)
             attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
             thumbnail = client.PATH + mediapk + ".jpg"
             img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
             with open(thumbnail, "wb") as img:
                 img.write(img_data)
-        else:
+        elif mediainfo.media_type == 1:
             post = INSTA.photo_download(mediapk, folder=client.PATH)
             attributes, thumbnail = None, None
         await client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes)
@@ -109,3 +112,42 @@ async def instapostdl(event):
             await client.send_file(event.chat_id, lpost, caption=caption, progress_callback=callback)
         for rpost in post:
             os.remove(rpost)
+    await event.delete()
+            
+@client.Command(command="INStory (.*)")
+async def instastorydl(event):
+    await event.edit(client.STRINGS["wait"])
+    link = str(event.pattern_match.group(1))
+    if not INSTA:
+        return await event.edit(client.getstrings(STRINGS)["nosession"])
+    try:
+        INSTA.get_timeline_feed()
+    except:
+        return await event.edit(client.getstrings(STRINGS)["invsession"])
+    try:
+        mediapk = INSTA.story_pk_from_url(event.text)
+        mediainfo = INSTA.media_info(mediapk)
+    except:
+        return await event.edit(client.getstrings(STRINGS)["invlink"].format(link))
+    if not mediainfo.product_type == "story":
+        return await event.edit(client.getstrings(STRINGS)["notstory"].format(link))
+    await event.edit(client.getstrings(STRINGS)["downstory"].format(link))
+    publisher = f"[{mediainfo.user.full_name}](https://www.instagram.com/{mediainfo.user.username})"
+    seconds = datetime.now(timezone.utc) - mediainfo.taken_at
+    seconds = seconds.total_seconds()
+    pubtime = client.functions.convert_time(seconds) + " Ago"
+    caption = client.getstrings(STRINGS)["storycaption"].format(link, publisher, pubtime)
+    story = INSTA.story_download(mediapk , folder=client.PATH)
+    if mediainfo.media_type == 2:
+        attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
+        thumbnail = client.PATH + mediapk + ".jpg"
+        img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
+        with open(thumbnail, "wb") as img:
+            img.write(img_data)
+    elif mediainfo.media_type == 1:
+        attributes, thumbnail = None, None
+    await client.send_file(event.chat_id, story, caption=caption, thumb=thumbnail, attributes=attributes)
+    os.remove(story)
+    if thumbnail:
+        os.remove(thumbnail)
+        
