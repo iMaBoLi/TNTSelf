@@ -91,7 +91,7 @@ async def postdl(event):
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds) + " Ago"
-    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 1000 else (mediainfo.caption_text[:1000] + " ...")
+    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 500 else (mediainfo.caption_text[:500] + " ...")
     caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
     if mediainfo.media_type in [1, 2]:
         if mediainfo.media_type == 2 and mediainfo.product_type in ["clips", "feed", "igtv"]:
