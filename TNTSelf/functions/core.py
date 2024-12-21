@@ -111,7 +111,7 @@ async def DownloadFiles():
     foshs = client.DB.get_key("FOSHS_FILE")
     if foshs:
         try:
-            get = await client.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
+            get = await client.bot.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
             await get.download_media(client.PATH + "FOSHS.txt")
         except:
             pass
@@ -119,7 +119,7 @@ async def DownloadFiles():
     logo = client.DB.get_key("LOGO_FILE")
     if logo:
         try:
-            get = await client.get_messages(int(logo["chat_id"]), ids=int(logo["msg_id"]))
+            get = await client.bot.get_messages(int(logo["chat_id"]), ids=int(logo["msg_id"]))
             await get.download_media(client.PATH + "Logo.png")
         except:
             pass
@@ -127,7 +127,7 @@ async def DownloadFiles():
     cover = client.DB.get_key("FILE_COVER")
     if cover:
         try:
-            get = await client.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
+            get = await client.bot.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
             await get.download_media(client.PATH + "Cover.png")
         except:
             pass
@@ -136,7 +136,7 @@ async def DownloadFiles():
     if photos:
         for photo in list(photos.keys()):
             try:
-                get = await client.get_messages(int(photos[photo]["chat_id"]), ids=int(photos[photo]["msg_id"]))
+                get = await client.bot.get_messages(int(photos[photo]["chat_id"]), ids=int(photos[photo]["msg_id"]))
                 await get.download_media(client.PATH + photo)
             except:
                 pass
@@ -144,7 +144,7 @@ async def DownloadFiles():
     font = client.DB.get_key("FONT_FILE")
     if font:
         try:
-            get = await client.get_messages(int(font["chat_id"]), ids=int(font["msg_id"]))
+            get = await client.bot.get_messages(int(font["chat_id"]), ids=int(font["msg_id"]))
             await get.download_media(client.PATH + "FontFile.ttf")
         except:
             pass
@@ -152,7 +152,7 @@ async def DownloadFiles():
     insta = client.DB.get_key("INSTAGRAM_SESSION")
     if insta:
         try:
-            get = await client.get_messages(int(insta["chat_id"]), ids=int(insta["msg_id"]))
+            get = await client.bot.get_messages(int(insta["chat_id"]), ids=int(insta["msg_id"]))
             await get.download_media(client.PATH + "Instagram.json")
         except:
             pass
