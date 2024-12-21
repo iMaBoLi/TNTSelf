@@ -28,8 +28,8 @@ client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "invsession": "**{STR} The Instagram Session ID** ( `{}` ) **Is Invalid!**",
-    "setsession": "**{STR} The Instagram Session ID** ( `{}` ) **Has Been Saved!**",
-    "nosession": "**{STR} The Instagram Session ID Is Not Saved!**",
+    "setsession": "**{STR} The Instagram Session** ( `{}` ) **Has Been Saved!**",
+    "nosession": "**{STR} The Instagram Session Is Not Saved!**",
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
     "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For Posts!**",
     "downpost": "**{STR} Downloading Instagram Post ...**\n**{STR} Link:** ( `{}` )",
@@ -40,24 +40,28 @@ STRINGS = {
 async def instalogin(event):
     await event.edit(client.STRINGS["wait"])
     sessionid = event.pattern_match.group(1)
+    session = client.PATH + "Instagram.json"
     try:
         cl = Insta()
         cl.login_by_sessionid(sessionid)
+        cl.dump_settings(session)
     except:
         return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
-    client.DB.set_key("INSTAGRAM_SESSION", sessionid)
-    await event.edit(client.getstrings(STRINGS)["setsession"].format(sessionid))
+    send = await event.reply(client.getstrings(STRINGS)["setsession"].format(sessionid), file=session)
+    info = await send.save()
+    client.DB.set_key("INSTAGRAM_SESSION", info)
+    await event.delete()
     
 @client.Command(command="INPost (.*)")
 async def instapostdl(event):
     await event.edit(client.STRINGS["wait"])
     link = str(event.pattern_match.group(1))
-    sessionid = client.DB.get_key("INSTAGRAM_SESSION")
-    if not sessionid:
+    session = client.PATH + "Instagram.json"
+    if not os.path.exists(session):
         return await event.edit(client.getstrings(STRINGS)["nosession"])
     try:
         insta = Insta()
-        insta.login_by_sessionid(sessionid)
+        insta.load_settings(session)
     except:
         return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
     try:
