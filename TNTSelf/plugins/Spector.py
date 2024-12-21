@@ -128,7 +128,7 @@ async def sendmessagespec(event):
 
 @client.on(events.MessageEdited)
 async def editmessagespec(event):
-    if event.sender_id == client.me.id: return
+    if event.sender_id == event.client.me.id: return
     lists = client.DB.get_key("SPECTOR_EDIT_MESSAGE") or []
     if event.sender_id in lists:
         info = await client.get_entity(event.sender_id)
@@ -146,7 +146,7 @@ async def editmessagespec(event):
  
 @client.on(events.UserUpdate)
 async def statusspec(event):
-    if event.user_id == client.me.id or not event.status: return
+    if event.user_id == event.client.me.id or not event.status: return
     status = event.status.to_dict()["_"]
     if status not in ["UserStatusOnline", "UserStatusOffline", "UserStatusRecently"]: return
     lists = client.DB.get_key("SPECTOR_STATUS") or []
@@ -160,7 +160,7 @@ async def statusspec(event):
         
 @client.on(events.UserUpdate)
 async def actionspec(event):
-    if event.user_id == client.me.id or not event.action: return
+    if event.user_id == event.client.me.id or not event.action: return
     action = event.action.to_dict()["_"]
     actions = {
         "SendMessageTypingAction": "Typing Message",
@@ -186,7 +186,7 @@ async def actionspec(event):
         
 @client.on(events.MessageRead)
 async def readpvspec(event):
-    if event.chat_id == client.me.id or not event.is_private: return
+    if event.chat_id == event.client.me.id or not event.is_private: return
     userid = event.original_update.peer.user_id
     lists = client.DB.get_key("SPECTOR_READ_PV") or []
     if userid in lists:
@@ -201,7 +201,7 @@ async def readpvspec(event):
 async def joingroupspec(event):
     if not event.user_joined and not event.added_by: return
     userid = (await event.get_user()).id
-    if userid == client.me.id: return
+    if userid == event.client.me.id: return
     lists = client.DB.get_key("SPECTOR_JOIN_GROUPS") or []
     if userid in lists:
         info = await client.get_entity(userid)
@@ -216,7 +216,7 @@ async def joingroupspec(event):
 async def leavegroupspec(event):
     if not event.user_left and not event.user_kicked: return
     userid = (await event.get_user()).id
-    if userid == client.me.id: return
+    if userid == event.client.me.id: return
     lists = client.DB.get_key("SPECTOR_LEAVE_GROUPS") or []
     if userid in lists:
         info = await client.get_entity(userid)
