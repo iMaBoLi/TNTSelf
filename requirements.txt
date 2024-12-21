@@ -6,6 +6,7 @@ somnium
 countryinfo
 translate
 music_tag
+instagrapi
 speechmatics-python
 openai==1.47.0
 gunicorn
