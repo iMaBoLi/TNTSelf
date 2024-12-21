@@ -19,8 +19,14 @@ basicConfig(
 
 LOGS.info("• Login Account ...")
 try:
-    sessions = [config.SESSION]
-    client = MultiClient(api_id=config.API_ID, api_hash=config.API_HASH, sessions=sessions)
+    sessions = {
+        1: {
+            "session": config.SESSION,
+            "api_id": config.API_ID,
+            "api_hash": config.API_HASH,
+        },
+    }
+    client = MultiClient(sessions=sessions, app_version=__version__)
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
     LOGS.error(format_exc())
