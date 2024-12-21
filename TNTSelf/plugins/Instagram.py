@@ -79,29 +79,31 @@ async def instapostdl(event):
     if not mediainfo.media_type in [1,2,8]:
         return await event.edit(client.getstrings(STRINGS)["notpost"].format(link))
     await event.edit(client.getstrings(STRINGS)["downpost"].format(link))
-    if mediainfo.media_type == 1:
-        post = INSTA.photo_download(mediapk, folder=client.PATH)
-    elif mediainfo.media_type == 2 and mediainfo.product_type == "feed":
-        post = INSTA.video_download(mediapk, folder)
-    elif mediainfo.media_type == 2 and mediainfo.product_type == "igtv":
-        post = INSTA.igtv_download(mediapk, folder=client.PATH)
-    elif mediainfo.media_type == 2 and mediainfo.product_type == "clips":
-        post = INSTA.clip_download(mediapk, folder=client.PATH)
-    elif mediainfo.media_type == 8:
-        post = INSTA.album_download(mediapk, folder=client.PATH)
     publisher = f"[{mediainfo.user.full_name}](https://www.instagram.com/{mediainfo.user.username})"
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds) + " Ago"
     mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 3000 else (mediainfo.caption_text[:3000] + " ...")
     caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
-    callback = event.progress(upload=True)
-    if type(post) == list:
+    if mediainfo.media_type in [1, 2]:
+        if mediainfo.product_type in ["clips", "feed", "igtv"]:
+            post = INSTA.video_download(mediapk, folder=client.PATH)
+            attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
+            thumbnail = client.PATH + link + ".jpg"
+            img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
+            with open(thumbnail, "wb") as img:
+                imh.write(img_data)
+        else:
+            post = INSTA.photo_download(mediapk, folder=client.PATH)
+            attributes, thumbnail = None, None
+        await client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes)
+        os.remove(post)
+        if thumbnail:
+            os.remove(thumbnail)
+    elif mediainfo.media_type == 8:
+        post = INSTA.album_download(mediapk, folder=client.PATH)
+        callback = event.progress(upload=True)
         for lpost in client.functions.chunks(post, 9):
             await client.send_file(event.chat_id, lpost, caption=caption, progress_callback=callback)
         for rpost in post:
             os.remove(rpost)
-    else:
-        await client.send_file(event.chat_id, post, caption=caption, progress_callback=callback)
-        os.remove(post)
-    await event.delete()
