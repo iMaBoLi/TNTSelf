@@ -44,7 +44,8 @@ async def gpt_response(query, chat_id):
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
     response = await AiClient.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o",
+        store=True,
         messages=messages,
     )
     result = response.choices[0].message.content.strip()
