@@ -13,7 +13,7 @@ def Callback(
     def decorator(func):
         async def wrapper(event):
             try:
-                event.is_sudo = True if event.sender_id == client.me.id else False
+                event.is_sudo = True if event.sender_id in client.users else False
                 if onlysudo and not event.is_sudo:
                     return await event.answer(client.STRINGS["OtherCallback"], alert=True)
                 await func(event)
