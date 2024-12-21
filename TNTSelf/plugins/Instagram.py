@@ -33,7 +33,7 @@ STRINGS = {
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
     "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For Posts!**",
     "downpost": "**{STR} Downloading Instagram Post ...**\n**{STR} Link:** ( `{}` )",
-    "postcaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Publish Time:** ( `{}` )\n**{STR} Caption:** ( `{}` )",
+    "postcaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Publish Time:** ( `{}` )\n**{STR} Caption:** ( `{}` )",
 }
 
 @client.Command(command="INLogin (.*)")
@@ -78,16 +78,18 @@ async def instapostdl(event):
         post = insta.clip_download(mediapk, folder=client.PATH)
     elif mediainfo.media_type == 8:
         post = insta.album_download(mediapk, folder=client.PATH)
+    publisher = f"[{mediainfo.user.full_name}](https://www.instagram.com/{mediainfo.user.username})"
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
-    pubtime = client.functions.convert_time(seconds)
+    pubtime = client.functions.convert_time(seconds) + " Ago"
     mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 3000 else (mediainfo.caption_text[:3000] + " ...")
-    caption = client.getstrings(STRINGS)["postcaption"].format(link, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
+    caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
     callback = event.progress(upload=True)
     if type(post) == list:
-        for lpost in post:
+        for lpost in client.functions.chunks(post, 9):
             await client.send_file(event.chat_id, lpost, caption=caption, progress_callback=callback)
-            os.remove(lpost)
+        for rpost in post:
+            os.remove(rpost)
     else:
         await client.send_file(event.chat_id, post, caption=caption, progress_callback=callback)
         os.remove(post)
