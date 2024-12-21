@@ -25,7 +25,7 @@ def Command(
     def decorator(func):
         async def wrapper(event):
             try:
-                event.is_sudo = True if event.sender_id == client.me.id else False
+                event.is_sudo = True if event.sender_id == event.client.me.id else False
                 event.is_ch = True if event.is_channel and not event.is_group else False
                 if onlysudo and not (event.is_sudo or event.out): return
                 event.reply_message = await event.get_reply_message()
