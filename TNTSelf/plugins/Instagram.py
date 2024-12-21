@@ -2,6 +2,7 @@ from TNTSelf import client
 from telethon import types
 from instagrapi import Client as Insta
 from datetime import datetime, timezone
+import requests
 import os
 
 __INFO__ = {
