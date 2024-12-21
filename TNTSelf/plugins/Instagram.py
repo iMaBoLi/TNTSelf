@@ -91,7 +91,7 @@ async def instapostdl(event):
         if mediainfo.product_type in ["clips", "feed", "igtv"]:
             post = INSTA.video_download(mediapk, folder=client.PATH)
             attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
-            thumbnail = client.PATH + link + ".jpg"
+            thumbnail = client.PATH + mediapk + ".jpg"
             img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
             with open(thumbnail, "wb") as img:
                 imh.write(img_data)
