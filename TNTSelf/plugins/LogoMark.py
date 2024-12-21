@@ -73,6 +73,7 @@ async def addlogo(event):
     
 @client.Inline(pattern="AddLogo\\:(.*)\\:(.*)")
 async def addlogo(event):
+    print(event)
     chatid = event.pattern_match.group(1)
     phname = event.pattern_match.group(2)
     text = client.getstrings(STRINGS)["sizelogo"]
@@ -85,6 +86,7 @@ async def addlogo(event):
 
 @client.Callback(data="WAddLogo\\:(.*)\\:(.*)\\:(.*)")
 async def waddlogo(event):
+    print(event)
     chatid = int(event.data_match.group(1).decode('utf-8'))
     phname = event.data_match.group(2).decode('utf-8')
     size = event.data_match.group(3).decode('utf-8')
