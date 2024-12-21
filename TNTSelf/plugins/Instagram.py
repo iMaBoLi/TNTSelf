@@ -177,5 +177,5 @@ async def instauserinfo(event):
         img.write(img_data)
     caption = client.getstrings(STRINGS)["usercaption"].format(info.full_name, info.username, info.pk, info.follower_count, info.following_count, info.media_count, info.biography)
     await client.send_file(event.chat_id, photo, caption=caption)
-    os.remove(thumbnail)
+    os.remove(photo)
     await event.delete()
