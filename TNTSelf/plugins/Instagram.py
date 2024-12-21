@@ -52,6 +52,7 @@ async def instalogin(event):
         instacl = Insta()
         instacl.login_by_sessionid(sessionid)
         instacl.dump_settings(SESSION)
+        global INSTA
         INSTA = instacl
     except:
         return await event.edit(client.getstrings(STRINGS)["invsessionid"].format(sessionid))
