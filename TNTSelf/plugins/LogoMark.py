@@ -42,7 +42,7 @@ async def setlogo(event):
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
-    get = await client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    get = await event.client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
     await get.download_media(client.PATH + "Logo.png")
     client.DB.set_key("LOGO_FILE", info)
     await event.edit(client.getstrings(STRINGS)["save"])
@@ -53,7 +53,7 @@ async def setlogo(event):
     logo = client.PATH + "Logo.png"
     if not os.path.exists(logo):
         return await event.edit(client.getstrings(STRINGS)["notsave"])
-    await client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
+    await event.client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
     await event.delete()
     
 @client.Command(command="AddLogo")
@@ -67,7 +67,7 @@ async def addlogo(event):
     token = secrets.token_hex(nbytes=3)
     phname = client.PATH + token + ".jpg"
     await event.reply_message.download_media(phname)
-    res = await client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
+    res = await event.client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
     
@@ -126,8 +126,8 @@ async def faddlogo(event):
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.send_file(chatid, newphoto)
-    await client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
+    await event.client.send_file(chatid, newphoto)
+    await event.client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
     os.remove(phname)
     os.remove(newphoto)
     await event.edit(client.getstrings(STRINGS)["added"])
