@@ -149,9 +149,17 @@ async def DownloadFiles():
         except:
             pass
         
+    insta = client.DB.get_key("INSTAGRAM_SESSION")
+    if insta:
+        try:
+            get = await client.get_messages(int(insta["chat_id"]), ids=int(insta["msg_id"]))
+            await get.download_media(client.PATH + "Instagram.json")
+        except:
+            pass
+        
 async def deldownloads():
     if os.path.exists("downloads"):
         shutil.rmtree("downloads/")
     await DownloadFiles()
 
-aiocron.crontab("*/30 * * * *", func=deldownloads)
+aiocron.crontab("*/20 * * * *", func=deldownloads)
