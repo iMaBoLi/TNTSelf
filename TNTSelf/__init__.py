@@ -26,7 +26,7 @@ try:
             "api_hash": config.API_HASH,
         },
     }
-    client = MultiClient(sessions=sessions, app_version=__version__)
+    client = MultiClient(sessions)
 except Exception as error:
     LOGS.error("• Login To Account Was Unsuccessful!")
     LOGS.error(format_exc())
