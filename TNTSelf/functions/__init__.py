@@ -23,7 +23,6 @@ async def AddVarsToClient():
     setattr(client, "PATH", "downloads/")
     setattr(client, "fast_download", download_file)
     setattr(client, "fast_upload", upload_file)
-    setattr(client, "me", (await client.get_me()))
     setattr(client.bot, "me", (await client.bot.get_me()))
     setattr(client, "REALM", client.DB.get_key("REALM_CHAT") or client.me.id)
     setattr(client, "BACKUP", client.DB.get_key("BACKUP_CHANNEL"))
