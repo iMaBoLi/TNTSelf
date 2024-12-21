@@ -7,6 +7,7 @@ class MultiClient:
     def __init__(self, sessions, *args, **kwargs):
         self.sessions = sessions
         self.clients = list()
+        self.users = list()
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
@@ -40,7 +41,9 @@ class MultiClient:
         done, tasks = await asyncio.gather(*tasks)
         
     async def _add_coustom_vars(self, client):
-        setattr(client, "me", (await client.get_me()))
+        info = await client.get_me()
+        setattr(client, "me", info)
+        self.users.append(info.id)
 
     def add_event_handler(self, wrapper, events):
         for cli in self.clients:
