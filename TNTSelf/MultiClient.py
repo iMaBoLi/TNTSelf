@@ -8,9 +8,9 @@ class MultiClient:
         self.sessions = sessions
         self.clients = list()
         for session in self.sessions:
-            api_id = session["api_id"]
-            api_hash = session["api_hash"]
-            sessionstring = session["session"]
+            api_id = self.sessions[session]["api_id"]
+            api_hash = self.sessions[session]["api_hash"]
+            sessionstring = self.sessions[session]["session"]
             _cli = TelegramClient(
                 session=StringSession(sessionstring),
                 api_id=api_id,
