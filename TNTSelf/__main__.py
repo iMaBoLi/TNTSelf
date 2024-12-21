@@ -8,12 +8,12 @@ async def setup():
     client.LOGS.info("• Adding Coustom Vars To Client ...")
     await AddVarsToClient()
     client.functions = functions
+    client.LOGS.info("• DownLoading Files To Server ...")
+    await DownloadFiles()
     client.LOGS.info("• Installing Main Plugins ...")
     plugs, notplugs = load_plugins(client.PLUGINS)
     client.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
     client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
-    client.LOGS.info("• DownLoading Files To Server ...")
-    await DownloadFiles()
     update = client.DB.get_key("UPDATE") or True
     if update:
         try:
