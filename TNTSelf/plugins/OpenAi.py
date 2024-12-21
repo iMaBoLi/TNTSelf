@@ -38,9 +38,8 @@ async def saveaiapi(event):
 CONVERSATIONS = {}
 
 async def gpt_response(query, chat_id):
-    AiClient = OpenAI()
-    if not AiClient.api_key:
-        AiClient.api_key = client.DB.get_key("OPENAI_APIKEY")
+    apikey = client.DB.get_key("OPENAI_APIKEY")
+    AiClient = OpenAI(api_key=apikey)
     global CONVERSATIONS
     messages = CONVERSATIONS.get(chat_id, [])
     messages.append({"role": "user", "content": query})
@@ -57,9 +56,10 @@ async def gpt_response(query, chat_id):
 async def aichat(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
-    AiClient = OpenAI()
-    if not AiClient.api_key and not client.DB.get_key("OPENAI_APIKEY"):
+    apikey = client.DB.get_key("OPENAI_APIKEY")
+    if not apikey:
         return await event.edit(client.getstrings(STRINGS)["noapi"])
+    AiClient = OpenAI(api_key=apikey)
     await event.edit(client.getstrings(STRINGS)["getch"].format(query))
     try:
         result = await gpt_response(query, event.chat_id)
@@ -73,7 +73,7 @@ async def aichat(event):
 async def aiphoto(event):
     await event.edit(client.STRINGS["wait"])
     query = event.pattern_match.group(1)
-    if not openai.api_key and not client.DB.get_key("OPENAI_APIKEY"):
+    if not client.DB.get_key("OPENAI_APIKEY"):
         return await event.edit(client.getstrings(STRINGS)["noapi"])
     if not openai.api_key:
         openai.api_key = client.DB.get_key("OPENAI_APIKEY")
