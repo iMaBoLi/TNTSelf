@@ -126,8 +126,8 @@ async def faddlogo(event):
     image.paste(logimg, where, logimg)
     newphoto = client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.client(event.user_id).send_file(chatid, newphoto)
-    await client.client(event.user_id).send_file(chatid, newphoto, force_document=True, allow_cache=True)
+    await client.client(event.original_update.user_id).send_file(chatid, newphoto)
+    await client.client(event.original_update.user_id).send_file(chatid, newphoto, force_document=True, allow_cache=True)
     os.remove(phname)
     os.remove(newphoto)
     await event.edit(client.getstrings(STRINGS)["added"])
