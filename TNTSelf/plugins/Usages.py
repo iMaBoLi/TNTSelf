@@ -69,7 +69,7 @@ async def runcodes(event):
         result = stderr
     elif stdout:
         result = stdout
-    if len(result) < 4096:
+    if len(result) < 3000:
         await reply.edit(f"**Results:**\n\n`{result}`")
     else:
         file = client.PATH + "OutPut.txt"
