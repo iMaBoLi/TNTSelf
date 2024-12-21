@@ -44,4 +44,4 @@ async def setup():
     client.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
 
 client.bot.loop.run_until_complete(setup())
-client.run_until_disconnected()
+client.run_all_clients()
