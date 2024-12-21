@@ -69,6 +69,9 @@ async def instalogin(event):
 @client.Command(command="INPost (.*)")
 async def instapostdl(event):
     await event.edit(client.STRINGS["wait"])
+    client.loop.create_task(postdl(event))
+
+async def postdl(event):
     link = str(event.pattern_match.group(1))
     if not INSTA:
         return await event.edit(client.getstrings(STRINGS)["nosession"])
@@ -88,7 +91,7 @@ async def instapostdl(event):
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds) + " Ago"
-    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 3000 else (mediainfo.caption_text[:3000] + " ...")
+    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 2000 else (mediainfo.caption_text[:2000] + " ...")
     caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
     if mediainfo.media_type in [1, 2]:
         if mediainfo.media_type == 2 and mediainfo.product_type in ["clips", "feed", "igtv"]:
@@ -107,9 +110,8 @@ async def instapostdl(event):
         if thumbnail: os.remove(thumbnail)
     elif mediainfo.media_type == 8:
         post = INSTA.album_download(mediapk, folder=client.PATH)
-        callback = event.progress(upload=True)
         for lpost in client.functions.chunks(post, 9):
-            await client.send_file(event.chat_id, lpost, caption=caption, progress_callback=callback)
+            await client.send_file(event.chat_id, lpost, caption=caption)
         for rpost in post:
             os.remove(rpost)
     await event.delete()
@@ -117,6 +119,9 @@ async def instapostdl(event):
 @client.Command(command="INStory (.*)")
 async def instastorydl(event):
     await event.edit(client.STRINGS["wait"])
+    client.loop.create_task(storydl(event))
+
+async def storydl(event):
     link = str(event.pattern_match.group(1))
     if not INSTA:
         return await event.edit(client.getstrings(STRINGS)["nosession"])
