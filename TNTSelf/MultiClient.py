@@ -8,6 +8,7 @@ class MultiClient:
         self.sessions = sessions
         self.clients = list()
         self.users = list()
+        self.userclients = dict()
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
@@ -44,7 +45,11 @@ class MultiClient:
         info = await client.get_me()
         setattr(client, "me", info)
         self.users.append(info.id)
+        self.userclients[info.id] = client
 
     def add_event_handler(self, wrapper, events):
         for cli in self.clients:
             cli.add_event_handler(wrapper, events)
+
+    def client(self, userid):
+        return self.userclients[userid]
