@@ -27,7 +27,7 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "invsession": "**{STR} The Instagram Session ID** ( `{}` ) **Is Invalid!**",
+    "invsession": "**{STR} The Instagram Session** ( `{}` ) **Is Invalid!**",
     "setsession": "**{STR} The Instagram Session** ( `{}` ) **Has Been Saved!**",
     "nosession": "**{STR} The Instagram Session Is Not Saved!**",
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
@@ -63,7 +63,7 @@ async def instapostdl(event):
         insta = Insta()
         insta.load_settings(session)
     except:
-        return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
+        return await event.edit(client.getstrings(STRINGS)["invsession"].format(session))
     try:
         mediapk = insta.media_pk_from_url(event.text)
         mediainfo = insta.media_info(mediapk)
@@ -97,4 +97,4 @@ async def instapostdl(event):
     else:
         await client.send_file(event.chat_id, post, caption=caption, progress_callback=callback)
         os.remove(post)
-    await edit.delete()
+    await event.delete()
