@@ -81,7 +81,7 @@ async def instapostdl(event):
         mediainfo = INSTA.media_info(mediapk)
     except:
         return await event.edit(client.getstrings(STRINGS)["invlink"].format(link))
-    if not mediainfo.product_type in ["clips", "feed", "igtv"]:
+    if not mediainfo.product_type in ["clips", "feed", "igtv", "carousel_container"]:
         return await event.edit(client.getstrings(STRINGS)["notpost"].format(link))
     await event.edit(client.getstrings(STRINGS)["downpost"].format(link))
     publisher = f"[{mediainfo.user.full_name}](https://www.instagram.com/{mediainfo.user.username})"
@@ -98,13 +98,13 @@ async def instapostdl(event):
             img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
             with open(thumbnail, "wb") as img:
                 img.write(img_data)
+            callback = event.progress(upload=True)
         elif mediainfo.media_type == 1:
             post = INSTA.photo_download(mediapk, folder=client.PATH)
-            attributes, thumbnail = None, None
-        await client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes)
+            attributes, thumbnail, callback = None, None
+        await client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes, progress_callback=callback)
         os.remove(post)
-        if thumbnail:
-            os.remove(thumbnail)
+        if thumbnail: os.remove(thumbnail)
     elif mediainfo.media_type == 8:
         post = INSTA.album_download(mediapk, folder=client.PATH)
         callback = event.progress(upload=True)
@@ -150,4 +150,4 @@ async def instastorydl(event):
     os.remove(story)
     if thumbnail:
         os.remove(thumbnail)
-        
+    await event.delete()
