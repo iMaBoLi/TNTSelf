@@ -36,7 +36,7 @@ STRINGS = {
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
     "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For A Post!**",
     "downpost": "**{STR} Downloading Instagram Post ...**\n**{STR} Link:** ( `{}` )",
-    "postcaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Views:** ( `{}` )\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Publish Time:** ( `{}` )\n**{STR} Caption:** ( `{}` )",
+    "postcaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Likes:** ( `{}` )\n**{STR} Comments:** ( `{}` )\n**{STR} Publish Time:** ( `{}` )",
     "notstory": "**{STR} The Instagram Link** ( `{}` ) **Is Not For A Story!**",
     "downstory": "**{STR} Downloading Instagram Story ...**\n**{STR} Link:** ( `{}` )",
     "storycaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Pubilsh Time:** ( `{}` )",
@@ -91,8 +91,7 @@ async def postdl(event):
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds) + " Ago"
-    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 500 else (mediainfo.caption_text[:500] + " ...")
-    caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
+    caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.like_count, mediainfo.comment_count, pubtime)
     if mediainfo.media_type in [1, 2]:
         if mediainfo.media_type == 2 and mediainfo.product_type in ["clips", "feed", "igtv"]:
             post = INSTA.video_download(mediapk, folder=client.PATH)
