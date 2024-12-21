@@ -41,6 +41,7 @@ STRINGS = {
     "downstory": "**{STR} Downloading Instagram Story ...**\n**{STR} Link:** ( `{}` )",
     "storycaption": "**{STR} Instagram Link: ( `{}` )**\n\n**{STR} Publisher: ( {} )**\n\n**{STR} Pubilsh Time:** ( `{}` )",
     "notuser": "**{STR} The Instagram User** ( `{}` ) **Is Not Founded!**",
+    "usercaption": "**{STR} Name: ( `{}` )**\n\n**{STR} Usernams: ( `{}` )**\n**{STR} ID:** ( `{}` )\n**{STR} Followers:** ( `{}` )\n**{STR} Followings:** ( `{}` )\n**{STR} Media Count:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
 }
 
 SESSION = client.PATH + "Instagram.json"
@@ -154,4 +155,27 @@ async def storydl(event):
     os.remove(story)
     if thumbnail:
         os.remove(thumbnail)
+    await event.delete()
+    
+@client.Command(command="INUser (.*)")
+async def instauserinfo(event):
+    await event.edit(client.STRINGS["wait"])
+    username = str(event.pattern_match.group(1))
+    if not INSTA:
+        return await event.edit(client.getstrings(STRINGS)["nosession"])
+    try:
+        INSTA.get_timeline_feed()
+    except:
+        return await event.edit(client.getstrings(STRINGS)["invsession"])
+    try:
+        info = INSTA.user_info_by_username(username)
+    except:
+        return await event.edit(client.getstrings(STRINGS)["notuser"].format(username))
+    photo = client.PATH + info.full_name + ".jpg"
+    img_data = requests.get(info.profile_pic_url_hd).content
+    with open(photo, 'wb') as img:
+        img.write(img_data)
+    caption = client.getstrings(STRINGS)["usercaption"].format(info.full_name, info.username, info.pk, info.follower_count, info.following_count, info.media_count, info.biography)
+    await client.send_file(event.chat_id, photo, caption=caption)
+    os.remove(thumbnail)
     await event.delete()
