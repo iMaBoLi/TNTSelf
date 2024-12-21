@@ -58,7 +58,7 @@ async def Spector(event):
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"Spector:{chatid}:{event.userid}")
+    res = await event.client.inline_query(client.bot.me.username, f"Spector:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
@@ -110,7 +110,7 @@ async def closespector(event):
     
 @client.on(events.NewMessage)
 async def sendmessagespec(event):
-    if event.sender_id == client.me.id: return
+    if event.sender_id == event.client.me.id: return
     lists = client.DB.get_key("SPECTOR_SEND_MESSAGE") or []
     if event.sender_id in lists:
         info = await client.get_entity(event.sender_id)
