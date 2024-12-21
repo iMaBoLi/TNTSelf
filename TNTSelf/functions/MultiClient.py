@@ -17,7 +17,7 @@ class MultiClient:
                 api_hash=api_hash,
                 *args,
                 **kwargs
-            )
+            ).start()
             setattr(_cli, "session_id", sessionstring)
             self.clients.append(_cli)
 
