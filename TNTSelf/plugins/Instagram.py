@@ -81,7 +81,7 @@ async def instapostdl(event):
     seconds = datetime.now(timezone.utc) - mediainfo.taken_at
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds)
-    mcap = mediainfo.caption_text if mediainfo.caption_text <= 3000 else (mediainfo.caption_text[:3000] + " ...")
+    mcap = mediainfo.caption_text if len(mediainfo.caption_text) <= 3000 else (mediainfo.caption_text[:3000] + " ...")
     caption = client.getstrings(STRINGS)["postcaption"].format(link, mediainfo.view_count, mediainfo.like_count, mediainfo.comment_count, pubtime, mcap)
     callback = event.progress(upload=True)
     if type(post) == list:
