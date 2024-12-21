@@ -125,7 +125,7 @@ async def action(event):
 
 @client.on(events.UserUpdate)
 async def copyaction(event):
-    if event.user_id == client.me.id: return
+    if event.user_id == event.client.me.id: return
     cacMode = client.DB.get_key("COPYACTION_MODE") or "OFF"
     cacChats = client.DB.get_key("COPYACTION_CHATS") or []
     if cacMode == "ON" or event.chat_id in cacChats:
