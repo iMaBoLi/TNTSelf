@@ -4,34 +4,6 @@ from traceback import format_exc
 import time
 import sys
 
-__version__ = "3.10.6"
-
-LOGS = getLogger("TNTSelf")
-basicConfig(
-    format="%(asctime)s | %(message)s",
-    level=INFO,
-    datefmt="%H:%M",
-    handlers=[FileHandler("TNT.log"), StreamHandler()],
-)
-
-LOGS.info("• Login To Accounts And Bots ...")
-
-MAINCONFIG = "../tmp/config.txt"
-DATA = open(MAINCONFIG, "r").read()
-SESSIONS = eval(DATA)
-
-try:
-    client = TelClients(sessions=SESSIONS)
-except Exception as error:
-    LOGS.error("• Error In Logins:")
-    LOGS.error(format_exc())
-
-LOGS.info("• Logins To Account And Bots Was Completed!")
-
-client.LOGS = LOGS
-client.__version__ = __version__
-client.START_TIME = time.time()
-
 
 from telethon import TelegramClient
 from telethon.sessions import StringSession
@@ -103,3 +75,32 @@ class TelClients:
         setattr(client, "REALM", REALM)
         BACKUP = DB.get_key("BACKUP_CHANNEL") or "me"
         setattr(client, "BACKUP", BACKUP)
+
+
+__version__ = "3.10.6"
+
+LOGS = getLogger("TNTSelf")
+basicConfig(
+    format="%(asctime)s | %(message)s",
+    level=INFO,
+    datefmt="%H:%M",
+    handlers=[FileHandler("TNT.log"), StreamHandler()],
+)
+
+LOGS.info("• Login To Accounts And Bots ...")
+
+MAINCONFIG = "../tmp/config.txt"
+DATA = open(MAINCONFIG, "r").read()
+SESSIONS = eval(DATA)
+
+try:
+    client = TelClients(sessions=SESSIONS)
+except Exception as error:
+    LOGS.error("• Error In Logins:")
+    LOGS.error(format_exc())
+
+LOGS.info("• Logins To Account And Bots Was Completed!")
+
+client.LOGS = LOGS
+client.__version__ = __version__
+client.START_TIME = time.time()
