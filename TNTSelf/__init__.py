@@ -1,3 +1,4 @@
+from TNTSelf.MultiClients import MultiClients
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from traceback import format_exc
 import time
@@ -19,12 +20,8 @@ MAINCONFIG = "../tmp/config.txt"
 DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
-def MultiCls():
-    from TNTSelf.MultiClients import MultiClients
-    return MultiClients(sessions=SESSIONS)
-
 try:
-    client = MultiCls()
+    client = MultiClients(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
