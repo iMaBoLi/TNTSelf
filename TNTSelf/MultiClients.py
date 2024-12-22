@@ -16,13 +16,11 @@ class MultiClients:
                 session=StringSession(sessionstring),
                 api_id=int(api_id),
                 api_hash=api_hash,
-                app_version=__version__,
             ).start()
             _cli.bot = TelegramClient(
                 session=StringSession(botsession),
                 api_id=int(api_id),
                 api_hash=api_hash,
-                app_version=__version__,
             ).start()
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self._add_coustom_vars(_cli))
