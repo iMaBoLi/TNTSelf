@@ -7,6 +7,7 @@ class MultiClients:
     def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
+        self.HELP = {}
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
