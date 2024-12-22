@@ -43,7 +43,7 @@ class Database:
         if key in self.cache:
             return self.set(delete_key=key)
 
-class DB:
+class DATABASE:
     def __init__(self, userid):
         self.db = Database()
         self.userid = userid
