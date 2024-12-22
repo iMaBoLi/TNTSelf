@@ -33,6 +33,6 @@ except Exception as error:
 
 LOGS.info("• Logins To Account And Bots Was Completed!")
 
-client.LOGS = LOGS
-client.__version__ = __version__
-client.START_TIME = time.time()
+tlclient.LOGS = LOGS
+tlclient.__version__ = __version__
+tlclient.START_TIME = time.time()
