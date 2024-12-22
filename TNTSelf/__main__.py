@@ -1,6 +1,6 @@
 from . import client
 from telethon import __version__
-from TNTSelf import functions
+##from TNTSelf import functions
 from traceback import format_exc
 import platform
 import importlib
