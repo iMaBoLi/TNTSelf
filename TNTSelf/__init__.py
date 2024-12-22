@@ -1,4 +1,4 @@
-from TNTSelf import MultiClients
+from TNTSelf.MultiClients import MultiClients
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from traceback import format_exc
 import time
