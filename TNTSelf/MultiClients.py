@@ -2,6 +2,7 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from TNTSelf.functions.database import DATABASE
 from TNTSelf.events.Command import Command
+from TNTSelf.events.strings import STRINGS
 import asyncio
 import logging
 
@@ -16,8 +17,6 @@ class MultiClients:
         self.MAX_SIZE =  500000000
         self.PATH = "downloads/"
         self.Command = Command
-        self.Callback = Callback
-        self.Inline = Inline
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
