@@ -14,7 +14,7 @@ __INFO__ = {
         },
     },
 }
-client.functions.AddInfo(__INFO__)
+#client.functions.AddInfo(__INFO__)
 
 STRINGS = {
     "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
