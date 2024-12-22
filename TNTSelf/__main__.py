@@ -1,4 +1,4 @@
-from . import client
+from . import TLclient
 from telethon import __version__ as telever
 from TNTSelf import functions
 from traceback import format_exc
@@ -20,33 +20,33 @@ def load_plugins(files):
             notplugs.update({os.path.basename(file): format_exc()})
     return notplugs
 
-client.LOGS.info("• Starting Setup Plugins ...")
-client.functions = functions
+TLclient.LOGS.info("• Starting Setup Plugins ...")
+TLclient.functions = functions
 os.environ["TZ"] = "Asia/Tehran"
 time.tzset()
 jdatetime.set_locale("fa_IR")
-client.LOGS.info("• Installing Plugins ...")
+TLclient.LOGS.info("• Installing Plugins ...")
 #PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
 PLUGINS = ["TNTSelf/plugins/Ping.py"]
 notplugs = load_plugins(PLUGINS)
 installed = len(PLUGINS) - len(notplugs)
-client.LOGS.info(f"• Successfully Installed {installed} Plugin From Main Plugins!")
-client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
+TLclient.LOGS.info(f"• Successfully Installed {installed} Plugin From Main Plugins!")
+TLclient.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
 for plug in notplugs:
-    client.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
-client.LOGS.info(f"• Python Version: {platform.python_version()}")
-client.LOGS.info(f"• Telethon Version: {telever}")
-client.LOGS.info(f"• TNTSelf Version: {client.__version__}")
-client.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
+    TLclient.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
+TLclient.LOGS.info(f"• Python Version: {platform.python_version()}")
+TLclient.LOGS.info(f"• Telethon Version: {telever}")
+TLclient.LOGS.info(f"• TNTSelf Version: {TLclient.__version__}")
+TLclient.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
 
 async def send_setup(sinclient):
     try:
-        message = f"**👋 TNT Self Has Been Start Now !**\n\n**🧒 User :** {client.functions.mention(sinclient.me)}\n**🤖 Manager :** {client.functions.mention(sinclient.bot.me)}"
+        message = f"**👋 TNT Self Has Been Start Now !**\n\n**🧒 User :** {TLclient.functions.mention(sinclient.me)}\n**🤖 Manager :** {TLclient.functions.mention(sinclient.bot.me)}"
         await sinclient.bot.send_message(sinclient.REALM, message)
     except:
         pass
 
-for sinclient in client.clients:
+for sinclient in TLclient.clients:
     sinclient.loop.run_until_complete(send_setup(sinclient))
     
-client.run_all_clients()
+TLclient.run_all_clients()
