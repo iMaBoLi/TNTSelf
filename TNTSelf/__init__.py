@@ -1,4 +1,3 @@
-print(7)
 from telethon import TelegramClient
 from TNTSelf.client import TelClient
 from telethon.sessions import StringSession
@@ -24,13 +23,13 @@ DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
 try:
-    Clients = TelClient(sessions=SESSIONS)
+    client = TelClient(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
 
 LOGS.info("• Logins To Account And Bots Was Completed!")
 
-Clients.LOGS = LOGS
-Clients.__version__ = __version__
-Clients.START_TIME = time.time()
+client.LOGS = LOGS
+client.__version__ = __version__
+client.START_TIME = time.time()
