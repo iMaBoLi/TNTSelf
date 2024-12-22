@@ -24,18 +24,12 @@ class TelClient:
             loop.run_until_complete(self._add_coustom_vars(_cli))
             self.clients.append(_cli)
 
-    def on(self, event):
-        def decorator(f):
-            for cli in self.clients:
-                cli.add_event_handler(f, event)
-        return decorator
-
-    def run_all_clients(self, loop=None):
-        loop = loop if loop is not None else asyncio.get_event_loop()
+    def run_all_clients(self):
+        loop = asyncio.get_event_loop()
         loop.run_until_complete(self._run_all_clients())
 
     async def _run_all_clients(self):
-        tasks: list = list()
+        tasks = list()
         for cli in self.clients:
             await cli.start()
             tasks.append(cli.run_until_disconnected())
@@ -50,6 +44,10 @@ class TelClient:
     def add_event_handler(self, wrapper, events):
         for cli in self.clients:
             cli.add_event_handler(wrapper, events)
+
+    async def do(self, task):
+        for cli in self.clients:
+            await cli(wrapper, events)
 
     def client(self, userid):
         return self.userclients[userid]
