@@ -8,7 +8,7 @@ from TNTSelf.functions.strings import STRINGS
 import asyncio
 import logging
 
-class TelClient:
+class TelClients:
     def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
