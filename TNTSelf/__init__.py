@@ -1,4 +1,4 @@
-from telethon import TelegramClient
+from telethon import gggggggg
 from TNTSelf.client import TelClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
