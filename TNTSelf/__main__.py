@@ -1,5 +1,5 @@
 from . import Clients
-from telethon import __version__ as telever
+from telethon import __version__
 from TNTSelf import functions
 from traceback import format_exc
 import platform
@@ -35,7 +35,7 @@ Clients.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!"
 for plug in notplugs:
     Clients.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
 Clients.LOGS.info(f"• Python Version: {platform.python_version()}")
-Clients.LOGS.info(f"• Telethon Version: {telever}")
+Clients.LOGS.info(f"• Telethon Version: {__version__}")
 Clients.LOGS.info(f"• TNTSelf Version: {Clients.__version__}")
 Clients.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
 
