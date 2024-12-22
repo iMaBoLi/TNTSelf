@@ -35,8 +35,11 @@ client.LOGS.info(f"• TNTSelf Version: {client.__version__}")
 client.LOGS.info("\n----------------------------------------\n  • Starting TNTSelf Was Successful!\n----------------------------------------")
 
 async def send_setup(sinclient):
-    message = f"**👋 TNT Self Has Been Start Now !**\n\n**🧒 User :** {client.functions.mention(sinclient.me)}\n**🤖 Manager :** {client.functions.mention(sinclient.bot.me)}"
-    await sinclient.bot.send_message(sinclient.REALM, message)
+    try:
+        message = f"**👋 TNT Self Has Been Start Now !**\n\n**🧒 User :** {client.functions.mention(sinclient.me)}\n**🤖 Manager :** {client.functions.mention(sinclient.bot.me)}"
+        await sinclient.bot.send_message(sinclient.REALM, message)
+    except:
+        pass
 
 for sinclient in client.clients:
     sinclient.loop.run_until_complete(send_setup(sinclient))
