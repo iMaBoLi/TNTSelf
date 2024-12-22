@@ -22,13 +22,14 @@ client.LOGS.info("• Starting Setup Plugins ...")
 client.functions = functions
 functions.add_vars(client)
 client.LOGS.info("• Installing Plugins ...")
-PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
+#PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
+PLUGINS = "TNTSelf/plugins/Ping.py"
 notplugs = load_plugins(PLUGINS)
 installed = len(PLUGINS) - len(notplugs)
 client.LOGS.info(f"• Successfully Installed {installed} Plugin From Main Plugins!")
 client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
-#for plug in notplugs:
-    #client.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
+for plug in notplugs:
+    client.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
 client.LOGS.info(f"• Python Version: {platform.python_version()}")
 client.LOGS.info(f"• Telethon Version: {telever}")
 client.LOGS.info(f"• TNTSelf Version: {client.__version__}")
