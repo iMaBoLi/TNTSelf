@@ -1,4 +1,4 @@
-from TNTSelf import tlclient
+from TNTSelf import client
 from telethon import events, types
 from traceback import format_exc
 import re
@@ -15,13 +15,13 @@ def Command(
     **kwargs,
 ):
     if command and not pattern:
-        CMD = tlclient.DB.get_key("CMD_SIMBEL") or "."
+        CMD = client.DB.get_key("CMD_SIMBEL") or "."
         if userid or chatid:
             pattern = f"(?i)^\\{CMD}{command}"
         else:
             pattern = f"(?i)^\\{CMD}{command}$"
-    if pattern and pattern not in tlclient.COMMANDS:
-        tlclient.COMMANDS.append(pattern)
+    if pattern and pattern not in client.COMMANDS:
+        client.COMMANDS.append(pattern)
     def decorator(func):
         async def wrapper(event):
             try:
@@ -30,9 +30,9 @@ def Command(
                 if onlysudo and not (event.is_sudo or event.out): return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = event.sender.bot if isinstance(event.sender, types.User) else False
-                event.userid = await tlclient.functions.getuserid(event) if userid else 0
-                event.chatid = await tlclient.functions.getchatid(event) if chatid else 0
-                if checkCmd and event.text and tlclient.functions.checkCmd(event.text): return
+                event.userid = await client.functions.getuserid(event) if userid else 0
+                event.chatid = await client.functions.getchatid(event) if chatid else 0
+                if checkCmd and event.text and client.functions.checkCmd(event.text): return
                 blacks = event.client.DB.get_key("BLACK_LIST") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = event.client.DB.get_key("WHITE_LIST") or []
@@ -44,9 +44,9 @@ def Command(
                 client.LOGS.error(format_exc())
                 errortext = f"**• Error :**\n\n`{format_exc()}`"
                 await event.client.bot.send_message(event.client.REALM, errortext)
-        for client in tlclient.clients:  
-            client.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
+        for sinclient in client.clients:  
+            sinclient.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
             if allowedits:
-                client.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
+                sinclient.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
         return wrapper
     return decorator
