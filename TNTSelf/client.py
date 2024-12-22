@@ -1,5 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from TNTSelf.functions.database import DB
 import asyncio
 import logging
 
@@ -13,8 +14,16 @@ class TelClient:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
             sessionstring = self.sessions[session]["session"]
+            botsession = self.sessions[session]["botsession"]
             _cli = TelegramClient(
                 session=StringSession(sessionstring),
+                api_id=int(api_id),
+                api_hash=api_hash,
+                *args,
+                **kwargs
+            ).start()
+            _cli.bot = TelegramClient(
+                session=StringSession(botsession),
                 api_id=int(api_id),
                 api_hash=api_hash,
                 *args,
@@ -33,21 +42,14 @@ class TelClient:
         for cli in self.clients:
             await cli.start()
             tasks.append(cli.run_until_disconnected())
+            await cli.bot.start()
+            tasks.append(cli.bot.run_until_disconnected())
         done, tasks = await asyncio.gather(*tasks)
         
     async def _add_coustom_vars(self, client):
         info = await client.get_me()
+        botinfo = await client.bot.get_me()
         setattr(client, "me", info)
-        self.users.append(info.id)
-        self.userclients[info.id] = client
-
-    def add_event_handler(self, wrapper, events):
-        for cli in self.clients:
-            cli.add_event_handler(wrapper, events)
-
-    async def do(self, task):
-        for cli in self.clients:
-            await cli(task)
-
-    def client(self, userid):
-        return self.userclients[userid]
+        setattr(client, "id", info.id)
+        setattr(client.bot, "me", botinfo)
+        setattr(client.bot, "id", botinfo.id)
