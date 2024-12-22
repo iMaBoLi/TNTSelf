@@ -1,3 +1,4 @@
+print("Start")
 from . import TLclient
 from telethon import __version__ as telever
 from TNTSelf import functions
