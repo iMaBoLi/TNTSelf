@@ -2,12 +2,20 @@ from TNTSelf import tlclient
 from TNTSelf.events.Command import Command
 from TNTSelf.events.Callback import Callback
 from TNTSelf.events.Inline import Inline
-from TNTSelf.functions.strings import STRINGS
+from TNTSelf.functions.database import *
+from TNTSelf.functions.helper import *
+from TNTSelf.functions.utils import *
+from TNTSelf.functions.core import *
+from TNTSelf.functions.tools import *
+from TNTSelf.functions.youtube import *
+from TNTSelf.functions.strings import *
+from TNTSelf.functions.data import *
 import os
 import time
 import jdatetime
 
 def AddVarsToClient():
+    setattr(client, "DB", DATABASE(0))
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", 500000000)
