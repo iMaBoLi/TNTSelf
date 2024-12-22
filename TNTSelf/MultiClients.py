@@ -1,4 +1,4 @@
-from TNTSelf import gg
+from telethon import TelegramClient
 from telethon.sessions import StringSession
 import asyncio
 import logging
