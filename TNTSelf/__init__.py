@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from TNTSelf.client import TelClient
+from TNTSelf.client import TelClients
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from traceback import format_exc
@@ -23,13 +23,13 @@ DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
 try:
-    client = TelClient(sessions=SESSIONS)
+    clients = TelClients(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
 
 LOGS.info("• Logins To Account And Bots Was Completed!")
 
-client.LOGS = LOGS
-client.__version__ = __version__
-client.START_TIME = time.time()
+clients.LOGS = LOGS
+clients.__version__ = __version__
+clients.START_TIME = time.time()
