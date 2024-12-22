@@ -1,4 +1,4 @@
-from TNTSelf import client
+#from TNTSelf import client
 from TNTSelf.events.Command import Command
 from TNTSelf.events.Callback import Callback
 from TNTSelf.events.Inline import Inline
