@@ -21,7 +21,7 @@ def load_plugins(files):
 
 client.LOGS.info("• Starting Setup Plugins ...")
 client.functions = functions
-add_vars(client)
+add_vars()
 client.LOGS.info("• Installing Plugins ...")
 #PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
 PLUGINS = ["TNTSelf/plugins/Ping.py"]
