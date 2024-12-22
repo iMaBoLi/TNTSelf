@@ -1,3 +1,4 @@
+from TNTSelf.functions import DATABASE
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 import asyncio
