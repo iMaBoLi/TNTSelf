@@ -23,7 +23,7 @@ client.functions = functions
 functions.add_vars(client)
 client.LOGS.info("• Installing Plugins ...")
 #PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
-PLUGINS = "TNTSelf/plugins/Ping.py"
+PLUGINS = ["TNTSelf/plugins/Ping.py"]
 notplugs = load_plugins(PLUGINS)
 installed = len(PLUGINS) - len(notplugs)
 client.LOGS.info(f"• Successfully Installed {installed} Plugin From Main Plugins!")
