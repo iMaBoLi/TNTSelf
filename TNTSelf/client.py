@@ -9,7 +9,7 @@ import asyncio
 import logging
 
 class TelClient:
-    def __init__(self, sessions, *args, **kwargs):
+    def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
         self.DB = DATABASE(0)
@@ -30,15 +30,13 @@ class TelClient:
                 session=StringSession(sessionstring),
                 api_id=int(api_id),
                 api_hash=api_hash,
-                *args,
-                **kwargs
+                app_version=__version__,
             ).start()
             _cli.bot = TelegramClient(
                 session=StringSession(botsession),
                 api_id=int(api_id),
                 api_hash=api_hash,
-                *args,
-                **kwargs
+                app_version=__version__,
             ).start()
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self._add_coustom_vars(_cli))
