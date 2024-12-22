@@ -3,7 +3,6 @@ from telethon import __version__ as telever
 from TNTSelf import functions
 from traceback import format_exc
 import platform
-import importlib
 import glob
 import os
 import re
@@ -11,6 +10,7 @@ import time
 import jdatetime
 
 def load_plugins(files):
+    import importlib
     notplugs = {}
     for file in files:
         try:
