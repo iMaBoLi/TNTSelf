@@ -1,4 +1,4 @@
-from .functions imoort add_vars
+from .functions import add_vars
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 import asyncio
