@@ -1,4 +1,4 @@
-#from . import client
+from . import client
 from telethon import __version__
 from TNTSelf import functions
 from traceback import format_exc
