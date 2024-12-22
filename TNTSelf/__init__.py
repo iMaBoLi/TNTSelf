@@ -23,10 +23,7 @@ DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
 try:
-    client = TelClient(
-        sessions=SESSIONS,
-        app_version=__version__,
-    )
+    client = TelClient(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
