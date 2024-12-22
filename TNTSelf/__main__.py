@@ -19,7 +19,7 @@ def load_plugins(files):
     return notplugs
 
 tlclient.LOGS.info("• Starting Setup Plugins ...")
-client.functions = functions
+tlclient.functions = functions
 functions.add_vars(tlclient)
 tlclient.LOGS.info("• Installing Plugins ...")
 PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
