@@ -55,7 +55,7 @@ class TelClient:
         setattr(client.bot, "id", botinfo.id)
         DB = DATABASE(info.id)
         setattr(client, "DB", DB)
-        REALM = DB.get_key("REALM_CHAT") or info.id
+        REALM = DB.get_key("REALM_CHAT") or "me"
         setattr(client, "REALM", REALM)
-        BACKUP = DB.get_key("BACKUP_CHANNEL") or info.id
+        BACKUP = DB.get_key("BACKUP_CHANNEL") or "me"
         setattr(client, "BACKUP", BACKUP)
