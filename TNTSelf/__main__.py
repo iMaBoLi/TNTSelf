@@ -1,4 +1,4 @@
-from . import TLclient
+from TNTSelf import TLclient
 from telethon import __version__ as telever
 from TNTSelf import functions
 from traceback import format_exc
