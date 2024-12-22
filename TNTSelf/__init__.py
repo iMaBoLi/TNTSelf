@@ -1,3 +1,4 @@
+print(8)
 from telethon import TelegramClient
 from TNTSelf.client import TelClient
 from telethon.sessions import StringSession
