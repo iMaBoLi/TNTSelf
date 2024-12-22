@@ -1,18 +1,30 @@
 from . import tlclient
 from telethon import __version__ as telever
-from TNTSelf import functions
-from TNTSelf.functions import load_plugins, get_plugins
+from traceback import format_exc
 import platform
+import importlib
+import glob
+import os
+import re
+
+def load_plugins(files):
+    notplugs = {}
+    for file in files:
+        try:
+            filename = file.replace("/", ".").replace(".py" , "")
+            importlib.import_module(filename)
+        except:
+            notplugs.update({os.path.basename(file): format_exc()})
+    return notplugs
 
 tlclient.LOGS.info("• Starting Setup Plugins ...")
-tlclient.functions = functions
 tlclient.LOGS.info("• Installing Plugins ...")
-PLUGINS = get_plugins()
-plugs, notplugs = load_plugins(PLUGINS)
+PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
+notplugs = load_plugins(PLUGINS)
 tlclient.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
 tlclient.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
 for plug in notplugs:
-    tlclient.LOGS.info(f"• {plug}")
+    tlclient.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
 tlclient.LOGS.info(f"• Python Version: {platform.python_version()}")
 tlclient.LOGS.info(f"• Telethon Version: {telever}")
 tlclient.LOGS.info(f"• TNTSelf Version: {tlclient.__version__}")
