@@ -1,6 +1,5 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-#from TNTSelf.functions.database import DATABASE
 import asyncio
 import logging
 
@@ -47,6 +46,7 @@ class MultiClients:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
+        from TNTSelf.functions.database import DATABASE
         DB = DATABASE(info.id)
         setattr(client, "DB", DB)
         REALM = DB.get_key("REALM_CHAT") or "me"
