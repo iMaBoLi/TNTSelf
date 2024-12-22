@@ -3,7 +3,7 @@ from telethon.sessions import StringSession
 import asyncio
 import logging
 
-class MultiClient:
+class TelClient:
     def __init__(self, sessions, *args, **kwargs):
         self.sessions = sessions
         self.clients = list()
@@ -15,7 +15,7 @@ class MultiClient:
             sessionstring = self.sessions[session]["session"]
             _cli = TelegramClient(
                 session=StringSession(sessionstring),
-                api_id=api_id,
+                api_id=int(api_id),
                 api_hash=api_hash,
                 *args,
                 **kwargs
