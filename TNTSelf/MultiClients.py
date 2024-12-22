@@ -1,4 +1,3 @@
-from TNTSelf.functions import DATABASE
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 import asyncio
@@ -47,9 +46,3 @@ class MultiClients:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
-        DB = DATABASE(info.id)
-        setattr(client, "DB", DB)
-        REALM = DB.get_key("REALM_CHAT") or "me"
-        setattr(client, "REALM", REALM)
-        BACKUP = DB.get_key("BACKUP_CHANNEL") or "me"
-        setattr(client, "BACKUP", BACKUP)
