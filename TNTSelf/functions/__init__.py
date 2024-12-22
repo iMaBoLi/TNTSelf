@@ -1,4 +1,3 @@
-from TNTSelf import tlclient
 from TNTSelf.events.Command import Command
 from TNTSelf.events.Callback import Callback
 from TNTSelf.events.Inline import Inline
@@ -14,9 +13,10 @@ import os
 import time
 import jdatetime
 
-def AddVarsToClient():
+def add_vars(client):
     setattr(client, "DB", DATABASE(0))
     setattr(client, "STRINGS", STRINGS)
+    setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", 500000000)
     setattr(client, "PATH", "downloads/")
