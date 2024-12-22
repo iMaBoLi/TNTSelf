@@ -30,7 +30,7 @@ async def namechanger():
     if nmode == "ON" and NAME_LIST:
         chname = AddVars(random.choice(NAME_LIST))
         try:
-            await client(functions.account.UpdateProfileRequest(first_name=str(chname)))
+            await client.do(functions.account.UpdateProfileRequest(first_name=str(chname)))
         except:
             pass
 
