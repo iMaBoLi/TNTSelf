@@ -1,3 +1,4 @@
+from TNTSelf import client
 from TNTSelf.events.Command import Command
 from TNTSelf.events.Callback import Callback
 from TNTSelf.events.Inline import Inline
@@ -13,7 +14,7 @@ import os
 import time
 import jdatetime
 
-def add_vars(client):
+def add_vars():
     setattr(client, "DB", DATABASE(0))
     setattr(client, "STRINGS", STRINGS)
     setattr(client, "COMMANDS", [])
