@@ -1,5 +1,6 @@
 from . import tlclient
 from telethon import __version__ as telever
+from TNTSelf import functions
 from traceback import format_exc
 import platform
 import importlib
@@ -18,6 +19,7 @@ def load_plugins(files):
     return notplugs
 
 tlclient.LOGS.info("• Starting Setup Plugins ...")
+client.functions = functions
 tlclient.LOGS.info("• Installing Plugins ...")
 PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
 notplugs = load_plugins(PLUGINS)
