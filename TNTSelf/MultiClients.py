@@ -2,7 +2,7 @@ from telethon import TelegramClient
 from telethon.sessions import StringSession
 from TNTSelf.functions.database import DATABASE
 #from TNTSelf.events.Command import Command
-from TNTSelf.events.strings import STRINGS
+from TNTSelf.functions.strings import STRINGS
 import asyncio
 import logging
 
