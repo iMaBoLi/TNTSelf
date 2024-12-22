@@ -1,10 +1,10 @@
-#from telethon import TelegramClient
-#from telethon.sessions import StringSession
-#from TNTSelf.functions.database import DATABASE
-#from TNTSelf.events.Command import Command
-#from TNTSelf.events.Callback import Callback
-#from TNTSelf.events.Inline import Inline
-#from TNTSelf.functions.strings import STRINGS
+from telethon import TelegramClient
+from telethon.sessions import StringSession
+from TNTSelf.functions.database import DATABASE
+from TNTSelf.events.Command import Command
+from TNTSelf.events.Callback import Callback
+from TNTSelf.events.Inline import Inline
+from TNTSelf.functions.strings import STRINGS
 import asyncio
 import logging
 
