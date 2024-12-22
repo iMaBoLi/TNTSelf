@@ -28,7 +28,7 @@ installed = len(PLUGINS) - len(notplugs)
 client.LOGS.info(f"• Successfully Installed {installed} Plugin From Main Plugins!")
 client.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
 for plug in notplugs:
-    client.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
+    #client.LOGS.info(f"• {plug} --->  {notplugs[plug]}")
 client.LOGS.info(f"• Python Version: {platform.python_version()}")
 client.LOGS.info(f"• Telethon Version: {telever}")
 client.LOGS.info(f"• TNTSelf Version: {client.__version__}")
