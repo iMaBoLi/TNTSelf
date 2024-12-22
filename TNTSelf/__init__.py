@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from TNTSelf.MultiClient import TelClient
+from TNTSelf.client import TelClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from TNTSelf import config
