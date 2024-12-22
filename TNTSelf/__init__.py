@@ -1,5 +1,5 @@
 from telethon import TelegramClient
-from TNTSelf.client import TelClients
+from TNTSelf.client import TelClient
 from telethon.sessions import StringSession
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from traceback import format_exc
@@ -23,7 +23,7 @@ DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
 try:
-    Clients = TelClients(sessions=SESSIONS)
+    Clients = TelClient(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
