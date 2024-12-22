@@ -23,13 +23,13 @@ DATA = open(MAINCONFIG, "r").read()
 SESSIONS = eval(DATA)
 
 try:
-    clients = TelClients(sessions=SESSIONS)
+    TLclient = TelClients(sessions=SESSIONS)
 except Exception as error:
     LOGS.error("• Error In Logins:")
     LOGS.error(format_exc())
 
 LOGS.info("• Logins To Account And Bots Was Completed!")
 
-clients.LOGS = LOGS
-clients.__version__ = __version__
-clients.START_TIME = time.time()
+TLclient.LOGS = LOGS
+TLclient.__version__ = __version__
+TLclient.START_TIME = time.time()
