@@ -46,7 +46,7 @@ class Database:
 class DATABASE:
     def __init__(self, userid):
         self.db = Database()
-        self.userid = userid
+        self.userid = int(userid)
         self.get = self.db.get
         self.set = self.db.set
         self.delete = self.db.delete
