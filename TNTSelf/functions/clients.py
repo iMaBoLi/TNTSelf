@@ -1,4 +1,4 @@
-from telethon import TelegramClient
+#from telethon import TelegramClient
 from telethon.sessions import StringSession
 from TNTSelf.functions.database import DATABASE
 from TNTSelf.events.Command import Command
