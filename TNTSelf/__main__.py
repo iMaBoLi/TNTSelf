@@ -1,6 +1,5 @@
 from . import client
 from telethon import __version__
-from TNTSelf import functions
 from traceback import format_exc
 import platform
 import importlib
@@ -21,8 +20,6 @@ def load_plugins(files):
     return notplugs
 
 client.LOGS.info("• Starting Setup Plugins ...")
-client.functions = functions
-functions.add_vars(client)
 os.environ["TZ"] = "Asia/Tehran"
 time.tzset()
 jdatetime.set_locale("fa_IR")
