@@ -60,6 +60,8 @@ class DATABASE:
         self.cache.clear()
         for key in self.keys():
             self.cache.update({key: self.get_key(key)})
+        if not self.userid in self.cache:
+            self.cache[self.userid] = {}
 
     def get_data(self, key=None, data=None):
         if key:
