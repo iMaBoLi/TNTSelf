@@ -7,15 +7,6 @@ class MultiClients:
     def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
-        self.DB = DATABASE(0)
-        self.STRINGS = STRINGS
-        self.COMMANDS = []
-        self.HELP = {}
-        self.MAX_SIZE =  500000000
-        self.PATH = "downloads/"
-        self.Command = Command
-        self.Callback = Callback
-        self.Inline = Inline
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
