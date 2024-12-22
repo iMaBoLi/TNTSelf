@@ -59,4 +59,3 @@ class TelClient:
         setattr(client, "REALM", REALM)
         BACKUP = DB.get_key("BACKUP_CHANNEL") or info.id
         setattr(client, "BACKUP", BACKUP)
-        setattr(client, "COMMANDS", [])
