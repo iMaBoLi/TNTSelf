@@ -1,4 +1,4 @@
-from . import Clients
+import TNTSelf.Clients
 from telethon import __version__
 from TNTSelf import functions
 from traceback import format_exc
