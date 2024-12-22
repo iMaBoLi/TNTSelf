@@ -1,5 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from TNTSelf.functions.database import DATABASE
 import asyncio
 import logging
 
