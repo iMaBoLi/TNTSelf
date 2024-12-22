@@ -1,6 +1,10 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from TNTSelf.functions.database import DATABASE
+from TNTSelf.events.Command import Command
+from TNTSelf.events.Callback import Callback
+from TNTSelf.events.Inline import Inline
+from TNTSelf.functions.strings import STRINGS
 import asyncio
 import logging
 
@@ -8,8 +12,15 @@ class TelClient:
     def __init__(self, sessions, *args, **kwargs):
         self.sessions = sessions
         self.clients = list()
-        self.users = list()
-        self.userclients = dict()
+        self.DB = DATABASE(0)
+        self.STRINGS = STRINGS
+        self.COMMANDS = []
+        self.HELP = {}
+        self.MAX_SIZE =  500000000
+        self.PATH = "downloads/"
+        self.Command = Command
+        self.Callback = Callback
+        self.Inline = Inline
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
