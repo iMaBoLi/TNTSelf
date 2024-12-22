@@ -47,7 +47,7 @@ class TelClient:
 
     async def do(self, task):
         for cli in self.clients:
-            await cli(wrapper, events)
+            await cli(task)
 
     def client(self, userid):
         return self.userclients[userid]
