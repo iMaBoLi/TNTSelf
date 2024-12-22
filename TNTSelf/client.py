@@ -1,6 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from TNTSelf.functions.database import DB
+from TNTSelf.functions.database import DATABASE
 import asyncio
 import logging
 
@@ -53,3 +53,4 @@ class TelClient:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
+        setattr(client, "DB", DATABASE(info.id))
