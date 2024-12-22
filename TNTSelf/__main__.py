@@ -1,7 +1,6 @@
 from . import client
 from telethon import __version__ as telever
 from TNTSelf import functions
-from TNTSelf.functions import add_vars
 from traceback import format_exc
 import platform
 import importlib
@@ -22,7 +21,6 @@ def load_plugins(files):
     return notplugs
 
 client.LOGS.info("• Starting Setup Plugins ...")
-add_vars()
 client.functions = functions
 os.environ["TZ"] = "Asia/Tehran"
 time.tzset()
