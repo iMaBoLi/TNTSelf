@@ -1,13 +1,14 @@
 from . import tlclient
 from telethon import __version__ as telever
 from TNTSelf import functions
-from TNTSelf.functions import load_plugins
+from TNTSelf.functions import load_plugins, get_plugins
 import platform
 
 tlclient.LOGS.info("• Starting Setup Plugins ...")
 tlclient.functions = functions
 tlclient.LOGS.info("• Installing Plugins ...")
-plugs, notplugs = load_plugins(tlclient.PLUGINS)
+PLUGINS = get_plugins()
+plugs, notplugs = load_plugins(PLUGINS)
 tlclient.LOGS.info(f"• Successfully Installed {len(plugs)} Plugin From Main Plugins!")
 tlclient.LOGS.info(f"• Not Installed {len(notplugs)} Plugin From Main Plugins!")
 for plug in notplugs:
