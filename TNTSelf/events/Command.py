@@ -1,4 +1,4 @@
-from TNTSelf import client
+from TNTSelf import TLclient
 from telethon import events, types
 from traceback import format_exc
 import re
@@ -15,13 +15,13 @@ def Command(
     **kwargs,
 ):
     if command and not pattern:
-        CMD = client.DB.get_key("CMD_SIMBEL") or "."
+        CMD = TLclient.DB.get_key("CMD_SIMBEL") or "."
         if userid or chatid:
             pattern = f"(?i)^\\{CMD}{command}"
         else:
             pattern = f"(?i)^\\{CMD}{command}$"
-    if pattern and pattern not in client.COMMANDS:
-        client.COMMANDS.append(pattern)
+    if pattern and pattern not in TLclient.COMMANDS:
+        TLclient.COMMANDS.append(pattern)
     def decorator(func):
         async def wrapper(event):
             try:
@@ -30,9 +30,9 @@ def Command(
                 if onlysudo and not (event.is_sudo or event.out): return
                 event.reply_message = await event.get_reply_message()
                 event.is_bot = event.sender.bot if isinstance(event.sender, types.User) else False
-                event.userid = await client.functions.getuserid(event) if userid else 0
-                event.chatid = await client.functions.getchatid(event) if chatid else 0
-                if checkCmd and event.text and client.functions.checkCmd(event.text): return
+                event.userid = await TLclient.functions.getuserid(event) if userid else 0
+                event.chatid = await TLclient.functions.getchatid(event) if chatid else 0
+                if checkCmd and event.text and TLclient.functions.checkCmd(event.text): return
                 blacks = event.client.DB.get_key("BLACK_LIST") or []
                 event.is_black = True if event.sender_id in blacks else False
                 whites = event.client.DB.get_key("WHITE_LIST") or []
@@ -41,10 +41,10 @@ def Command(
                 if event.via_bot_id: return
                 await func(event)
             except:
-                client.LOGS.error(format_exc())
+                TLclient.LOGS.error(format_exc())
                 errortext = f"**• Error :**\n\n`{format_exc()}`"
                 await event.client.bot.send_message(event.client.REALM, errortext)
-        for sinclient in client.clients:  
+        for sinclient in TLclient.clients:  
             sinclient.add_event_handler(wrapper, events.NewMessage(pattern=pattern, **kwargs))
             if allowedits:
                 sinclient.add_event_handler(wrapper, events.MessageEdited(pattern=pattern, **kwargs))
