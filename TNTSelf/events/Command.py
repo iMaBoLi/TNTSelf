@@ -1,4 +1,4 @@
-from TNTSelf import client
+from .. import client
 from telethon import events, types
 from traceback import format_exc
 import re
