@@ -43,9 +43,10 @@ class Database:
         if key in self.cache:
             return self.set(delete_key=key)
 
-class LocalDB:
-    def __init__(self):
+class DB:
+    def __init__(self, userid):
         self.db = Database()
+        self.userid = userid
         self.get = self.db.get
         self.set = self.db.set
         self.delete = self.db.delete
@@ -72,25 +73,23 @@ class LocalDB:
 
     def set_key(self, key, value):
         value = self.get_data(data=value)
-        self.cache[key] = value
+        self.cache[self.userid][key] = value
         return self.set(str(key), str(value))
 
     def del_key(self, key):
-        if key in self.cache:
-            del self.cache[key]
+        if key in self.cache[self.userid]:
+            del self.cache[self.userid][key]
         self.delete(key)
         return True
 
     def get_key(self, key):
-        if key in self.cache:
-            value = self.cache[key]
+        if key in self.cache[self.userid]:
+            value = self.cache[self.userid][key]
         else:
             value = self.get_data(key)
-            self.cache.update({key: value})
+            self.cache[self.userid].update({key: value})
         try:
             data = eval(value)
         except:
             data = value
         return data
-
-DB = LocalDB()
