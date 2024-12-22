@@ -1,4 +1,4 @@
-from TNTSelf.clients import TelClients
+#from TNTSelf.clients import TelClients
 from logging import INFO, getLogger, basicConfig, FileHandler, StreamHandler
 from traceback import format_exc
 import time
@@ -31,3 +31,75 @@ LOGS.info("• Logins To Account And Bots Was Completed!")
 client.LOGS = LOGS
 client.__version__ = __version__
 client.START_TIME = time.time()
+
+
+from telethon import TelegramClient
+from telethon.sessions import StringSession
+from TNTSelf.functions.database import DATABASE
+from TNTSelf.events.Command import Command
+from TNTSelf.events.Callback import Callback
+from TNTSelf.events.Inline import Inline
+from TNTSelf.functions.strings import STRINGS
+import asyncio
+import logging
+
+class TelClients:
+    def __init__(self, sessions):
+        self.sessions = sessions
+        self.clients = list()
+        self.DB = DATABASE(0)
+        self.STRINGS = STRINGS
+        self.COMMANDS = []
+        self.HELP = {}
+        self.MAX_SIZE =  500000000
+        self.PATH = "downloads/"
+        self.Command = Command
+        self.Callback = Callback
+        self.Inline = Inline
+        for session in self.sessions:
+            api_id = self.sessions[session]["api_id"]
+            api_hash = self.sessions[session]["api_hash"]
+            sessionstring = self.sessions[session]["session"]
+            botsession = self.sessions[session]["botsession"]
+            _cli = TelegramClient(
+                session=StringSession(sessionstring),
+                api_id=int(api_id),
+                api_hash=api_hash,
+                app_version=__version__,
+            ).start()
+            _cli.bot = TelegramClient(
+                session=StringSession(botsession),
+                api_id=int(api_id),
+                api_hash=api_hash,
+                app_version=__version__,
+            ).start()
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(self._add_coustom_vars(_cli))
+            self.clients.append(_cli)
+
+    def run_all_clients(self):
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self._run_all_clients())
+
+    async def _run_all_clients(self):
+        tasks = list()
+        for cli in self.clients:
+            await cli.start()
+            tasks.append(cli.run_until_disconnected())
+            await cli.bot.start()
+            tasks.append(cli.bot.run_until_disconnected())
+        done, tasks = await asyncio.gather(*tasks)
+        
+    async def _add_coustom_vars(self, client):
+        info = await client.get_me()
+        botinfo = await client.bot.get_me()
+        setattr(client, "me", info)
+        setattr(client, "id", info.id)
+        setattr(client.bot, "me", botinfo)
+        setattr(client.bot, "id", botinfo.id)
+        DB = DATABASE(info.id)
+        setattr(client, "DB", DB)
+        REALM = DB.get_key("REALM_CHAT") or "me"
+        setattr(client, "REALM", REALM)
+        BACKUP = DB.get_key("BACKUP_CHANNEL") or "me"
+        setattr(client, "BACKUP", BACKUP)
