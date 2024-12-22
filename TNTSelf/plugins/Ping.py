@@ -2,20 +2,6 @@ from TNTSelf import client
 from datetime import datetime
 import time
 
-__INFO__ = {
-    "Category": "Setting",
-    "Name": "Ping",
-    "Info": {
-        "Help": "To Check Bot And Get Ping And Uptime!",
-        "Commands": {
-            "{CMD}Ping": {
-                "Help": "To Check Self And Uptime",
-            },
-        },
-    },
-}
-client.functions.AddInfo(__INFO__)
-
 STRINGS = {
     "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
 }
