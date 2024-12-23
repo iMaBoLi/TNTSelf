@@ -49,6 +49,7 @@ class MultiClients:
             loop.run_until_complete(self._add_coustom_vars(client))
 
     async def _add_coustom_vars(self, client):
+        from TNTSelf.functions.database import DATABASE
         info = await client.get_me()
         botinfo = await client.bot.get_me()
         setattr(client, "me", info)
