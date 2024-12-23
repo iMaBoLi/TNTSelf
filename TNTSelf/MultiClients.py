@@ -25,7 +25,7 @@ class MultiClients:
             ).start()
             self.clients.append(_cli)
             
-    def on(self, event):
+    def on(self):
         def decorator(func):
             async def wrapper(event):
                 try:
