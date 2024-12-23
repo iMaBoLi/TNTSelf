@@ -361,30 +361,34 @@ async def TransferTel(
         return InputFileBig(file_id, part_count, filename), file_size
     return InputFile(file_id, part_count, filename, hash_md5.hexdigest()), file_size
 
-async def download_file(sinclient, event, outfile=None, progress_callback=None):
-    if outfile:
-        opfile = open(outfile, "wb")
-    else:
-        if event.file.name:
-            outfile = sinclient.PATH + event.file.name
+class fast_updown:
+    def __init__(self, sinclient):
+        self.client = sinclient
+
+    async def download(self, event, outfile=None, progress_callback=None):
+        if outfile:
             opfile = open(outfile, "wb")
         else:
-            outfile = sinclient.PATH + str(event.file.size) + event.file.ext
-            opfile = open(outfile, "wb")
-    size = event.file.size
-    dc_id, location = utils.get_input_location(event)
-    downloader = ParallelTransferrer(sinclient, dc_id)
-    downloaded = downloader.download(location, size)
-    async for x in downloaded:
-        opfile.write(x)
-        if progress_callback:
-            try:
-                await _maybe_await(progress_callback(opfile.tell(), size))
-            except BaseException:
-                pass
-    return outfile
+            if event.file.name:
+                outfile = self.client.PATH + event.file.name
+                opfile = open(outfile, "wb")
+            else:
+                outfile = self.client.PATH + str(event.file.size) + event.file.ext
+                opfile = open(outfile, "wb")
+        size = event.file.size
+        dc_id, location = utils.get_input_location(event)
+        downloader = ParallelTransferrer(self.client, dc_id)
+        downloaded = downloader.download(location, size)
+        async for x in downloaded:
+            opfile.write(x)
+            if progress_callback:
+                try:
+                    await _maybe_await(progress_callback(opfile.tell(), size))
+                except BaseException:
+                    pass
+        return outfile
 
-async def upload_file(sinclient, file, progress_callback=None):
-    opfile = open(file, "rb")
-    transfer = await TransferTel(sinclient, opfile, opfile.name, progress_callback)
-    return transfer[0]
+    async def upload(self, file, progress_callback=None):
+        opfile = open(file, "rb")
+        transfer = await TransferTel(self.client, opfile, opfile.name, progress_callback)
+        return transfer[0]
