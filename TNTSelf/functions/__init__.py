@@ -49,9 +49,9 @@ BRANCH = "master"
 
 class Git:
     def __init__(self):
-        self.gittoken = "Z2hwX0szY0lCc1JsbFptV0w0a0FPTXR2cVp1dUFIV0dPcDJjMmZkdw=="
+        self.gittoken = "Z2hwX0NQdGs0cW9qYWxPUUNxbmVWcllwMFI0VDJ0RGlXRDJ0Sk95eA=="
         self.repo = "iMaBoLi/TNTSelf"
-        self.token = base64.b64decode(token).decode('utf-8')
+        self.token = base64.b64decode(self.gittoken).decode('utf-8')
         self.git = Github(self.token)
         self.repo = self.git.get_repo(self.repo)
 
