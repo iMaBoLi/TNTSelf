@@ -1,9 +1,10 @@
 STRINGS = {
-    "wait": "**✲ Please Wait ...**",
+    "wait": "**__❃ Please Wait ...**__",
     "On": "Actived (✔️)",
     "Off": "DeActived (✖️)",
     "LargeSize": "**✘ The File Size Must Be Less Than From:** ( `{}` )",
     "OtherCallback": "🚫 This Is Not Created For You!",
+    "ErrorCallback": "🚫 This Is Not Working!",
     "OtherInline": "**🚫 This Is Not Created For You!**\n\n**• Don't Use From Bot!**",
     "only": {
         "Pv": "**❉ Please Use This Command Only In The Private Chats!**",
