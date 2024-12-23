@@ -384,8 +384,8 @@ class fast_updown:
             if progress_callback:
                 try:
                     await _maybe_await(progress_callback(opfile.tell(), size))
-                except Exception as error:
-                    log.error(error)
+                except BaseException:
+                    pass
         return outfile
 
     async def upload(self, file, progress_callback=None):
