@@ -66,13 +66,13 @@ def get_calc_buttons():
 @client.Command(command="Calc")
 async def calculator(event):
     await event.edit(client.STRINGS["wait"])
-    res = await client.inline_query(client.bot.me.username, "Calc")
+    res = await event.client.inline_query(event.client.bot.me.username, "Calc")
     await res[0].click(event.chat_id)
     await event.delete()
 
 @client.Inline(pattern="Calc")
 async def inlinecalculator(event):
-    data = client.DB.get_key("CALCULATOR") or "Empty"
+    data = event.client.DB.get_key("CALCULATOR") or "Empty"
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons()
     await event.answer([event.builder.article("TNTSelf - Calculator", text=text, buttons=buttons)])
@@ -80,7 +80,7 @@ async def inlinecalculator(event):
 @client.Callback(data="AddCalc\\:(.*)")
 async def addcalculator(event):
     string = str(event.data_match.group(1).decode('utf-8'))
-    getdata = client.DB.get_key("CALCULATOR") or "Empty"
+    getdata = event.client.DB.get_key("CALCULATOR") or "Empty"
     if getdata == "Empty":
         if string in OPERS or string == "𝟬":
             text = client.getstrings(STRINGS)["uncalc"]
@@ -100,27 +100,27 @@ async def addcalculator(event):
             text = client.getstrings(STRINGS)["uncalc"]
             return await event.answer(text, alert=True)
         data = str(getdata) + string
-    client.DB.set_key("CALCULATOR", data)
+    event.client.DB.set_key("CALCULATOR", data)
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="DelCalc")
 async def delcalculator(event):
-    getdata = client.DB.get_key("CALCULATOR") or "Empty"
+    getdata = event.client.DB.get_key("CALCULATOR") or "Empty"
     if getdata == "Empty":
         text = client.getstrings(STRINGS)["notcalc"]
         return await event.answer(text, alert=True)
     data = str(getdata)[:-1]
     data = data if data else "Empty"
-    client.DB.set_key("CALCULATOR", data)
+    event.client.DB.set_key("CALCULATOR", data)
     text = client.getstrings(STRINGS)["calc"].format(data)
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="CalcRes")
 async def rescalculator(event):
-    data = client.DB.get_key("CALCULATOR") or "Empty"
+    data = event.client.DB.get_key("CALCULATOR") or "Empty"
     if data == "Empty":
         text = client.getstrings(STRINGS)["notcalc"]
         return await event.answer(text, alert=True)
@@ -132,18 +132,18 @@ async def rescalculator(event):
     except:
         text = client.getstrings(STRINGS)["invcalc"]
         return await event.answer(text, alert=True)
-    client.DB.set_key("CALCULATOR", "Empty")
+    event.client.DB.set_key("CALCULATOR", "Empty")
     text = client.getstrings(STRINGS)["rescalc"].format(data, result)
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="ClearCalc")
 async def clearcalculator(event):
-    data = client.DB.get_key("CALCULATOR") or "Empty"
+    data = event.client.DB.get_key("CALCULATOR") or "Empty"
     if data == "Empty":
         text = client.getstrings(STRINGS)["notcalc"]
         return await event.answer(text, alert=True)
-    client.DB.set_key("CALCULATOR", "Empty")
+    event.client.DB.set_key("CALCULATOR", "Empty")
     text = client.getstrings(STRINGS)["calc"].format("Empty")
     buttons = get_calc_buttons()
     await event.edit(text=text, buttons=buttons)
