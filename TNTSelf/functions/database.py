@@ -23,7 +23,7 @@ class Database:
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
         if not self.userid in self.cache:
             self.cache[self.userid] = {}
-            self.set(str(self.userid), "{}", data=self.cache)
+            #self.set(str(self.userid), "{}", data=self.cache)
 
     def get(self, key):
         if key in self.cache[self.userid]:
@@ -65,7 +65,6 @@ class DATABASE:
         self.cache.clear()
         for key in self.keys():
             self.cache.update({key: self.get_key(key)})
-        
 
     def get_data(self, key=None, data=None):
         if key:
