@@ -24,12 +24,13 @@ STRINGS = {
 async def onlinemode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ONLINE_MODE", change)
+    event.client.DB.set_key("ONLINE_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
-@aiocron.crontab("*/30 * * * * *")
+@aiocron.crontab("*/10 * * * * *")
 async def autoonliner():
-    onmode = client.DB.get_key("ONLINE_MODE") or "OFF"
-    if onmode == "ON":
-        await client(functions.account.UpdateStatusRequest(offline=False))
+    for sinclient in client.clients:
+        onmode = sinclient.DB.get_key("ONLINE_MODE") or "OFF"
+        if onmode == "ON":
+            await sinclient(functions.account.UpdateStatusRequest(offline=False))
