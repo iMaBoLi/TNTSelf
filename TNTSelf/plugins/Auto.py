@@ -146,7 +146,7 @@ async def setautosleep(event):
     event.client.DB.set_key("AUTO_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["setsleep"].format(minsleep))
 
-@aiocron.crontab("*/30 * * * * *")
+@aiocron.crontab("*/1 * * * *")
 async def autosender():
     for sinclient in client.clients:
         amode = sinclient.DB.get_key("AUTO_MODE") or "OFF"
