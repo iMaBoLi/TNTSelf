@@ -38,7 +38,7 @@ STRINGS = {
 async def setstyle(event):
     await event.edit(client.STRINGS["wait"])
     stylename = event.pattern_match.group(1)
-    if stylename not in STYLES:
+    if stylename not in list(STYLES.keys())[:50]:
         return await event.edit(client.getstrings(STRINGS)["notid"].format(stylename))
     event.client.DB.set_key("STYLE_IMAGE", stylename)
     await event.edit(client.getstrings(STRINGS)["setid"].format(stylename))
