@@ -43,7 +43,7 @@ async def getuserid(event, number=1):
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            userinfo = await client.get_entity(inputid)
+            userinfo = await event.client.get_entity(inputid)
             if userinfo.to_dict()["_"] == "User":
                 userid = userinfo.id
         except:
@@ -61,7 +61,7 @@ async def getchatid(event, number=1):
         match = inputs[number]
         inputid = int(match) if match.isdigit() else str(match)
         try:
-            chatinfo = await client.get_entity(inputid)
+            chatinfo = await event.client.get_entity(inputid)
             if chatinfo.to_dict()["_"] in ["Channel", "Group"]:
                 chatid = chatinfo.id
         except:
@@ -113,12 +113,8 @@ def mediatype(event):
 setattr(Message, "mediatype", mediatype)
 
 async def save(event):
-    if client.BACKUP:
-        forward = await event.forward_to(client.BACKUP)
-        info = {"chat_id": client.BACKUP, "msg_id": forward.id}
-    else:
-        forward = await event.forward_to(client.me.id)
-        info = {"chat_id": client.me.id, "msg_id": forward.id}
+    forward = await event.forward_to(event.client.REALM)
+    info = {"chat_id": event.client.REALM, "msg_id": forward.id}
     return info
 
 setattr(Message, "save", save)
