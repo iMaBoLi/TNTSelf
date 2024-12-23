@@ -44,6 +44,7 @@ class MultiClients:
             await cli.bot.start()
             tasks.append(cli.bot.run_until_disconnected())
         done, tasks = await asyncio.gather(*tasks)
+
     def add_coustom_vars(self):
         for client in self.clients:
             loop = asyncio.get_event_loop()
