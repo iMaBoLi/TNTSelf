@@ -39,11 +39,7 @@ class MultiClients:
 
     def add_coustom_vars(self):
         from TNTSelf.functions import add_vars
-        from TNTSelf.functions.database import DATABASE
-        from TNTSelf.functions.strings import STRINGS
         add_vars()
-        self.DB = DATABASE(0)
-        self.STRINGS = STRINGS
         for client in self.clients:
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self._add_coustom_vars(client))
