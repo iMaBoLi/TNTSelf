@@ -23,6 +23,12 @@ class MultiClients:
                 api_hash=api_hash,
             ).start()
             self.clients.append(_cli)
+            
+    def on(self, event):
+        def decorator(f):
+            for cli in self.clients:
+                cli.add_event_handler(f, event)
+        return decorator
 
     def run_all_clients(self):
         loop = asyncio.get_event_loop()
