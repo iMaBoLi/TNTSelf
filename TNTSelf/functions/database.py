@@ -11,11 +11,11 @@ class DATABASE:
     def get_data(self):
         if os.path.isfile(self.dbname):
             with open(self.dbname, "r") as dbdata:
-                data = json.load(dbdata)
+                data = eval(dbdata)
         else:
             data = {}
             with open(self.dbname, "w") as dbfile:
-                json.dump(data, dbfile)
+                json.dump(data, dbfile, indent=4)
         return data
 
     def re_data(self):
@@ -42,6 +42,6 @@ class DATABASE:
         
     def save(self, data):
         with open(self.dbname, "w") as dbfile:
-            json.dump(data, dbfile)
+            json.dump(data, dbfile, indent=4)
         self.re_data()
         return True
