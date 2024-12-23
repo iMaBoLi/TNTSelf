@@ -15,7 +15,7 @@ __INFO__ = {
             "{CMD}ActionAll <On-Off>": {
                 "Help": "To Turn On-Off Action For All Chats!"
             },
-            "{CMD}SetAction <Mode>": ""
+            "{CMD}SetAction <Mode>": {
                 "Help": "To Set Action Mode",
                 "Input": {
                     "<CMD>": "Mode For Set",
