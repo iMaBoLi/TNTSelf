@@ -59,7 +59,7 @@ STRINGS = {
     "clean": "**{STR} The Auto List Has Been Cleaned!**",
     "setsleep": "**{STR} The Auto Sleep Was Set To** ( `{}` )",
     "saveauto": "**{STR} The Auto Message Was Saved!**",
-    "notauto": "**{STR} The Auto Message Is Not Saved!**"
+    "notsave": "**{STR} The Auto Message Is Not Saved!**"
 }
 
 @client.Command(command="Auto (On|Off)")
