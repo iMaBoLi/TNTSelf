@@ -140,7 +140,7 @@ def get_text(event, page):
         6: client.getstrings(STRINGS)["actionpage"],
         7: client.getstrings(STRINGS)["filterpvpage"]
     }
-    mention = client.functions.mention(event.client.me)
+    mention = client.functions.mention(event.client.user)
     text = f"**ᯓ Dear** ( {mention} )\n\n"
     text += "  " + TEXTS[page] + "\n"
     text += f"    **❃ Page:** ( `{page}` )"
