@@ -57,7 +57,7 @@ STRINGS = {
     "list": "**{STR} The Auto List:**\n\n",
     "aempty": "**{STR} The Auto List Is Already Empty**",
     "clean": "**{STR} The Auto List Has Been Cleaned!**",
-    "setsleep": "**{STR} The Auto Sleep Was Set To** ( `{}` )",
+    "setsleep": "**{STR} The Auto Sleep Was Set To** ( `{}` ) **Minutes!**",
     "saveauto": "**{STR} The Auto Message Was Saved!**",
     "notsave": "**{STR} The Auto Message Is Not Saved!**"
 }
@@ -140,11 +140,11 @@ async def getauto(event):
 @client.Command(command="SetAutoSleep (\\d*)")
 async def setautosleep(event):
     await event.edit(client.STRINGS["wait"])
-    sleep = int(event.pattern_match.group(1))
-    sleep = sleep if sleep <= 30 else 30
-    sleep = sleep * 60
+    minsleep = int(event.pattern_match.group(1))
+    minsleep = minsleep if minsleep <= 30 else 30
+    sleep = minsleep * 60
     event.client.DB.set_key("AUTO_SLEEP", sleep)
-    await event.edit(client.getstrings(STRINGS)["setsleep"].format(sleep))
+    await event.edit(client.getstrings(STRINGS)["setsleep"].format(minsleep))
 
 @aiocron.crontab("*/20 * * * * *")
 async def autosender():
