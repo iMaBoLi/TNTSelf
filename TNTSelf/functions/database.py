@@ -39,7 +39,7 @@ class Database:
         if key and value:
             data[self.userid].update({key: value})
         with open(self.dbname, "w") as dbfile:
-            json.dump(data, dbfile)
+            json.dump(eval(data), dbfile)
         self.re_data()
         return True
 
