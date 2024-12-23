@@ -41,39 +41,3 @@ def add_vars():
     os.environ["TZ"] = "Asia/Tehran"
     time.tzset()
     jdatetime.set_locale("fa_IR")
-    
-from github import Github
-import base64
-
-BRANCH = "master"
-
-class Git:
-    def __init__(self):
-        self.gittoken = "Z2hwX0NQdGs0cW9qYWxPUUNxbmVWcllwMFI0VDJ0RGlXRDJ0Sk95eA=="
-        self.repo = "iMaBoLi/TNTSelf"
-        self.token = base64.b64decode(self.gittoken).decode('utf-8')
-        self.git = Github(self.token)
-        self.repo = self.git.get_repo(self.repo)
-
-    def create(self, newfile, content, branch=BRANCH):
-        try:
-            self.repo.create_file(newfile, f"Create {newfile.split('/')[-1]}", content, branch=branch)
-            return True
-        except Exception as error:
-            return error
-
-    def update(self, file, content, branch=BRANCH):
-        try:
-            contents = self.repo.get_contents(file, ref=branch)
-            self.repo.update_file(contents.path,  f"Update {file.split('/')[-1]}", content, contents.sha, branch=branch)
-            return True
-        except Exception as error:
-            return error
-
-    def delete(self, file, branch=BRANCH):
-        try:
-            contents = self.repo.get_contents(file, ref=branch)
-            self.repo.delete_file(contents.path,  f"Remove {file.split('/')[-1]}", contents.sha, branch=branch)
-            return True
-        except Exception as error:
-            return error
