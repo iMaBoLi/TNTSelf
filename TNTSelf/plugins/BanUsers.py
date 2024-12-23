@@ -45,10 +45,10 @@ async def banuser(event):
         return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
-    info = await client.get_entity(event.userid)
+    info = await event.client.get_entity(event.userid)
     mention = client.functions.mention(info)
     try:
-        await client.edit_permissions(event.chat_id, info.id, view_messages=False)
+        await event.client.edit_permissions(event.chat_id, info.id, view_messages=False)
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errorban"].format(mention, error))
     text = client.getstrings(STRINGS)["banuser"].format(mention)
@@ -65,10 +65,10 @@ async def timerbanuser(event):
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
     userid = event.reply_message.sender_id
-    info = await client.get_entity(userid)
+    info = await event.client.get_entity(userid)
     mention = client.functions.mention(info)
     try:
-        await client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), view_messages=False)
+        await event.client.edit_permissions(event.chat_id, info.id, timedelta(seconds=timer), view_messages=False)
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errorban"].format(mention, error))
     stimer = client.functions.convert_time(timer)
@@ -84,10 +84,10 @@ async def unbanuser(event):
         return await event.edit(client.STRINGS["user"]["all"])
     if not event.checkAdmin(ban_users=True):
         return await event.edit(client.getstrings(STRINGS)["notacs"])
-    info = await client.get_entity(event.userid)
+    info = await event.client.get_entity(event.userid)
     mention = client.functions.mention(info)
     try:
-        await client.edit_permissions(event.chat_id, info.id)
+        await event.client.edit_permissions(event.chat_id, info.id)
     except Exception as error:
         return await event.edit(client.getstrings(STRINGS)["errorunban"].format(mention, error))
     text = client.getstrings(STRINGS)["unbanuser"].format(mention)
