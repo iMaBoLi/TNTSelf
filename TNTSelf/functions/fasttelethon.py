@@ -384,7 +384,7 @@ class fast_updown:
             if progress_callback:
                 try:
                     await _maybe_await(progress_callback(opfile.tell(), size))
-                except Exceptions as error:
+                except Exception as error:
                     client.LOGS.error(error)
         return outfile
 
