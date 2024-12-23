@@ -1,7 +1,5 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
-from TNTSelf.functions.database import DATABASE
-from TNTSelf.functions.strings import STRINGS
 import asyncio
 import logging
 
@@ -9,12 +7,6 @@ class MultiClients:
     def __init__(self, sessions):
         self.sessions = sessions
         self.clients = list()
-        self.DB = DATABASE(0)
-        self.STRINGS = STRINGS
-        self.COMMANDS = []
-        self.HELP = {}
-        self.MAX_SIZE = 100
-        self.PATH = "downloads/"
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
             api_hash = self.sessions[session]["api_hash"]
@@ -46,6 +38,12 @@ class MultiClients:
         done, tasks = await asyncio.gather(*tasks)
 
     def add_coustom_vars(self):
+        from TNTSelf.functions import add_vars
+        from TNTSelf.functions.database import DATABASE
+        from TNTSelf.functions.strings import STRINGS
+        add_vars()
+        self.DB = DATABASE(0)
+        self.STRINGS = STRINGS
         for client in self.clients:
             loop = asyncio.get_event_loop()
             loop.run_until_complete(self._add_coustom_vars(client))
@@ -57,3 +55,9 @@ class MultiClients:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
+        DB = DATABASE(info.id)
+        setattr(client, "DB", DB)
+        setattr(client.bot, "DB", DB)
+        REALM = DB.get_key("REALM_CHAT") or "me"
+        setattr(client, "REALM", REALM)
+        setattr(client.bot, "REALM", REALM)
