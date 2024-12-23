@@ -13,7 +13,7 @@ class MultiClients:
         self.STRINGS = STRINGS
         self.COMMANDS = []
         self.HELP = {}
-        self.MAX_SIZE =  500000000
+        self.MAX_SIZE = 100
         self.PATH = "downloads/"
         for session in self.sessions:
             api_id = self.sessions[session]["api_id"]
@@ -30,8 +30,6 @@ class MultiClients:
                 api_id=int(api_id),
                 api_hash=api_hash,
             ).start()
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(self._add_coustom_vars(_cli))
             self.clients.append(_cli)
 
     def run_all_clients(self):
@@ -46,7 +44,11 @@ class MultiClients:
             await cli.bot.start()
             tasks.append(cli.bot.run_until_disconnected())
         done, tasks = await asyncio.gather(*tasks)
-        
+    def add_coustom_vars(self):
+        for client in self.clients:
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(self._add_coustom_vars(client))
+
     async def _add_coustom_vars(self, client):
         info = await client.get_me()
         botinfo = await client.bot.get_me()
