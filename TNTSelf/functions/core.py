@@ -6,6 +6,18 @@ import time
 import os
 import shutil
 
+def getstrings(STRINGS):
+    NEWSTR = {}
+    for element in STRINGS:
+        text = STRINGS[element]
+        if type(text) == str:
+            STR = client.DB.get_key("EMOJI_SIMBEL") or "❃"
+            CMD = client.DB.get_key("CMD_SIMBEL") or "."
+            text = text.replace("{STR}", STR)
+            text = text.replace("{CMD}", CMD)
+        NEWSTR.update({element: text})
+    return NEWSTR
+
 def checkCmd(text):
     if not text: return False
     for command in client.COMMANDS:
