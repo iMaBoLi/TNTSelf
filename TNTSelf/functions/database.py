@@ -30,17 +30,16 @@ class Database:
             return self.cache[self.userid].get(key)
 
     def set(self, key=None, value=None, delete_key=None):
-        data = self.cache[self.userid]
+        data = self.cache
         if delete_key:
             try:
-                del data[delete_key]
+                del data[self.userid][delete_key]
             except KeyError:
                 pass
         if key and value:
-            data.update({key: value})
-        newdata = self.cache.update(data)
+            data[self.userid].update({key: value})
         with open(self.dbname, "w") as dbfile:
-            json.dump(newdata, dbfile)
+            json.dump(data, dbfile)
         self.re_data()
         return True
 
