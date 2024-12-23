@@ -26,7 +26,7 @@ STRINGS = {
     "uploadlink": "**{STR} The File Uploaded To Site** ( `{}` )\n\n**{STR} Upload Link:** ( `{}` )",
 }
 
-@client.Command(command="UP(Fileio|X0at|Transfer)")
+@client.Command(command="UP(Fileio|X0at)")
 async def uploadsites(event):
     await event.edit(client.STRINGS["wait"])
     uploadsite = event.pattern_match.group(1)
