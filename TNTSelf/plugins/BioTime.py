@@ -3,15 +3,31 @@ from .ManageTime import biochanger
 
 __INFO__ = {
     "Category": "Time",
-    "Name": "Bio Time",
+    "Bio": "Bio Time",
     "Info": {
-        "Help": "To Save Your Bios For Time In Bio And Turn On-Off!",
+        "Help": "To Setting Your Bio Times",
         "Commands": {
-            "{CMD}Bio <On-Off>": None,
-            "{CMD}NewBio <Text>": None,
-            "{CMD}DelBio <Text>": None,
-            "{CMD}BioList": None,
-            "{CMD}CleanBioList": None,
+            "{CMD}Bio <On-Off>": {
+                "Help": "To Turn On-Off Bio Mode",
+            },
+            "{CMD}NewBio <Text>": {
+                "Help": "To Add Bio",
+                "Input": {
+                    "<Text>": "Text For Add",
+                },
+            },
+            "{CMD}DelBio <Text>": {
+                "Help": "To Delete Bio",
+                "Input": {
+                    "<Text>": "Text For Delete",
+                },
+            },
+            "{CMD}BioList": {
+                "Help": "To Get Bio List",
+            },
+            "{CMD}CleanBioList": {
+                "Help": "To Clean Bio List",
+            },
         },
     },
 }
