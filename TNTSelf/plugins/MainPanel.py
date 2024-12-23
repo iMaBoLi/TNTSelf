@@ -151,8 +151,9 @@ def get_pages_button(chatid, opage):
     buttons = []
     PAGES_COUNT = 7
     for page in range(1, PAGES_COUNT + 1):
+        font = 3 if page != opage else 4
         apage = page if page != opage else 0
-        name = page
+        name = client.functions.create_font(page, font)
         buttons.append(Button.inline(f"( {name} )", data=f"Page:{chatid}:{apage}"))
     return buttons
 
