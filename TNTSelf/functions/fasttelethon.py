@@ -185,8 +185,6 @@ class ParallelTransferrer:
                 return minimum + 1
             return minimum
 
-        # The first cross-DC sender will export+import the authorization, so we always create it
-        # before creating any other senders.
         self.senders = [
             await self._create_download_sender(
                 file, 0, part_size, connections * part_size, get_part_count()
@@ -363,7 +361,7 @@ async def TransferTel(
         return InputFileBig(file_id, part_count, filename), file_size
     return InputFile(file_id, part_count, filename, hash_md5.hexdigest()), file_size
 
-async def download_file(sinclient, outfile=None, progress_callback=None):
+async def download_file(sinclient, event, outfile=None, progress_callback=None):
     if outfile:
         opfile = open(outfile, "wb")
     else:
