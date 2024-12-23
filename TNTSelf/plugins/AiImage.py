@@ -10,7 +10,7 @@ __INFO__ = {
     "Info": {
         "Help": "To Create Image For Your Prompt White Beautiful Styles!",
         "Commands": {
-            "{CMD}SStyles <Style-Name>": {
+            "{CMD}SStyle <Style-Name>": {
                 "Help": "To Set Style Model",
                 "Vars": [style for style in list(STYLES.keys())[:50]],
             },
