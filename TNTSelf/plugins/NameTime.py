@@ -4,13 +4,29 @@ __INFO__ = {
     "Category": "Time",
     "Name": "Name Time",
     "Info": {
-        "Help": "To Save Your Names For Time In Name And Turn On-Off!",
+        "Help": "To Setting Your Name Times",
         "Commands": {
-            "{CMD}Name <On-Off>": None,
-            "{CMD}NewName <Text>": None,
-            "{CMD}DelName <Text>": None,
-            "{CMD}NameList": None,
-            "{CMD}CleanNameList": None,
+            "{CMD}Name <On-Off>": {
+                "Help": "To Turn On-Off Name Mode",
+            },
+            "{CMD}NewName <Text>": {
+                "Help": "To Add Name",
+                "Input": {
+                    "<Text>": "Text For Add",
+                },
+            },
+            "{CMD}DelName <Text>": {
+                "Help": "To Delete Name",
+                "Input": {
+                    "<Text>": "Text For Delete",
+                },
+            },
+            "{CMD}NameList": {
+                "Help": "To Get Name List",
+            },
+            "{CMD}CleanNameList": {
+                "Help": "To Clean Name List",
+            },
         },
     },
 }
