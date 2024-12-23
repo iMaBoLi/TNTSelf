@@ -24,7 +24,7 @@ STRINGS = {
 async def tsave(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("TIMER_MODE", change)
+    event.client.DB.set_key("TIMER_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
@@ -32,7 +32,7 @@ async def tsave(event):
 async def timermedias(event):
     if not event.is_private or event.is_sudo or event.is_bot: return
     if not event.media: return
-    tmode = client.DB.get_key("TIMER_MODE") or "OFF"
+    tmode = event.client.DB.get_key("TIMER_MODE") or "OFF"
     if tmode == "ON" and event.media.to_dict()["_"] != "MessageMediaWebPage" and hasattr(event.media, "ttl_seconds") and event.media.ttl_seconds:
         sender = await event.get_sender()
         mention = client.functions.mention(sender)
@@ -40,7 +40,7 @@ async def timermedias(event):
         caption = client.getstrings(STRINGS)["caption"].format(mention, ttl)
         try:
             file = await event.download_media(client.PATH)
-            await client.send_file(client.REALM, file, caption=caption)
+            await event.client.send_file(client.REALM, file, caption=caption)
             os.remove(file)
         except:
             pass
