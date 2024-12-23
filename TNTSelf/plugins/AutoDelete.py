@@ -55,7 +55,7 @@ async def autodelete(event):
         MSGS.update({msginfo: time.time()})
         event.client.DB.set_key("AUTODELETE_MSGS", MSGS)
 
-@aiocron.crontab("*/5 * * * * *")
+@aiocron.crontab("*/20 * * * * *")
 async def autodeleter():
     for sinclient in client.clients:
         MSGS = sinclient.DB.get_key("AUTODELETE_MSGS") or {}
