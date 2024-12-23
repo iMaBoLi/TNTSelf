@@ -1,5 +1,6 @@
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from traceback import format_exc
 import asyncio
 import logging
 
@@ -25,9 +26,16 @@ class MultiClients:
             self.clients.append(_cli)
             
     def on(self, event):
-        def decorator(f):
+        def decorator(func):
+            async def wrapper(event):
+                try:
+                    await func(event)
+                except:
+                    errortext = f"**• Error :**\n\n`{format_exc()}`"
+                    await event.client.bot.send_message(event.client.REALM, errortext)
             for cli in self.clients:
-                cli.add_event_handler(f, event)
+                cli.add_event_handler(wrapper, event)
+            return wrapper
         return decorator
 
     def run_all_clients(self):
