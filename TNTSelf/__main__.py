@@ -20,6 +20,7 @@ def load_plugins(files):
     return notplugs
 
 client.LOGS.info("• Starting Setup Plugins ...")
+client.add_coustom_vars()
 os.environ["TZ"] = "Asia/Tehran"
 time.tzset()
 jdatetime.set_locale("fa_IR")
