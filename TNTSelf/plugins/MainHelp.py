@@ -127,10 +127,10 @@ async def help(event):
 
 @client.Inline(pattern="Help")
 async def inlinehelp(event):
-    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(event.client.user.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(event.client.user))
     buttons = []
     for category in CATEGORYS:
-        sname = "【 " + category + " 】"
+        sname = "• " + category + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -138,10 +138,10 @@ async def inlinehelp(event):
 
 @client.Callback(data="Help")
 async def callhelp(event):
-    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(event.client.user.me))
+    text = client.getstrings(STRINGS)["main"].format(client.functions.mention(event.client.user))
     buttons = []
     for category in CATEGORYS:
-        sname = "【 " + category + " 】"
+        sname = "• " + category + " •"
         buttons.append(Button.inline(sname, data=f"GetCategory:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
@@ -154,10 +154,10 @@ async def getcategory(event):
     if not CATEGORYS[category]:
         return await event.answer(client.getstrings(STRINGS)["notplug"], alert=True)
     for plugin in CATEGORYS[category]:
-        buttons.append(Button.inline(f"✿ {plugin} ✿", data=f"GetHelp:{plugin}:{category}"))
+        buttons.append(Button.inline(f"• {plugin} •", data=f"GetHelp:{plugin}:{category}"))
     buttons = client.functions.chunker(buttons, [2,1])
     buttons.append([Button.inline(client.STRINGS["inline"]["Back"], data="Help"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")])
-    text = client.getstrings(STRINGS)["category"].format(client.functions.mention(event.client.user.me), category)
+    text = client.getstrings(STRINGS)["category"].format(client.functions.mention(event.client.user), category)
     await event.edit(text=text, buttons=buttons)
 
 @client.Callback(data="GetHelp\\:(.*)\\:(.*)")
