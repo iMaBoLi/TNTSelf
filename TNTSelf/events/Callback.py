@@ -18,6 +18,7 @@ def Callback(
                     return await event.answer(client.STRINGS["OtherCallback"], alert=True)
                 await func(event)
             except:
+                await await event.answer(client.STRINGS["ErrorCallback"], alert=True)
                 client.LOGS.error(format_exc())
         for sinclient in client.clients:
             sinclient.bot.add_event_handler(wrapper, events.CallbackQuery(data=data, **kwargs))
