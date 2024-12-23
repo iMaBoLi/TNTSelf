@@ -3,7 +3,7 @@ from datetime import datetime
 import time
 
 STRINGS = {
-    "ping": "**{STR} PonG !!** ( `{}` )\n**{STR} Uptime:** ( `{}` )",
+    "ping": "**✲ PonG !!** ( `{}` )\n**✲ Uptime:** ( `{}` )",
 }
 
 @client.Command(command="Ping")
@@ -15,4 +15,4 @@ async def ping(event):
     ping = round(tms / 3, 2)
     uptime = time.time() - client.START_TIME
     uptime = client.functions.convert_time(uptime)
-    await event.edit(client.getstrings(STRINGS)["ping"].format(ping, uptime))
+    await event.edit(STRINGS["ping"].format(ping, uptime))
