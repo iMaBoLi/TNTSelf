@@ -146,7 +146,6 @@ async def setautosleep(event):
     event.client.DB.set_key("AUTO_SLEEP", sleep)
     await event.edit(client.getstrings(STRINGS)["setsleep"].format(minsleep))
 
-@aiocron.crontab("*/10 * * * * *")
 async def autosender():
     for sinclient in client.clients:
         amode = sinclient.DB.get_key("AUTO_MODE") or "OFF"
@@ -156,7 +155,7 @@ async def autosender():
         if amode == "ON":
             for chatid in achats:
                 ltime = achats[chatid]
-                sleep = sinclient.DB.get_key("AUTO_SLEEP") or 60
+                sleep = sinclient.DB.get_key("AUTO_SLEEP") or 600
                 if time.time() >= (ltime + int(sleep)):
                     getmsg = await sinclient.get_messages(int(amessage["chat_id"]), ids=int(amessage["msg_id"]))
                     jtime = datetime.now()
@@ -171,3 +170,5 @@ async def autosender():
                     achats[chatid] = time.time()
                     sinclient.DB.set_key("AUTO_CHATS", achats)
                     await asyncio.sleep(0.5)
+                    
+aiocron.crontab("*/30 * * * * *", autosender)
