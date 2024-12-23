@@ -105,7 +105,7 @@ def get_modename(mode):
 async def panel(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
-    res = await event.client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
+    res = await event.client.inline_query(event.client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(event.chat_id)
     await event.delete()
 
@@ -113,7 +113,7 @@ async def panel(event):
 async def panelpv(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
-    res = await event.client.inline_query(client.bot.me.username, f"Panel:{chatid}:1")
+    res = await event.client.inline_query(event.client.bot.me.username, f"Panel:{chatid}:1")
     await res[0].click(client.me.id)
     await event.delete()
 
