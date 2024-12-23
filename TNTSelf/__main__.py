@@ -1,4 +1,5 @@
 from . import client
+from TNTSelf import functions
 from telethon import __version__
 from traceback import format_exc
 import platform
@@ -18,6 +19,7 @@ def load_plugins(files):
 
 client.LOGS.info("• Starting Setup Plugins ...")
 client.add_coustom_vars()
+client.functions = functions
 client.LOGS.info("• Installing Plugins ...")
 #PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
 PLUGINS = ["TNTSelf/plugins/Ping.py"]
