@@ -44,13 +44,13 @@ async def googlepinfo(event):
     free = "✅" if result["free"] else "❌ - " + str(result["price"]) 
     description = result["description"][:500] + "...."
     caption = client.getstrings(STRINGS)["appinfo"].format(result["title"], result["appId"], result["genre"], (str(round(result["score"], 1)) + " ★"), result["installs"], result["ratings"], result["reviews"], free, result["developer"], description)
-    icon = client.PATH + appID + ".jpg"
+    icon = event.client.PATH + appID + ".jpg"
     with open(icon, "wb") as f:
         f.write(requests.get(result["icon"]).content)
-    info = await client.send_file(event.chat_id, icon, caption=caption)
+    info = await event.client.send_file(event.chat_id, icon, caption=caption)
     shots = []
     for i, shot in enumerate(result["screenshots"]):
-        shname = client.PATH + appID + str(i) + ".jpg"
+        shname = event.client.PATH + appID + str(i) + ".jpg"
         with open(shname, "wb") as f:
             f.write(requests.get(shot).content)
         shots.append(shname)
