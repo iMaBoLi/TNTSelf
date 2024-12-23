@@ -114,7 +114,7 @@ async def panelpv(event):
     await event.edit(client.STRINGS["wait"])
     chatid = event.chat_id
     res = await event.client.inline_query(event.client.bot.me.username, f"Panel:{chatid}:1")
-    await res[0].click(client.me.id)
+    await res[0].click(event.client.me.id)
     await event.delete()
 
 @client.Inline(pattern="Panel\\:(.*)\\:(.*)")
