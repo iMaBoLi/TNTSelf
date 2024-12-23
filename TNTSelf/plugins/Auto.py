@@ -156,7 +156,7 @@ async def autosender():
         if amode == "ON":
             for chatid in achats:
                 ltime = achats[chatid]
-                sleep = sinclient.DB.get_key("AUTO_SLEEP") or 600
+                sleep = sinclient.DB.get_key("AUTO_SLEEP") or 60
                 if time.time() >= (ltime + int(sleep)):
                     getmsg = await sinclient.get_messages(int(amessage["chat_id"]), ids=int(amessage["msg_id"]))
                     jtime = datetime.now()
