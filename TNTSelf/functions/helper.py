@@ -130,23 +130,3 @@ def AddInfo(info):
     pluginfo = info["Info"]
     pluginfo.update({"Category": plugcat})
     client.HELP.update({plugname: pluginfo})
-
-def create_font(newtime, timefont):
-    newtime = str(newtime)
-    if str(timefont) == "random2":
-        for par in newtime:
-            fonts = [1,3,4,5,6,7,8,9,10,11,12]
-            rfont = random.choice(fonts)
-            if par.isdigit():
-                nfont = client.functions.FONTS[int(rfont)].split(",")[int(par)]
-                newtime = newtime.replace(par, nfont)
-            fonts.remove(rfont)
-    else:
-        if str(timefont) == "random":
-            fonts = list(range(1, len(client.functions.FONTS)+2))
-            timefont = random.choice(fonts)
-        for par in newtime:
-            if par.isdigit():
-                nfont = client.functions.FONTS[int(timefont)].split(",")[int(par)]
-                newtime = newtime.replace(par, nfont)
-    return newtime
