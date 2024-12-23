@@ -22,14 +22,15 @@ class Database:
         data = self.get_data()
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
         if not self.userid in self.cache:
-            self.set(str(self.userid), str({}), allcache=True)
+            self.cache[self.userid] = {}
+            self.set("RESET", "YES")
 
     def get(self, key):
         if key in self.cache[self.userid]:
             return self.cache[self.userid].get(key)
 
-    def set(self, key=None, value=None, allcache=False, delete_key=None):
-        data = self.cache if allcache else self.cache[self.userid]
+    def set(self, key=None, value=None, delete_key=None):
+        data = self.cache[self.userid]
         if delete_key:
             try:
                 del data[delete_key]
@@ -37,7 +38,7 @@ class Database:
                 pass
         if key and value:
             data.update({key: value})
-        newdata = data if allcache else self.cache.update(data)
+        newdata = self.cache.update(data)
         with open(self.dbname, "w") as dbfile:
             json.dump(newdata, dbfile)
         self.re_data()
