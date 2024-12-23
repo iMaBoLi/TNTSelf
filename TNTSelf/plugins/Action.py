@@ -10,10 +10,10 @@ __INFO__ = {
         "Help": "To Setting Send Chat Actions!",
         "Commands": {
             "{CMD}Action <On-Off>": {
-                "Help": "To Turn On-Off Action In This Chat!"
+                "Help": "To Turn On-Off Action In This Chat"
             },
             "{CMD}ActionAll <On-Off>": {
-                "Help": "To Turn On-Off Action For All Chats!"
+                "Help": "To Turn On-Off Action For All Chats"
             },
             "{CMD}SetAction <Mode>": {
                 "Help": "To Set Action Mode",
