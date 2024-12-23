@@ -10,6 +10,7 @@ from TNTSelf.functions.tools import *
 from TNTSelf.functions.youtube import *
 from TNTSelf.functions.strings import *
 from TNTSelf.functions.data import *
+from TNTSelf.functions.fasttelethon import *
 import os
 import time
 import jdatetime
@@ -21,6 +22,9 @@ def add_vars():
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", 500000000)
+    for sinclient in client.clients:
+        setattr(sinclient, "fast_download", download_file)
+        setattr(sinclient, "fast_upload", upload_file)
     MAINPATH = "downloads/"
     if not os.path.exists(MAINPATH):
         os.mkdir(MAINPATH)
