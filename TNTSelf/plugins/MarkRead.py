@@ -35,16 +35,16 @@ STRINGS = {
 async def readchat(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    acChats = client.DB.get_key("READ_CHATS") or []
+    acChats = event.client.DB.get_key("READ_CHATS") or []
     chatid = event.chat_id
     if change == "ON":
         if chatid not in acChats:
             acChats.append(chatid)
-            client.DB.set_key("READ_CHATS", acChats)
+            event.client.DB.set_key("READ_CHATS", acChats)
     else:
         if chatid in acChats:
             acChats.remove(chatid)
-            client.DB.set_key("READ_CHATS", acChats)
+            event.client.DB.set_key("READ_CHATS", acChats)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["markchat"].format(showchange))
 
@@ -54,7 +54,7 @@ async def readmode(event):
     type = event.pattern_match.group(1)
     change = event.pattern_match.group(2).upper()
     setmode = "READ" + type.upper() + "_MODE"
-    client.DB.set_key(setmode, change)
+    event.client.DB.set_key(setmode, change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     Types = {
         "All": "All",
@@ -66,10 +66,10 @@ async def readmode(event):
 
 @client.Command(onlysudo=False)
 async def mark(event):
-    chats = client.DB.get_key("READ_CHATS") or []
-    all = client.DB.get_key("READALL_MODE") or "OFF"
-    pv = client.DB.get_key("READPV_MODE") or "OFF"
-    gp = client.DB.get_key("READGP_MODE") or "OFF"
-    ch = client.DB.get_key("READCH_MODE") or "OFF"
+    chats = event.client.DB.get_key("READ_CHATS") or []
+    all = event.client.DB.get_key("READALL_MODE") or "OFF"
+    pv = event.client.DB.get_key("READPV_MODE") or "OFF"
+    gp = event.client.DB.get_key("READGP_MODE") or "OFF"
+    ch = event.client.DB.get_key("READCH_MODE") or "OFF"
     if all == "ON" or (event.chat_id in chats) or (pv == "ON" and event.is_private) or (gp == "ON" and event.is_group) or (ch == "ON" and event.is_ch):
-        await client.send_read_acknowledge(event.chat_id)
+        await event.client.send_read_acknowledge(event.chat_id)
