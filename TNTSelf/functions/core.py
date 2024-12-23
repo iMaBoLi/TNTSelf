@@ -1,23 +1,10 @@
 from TNTSelf import client
 from telethon import functions
 from telethon.types import Message
-import aiocron
 import re
 import time
 import os
 import shutil
-
-def getstrings(STRINGS):
-    NEWSTR = {}
-    for element in STRINGS:
-        text = STRINGS[element]
-        if type(text) == str:
-            STR = client.DB.get_key("EMOJI_SIMBEL") or "❃"
-            CMD = client.DB.get_key("CMD_SIMBEL") or "."
-            text = text.replace("{STR}", STR)
-            text = text.replace("{CMD}", CMD)
-        NEWSTR.update({element: text})
-    return NEWSTR
 
 def checkCmd(text):
     if not text: return False
@@ -102,64 +89,3 @@ def checkAdmin(event, change_info=False, ban_users=False, invite_users=False, ad
     return False
 
 setattr(Message, "checkAdmin", checkAdmin)
-
-async def DownloadFiles():
-    
-    if not os.path.exists("downloads"):
-        os.mkdir("downloads")
-    
-    foshs = client.DB.get_key("FOSHS_FILE")
-    if foshs:
-        try:
-            get = await client.bot.get_messages(int(foshs["chat_id"]), ids=int(foshs["msg_id"]))
-            await get.download_media(client.PATH + "FOSHS.txt")
-        except:
-            pass
-
-    logo = client.DB.get_key("LOGO_FILE")
-    if logo:
-        try:
-            get = await client.bot.get_messages(int(logo["chat_id"]), ids=int(logo["msg_id"]))
-            await get.download_media(client.PATH + "Logo.png")
-        except:
-            pass
-        
-    cover = client.DB.get_key("FILE_COVER")
-    if cover:
-        try:
-            get = await client.bot.get_messages(int(cover["chat_id"]), ids=int(cover["msg_id"]))
-            await get.download_media(client.PATH + "Cover.png")
-        except:
-            pass
-
-    photos = client.DB.get_key("PHOTO_LIST")
-    if photos:
-        for photo in list(photos.keys()):
-            try:
-                get = await client.bot.get_messages(int(photos[photo]["chat_id"]), ids=int(photos[photo]["msg_id"]))
-                await get.download_media(client.PATH + photo)
-            except:
-                pass
-            
-    font = client.DB.get_key("FONT_FILE")
-    if font:
-        try:
-            get = await client.bot.get_messages(int(font["chat_id"]), ids=int(font["msg_id"]))
-            await get.download_media(client.PATH + "FontFile.ttf")
-        except:
-            pass
-        
-    insta = client.DB.get_key("INSTAGRAM_SESSION")
-    if insta:
-        try:
-            get = await client.bot.get_messages(int(insta["chat_id"]), ids=int(insta["msg_id"]))
-            await get.download_media(client.PATH + "Instagram.json")
-        except:
-            pass
-        
-async def deldownloads():
-    if os.path.exists("downloads"):
-        shutil.rmtree("downloads/")
-    await DownloadFiles()
-
-aiocron.crontab("*/20 * * * *", func=deldownloads)
