@@ -42,7 +42,6 @@ def get_modename(mode):
         "QUICK_MODE": "Quicks",
         "NAME_MODE": "Name",
         "BIO_MODE": "Bio",
-        "PHOTO_MODE": "Photo",
         "AUTO_MODE": "Auto",
         "SIGN_MODE": "Sign",
         "EMOJI_MODE": "Emoji",
@@ -181,11 +180,11 @@ def create_button(event, key, value, type, settype, chatid, page, default=None, 
 def get_buttons(event, chatid, page):
     buttons = []
     if page == 1: 
-        for Mode in ["ONLINE_MODE", "QUICK_MODE", "NAME_MODE", "BIO_MODE", "PHOTO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTEPV_MODE", "LOVKPV_MODE", "ANTI_SPAM"]:
+        for Mode in ["ONLINE_MODE", "QUICK_MODE", "NAME_MODE", "BIO_MODE", "AUTO_MODE", "SIGN_MODE", "EMOJI_MODE", "MEDIAPV_MODE", "TIMER_MODE", "MUTEPV_MODE", "LOVKPV_MODE", "ANTI_SPAM"]:
             default = "OFF" if Mode not in ["QUICK_MODE", "ANTI_SPAM"] else "ON"
             button = create_button(event, Mode, None, "Turn", "Turn", chatid, page, default)
             buttons.append(button)
-        buttons = list(client.functions.chunks(buttons, 2))
+        buttons = client.functions.chunker(buttons, [2,2,1,2,2,2,1])
     elif page == 2:
         for Mode in ["REPEAT", "REACTION", "POKER"]:
             chbutton = create_button(event, Mode + "_CHATS", None, "Chat", "Chat", chatid, page, [], Mode.title())
