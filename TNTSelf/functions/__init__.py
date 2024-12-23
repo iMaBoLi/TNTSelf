@@ -24,7 +24,7 @@ def add_vars():
     MAINPATH = "downloads/"
     if not os.path.exists(MAINPATH):
         os.mkdir(MAINPATH)
-    setattr(sinclient, "MAINPATH", MAINPATH)
+    setattr(client, "MAINPATH", MAINPATH)
     for sinclient in client.clients:
         PATH = MAINPATH + str(sinclient.me.id) + "/"
         if not os.path.exists(PATH):
