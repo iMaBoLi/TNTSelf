@@ -57,6 +57,6 @@ class MultiClients:
         DB = DATABASE(info.id)
         setattr(client, "DB", DB)
         setattr(client.bot, "DB", DB)
-        REALM = DB.get_key("REALM_CHAT") or "me"
+        REALM = DB.get_key("REALM_CHAT") or info.id
         setattr(client, "REALM", REALM)
         setattr(client.bot, "REALM", REALM)
