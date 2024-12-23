@@ -21,7 +21,15 @@ def add_vars():
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", 500000000)
-    setattr(client, "PATH", "downloads/")
+    MAINPATH = "downloads/"
+    if not os.path.exists(MAINPATH):
+        os.mkdir(MAINPATH)
+    setattr(sinclient, "MAINPATH", MAINPATH)
+    for sinclient in client.clients:
+        PATH = MAINPATH + str(sinclient.me.id) + "/"
+        if not os.path.exists(PATH):
+            os.mkdir(PATH)
+        setattr(sinclient, "PATH", PATH)
     
     setattr(client, "Command", Command)
     setattr(client, "Callback", Callback)
