@@ -1,3 +1,4 @@
+import json
 import os
 
 class DATABASE:
@@ -40,6 +41,7 @@ class DATABASE:
             return self.cache[self.userid].get(key)
         
     def save(self, data):
+        data = json.dumps(data, indent=4)
         with open(self.dbname, "w") as dbfile:
             dbfile.write(str(data))
         self.re_data()
