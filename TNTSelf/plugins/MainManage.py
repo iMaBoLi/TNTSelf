@@ -53,7 +53,7 @@ async def Manage(event):
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await event.client.inline_query(client.bot.me.username, f"Manage:{chatid}:{event.userid}")
+    res = await event.client.inline_query(event.client.bot.me.username, f"Manage:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
