@@ -48,7 +48,7 @@ def checkCmd(text):
 
 SPAMS = {}
 def checkSpam(event, bantime=30, maxbans=3, maxtime=3, maxmsg=6, block=False):
-    antimode = client.DB.get_key("ANTI_SPAM") or "ON"
+    antimode = event.client.DB.get_key("ANTI_SPAM") or "ON"
     if antimode == "OFF":
         return False
     if event.sender_id not in SPAMS:
@@ -66,11 +66,11 @@ def checkSpam(event, bantime=30, maxbans=3, maxtime=3, maxmsg=6, block=False):
                 SPAMS[event.sender_id]["bancount"] += 1
                 if SPAMS[event.sender_id]["bancount"] >= maxbans:
                     if block:
-                        client.loop.create_task(client(functions.contacts.BlockRequest(event.sender_id)))
+                        event.client.loop.create_task(client(functions.contacts.BlockRequest(event.sender_id)))
                     else:
-                        blacks = client.DB.get_key("BLACK_LIST") or []
+                        blacks = event.client.DB.get_key("BLACK_LIST") or []
                         blacks.append(event.sender_id)
-                        client.DB.set_key("BLACK_LIST", blacks)
+                        event.client.DB.set_key("BLACK_LIST", blacks)
                     SPAMS[event.sender_id]["bancount"] = 0
                 return True
         else:
