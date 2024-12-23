@@ -24,7 +24,7 @@ STRINGS = {
 async def autojoinmode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("AUTOJOIN_MODE", change)
+    event.client.DB.set_key("AUTOJOIN_MODE", change)
     schange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(schange))
     
@@ -32,12 +32,12 @@ async def autojoinmode(event):
 async def autojoin(event):
     if event.user_left or event.user_kicked:
         user = await event.get_user()
-        ajoinmode = client.DB.get_key("AUTOJOIN_MODE") or "OFF"
+        ajoinmode = event.client.DB.get_key("AUTOJOIN_MODE") or "OFF"
         if ajoinmode == "ON" and user.id == client.me.id:
             try:
                 chat = await event.get_chat()
-                await client(functions.channels.JoinChannelRequest(channel=chat.id))
+                await event.client(functions.channels.JoinChannelRequest(channel=chat.id))
                 text = client.getstrings(STRINGS)["autojoin"].format(chat.id, (chat.username or chat.title))
-                await client.send_message(client.REALM, text)
+                await event.client.send_message(client.REALM, text)
             except:
                 pass
