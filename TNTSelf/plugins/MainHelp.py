@@ -56,7 +56,7 @@ def search_category(plugin):
         return client.HELP[plugin]["Category"]
     return None
 
-def gethelp(plugin):
+def gethelp(event, plugin):
     info = client.HELP[plugin]
     text = f"**࿇ Plugin:** ( `{plugin}` )\n"
     category = search_category(plugin)
@@ -64,7 +64,7 @@ def gethelp(plugin):
     text += f'**࿇ Help:** ( `{info["Help"]}` )\n\n'
     text += "⊱┈───╌ ❈ ╌───┈⊰\n"
     for i, command in enumerate(info["Commands"]):
-        CMD = client.DB.get_key("CMD_SIMBEL") or "."
+        CMD = event.client.DB.get_key("CMD_SIMBEL") or "."
         cname = command.replace("{CMD}", CMD)
         ccname = cname.split(" ")[0]
         scname = "`" + cname.replace(" ", "` `") + "`"
@@ -118,10 +118,10 @@ async def help(event):
         plugin = search_plugin(pname)
         if not plugin:
             return await event.edit(client.getstrings(STRINGS)["notfound"].format(pname))
-        text = gethelp(plugin)
+        text = gethelp(event, plugin)
         return await event.edit(text)
     else:
-        res = await client.inline_query(client.bot.me.username, "Help")
+        res = await event.client.inline_query(event.client.bot.me.username, "Help")
         await res[0].click(event.chat_id)
         await event.delete()
 
@@ -164,7 +164,7 @@ async def getcategory(event):
 async def getplugin(event):
     plugin = event.data_match.group(1).decode('utf-8')
     category = event.data_match.group(2).decode('utf-8')
-    text = gethelp(plugin)
+    text = gethelp(event, plugin)
     buttons = [[Button.inline(client.STRINGS["inline"]["Back"], data=f"GetCategory:{category}"), Button.inline(client.STRINGS["inline"]["Close"], data="CloseHelp")]]
     await event.edit(text=text, buttons=buttons)
     
