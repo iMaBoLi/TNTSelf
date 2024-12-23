@@ -2,6 +2,8 @@ from TNTSelf import client
 from somnium import Somnium
 from telethon.tl.types import InputMediaWebPage
 
+STYLES = Somnium.Styles()
+
 __INFO__ = {
     "Category": "Tools",
     "Name": "Ai Image",
@@ -10,9 +12,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}SStyles <Style-Name>": {
                 "Help": "To Set Style Model",
-            },
-            "{CMD}GStyles": {
-                "Help": "To Get Styles",
+                "Vars": [style for style in STYLES[:50]],
             },
             "{CMD}GenPhoto <Prompt>": {
                 "Help": "To Generating Photo",
@@ -34,43 +34,29 @@ STRINGS = {
     "caption": "**{STR} The Image For Prompt** ( `{}` ) **Was Generated!**\n\n**{STR} Style:** ( `{}` )",
 }
 
-STYLES = Somnium.Styles()
-
 @client.Command(command="SStyle (.*)")
 async def setstyle(event):
     await event.edit(client.STRINGS["wait"])
     stylename = event.pattern_match.group(1)
     if stylename not in STYLES:
         return await event.edit(client.getstrings(STRINGS)["notid"].format(stylename))
-    client.DB.set_key("STYLE_IMAGE", stylename)
+    event.client.DB.set_key("STYLE_IMAGE", stylename)
     await event.edit(client.getstrings(STRINGS)["setid"].format(stylename))
-
-@client.Command(command="GStyles")
-async def getstyles(event):
-    await event.edit(client.STRINGS["wait"])
-    text = client.getstrings(STRINGS)["styles"]
-    count = 1
-    for style in STYLES:
-        sid = STYLES[style]
-        text += f"**{count} -** `{style}`\n"
-        count += 1
-        if count > 50: pass
-    await event.edit(text)
 
 @client.Command(command="GenPhoto (.*)")
 async def generatephoto(event):
     await event.edit(client.STRINGS["wait"])
-    stylename = client.DB.get_key("STYLE_IMAGE")
+    stylename = event.client.DB.get_key("STYLE_IMAGE")
     if not stylename:
         return await event.edit(client.getstrings(STRINGS)["notsetid"])
-    client.loop.create_task(generate(event))
+    event.client.loop.create_task(generate(event))
 
 async def generate(event):
     prompt = str(event.pattern_match.group(1))
-    stylename = client.DB.get_key("STYLE_IMAGE")
+    stylename = event.client.DB.get_key("STYLE_IMAGE")
     styleid = STYLES[stylename]
     await event.edit(client.getstrings(STRINGS)["generating"].format(prompt, stylename))
     file = Somnium.Generate(prompt, int(styleid))
     caption = client.getstrings(STRINGS)["caption"].format(prompt, stylename)
-    await client.send_file(event.chat_id, file, caption=caption)
+    await event.client.send_file(event.chat_id, file, caption=caption)
     await event.delete()
