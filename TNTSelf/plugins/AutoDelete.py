@@ -10,7 +10,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}AutoDelete <On-Off>": {
                 "Help": "To Turn On-Off Auto Delete",
-            }
+            },
             "{CMD}SetDeleteSleep <Time>": {
                 "Help": "To Set Auto Delete Sleep",
                 "Input": {
