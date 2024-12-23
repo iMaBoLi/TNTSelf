@@ -35,7 +35,7 @@ async def uploadsites(event):
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
     callback = event.progress(download=True)
-    file = await event.client.fast_download(event=event.reply_message, progress_callback=callback)
+    file = await event.client.fast.download(event.reply_message, progress_callback=callback)
     await event.edit(client.getstrings(STRINGS)["uploading"].format(uploadsite.title()))
     SITES = {
         "fileio": {"url": "https://file.io", "json": True},
