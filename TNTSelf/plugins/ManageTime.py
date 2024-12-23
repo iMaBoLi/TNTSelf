@@ -25,7 +25,7 @@ def create_font(newtime, timefont):
                 newtime = newtime.replace(par, nfont)
     return newtime
 
-def add_items(text, font=True):
+def add_items(client, text, font=True):
     jtime = datetime.now()
     VARS = {
         "TIME": jtime.strftime("%H:%M"),
@@ -37,7 +37,7 @@ def add_items(text, font=True):
     tfont = client.DB.get_key("TIME_FONT") or 1
     for VAR in VARS:
         if font:
-            nVAR = client.create_font(VARS[VAR], tfont)
+            nVAR = create_font(VARS[VAR], tfont)
         else:
             nVAR = VARS[VAR]
         text = text.replace(VAR, nVAR)
@@ -48,7 +48,7 @@ async def namechanger():
         NAME_LIST = sinclient.DB.get_key("NAME_LIST")
         nmode = sinclient.DB.get_key("NAME_MODE") or "OFF"
         if nmode == "ON" and NAME_LIST:
-            chname = add_items(random.choice(NAME_LIST))
+            chname = add_items(client, random.choice(NAME_LIST))
             try:
                 await sinclient(functions.account.UpdateProfileRequest(first_name=str(chname)))
             except:
@@ -59,7 +59,7 @@ async def biochanger():
         BIO_LIST = sinclient.DB.get_key("BIO_LIST")
         bmode = sinclient.DB.get_key("BIO_MODE") or "OFF"
         if bmode == "ON" and BIO_LIST:
-            chbio = add_items(random.choice(BIO_LIST))
+            chbio = add_items(client, random.choice(BIO_LIST))
             try:
                 await sinclient(functions.account.UpdateProfileRequest(about=str(chbio)))
             except:
