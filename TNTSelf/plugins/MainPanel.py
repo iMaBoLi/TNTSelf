@@ -121,7 +121,7 @@ async def panelpv(event):
 async def inlinepanel(event):
     chatid = event.pattern_match.group(1)
     page = int(event.pattern_match.group(2))
-    await event.answer([event.builder.article("TNTSelf - Panel", text=get_text(page), buttons=get_buttons(event, chatid, page))])
+    await event.answer([event.builder.article("TNTSelf - Panel", text=get_text(event, page), buttons=get_buttons(event, chatid, page))])
 
 @client.Callback(data="Page\\:(.*)\\:(.*)")
 async def panelpages(event):
@@ -129,9 +129,9 @@ async def panelpages(event):
     page = int(event.data_match.group(2).decode('utf-8'))
     if page == 0:
         return await event.answer(client.getstrings(STRINGS)["allpage"], alert=True)
-    await event.edit(text=get_text(page), buttons=get_buttons(event, chatid, page))
+    await event.edit(text=get_text(event, page), buttons=get_buttons(event, chatid, page))
     
-def get_text(page):
+def get_text(event, page):
     TEXTS = {
         1: client.getstrings(STRINGS)["modepage"],
         2: client.getstrings(STRINGS)["modepage"],
@@ -141,7 +141,7 @@ def get_text(page):
         6: client.getstrings(STRINGS)["actionpage"],
         7: client.getstrings(STRINGS)["filterpvpage"]
     }
-    mention = client.functions.mention(client.me)
+    mention = client.functions.mention(event.client.me)
     text = f"**ᯓ Dear** ( {mention} )\n\n"
     text += "  " + TEXTS[page] + "\n"
     text += f"    **❃ Page:** ( `{page}` )"
@@ -242,7 +242,7 @@ async def setpanel(event):
     chatid = int(event.data_match.group(4).decode('utf-8'))
     page = int(event.data_match.group(5).decode('utf-8'))
     skey = get_modename(key)
-    pagetext = get_text(page)
+    pagetext = get_text(event, page)
     if type == "Turn":
         event.client.DB.set_key(key, value)
         cshow = client.STRINGS["On"] if value == "ON" else client.STRINGS["Off"]
