@@ -41,6 +41,7 @@ class DATABASE:
             return self.cache[self.userid].get(key)
         
     def save(self, data):
+        data = json.loads(data)
         data = json.dumps(data, indent=4)
         with open(self.dbname, "w") as dbfile:
             dbfile.write(str(data))
