@@ -171,4 +171,4 @@ async def autosender():
                     sinclient.DB.set_key("AUTO_CHATS", achats)
                     await asyncio.sleep(0.5)
                     
-aiocron.crontab("*/30 * * * * *", autosender)
+aiocron.crontab("*/10 * * * * *", autosender)
