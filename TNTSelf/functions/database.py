@@ -87,11 +87,9 @@ class DATABASE:
     def get_key(self, key):
         if key in self.cache[self.userid]:
             value = self.cache[self.userid][key]
-        else:
-            value = self.get_data(key)
-            self.cache[self.userid].update({key: value})
-        try:
-            data = eval(value)
-        except:
-            data = value
-        return data
+            try:
+                data = eval(value)
+            except:
+                data = value
+            return data
+        return None
