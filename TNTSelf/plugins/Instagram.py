@@ -59,7 +59,7 @@ async def instalogin(event):
 @client.Command(command="INPost (.*)")
 async def instapostdl(event):
     await event.edit(client.STRINGS["wait"])
-    client.loop.create_task(postdl(event))
+    event.client.loop.create_task(postdl(event))
 
 async def postdl(event):
     link = str(event.pattern_match.group(1))
@@ -86,23 +86,23 @@ async def postdl(event):
     caption = client.getstrings(STRINGS)["postcaption"].format(link, publisher, mediainfo.like_count, mediainfo.comment_count, pubtime)
     if mediainfo.media_type in [1, 2]:
         if mediainfo.media_type == 2 and mediainfo.product_type in ["clips", "feed", "igtv"]:
-            post = INSTA.video_download(mediapk, folder=client.PATH)
+            post = INSTA.video_download(mediapk, folder=event.client.PATH)
             attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
-            thumbnail = client.PATH + mediapk + ".jpg"
+            thumbnail = event.client.PATH + mediapk + ".jpg"
             img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
             with open(thumbnail, "wb") as img:
                 img.write(img_data)
             callback = event.progress(upload=True)
         elif mediainfo.media_type == 1:
-            post = INSTA.photo_download(mediapk, folder=client.PATH)
+            post = INSTA.photo_download(mediapk, folder=event.client.PATH)
             attributes, thumbnail, callback = None, None
-        await client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes, progress_callback=callback)
+        await event.client.send_file(event.chat_id, post, caption=caption, thumb=thumbnail, attributes=attributes, progress_callback=callback)
         os.remove(post)
         if thumbnail: os.remove(thumbnail)
     elif mediainfo.media_type == 8:
-        post = INSTA.album_download(mediapk, folder=client.PATH)
+        post = INSTA.album_download(mediapk, folder=event.client.PATH)
         for lpost in client.functions.chunks(post, 9):
-            await client.send_file(event.chat_id, lpost, caption=caption)
+            await event.client.send_file(event.chat_id, lpost, caption=caption)
         for rpost in post:
             os.remove(rpost)
     await event.delete()
@@ -110,7 +110,7 @@ async def postdl(event):
 @client.Command(command="INStory (.*)")
 async def instastorydl(event):
     await event.edit(client.STRINGS["wait"])
-    client.loop.create_task(storydl(event))
+    event.client.loop.create_task(storydl(event))
 
 async def storydl(event):
     link = str(event.pattern_match.group(1))
@@ -135,16 +135,16 @@ async def storydl(event):
     seconds = seconds.total_seconds()
     pubtime = client.functions.convert_time(seconds) + " Ago"
     caption = client.getstrings(STRINGS)["storycaption"].format(link, publisher, pubtime)
-    story = INSTA.story_download(mediapk , folder=client.PATH)
+    story = INSTA.story_download(mediapk , folder=event.client.PATH)
     if mediainfo.media_type == 2:
         attributes = [types.DocumentAttributeVideo(duration=mediainfo.video_duration, supports_streaming=True, w=mediainfo.image_versions2["candidates"][0]["width"], h=mediainfo.image_versions2["candidates"][0]["height"])]
-        thumbnail = client.PATH + mediapk + ".jpg"
+        thumbnail = event.client.PATH + mediapk + ".jpg"
         img_data = requests.get(mediainfo.image_versions2["candidates"][0]["url"]).content
         with open(thumbnail, "wb") as img:
             img.write(img_data)
     elif mediainfo.media_type == 1:
         attributes, thumbnail = None, None
-    await client.send_file(event.chat_id, story, caption=caption, thumb=thumbnail, attributes=attributes)
+    await event.client.send_file(event.chat_id, story, caption=caption, thumb=thumbnail, attributes=attributes)
     os.remove(story)
     if thumbnail:
         os.remove(thumbnail)
@@ -166,11 +166,11 @@ async def instauserinfo(event):
         info = INSTA.user_info_by_username(username)
     except:
         return await event.edit(client.getstrings(STRINGS)["notuser"].format(username))
-    photo = client.PATH + info.full_name + ".jpg"
+    photo = event.client.PATH + info.full_name + ".jpg"
     img_data = requests.get(info.profile_pic_url_hd).content
     with open(photo, 'wb') as img:
         img.write(img_data)
     caption = client.getstrings(STRINGS)["usercaption"].format(info.full_name, info.username, info.pk, info.follower_count, info.following_count, info.media_count, info.biography)
-    await client.send_file(event.chat_id, photo, caption=caption)
+    await event.client.send_file(event.chat_id, photo, caption=caption)
     os.remove(photo)
     await event.delete()
