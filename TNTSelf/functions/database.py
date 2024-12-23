@@ -23,7 +23,7 @@ class Database:
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
         if not self.userid in self.cache:
             try:
-                self.set(str(self.userid), str({}), data=True)
+                self.set(str(self.userid), str({}), allcache=True)
             except Exception as er:
                 print(er)
 
@@ -31,8 +31,8 @@ class Database:
         if key in self.cache[self.userid]:
             return self.cache[self.userid].get(key)
 
-    def set(self, key=None, value=None, data=False, delete_key=None):
-        data = self.cache if data else self.cache[self.userid]
+    def set(self, key=None, value=None, allcache=False, delete_key=None):
+        data = self.cache if allcache else self.cache[self.userid]
         if delete_key:
             try:
                 del data[delete_key]
