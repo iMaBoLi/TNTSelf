@@ -23,16 +23,16 @@ STRINGS = {
 async def setantiedit(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ANTIEDIT_MODE", change)
+    event.client.DB.set_key("ANTIEDIT_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(checkCmd=True)
 async def antiedit(event):
     if event.original_update.to_dict()["_"] not in ["UpdateEditMessage", "UpdateEditChannelMessage"]: return
-    antimode = client.DB.get_key("ANTIEDIT_MODE") or "OFF"
+    antimode = event.client.DB.get_key("ANTIEDIT_MODE") or "OFF"
     if antimode == "ON":
-        getmsg = await client.get_messages(event.chat_id, ids=event.id)
+        getmsg = await event.client.get_messages(event.chat_id, ids=event.id)
         if getmsg.reply_to:
             await event.respond(getmsg, reply_to=getmsg.reply_to.reply_to_msg_id)
         else:
