@@ -11,6 +11,7 @@ class DATABASE:
     def get_data(self):
         if os.path.isfile(self.dbname):
             with open(self.dbname, "r") as dbdata:
+                print(type(dbdata))
                 data = eval(dbdata)
         else:
             data = {}
