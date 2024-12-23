@@ -6,8 +6,15 @@ __INFO__ = {
     "Info": {
         "Help": "To Sign A Text On Your Messages!",
         "Commands": {
-            "{CMD}Sign <On-Off>": None,
-            "{CMD}SetSign <Text>": None,
+            "{CMD}Sign <On-Off>": {
+                "Help": "To Turn On-Off Sign Mode",
+            },
+            "{CMD}SetSign <Text>": {
+                "Help": "To Set Sign Text",
+                "Input": {
+                    "<Text>": "Sign Text",
+                },
+            },
         },
     },
 }
@@ -22,7 +29,7 @@ STRINGS = {
 async def signmode(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("SIGN_MODE", change)
+    event.client.DB.set_key("SIGN_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
@@ -30,14 +37,14 @@ async def signmode(event):
 async def setsign(event):
     await event.edit(client.STRINGS["wait"])
     stext = event.pattern_match.group(1)
-    client.DB.set_key("SIGN_TEXT", stext)
+    event.client.DB.set_key("SIGN_TEXT", stext)
     text = client.getstrings(STRINGS)["setsign"].format(stext)
     await event.edit(text)
 
 @client.Command(allowedits=False, checkCmd=True)
 async def autosign(event):
-    smode = client.DB.get_key("SIGN_MODE") or "OFF"
-    signtext = client.DB.get_key("SIGN_TEXT")
+    smode = event.client.DB.get_key("SIGN_MODE") or "OFF"
+    signtext = event.client.DB.get_key("SIGN_TEXT")
     if smode == "ON" and signtext:
         newtext = signtext if not event.text else event.text + "\n\n" + signtext
         await event.edit(newtext)
