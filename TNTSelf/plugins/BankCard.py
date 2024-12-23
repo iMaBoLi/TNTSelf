@@ -28,7 +28,7 @@ STRINGS = {
     "setcard": "**{STR} The Bank Card Saved!**\n\n**{STR} Card Number:** ( `{}` )\n**{STR} Card Name:** ( `{}` )",
     "delcard": "**{STR} The Saved Bank Card Was Deleted!**",
     "notcard": "**{STR} The Bank Card Is Not Saved!**",
-    "card": "**{STR}** `{}`\n\n**{STR}** `{}`",
+    "card": "**{STR} Card Number:** ( `{}` )\n\n**{STR} Card Name:** ( `{}` )",
 }
 
 @client.Command(command="SetCard \\'(.*)\\' (.*)")
@@ -37,18 +37,18 @@ async def setcard(event):
     cnumber = str(event.pattern_match.group(1))
     cname = str(event.pattern_match.group(2))
     newcard = {"NUMBER": cnumber, "NAME": cname}
-    client.DB.set_key("BANK_CARD", newcard)
+    event.client.DB.set_key("BANK_CARD", newcard)
     await event.edit(client.getstrings(STRINGS)["setcard"].format(cnumber, cname))
     
 @client.Command(command="DelCard")
 async def delcard(event):
     await event.edit(client.STRINGS["wait"])
-    client.DB.set_key("BANK_CARD", {})
+    event.client.DB.set_key("BANK_CARD", {})
     await event.edit(client.getstrings(STRINGS)["delcard"])
 
 @client.Command(command="Card")
 async def getcard(event):
-    card = client.DB.get_key("BANK_CARD") or {}
+    card = event.client.DB.get_key("BANK_CARD") or {}
     if not card:
         return await event.edit(client.getstrings(STRINGS)["notcard"])
     text = client.getstrings(STRINGS)["card"].format(card["NUMBER"], card["NAME"])
