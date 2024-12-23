@@ -42,7 +42,7 @@ from telethon.tl.types import (
     TypeInputFile,
 )
 
-log: logging.Logger = logging.getLogger("_FastTelethon")
+log: logging.Logger = logging.getLogger("_FastTelethon_")
 
 TypeLocation = Union[
     Document,
@@ -385,7 +385,7 @@ class fast_updown:
                 try:
                     await _maybe_await(progress_callback(opfile.tell(), size))
                 except Exception as error:
-                    client.LOGS.error(error)
+                    log.error(error)
         return outfile
 
     async def upload(self, file, progress_callback=None):
