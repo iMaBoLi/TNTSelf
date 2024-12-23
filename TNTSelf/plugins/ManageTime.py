@@ -6,7 +6,7 @@ import random
 import os
 
 
-def add_items(client, text, font=True):
+def add_items(sinclient, text, font=True):
     jtime = datetime.now()
     VARS = {
         "TIME": jtime.strftime("%H:%M"),
@@ -15,7 +15,7 @@ def add_items(client, text, font=True):
         "MONTH": jtime.strftime("%B"),
         "HEART": random.choice(client.functions.HEARTS),
     }
-    tfont = client.DB.get_key("TIME_FONT") or 1
+    tfont = sinclient.DB.get_key("TIME_FONT") or 1
     for VAR in VARS:
         if font:
             nVAR = client.functions.create_font(VARS[VAR], tfont)
@@ -29,7 +29,7 @@ async def namechanger():
         NAME_LIST = sinclient.DB.get_key("NAME_LIST")
         nmode = sinclient.DB.get_key("NAME_MODE") or "OFF"
         if nmode == "ON" and NAME_LIST:
-            chname = add_items(client, random.choice(NAME_LIST))
+            chname = add_items(sinclient, random.choice(NAME_LIST))
             try:
                 await sinclient(functions.account.UpdateProfileRequest(first_name=str(chname)))
             except:
@@ -40,11 +40,11 @@ async def biochanger():
         BIO_LIST = sinclient.DB.get_key("BIO_LIST")
         bmode = sinclient.DB.get_key("BIO_MODE") or "OFF"
         if bmode == "ON" and BIO_LIST:
-            chbio = add_items(client, random.choice(BIO_LIST))
+            chbio = add_items(sinclient, random.choice(BIO_LIST))
             try:
                 await sinclient(functions.account.UpdateProfileRequest(about=str(chbio)))
             except:
                 pass
 
 aiocron.crontab("*/1 * * * *", func=namechanger)
-aiocron.crontab("*/30 * * * *", func=biochanger)
+aiocron.crontab("*/10 * * * *", func=biochanger)
