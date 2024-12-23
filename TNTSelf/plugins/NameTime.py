@@ -1,5 +1,4 @@
 from TNTSelf import client
-from .ManageTime import namechanger
 
 __INFO__ = {
     "Category": "Time",
@@ -36,7 +35,6 @@ async def namemode(event):
     event.client.DB.set_key("NAME_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
-    await namechanger()
 
 @client.Command(command="NewName (.*)")
 async def addname(event):
@@ -48,7 +46,6 @@ async def addname(event):
     names.append(newname)
     event.client.DB.set_key("NAME_LIST", names)
     await event.edit(client.getstrings(STRINGS)["newadd"].format(newname))
-    await namechanger()
     
 @client.Command(command="DelName (.*)")
 async def delname(event):
@@ -60,7 +57,6 @@ async def delname(event):
     names.remove(newname)
     event.client.DB.set_key("NAME_LIST", names)
     await event.edit(client.getstrings(STRINGS)["del"].format(newname))
-    await namechanger()
 
 @client.Command(command="NameList")
 async def namelist(event):
