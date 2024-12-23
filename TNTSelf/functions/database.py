@@ -15,7 +15,7 @@ class DATABASE:
         else:
             data = {}
             with open(self.dbname, "w") as dbfile:
-                json.dumps(data, dbfile, indent=4)
+                dbfile.write(str(data))
         return data
 
     def re_data(self):
@@ -42,6 +42,6 @@ class DATABASE:
         
     def save(self, data):
         with open(self.dbname, "w") as dbfile:
-            json.dump(data, dbfile, indent=4)
+            dbfile.write(str(data))
         self.re_data()
         return True
