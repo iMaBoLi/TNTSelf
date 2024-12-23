@@ -47,9 +47,9 @@ STRINGS = {
 @client.Command(command="My(iNfo|iD|Name|Bio|Username|Phone|Profile)")
 async def myinfo(event):
     type = event.pattern_match.group(1).lower()
-    info = await client.get_me()
-    uinfo = (await client(functions.users.GetFullUserRequest("me"))).full_user
-    mypic = await client.get_profile_photos("me")
+    info = await event.client.get_me()
+    uinfo = (await event.client(functions.users.GetFullUserRequest("me"))).full_user
+    mypic = await event.client.get_profile_photos("me")
     name = f"{info.first_name} {info.last_name}" if info.last_name else info.first_name
     username = f"@{info.username}" if info.username else "---"
     prof = mypic[0] if mypic else None
