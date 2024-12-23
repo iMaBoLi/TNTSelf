@@ -2,7 +2,8 @@ import json
 import os
 
 class Database:
-    def __init__(self):
+    def __init__(self, userid):
+        self.userid = userid
         self.dbname = "../tmp/TNTDB.json"
         self.cache = {}
         self.re_data()
@@ -20,13 +21,16 @@ class Database:
     def re_data(self):
         data = self.get_data()
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
+        if not self.userid in self.cache:
+            self.cache[self.userid] = {}
+            self.set(str(self.userid), str("{}"), data=self.cache)
 
     def get(self, key):
-        if key in self.cache:
-            return self.cache.get(key)
+        if key in self.cache[self.userid]:
+            return self.cache[self.userid].get(key)
 
-    def set(self, key=None, value=None, delete_key=None):
-        data = self.cache
+    def set(self, key=None, value=None, delete_key=None, data=None):
+        data = data if data else self.cache[self.userid]
         if delete_key:
             try:
                 del data[delete_key]
@@ -34,19 +38,20 @@ class Database:
                 pass
         if key and value:
             data.update({key: value})
+        newdata = self.cache
         with open(self.dbname, "w") as dbfile:
-            json.dump(data, dbfile)
+            json.dump(newdata, dbfile)
         self.re_data()
         return True
 
     def delete(self, key):
-        if key in self.cache:
+        if key in self.cache[self.userid]:
             return self.set(delete_key=key)
 
 class DATABASE:
     def __init__(self, userid):
-        self.db = Database()
         self.userid = int(userid)
+        self.db = Database(self.userid)
         self.get = self.db.get
         self.set = self.db.set
         self.delete = self.db.delete
