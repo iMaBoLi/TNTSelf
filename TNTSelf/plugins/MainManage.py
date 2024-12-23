@@ -37,7 +37,7 @@ async def get_manage_buttons(userid, chatid):
     buttons.append([Button.inline("• Spector •", data=f"Spector:{chatid}:{userid}")])
     obuts = []
     for manage in MANAGES:
-        lists = client.DB.get_key(manage) or []
+        lists = event.client.DB.get_key(manage) or []
         smode = client.STRINGS["inline"]["On"] if userid in lists else client.STRINGS["inline"]["Off"]
         cmode = "del" if userid in lists else "add"
         obuts.append(Button.inline(f"{MANAGES[manage]} {smode}", data=f"SetUser:{chatid}:{userid}:{manage}:{cmode}"))
@@ -53,7 +53,7 @@ async def Manage(event):
     if not event.userid:
         return await event.edit(client.STRINGS["user"]["all"])
     chatid = event.chat_id
-    res = await client.inline_query(client.bot.me.username, f"Manage:{chatid}:{event.userid}")
+    res = await event.client.inline_query(client.bot.me.username, f"Manage:{chatid}:{event.userid}")
     if event.is_reply:
         await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     else:
@@ -64,7 +64,7 @@ async def Manage(event):
 async def inlinemanage(event):
     chatid = int(event.pattern_match.group(1))
     userid = int(event.pattern_match.group(2))
-    info = await client.get_entity(userid)
+    info = await event.client.get_entity(userid)
     mention = client.functions.mention(info)
     text = client.getstrings(STRINGS)["menu"].format(mention)
     buttons = await get_manage_buttons(userid, chatid)
@@ -76,14 +76,14 @@ async def SetUsermanage(event):
     userid = int(event.data_match.group(2).decode('utf-8'))
     mode = event.data_match.group(3).decode('utf-8')
     change = event.data_match.group(4).decode('utf-8')
-    info = await client.get_entity(userid)
-    lists = client.DB.get_key(mode) or []
+    info = await event.client.get_entity(userid)
+    lists = event.client.DB.get_key(mode) or []
     if change == "add":
         lists.append(userid)
-        client.DB.set_key(mode, lists)
+        event.client.DB.set_key(mode, lists)
     elif change == "del":
         lists.remove(userid)
-        client.DB.set_key(mode, lists)
+        event.client.DB.set_key(mode, lists)
     buttons = await get_manage_buttons(userid, chatid)
     await event.edit(buttons=buttons)
 
@@ -91,8 +91,8 @@ async def SetUsermanage(event):
 async def getuserinfo(event):
     chatid = int(event.data_match.group(1).decode('utf-8'))
     userid = int(event.data_match.group(2).decode('utf-8'))
-    uinfo = await client.get_entity(userid)
-    info = await client(functions.users.GetFullUserRequest(userid))
+    uinfo = await event.client.get_entity(userid)
+    info = await event.client(functions.users.GetFullUserRequest(userid))
     info = info.full_user
     contact = "✅" if uinfo.contact else "❌"
     mcontact = "✅" if uinfo.mutual_contact else "❌"
@@ -100,9 +100,9 @@ async def getuserinfo(event):
     username = f"@{uinfo.username}" if uinfo.username else "---"
     userinfo = client.getstrings(STRINGS)["infouser"].format(client.functions.mention(uinfo), uinfo.id, uinfo.first_name, (uinfo.last_name or "---"), username, contact, mcontact,status, info.common_chats_count, (info.about or "---"))
     if info.profile_photo:
-        await client.send_file(chatid, info.profile_photo, caption=userinfo)
+        await event.client.send_file(chatid, info.profile_photo, caption=userinfo)
     else:
-        await client.send_message(chatid, userinfo)
+        await event.client.send_message(chatid, userinfo)
     buttons = await get_manage_buttons(userid, chatid)    
     await event.edit(buttons=buttons)
 
