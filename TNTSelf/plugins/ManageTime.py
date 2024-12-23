@@ -5,25 +5,6 @@ import aiocron
 import random
 import os
 
-def create_font(newtime, timefont):
-    newtime = str(newtime)
-    if str(timefont) == "random2":
-        for par in newtime:
-            fonts = [1,3,4,5,6,7,8,9,10,11,12]
-            rfont = random.choice(fonts)
-            if par.isdigit():
-                nfont = client.functions.FONTS[int(rfont)].split(",")[int(par)]
-                newtime = newtime.replace(par, nfont)
-            fonts.remove(rfont)
-    else:
-        if str(timefont) == "random":
-            fonts = list(range(1, len(client.functions.FONTS)+2))
-            timefont = random.choice(fonts)
-        for par in newtime:
-            if par.isdigit():
-                nfont = client.functions.FONTS[int(timefont)].split(",")[int(par)]
-                newtime = newtime.replace(par, nfont)
-    return newtime
 
 def add_items(client, text, font=True):
     jtime = datetime.now()
@@ -37,7 +18,7 @@ def add_items(client, text, font=True):
     tfont = client.DB.get_key("TIME_FONT") or 1
     for VAR in VARS:
         if font:
-            nVAR = create_font(VARS[VAR], tfont)
+            nVAR = client.functions.create_font(VARS[VAR], tfont)
         else:
             nVAR = VARS[VAR]
         text = text.replace(VAR, nVAR)
