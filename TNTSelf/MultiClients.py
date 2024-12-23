@@ -52,6 +52,8 @@ class MultiClients:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
+        setattr(client.bot, "user", info)
+        setattr(client.bot, "user", info.id)
         DB = DATABASE(info.id)
         setattr(client, "DB", DB)
         setattr(client.bot, "DB", DB)
