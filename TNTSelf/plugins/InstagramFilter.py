@@ -66,11 +66,11 @@ async def filterinphoto(event):
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     photo = await event.reply_message.download_media(client.PATH)
-    newphoto = client.PATH + f"FilterPhoto-{str(mode)}.jpg"
+    newphoto = event.client.PATH + f"FilterPhoto-{str(mode)}.jpg"
     img = Image.open(photo)
     funct = FILTERS[mode]
     funct(img).save(newphoto)
-    await client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["filter"].format(mode.title()))        
+    await event.client.send_file(event.chat_id, newphoto, caption=client.getstrings(STRINGS)["filter"].format(mode.title()))        
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
