@@ -29,10 +29,10 @@ __INFO__ = {
 client.functions.AddInfo(__INFO__)
 
 STRINGS = {
-    "invsessionid": "**{STR} The Instagram Session** ( `{}` ) **Is Invalid!**",
-    "setsession": "**{STR} The Instagram Session** ( `{}` ) **Has Been Saved!**",
-    "nosession": "**{STR} The Instagram Session Is Not Saved!**",
-    "invsession": "**{STR} The Instagram Session Is Invalid!**",
+    "invsessionid": "**{STR} The Instagram Session ID** ( `{}` ) **Is Invalid!**",
+    "setsession": "**{STR} The Instagram Session ID** ( `{}` ) **Has Been Saved!**",
+    "nosession": "**{STR} The Instagram Session ID Is Not Saved!**",
+    "invsession": "**{STR} The Instagram Session ID** ( `{}` ) **Is Invalid!**",
     "invlink": "**{STR} The Instagram Link** ( `{}` ) **Is Invalid!**",
     "notpost": "**{STR} The Instagram Link** ( `{}` ) **Is Not For A Post!**",
     "downpost": "**{STR} Downloading Instagram Post ...**\n**{STR} Link:** ( `{}` )",
@@ -44,28 +44,17 @@ STRINGS = {
     "usercaption": "**{STR} Name: ( `{}` )**\n\n**{STR} Usernams: ( `{}` )**\n**{STR} ID:** ( `{}` )\n**{STR} Followers:** ( `{}` )\n**{STR} Followings:** ( `{}` )\n**{STR} Media Count:** ( `{}` )\n**{STR} Bio:** ( `{}` )",
 }
 
-SESSION = client.PATH + "Instagram.json"
-INSTA = None
-if os.path.exists(SESSION):
-    INSTA = Insta()
-    INSTA.load_settings(SESSION)
-
 @client.Command(command="INLogin (.*)")
 async def instalogin(event):
     await event.edit(client.STRINGS["wait"])
     sessionid = event.pattern_match.group(1)
     try:
-        instacl = Insta()
-        instacl.login_by_sessionid(sessionid)
-        instacl.dump_settings(SESSION)
-        global INSTA
-        INSTA = instacl
+        INSTA = Insta()
+        INSTA.login_by_sessionid(sessionid)
     except:
         return await event.edit(client.getstrings(STRINGS)["invsessionid"].format(sessionid))
-    send = await event.reply(client.getstrings(STRINGS)["setsession"].format(sessionid), file=SESSION)
-    info = await send.save()
-    client.DB.set_key("INSTAGRAM_SESSION", info)
-    await event.delete()
+    event.client.DB.set_key("INSTAGRAM_SESSION", sessionid)
+    await event.edit(client.getstrings(STRINGS)["setsession"].format(sessionid))
     
 @client.Command(command="INPost (.*)")
 async def instapostdl(event):
@@ -74,12 +63,14 @@ async def instapostdl(event):
 
 async def postdl(event):
     link = str(event.pattern_match.group(1))
-    if not INSTA:
+    sessionid = event.client.DB.get_key("INSTAGRAM_SESSION")
+    if not sessionid:
         return await event.edit(client.getstrings(STRINGS)["nosession"])
     try:
-        INSTA.get_timeline_feed()
+        INSTA = Insta()
+        INSTA.login_by_sessionid(sessionid)
     except:
-        return await event.edit(client.getstrings(STRINGS)["invsession"])
+        return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
     try:
         mediapk = INSTA.media_pk_from_url(event.text)
         mediainfo = INSTA.media_info(mediapk)
@@ -123,12 +114,14 @@ async def instastorydl(event):
 
 async def storydl(event):
     link = str(event.pattern_match.group(1))
-    if not INSTA:
+    sessionid = event.client.DB.get_key("INSTAGRAM_SESSION")
+    if not sessionid:
         return await event.edit(client.getstrings(STRINGS)["nosession"])
     try:
-        INSTA.get_timeline_feed()
+        INSTA = Insta()
+        INSTA.login_by_sessionid(sessionid)
     except:
-        return await event.edit(client.getstrings(STRINGS)["invsession"])
+        return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
     try:
         mediapk = INSTA.story_pk_from_url(event.text)
         mediainfo = INSTA.media_info(mediapk)
@@ -161,12 +154,14 @@ async def storydl(event):
 async def instauserinfo(event):
     await event.edit(client.STRINGS["wait"])
     username = str(event.pattern_match.group(1))
-    if not INSTA:
+    sessionid = event.client.DB.get_key("INSTAGRAM_SESSION")
+    if not sessionid:
         return await event.edit(client.getstrings(STRINGS)["nosession"])
     try:
-        INSTA.get_timeline_feed()
+        INSTA = Insta()
+        INSTA.login_by_sessionid(sessionid)
     except:
-        return await event.edit(client.getstrings(STRINGS)["invsession"])
+        return await event.edit(client.getstrings(STRINGS)["invsession"].format(sessionid))
     try:
         info = INSTA.user_info_by_username(username)
     except:
