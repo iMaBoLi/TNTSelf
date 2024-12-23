@@ -11,7 +11,7 @@ class DATABASE:
     def get_data(self):
         if os.path.isfile(self.dbname):
             with open(self.dbname, "r") as dbdata:
-                data = eval(str(dbdata))
+                data = json.load(dbdata.read())
         else:
             data = {}
             with open(self.dbname, "w") as dbfile:
