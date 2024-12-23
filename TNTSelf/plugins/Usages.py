@@ -63,20 +63,31 @@ async def runcodes(event):
     sys.stdout = old_stdout
     sys.stderr = old_stderr
     result = "Success!"
+    error = ""
     if exec:
-        result = exec
+        error = exec
     elif stderr:
-        result = stderr
+        error = stderr
     elif stdout:
         result = stdout
-    if len(result) < 3000:
-        await reply.edit(f"**Results:**\n\n`{result}`")
+    if error:
+        if len(error) < 3000:
+            await reply.edit(f"**Errors:**\n\n`{error}`")
+        else:
+            file = client.PATH + "Error.txt"
+            open(file, "w").write(str(result))
+            await client.send_file(event.chat_id, file , caption="**Code Errors!**", reply_to=event.id)
+            os.remove(file)
+            await reply.delete()
     else:
-        file = client.PATH + "OutPut.txt"
-        open(file, "w").write(str(result))
-        await client.send_file(event.chat_id, file , caption="**Code OutPut!**", reply_to=event.id)
-        os.remove(file)
-        await reply.delete()
+        if len(result) < 3000:
+            await reply.edit(f"**Results:**\n\n`{error}`")
+        else:
+            file = client.PATH + "Result.txt"
+            open(file, "w").write(str(result))
+            await client.send_file(event.chat_id, file , caption="**Code Results!**", reply_to=event.id)
+            os.remove(file)
+            await reply.delete()
 
 @client.Command(command="Ls ?(.*)?")
 async def ls(event):
@@ -109,15 +120,15 @@ async def ls(event):
     else:
         size = os.path.getsize(path)
         output = "**The Details Of File:**\n\n"
-        uptime = convert_time(time.time() - os.path.getmtime(path))
+        uptime = client.functions.convert_time(time.time() - os.path.getmtime(path))
         output += f"    **Location:** `{path}`\n"
-        output += f"    **Size:** `{convert_bytes(size)}`\n"
+        output += f"    **Size:** `{client.functions.convert_bytes(size)}`\n"
         output += f"    **Update Time:** `{uptime}`\n"
     if len(output) < 4000:
         await event.edit(output) 
     else:
         output = output.replace("*", "").replace("`", "")
-        open("ls.txt", "w").write(output)
-        await event.respond("**Results In File!**", file="ls.txt")
+        open("FileList.txt", "w").write(output)
+        await event.respond("**Results In File!**", file="FileList.txt")
         await event.delete()
 
