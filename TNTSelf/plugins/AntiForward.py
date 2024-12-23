@@ -22,15 +22,15 @@ STRINGS = {
 async def setantiforward(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("ANTIFORWARD_MODE", change)
+    event.client.DB.set_key("ANTIFORWARD_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
 @client.Command(allowedits=False, checkCmd=True)
 async def antiforward(event):
     if not event.fwd_from or event.is_ch: return
-    antimode = client.DB.get_key("ANTIFORWARD_MODE") or "OFF"
+    antimode = event.client.DB.get_key("ANTIFORWARD_MODE") or "OFF"
     if antimode == "ON":
-        getmsg = await client.get_messages(event.chat_id, ids=event.id)
+        getmsg = await event.client.get_messages(event.chat_id, ids=event.id)
         await event.respond(getmsg)
         await event.delete()
