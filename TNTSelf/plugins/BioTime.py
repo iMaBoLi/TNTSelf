@@ -3,7 +3,7 @@ from .ManageTime import biochanger
 
 __INFO__ = {
     "Category": "Time",
-    "Bio": "Bio Time",
+    "Name": "Bio Time",
     "Info": {
         "Help": "To Setting Your Bio Times",
         "Commands": {
