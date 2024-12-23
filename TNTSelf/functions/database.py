@@ -22,13 +22,16 @@ class Database:
         data = self.get_data()
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
         if not self.userid in self.cache:
-            self.set(str(self.userid), str({}), data=True)
+            try:
+                self.set(str(self.userid), str({}), data=True)
+            except Exception as er:
+                print(er)
 
     def get(self, key):
         if key in self.cache[self.userid]:
             return self.cache[self.userid].get(key)
 
-    def set(self, key=None, value=None, delete_key=None, data=False):
+    def set(self, key=None, value=None, data=False, delete_key=None):
         data = self.cache if data else self.cache[self.userid]
         if delete_key:
             try:
