@@ -31,4 +31,4 @@ async def lockepv(event):
     if not event.is_private or event.is_white or event.is_sudo or event.is_bot: return
     mode = event.client.DB.get_key("LOVKPV_MODE") or "OFF"
     if mode == "ON":
-        await client(functions.contacts.BlockRequest(event.sender_id))
+        await event.client(functions.contacts.BlockRequest(event.sender_id))
