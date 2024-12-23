@@ -5,9 +5,6 @@ import platform
 import importlib
 import glob
 import os
-import re
-import time
-import jdatetime
 
 def load_plugins(files):
     notplugs = {}
@@ -21,9 +18,6 @@ def load_plugins(files):
 
 client.LOGS.info("• Starting Setup Plugins ...")
 client.add_coustom_vars()
-os.environ["TZ"] = "Asia/Tehran"
-time.tzset()
-jdatetime.set_locale("fa_IR")
 client.LOGS.info("• Installing Plugins ...")
 #PLUGINS = sorted(glob.glob(f"TNTSelf/plugins/*.py"))
 PLUGINS = ["TNTSelf/plugins/Ping.py"]
