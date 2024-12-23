@@ -17,6 +17,7 @@ import jdatetime
 def add_vars():
     setattr(client, "DB", DATABASE(0))
     setattr(client, "STRINGS", STRINGS)
+    setattr(client, "getstrings", getstrings)
     setattr(client, "COMMANDS", [])
     setattr(client, "HELP", {})
     setattr(client, "MAX_SIZE", 500000000)
