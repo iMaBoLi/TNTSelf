@@ -3,6 +3,7 @@ from somnium import Somnium
 from telethon.tl.types import InputMediaWebPage
 
 STYLES = Somnium.Styles()
+STYLES = [:50]
 
 __INFO__ = {
     "Category": "Tools",
@@ -12,7 +13,7 @@ __INFO__ = {
         "Commands": {
             "{CMD}SStyles <Style-Name>": {
                 "Help": "To Set Style Model",
-                "Vars": [style for style in STYLES[:50]],
+                "Vars": [style for style in STYLES],
             },
             "{CMD}GenPhoto <Prompt>": {
                 "Help": "To Generating Photo",
