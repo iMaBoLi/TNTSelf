@@ -23,7 +23,7 @@ class DATABASE:
         if self.userid not in data:
             data.update({self.userid: {}})
             self.save(data)
-        self.cache = data
+        self.cache = json.dumps(data, indent=4)
 
     def set_key(self, key, value):
         data = self.cache
@@ -41,8 +41,6 @@ class DATABASE:
             return self.cache[self.userid].get(key)
         
     def save(self, data):
-        data = json.loads(str(data))
-        data = json.dumps(data, indent=4)
         with open(self.dbname, "w") as dbfile:
             dbfile.write(str(data))
         self.re_data()
