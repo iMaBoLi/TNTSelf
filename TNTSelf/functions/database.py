@@ -22,10 +22,7 @@ class Database:
         data = self.get_data()
         self.cache = eval(self.get_data()) if isinstance(data, str) else data
         if not self.userid in self.cache:
-            try:
-                self.set(str(self.userid), str({}), allcache=True)
-            except Exception as er:
-                print(er)
+            self.set(str(self.userid), str({}), allcache=True)
 
     def get(self, key):
         if key in self.cache[self.userid]:
@@ -40,7 +37,7 @@ class Database:
                 pass
         if key and value:
             data.update({key: value})
-        newdata = self.cache
+        newdata = data if allcache else self.cache.update(data)
         with open(self.dbname, "w") as dbfile:
             json.dump(newdata, dbfile)
         self.re_data()
