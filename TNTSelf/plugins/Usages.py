@@ -55,14 +55,14 @@ async def runcodes(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exec = None, None, None
     try:
-        await runner(cmd , event)
+        await runner(cmd, event)
     except:
         exec = traceback.format_exc()
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-    result = "Success!"
+    result = ""
     error = ""
     if exec:
         error = exec
@@ -70,22 +70,25 @@ async def runcodes(event):
         error = stderr
     elif stdout:
         result = stdout
-    if error:
-        if len(error) < 3000:
-            await reply.edit(f"**Errors:**\n\n`{error}`")
-        else:
-            file = event.client.PATH + "Error.txt"
-            open(file, "w").write(str(error))
-            await event.client.send_file(event.chat_id, file , caption="**Code Errors!**", reply_to=event.id)
-            os.remove(file)
-            await reply.delete()
-    else:
+    if result:
         if len(result) < 3000:
             await reply.edit(f"**Results:**\n\n`{result}`")
         else:
             file = event.client.PATH + "Result.txt"
             open(file, "w").write(str(result))
             await event.client.send_file(event.chat_id, file , caption="**Code Results!**", reply_to=event.id)
+            os.remove(file)
+            await reply.delete()
+    elif not result and not error:
+        result = "Success!"
+        await reply.edit(f"**Results:**\n\n`{result}`")
+    elif error:
+        if len(error) < 3000:
+            await reply.edit(f"**Errors:**\n\n`{error}`")
+        else:
+            file = event.client.PATH + "Error.txt"
+            open(file, "w").write(str(error))
+            await event.client.send_file(event.chat_id, file , caption="**Code Errors!**", reply_to=event.id)
             os.remove(file)
             await reply.delete()
 
