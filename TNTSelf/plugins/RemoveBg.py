@@ -21,12 +21,12 @@ STRINGS = {
     "caption": "**{STR} The Remove Background From Photo Completed!**"
 }
 
-def removebg(photo, newphoto):
+def removebg(event, photo, newphoto):
     response = requests.post(
         "https://api.remove.bg/v1.0/removebg",
         files={"image_file": open(photo, "rb")},
         data={"size": "auto"},
-        headers={"X-Api-Key": str(client.DB.get_key("RMBG_API_KEY"))},
+        headers={"X-Api-Key": str(event.client.DB.get_key("RMBG_API_KEY"))},
     )
     if response.status_code == requests.codes.ok:
         with open(newphoto, "wb") as out:
@@ -41,7 +41,7 @@ def removebg(photo, newphoto):
 async def savebgapi(event):
     await event.edit(client.STRINGS["wait"])
     api = event.pattern_match.group(1)
-    client.DB.set_key("RMBG_API_KEY", api)
+    event.client.DB.set_key("RMBG_API_KEY", api)
     await event.edit(client.getstrings(STRINGS)["setapi"].format(api))
 
 @client.Command(command="RmBg")
@@ -49,16 +49,17 @@ async def rmbg(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
-    if not client.DB.get_key("RMBG_API_KEY"):
+    apikey = event.client.DB.get_key("RMBG_API_KEY")
+    if not apikey:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     photo = await event.reply_message.download_media(client.PATH)
-    newphoto = client.PATH + "RemoveBG.png"
+    newphoto = event.client.PATH + "RemoveBG.png"
     state, result = removebg(photo, newphoto)
     if not state:
         return await event.edit(client.getstrings(STRINGS)["notcom"].format(result))
     caption = client.getstrings(STRINGS)["caption"]
-    await client.send_file(event.chat_id, newphoto, force_document=True, caption=caption)
-    await client.send_file(event.chat_id, newphoto, caption=caption)
+    await event.client.send_file(event.chat_id, newphoto, caption=caption)
+    await event.client.send_file(event.chat_id, newphoto, force_document=True, caption=caption)
     os.remove(photo)
     os.remove(newphoto)
     await event.delete()
