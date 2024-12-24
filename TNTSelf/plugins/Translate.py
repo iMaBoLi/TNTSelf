@@ -1,6 +1,5 @@
 from TNTSelf import client
 from deep_translator import GoogleTranslator
-from deep_translator.exceptions import LanguageNotSupportedException
 
 __INFO__ = {
     "Category": "Tools",
@@ -31,10 +30,9 @@ async def translattext(event):
     tolang = event.pattern_match.group(1).lower()
     if not event.reply_message or not event.reply_message.raw_text:
         return await event.edit(client.STRINGS["replytext"])
-    text = event.reply_message.raw_text
-    try:
-        translator = GoogleTranslator(source="auto", target=tolang)
-        trjome = translator.translate(text)
-    except LanguageNotSupportedException:
+    if tolang not in client.functions.TRLANGS:
         return await event.edit(client.getstrings(STRINGS)["notlang"].format(tolang))
+    text = event.reply_message.raw_text[:2000]
+    translator = GoogleTranslator(source="auto", target=tolang)
+    trjome = translator.translate(text)
     await event.edit(client.getstrings(STRINGS)["translate"].format(tolang, trjome))
