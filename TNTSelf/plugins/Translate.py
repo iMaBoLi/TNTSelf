@@ -40,7 +40,7 @@ async def translattext(event):
     text = event.reply_message.raw_text
     translator = GoogleTranslator(source="auto", target=tolang)
     trjome = translator.translate(text)
-    await event.edit(client.getstrings(STRINGS)["translate"].format(tolang, trjome))
+    await event.edit(client.getstrings(STRINGS)["translate"].format(client.functions.TRLANGS[tolang], trjome))
     
 @client.Command(command="TRLangs")
 async def translang(event):
