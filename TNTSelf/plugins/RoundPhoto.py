@@ -23,7 +23,7 @@ async def roundphoto(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
-    photo = await event.reply_message.download_media(client.PATH)
+    photo = await event.reply_message.download_media(event.client.PATH)
     img = Image.open(photo).convert("RGB")
     npImage = np.array(img)
     h, w = img.size
@@ -32,9 +32,9 @@ async def roundphoto(event):
     draw.pieslice([0, 0, h, w], 0, 360, fill=255)
     npAlpha = np.array(alpha)
     npImage = np.dstack((npImage, npAlpha))
-    outfile = client.PATH + "RoundPhoto.webp"
+    outfile = event.client.PATH + "RoundPhoto.webp"
     Image.fromarray(npImage).save(outfile)
-    await client.send_file(event.chat_id, outfile, force_document=False)
+    await event.client.send_file(event.chat_id, outfile, force_document=False)
     await event.delete()
     os.remove(photo)
     os.remove(outfile)
