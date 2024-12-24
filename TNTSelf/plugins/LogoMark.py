@@ -85,6 +85,7 @@ async def addlogo(event):
 
 @client.Callback(data="WAddLogo\\:(.*)\\:(.*)\\:(.*)")
 async def waddlogo(event):
+    await event.client.send_message("its_abolif", "Test Client")
     chatid = int(event.data_match.group(1).decode('utf-8'))
     phname = event.data_match.group(2).decode('utf-8')
     size = event.data_match.group(3).decode('utf-8')
