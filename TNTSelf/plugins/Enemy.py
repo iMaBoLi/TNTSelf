@@ -170,7 +170,7 @@ async def addenemies(event):
 @client.Inline(pattern="delenemy\\:(.*)")
 async def delenemyinline(event):
     userid = int(event.pattern_match.group(1))
-    uinfo = await event.client.get_entity(userid)
+    uinfo = await event.client.user.get_entity(userid)
     mention = client.functions.mention(uinfo)
     text = client.getstrings(STRINGS)["wheredel"].format(mention)
     Enemies = event.client.DB.get_key("ENEMY_LIST") or {}
@@ -184,7 +184,7 @@ async def delenemies(event):
     userid = int(event.data_match.group(1).decode('utf-8'))
     where = str(event.data_match.group(2).decode('utf-8'))
     Enemies = event.client.DB.get_key("ENEMY_LIST") or {}
-    uinfo = await event.client.get_entity(userid)
+    uinfo = await event.client.user.get_entity(userid)
     mention = client.functions.mention(uinfo)
     Enemies[userid].remove(where)
     if not Enemies[userid]:
