@@ -2,6 +2,7 @@ from TNTSelf import client
 from zipfile import ZipFile
 import os
 import secrets
+import asyncio
 
 __INFO__ = {
     "Category": "Tools",
@@ -31,7 +32,7 @@ async def unzip(event):
         return await event.edit(reply)
     if event.reply_message.file.size > client.MAX_SIZE:
         return await event.edit(client.STRINGS["LargeSize"].format(client.functions.convert_bytes(client.MAX_SIZE)))
-    client.loop.create_task(unzipfile(event))
+    event.client.loop.create_task(unzipfile(event))
 
 async def unzipfile(event):
     callback = event.progress(download=True)
@@ -39,7 +40,7 @@ async def unzipfile(event):
     await event.edit(client.getstrings(STRINGS)["unziping"])
     zipObj = ZipFile(zfile)
     token = secrets.token_hex(nbytes=3)
-    zippath = client.PATH + token + "/"
+    zippath = event.client.PATH + token + "/"
     zipObj.extractall(zippath)
     zipObj.close()
     files = [os.path.join(dirpath, file) for (dirpath, dirnames, filenames) in os.walk(zippath) for file in filenames]
@@ -48,7 +49,8 @@ async def unzipfile(event):
         callback = event.progress(upload=True)
         nfile = file.replace(zippath, "")
         caption = client.getstrings(STRINGS)["caption"].format(nfile)
-        await client.send_file(event.chat_id, file, caption=caption, force_document=True, allow_cache=True, progress_callback=callback)
+        await event.client.send_file(event.chat_id, file, caption=caption, force_document=True, allow_cache=True, progress_callback=callback)
+        await asyncio.sleep(1)
     os.remove(zfile)
     await client.functions.runcmd(f"rm -rf {zippath}")
     await event.delete()
