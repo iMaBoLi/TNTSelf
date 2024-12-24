@@ -1,5 +1,5 @@
 from TNTSelf import client
-from translate import Translator
+from deep_translator import GoogleTranslator
 
 __INFO__ = {
     "Category": "Practical",
@@ -24,7 +24,7 @@ STRINGS = {
 async def settrauto(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("AUTOTR_MODE", change)
+    event.client.DB.set_key("AUTOTR_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["change"].format(showchange))
 
@@ -32,16 +32,21 @@ async def settrauto(event):
 async def settrlang(event):
     await event.edit(client.STRINGS["wait"])
     lang = event.pattern_match.group(1).lower()
-    client.DB.set_key("AUTOTR_LANG", lang)
+    if lang not in client.functions.TRLANGS:
+        return await event.edit(client.getstrings(STRINGS)["notlang"].format(lang))
+    event.client.DB.set_key("AUTOTR_LANG", lang)
     await event.edit(client.getstrings(STRINGS)["setlang"].format(lang))
 
 @client.Command(allowedits=False, checkCmd=True)
 async def autotr(event):
     if not event.text: return
-    autotr = client.DB.get_key("AUTOTR_MODE") or "OFF"
+    autotr = event.client.DB.get_key("AUTOTR_MODE") or "OFF"
     if autotr == "ON":
-        autolang = client.DB.get_key("AUTOTR_LANG") or "fa"
-        translator = Translator(to_lang=autolang)
-        trjome = translator.translate(event.text)
-        if trjome != event.text:
-            await event.edit(trjome)
+        autolang = event.client.DB.get_key("AUTOTR_LANG") or "fa"
+        try:
+            translator = GoogleTranslator(source="auto", target=autolang)
+            trjome = translator.translate(event.text)
+            if trjome != event.text:
+                await event.edit(trjome)
+        except:
+            pass
