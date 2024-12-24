@@ -4,7 +4,7 @@ pillow
 selenium
 somnium
 countryinfo
-translate
+deep_translator
 music_tag
 instagrapi
 speechmatics-python
