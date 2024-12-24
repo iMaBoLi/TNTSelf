@@ -22,7 +22,7 @@ STRINGS = {
 async def chatcounts(event):
     await event.edit(client.STRINGS["wait"])
     all, users, groups, sgroups, channels, bots = 0,0,0,0,0,0
-    async for dialog in client.iter_dialogs():
+    async for dialog in event.client.iter_dialogs():
         all += 1
         entity = dialog.entity
         type = entity.to_dict()["_"]
