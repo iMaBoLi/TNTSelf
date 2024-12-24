@@ -42,18 +42,20 @@ async def setlogo(event):
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
     info = await event.reply_message.save()
-    get = await event.client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
-    await get.download_media(client.PATH + "Logo.png")
     client.DB.set_key("LOGO_FILE", info)
     await event.edit(client.getstrings(STRINGS)["save"])
     
 @client.Command(command="GetLogo")
 async def setlogo(event):
     await event.edit(client.STRINGS["wait"])
-    logo = client.PATH + "Logo.png"
-    if not os.path.exists(logo):
+    info = client.DB.get_key("LOGO_FILE") or {}
+    if not info:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
-    await event.client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=client.getstrings(STRINGS)["getlogo"])
+    logo = event.client.PATH + "Logo.png"
+    get = await event.client.get_messages(int(info["chat_id"]), ids=int(info["msg_id"]))
+    await get.download_media(logo)
+    caption = client.getstrings(STRINGS)["getlogo"]
+    await event.client.send_file(event.chat_id, logo, force_document=True, allow_cache=True, caption=caption)
     await event.delete()
     
 @client.Command(command="AddLogo")
@@ -61,13 +63,13 @@ async def addlogo(event):
     await event.edit(client.STRINGS["wait"])
     if reply:= event.checkReply(["Photo"]):
         return await event.edit(reply)
-    logo = client.PATH + "Logo.png"
-    if not os.path.exists(logo):
+    info = client.DB.get_key("LOGO_FILE") or {}
+    if not info:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     token = secrets.token_hex(nbytes=3)
-    phname = client.PATH + token + ".jpg"
+    phname = event.client.PATH + token + ".jpg"
     await event.reply_message.download_media(phname)
-    res = await event.client.inline_query(client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
+    res = await event.client.inline_query(event.client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
     await event.delete()
     
@@ -105,7 +107,10 @@ async def faddlogo(event):
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
-    logo = client.PATH + "Logo.png"
+    logoinfo = client.DB.get_key("LOGO_FILE") or {}
+    logo = event.client.PATH + "Logo.png"
+    get = await event.client.get_messages(int(logoinfo["chat_id"]), ids=int(logoinfo["msg_id"]))
+    await get.download_media(logo)
     logimg = Image.open(logo).convert("RGBA")
     SIZES = {"verysmall":8, "small":6, "medium":5, "big":4, "verybig":2}
     numsize = SIZES[size]
@@ -125,10 +130,10 @@ async def faddlogo(event):
     }
     where = round(WHERES[where][0]), round(WHERES[where][1])
     image.paste(logimg, where, logimg)
-    newphoto = client.PATH + "AddLogo.png"
+    newphoto = event.client.PATH + "AddLogo.png"
     image.save(newphoto)
-    await client.client(event.original_update.user_id).send_file(chatid, newphoto)
-    await client.client(event.original_update.user_id).send_file(chatid, newphoto, force_document=True, allow_cache=True)
+    await event.client.send_file(chatid, newphoto)
+    await event.client.send_file(chatid, newphoto, force_document=True, allow_cache=True)
     os.remove(phname)
     os.remove(newphoto)
     await event.edit(client.getstrings(STRINGS)["added"])
