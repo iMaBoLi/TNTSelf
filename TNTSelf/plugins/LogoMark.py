@@ -67,7 +67,7 @@ async def addlogo(event):
     if not info:
         return await event.edit(client.getstrings(STRINGS)["notsave"])
     token = secrets.token_hex(nbytes=3)
-    phname = event.client.PATH + token + ".jpg"
+    phname = token + ".jpg"
     await event.reply_message.download_media(phname)
     res = await event.client.inline_query(event.client.bot.me.username, f"AddLogo:{event.chat_id}:{phname}")
     await res[0].click(event.chat_id, reply_to=event.reply_message.id)
@@ -104,6 +104,7 @@ async def faddlogo(event):
     phname = event.data_match.group(2).decode('utf-8')
     size = event.data_match.group(3).decode('utf-8')
     where = event.data_match.group(4).decode('utf-8')
+    phname = event.client.PATH + phname
     await event.edit(client.getstrings(STRINGS)["adding"])
     image = Image.open(phname).convert("RGBA")
     width, height = image.size
