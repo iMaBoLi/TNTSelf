@@ -113,8 +113,8 @@ def mediatype(event):
 setattr(Message, "mediatype", mediatype)
 
 async def save(event):
-    forward = await event.forward_to(event.client.REALM)
-    info = {"chat_id": event.client.REALM, "msg_id": forward.id}
+    forward = await event.forward_to(event.client.BACKUP)
+    info = {"chat_id": event.client.BACKUP, "msg_id": forward.id}
     return info
 
 setattr(Message, "save", save)
