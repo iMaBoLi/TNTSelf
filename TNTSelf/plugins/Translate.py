@@ -15,6 +15,9 @@ __INFO__ = {
                 },
                 "Reply": ["Text"]
             },
+            "{CMD}TRLangs": {
+                "Help": "To Get Languages",
+            },
         },
     },
 }
@@ -34,7 +37,7 @@ async def translattext(event):
         return await event.edit(client.STRINGS["replytext"])
     if tolang not in client.functions.TRLANGS:
         return await event.edit(client.getstrings(STRINGS)["notlang"].format(tolang))
-    text = event.reply_message.raw_text[:2000]
+    text = event.reply_message.raw_text
     translator = GoogleTranslator(source="auto", target=tolang)
     trjome = translator.translate(text)
     await event.edit(client.getstrings(STRINGS)["translate"].format(tolang, trjome))
@@ -44,7 +47,7 @@ async def translang(event):
     await event.edit(client.STRINGS["wait"])
     data = ""
     for lang in client.functions.TRLANGS:
-        data += f"{client.functions.TRLANGS[lang]} -> {lang}\n"
+        data += f"{client.functions.TRLANGS[lang].title()} -> {lang}\n"
     trfile = event.client.PATH + "TRLangs.txt"
     open(trfile, "w").write(data)
     caption = client.getstrings(STRINGS)["trfile"]
