@@ -33,7 +33,7 @@ async def settrlang(event):
     await event.edit(client.STRINGS["wait"])
     lang = event.pattern_match.group(1).lower()
     if lang not in client.functions.TRLANGS:
-        return await event.edit(client.getstrings(STRINGS)["notlang"].format(lang))
+        return await event.edit(client.getstrings(STRINGS)["notlang"].format(client.functions.TRLANGS[lang]))
     event.client.DB.set_key("AUTOTR_LANG", lang)
     await event.edit(client.getstrings(STRINGS)["setlang"].format(lang))
 
