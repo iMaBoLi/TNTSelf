@@ -29,5 +29,5 @@ async def replacer(event):
     lasttext = event.reply_message.text
     newtext = event.reply_message.text.replace(fword, tword)
     if newtext != lasttext:
-        await event.reply(newtext, file=event.reply_message.media)
+        await event.reply_message.reply(newtext, file=event.reply_message.media)
     await event.delete()
