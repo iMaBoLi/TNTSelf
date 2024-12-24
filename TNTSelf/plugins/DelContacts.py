@@ -31,10 +31,10 @@ STRINGS = {
 @client.Command(command="DelContacts")
 async def delallcontacts(event):
     await event.edit(client.STRINGS["wait"])
-    contacts = await client(functions.contacts.GetContactsRequest(hash=0))
+    contacts = await event.client(functions.contacts.GetContactsRequest(hash=0))
     count = 0
     for contact in contacts.users:
-        await client(functions.contacts.DeleteContactsRequest(id=[contact.id]))
+        await event.client(functions.contacts.DeleteContactsRequest(id=[contact.id]))
         count += 1
     if not count:
         return await event.edit(client.getstrings(STRINGS)["notcon"])
@@ -44,11 +44,11 @@ async def delallcontacts(event):
 async def delcontacts(event):
     await event.edit(client.STRINGS["wait"])
     name = event.pattern_match.group(1)
-    contacts = await client(functions.contacts.GetContactsRequest(hash=0))
+    contacts = await event.client(functions.contacts.GetContactsRequest(hash=0))
     count = 0
     for contact in contacts.users:
         if contact.first_name == name:
-            await client(functions.contacts.DeleteContactsRequest(id=[contact.id]))
+            await event.client(functions.contacts.DeleteContactsRequest(id=[contact.id]))
             count += 1
     if not count:
         return await event.edit(client.getstrings(STRINGS)["notdel"].format(name))
