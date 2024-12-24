@@ -74,18 +74,18 @@ async def runcodes(event):
         if len(error) < 3000:
             await reply.edit(f"**Errors:**\n\n`{error}`")
         else:
-            file = client.PATH + "Error.txt"
+            file = event.client.PATH + "Error.txt"
             open(file, "w").write(str(error))
-            await client.send_file(event.chat_id, file , caption="**Code Errors!**", reply_to=event.id)
+            await event.client.send_file(event.chat_id, file , caption="**Code Errors!**", reply_to=event.id)
             os.remove(file)
             await reply.delete()
     else:
         if len(result) < 3000:
             await reply.edit(f"**Results:**\n\n`{result}`")
         else:
-            file = client.PATH + "Result.txt"
+            file = event.client.PATH + "Result.txt"
             open(file, "w").write(str(result))
-            await client.send_file(event.chat_id, file , caption="**Code Results!**", reply_to=event.id)
+            await event.client.send_file(event.chat_id, file , caption="**Code Results!**", reply_to=event.id)
             os.remove(file)
             await reply.delete()
 
