@@ -70,7 +70,7 @@ async def adduntil(event):
     dayuntil = int(event.pattern_match.group(2))
     horuntil = int(event.pattern_match.group(3))
     minuntil = int(event.pattern_match.group(4))
-    untils = client.DB.get_key("UNTIL_LIST") or {}
+    untils = event.client.DB.get_key("UNTIL_LIST") or {}
     if len(untils) > 20:
         return await event.edit(client.getstrings(STRINGS)["full"])
     if nuntil in untils:
@@ -81,25 +81,25 @@ async def adduntil(event):
     alluntil = dayuntil + horuntil + minuntil
     newuntil = time.time() + alluntil
     untils.update({nuntil: newuntil})
-    client.DB.set_key("UNTIL_LIST", untils)
+    event.client.DB.set_key("UNTIL_LIST", untils)
     await event.edit(client.getstrings(STRINGS)["add"].format(nuntil, convert_time(alluntil)))
     
 @client.Command(command="DelUntil (.*)")
 async def deluntil(event):
     await event.edit(client.STRINGS["wait"])
     nuntil = event.pattern_match.group(1)
-    untils = client.DB.get_key("UNTIL_LIST") or {}
+    untils = event.client.DB.get_key("UNTIL_LIST") or {}
     if nuntil not in untils:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(nuntil))  
     del untils[nuntil]
-    client.DB.set_key("UNTIL_LIST", untils)
+    event.client.DB.set_key("UNTIL_LIST", untils)
     await event.edit(client.getstrings(STRINGS)["del"].format(nuntil))
 
 @client.Command(command="GetUntil (.*)")
 async def getuntil(event):
     await event.edit(client.STRINGS["wait"])
     nuntil = event.pattern_match.group(1)
-    untils = client.DB.get_key("UNTIL_LIST") or {}
+    untils = event.client.DB.get_key("UNTIL_LIST") or {}
     if nuntil not in untils:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(nuntil))  
     start = untils[nuntil]
@@ -110,7 +110,7 @@ async def getuntil(event):
 @client.Command(command="UntilList")
 async def untillist(event):
     await event.edit(client.STRINGS["wait"])
-    untils = client.DB.get_key("UNTIL_LIST") or {}
+    untils = event.client.DB.get_key("UNTIL_LIST") or {}
     if not untils:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
@@ -124,8 +124,8 @@ async def untillist(event):
 @client.Command(command="CleanUntilList")
 async def cleanuntillist(event):
     await event.edit(client.STRINGS["wait"])
-    untils = client.DB.get_key("UNTIL_LIST") or {}
+    untils = event.client.DB.get_key("UNTIL_LIST") or {}
     if not untils:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
-    client.DB.del_key("UNTIL_LIST")
+    event.client.DB.del_key("UNTIL_LIST")
     await event.edit(client.getstrings(STRINGS)["clean"])
