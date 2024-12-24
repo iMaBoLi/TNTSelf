@@ -59,6 +59,7 @@ class MultiClients:
         add_vars()
 
     async def _add_coustom_vars(self, client):
+        setattr(client.bot, "user", client)
         from TNTSelf.functions import DATABASE
         info = await client.get_me()
         botinfo = await client.bot.get_me()
@@ -66,7 +67,7 @@ class MultiClients:
         setattr(client, "id", info.id)
         setattr(client.bot, "me", botinfo)
         setattr(client.bot, "id", botinfo.id)
-        setattr(client.bot, "user", info)
+        setattr(client.bot.user, "me", info)
         DB = DATABASE(info.id)
         setattr(client, "DB", DB)
         setattr(client.bot, "DB", DB)
