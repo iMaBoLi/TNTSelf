@@ -26,7 +26,7 @@ STRINGS = {
 async def time(event):
     await event.edit(client.STRINGS["wait"])
     link = "https://www.time.ir/Content/media/image/2024/01/202_orig.jpg"
-    taghvim = client.PATH + "TaghVim.jpg"
+    taghvim = event.client.PATH + "TaghVim.jpg"
     with open(taghvim, "wb") as f:
         f.write(requests.get(link).content)
     irtime = jdatetime.datetime.now()
