@@ -52,7 +52,7 @@ async def reactionall(event):
 @client.Command(command="SetReaction (.*)")
 async def setreaction(event):
     await event.edit(client.STRINGS["wait"])
-    emoji = event.pattern_match.group(1)
+    emoji = event.pattern_match.group(1).lower()
     if emoji not in (await getemojis(event)) and emoji != "random":
         return await event.edit(client.getstrings(STRINGS)["notreact"].format(emoji))
     event.client.DB.set_key("REACTION_EMOJI", emoji)
@@ -70,7 +70,7 @@ async def reaction(event):
     if event.is_sudo or event.is_bot: return
     reacMode = event.client.DB.get_key("REACTION_MODE") or "OFF"
     reacChats = event.client.DB.get_key("REACTION_CHATS") or []
-    emoji = event.client.DB.get_key("REACTION_EMOJI")
+    emoji = event.client.DB.get_key("REACTION_EMOJI") or "random"
     if reacMode == "ON" or event.chat_id in reacChats:
         if emoji == "random":
             emoji = random.choice(await getemojis(event))
