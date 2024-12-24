@@ -74,3 +74,6 @@ class MultiClients:
         REALM = DB.get_key("REALM_CHAT") or info.id
         setattr(client, "REALM", REALM)
         setattr(client.bot, "REALM", REALM)
+        BACKUP = DB.get_key("BACKUP_CH") or info.id
+        setattr(client, "BACKUP", BACKUP)
+        setattr(client.bot, "BACKUP", BACKUP)
