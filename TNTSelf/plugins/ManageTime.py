@@ -30,8 +30,11 @@ async def namechanger():
         nmode = sinclient.DB.get_key("NAME_MODE") or "OFF"
         if nmode == "ON" and NAME_LIST:
             chname = add_items(sinclient, random.choice(NAME_LIST))
+            sname = chname.split("/")
+            fname = sname[0]
+            lname = sname[1] if len(sname) > 1 else ""
             try:
-                await sinclient(functions.account.UpdateProfileRequest(first_name=str(chname)))
+                await sinclient(functions.account.UpdateProfileRequest(first_name=fname, last_name=lname))
             except:
                 pass
 
