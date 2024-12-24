@@ -172,7 +172,7 @@ async def delenemyinline(event):
     userid = int(event.pattern_match.group(1))
     uinfo = await event.client.get_entity(userid)
     mention = client.functions.mention(uinfo)
-    text = client.getstrings(STRINGS)["wheredel"].format(mantion)
+    text = client.getstrings(STRINGS)["wheredel"].format(mention)
     Enemies = event.client.DB.get_key("ENEMY_LIST") or {}
     buttons = []
     for where in Enemies[userid]:
