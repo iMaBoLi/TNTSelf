@@ -7,53 +7,13 @@ __INFO__ = {
     "Info": {
         "Help": "To Search On Messages In The Chat!",
         "Commands": {
-            "{CMD}SRAll <Text>": {
-                "Help": "Search On All Messages!",
+            "{CMD}SR<Type> <Text>": {
+                "Help": "Search On Messages",
                 "Input": {
+                    "<Type>": "Message Type For Search",
                     "<Text>": "Text For Search",
                 },
-            },
-            "{CMD}SRPhoto <Text>": {
-                "Help": "Search On Photo Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRVideo <Text>": {
-                "Help": "Search On Video Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRGif <Text>": {
-                "Help": "Search On Gif Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRMusic <Text>": {
-                "Help": "Search On Music Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRVoice <Text>": {
-                "Help": "Search On Voice Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRFile <Text>": {
-                "Help": "Search On File Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
-            },
-            "{CMD}SRUrl <Text>": {
-                "Help": "Search On Url Messages!",
-                "Input": {
-                    "<Text>": "Text For Search",
-                },
+                "Vars": ["All", "Photo", "Video", "Gif", "Voice", "Music", "File", "Url"],
             },
         },
     },
@@ -84,7 +44,7 @@ async def searcher(event):
     addfilter = filters[filter]
     text = client.getstrings(STRINGS)["result"].format((query or "---"), filter)
     count = 1
-    async for message in client.iter_messages(event.chat_id, search=query, filter=addfilter, limit=40):
+    async for message in event.client.iter_messages(event.chat_id, search=query, filter=addfilter, limit=40):
         link = "https://t.me/c/" + message.chat_id + "/" + message.id
         name = client.getstrings(STRINGS)["click"]
         text += f"**{count} -** [{name}]({link})\n"
