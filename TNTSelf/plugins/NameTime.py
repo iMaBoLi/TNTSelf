@@ -14,6 +14,7 @@ __INFO__ = {
                 "Input": {
                     "<Text>": "Text For Add",
                 },
+                "Note": "Use ( / ) To Split First And Last Name",
             },
             "{CMD}DelName <Text>": {
                 "Help": "To Delete Name",
