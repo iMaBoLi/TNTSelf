@@ -33,6 +33,7 @@ def add_vars():
         if not os.path.exists(PATH):
             os.mkdir(PATH)
         setattr(sinclient, "PATH", PATH)
+        setattr(sinclient.bot, "PATH", PATH)
     
     setattr(client, "Command", Command)
     setattr(client, "Callback", Callback)
