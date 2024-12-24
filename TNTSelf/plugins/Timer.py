@@ -67,31 +67,31 @@ def convert_time(seconds):
 async def addtimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
-    timers = client.DB.get_key("TIMER_LIST") or {}
+    timers = event.client.DB.get_key("TIMER_LIST") or {}
     if len(timers) > 20:
         return await event.edit(client.getstrings(STRINGS)["full"])
     if ntimer in timers:
         return await event.edit(client.getstrings(STRINGS)["notall"].format(ntimer))
     timers.update({ntimer: time.time()})
-    client.DB.set_key("TIMER_LIST", timers)
+    event.client.DB.set_key("TIMER_LIST", timers)
     await event.edit(client.getstrings(STRINGS)["add"].format(ntimer))
     
 @client.Command(command="DelTimer (.*)")
 async def deltimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
-    timers = client.DB.get_key("TIMER_LIST") or {}
+    timers = event.client.DB.get_key("TIMER_LIST") or {}
     if ntimer not in timers:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(ntimer))  
     del timers[ntimer]
-    client.DB.set_key("TIMER_LIST", timers)
+    event.client.DB.set_key("TIMER_LIST", timers)
     await event.edit(client.getstrings(STRINGS)["del"].format(ntimer))
 
 @client.Command(command="GetTimer (.*)")
 async def gettimer(event):
     await event.edit(client.STRINGS["wait"])
     ntimer = event.pattern_match.group(1)
-    timers = client.DB.get_key("TIMER_LIST") or {}
+    timers = event.client.DB.get_key("TIMER_LIST") or {}
     if ntimer not in timers:
         return await event.edit(client.getstrings(STRINGS)["notin"].format(ntimer))  
     start = timers[ntimer]
@@ -102,7 +102,7 @@ async def gettimer(event):
 @client.Command(command="TimerList")
 async def timerlist(event):
     await event.edit(client.STRINGS["wait"])
-    timers = client.DB.get_key("TIMER_LIST") or {}
+    timers = event.client.DB.get_key("TIMER_LIST") or {}
     if not timers:
         return await event.edit(client.getstrings(STRINGS)["empty"])
     text = client.getstrings(STRINGS)["list"]
@@ -116,8 +116,8 @@ async def timerlist(event):
 @client.Command(command="CleanTimerList")
 async def cleantimerlist(event):
     await event.edit(client.STRINGS["wait"])
-    timers = client.DB.get_key("TIMER_LIST") or {}
+    timers = event.client.DB.get_key("TIMER_LIST") or {}
     if not timers:
         return await event.edit(client.getstrings(STRINGS)["aempty"])
-    client.DB.del_key("TIMER_LIST")
+    event.client.DB.del_key("TIMER_LIST")
     await event.edit(client.getstrings(STRINGS)["clean"])
