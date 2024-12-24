@@ -28,16 +28,16 @@ STRINGS = {
 async def reactionchat(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    acChats = client.DB.get_key("REACTION_CHATS") or []
+    acChats = event.client.DB.get_key("REACTION_CHATS") or []
     chatid = event.chat_id
     if change == "ON":
         if chatid not in acChats:
             acChats.append(chatid)
-            client.DB.set_key("REACTION_CHATS", acChats)
+            event.client.DB.set_key("REACTION_CHATS", acChats)
     else:
         if chatid in acChats:
             acChats.remove(chatid)
-            client.DB.set_key("REACTION_CHATS", acChats)
+            event.client.DB.set_key("REACTION_CHATS", acChats)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["reactchat"].format(showchange))
 
@@ -45,7 +45,7 @@ async def reactionchat(event):
 async def reactionall(event):
     await event.edit(client.STRINGS["wait"])
     change = event.pattern_match.group(1).upper()
-    client.DB.set_key("REACTION_MODE", change)
+    event.client.DB.set_key("REACTION_MODE", change)
     showchange = client.STRINGS["On"] if change == "ON" else client.STRINGS["Off"]
     await event.edit(client.getstrings(STRINGS)["reactall"].format(showchange))
 
@@ -53,13 +53,13 @@ async def reactionall(event):
 async def setreaction(event):
     await event.edit(client.STRINGS["wait"])
     emoji = event.pattern_match.group(1)
-    if emoji not in (await getemojis()) and emoji != "random":
+    if emoji not in (await getemojis(event)) and emoji != "random":
         return await event.edit(client.getstrings(STRINGS)["notreact"].format(emoji))
-    client.DB.set_key("REACTION_EMOJI", emoji)
+    event.client.DB.set_key("REACTION_EMOJI", emoji)
     await event.edit(client.getstrings(STRINGS)["setreact"].format(emoji.title()))
 
-async def getemojis():
-    result = await client(functions.messages.GetAvailableReactionsRequest(hash=0))
+async def getemojis(event):
+    result = await event.client(functions.messages.GetAvailableReactionsRequest(hash=0))
     reactlist = []
     for react in result.reactions:
         reactlist.append(react.reaction)
@@ -68,20 +68,20 @@ async def getemojis():
 @client.Command(onlysudo=False, allowedits=False)
 async def reaction(event):
     if event.is_sudo or event.is_bot: return
-    reacMode = client.DB.get_key("REACTION_MODE") or "OFF"
-    reacChats = client.DB.get_key("REACTION_CHATS") or []
-    emoji = client.DB.get_key("REACTION_EMOJI")
+    reacMode = event.client.DB.get_key("REACTION_MODE") or "OFF"
+    reacChats = event.client.DB.get_key("REACTION_CHATS") or []
+    emoji = event.client.DB.get_key("REACTION_EMOJI")
     if reacMode == "ON" or event.chat_id in reacChats:
         if emoji == "random":
-            emoji = random.choice(await getemojis())
+            emoji = random.choice(await getemojis(event))
         try:
-            await client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji)]))
+            await event.client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji)]))
         except:
             if event.chat.megagroup or event.chat.broadcast:
-                info = (await client(functions.channels.GetFullChannelRequest(event.chat_id))).full_chat
+                info = (await event.client(functions.channels.GetFullChannelRequest(event.chat_id))).full_chat
             else:
-                info = (await client(functions.messages.GetFullChatRequest(event.chat_id))).full_chat
+                info = (await event.client(functions.messages.GetFullChatRequest(event.chat_id))).full_chat
             if info.available_reactions:
                 avreacts = info.available_reactions.reactions
                 emoji = random.choice(avreacts)
-                await client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji.emoticon)]))
+                await event.client(functions.messages.SendReactionRequest(peer=event.chat_id, msg_id=event.id, reaction=[types.ReactionEmoji(emoticon=emoji.emoticon)]))
