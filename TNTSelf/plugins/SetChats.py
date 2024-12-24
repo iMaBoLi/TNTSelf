@@ -48,6 +48,6 @@ async def backup(event):
     await event.edit(client.STRINGS["wait"])
     if not event.is_ch:
         return await event.edit(client.STRINGS["only"]["Channel"])
-    event.client.DB.set_key("BACKUP_CHANNEL", event.chat_id)
+    event.client.DB.set_key("BACKUP_CH", event.chat_id)
     event.client.BACKUP = event.chat_id
     await event.edit(client.getstrings(STRINGS)["setback"])
